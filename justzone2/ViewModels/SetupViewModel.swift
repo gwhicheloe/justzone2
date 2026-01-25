@@ -61,6 +61,7 @@ class SetupViewModel: ObservableObject {
                 self?.kickrConnected = connected
                 if connected {
                     self?.kickrConnecting = false
+                    self?.stopScanningIfAllConnected()
                 }
             }
             .store(in: &cancellables)
@@ -79,6 +80,7 @@ class SetupViewModel: ObservableObject {
                 self?.hrConnected = connected
                 if connected {
                     self?.hrConnecting = false
+                    self?.stopScanningIfAllConnected()
                 }
             }
             .store(in: &cancellables)
@@ -99,6 +101,14 @@ class SetupViewModel: ObservableObject {
 
     func stopScanning() {
         bluetoothManager.stopScanning()
+    }
+
+    private func stopScanningIfAllConnected() {
+        // Stop scanning once KICKR is connected (required device)
+        // User can tap Scan again if they need to find more devices
+        if kickrConnected {
+            stopScanning()
+        }
     }
 
     func connectKickr(_ device: DeviceInfo) {

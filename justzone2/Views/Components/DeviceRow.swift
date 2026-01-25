@@ -9,7 +9,7 @@ struct DeviceRow: View {
 
     private var buttonText: String {
         if isConnected {
-            return "Disconnect"
+            return "Connected"
         } else if isConnecting {
             return "Connecting..."
         } else {
@@ -19,7 +19,7 @@ struct DeviceRow: View {
 
     private var buttonBackground: Color {
         if isConnected {
-            return Color.red.opacity(0.1)
+            return Color.green.opacity(0.1)
         } else if isConnecting {
             return Color.gray.opacity(0.1)
         } else {
@@ -29,7 +29,7 @@ struct DeviceRow: View {
 
     private var buttonForeground: Color {
         if isConnected {
-            return .red
+            return .green
         } else if isConnecting {
             return .gray
         } else {
@@ -64,6 +64,9 @@ struct DeviceRow: View {
                     if isConnecting {
                         ProgressView()
                             .scaleEffect(0.7)
+                    } else if isConnected {
+                        Image(systemName: "checkmark.circle.fill")
+                            .font(.caption)
                     }
                     Text(buttonText)
                         .font(.subheadline)

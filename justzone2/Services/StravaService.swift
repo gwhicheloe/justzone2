@@ -177,14 +177,19 @@ class StravaService: NSObject, ObservableObject {
             "client_id": Constants.stravaClientId,
             "client_secret": Constants.stravaClientSecret,
             "code": code,
-            "grant_type": "authorization_code",
-            "redirect_uri": Constants.stravaRedirectUri
+            "grant_type": "authorization_code"
         ]
         request.httpBody = body.map { "\($0.key)=\($0.value)" }.joined(separator: "&").data(using: .utf8)
 
         let (data, response) = try await URLSession.shared.data(for: request)
 
-        guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw StravaError.tokenExchangeFailed
+        }
+
+        if httpResponse.statusCode != 200 {
+            let errorMessage = String(data: data, encoding: .utf8) ?? "Unknown error"
+            print("Strava token exchange failed: \(errorMessage)")
             throw StravaError.tokenExchangeFailed
         }
 

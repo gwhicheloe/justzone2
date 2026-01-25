@@ -28,7 +28,7 @@ enum Constants {
     // Authorization Callback Domain must be set to: justzone2
     static let stravaClientId = "197806"
     static let stravaClientSecret = "1688f93d0bf57df03395cdac806349f2efa93f9f"
-    static let stravaRedirectUri = "justzone2://strava"
+    static let stravaRedirectUri = "justzone2://justzone2"
     static let stravaAuthUrl = "https://www.strava.com/oauth/authorize"
     static let stravaTokenUrl = "https://www.strava.com/oauth/token"
     static let stravaUploadUrl = "https://www.strava.com/api/v3/uploads"

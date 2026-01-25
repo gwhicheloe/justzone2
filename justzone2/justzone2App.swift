@@ -3,13 +3,65 @@ import SwiftUI
 @main
 struct justzone2App: App {
     @StateObject private var appState = AppState()
+    @State private var showSplash = true
 
     var body: some Scene {
         WindowGroup {
-            SetupView(viewModel: appState.setupViewModel)
-                .onOpenURL { url in
-                    print("Received URL: \(url)")
+            ZStack {
+                SetupView(viewModel: appState.setupViewModel)
+                    .onOpenURL { url in
+                        print("Received URL: \(url)")
+                    }
+
+                if showSplash {
+                    SplashView()
+                        .transition(.opacity)
+                        .zIndex(1)
                 }
+            }
+            .onAppear {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                    withAnimation(.easeOut(duration: 0.3)) {
+                        showSplash = false
+                    }
+                }
+            }
+        }
+    }
+}
+
+struct SplashView: View {
+    @State private var isAnimating = false
+
+    var body: some View {
+        ZStack {
+            Color(.systemBackground)
+                .ignoresSafeArea()
+
+            VStack(spacing: 20) {
+                Image(systemName: "figure.indoor.cycle")
+                    .font(.system(size: 80))
+                    .foregroundColor(.green)
+                    .scaleEffect(isAnimating ? 1.1 : 1.0)
+                    .animation(
+                        .easeInOut(duration: 0.8).repeatForever(autoreverses: true),
+                        value: isAnimating
+                    )
+
+                Text("JustZone2")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+
+                Text("Zone 2 Training")
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
+
+                ProgressView()
+                    .padding(.top, 20)
+            }
+        }
+        .onAppear {
+            isAnimating = true
         }
     }
 }

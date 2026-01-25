@@ -5,29 +5,16 @@ import SwiftUI
 struct AppIconGenerator: View {
     var body: some View {
         ZStack {
-            // Gradient background
-            LinearGradient(
-                colors: [Color.green, Color.cyan],
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            )
-            
-            VStack(spacing: 8) {
-                // Cycling/power symbol
-                Image(systemName: "bolt.fill")
-                    .font(.system(size: 120, weight: .bold))
-                    .foregroundColor(.white)
-                    .shadow(color: .black.opacity(0.3), radius: 10, x: 0, y: 5)
-                
-                // Heart rate line
-                Image(systemName: "waveform.path.ecg")
-                    .font(.system(size: 40, weight: .semibold))
-                    .foregroundColor(.white.opacity(0.9))
-                    .shadow(color: .black.opacity(0.3), radius: 5, x: 0, y: 3)
-            }
+            // Solid green background
+            Color.green
+
+            // Big "2"
+            Text("2")
+                .font(.system(size: 700, weight: .bold, design: .rounded))
+                .foregroundColor(.white)
+                .shadow(color: .black.opacity(0.2), radius: 20, x: 0, y: 10)
         }
         .frame(width: 1024, height: 1024) // App Store size
-        .cornerRadius(220) // iOS app icon corner radius ratio
     }
 }
 
@@ -88,7 +75,7 @@ struct AppIconGenerator_Dark: View {
     }
 }
 
-#Preview("Green Gradient") {
+#Preview("Big Green 2") {
     AppIconGenerator()
 }
 
@@ -98,4 +85,19 @@ struct AppIconGenerator_Dark: View {
 
 #Preview("Dark Power") {
     AppIconGenerator_Dark()
+}
+
+// Helper to export the icon
+@MainActor
+func exportAppIcon() {
+    let renderer = ImageRenderer(content: AppIconGenerator())
+    renderer.scale = 1.0
+
+    if let image = renderer.uiImage,
+       let data = image.pngData() {
+        let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+            .appendingPathComponent("AppIcon.png")
+        try? data.write(to: url)
+        print("Icon saved to: \(url.path)")
+    }
 }

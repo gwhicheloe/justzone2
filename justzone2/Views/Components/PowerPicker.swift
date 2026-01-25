@@ -5,9 +5,10 @@ struct PowerPicker: View {
     let options: [Int]
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Text("Target Power")
-                .font(.headline)
+        VStack(spacing: 4) {
+            Text("Power")
+                .font(.subheadline)
+                .foregroundColor(.secondary)
 
             Picker("Target Power", selection: $selectedPower) {
                 ForEach(options, id: \.self) { power in
@@ -15,11 +16,7 @@ struct PowerPicker: View {
                 }
             }
             .pickerStyle(.wheel)
-            .frame(height: 120)
-
-            Text("Zone 2 typically: 130-170W for most riders")
-                .font(.caption)
-                .foregroundColor(.secondary)
+            .frame(height: 100)
         }
     }
 }

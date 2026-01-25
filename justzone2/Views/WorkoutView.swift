@@ -200,53 +200,101 @@ struct WorkoutChartView: View {
         }
     }
 
+    private var powerRange: ClosedRange<Int> {
+        let minP = max(0, (chartData.compactMap { $0.power }.min() ?? 100) - 20)
+        let maxP = max(chartData.compactMap { $0.power }.max() ?? 200, targetPower) + 20
+        return minP...maxP
+    }
+
+    private var hrRange: ClosedRange<Int> {
+        let minHR = max(0, (chartData.compactMap { $0.heartRate }.min() ?? 60) - 10)
+        let maxHR = (chartData.compactMap { $0.heartRate }.max() ?? 180) + 10
+        return minHR...maxHR
+    }
+
+    private var maxTime: Double {
+        (chartData.map { $0.time }.max() ?? 60) / 60
+    }
+
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text("Workout Progress")
                 .font(.headline)
 
-            Chart {
-                // Target power line
-                RuleMark(y: .value("Target", targetPower))
-                    .foregroundStyle(.green.opacity(0.5))
-                    .lineStyle(StrokeStyle(lineWidth: 1, dash: [5, 5]))
-
-                // Power line - blue
-                ForEach(Array(powerData.enumerated()), id: \.offset) { _, point in
-                    LineMark(
-                        x: .value("Time", point.time),
-                        y: .value("Value", point.value),
-                        series: .value("Series", "Power")
-                    )
-                    .foregroundStyle(Color.blue)
-                    .lineStyle(StrokeStyle(lineWidth: 2))
+            HStack(spacing: 0) {
+                // Left Y-axis labels (Power)
+                VStack {
+                    Text("\(powerRange.upperBound)")
+                    Spacer()
+                    Text("\(powerRange.lowerBound)")
                 }
+                .font(.caption2)
+                .foregroundColor(.blue)
+                .frame(width: 30)
 
-                // Heart rate line - red
-                ForEach(Array(heartRateData.enumerated()), id: \.offset) { _, point in
-                    LineMark(
-                        x: .value("Time", point.time),
-                        y: .value("Value", point.value),
-                        series: .value("Series", "HR")
-                    )
-                    .foregroundStyle(Color.red)
-                    .lineStyle(StrokeStyle(lineWidth: 2))
+                // Chart area with overlaid charts
+                ZStack {
+                    // Power chart (left axis)
+                    Chart {
+                        // Target power line
+                        RuleMark(y: .value("Target", targetPower))
+                            .foregroundStyle(.green.opacity(0.5))
+                            .lineStyle(StrokeStyle(lineWidth: 1, dash: [5, 5]))
+
+                        ForEach(Array(powerData.enumerated()), id: \.offset) { _, point in
+                            LineMark(
+                                x: .value("Time", point.time),
+                                y: .value("Power", point.value)
+                            )
+                            .foregroundStyle(Color.blue)
+                            .lineStyle(StrokeStyle(lineWidth: 2))
+                        }
+                    }
+                    .chartYScale(domain: powerRange)
+                    .chartXScale(domain: 0...max(1, maxTime))
+                    .chartYAxis(.hidden)
+                    .chartXAxis {
+                        AxisMarks(position: .bottom)
+                    }
+
+                    // Heart rate chart (right axis)
+                    Chart {
+                        ForEach(Array(heartRateData.enumerated()), id: \.offset) { _, point in
+                            LineMark(
+                                x: .value("Time", point.time),
+                                y: .value("HR", point.value)
+                            )
+                            .foregroundStyle(Color.red)
+                            .lineStyle(StrokeStyle(lineWidth: 2))
+                        }
+                    }
+                    .chartYScale(domain: hrRange)
+                    .chartXScale(domain: 0...max(1, maxTime))
+                    .chartYAxis(.hidden)
+                    .chartXAxis(.hidden)
                 }
+                .frame(height: 120)
+
+                // Right Y-axis labels (Heart Rate)
+                VStack {
+                    Text("\(hrRange.upperBound)")
+                    Spacer()
+                    Text("\(hrRange.lowerBound)")
+                }
+                .font(.caption2)
+                .foregroundColor(.red)
+                .frame(width: 30)
             }
-            .chartYScale(domain: 0...max(maxValue, targetPower + 50))
-            .chartXAxisLabel("Minutes")
-            .chartLegend(.hidden)
-            .frame(height: 120)
 
             // Legend
             HStack(spacing: 16) {
                 HStack(spacing: 4) {
                     Circle().fill(Color.blue).frame(width: 8, height: 8)
-                    Text("Power").font(.caption2).foregroundColor(.secondary)
+                    Text("Power (W)").font(.caption2).foregroundColor(.secondary)
                 }
                 HStack(spacing: 4) {
                     Circle().fill(Color.red).frame(width: 8, height: 8)
-                    Text("HR").font(.caption2).foregroundColor(.secondary)
+                    Text("HR (bpm)").font(.caption2).foregroundColor(.secondary)
                 }
                 HStack(spacing: 4) {
                     Circle().fill(Color.green.opacity(0.5)).frame(width: 8, height: 8)
@@ -257,12 +305,6 @@ struct WorkoutChartView: View {
         .padding()
         .background(Color(.secondarySystemBackground))
         .cornerRadius(12)
-    }
-
-    private var maxValue: Int {
-        let maxPower = chartData.compactMap { $0.power }.max() ?? 0
-        let maxHR = chartData.compactMap { $0.heartRate }.max() ?? 0
-        return max(maxPower, maxHR)
     }
 }
 

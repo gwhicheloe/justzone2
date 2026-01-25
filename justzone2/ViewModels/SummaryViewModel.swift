@@ -12,6 +12,7 @@ enum UploadState {
 class SummaryViewModel: ObservableObject {
     @Published var uploadState: UploadState = .idle
     @Published var uploadProgress: Double = 0
+    @Published var isStravaConnected: Bool = false
 
     let workout: Workout
     let stravaService: StravaService
@@ -21,6 +22,7 @@ class SummaryViewModel: ObservableObject {
     init(workout: Workout, stravaService: StravaService) {
         self.workout = workout
         self.stravaService = stravaService
+        self.isStravaConnected = stravaService.isAuthenticated
 
         setupBindings()
     }
@@ -28,10 +30,9 @@ class SummaryViewModel: ObservableObject {
     private func setupBindings() {
         stravaService.$uploadProgress
             .assign(to: &$uploadProgress)
-    }
 
-    var isStravaConnected: Bool {
-        stravaService.isAuthenticated
+        stravaService.$isAuthenticated
+            .assign(to: &$isStravaConnected)
     }
 
     func connectToStrava() async {
@@ -43,6 +44,9 @@ class SummaryViewModel: ObservableObject {
     }
 
     func uploadToStrava() async {
+        // Prevent double upload
+        guard case .idle = uploadState else { return }
+
         uploadState = .uploading
 
         do {

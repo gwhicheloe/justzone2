@@ -6,9 +6,10 @@ struct DurationPicker: View {
     let formatDuration: (TimeInterval) -> String
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(spacing: 4) {
             Text("Duration")
-                .font(.headline)
+                .font(.subheadline)
+                .foregroundColor(.secondary)
 
             Picker("Duration", selection: $selectedDuration) {
                 ForEach(options, id: \.self) { duration in
@@ -16,11 +17,7 @@ struct DurationPicker: View {
                 }
             }
             .pickerStyle(.wheel)
-            .frame(height: 120)
-
-            Text("Zone 2 sessions: 30-90 minutes recommended")
-                .font(.caption)
-                .foregroundColor(.secondary)
+            .frame(height: 100)
         }
     }
 }

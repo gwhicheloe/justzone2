@@ -6,6 +6,8 @@
     <string>JustZone2 needs Bluetooth to connect to your KICKR trainer and heart rate monitor.</string>
     <key>NSBluetoothPeripheralUsageDescription</key>
     <string>JustZone2 needs Bluetooth to connect to your KICKR trainer and heart rate monitor.</string>
+    <key>NSPhotoLibraryAddUsageDescription</key>
+    <string>JustZone2 saves your workout chart to your photo library so you can add it to Strava.</string>
     <key>CFBundleURLTypes</key>
     <array>
         <dict>
