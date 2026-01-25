@@ -6,6 +6,16 @@ class SetupViewModel: ObservableObject {
     @Published var targetPower: Int = Constants.defaultTargetPower
     @Published var targetDuration: TimeInterval = Constants.defaultDuration
     @Published var isReadyToStart = false
+    @Published var isBluetoothEnabled = false
+    @Published var isScanning = false
+    @Published var discoveredKickrs: [DeviceInfo] = []
+    @Published var discoveredHRMonitors: [DeviceInfo] = []
+    @Published var kickrConnected = false
+    @Published var hrConnected = false
+    @Published var kickrConnecting = false
+    @Published var hrConnecting = false
+    @Published var kickrError: String?
+    @Published var hrError: String?
 
     let bluetoothManager: BluetoothManager
     let kickrService: KickrService
@@ -29,9 +39,58 @@ class SetupViewModel: ObservableObject {
     }
 
     private func setupBindings() {
-        // Ready to start when KICKR is connected
+        // Forward Bluetooth state
+        bluetoothManager.$isBluetoothEnabled
+            .assign(to: &$isBluetoothEnabled)
+
+        bluetoothManager.$isScanning
+            .assign(to: &$isScanning)
+
+        bluetoothManager.$discoveredKickrs
+            .assign(to: &$discoveredKickrs)
+
+        bluetoothManager.$discoveredHRMonitors
+            .assign(to: &$discoveredHRMonitors)
+
+        // Forward service state
         kickrService.$isConnected
             .assign(to: &$isReadyToStart)
+
+        kickrService.$isConnected
+            .sink { [weak self] connected in
+                self?.kickrConnected = connected
+                if connected {
+                    self?.kickrConnecting = false
+                }
+            }
+            .store(in: &cancellables)
+
+        kickrService.$connectionError
+            .sink { [weak self] error in
+                self?.kickrError = error
+                if error != nil {
+                    self?.kickrConnecting = false
+                }
+            }
+            .store(in: &cancellables)
+
+        heartRateService.$isConnected
+            .sink { [weak self] connected in
+                self?.hrConnected = connected
+                if connected {
+                    self?.hrConnecting = false
+                }
+            }
+            .store(in: &cancellables)
+
+        heartRateService.$connectionError
+            .sink { [weak self] error in
+                self?.hrError = error
+                if error != nil {
+                    self?.hrConnecting = false
+                }
+            }
+            .store(in: &cancellables)
     }
 
     func startScanning() {
@@ -43,18 +102,24 @@ class SetupViewModel: ObservableObject {
     }
 
     func connectKickr(_ device: DeviceInfo) {
+        kickrConnecting = true
+        kickrError = nil
         kickrService.connect(to: device)
     }
 
     func disconnectKickr() {
+        kickrConnecting = false
         kickrService.disconnect()
     }
 
     func connectHeartRateMonitor(_ device: DeviceInfo) {
+        hrConnecting = true
+        hrError = nil
         heartRateService.connect(to: device)
     }
 
     func disconnectHeartRateMonitor() {
+        hrConnecting = false
         heartRateService.disconnect()
     }
 
@@ -62,14 +127,14 @@ class SetupViewModel: ObservableObject {
         Workout(targetPower: targetPower, targetDuration: targetDuration)
     }
 
-    // Power range: 50-300W in 5W increments
+    // Power range: 120-200W in 5W increments (Zone 2 range)
     var powerOptions: [Int] {
-        stride(from: 50, through: 300, by: 5).map { $0 }
+        stride(from: 120, through: 200, by: 5).map { $0 }
     }
 
-    // Duration range: 15min - 3hrs in 5min increments
+    // Duration range: 5min - 3hrs in 5min increments
     var durationOptions: [TimeInterval] {
-        stride(from: 15 * 60, through: 180 * 60, by: 5 * 60).map { TimeInterval($0) }
+        stride(from: 5 * 60, through: 180 * 60, by: 5 * 60).map { TimeInterval($0) }
     }
 
     func formatDuration(_ duration: TimeInterval) -> String {

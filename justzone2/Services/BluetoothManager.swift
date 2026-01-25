@@ -10,10 +10,19 @@ class BluetoothManager: NSObject, ObservableObject {
 
     private var centralManager: CBCentralManager!
     private var scanContinuation: CheckedContinuation<Void, Never>?
+    
+    // Callbacks for connection events
+    var onPeripheralConnected: ((CBPeripheral) -> Void)?
+    var onPeripheralFailedToConnect: ((CBPeripheral, Error?) -> Void)?
+    var onPeripheralDisconnected: ((CBPeripheral, Error?) -> Void)?
 
     override init() {
         super.init()
-        centralManager = CBCentralManager(delegate: self, queue: nil)
+        centralManager = CBCentralManager(delegate: self, queue: .main)
+    }
+
+    func checkBluetoothState() {
+        isBluetoothEnabled = centralManager.state == .poweredOn
     }
 
     func startScanning() {
@@ -43,14 +52,19 @@ class BluetoothManager: NSObject, ObservableObject {
     func disconnect(_ peripheral: CBPeripheral) {
         centralManager.cancelPeripheralConnection(peripheral)
     }
+    
+    func getPeripheral(_ peripheral: CBPeripheral) -> CBPeripheral {
+        peripheral
+    }
 }
 
 extension BluetoothManager: CBCentralManagerDelegate {
     nonisolated func centralManagerDidUpdateState(_ central: CBCentralManager) {
+        let isPoweredOn = central.state == .poweredOn
         Task { @MainActor in
-            isBluetoothEnabled = central.state == .poweredOn
-            if !isBluetoothEnabled {
-                isScanning = false
+            self.isBluetoothEnabled = isPoweredOn
+            if !isPoweredOn {
+                self.isScanning = false
             }
         }
     }
@@ -81,14 +95,20 @@ extension BluetoothManager: CBCentralManagerDelegate {
     }
 
     nonisolated func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
-        // Connection handled by individual services
+        Task { @MainActor in
+            onPeripheralConnected?(peripheral)
+        }
     }
 
     nonisolated func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
-        // Connection failure handled by individual services
+        Task { @MainActor in
+            onPeripheralFailedToConnect?(peripheral, error)
+        }
     }
 
     nonisolated func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
-        // Disconnection handled by individual services
+        Task { @MainActor in
+            onPeripheralDisconnected?(peripheral, error)
+        }
     }
 }

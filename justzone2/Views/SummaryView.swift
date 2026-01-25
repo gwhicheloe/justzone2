@@ -2,7 +2,7 @@ import SwiftUI
 
 struct SummaryView: View {
     @ObservedObject var viewModel: SummaryViewModel
-    @Environment(\.dismiss) private var dismiss
+    var onDismiss: () -> Void
 
     var body: some View {
         ScrollView {
@@ -51,11 +51,11 @@ struct SummaryView: View {
 
                 // Strava Section
                 VStack(spacing: 16) {
-                    Image("strava-logo")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: 30)
-                        .opacity(0.8)
+                    Text("STRAVA")
+                        .font(.title2)
+                        .fontWeight(.bold)
+                        .foregroundColor(.orange)
+                        .tracking(2)
 
                     if !viewModel.isStravaConnected {
                         Button(action: {
@@ -159,18 +159,28 @@ struct SummaryView: View {
                 .background(Color(.systemBackground))
                 .cornerRadius(12)
 
-                // Done Button
-                Button(action: {
-                    // Pop to root
-                    dismiss()
-                }) {
-                    Text("Done")
-                        .font(.headline)
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color.blue)
-                        .cornerRadius(12)
+                // Action Buttons
+                VStack(spacing: 12) {
+                    Button(action: {
+                        onDismiss()
+                    }) {
+                        Text("Done")
+                            .font(.headline)
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color.blue)
+                            .cornerRadius(12)
+                    }
+
+                    Button(action: {
+                        viewModel.discardWorkout()
+                        onDismiss()
+                    }) {
+                        Text("Discard Workout")
+                            .font(.subheadline)
+                            .foregroundColor(.red)
+                    }
                 }
             }
             .padding()
@@ -208,16 +218,19 @@ struct StatCard: View {
 
 #Preview {
     NavigationStack {
-        SummaryView(viewModel: SummaryViewModel(
-            workout: {
-                var workout = Workout(targetPower: 150, targetDuration: 30 * 60)
-                workout.addSample(heartRate: 130, power: 148)
-                workout.addSample(heartRate: 135, power: 152)
-                workout.addSample(heartRate: 140, power: 150)
-                workout.finish()
-                return workout
-            }(),
-            stravaService: StravaService()
-        ))
+        SummaryView(
+            viewModel: SummaryViewModel(
+                workout: {
+                    var workout = Workout(targetPower: 150, targetDuration: 30 * 60)
+                    workout.addSample(heartRate: 130, power: 148)
+                    workout.addSample(heartRate: 135, power: 152)
+                    workout.addSample(heartRate: 140, power: 150)
+                    workout.finish()
+                    return workout
+                }(),
+                stravaService: StravaService()
+            ),
+            onDismiss: {}
+        )
     }
 }

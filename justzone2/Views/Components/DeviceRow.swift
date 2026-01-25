@@ -3,8 +3,39 @@ import SwiftUI
 struct DeviceRow: View {
     let device: DeviceInfo
     let isConnected: Bool
+    var isConnecting: Bool = false
     let onConnect: () -> Void
     let onDisconnect: () -> Void
+
+    private var buttonText: String {
+        if isConnected {
+            return "Disconnect"
+        } else if isConnecting {
+            return "Connecting..."
+        } else {
+            return "Connect"
+        }
+    }
+
+    private var buttonBackground: Color {
+        if isConnected {
+            return Color.red.opacity(0.1)
+        } else if isConnecting {
+            return Color.gray.opacity(0.1)
+        } else {
+            return Color.blue.opacity(0.1)
+        }
+    }
+
+    private var buttonForeground: Color {
+        if isConnected {
+            return .red
+        } else if isConnecting {
+            return .gray
+        } else {
+            return .blue
+        }
+    }
 
     var body: some View {
         HStack {
@@ -25,18 +56,25 @@ struct DeviceRow: View {
             Button(action: {
                 if isConnected {
                     onDisconnect()
-                } else {
+                } else if !isConnecting {
                     onConnect()
                 }
             }) {
-                Text(isConnected ? "Disconnect" : "Connect")
-                    .font(.subheadline)
-                    .padding(.horizontal, 12)
-                    .padding(.vertical, 6)
-                    .background(isConnected ? Color.red.opacity(0.1) : Color.blue.opacity(0.1))
-                    .foregroundColor(isConnected ? .red : .blue)
-                    .cornerRadius(8)
+                HStack(spacing: 4) {
+                    if isConnecting {
+                        ProgressView()
+                            .scaleEffect(0.7)
+                    }
+                    Text(buttonText)
+                        .font(.subheadline)
+                }
+                .padding(.horizontal, 12)
+                .padding(.vertical, 6)
+                .background(buttonBackground)
+                .foregroundColor(buttonForeground)
+                .cornerRadius(8)
             }
+            .disabled(isConnecting)
         }
         .padding(.vertical, 8)
     }

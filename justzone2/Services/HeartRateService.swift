@@ -14,6 +14,54 @@ class HeartRateService: NSObject, ObservableObject {
     init(bluetoothManager: BluetoothManager) {
         self.bluetoothManager = bluetoothManager
         super.init()
+        
+        // Register for connection callbacks
+        setupConnectionCallbacks()
+    }
+    
+    private func setupConnectionCallbacks() {
+        guard let manager = bluetoothManager else { return }
+        
+        let onConnect = manager.onPeripheralConnected
+        let onFailToConnect = manager.onPeripheralFailedToConnect
+        let onDisconnect = manager.onPeripheralDisconnected
+        
+        manager.onPeripheralConnected = { [weak self] peripheral in
+            guard let self = self else { return }
+            if let existing = onConnect {
+                existing(peripheral)
+            }
+            Task { @MainActor in
+                guard peripheral == self.peripheral else { return }
+                peripheral.discoverServices([Constants.heartRateService])
+            }
+        }
+        
+        manager.onPeripheralFailedToConnect = { [weak self] peripheral, error in
+            guard let self = self else { return }
+            if let existing = onFailToConnect {
+                existing(peripheral, error)
+            }
+            Task { @MainActor in
+                guard peripheral == self.peripheral else { return }
+                self.connectionError = error?.localizedDescription ?? "Failed to connect"
+                self.cleanup()
+            }
+        }
+        
+        manager.onPeripheralDisconnected = { [weak self] peripheral, error in
+            guard let self = self else { return }
+            if let existing = onDisconnect {
+                existing(peripheral, error)
+            }
+            Task { @MainActor in
+                guard peripheral == self.peripheral else { return }
+                if let error = error {
+                    self.connectionError = "Disconnected: \(error.localizedDescription)"
+                }
+                self.cleanup()
+            }
+        }
     }
 
     func connect(to device: DeviceInfo) {
@@ -106,33 +154,3 @@ extension HeartRateService: CBPeripheralDelegate {
     }
 }
 
-extension HeartRateService: CBCentralManagerDelegate {
-    nonisolated func centralManagerDidUpdateState(_ central: CBCentralManager) {
-        // Handled by BluetoothManager
-    }
-
-    nonisolated func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
-        Task { @MainActor in
-            guard peripheral == self.peripheral else { return }
-            peripheral.discoverServices([Constants.heartRateService])
-        }
-    }
-
-    nonisolated func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
-        Task { @MainActor in
-            guard peripheral == self.peripheral else { return }
-            connectionError = error?.localizedDescription ?? "Failed to connect"
-            cleanup()
-        }
-    }
-
-    nonisolated func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
-        Task { @MainActor in
-            guard peripheral == self.peripheral else { return }
-            if let error = error {
-                connectionError = "Disconnected: \(error.localizedDescription)"
-            }
-            cleanup()
-        }
-    }
-}

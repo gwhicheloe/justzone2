@@ -8,6 +8,13 @@ enum WorkoutState {
     case completed
 }
 
+struct ChartDataPoint: Identifiable {
+    let id = UUID()
+    let time: TimeInterval
+    let heartRate: Int?
+    let power: Int?
+}
+
 @MainActor
 class WorkoutViewModel: ObservableObject {
     @Published var workout: Workout
@@ -15,11 +22,12 @@ class WorkoutViewModel: ObservableObject {
     @Published var elapsedTime: TimeInterval = 0
     @Published var currentHeartRate: Int = 0
     @Published var currentPower: Int = 0
+    @Published var chartData: [ChartDataPoint] = []
 
     let kickrService: KickrService
     let heartRateService: HeartRateService
 
-    private var timer: Timer?
+    private var timerCancellable: AnyCancellable?
     private var cancellables = Set<AnyCancellable>()
     private var workoutStartTime: Date?
 
@@ -47,10 +55,11 @@ class WorkoutViewModel: ObservableObject {
         // Keep screen awake
         UIApplication.shared.isIdleTimerDisabled = true
 
-        // Start KICKR ERG mode
-        kickrService.startWorkout()
+        // Set target power and start ERG mode (works asynchronously)
         kickrService.setTargetPower(workout.targetPower)
+        kickrService.startWorkout()
 
+        // Start workout immediately - ERG will engage in background
         workoutStartTime = Date()
         state = .running
 
@@ -61,8 +70,8 @@ class WorkoutViewModel: ObservableObject {
     func pauseWorkout() {
         guard state == .running else { return }
 
-        timer?.invalidate()
-        timer = nil
+        timerCancellable?.cancel()
+        timerCancellable = nil
         state = .paused
 
         kickrService.stopWorkout()
@@ -79,8 +88,8 @@ class WorkoutViewModel: ObservableObject {
     }
 
     func stopWorkout() {
-        timer?.invalidate()
-        timer = nil
+        timerCancellable?.cancel()
+        timerCancellable = nil
 
         workout.finish()
         state = .completed
@@ -92,11 +101,15 @@ class WorkoutViewModel: ObservableObject {
     }
 
     private func startTimer() {
-        timer = Timer.scheduledTimer(withTimeInterval: Constants.sampleInterval, repeats: true) { [weak self] _ in
-            Task { @MainActor in
-                self?.timerTick()
+        timerCancellable?.cancel()
+        timerCancellable = Timer.publish(every: Constants.sampleInterval, on: .main, in: .common)
+            .autoconnect()
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                Task { @MainActor in
+                    self.timerTick()
+                }
             }
-        }
     }
 
     private func timerTick() {
@@ -108,10 +121,17 @@ class WorkoutViewModel: ObservableObject {
         }
 
         // Record sample
-        workout.addSample(
-            heartRate: currentHeartRate > 0 ? currentHeartRate : nil,
-            power: currentPower > 0 ? currentPower : nil
-        )
+        let hr = currentHeartRate > 0 ? currentHeartRate : nil
+        let pwr = currentPower > 0 ? currentPower : nil
+
+        workout.addSample(heartRate: hr, power: pwr)
+
+        // Add to chart data
+        chartData.append(ChartDataPoint(
+            time: elapsedTime,
+            heartRate: hr,
+            power: pwr
+        ))
 
         // Check if target duration reached
         if elapsedTime >= workout.targetDuration {

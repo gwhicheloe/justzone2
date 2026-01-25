@@ -69,4 +69,10 @@ class SummaryViewModel: ObservableObject {
         guard case .success(let activityId) = uploadState else { return nil }
         return URL(string: "https://www.strava.com/activities/\(activityId)")
     }
+
+    func discardWorkout() {
+        // Currently workouts are not persisted locally, so discard just means
+        // not uploading to Strava and returning to the setup screen.
+        // If local storage is added later, this would delete the workout.
+    }
 }

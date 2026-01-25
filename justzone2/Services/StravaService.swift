@@ -177,7 +177,8 @@ class StravaService: NSObject, ObservableObject {
             "client_id": Constants.stravaClientId,
             "client_secret": Constants.stravaClientSecret,
             "code": code,
-            "grant_type": "authorization_code"
+            "grant_type": "authorization_code",
+            "redirect_uri": Constants.stravaRedirectUri
         ]
         request.httpBody = body.map { "\($0.key)=\($0.value)" }.joined(separator: "&").data(using: .utf8)
 

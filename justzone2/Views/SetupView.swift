@@ -3,7 +3,7 @@ import SwiftUI
 struct SetupView: View {
     @ObservedObject var viewModel: SetupViewModel
     @State private var showWorkout = false
-    @State private var workout: Workout?
+    @State private var workoutViewModel: WorkoutViewModel?
 
     var body: some View {
         NavigationStack {
@@ -34,24 +34,24 @@ struct SetupView: View {
 
                             Spacer()
 
-                            if viewModel.bluetoothManager.isScanning {
+                            if viewModel.isScanning {
                                 ProgressView()
                                     .scaleEffect(0.8)
                             }
 
                             Button(action: {
-                                if viewModel.bluetoothManager.isScanning {
+                                if viewModel.isScanning {
                                     viewModel.stopScanning()
                                 } else {
                                     viewModel.startScanning()
                                 }
                             }) {
-                                Text(viewModel.bluetoothManager.isScanning ? "Stop" : "Scan")
+                                Text(viewModel.isScanning ? "Stop" : "Scan")
                                     .font(.subheadline)
                             }
                         }
 
-                        if !viewModel.bluetoothManager.isBluetoothEnabled {
+                        if !viewModel.isBluetoothEnabled {
                             HStack {
                                 Image(systemName: "exclamationmark.triangle.fill")
                                     .foregroundColor(.orange)
@@ -70,23 +70,24 @@ struct SetupView: View {
                                 .font(.subheadline)
                                 .foregroundColor(.secondary)
 
-                            if viewModel.bluetoothManager.discoveredKickrs.isEmpty && !viewModel.kickrService.isConnected {
+                            if viewModel.discoveredKickrs.isEmpty && !viewModel.kickrConnected {
                                 Text("No trainers found. Tap Scan to search.")
                                     .font(.caption)
                                     .foregroundColor(.secondary)
                                     .padding(.vertical, 8)
                             }
 
-                            ForEach(viewModel.bluetoothManager.discoveredKickrs) { device in
+                            ForEach(viewModel.discoveredKickrs) { device in
                                 DeviceRow(
                                     device: device,
-                                    isConnected: viewModel.kickrService.isConnected,
+                                    isConnected: viewModel.kickrConnected,
+                                    isConnecting: viewModel.kickrConnecting,
                                     onConnect: { viewModel.connectKickr(device) },
                                     onDisconnect: { viewModel.disconnectKickr() }
                                 )
                             }
 
-                            if let error = viewModel.kickrService.connectionError {
+                            if let error = viewModel.kickrError {
                                 Text(error)
                                     .font(.caption)
                                     .foregroundColor(.red)
@@ -101,23 +102,24 @@ struct SetupView: View {
                                 .font(.subheadline)
                                 .foregroundColor(.secondary)
 
-                            if viewModel.bluetoothManager.discoveredHRMonitors.isEmpty && !viewModel.heartRateService.isConnected {
+                            if viewModel.discoveredHRMonitors.isEmpty && !viewModel.hrConnected {
                                 Text("No HR monitors found. Tap Scan to search.")
                                     .font(.caption)
                                     .foregroundColor(.secondary)
                                     .padding(.vertical, 8)
                             }
 
-                            ForEach(viewModel.bluetoothManager.discoveredHRMonitors) { device in
+                            ForEach(viewModel.discoveredHRMonitors) { device in
                                 DeviceRow(
                                     device: device,
-                                    isConnected: viewModel.heartRateService.isConnected,
+                                    isConnected: viewModel.hrConnected,
+                                    isConnecting: viewModel.hrConnecting,
                                     onConnect: { viewModel.connectHeartRateMonitor(device) },
                                     onDisconnect: { viewModel.disconnectHeartRateMonitor() }
                                 )
                             }
 
-                            if let error = viewModel.heartRateService.connectionError {
+                            if let error = viewModel.hrError {
                                 Text(error)
                                     .font(.caption)
                                     .foregroundColor(.red)
@@ -130,7 +132,12 @@ struct SetupView: View {
 
                     // Start Button
                     Button(action: {
-                        workout = viewModel.createWorkout()
+                        let workout = viewModel.createWorkout()
+                        workoutViewModel = WorkoutViewModel(
+                            workout: workout,
+                            kickrService: viewModel.kickrService,
+                            heartRateService: viewModel.heartRateService
+                        )
                         showWorkout = true
                     }) {
                         HStack {
@@ -157,20 +164,27 @@ struct SetupView: View {
             .background(Color(.systemGroupedBackground))
             .navigationTitle("JustZone2")
             .navigationDestination(isPresented: $showWorkout) {
-                if let workout = workout {
+                if let workoutVM = workoutViewModel {
                     WorkoutView(
-                        viewModel: WorkoutViewModel(
-                            workout: workout,
-                            kickrService: viewModel.kickrService,
-                            heartRateService: viewModel.heartRateService
-                        ),
-                        stravaService: viewModel.stravaService
+                        viewModel: workoutVM,
+                        stravaService: viewModel.stravaService,
+                        isPresented: $showWorkout
                     )
+                }
+            }
+            .onChange(of: showWorkout) { isShowing in
+                if !isShowing {
+                    // Clean up when returning to setup
+                    workoutViewModel = nil
                 }
             }
         }
         .onAppear {
-            viewModel.startScanning()
+            viewModel.bluetoothManager.checkBluetoothState()
+            // Small delay to allow Bluetooth state to settle
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                viewModel.startScanning()
+            }
         }
     }
 }
