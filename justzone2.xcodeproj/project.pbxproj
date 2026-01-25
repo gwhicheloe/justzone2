@@ -1,0 +1,473 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1100000000000001 /* justzone2App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000001 /* justzone2App.swift */; };
+		1100000000000002 /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000002 /* Workout.swift */; };
+		1100000000000003 /* WorkoutSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000003 /* WorkoutSample.swift */; };
+		1100000000000004 /* DeviceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000004 /* DeviceInfo.swift */; };
+		1100000000000005 /* BluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000005 /* BluetoothManager.swift */; };
+		1100000000000006 /* KickrService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000006 /* KickrService.swift */; };
+		1100000000000007 /* HeartRateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000007 /* HeartRateService.swift */; };
+		1100000000000008 /* StravaService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000008 /* StravaService.swift */; };
+		1100000000000009 /* SetupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000009 /* SetupViewModel.swift */; };
+		110000000000000A /* WorkoutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220000000000000A /* WorkoutViewModel.swift */; };
+		110000000000000B /* SummaryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220000000000000B /* SummaryViewModel.swift */; };
+		110000000000000C /* SetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220000000000000C /* SetupView.swift */; };
+		110000000000000D /* WorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220000000000000D /* WorkoutView.swift */; };
+		110000000000000E /* SummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220000000000000E /* SummaryView.swift */; };
+		110000000000000F /* DeviceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220000000000000F /* DeviceRow.swift */; };
+		1100000000000010 /* PowerPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000010 /* PowerPicker.swift */; };
+		1100000000000011 /* DurationPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000011 /* DurationPicker.swift */; };
+		1100000000000012 /* FITEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000012 /* FITEncoder.swift */; };
+		1100000000000013 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000013 /* Constants.swift */; };
+		1100000000000014 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2200000000000014 /* Assets.xcassets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		3300000000000001 /* justzone2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = justzone2.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2200000000000001 /* justzone2App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = justzone2App.swift; sourceTree = "<group>"; };
+		2200000000000002 /* Workout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workout.swift; sourceTree = "<group>"; };
+		2200000000000003 /* WorkoutSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSample.swift; sourceTree = "<group>"; };
+		2200000000000004 /* DeviceInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceInfo.swift; sourceTree = "<group>"; };
+		2200000000000005 /* BluetoothManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothManager.swift; sourceTree = "<group>"; };
+		2200000000000006 /* KickrService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KickrService.swift; sourceTree = "<group>"; };
+		2200000000000007 /* HeartRateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateService.swift; sourceTree = "<group>"; };
+		2200000000000008 /* StravaService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StravaService.swift; sourceTree = "<group>"; };
+		2200000000000009 /* SetupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupViewModel.swift; sourceTree = "<group>"; };
+		220000000000000A /* WorkoutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutViewModel.swift; sourceTree = "<group>"; };
+		220000000000000B /* SummaryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryViewModel.swift; sourceTree = "<group>"; };
+		220000000000000C /* SetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupView.swift; sourceTree = "<group>"; };
+		220000000000000D /* WorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutView.swift; sourceTree = "<group>"; };
+		220000000000000E /* SummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryView.swift; sourceTree = "<group>"; };
+		220000000000000F /* DeviceRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceRow.swift; sourceTree = "<group>"; };
+		2200000000000010 /* PowerPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerPicker.swift; sourceTree = "<group>"; };
+		2200000000000011 /* DurationPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DurationPicker.swift; sourceTree = "<group>"; };
+		2200000000000012 /* FITEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FITEncoder.swift; sourceTree = "<group>"; };
+		2200000000000013 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		2200000000000014 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		2200000000000015 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4400000000000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		5500000000000001 = {
+			isa = PBXGroup;
+			children = (
+				5500000000000002 /* justzone2 */,
+				5500000000000003 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		5500000000000002 /* justzone2 */ = {
+			isa = PBXGroup;
+			children = (
+				2200000000000001 /* justzone2App.swift */,
+				5500000000000004 /* Models */,
+				5500000000000005 /* Services */,
+				5500000000000006 /* ViewModels */,
+				5500000000000007 /* Views */,
+				5500000000000009 /* Utilities */,
+				550000000000000A /* Resources */,
+			);
+			path = justzone2;
+			sourceTree = "<group>";
+		};
+		5500000000000003 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3300000000000001 /* justzone2.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		5500000000000004 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				2200000000000002 /* Workout.swift */,
+				2200000000000003 /* WorkoutSample.swift */,
+				2200000000000004 /* DeviceInfo.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		5500000000000005 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				2200000000000005 /* BluetoothManager.swift */,
+				2200000000000006 /* KickrService.swift */,
+				2200000000000007 /* HeartRateService.swift */,
+				2200000000000008 /* StravaService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		5500000000000006 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				2200000000000009 /* SetupViewModel.swift */,
+				220000000000000A /* WorkoutViewModel.swift */,
+				220000000000000B /* SummaryViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		5500000000000007 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				220000000000000C /* SetupView.swift */,
+				220000000000000D /* WorkoutView.swift */,
+				220000000000000E /* SummaryView.swift */,
+				5500000000000008 /* Components */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		5500000000000008 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				220000000000000F /* DeviceRow.swift */,
+				2200000000000010 /* PowerPicker.swift */,
+				2200000000000011 /* DurationPicker.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		5500000000000009 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				2200000000000012 /* FITEncoder.swift */,
+				2200000000000013 /* Constants.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		550000000000000A /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				2200000000000014 /* Assets.xcassets */,
+				2200000000000015 /* Info.plist */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		6600000000000001 /* justzone2 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7700000000000003 /* Build configuration list for PBXNativeTarget "justzone2" */;
+			buildPhases = (
+				6600000000000002 /* Sources */,
+				4400000000000001 /* Frameworks */,
+				6600000000000003 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = justzone2;
+			productName = justzone2;
+			productReference = 3300000000000001 /* justzone2.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		8800000000000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					6600000000000001 = {
+						CreatedOnToolsVersion = 15.0;
+					};
+				};
+			};
+			buildConfigurationList = 7700000000000001 /* Build configuration list for PBXProject "justzone2" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 5500000000000001;
+			productRefGroup = 5500000000000003 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6600000000000001 /* justzone2 */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		6600000000000003 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1100000000000014 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6600000000000002 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1100000000000001 /* justzone2App.swift in Sources */,
+				1100000000000002 /* Workout.swift in Sources */,
+				1100000000000003 /* WorkoutSample.swift in Sources */,
+				1100000000000004 /* DeviceInfo.swift in Sources */,
+				1100000000000005 /* BluetoothManager.swift in Sources */,
+				1100000000000006 /* KickrService.swift in Sources */,
+				1100000000000007 /* HeartRateService.swift in Sources */,
+				1100000000000008 /* StravaService.swift in Sources */,
+				1100000000000009 /* SetupViewModel.swift in Sources */,
+				110000000000000A /* WorkoutViewModel.swift in Sources */,
+				110000000000000B /* SummaryViewModel.swift in Sources */,
+				110000000000000C /* SetupView.swift in Sources */,
+				110000000000000D /* WorkoutView.swift in Sources */,
+				110000000000000E /* SummaryView.swift in Sources */,
+				110000000000000F /* DeviceRow.swift in Sources */,
+				1100000000000010 /* PowerPicker.swift in Sources */,
+				1100000000000011 /* DurationPicker.swift in Sources */,
+				1100000000000012 /* FITEncoder.swift in Sources */,
+				1100000000000013 /* Constants.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		9900000000000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		9900000000000002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		9900000000000003 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = justzone2/Resources/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = JustZone2;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "JustZone2 needs Bluetooth to connect to your KICKR trainer and heart rate monitor.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.justzone2.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		9900000000000004 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = justzone2/Resources/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = JustZone2;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "JustZone2 needs Bluetooth to connect to your KICKR trainer and heart rate monitor.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.justzone2.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7700000000000001 /* Build configuration list for PBXProject "justzone2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9900000000000001 /* Debug */,
+				9900000000000002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7700000000000003 /* Build configuration list for PBXNativeTarget "justzone2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9900000000000003 /* Debug */,
+				9900000000000004 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 8800000000000001 /* Project object */;
+}
