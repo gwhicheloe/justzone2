@@ -8,10 +8,25 @@ struct justzone2App: App {
     var body: some Scene {
         WindowGroup {
             ZStack {
-                SetupView(viewModel: appState.setupViewModel)
-                    .onOpenURL { url in
-                        print("Received URL: \(url)")
-                    }
+                TabView {
+                    SetupView(viewModel: appState.setupViewModel)
+                        .tabItem {
+                            Label("Workout", systemImage: "figure.indoor.cycle")
+                        }
+
+                    HistoryView(viewModel: appState.historyViewModel)
+                        .tabItem {
+                            Label("History", systemImage: "clock.arrow.circlepath")
+                        }
+
+                    SettingsView(viewModel: appState.settingsViewModel)
+                        .tabItem {
+                            Label("Settings", systemImage: "gear")
+                        }
+                }
+                .onOpenURL { url in
+                    print("Received URL: \(url)")
+                }
 
                 if showSplash {
                     SplashView()
@@ -74,6 +89,8 @@ class AppState: ObservableObject {
     let heartRateService: HeartRateService
     let stravaService: StravaService
     let setupViewModel: SetupViewModel
+    let historyViewModel: HistoryViewModel
+    let settingsViewModel: SettingsViewModel
 
     init() {
         let bluetooth = BluetoothManager()
@@ -91,5 +108,7 @@ class AppState: ObservableObject {
             heartRateService: heartRate,
             stravaService: strava
         )
+        self.historyViewModel = HistoryViewModel(stravaService: strava)
+        self.settingsViewModel = SettingsViewModel(stravaService: strava)
     }
 }

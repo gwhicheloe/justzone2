@@ -28,10 +28,18 @@
 		1100000000000013 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000013 /* Constants.swift */; };
 		1100000000000014 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2200000000000014 /* Assets.xcassets */; };
 		187B106A2F263AC800165DEA /* AppIconGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187B10692F263AC700165DEA /* AppIconGenerator.swift */; };
+		18C58F052F294A4600B04598 /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C58F042F294A4500B04598 /* HistoryViewModel.swift */; };
+		18C58F072F294AA100B04598 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C58F062F294AA100B04598 /* HistoryView.swift */; };
+		18C58F092F294EFC00B04598 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C58F082F294EFC00B04598 /* SettingsViewModel.swift */; };
+		18C58F0B2F294F0700B04598 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C58F0A2F294F0700B04598 /* SettingsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		187B10692F263AC700165DEA /* AppIconGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIconGenerator.swift; sourceTree = "<group>"; };
+		18C58F042F294A4500B04598 /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
+		18C58F062F294AA100B04598 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
+		18C58F082F294EFC00B04598 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		18C58F0A2F294F0700B04598 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		2200000000000001 /* justzone2App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = justzone2App.swift; sourceTree = "<group>"; };
 		2200000000000002 /* Workout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workout.swift; sourceTree = "<group>"; };
 		2200000000000003 /* WorkoutSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSample.swift; sourceTree = "<group>"; };
@@ -121,6 +129,8 @@
 		5500000000000006 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				18C58F082F294EFC00B04598 /* SettingsViewModel.swift */,
+				18C58F042F294A4500B04598 /* HistoryViewModel.swift */,
 				2200000000000009 /* SetupViewModel.swift */,
 				220000000000000A /* WorkoutViewModel.swift */,
 				220000000000000B /* SummaryViewModel.swift */,
@@ -131,6 +141,8 @@
 		5500000000000007 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				18C58F0A2F294F0700B04598 /* SettingsView.swift */,
+				18C58F062F294AA100B04598 /* HistoryView.swift */,
 				220000000000000C /* SetupView.swift */,
 				220000000000000D /* WorkoutView.swift */,
 				220000000000000E /* SummaryView.swift */,
@@ -238,18 +250,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				1100000000000001 /* justzone2App.swift in Sources */,
+				18C58F092F294EFC00B04598 /* SettingsViewModel.swift in Sources */,
 				1100000000000002 /* Workout.swift in Sources */,
 				1100000000000003 /* WorkoutSample.swift in Sources */,
 				1100000000000004 /* DeviceInfo.swift in Sources */,
 				1100000000000005 /* BluetoothManager.swift in Sources */,
+				18C58F072F294AA100B04598 /* HistoryView.swift in Sources */,
 				1100000000000006 /* KickrService.swift in Sources */,
 				1100000000000007 /* HeartRateService.swift in Sources */,
+				18C58F0B2F294F0700B04598 /* SettingsView.swift in Sources */,
 				1100000000000008 /* StravaService.swift in Sources */,
 				1100000000000009 /* SetupViewModel.swift in Sources */,
 				110000000000000A /* WorkoutViewModel.swift in Sources */,
 				187B106A2F263AC800165DEA /* AppIconGenerator.swift in Sources */,
 				110000000000000B /* SummaryViewModel.swift in Sources */,
 				110000000000000C /* SetupView.swift in Sources */,
+				18C58F052F294A4600B04598 /* HistoryViewModel.swift in Sources */,
 				110000000000000D /* WorkoutView.swift in Sources */,
 				110000000000000E /* SummaryView.swift in Sources */,
 				110000000000000F /* DeviceRow.swift in Sources */,

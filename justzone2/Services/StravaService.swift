@@ -1,6 +1,30 @@
 import AuthenticationServices
 import Foundation
 
+struct StravaActivity: Identifiable, Codable {
+    let id: Int
+    let name: String
+    let type: String
+    let startDate: Date
+    let movingTime: Int // seconds
+    let distance: Double // meters
+    let averageWatts: Double?
+    let averageHeartrate: Double?
+    let maxHeartrate: Double?
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case name
+        case type
+        case startDate = "start_date"
+        case movingTime = "moving_time"
+        case distance
+        case averageWatts = "average_watts"
+        case averageHeartrate = "average_heartrate"
+        case maxHeartrate = "max_heartrate"
+    }
+}
+
 @MainActor
 class StravaService: NSObject, ObservableObject {
     @Published var isAuthenticated = false
@@ -60,6 +84,47 @@ class StravaService: NSObject, ObservableObject {
         tokenExpiry = nil
         isAuthenticated = false
         clearKeychainTokens()
+    }
+
+    // MARK: - Fetch Activities
+
+    func fetchActivities(page: Int = 1, perPage: Int = 100) async throws -> [StravaActivity] {
+        guard isAuthenticated else {
+            throw StravaError.notAuthenticated
+        }
+
+        // Refresh token if expired
+        if let expiry = tokenExpiry, Date() >= expiry {
+            try await refreshAccessToken()
+        }
+
+        guard let token = accessToken else {
+            throw StravaError.notAuthenticated
+        }
+
+        var components = URLComponents(string: "https://www.strava.com/api/v3/athlete/activities")!
+        components.queryItems = [
+            URLQueryItem(name: "page", value: String(page)),
+            URLQueryItem(name: "per_page", value: String(perPage))
+        ]
+
+        var request = URLRequest(url: components.url!)
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+
+        let (data, response) = try await URLSession.shared.data(for: request)
+
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw StravaError.uploadFailed("Invalid response")
+        }
+
+        if httpResponse.statusCode == 200 {
+            let decoder = JSONDecoder()
+            decoder.dateDecodingStrategy = .iso8601
+            return try decoder.decode([StravaActivity].self, from: data)
+        } else {
+            let errorMessage = String(data: data, encoding: .utf8) ?? "Unknown error"
+            throw StravaError.uploadFailed(errorMessage)
+        }
     }
 
     // MARK: - Upload
@@ -157,7 +222,7 @@ class StravaService: NSObject, ObservableObject {
             URLQueryItem(name: "client_id", value: Constants.stravaClientId),
             URLQueryItem(name: "redirect_uri", value: Constants.stravaRedirectUri),
             URLQueryItem(name: "response_type", value: "code"),
-            URLQueryItem(name: "scope", value: "activity:write"),
+            URLQueryItem(name: "scope", value: "activity:read_all,activity:write"),
             URLQueryItem(name: "approval_prompt", value: "auto")
         ]
         return components.url!

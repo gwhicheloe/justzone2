@@ -16,6 +16,8 @@ class SetupViewModel: ObservableObject {
     @Published var hrConnecting = false
     @Published var kickrError: String?
     @Published var hrError: String?
+    @Published var isStravaConnected = false
+    @Published var stravaError: String?
 
     let bluetoothManager: BluetoothManager
     let kickrService: KickrService
@@ -93,6 +95,9 @@ class SetupViewModel: ObservableObject {
                 }
             }
             .store(in: &cancellables)
+
+        stravaService.$isAuthenticated
+            .assign(to: &$isStravaConnected)
     }
 
     func startScanning() {
@@ -131,6 +136,20 @@ class SetupViewModel: ObservableObject {
     func disconnectHeartRateMonitor() {
         hrConnecting = false
         heartRateService.disconnect()
+    }
+
+    func connectToStrava() async {
+        stravaError = nil
+        do {
+            try await stravaService.authenticate()
+        } catch {
+            stravaError = error.localizedDescription
+        }
+    }
+
+    func disconnectStrava() {
+        stravaService.logout()
+        stravaError = nil
     }
 
     func createWorkout() -> Workout {

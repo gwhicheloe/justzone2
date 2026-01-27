@@ -129,6 +129,39 @@ struct SetupView: View {
                 .background(Color(.systemBackground))
                 .cornerRadius(12)
 
+                // Strava Section
+                VStack(alignment: .leading, spacing: 12) {
+                    Text("Strava")
+                        .font(.headline)
+
+                    HStack {
+                        Image(systemName: viewModel.isStravaConnected ? "checkmark.circle.fill" : "link.circle")
+                            .foregroundColor(viewModel.isStravaConnected ? .green : .orange)
+                        Text(viewModel.isStravaConnected ? "Connected" : "Not connected")
+                            .foregroundColor(viewModel.isStravaConnected ? .green : .secondary)
+                        Spacer()
+                        if !viewModel.isStravaConnected {
+                            Button(action: {
+                                Task {
+                                    await viewModel.connectToStrava()
+                                }
+                            }) {
+                                Text("Connect")
+                                    .font(.subheadline)
+                            }
+                        }
+                    }
+
+                    if let error = viewModel.stravaError {
+                        Text(error)
+                            .font(.caption)
+                            .foregroundColor(.red)
+                    }
+                }
+                .padding()
+                .background(Color(.systemBackground))
+                .cornerRadius(12)
+
                 Spacer()
 
                 // Start Button
