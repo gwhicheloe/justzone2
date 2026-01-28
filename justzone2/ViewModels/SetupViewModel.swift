@@ -18,11 +18,15 @@ class SetupViewModel: ObservableObject {
     @Published var hrError: String?
     @Published var isStravaConnected = false
     @Published var stravaError: String?
+    @Published var isHealthKitAuthorized = false
+    @Published var healthKitError: String?
 
     let bluetoothManager: BluetoothManager
     let kickrService: KickrService
     let heartRateService: HeartRateService
     let stravaService: StravaService
+    let healthKitManager: HealthKitManager
+    let liveActivityManager: LiveActivityManager
 
     private var cancellables = Set<AnyCancellable>()
 
@@ -30,12 +34,16 @@ class SetupViewModel: ObservableObject {
         bluetoothManager: BluetoothManager,
         kickrService: KickrService,
         heartRateService: HeartRateService,
-        stravaService: StravaService
+        stravaService: StravaService,
+        healthKitManager: HealthKitManager,
+        liveActivityManager: LiveActivityManager
     ) {
         self.bluetoothManager = bluetoothManager
         self.kickrService = kickrService
         self.heartRateService = heartRateService
         self.stravaService = stravaService
+        self.healthKitManager = healthKitManager
+        self.liveActivityManager = liveActivityManager
 
         setupBindings()
     }
@@ -98,6 +106,10 @@ class SetupViewModel: ObservableObject {
 
         stravaService.$isAuthenticated
             .assign(to: &$isStravaConnected)
+
+        // Forward HealthKit authorization state
+        healthKitManager.$isAuthorized
+            .assign(to: &$isHealthKitAuthorized)
     }
 
     func startScanning() {
@@ -152,8 +164,32 @@ class SetupViewModel: ObservableObject {
         stravaError = nil
     }
 
+    func requestHealthKitAuthorization() async {
+        healthKitError = nil
+        do {
+            try await healthKitManager.requestAuthorization()
+        } catch {
+            healthKitError = error.localizedDescription
+        }
+    }
+
     func createWorkout() -> Workout {
         Workout(targetPower: targetPower, targetDuration: targetDuration)
+    }
+
+    var canStartWorkout: Bool {
+        kickrConnected && isHealthKitAuthorized
+    }
+
+    var startButtonHelpText: String {
+        if !kickrConnected && !isHealthKitAuthorized {
+            return "Connect trainer and enable Apple Health"
+        } else if !kickrConnected {
+            return "Connect your smart trainer to start"
+        } else if !isHealthKitAuthorized {
+            return "Enable Apple Health to track workouts"
+        }
+        return ""
     }
 
     // Power range: 120-200W in 5W increments (Zone 2 range)

@@ -1,5 +1,6 @@
 import SwiftUI
 import Combine
+import HealthKit
 
 enum WorkoutState {
     case idle
@@ -23,18 +24,29 @@ class WorkoutViewModel: ObservableObject {
     @Published var currentHeartRate: Int = 0
     @Published var currentPower: Int = 0
     @Published var chartData: [ChartDataPoint] = []
+    @Published var healthKitWorkout: HKWorkout?
 
     let kickrService: KickrService
     let heartRateService: HeartRateService
+    let healthKitManager: HealthKitManager
+    let liveActivityManager: LiveActivityManager
 
     private var timerCancellable: AnyCancellable?
     private var cancellables = Set<AnyCancellable>()
     private var workoutStartTime: Date?
 
-    init(workout: Workout, kickrService: KickrService, heartRateService: HeartRateService) {
+    init(
+        workout: Workout,
+        kickrService: KickrService,
+        heartRateService: HeartRateService,
+        healthKitManager: HealthKitManager,
+        liveActivityManager: LiveActivityManager
+    ) {
         self.workout = workout
         self.kickrService = kickrService
         self.heartRateService = heartRateService
+        self.healthKitManager = healthKitManager
+        self.liveActivityManager = liveActivityManager
 
         setupBindings()
     }
@@ -59,6 +71,25 @@ class WorkoutViewModel: ObservableObject {
         kickrService.setTargetPower(workout.targetPower)
         kickrService.startWorkout()
 
+        // Start HealthKit workout session for background execution
+        Task {
+            do {
+                try await healthKitManager.startWorkoutSession()
+            } catch {
+                print("Failed to start HealthKit session: \(error.localizedDescription)")
+            }
+        }
+
+        // Start Live Activity for lock screen visibility
+        do {
+            try liveActivityManager.startLiveActivity(
+                targetPower: workout.targetPower,
+                targetDuration: workout.targetDuration
+            )
+        } catch {
+            print("Failed to start Live Activity: \(error.localizedDescription)")
+        }
+
         // Start workout immediately - ERG will engage in background
         workoutStartTime = Date()
         state = .running
@@ -75,6 +106,17 @@ class WorkoutViewModel: ObservableObject {
         state = .paused
 
         kickrService.stopWorkout()
+
+        // Pause HealthKit session
+        healthKitManager.pauseWorkoutSession()
+
+        // Update Live Activity to show paused state
+        liveActivityManager.updateLiveActivity(
+            elapsedTime: elapsedTime,
+            heartRate: currentHeartRate,
+            power: currentPower,
+            isPaused: true
+        )
     }
 
     func resumeWorkout() {
@@ -83,6 +125,17 @@ class WorkoutViewModel: ObservableObject {
         kickrService.startWorkout()
         kickrService.setTargetPower(workout.targetPower)
         state = .running
+
+        // Resume HealthKit session
+        healthKitManager.resumeWorkoutSession()
+
+        // Update Live Activity to show running state
+        liveActivityManager.updateLiveActivity(
+            elapsedTime: elapsedTime,
+            heartRate: currentHeartRate,
+            power: currentPower,
+            isPaused: false
+        )
 
         startTimer()
     }
@@ -95,6 +148,18 @@ class WorkoutViewModel: ObservableObject {
         state = .completed
 
         kickrService.stopWorkout()
+
+        // End HealthKit session and save workout
+        Task {
+            do {
+                healthKitWorkout = try await healthKitManager.endWorkoutSession()
+            } catch {
+                print("Failed to end HealthKit session: \(error.localizedDescription)")
+            }
+        }
+
+        // End Live Activity
+        liveActivityManager.endLiveActivity()
 
         // Allow screen to sleep again
         UIApplication.shared.isIdleTimerDisabled = false
@@ -115,9 +180,11 @@ class WorkoutViewModel: ObservableObject {
     private func timerTick() {
         guard state == .running else { return }
 
+        let now = Date()
+
         // Update elapsed time
         if let startTime = workoutStartTime {
-            elapsedTime = Date().timeIntervalSince(startTime)
+            elapsedTime = now.timeIntervalSince(startTime)
         }
 
         // Record sample
@@ -125,6 +192,22 @@ class WorkoutViewModel: ObservableObject {
         let pwr = currentPower > 0 ? currentPower : nil
 
         workout.addSample(heartRate: hr, power: pwr)
+
+        // Add samples to HealthKit
+        if let heartRate = hr {
+            healthKitManager.addHeartRateSample(heartRate, at: now)
+        }
+        if let power = pwr {
+            healthKitManager.addPowerSample(power, at: now)
+        }
+
+        // Update Live Activity
+        liveActivityManager.updateLiveActivity(
+            elapsedTime: elapsedTime,
+            heartRate: currentHeartRate,
+            power: currentPower,
+            isPaused: false
+        )
 
         // Add to chart data
         chartData.append(ChartDataPoint(

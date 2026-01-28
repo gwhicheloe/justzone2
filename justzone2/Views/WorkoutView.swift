@@ -128,7 +128,7 @@ struct WorkoutView: View {
                 }
             }
         }
-        .onChange(of: viewModel.state) { newState in
+        .onChange(of: viewModel.state) { oldState, newState in
             if newState == .completed {
                 showSummary = true
             }
@@ -314,7 +314,9 @@ struct WorkoutChartView: View {
             viewModel: WorkoutViewModel(
                 workout: Workout(targetPower: 150, targetDuration: 30 * 60),
                 kickrService: KickrService(bluetoothManager: BluetoothManager()),
-                heartRateService: HeartRateService(bluetoothManager: BluetoothManager())
+                heartRateService: HeartRateService(bluetoothManager: BluetoothManager()),
+                healthKitManager: HealthKitManager(),
+                liveActivityManager: LiveActivityManager()
             ),
             stravaService: StravaService(),
             isPresented: .constant(true)

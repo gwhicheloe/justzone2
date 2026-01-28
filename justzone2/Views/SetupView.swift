@@ -129,18 +129,52 @@ struct SetupView: View {
                 .background(Color(.systemBackground))
                 .cornerRadius(12)
 
-                // Strava Section
+                // Health & Integrations Section
                 VStack(alignment: .leading, spacing: 12) {
-                    Text("Strava")
+                    Text("Integrations")
                         .font(.headline)
 
+                    // HealthKit
+                    HStack {
+                        Image(systemName: viewModel.isHealthKitAuthorized ? "heart.fill" : "heart")
+                            .foregroundColor(viewModel.isHealthKitAuthorized ? .red : .gray)
+                        Text("Apple Health")
+                        Spacer()
+                        if viewModel.isHealthKitAuthorized {
+                            Text("Connected")
+                                .font(.caption)
+                                .foregroundColor(.green)
+                        } else {
+                            Button(action: {
+                                Task {
+                                    await viewModel.requestHealthKitAuthorization()
+                                }
+                            }) {
+                                Text("Connect")
+                                    .font(.subheadline)
+                            }
+                        }
+                    }
+
+                    if let error = viewModel.healthKitError {
+                        Text(error)
+                            .font(.caption)
+                            .foregroundColor(.red)
+                    }
+
+                    Divider()
+
+                    // Strava
                     HStack {
                         Image(systemName: viewModel.isStravaConnected ? "checkmark.circle.fill" : "link.circle")
-                            .foregroundColor(viewModel.isStravaConnected ? .green : .orange)
-                        Text(viewModel.isStravaConnected ? "Connected" : "Not connected")
-                            .foregroundColor(viewModel.isStravaConnected ? .green : .secondary)
+                            .foregroundColor(viewModel.isStravaConnected ? .orange : .gray)
+                        Text("Strava")
                         Spacer()
-                        if !viewModel.isStravaConnected {
+                        if viewModel.isStravaConnected {
+                            Text("Connected")
+                                .font(.caption)
+                                .foregroundColor(.green)
+                        } else {
                             Button(action: {
                                 Task {
                                     await viewModel.connectToStrava()
@@ -171,7 +205,9 @@ struct SetupView: View {
                         workoutViewModel = WorkoutViewModel(
                             workout: workout,
                             kickrService: viewModel.kickrService,
-                            heartRateService: viewModel.heartRateService
+                            heartRateService: viewModel.heartRateService,
+                            healthKitManager: viewModel.healthKitManager,
+                            liveActivityManager: viewModel.liveActivityManager
                         )
                         showWorkout = true
                     }) {
@@ -183,13 +219,13 @@ struct SetupView: View {
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .background(viewModel.isReadyToStart ? Color.green : Color.gray)
+                        .background(viewModel.canStartWorkout ? Color.green : Color.gray)
                         .cornerRadius(12)
                     }
-                    .disabled(!viewModel.isReadyToStart)
+                    .disabled(!viewModel.canStartWorkout)
 
-                    if !viewModel.isReadyToStart {
-                        Text("Connect your smart trainer to start")
+                    if !viewModel.canStartWorkout {
+                        Text(viewModel.startButtonHelpText)
                             .font(.caption)
                             .foregroundColor(.secondary)
                     }
@@ -220,6 +256,8 @@ struct SetupView: View {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 viewModel.startScanning()
             }
+            // Check HealthKit authorization
+            viewModel.healthKitManager.checkAuthorizationStatus()
         }
     }
 }
@@ -229,11 +267,15 @@ struct SetupView: View {
     let kickrService = KickrService(bluetoothManager: bluetoothManager)
     let heartRateService = HeartRateService(bluetoothManager: bluetoothManager)
     let stravaService = StravaService()
+    let healthKitManager = HealthKitManager()
+    let liveActivityManager = LiveActivityManager()
 
     return SetupView(viewModel: SetupViewModel(
         bluetoothManager: bluetoothManager,
         kickrService: kickrService,
         heartRateService: heartRateService,
-        stravaService: stravaService
+        stravaService: stravaService,
+        healthKitManager: healthKitManager,
+        liveActivityManager: liveActivityManager
     ))
 }

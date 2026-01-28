@@ -366,8 +366,12 @@ class StravaService: NSObject, ObservableObject {
 // MARK: - ASWebAuthenticationPresentationContextProviding
 
 extension StravaService: ASWebAuthenticationPresentationContextProviding {
-    nonisolated func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
-        ASPresentationAnchor()
+    @MainActor
+    func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
+        let windowScene = UIApplication.shared.connectedScenes
+            .compactMap { $0 as? UIWindowScene }
+            .first!
+        return windowScene.windows.first ?? UIWindow(windowScene: windowScene)
     }
 }
 

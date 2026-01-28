@@ -4,8 +4,8 @@ import Charts
 struct HistoryView: View {
     @ObservedObject var viewModel: HistoryViewModel
     @State private var showGraph = false
-    @State private var chartScale: CGFloat = 1.0
-    @State private var lastScale: CGFloat = 1.0
+    @State private var zoomLevel: CGFloat = 1.0
+    @State private var baseZoomLevel: CGFloat = 1.0
 
     var body: some View {
         NavigationStack {
@@ -140,16 +140,16 @@ struct HistoryView: View {
     }
 
     private var graphView: some View {
-        VStack {
-            // Filter activities that have both HR and power data
-            let chartData = viewModel.activities.filter {
-                $0.averageHeartrate != nil && $0.averageWatts != nil
-            }.sorted { $0.startDate < $1.startDate }
+        let chartData = viewModel.activities.filter {
+            $0.averageHeartrate != nil && $0.averageWatts != nil
+        }.sorted { $0.startDate < $1.startDate }
 
+        return VStack(spacing: 12) {
             if chartData.isEmpty {
+                Spacer()
                 Text("No activities with HR and power data")
                     .foregroundColor(.secondary)
-                    .padding()
+                Spacer()
             } else {
                 let minPower = chartData.compactMap { $0.averageWatts }.min() ?? 100
                 let maxPower = chartData.compactMap { $0.averageWatts }.max() ?? 200
@@ -158,98 +158,99 @@ struct HistoryView: View {
                 let minDuration = Double(chartData.map { $0.movingTime }.min() ?? 1800)
                 let maxDuration = Double(chartData.map { $0.movingTime }.max() ?? 7200)
 
-                HStack(spacing: 0) {
-                    // Sticky Y-axis
-                    Chart(chartData) { activity in
-                        PointMark(
-                            x: .value("Date", activity.startDate),
-                            y: .value("Avg HR", activity.averageHeartrate ?? 0)
-                        )
-                        .opacity(0)
+                // Calculate visible date range based on zoom level
+                let dateRange = calculateDateRange(for: chartData)
+
+                Chart(chartData) { activity in
+                    PointMark(
+                        x: .value("Date", activity.startDate),
+                        y: .value("Avg HR", activity.averageHeartrate ?? 0)
+                    )
+                    .foregroundStyle(powerColor(activity.averageWatts ?? 0, min: minPower, max: maxPower))
+                    .symbolSize(durationSize(activity.movingTime, min: minDuration, max: maxDuration))
+                }
+                .chartYScale(domain: minHR...maxHR)
+                .chartXScale(domain: dateRange)
+                .chartXAxis {
+                    AxisMarks(values: .automatic(desiredCount: 5)) { value in
+                        AxisGridLine()
+                        AxisValueLabel(format: .dateTime.day().month(.abbreviated), anchor: .top)
                     }
-                    .chartYScale(domain: minHR...maxHR)
-                    .chartXAxis(.hidden)
-                    .chartYAxis {
-                        AxisMarks(position: .leading) { value in
-                            AxisValueLabel {
-                                if let hr = value.as(Double.self) {
-                                    Text("\(Int(hr))")
-                                        .font(.caption2)
-                                }
+                }
+                .chartYAxis {
+                    AxisMarks(position: .leading) { value in
+                        AxisGridLine()
+                        AxisValueLabel {
+                            if let hr = value.as(Double.self) {
+                                Text("\(Int(hr))")
+                                    .font(.caption2)
                             }
                         }
-                    }
-                    .frame(width: 35)
-                    .padding(.top, 8)
-                    .padding(.bottom, 24)
-
-                    // Zoomable chart
-                    GeometryReader { geometry in
-                        let screenWidth = geometry.size.width
-                        let baseWidth = max(screenWidth, CGFloat(chartData.count) * 40)
-                        let chartWidth = baseWidth * chartScale
-
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            Chart(chartData) { activity in
-                                PointMark(
-                                    x: .value("Date", activity.startDate),
-                                    y: .value("Avg HR", activity.averageHeartrate ?? 0)
-                                )
-                                .foregroundStyle(powerColor(activity.averageWatts ?? 0, min: minPower, max: maxPower))
-                                .symbolSize(durationSize(activity.movingTime, min: minDuration, max: maxDuration))
-                            }
-                            .chartYScale(domain: minHR...maxHR)
-                            .chartXScale(range: .plotDimension(padding: 20))
-                            .chartXAxis {
-                                AxisMarks(values: .automatic(desiredCount: max(4, Int(chartWidth / 80)))) { value in
-                                    AxisGridLine()
-                                    AxisValueLabel(format: .dateTime.day().month(.abbreviated).year(.twoDigits), anchor: .top)
-                                }
-                            }
-                            .chartYAxis {
-                                AxisMarks(position: .leading) { _ in
-                                    AxisGridLine()
-                                }
-                            }
-                            .frame(width: chartWidth, height: geometry.size.height)
-                            .padding(.horizontal, 8)
-                            .scaleEffect(x: -1, anchor: .center)
-                        }
-                        .scaleEffect(x: -1, anchor: .center)
                     }
                 }
                 .frame(height: 220)
-                .padding(.leading, 8)
+                .padding(.horizontal)
+                .contentShape(Rectangle())
+                .gesture(
+                    MagnifyGesture()
+                        .onChanged { value in
+                            let newZoom = baseZoomLevel * value.magnification
+                            withAnimation(.interactiveSpring) {
+                                zoomLevel = max(1.0, min(newZoom, 10.0))
+                            }
+                        }
+                        .onEnded { _ in
+                            baseZoomLevel = zoomLevel
+                        }
+                )
+                .animation(.smooth(duration: 0.3), value: zoomLevel)
 
                 // Zoom controls
                 HStack(spacing: 20) {
                     Button(action: {
-                        withAnimation(.easeInOut(duration: 0.15)) {
-                            chartScale = max(1.0, chartScale / 1.15)
+                        withAnimation(.smooth(duration: 0.3)) {
+                            zoomLevel = max(1.0, zoomLevel / 1.5)
+                            baseZoomLevel = zoomLevel
                         }
                     }) {
                         Image(systemName: "minus.magnifyingglass")
                             .font(.title3)
                     }
-                    .disabled(chartScale <= 1.01)
+                    .disabled(zoomLevel <= 1.01)
 
-                    Text(String(format: "%.1fx", chartScale))
+                    Text(String(format: "%.1fx", zoomLevel))
                         .font(.caption)
-                        .frame(width: 35)
+                        .monospacedDigit()
+                        .frame(width: 40)
 
                     Button(action: {
-                        withAnimation(.easeInOut(duration: 0.15)) {
-                            chartScale = min(5.0, chartScale * 1.15)
+                        withAnimation(.smooth(duration: 0.3)) {
+                            zoomLevel = min(10.0, zoomLevel * 1.5)
+                            baseZoomLevel = zoomLevel
                         }
                     }) {
                         Image(systemName: "plus.magnifyingglass")
                             .font(.title3)
                     }
-                    .disabled(chartScale >= 5.0)
+                    .disabled(zoomLevel >= 10.0)
+
+                    Spacer()
+
+                    if zoomLevel > 1.01 {
+                        Button("Reset") {
+                            withAnimation(.smooth(duration: 0.3)) {
+                                zoomLevel = 1.0
+                                baseZoomLevel = 1.0
+                            }
+                        }
+                        .font(.caption)
+                        .foregroundColor(.orange)
+                    }
                 }
+                .padding(.horizontal)
 
                 // Legend
-                VStack(spacing: 8) {
+                VStack(spacing: 6) {
                     HStack(spacing: 4) {
                         Text("Color = Power:")
                             .font(.caption2)
@@ -280,11 +281,36 @@ struct HistoryView: View {
                             .foregroundColor(.secondary)
                     }
                 }
-                .padding(.vertical, 8)
-            }
+                .padding(.top, 4)
 
-            Spacer()
+                Text("Pinch to zoom • Shows most recent when zoomed")
+                    .font(.caption2)
+                    .foregroundColor(.secondary)
+
+                Spacer()
+            }
         }
+    }
+
+    private func calculateDateRange(for chartData: [StravaActivity]) -> ClosedRange<Date> {
+        let dates = chartData.map { $0.startDate }
+        guard let minDate = dates.min(), let maxDate = dates.max() else {
+            return Date()...Date()
+        }
+
+        let totalDuration = maxDate.timeIntervalSince(minDate)
+
+        // Add padding (5% or at least 1 day) to prevent dot clipping at edges
+        let padding = max(totalDuration * 0.05, 86400)
+
+        // Calculate visible duration based on zoom level
+        let visibleDuration = totalDuration / zoomLevel
+
+        // Anchor to right (most recent data stays visible)
+        // As zoom increases, left boundary moves right
+        let visibleMinDate = maxDate.addingTimeInterval(-visibleDuration)
+
+        return visibleMinDate.addingTimeInterval(-padding)...maxDate.addingTimeInterval(padding)
     }
 
     private func durationSize(_ duration: Int, min: Double, max: Double) -> CGFloat {

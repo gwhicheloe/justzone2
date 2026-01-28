@@ -2,33 +2,38 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>NSBluetoothAlwaysUsageDescription</key>
-    <string>JustZone2 needs Bluetooth to connect to your KICKR trainer and heart rate monitor.</string>
-    <key>NSBluetoothPeripheralUsageDescription</key>
-    <string>JustZone2 needs Bluetooth to connect to your KICKR trainer and heart rate monitor.</string>
-    <key>NSPhotoLibraryAddUsageDescription</key>
-    <string>JustZone2 saves your workout chart to your photo library so you can add it to Strava.</string>
-    <key>CFBundleURLTypes</key>
-    <array>
-        <dict>
-            <key>CFBundleURLName</key>
-            <string>com.justzone2.app</string>
-            <key>CFBundleURLSchemes</key>
-            <array>
-                <string>justzone2</string>
-            </array>
-        </dict>
-    </array>
-    <key>UIBackgroundModes</key>
-    <array>
-        <string>bluetooth-central</string>
-    </array>
-    <key>UILaunchScreen</key>
-    <dict>
-        <key>UIColorName</key>
-        <string>LaunchScreenBackground</string>
-        <key>UIImageName</key>
-        <string>LaunchIcon</string>
-    </dict>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>JustZone2 needs Bluetooth to connect to your KICKR trainer and heart rate monitor.</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>JustZone2 needs Bluetooth to connect to your KICKR trainer and heart rate monitor.</string>
+	<key>NSHealthShareUsageDescription</key>
+	<string>JustZone2 reads your heart rate during workouts to track Zone 2 training.</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>JustZone2 saves your workouts to Apple Health so they appear in the Fitness app.</string>
+	<key>NSSupportsLiveActivities</key>
+	<true/>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>com.justzone2.app</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>justzone2</string>
+			</array>
+		</dict>
+	</array>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>bluetooth-central</string>
+		<string>processing</string>
+	</array>
+	<key>UILaunchScreen</key>
+	<dict>
+		<key>UIColorName</key>
+		<string>LaunchScreenBackground</string>
+		<key>UIImageName</key>
+		<string>LaunchIcon</string>
+	</dict>
 </dict>
 </plist>

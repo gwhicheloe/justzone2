@@ -45,14 +45,20 @@ class SummaryViewModel: ObservableObject {
 
     func uploadToStrava() async {
         // Prevent double upload
-        guard case .idle = uploadState else { return }
+        guard case .idle = uploadState else {
+            print("Upload blocked - not in idle state: \(uploadState)")
+            return
+        }
 
+        print("Starting upload...")
         uploadState = .uploading
 
         do {
             let activityId = try await stravaService.uploadWorkout(workout)
+            print("Upload successful! Activity ID: \(activityId)")
             uploadState = .success(activityId: activityId)
         } catch {
+            print("Upload failed: \(error.localizedDescription)")
             uploadState = .error(error.localizedDescription)
         }
     }
@@ -72,6 +78,10 @@ class SummaryViewModel: ObservableObject {
     var stravaActivityURL: URL? {
         guard case .success(let activityId) = uploadState else { return nil }
         return URL(string: "https://www.strava.com/activities/\(activityId)")
+    }
+
+    func resetUploadState() {
+        uploadState = .idle
     }
 
     func discardWorkout() {

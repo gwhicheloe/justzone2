@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -11,6 +11,9 @@
 		1100000000000002 /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000002 /* Workout.swift */; };
 		1100000000000003 /* WorkoutSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000003 /* WorkoutSample.swift */; };
 		1100000000000004 /* DeviceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000004 /* DeviceInfo.swift */; };
+		1100000000000020 /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000020 /* HealthKitManager.swift */; };
+		1100000000000021 /* LiveActivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000021 /* LiveActivityManager.swift */; };
+		1100000000000022 /* WorkoutActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000022 /* WorkoutActivityAttributes.swift */; };
 		1100000000000005 /* BluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000005 /* BluetoothManager.swift */; };
 		1100000000000006 /* KickrService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000006 /* KickrService.swift */; };
 		1100000000000007 /* HeartRateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000007 /* HeartRateService.swift */; };
@@ -32,7 +35,34 @@
 		18C58F072F294AA100B04598 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C58F062F294AA100B04598 /* HistoryView.swift */; };
 		18C58F092F294EFC00B04598 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C58F082F294EFC00B04598 /* SettingsViewModel.swift */; };
 		18C58F0B2F294F0700B04598 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C58F0A2F294F0700B04598 /* SettingsView.swift */; };
+		18C58F142F2A9F5A00B04598 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18C58F132F2A9F5A00B04598 /* WidgetKit.framework */; };
+		18C58F162F2A9F5A00B04598 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18C58F152F2A9F5A00B04598 /* SwiftUI.framework */; };
+		18C58F272F2A9F5C00B04598 /* JustZone2LiveActivityExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 18C58F112F2A9F5A00B04598 /* JustZone2LiveActivityExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		18C58F252F2A9F5C00B04598 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8800000000000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 18C58F102F2A9F5A00B04598;
+			remoteInfo = JustZone2LiveActivityExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		18C58F2C2F2A9F5C00B04598 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				18C58F272F2A9F5C00B04598 /* JustZone2LiveActivityExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		187B10692F263AC700165DEA /* AppIconGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIconGenerator.swift; sourceTree = "<group>"; };
@@ -40,6 +70,10 @@
 		18C58F062F294AA100B04598 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 		18C58F082F294EFC00B04598 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		18C58F0A2F294F0700B04598 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		18C58F0C2F2A9DEF00B04598 /* justzone2.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = justzone2.entitlements; sourceTree = "<group>"; };
+		18C58F112F2A9F5A00B04598 /* JustZone2LiveActivityExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = JustZone2LiveActivityExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		18C58F132F2A9F5A00B04598 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		18C58F152F2A9F5A00B04598 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		2200000000000001 /* justzone2App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = justzone2App.swift; sourceTree = "<group>"; };
 		2200000000000002 /* Workout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workout.swift; sourceTree = "<group>"; };
 		2200000000000003 /* WorkoutSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSample.swift; sourceTree = "<group>"; };
@@ -49,6 +83,9 @@
 		2200000000000007 /* HeartRateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateService.swift; sourceTree = "<group>"; };
 		2200000000000008 /* StravaService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StravaService.swift; sourceTree = "<group>"; };
 		2200000000000009 /* SetupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupViewModel.swift; sourceTree = "<group>"; };
+		2200000000000020 /* HealthKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
+		2200000000000021 /* LiveActivityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveActivityManager.swift; sourceTree = "<group>"; };
+		2200000000000022 /* WorkoutActivityAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutActivityAttributes.swift; sourceTree = "<group>"; };
 		220000000000000A /* WorkoutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutViewModel.swift; sourceTree = "<group>"; };
 		220000000000000B /* SummaryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryViewModel.swift; sourceTree = "<group>"; };
 		220000000000000C /* SetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupView.swift; sourceTree = "<group>"; };
@@ -64,7 +101,30 @@
 		3300000000000001 /* justzone2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = justzone2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		18C58F282F2A9F5C00B04598 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 18C58F102F2A9F5A00B04598 /* JustZone2LiveActivityExtension */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		18C58F172F2A9F5A00B04598 /* JustZone2LiveActivity */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (18C58F282F2A9F5C00B04598 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = JustZone2LiveActivity; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
+		18C58F0E2F2A9F5A00B04598 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				18C58F162F2A9F5A00B04598 /* SwiftUI.framework in Frameworks */,
+				18C58F142F2A9F5A00B04598 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4400000000000001 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -75,10 +135,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		18C58F122F2A9F5A00B04598 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				18C58F132F2A9F5A00B04598 /* WidgetKit.framework */,
+				18C58F152F2A9F5A00B04598 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		5500000000000001 = {
 			isa = PBXGroup;
 			children = (
 				5500000000000002 /* justzone2 */,
+				18C58F172F2A9F5A00B04598 /* JustZone2LiveActivity */,
+				18C58F122F2A9F5A00B04598 /* Frameworks */,
 				5500000000000003 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -86,6 +157,7 @@
 		5500000000000002 /* justzone2 */ = {
 			isa = PBXGroup;
 			children = (
+				18C58F0C2F2A9DEF00B04598 /* justzone2.entitlements */,
 				2200000000000001 /* justzone2App.swift */,
 				5500000000000004 /* Models */,
 				5500000000000005 /* Services */,
@@ -101,6 +173,7 @@
 			isa = PBXGroup;
 			children = (
 				3300000000000001 /* justzone2.app */,
+				18C58F112F2A9F5A00B04598 /* JustZone2LiveActivityExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -111,6 +184,7 @@
 				2200000000000002 /* Workout.swift */,
 				2200000000000003 /* WorkoutSample.swift */,
 				2200000000000004 /* DeviceInfo.swift */,
+				2200000000000022 /* WorkoutActivityAttributes.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -122,6 +196,8 @@
 				2200000000000006 /* KickrService.swift */,
 				2200000000000007 /* HeartRateService.swift */,
 				2200000000000008 /* StravaService.swift */,
+				2200000000000020 /* HealthKitManager.swift */,
+				2200000000000021 /* LiveActivityManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -183,6 +259,28 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		18C58F102F2A9F5A00B04598 /* JustZone2LiveActivityExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 18C58F292F2A9F5C00B04598 /* Build configuration list for PBXNativeTarget "JustZone2LiveActivityExtension" */;
+			buildPhases = (
+				18C58F0D2F2A9F5A00B04598 /* Sources */,
+				18C58F0E2F2A9F5A00B04598 /* Frameworks */,
+				18C58F0F2F2A9F5A00B04598 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				18C58F172F2A9F5A00B04598 /* JustZone2LiveActivity */,
+			);
+			name = JustZone2LiveActivityExtension;
+			packageProductDependencies = (
+			);
+			productName = JustZone2LiveActivityExtension;
+			productReference = 18C58F112F2A9F5A00B04598 /* JustZone2LiveActivityExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		6600000000000001 /* justzone2 */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7700000000000003 /* Build configuration list for PBXNativeTarget "justzone2" */;
@@ -190,10 +288,12 @@
 				6600000000000002 /* Sources */,
 				4400000000000001 /* Frameworks */,
 				6600000000000003 /* Resources */,
+				18C58F2C2F2A9F5C00B04598 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				18C58F262F2A9F5C00B04598 /* PBXTargetDependency */,
 			);
 			name = justzone2;
 			productName = justzone2;
@@ -207,9 +307,12 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1500;
-				LastUpgradeCheck = 1500;
+				LastSwiftUpdateCheck = 2620;
+				LastUpgradeCheck = 2620;
 				TargetAttributes = {
+					18C58F102F2A9F5A00B04598 = {
+						CreatedOnToolsVersion = 26.2;
+					};
 					6600000000000001 = {
 						CreatedOnToolsVersion = 15.0;
 					};
@@ -229,11 +332,19 @@
 			projectRoot = "";
 			targets = (
 				6600000000000001 /* justzone2 */,
+				18C58F102F2A9F5A00B04598 /* JustZone2LiveActivityExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		18C58F0F2F2A9F5A00B04598 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6600000000000003 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -245,6 +356,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		18C58F0D2F2A9F5A00B04598 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6600000000000002 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -273,12 +391,83 @@
 				1100000000000011 /* DurationPicker.swift in Sources */,
 				1100000000000012 /* FITEncoder.swift in Sources */,
 				1100000000000013 /* Constants.swift in Sources */,
+				1100000000000020 /* HealthKitManager.swift in Sources */,
+				1100000000000021 /* LiveActivityManager.swift in Sources */,
+				1100000000000022 /* WorkoutActivityAttributes.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		18C58F262F2A9F5C00B04598 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 18C58F102F2A9F5A00B04598 /* JustZone2LiveActivityExtension */;
+			targetProxy = 18C58F252F2A9F5C00B04598 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		18C58F2A2F2A9F5C00B04598 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = JustZone2LiveActivity/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = JustZone2LiveActivity;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.justzone2.app.JustZone2LiveActivity;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		18C58F2B2F2A9F5C00B04598 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = JustZone2LiveActivity/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = JustZone2LiveActivity;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.justzone2.app.JustZone2LiveActivity;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		9900000000000001 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -314,6 +503,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = N66DNSAQQ9;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -331,12 +521,13 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -377,6 +568,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = N66DNSAQQ9;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -388,11 +580,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -404,18 +597,22 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CODE_SIGN_ENTITLEMENTS = justzone2/justzone2.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = N66DNSAQQ9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = justzone2/Resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = JustZone2;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "JustZone2 needs Bluetooth to connect to your KICKR trainer and heart rate monitor.";
+				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "JustZone2 needs Bluetooth to connect to your KICKR trainer and heart rate monitor.";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "JustZone2 reads your heart rate during workouts to track Zone 2 training.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "JustZone2 saves your workouts to Apple Health so they appear in the Fitness app.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "JustZone2 saves your workout chart to your photo library so you can add it to Strava.";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -439,18 +636,22 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CODE_SIGN_ENTITLEMENTS = justzone2/justzone2.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = N66DNSAQQ9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = justzone2/Resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = JustZone2;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "JustZone2 needs Bluetooth to connect to your KICKR trainer and heart rate monitor.";
+				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "JustZone2 needs Bluetooth to connect to your KICKR trainer and heart rate monitor.";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "JustZone2 reads your heart rate during workouts to track Zone 2 training.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "JustZone2 saves your workouts to Apple Health so they appear in the Fitness app.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "JustZone2 saves your workout chart to your photo library so you can add it to Strava.";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -471,6 +672,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		18C58F292F2A9F5C00B04598 /* Build configuration list for PBXNativeTarget "JustZone2LiveActivityExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				18C58F2A2F2A9F5C00B04598 /* Debug */,
+				18C58F2B2F2A9F5C00B04598 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		7700000000000001 /* Build configuration list for PBXProject "justzone2" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

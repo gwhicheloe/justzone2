@@ -6,6 +6,7 @@ struct SummaryView: View {
     @ObservedObject var viewModel: SummaryViewModel
     var onDismiss: () -> Void
     @State private var chartSaved = false
+    @State private var showPhotoSavedAlert = false
 
     var body: some View {
         ScrollView {
@@ -119,14 +120,16 @@ struct SummaryView: View {
                             }
                             .padding()
 
-                        case .success:
-                            VStack(spacing: 12) {
-                                HStack {
-                                    Image(systemName: "checkmark.circle.fill")
-                                        .foregroundColor(.green)
-                                    Text("Uploaded to Strava!")
-                                        .fontWeight(.semibold)
-                                }
+                        case .success(let activityId):
+                            VStack(spacing: 16) {
+                                // Big success checkmark
+                                Image(systemName: "checkmark.circle.fill")
+                                    .font(.system(size: 50))
+                                    .foregroundColor(.green)
+
+                                Text("Uploaded to Strava!")
+                                    .font(.headline)
+                                    .fontWeight(.bold)
 
                                 if chartSaved {
                                     HStack {
@@ -134,19 +137,21 @@ struct SummaryView: View {
                                             .foregroundColor(.blue)
                                         Text("Chart saved to Photos")
                                             .font(.caption)
-                                            .foregroundColor(.secondary)
                                     }
+                                    .foregroundColor(.secondary)
                                 }
 
-                                if let url = viewModel.stravaActivityURL {
-                                    Link(destination: url) {
-                                        HStack {
-                                            Text("View on Strava")
-                                            Image(systemName: "arrow.up.right.square")
-                                        }
-                                        .font(.subheadline)
-                                        .foregroundColor(.orange)
+                                Link(destination: URL(string: "https://www.strava.com/activities/\(activityId)")!) {
+                                    HStack {
+                                        Text("View on Strava")
+                                        Image(systemName: "arrow.up.right.square")
                                     }
+                                    .font(.headline)
+                                    .foregroundColor(.white)
+                                    .frame(maxWidth: .infinity)
+                                    .padding()
+                                    .background(Color.orange)
+                                    .cornerRadius(12)
                                 }
                             }
                             .padding()
@@ -167,6 +172,7 @@ struct SummaryView: View {
                                     .foregroundColor(.secondary)
 
                                 Button("Retry") {
+                                    viewModel.resetUploadState()
                                     Task {
                                         await viewModel.uploadToStrava()
                                     }
@@ -213,6 +219,11 @@ struct SummaryView: View {
         .background(Color(.systemGroupedBackground))
         .navigationBarBackButtonHidden(true)
         .navigationTitle("Summary")
+        .alert("Photo Saved", isPresented: $showPhotoSavedAlert) {
+            Button("OK", role: .cancel) { }
+        } message: {
+            Text("Your workout chart has been saved to Photos. You can add it to your Strava activity.")
+        }
     }
 
     @MainActor
@@ -238,6 +249,7 @@ struct SummaryView: View {
         // Save to photo library
         UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
         chartSaved = true
+        showPhotoSavedAlert = true
         print("Chart saved to photos successfully")
     }
 }
