@@ -2,14 +2,26 @@
 
 A minimal iOS app for Zone 2 training that controls a Wahoo KICKR in ERG mode, records heart rate, and uploads workouts to Strava.
 
+## Design Principals
+
+- **Minimal**: The app should be as simple as possible, with no frills or distractions.
+- **Intuitive**: The app should be easy to use, with clear instructions and feedback.
+- **Robust**: The bluetooth connection should be reliable as possible. A drop out during a workout is terrible.
+- **Coding Standard**: The App should pass an Apple code review and use best practices and the appropriate libraries - remember this is a workout app.
+- **Professional**: The app should be professional and polished, with a modern look and feel.
+- **Performance**: The app should be fast and responsive, with minimal lag or delay.
+
 ## Tech Stack
 
-- **Platform**: iOS 16+
+- **Platform**: iOS 26+
 - **Language**: Swift 5.9+
 - **UI**: SwiftUI
 - **Bluetooth**: CoreBluetooth (FTMS protocol for KICKR, standard HR profile)
+- **Health**: HealthKit (HKWorkoutSession for background execution, saves to Apple Health)
+- **Live Activities**: ActivityKit (lock screen visibility during workouts)
 - **Auth**: ASWebAuthenticationSession for Strava OAuth
 - **Networking**: URLSession
+- **Backend**: Cloudflare Workers (secure Strava token exchange)
 
 ## Project Structure
 
@@ -19,20 +31,27 @@ justzone2/
 ├── Models/
 │   ├── Workout.swift           # Workout data with samples and stats
 │   ├── WorkoutSample.swift     # Individual HR/power sample
-│   └── DeviceInfo.swift        # BLE device representation
+│   ├── DeviceInfo.swift        # BLE device representation
+│   └── WorkoutActivityAttributes.swift  # Live Activity data model
 ├── Services/
 │   ├── BluetoothManager.swift  # CBCentralManager wrapper
 │   ├── KickrService.swift      # FTMS ERG mode control
 │   ├── HeartRateService.swift  # HR monitor connection
-│   └── StravaService.swift     # OAuth + upload
+│   ├── StravaService.swift     # OAuth + upload (uses Cloudflare Worker)
+│   ├── HealthKitManager.swift  # HKWorkoutSession management
+│   └── LiveActivityManager.swift  # Lock screen Live Activity
 ├── ViewModels/
 │   ├── SetupViewModel.swift    # Device pairing state
 │   ├── WorkoutViewModel.swift  # Active workout logic
-│   └── SummaryViewModel.swift  # Post-workout upload
+│   ├── SummaryViewModel.swift  # Post-workout upload
+│   ├── HistoryViewModel.swift  # Strava activity history
+│   └── SettingsViewModel.swift # App settings
 ├── Views/
 │   ├── SetupView.swift         # Main setup screen
 │   ├── WorkoutView.swift       # Active workout display
 │   ├── SummaryView.swift       # Results + Strava upload
+│   ├── HistoryView.swift       # Activity history + graph
+│   ├── SettingsView.swift      # Settings screen
 │   └── Components/
 │       ├── DeviceRow.swift
 │       ├── PowerPicker.swift
@@ -43,6 +62,17 @@ justzone2/
 └── Resources/
     ├── Info.plist
     └── Assets.xcassets/
+
+JustZone2LiveActivity/          # Widget extension for Live Activities
+├── WorkoutActivityAttributes.swift
+├── JustZone2LiveActivityBundle.swift
+└── JustZone2LiveActivityLiveActivity.swift
+
+cloudflare-worker/              # Strava auth backend (see Security section)
+├── src/index.js
+├── wrangler.toml
+├── package.json
+└── README.md
 ```
 
 ## Key Bluetooth UUIDs
@@ -65,19 +95,74 @@ heartRateMeasurement = "2A37"
 - `0x07` - Start/Resume
 - `0x08 + 0x01` - Stop
 
-## Configuration Required
+## Strava Authentication Security
 
-Before running, update `Constants.swift`:
-```swift
-static let stravaClientId = "YOUR_CLIENT_ID"
-static let stravaClientSecret = "YOUR_CLIENT_SECRET"
+**The Strava client secret is NOT in the iOS app.** Token exchange is handled by a Cloudflare Worker.
+
+### How it works
+
+1. App opens Strava OAuth in browser (client ID is public, that's fine)
+2. User authorizes, Strava redirects back with authorization code
+3. App sends code to **Cloudflare Worker** (not Strava)
+4. Worker exchanges code for tokens using the secret (stored in Cloudflare)
+5. Worker returns tokens to app
+6. App stores tokens in Keychain, never sees the secret
+
+### Cloudflare Worker Setup
+
+The worker is deployed at: `https://justzone2-strava-auth.george-whicheloe.workers.dev`
+
+**To deploy/update the worker:**
+
+```bash
+cd cloudflare-worker
+npm install
+npx wrangler login          # First time only - authenticates with Cloudflare
+npx wrangler secret put STRAVA_CLIENT_ID
+npx wrangler secret put STRAVA_CLIENT_SECRET
+npx wrangler deploy
 ```
 
-Register your app at https://www.strava.com/settings/api with callback domain `justzone2`.
+**Worker endpoints:**
+- `POST /token` - Exchange auth code for tokens (`{"code": "..."}`)
+- `POST /refresh` - Refresh expired tokens (`{"refresh_token": "..."}`)
+
+**If you need to rotate the Strava secret:**
+1. Generate new secret at https://www.strava.com/settings/api
+2. Update worker: `npx wrangler secret put STRAVA_CLIENT_SECRET`
+3. No app changes needed
+
+### Strava App Registration
+
+Register at https://www.strava.com/settings/api:
+- Authorization Callback Domain: `justzone2`
+- The client ID is in `Constants.swift` (public, safe to commit)
+- The client secret is ONLY in Cloudflare (never in the app or git)
+
+## HealthKit Integration
+
+Workouts use `HKWorkoutSession` for:
+- Reliable background execution (app keeps running when screen locks)
+- Green workout indicator in status bar
+- Workouts saved to Apple Health (appear in Fitness app)
+- HR and power samples recorded to HealthKit
+
+**Required entitlements:** HealthKit capability with Background Delivery enabled.
+
+## Live Activities
+
+During workouts, a Live Activity shows on the lock screen and Dynamic Island:
+- Elapsed time
+- Current heart rate
+- Current power
+- Progress bar toward target duration
+
+The Live Activity extension is in `JustZone2LiveActivity/`.
 
 ## Testing Notes
 
 - **Bluetooth requires physical device** - Simulator doesn't support BLE
+- **Live Activities** - Best tested on physical device (simulator has issues)
 - KICKR should appear in device list when powered on
 - ERG mode sets resistance to maintain target power regardless of cadence
 - Strava uploads use TCX format with power extension data
@@ -88,3 +173,19 @@ Register your app at https://www.strava.com/settings/api with callback domain `j
 - **@MainActor**: All UI-bound classes use main actor isolation
 - **Combine**: Published properties for reactive updates
 - **CBPeripheralDelegate**: Async BLE operations via delegate callbacks wrapped in Task
+
+## Current State (Jan 2025)
+
+### Features
+- **History tab** - Zone 2 activities from Strava with list and graph views
+- **Graph view** - Domain-based zooming with pinch gesture, anchored to most recent data
+- **Settings tab** - Zone 2 HR range pickers, Strava connect/disconnect
+- **HealthKit** - Workouts save to Apple Health with HR and power data
+- **Live Activities** - Lock screen and Dynamic Island visibility during workouts
+- **Secure auth** - Strava client secret handled by Cloudflare Worker
+
+### Key Files
+- `HealthKitManager.swift` - HKWorkoutSession for background execution
+- `LiveActivityManager.swift` - ActivityKit Live Activity management
+- `HistoryView.swift` - Graph with `MagnifyGesture` for pinch-to-zoom
+- `StravaService.swift` - OAuth via Cloudflare Worker
