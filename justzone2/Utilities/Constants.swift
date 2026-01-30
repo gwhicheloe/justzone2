@@ -24,14 +24,16 @@ enum Constants {
     }
 
     // MARK: - Strava API
-    // Get these from https://www.strava.com/settings/api
-    // Authorization Callback Domain must be set to: justzone2
+    // Client ID is public (used in OAuth URL shown to user)
+    // Client secret is handled by the Cloudflare Worker - never in the app
     static let stravaClientId = "197806"
-    static let stravaClientSecret = "1688f93d0bf57df03395cdac806349f2efa93f9f"
     static let stravaRedirectUri = "justzone2://justzone2"
     static let stravaAuthUrl = "https://www.strava.com/oauth/authorize"
-    static let stravaTokenUrl = "https://www.strava.com/oauth/token"
     static let stravaUploadUrl = "https://www.strava.com/api/v3/uploads"
+
+    // Cloudflare Worker handles token exchange securely
+    // Deploy worker from /cloudflare-worker and update this URL
+    static let stravaAuthWorkerURL = "https://justzone2-strava-auth.george-whicheloe.workers.dev"
 
     // MARK: - Workout Defaults
     static let defaultTargetPower = 150

@@ -234,17 +234,13 @@ class StravaService: NSObject, ObservableObject {
     }
 
     private func exchangeCodeForTokens(_ code: String) async throws {
-        var request = URLRequest(url: URL(string: Constants.stravaTokenUrl)!)
+        // Use Cloudflare Worker to exchange code - client secret never touches the app
+        var request = URLRequest(url: URL(string: "\(Constants.stravaAuthWorkerURL)/token")!)
         request.httpMethod = "POST"
-        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
-        let body = [
-            "client_id": Constants.stravaClientId,
-            "client_secret": Constants.stravaClientSecret,
-            "code": code,
-            "grant_type": "authorization_code"
-        ]
-        request.httpBody = body.map { "\($0.key)=\($0.value)" }.joined(separator: "&").data(using: .utf8)
+        let body = ["code": code]
+        request.httpBody = try JSONEncoder().encode(body)
 
         let (data, response) = try await URLSession.shared.data(for: request)
 
@@ -254,7 +250,7 @@ class StravaService: NSObject, ObservableObject {
 
         if httpResponse.statusCode != 200 {
             let errorMessage = String(data: data, encoding: .utf8) ?? "Unknown error"
-            print("Strava token exchange failed: \(errorMessage)")
+            print("Token exchange failed: \(errorMessage)")
             throw StravaError.tokenExchangeFailed
         }
 
@@ -272,17 +268,13 @@ class StravaService: NSObject, ObservableObject {
             throw StravaError.notAuthenticated
         }
 
-        var request = URLRequest(url: URL(string: Constants.stravaTokenUrl)!)
+        // Use Cloudflare Worker to refresh - client secret never touches the app
+        var request = URLRequest(url: URL(string: "\(Constants.stravaAuthWorkerURL)/refresh")!)
         request.httpMethod = "POST"
-        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
-        let body = [
-            "client_id": Constants.stravaClientId,
-            "client_secret": Constants.stravaClientSecret,
-            "refresh_token": refreshToken,
-            "grant_type": "refresh_token"
-        ]
-        request.httpBody = body.map { "\($0.key)=\($0.value)" }.joined(separator: "&").data(using: .utf8)
+        let body = ["refresh_token": refreshToken]
+        request.httpBody = try JSONEncoder().encode(body)
 
         let (data, response) = try await URLSession.shared.data(for: request)
 
