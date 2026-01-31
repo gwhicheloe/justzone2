@@ -46,10 +46,11 @@ struct WorkoutView: View {
                     // Time
                     VStack(spacing: 4) {
                         Text(viewModel.formatTime(viewModel.elapsedTime))
-                            .font(.system(size: 48, weight: .bold, design: .monospaced))
+                            .font(.displayMedium)
+                            .monospacedDigit()
 
                         Text("Remaining: \(viewModel.formatTime(viewModel.remainingTime))")
-                            .font(.subheadline)
+                            .font(.bodyMedium)
                             .foregroundColor(.secondary)
                     }
 
@@ -105,7 +106,7 @@ struct WorkoutView: View {
         .toolbar {
             ToolbarItem(placement: .principal) {
                 Text(stateTitle)
-                    .font(.headline)
+                    .font(.headlineSmall)
             }
         }
         .navigationDestination(isPresented: $showSummary) {
@@ -161,20 +162,20 @@ struct CompactMetricView: View {
             HStack(spacing: 4) {
                 Image(systemName: icon)
                     .foregroundColor(iconColor)
-                    .font(.caption)
+                    .font(.labelMedium)
             }
 
             HStack(alignment: .lastTextBaseline, spacing: 2) {
                 Text(value)
-                    .font(.system(size: 40, weight: .bold, design: .rounded))
+                    .font(.displaySmall)
                 Text(unit)
-                    .font(.caption)
+                    .font(.labelMedium)
                     .foregroundColor(.secondary)
             }
 
             if let target = targetValue {
                 Text("Target: \(target)W")
-                    .font(.caption2)
+                    .font(.labelSmall)
                     .foregroundColor(.secondary)
             }
         }
@@ -185,6 +186,17 @@ struct CompactMetricView: View {
 struct WorkoutChartView: View {
     let chartData: [ChartDataPoint]
     let targetPower: Int
+
+    // Zone 2 HR settings from UserDefaults
+    private var zone2Min: Int {
+        let value = UserDefaults.standard.integer(forKey: "zone2Min")
+        return value > 0 ? value : 120
+    }
+
+    private var zone2Max: Int {
+        let value = UserDefaults.standard.integer(forKey: "zone2Max")
+        return value > 0 ? value : 140
+    }
 
     private var powerData: [(time: Double, value: Int)] {
         chartData.compactMap { point in
@@ -219,7 +231,7 @@ struct WorkoutChartView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text("Workout Progress")
-                .font(.headline)
+                .font(.headlineSmall)
 
             HStack(spacing: 0) {
                 // Left Y-axis labels (Power)
@@ -228,7 +240,7 @@ struct WorkoutChartView: View {
                     Spacer()
                     Text("\(powerRange.lowerBound)")
                 }
-                .font(.caption2)
+                .font(.tiny)
                 .foregroundColor(.blue)
                 .frame(width: 30)
 
@@ -259,6 +271,15 @@ struct WorkoutChartView: View {
 
                     // Heart rate chart (right axis)
                     Chart {
+                        // Zone 2 HR band
+                        RectangleMark(
+                            xStart: .value("Start", 0),
+                            xEnd: .value("End", max(1, maxTime)),
+                            yStart: .value("Zone Min", zone2Min),
+                            yEnd: .value("Zone Max", zone2Max)
+                        )
+                        .foregroundStyle(.green.opacity(0.2))
+
                         ForEach(Array(heartRateData.enumerated()), id: \.offset) { _, point in
                             LineMark(
                                 x: .value("Time", point.time),
@@ -281,7 +302,7 @@ struct WorkoutChartView: View {
                     Spacer()
                     Text("\(hrRange.lowerBound)")
                 }
-                .font(.caption2)
+                .font(.tiny)
                 .foregroundColor(.red)
                 .frame(width: 30)
             }
@@ -290,15 +311,27 @@ struct WorkoutChartView: View {
             HStack(spacing: 16) {
                 HStack(spacing: 4) {
                     Circle().fill(Color.blue).frame(width: 8, height: 8)
-                    Text("Power (W)").font(.caption2).foregroundColor(.secondary)
+                    Text("Power (W)")
+                        .font(.labelSmall)
+                        .foregroundColor(.secondary)
                 }
                 HStack(spacing: 4) {
                     Circle().fill(Color.red).frame(width: 8, height: 8)
-                    Text("HR (bpm)").font(.caption2).foregroundColor(.secondary)
+                    Text("HR (bpm)")
+                        .font(.labelSmall)
+                        .foregroundColor(.secondary)
                 }
                 HStack(spacing: 4) {
                     Circle().fill(Color.green.opacity(0.5)).frame(width: 8, height: 8)
-                    Text("Target").font(.caption2).foregroundColor(.secondary)
+                    Text("Target")
+                        .font(.labelSmall)
+                        .foregroundColor(.secondary)
+                }
+                HStack(spacing: 4) {
+                    RoundedRectangle(cornerRadius: 2).fill(Color.green.opacity(0.2)).frame(width: 12, height: 8)
+                    Text("Zone 2")
+                        .font(.labelSmall)
+                        .foregroundColor(.secondary)
                 }
             }
         }

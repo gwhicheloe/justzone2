@@ -7,6 +7,7 @@ struct SummaryView: View {
     var onDismiss: () -> Void
     @State private var chartSaved = false
     @State private var showPhotoSavedAlert = false
+    @State private var hasUploaded = false
 
     var body: some View {
         ScrollView {
@@ -17,8 +18,7 @@ struct SummaryView: View {
                     .foregroundColor(.green)
 
                 Text("Workout Complete!")
-                    .font(.title)
-                    .fontWeight(.bold)
+                    .font(.headlineLarge)
 
                 // Stats Grid
                 LazyVGrid(columns: [
@@ -64,8 +64,7 @@ struct SummaryView: View {
                 // Strava Section
                 VStack(spacing: 16) {
                     Text("STRAVA")
-                        .font(.title2)
-                        .fontWeight(.bold)
+                        .font(.headlineMedium)
                         .foregroundColor(.orange)
                         .tracking(2)
 
@@ -79,7 +78,7 @@ struct SummaryView: View {
                                 Image(systemName: "link")
                                 Text("Connect to Strava")
                             }
-                            .font(.headline)
+                            .font(.headlineSmall)
                             .foregroundColor(.white)
                             .frame(maxWidth: .infinity)
                             .padding()
@@ -89,25 +88,40 @@ struct SummaryView: View {
                     } else {
                         switch viewModel.uploadState {
                         case .idle:
-                            Button(action: {
-                                Task {
-                                    await viewModel.uploadToStrava()
-                                    // Save chart after successful upload
-                                    if case .success = viewModel.uploadState {
-                                        saveChartToPhotos()
-                                    }
-                                }
-                            }) {
+                            if hasUploaded {
+                                // Already uploaded, show disabled state
                                 HStack {
-                                    Image(systemName: "arrow.up.circle.fill")
-                                    Text("Upload to Strava")
+                                    Image(systemName: "checkmark.circle.fill")
+                                    Text("Already Uploaded")
                                 }
-                                .font(.headline)
-                                .foregroundColor(.white)
+                                .font(.headlineSmall)
+                                .foregroundColor(.white.opacity(0.7))
                                 .frame(maxWidth: .infinity)
                                 .padding()
-                                .background(Color.orange)
+                                .background(Color.gray)
                                 .cornerRadius(12)
+                            } else {
+                                Button(action: {
+                                    Task {
+                                        await viewModel.uploadToStrava()
+                                        // Save chart after successful upload
+                                        if case .success = viewModel.uploadState {
+                                            hasUploaded = true
+                                            saveChartToPhotos()
+                                        }
+                                    }
+                                }) {
+                                    HStack {
+                                        Image(systemName: "arrow.up.circle.fill")
+                                        Text("Upload to Strava")
+                                    }
+                                    .font(.headlineSmall)
+                                    .foregroundColor(.white)
+                                    .frame(maxWidth: .infinity)
+                                    .padding()
+                                    .background(Color.orange)
+                                    .cornerRadius(12)
+                                }
                             }
 
                         case .uploading:
@@ -115,7 +129,7 @@ struct SummaryView: View {
                                 ProgressView(value: viewModel.uploadProgress)
                                     .progressViewStyle(LinearProgressViewStyle(tint: .orange))
                                 Text("Uploading...")
-                                    .font(.subheadline)
+                                    .font(.bodyMedium)
                                     .foregroundColor(.secondary)
                             }
                             .padding()
@@ -128,15 +142,14 @@ struct SummaryView: View {
                                     .foregroundColor(.green)
 
                                 Text("Uploaded to Strava!")
-                                    .font(.headline)
-                                    .fontWeight(.bold)
+                                    .font(.headlineSmall)
 
                                 if chartSaved {
                                     HStack {
                                         Image(systemName: "photo.fill")
                                             .foregroundColor(.blue)
                                         Text("Chart saved to Photos")
-                                            .font(.caption)
+                                            .font(.labelMedium)
                                     }
                                     .foregroundColor(.secondary)
                                 }
@@ -146,7 +159,7 @@ struct SummaryView: View {
                                         Text("View on Strava")
                                         Image(systemName: "arrow.up.right.square")
                                     }
-                                    .font(.headline)
+                                    .font(.headlineSmall)
                                     .foregroundColor(.white)
                                     .frame(maxWidth: .infinity)
                                     .padding()
@@ -164,11 +177,11 @@ struct SummaryView: View {
                                     Image(systemName: "exclamationmark.triangle.fill")
                                         .foregroundColor(.red)
                                     Text("Upload Failed")
-                                        .fontWeight(.semibold)
+                                        .font(.headlineSmall)
                                 }
 
                                 Text(message)
-                                    .font(.caption)
+                                    .font(.labelMedium)
                                     .foregroundColor(.secondary)
 
                                 Button("Retry") {
@@ -177,7 +190,7 @@ struct SummaryView: View {
                                         await viewModel.uploadToStrava()
                                     }
                                 }
-                                .font(.subheadline)
+                                .font(.bodyMedium)
                                 .foregroundColor(.orange)
                             }
                             .padding()
@@ -196,7 +209,7 @@ struct SummaryView: View {
                         onDismiss()
                     }) {
                         Text("Done")
-                            .font(.headline)
+                            .font(.headlineSmall)
                             .foregroundColor(.white)
                             .frame(maxWidth: .infinity)
                             .padding()
@@ -209,7 +222,7 @@ struct SummaryView: View {
                         onDismiss()
                     }) {
                         Text("Discard Workout")
-                            .font(.subheadline)
+                            .font(.bodyMedium)
                             .foregroundColor(.red)
                     }
                 }
@@ -265,11 +278,10 @@ struct StatCard: View {
                 .foregroundColor(.secondary)
 
             Text(value)
-                .font(.title2)
-                .fontWeight(.bold)
+                .font(.headlineMedium)
 
             Text(title)
-                .font(.caption)
+                .font(.labelMedium)
                 .foregroundColor(.secondary)
         }
         .frame(maxWidth: .infinity)
@@ -296,7 +308,7 @@ struct SummaryChartView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text("Workout Chart")
-                .font(.headline)
+                .font(.headlineSmall)
 
             MiniChartView(chartData: chartData, targetPower: workout.targetPower)
                 .frame(height: 150)
@@ -305,6 +317,7 @@ struct SummaryChartView: View {
 }
 
 // Branded chart for export to photos - uses simple Path drawing for ImageRenderer compatibility
+// Note: Uses explicit fonts for ImageRenderer compatibility with Arial Rounded
 struct ExportableChartView: View {
     let workout: Workout
 
@@ -333,7 +346,7 @@ struct ExportableChartView: View {
 
             // Large pale green "2" watermark
             Text("2")
-                .font(.system(size: 500, weight: .bold, design: .rounded))
+                .font(.custom("ArialRoundedMTBold", size: 500))
                 .foregroundColor(Color.green.opacity(0.15))
                 .offset(x: 100, y: 50)
 
@@ -343,16 +356,15 @@ struct ExportableChartView: View {
                 HStack {
                     VStack(alignment: .leading, spacing: 4) {
                         Text("Zone 2 Workout")
-                            .font(.title)
-                            .fontWeight(.bold)
+                            .font(.custom("ArialRoundedMTBold", size: 28))
                             .foregroundColor(.black)
                         Text(dateString)
-                            .font(.subheadline)
+                            .font(.custom("ArialRoundedMTBold", size: 15))
                             .foregroundColor(.gray)
                     }
                     Spacer()
                     Text("JustZone2")
-                        .font(.headline)
+                        .font(.custom("ArialRoundedMTBold", size: 17))
                         .foregroundColor(.green)
                 }
                 .padding(.horizontal)
@@ -386,17 +398,23 @@ struct ExportableChartView: View {
                 HStack(spacing: 24) {
                     HStack(spacing: 6) {
                         Circle().fill(Color.blue).frame(width: 10, height: 10)
-                        Text("Power (W)").font(.caption).foregroundColor(.gray)
+                        Text("Power (W)")
+                            .font(.custom("ArialRoundedMTBold", size: 12))
+                            .foregroundColor(.gray)
                     }
                     HStack(spacing: 6) {
                         Circle().fill(Color.red).frame(width: 10, height: 10)
-                        Text("Heart Rate (bpm)").font(.caption).foregroundColor(.gray)
+                        Text("Heart Rate (bpm)")
+                            .font(.custom("ArialRoundedMTBold", size: 12))
+                            .foregroundColor(.gray)
                     }
                     HStack(spacing: 6) {
                         Rectangle()
                             .fill(Color.green.opacity(0.5))
                             .frame(width: 20, height: 2)
-                        Text("Target").font(.caption).foregroundColor(.gray)
+                        Text("Target")
+                            .font(.custom("ArialRoundedMTBold", size: 12))
+                            .foregroundColor(.gray)
                     }
                 }
             }
@@ -594,11 +612,10 @@ struct ExportStatView: View {
     var body: some View {
         VStack(spacing: 4) {
             Text(value)
-                .font(.title3)
-                .fontWeight(.bold)
+                .font(.custom("ArialRoundedMTBold", size: 20))
                 .foregroundColor(.black)
             Text(title)
-                .font(.caption)
+                .font(.custom("ArialRoundedMTBold", size: 12))
                 .foregroundColor(.gray)
         }
         .frame(maxWidth: .infinity)
@@ -648,7 +665,7 @@ struct MiniChartView: View {
                 Spacer()
                 Text("\(powerRange.lowerBound)")
             }
-            .font(.caption2)
+            .font(.tiny)
             .foregroundColor(.blue)
             .frame(width: 35)
 
@@ -705,7 +722,7 @@ struct MiniChartView: View {
                 Spacer()
                 Text("\(hrRange.lowerBound)")
             }
-            .font(.caption2)
+            .font(.tiny)
             .foregroundColor(.red)
             .frame(width: 35)
         }

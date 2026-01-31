@@ -7,12 +7,14 @@ struct PowerPicker: View {
     var body: some View {
         VStack(spacing: 4) {
             Text("Power")
-                .font(.subheadline)
+                .font(.bodyMedium)
                 .foregroundColor(.secondary)
 
             Picker("Target Power", selection: $selectedPower) {
                 ForEach(options, id: \.self) { power in
-                    Text("\(power)W").tag(power)
+                    Text("\(power)W")
+                        .font(.bodyLarge)
+                        .tag(power)
                 }
             }
             .pickerStyle(.wheel)

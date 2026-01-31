@@ -88,6 +88,55 @@ class StravaService: NSObject, ObservableObject {
 
     // MARK: - Fetch Activities
 
+    func fetchActivityStreams(activityId: Int) async throws -> ActivityStreams {
+        guard isAuthenticated else {
+            throw StravaError.notAuthenticated
+        }
+
+        // Refresh token if expired
+        if let expiry = tokenExpiry, Date() >= expiry {
+            try await refreshAccessToken()
+        }
+
+        guard let token = accessToken else {
+            throw StravaError.notAuthenticated
+        }
+
+        var components = URLComponents(string: "https://www.strava.com/api/v3/activities/\(activityId)/streams")!
+        components.queryItems = [
+            URLQueryItem(name: "keys", value: "heartrate,watts,time"),
+            URLQueryItem(name: "key_by_type", value: "true")
+        ]
+
+        var request = URLRequest(url: components.url!)
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+
+        let (data, response) = try await URLSession.shared.data(for: request)
+
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw StravaError.uploadFailed("Invalid response")
+        }
+
+        if httpResponse.statusCode == 404 {
+            // Streams not available (e.g., manual activity)
+            throw StravaError.streamsNotAvailable
+        }
+
+        if httpResponse.statusCode == 200 {
+            let streamResponse = try JSONDecoder().decode(StreamsResponse.self, from: data)
+            return ActivityStreams(
+                activityId: activityId,
+                fetchedAt: Date(),
+                time: streamResponse.time?.data ?? [],
+                heartrate: streamResponse.heartrate?.data,
+                watts: streamResponse.watts?.data
+            )
+        } else {
+            let errorMessage = String(data: data, encoding: .utf8) ?? "Unknown error"
+            throw StravaError.uploadFailed(errorMessage)
+        }
+    }
+
     func fetchActivities(page: Int = 1, perPage: Int = 100) async throws -> [StravaActivity] {
         guard isAuthenticated else {
             throw StravaError.notAuthenticated
@@ -397,6 +446,16 @@ private struct UploadStatusResponse: Decodable {
     }
 }
 
+private struct StreamsResponse: Decodable {
+    let time: StreamData?
+    let heartrate: StreamData?
+    let watts: StreamData?
+}
+
+private struct StreamData: Decodable {
+    let data: [Int]
+}
+
 // MARK: - Errors
 
 enum StravaError: LocalizedError {
@@ -407,6 +466,7 @@ enum StravaError: LocalizedError {
     case notAuthenticated
     case uploadFailed(String)
     case uploadTimeout
+    case streamsNotAvailable
 
     var errorDescription: String? {
         switch self {
@@ -424,6 +484,8 @@ enum StravaError: LocalizedError {
             return "Upload failed: \(message)"
         case .uploadTimeout:
             return "Upload timed out"
+        case .streamsNotAvailable:
+            return "Stream data not available for this activity"
         }
     }
 }

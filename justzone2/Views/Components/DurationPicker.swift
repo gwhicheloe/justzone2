@@ -8,12 +8,14 @@ struct DurationPicker: View {
     var body: some View {
         VStack(spacing: 4) {
             Text("Duration")
-                .font(.subheadline)
+                .font(.bodyMedium)
                 .foregroundColor(.secondary)
 
             Picker("Duration", selection: $selectedDuration) {
                 ForEach(options, id: \.self) { duration in
-                    Text(formatDuration(duration)).tag(duration)
+                    Text(formatDuration(duration))
+                        .font(.bodyLarge)
+                        .tag(duration)
                 }
             }
             .pickerStyle(.wheel)

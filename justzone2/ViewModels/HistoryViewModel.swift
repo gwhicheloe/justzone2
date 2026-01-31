@@ -8,8 +8,11 @@ class HistoryViewModel: ObservableObject {
     @Published var error: String?
     @Published var isStravaConnected = false
     @Published var lastUpdated: Date?
+    @Published var loadingStreamsFor: Int?
+    @Published var streamsError: String?
 
     let stravaService: StravaService
+    let streamsCache = StreamsCacheService()
 
     private var cancellables = Set<AnyCancellable>()
     private let cacheKey = "cachedActivities"
@@ -143,5 +146,39 @@ class HistoryViewModel: ObservableObject {
         let formatter = DateFormatter()
         formatter.dateFormat = "MMM d yy HH:mm"
         return formatter.string(from: date)
+    }
+
+    // MARK: - Stream Loading
+
+    /// Check if streams are cached for an activity
+    func hasStreams(for activityId: Int) async -> Bool {
+        await streamsCache.hasStreams(for: activityId)
+    }
+
+    /// Load streams for an activity - checks cache first, fetches from Strava if missing
+    func loadStreams(for activity: StravaActivity) async -> ActivityStreams? {
+        // Check cache first
+        if let cached = await streamsCache.loadStreams(for: activity.id) {
+            return cached
+        }
+
+        // Fetch from Strava
+        loadingStreamsFor = activity.id
+        streamsError = nil
+
+        do {
+            let streams = try await stravaService.fetchActivityStreams(activityId: activity.id)
+            await streamsCache.saveStreams(streams)
+            loadingStreamsFor = nil
+            return streams
+        } catch StravaError.streamsNotAvailable {
+            streamsError = "Stream data not available for this activity"
+            loadingStreamsFor = nil
+            return nil
+        } catch {
+            streamsError = error.localizedDescription
+            loadingStreamsFor = nil
+            return nil
+        }
     }
 }

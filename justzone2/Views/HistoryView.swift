@@ -63,12 +63,12 @@ struct HistoryView: View {
                 .font(.system(size: 50))
                 .foregroundColor(.orange)
             Text("Connect to Strava")
-                .font(.headline)
+                .font(.headlineSmall)
             Button(action: {
                 Task { await viewModel.connectToStrava() }
             }) {
                 Text("Connect")
-                    .font(.subheadline)
+                    .font(.bodyMedium)
                     .foregroundColor(.white)
                     .padding(.horizontal, 20)
                     .padding(.vertical, 10)
@@ -82,7 +82,7 @@ struct HistoryView: View {
         VStack(spacing: 12) {
             ProgressView()
             Text("Loading...")
-                .font(.caption)
+                .font(.labelMedium)
                 .foregroundColor(.secondary)
         }
     }
@@ -90,16 +90,16 @@ struct HistoryView: View {
     private func errorView(_ error: String) -> some View {
         VStack(spacing: 12) {
             Image(systemName: "exclamationmark.triangle")
-                .font(.title)
+                .font(.headlineLarge)
                 .foregroundColor(.red)
             Text(error)
-                .font(.caption)
+                .font(.labelMedium)
                 .foregroundColor(.secondary)
                 .multilineTextAlignment(.center)
             Button("Retry") {
                 Task { await viewModel.loadActivities() }
             }
-            .font(.caption)
+            .font(.labelMedium)
             .foregroundColor(.orange)
         }
         .padding()
@@ -108,14 +108,14 @@ struct HistoryView: View {
     private var emptyView: some View {
         VStack(spacing: 12) {
             Image(systemName: "figure.indoor.cycle")
-                .font(.title)
+                .font(.headlineLarge)
                 .foregroundColor(.secondary)
             Text("No Zone 2 Workouts")
-                .font(.subheadline)
+                .font(.bodyMedium)
             Button("Refresh") {
                 Task { await viewModel.loadActivities() }
             }
-            .font(.caption)
+            .font(.labelMedium)
             .foregroundColor(.orange)
         }
     }
@@ -124,13 +124,15 @@ struct HistoryView: View {
         List {
             if let lastUpdated = viewModel.lastUpdated {
                 Text("Updated \(viewModel.formatDate(lastUpdated))")
-                    .font(.caption2)
+                    .font(.tiny)
                     .foregroundColor(.secondary)
                     .frame(maxWidth: .infinity, alignment: .center)
                     .listRowSeparator(.hidden)
             }
-            ForEach(viewModel.activities) { activity in
-                CompactActivityRow(activity: activity, viewModel: viewModel)
+            ForEach(Array(viewModel.activities.enumerated()), id: \.element.id) { index, activity in
+                NavigationLink(destination: ActivityDetailView(activityIndex: index, viewModel: viewModel)) {
+                    CompactActivityRowContent(activity: activity, viewModel: viewModel)
+                }
             }
         }
         .listStyle(.plain)
@@ -148,6 +150,7 @@ struct HistoryView: View {
             if chartData.isEmpty {
                 Spacer()
                 Text("No activities with HR and power data")
+                    .font(.bodyMedium)
                     .foregroundColor(.secondary)
                 Spacer()
             } else {
@@ -183,7 +186,7 @@ struct HistoryView: View {
                         AxisValueLabel {
                             if let hr = value.as(Double.self) {
                                 Text("\(Int(hr))")
-                                    .font(.caption2)
+                                    .font(.tiny)
                             }
                         }
                     }
@@ -214,12 +217,12 @@ struct HistoryView: View {
                         }
                     }) {
                         Image(systemName: "minus.magnifyingglass")
-                            .font(.title3)
+                            .font(.headlineMedium)
                     }
                     .disabled(zoomLevel <= 1.01)
 
                     Text(String(format: "%.1fx", zoomLevel))
-                        .font(.caption)
+                        .font(.labelMedium)
                         .monospacedDigit()
                         .frame(width: 40)
 
@@ -230,7 +233,7 @@ struct HistoryView: View {
                         }
                     }) {
                         Image(systemName: "plus.magnifyingglass")
-                            .font(.title3)
+                            .font(.headlineMedium)
                     }
                     .disabled(zoomLevel >= 10.0)
 
@@ -243,7 +246,7 @@ struct HistoryView: View {
                                 baseZoomLevel = 1.0
                             }
                         }
-                        .font(.caption)
+                        .font(.labelMedium)
                         .foregroundColor(.orange)
                     }
                 }
@@ -253,38 +256,38 @@ struct HistoryView: View {
                 VStack(spacing: 6) {
                     HStack(spacing: 4) {
                         Text("Color = Power:")
-                            .font(.caption2)
+                            .font(.tiny)
                             .foregroundColor(.secondary)
                         Circle().fill(.green).frame(width: 8, height: 8)
                         Text("Low")
-                            .font(.caption2)
+                            .font(.tiny)
                             .foregroundColor(.secondary)
                         LinearGradient(colors: [.green, .yellow, .red], startPoint: .leading, endPoint: .trailing)
                             .frame(width: 50, height: 8)
                             .cornerRadius(4)
                         Circle().fill(.red).frame(width: 8, height: 8)
                         Text("High")
-                            .font(.caption2)
+                            .font(.tiny)
                             .foregroundColor(.secondary)
                     }
                     HStack(spacing: 4) {
                         Text("Size = Duration:")
-                            .font(.caption2)
+                            .font(.tiny)
                             .foregroundColor(.secondary)
                         Circle().fill(.gray).frame(width: 6, height: 6)
                         Text("Short")
-                            .font(.caption2)
+                            .font(.tiny)
                             .foregroundColor(.secondary)
                         Circle().fill(.gray).frame(width: 12, height: 12)
                         Text("Long")
-                            .font(.caption2)
+                            .font(.tiny)
                             .foregroundColor(.secondary)
                     }
                 }
                 .padding(.top, 4)
 
                 Text("Pinch to zoom • Shows most recent when zoomed")
-                    .font(.caption2)
+                    .font(.tiny)
                     .foregroundColor(.secondary)
 
                 Spacer()
@@ -332,7 +335,7 @@ struct HistoryView: View {
     }
 }
 
-struct CompactActivityRow: View {
+struct CompactActivityRowContent: View {
     let activity: StravaActivity
     let viewModel: HistoryViewModel
 
@@ -340,49 +343,46 @@ struct CompactActivityRow: View {
         HStack(spacing: 8) {
             // Date and time
             Text(viewModel.formatDateWithTime(activity.startDate))
-                .font(.caption)
-                .fontWeight(.medium)
+                .font(.labelMedium)
                 .frame(width: 105, alignment: .leading)
 
             // Stats - duration, power, HR
             HStack(spacing: 6) {
                 HStack(spacing: 2) {
                     Image(systemName: "clock")
-                        .font(.caption2)
+                        .font(.tiny)
                         .foregroundColor(.secondary)
                     Text(viewModel.formatDuration(activity.movingTime))
-                        .font(.caption)
+                        .font(.labelMedium)
                         .lineLimit(1)
                 }
                 .frame(width: 60, alignment: .leading)
 
                 HStack(spacing: 2) {
                     Image(systemName: "bolt.fill")
-                        .font(.caption2)
+                        .font(.tiny)
                         .foregroundColor(.blue)
                     Text(activity.averageWatts.map { "\(Int($0))" } ?? "-")
-                        .font(.caption)
+                        .font(.labelMedium)
                 }
                 .frame(width: 40, alignment: .leading)
 
                 HStack(spacing: 2) {
                     Image(systemName: "heart.fill")
-                        .font(.caption2)
+                        .font(.tiny)
                         .foregroundColor(.red)
                     Text(activity.averageHeartrate.map { "\(Int($0))" } ?? "-")
-                        .font(.caption)
+                        .font(.labelMedium)
                 }
                 .frame(width: 40, alignment: .leading)
             }
 
             Spacer()
 
-            // Link to Strava
-            Link(destination: URL(string: "https://www.strava.com/activities/\(activity.id)")!) {
-                Image(systemName: "arrow.up.right.square")
-                    .font(.caption)
-                    .foregroundColor(.orange)
-            }
+            // Chevron indicator for navigation
+            Image(systemName: "chevron.right")
+                .font(.labelSmall)
+                .foregroundColor(.secondary)
         }
         .padding(.vertical, 1)
     }

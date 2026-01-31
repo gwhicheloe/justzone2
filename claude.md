@@ -178,6 +178,7 @@ The Live Activity extension is in `JustZone2LiveActivity/`.
 
 ### Features
 - **History tab** - Zone 2 activities from Strava with list and graph views
+- **Activity detail view** - Individual activity with HR/power chart, prev/next navigation
 - **Graph view** - Domain-based zooming with pinch gesture, anchored to most recent data
 - **Settings tab** - Zone 2 HR range pickers, Strava connect/disconnect
 - **HealthKit** - Workouts save to Apple Health with HR and power data
@@ -189,3 +190,25 @@ The Live Activity extension is in `JustZone2LiveActivity/`.
 - `LiveActivityManager.swift` - ActivityKit Live Activity management
 - `HistoryView.swift` - Graph with `MagnifyGesture` for pinch-to-zoom
 - `StravaService.swift` - OAuth via Cloudflare Worker
+- `ActivityDetailView.swift` - Individual activity detail with StreamChartView
+- `StreamsCacheService.swift` - Caches Strava activity streams locally
+
+### ActivityDetailView Architecture
+
+The activity detail view (`ActivityDetailView.swift`) shows individual workout charts:
+
+- **StreamChartView** - Displays HR and power data with Zone 2 band
+- **ChartData struct** - Pre-computes all chart data once in init for performance (avoid repeated computed property calls during SwiftUI rendering)
+- **Navigation** - Prev/next arrows below chart to navigate between activities without returning to list
+- **Data trimming** - Attempts to trim warmup (before HR enters Zone 2) and cooldown (when power drops)
+
+### Known Issues
+
+**Activity chart end-trimming not working properly:**
+The `ChartData` init in `ActivityDetailView.swift` tries to detect cooldown by finding where power drops below 60% of average. Current approach searches forward from 70% mark looking for a 10-point window where average drops below threshold. However, this still results in steep vertical dropoffs at the end of power data, causing the Y-axis to be too stretched.
+
+Possible fixes to try:
+- Use smoothed power data for detection instead of raw
+- Try a more aggressive threshold (70-80% instead of 60%)
+- Detect rate of change (derivative) rather than absolute threshold
+- Simply trim a fixed percentage (e.g., last 5%) from the end

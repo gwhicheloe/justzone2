@@ -45,9 +45,9 @@ struct DeviceRow: View {
 
             VStack(alignment: .leading, spacing: 2) {
                 Text(device.name)
-                    .font(.body)
+                    .font(.bodyLarge)
                 Text(device.type.displayName)
-                    .font(.caption)
+                    .font(.labelMedium)
                     .foregroundColor(.secondary)
             }
 
@@ -66,10 +66,10 @@ struct DeviceRow: View {
                             .scaleEffect(0.7)
                     } else if isConnected {
                         Image(systemName: "checkmark.circle.fill")
-                            .font(.caption)
+                            .font(.labelMedium)
                     }
                     Text(buttonText)
-                        .font(.subheadline)
+                        .font(.bodyMedium)
                 }
                 .padding(.horizontal, 12)
                 .padding(.vertical, 6)

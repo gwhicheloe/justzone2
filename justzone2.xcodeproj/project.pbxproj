@@ -11,6 +11,9 @@
 		1100000000000002 /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000002 /* Workout.swift */; };
 		1100000000000003 /* WorkoutSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000003 /* WorkoutSample.swift */; };
 		1100000000000004 /* DeviceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000004 /* DeviceInfo.swift */; };
+		1100000000000024 /* ActivityStreams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000024 /* ActivityStreams.swift */; };
+		1100000000000025 /* StreamsCacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000025 /* StreamsCacheService.swift */; };
+		1100000000000026 /* ActivityDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000026 /* ActivityDetailView.swift */; };
 		1100000000000020 /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000020 /* HealthKitManager.swift */; };
 		1100000000000021 /* LiveActivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000021 /* LiveActivityManager.swift */; };
 		1100000000000022 /* WorkoutActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000022 /* WorkoutActivityAttributes.swift */; };
@@ -29,6 +32,7 @@
 		1100000000000011 /* DurationPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000011 /* DurationPicker.swift */; };
 		1100000000000012 /* FITEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000012 /* FITEncoder.swift */; };
 		1100000000000013 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000013 /* Constants.swift */; };
+		1100000000000023 /* Typography.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000023 /* Typography.swift */; };
 		1100000000000014 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2200000000000014 /* Assets.xcassets */; };
 		187B106A2F263AC800165DEA /* AppIconGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187B10692F263AC700165DEA /* AppIconGenerator.swift */; };
 		18C58F052F294A4600B04598 /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C58F042F294A4500B04598 /* HistoryViewModel.swift */; };
@@ -96,6 +100,10 @@
 		2200000000000011 /* DurationPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DurationPicker.swift; sourceTree = "<group>"; };
 		2200000000000012 /* FITEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FITEncoder.swift; sourceTree = "<group>"; };
 		2200000000000013 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		2200000000000023 /* Typography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typography.swift; sourceTree = "<group>"; };
+		2200000000000024 /* ActivityStreams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityStreams.swift; sourceTree = "<group>"; };
+		2200000000000025 /* StreamsCacheService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamsCacheService.swift; sourceTree = "<group>"; };
+		2200000000000026 /* ActivityDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDetailView.swift; sourceTree = "<group>"; };
 		2200000000000014 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2200000000000015 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3300000000000001 /* justzone2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = justzone2.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -185,6 +193,7 @@
 				2200000000000003 /* WorkoutSample.swift */,
 				2200000000000004 /* DeviceInfo.swift */,
 				2200000000000022 /* WorkoutActivityAttributes.swift */,
+				2200000000000024 /* ActivityStreams.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -198,6 +207,7 @@
 				2200000000000008 /* StravaService.swift */,
 				2200000000000020 /* HealthKitManager.swift */,
 				2200000000000021 /* LiveActivityManager.swift */,
+				2200000000000025 /* StreamsCacheService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -222,6 +232,7 @@
 				220000000000000C /* SetupView.swift */,
 				220000000000000D /* WorkoutView.swift */,
 				220000000000000E /* SummaryView.swift */,
+				2200000000000026 /* ActivityDetailView.swift */,
 				5500000000000008 /* Components */,
 				187B10692F263AC700165DEA /* AppIconGenerator.swift */,
 			);
@@ -243,6 +254,7 @@
 			children = (
 				2200000000000012 /* FITEncoder.swift */,
 				2200000000000013 /* Constants.swift */,
+				2200000000000023 /* Typography.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -394,6 +406,10 @@
 				1100000000000020 /* HealthKitManager.swift in Sources */,
 				1100000000000021 /* LiveActivityManager.swift in Sources */,
 				1100000000000022 /* WorkoutActivityAttributes.swift in Sources */,
+				1100000000000023 /* Typography.swift in Sources */,
+				1100000000000024 /* ActivityStreams.swift in Sources */,
+				1100000000000025 /* StreamsCacheService.swift in Sources */,
+				1100000000000026 /* ActivityDetailView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

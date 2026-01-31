@@ -31,7 +31,7 @@ struct SetupView: View {
                 VStack(alignment: .leading, spacing: 12) {
                     HStack {
                         Text("Devices")
-                            .font(.headline)
+                            .font(.headlineSmall)
 
                         Spacer()
 
@@ -48,7 +48,7 @@ struct SetupView: View {
                             }
                         }) {
                             Text(viewModel.isScanning ? "Stop" : "Scan")
-                                .font(.subheadline)
+                                .font(.bodyMedium)
                         }
                     }
 
@@ -57,7 +57,7 @@ struct SetupView: View {
                             Image(systemName: "exclamationmark.triangle.fill")
                                 .foregroundColor(.orange)
                             Text("Bluetooth is disabled. Enable it in Settings.")
-                                .font(.caption)
+                                .font(.labelMedium)
                                 .foregroundColor(.secondary)
                         }
                         .padding(8)
@@ -68,12 +68,12 @@ struct SetupView: View {
                     // Smart Trainers (KICKR)
                     VStack(alignment: .leading, spacing: 4) {
                         Text("Smart Trainers")
-                            .font(.caption)
+                            .font(.labelMedium)
                             .foregroundColor(.secondary)
 
                         if viewModel.discoveredKickrs.isEmpty && !viewModel.kickrConnected {
                             Text("No trainers found. Tap Scan to search.")
-                                .font(.caption)
+                                .font(.labelMedium)
                                 .foregroundColor(.secondary)
                         }
 
@@ -89,7 +89,7 @@ struct SetupView: View {
 
                         if let error = viewModel.kickrError {
                             Text(error)
-                                .font(.caption)
+                                .font(.labelMedium)
                                 .foregroundColor(.red)
                         }
                     }
@@ -99,12 +99,12 @@ struct SetupView: View {
                     // Heart Rate Monitors
                     VStack(alignment: .leading, spacing: 4) {
                         Text("Heart Rate Monitors")
-                            .font(.caption)
+                            .font(.labelMedium)
                             .foregroundColor(.secondary)
 
                         if viewModel.discoveredHRMonitors.isEmpty && !viewModel.hrConnected {
                             Text("No HR monitors found. Tap Scan to search.")
-                                .font(.caption)
+                                .font(.labelMedium)
                                 .foregroundColor(.secondary)
                         }
 
@@ -120,7 +120,7 @@ struct SetupView: View {
 
                         if let error = viewModel.hrError {
                             Text(error)
-                                .font(.caption)
+                                .font(.labelMedium)
                                 .foregroundColor(.red)
                         }
                     }
@@ -132,17 +132,18 @@ struct SetupView: View {
                 // Health & Integrations Section
                 VStack(alignment: .leading, spacing: 12) {
                     Text("Integrations")
-                        .font(.headline)
+                        .font(.headlineSmall)
 
                     // HealthKit
                     HStack {
                         Image(systemName: viewModel.isHealthKitAuthorized ? "heart.fill" : "heart")
                             .foregroundColor(viewModel.isHealthKitAuthorized ? .red : .gray)
                         Text("Apple Health")
+                            .font(.bodyLarge)
                         Spacer()
                         if viewModel.isHealthKitAuthorized {
                             Text("Connected")
-                                .font(.caption)
+                                .font(.labelMedium)
                                 .foregroundColor(.green)
                         } else {
                             Button(action: {
@@ -151,14 +152,14 @@ struct SetupView: View {
                                 }
                             }) {
                                 Text("Connect")
-                                    .font(.subheadline)
+                                    .font(.bodyMedium)
                             }
                         }
                     }
 
                     if let error = viewModel.healthKitError {
                         Text(error)
-                            .font(.caption)
+                            .font(.labelMedium)
                             .foregroundColor(.red)
                     }
 
@@ -169,10 +170,11 @@ struct SetupView: View {
                         Image(systemName: viewModel.isStravaConnected ? "checkmark.circle.fill" : "link.circle")
                             .foregroundColor(viewModel.isStravaConnected ? .orange : .gray)
                         Text("Strava")
+                            .font(.bodyLarge)
                         Spacer()
                         if viewModel.isStravaConnected {
                             Text("Connected")
-                                .font(.caption)
+                                .font(.labelMedium)
                                 .foregroundColor(.green)
                         } else {
                             Button(action: {
@@ -181,14 +183,14 @@ struct SetupView: View {
                                 }
                             }) {
                                 Text("Connect")
-                                    .font(.subheadline)
+                                    .font(.bodyMedium)
                             }
                         }
                     }
 
                     if let error = viewModel.stravaError {
                         Text(error)
-                            .font(.caption)
+                            .font(.labelMedium)
                             .foregroundColor(.red)
                     }
                 }
@@ -215,7 +217,7 @@ struct SetupView: View {
                             Image(systemName: "play.fill")
                             Text("Start Workout")
                         }
-                        .font(.headline)
+                        .font(.headlineSmall)
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity)
                         .padding()
@@ -226,7 +228,7 @@ struct SetupView: View {
 
                     if !viewModel.canStartWorkout {
                         Text(viewModel.startButtonHelpText)
-                            .font(.caption)
+                            .font(.labelMedium)
                             .foregroundColor(.secondary)
                     }
                 }
@@ -243,8 +245,8 @@ struct SetupView: View {
                     )
                 }
             }
-            .onChange(of: showWorkout) { isShowing in
-                if !isShowing {
+            .onChange(of: showWorkout) { oldValue, newValue in
+                if !newValue {
                     // Clean up when returning to setup
                     workoutViewModel = nil
                 }
