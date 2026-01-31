@@ -5,9 +5,14 @@ struct SetupView: View {
     @State private var showWorkout = false
     @State private var workoutViewModel: WorkoutViewModel?
 
+    // Limit HR monitors to avoid crowded gyms filling the screen
+    private var limitedHRMonitors: [DeviceInfo] {
+        Array(viewModel.discoveredHRMonitors.prefix(3))
+    }
+
     var body: some View {
         NavigationStack {
-            VStack(spacing: 16) {
+            VStack(spacing: 12) {
                 // Workout Configuration - side by side
                 HStack(spacing: 8) {
                     PowerPicker(
@@ -23,214 +28,161 @@ struct SetupView: View {
                     )
                     .frame(maxWidth: .infinity)
                 }
-                .padding()
+                .padding(12)
                 .background(Color(.systemBackground))
                 .cornerRadius(12)
 
                 // Device Section
-                VStack(alignment: .leading, spacing: 12) {
+                VStack(alignment: .leading, spacing: 8) {
                     HStack {
                         Text("Devices")
-                            .font(.headlineSmall)
+                            .font(.subheadline)
+                            .fontWeight(.semibold)
 
                         Spacer()
 
                         if viewModel.isScanning {
                             ProgressView()
-                                .scaleEffect(0.8)
+                                .scaleEffect(0.7)
                         }
 
-                        Button(action: {
+                        Button(viewModel.isScanning ? "Stop" : "Scan") {
                             if viewModel.isScanning {
                                 viewModel.stopScanning()
                             } else {
                                 viewModel.startScanning()
                             }
-                        }) {
-                            Text(viewModel.isScanning ? "Stop" : "Scan")
-                                .font(.bodyMedium)
                         }
+                        .font(.subheadline)
                     }
 
                     if !viewModel.isBluetoothEnabled {
-                        HStack {
-                            Image(systemName: "exclamationmark.triangle.fill")
-                                .foregroundColor(.orange)
-                            Text("Bluetooth is disabled. Enable it in Settings.")
-                                .font(.labelMedium)
-                                .foregroundColor(.secondary)
-                        }
-                        .padding(8)
-                        .background(Color.orange.opacity(0.1))
-                        .cornerRadius(8)
+                        Label("Bluetooth disabled", systemImage: "exclamationmark.triangle.fill")
+                            .font(.caption)
+                            .foregroundColor(.orange)
                     }
 
-                    // Smart Trainers (KICKR)
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text("Smart Trainers")
-                            .font(.labelMedium)
+                    // Smart Trainers
+                    if viewModel.discoveredKickrs.isEmpty && !viewModel.kickrConnected {
+                        Label("No trainers found", systemImage: "bicycle")
+                            .font(.caption)
                             .foregroundColor(.secondary)
-
-                        if viewModel.discoveredKickrs.isEmpty && !viewModel.kickrConnected {
-                            Text("No trainers found. Tap Scan to search.")
-                                .font(.labelMedium)
-                                .foregroundColor(.secondary)
-                        }
-
-                        ForEach(viewModel.discoveredKickrs) { device in
-                            DeviceRow(
-                                device: device,
-                                isConnected: viewModel.kickrConnected,
-                                isConnecting: viewModel.kickrConnecting,
-                                onConnect: { viewModel.connectKickr(device) },
-                                onDisconnect: { viewModel.disconnectKickr() }
-                            )
-                        }
-
-                        if let error = viewModel.kickrError {
-                            Text(error)
-                                .font(.labelMedium)
-                                .foregroundColor(.red)
-                        }
+                    }
+                    ForEach(viewModel.discoveredKickrs) { device in
+                        DeviceRow(
+                            device: device,
+                            isConnected: viewModel.kickrConnected,
+                            isConnecting: viewModel.kickrConnecting,
+                            onConnect: { viewModel.connectKickr(device) },
+                            onDisconnect: { viewModel.disconnectKickr() }
+                        )
                     }
 
                     Divider()
 
-                    // Heart Rate Monitors
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text("Heart Rate Monitors")
-                            .font(.labelMedium)
-                            .foregroundColor(.secondary)
-
+                    // Heart Rate Monitors (limited to 3)
+                    HStack {
                         if viewModel.discoveredHRMonitors.isEmpty && !viewModel.hrConnected {
-                            Text("No HR monitors found. Tap Scan to search.")
-                                .font(.labelMedium)
+                            Label("No HR monitors found", systemImage: "heart")
+                                .font(.caption)
                                 .foregroundColor(.secondary)
                         }
-
-                        ForEach(viewModel.discoveredHRMonitors) { device in
-                            DeviceRow(
-                                device: device,
-                                isConnected: viewModel.hrConnected,
-                                isConnecting: viewModel.hrConnecting,
-                                onConnect: { viewModel.connectHeartRateMonitor(device) },
-                                onDisconnect: { viewModel.disconnectHeartRateMonitor() }
-                            )
-                        }
-
-                        if let error = viewModel.hrError {
-                            Text(error)
-                                .font(.labelMedium)
-                                .foregroundColor(.red)
+                        if viewModel.discoveredHRMonitors.count > 3 {
+                            Spacer()
+                            Text("\(viewModel.discoveredHRMonitors.count) nearby")
+                                .font(.caption2)
+                                .foregroundColor(.secondary)
                         }
                     }
+                    ForEach(limitedHRMonitors) { device in
+                        DeviceRow(
+                            device: device,
+                            isConnected: viewModel.hrConnected,
+                            isConnecting: viewModel.hrConnecting,
+                            onConnect: { viewModel.connectHeartRateMonitor(device) },
+                            onDisconnect: { viewModel.disconnectHeartRateMonitor() }
+                        )
+                    }
                 }
-                .padding()
+                .padding(12)
                 .background(Color(.systemBackground))
                 .cornerRadius(12)
 
-                // Health & Integrations Section
-                VStack(alignment: .leading, spacing: 12) {
+                // Integrations Section
+                VStack(alignment: .leading, spacing: 8) {
                     Text("Integrations")
-                        .font(.headlineSmall)
+                        .font(.subheadline)
+                        .fontWeight(.semibold)
 
-                    // HealthKit
                     HStack {
-                        Image(systemName: viewModel.isHealthKitAuthorized ? "heart.fill" : "heart")
-                            .foregroundColor(viewModel.isHealthKitAuthorized ? .red : .gray)
-                        Text("Apple Health")
-                            .font(.bodyLarge)
+                        Label("Apple Health", systemImage: viewModel.isHealthKitAuthorized ? "heart.fill" : "heart")
+                            .foregroundColor(viewModel.isHealthKitAuthorized ? .red : .primary)
                         Spacer()
                         if viewModel.isHealthKitAuthorized {
-                            Text("Connected")
-                                .font(.labelMedium)
+                            Image(systemName: "checkmark.circle.fill")
                                 .foregroundColor(.green)
                         } else {
-                            Button(action: {
-                                Task {
-                                    await viewModel.requestHealthKitAuthorization()
-                                }
-                            }) {
-                                Text("Connect")
-                                    .font(.bodyMedium)
+                            Button("Connect") {
+                                Task { await viewModel.requestHealthKitAuthorization() }
                             }
+                            .font(.subheadline)
                         }
                     }
-
-                    if let error = viewModel.healthKitError {
-                        Text(error)
-                            .font(.labelMedium)
-                            .foregroundColor(.red)
-                    }
+                    .font(.subheadline)
 
                     Divider()
 
-                    // Strava
                     HStack {
-                        Image(systemName: viewModel.isStravaConnected ? "checkmark.circle.fill" : "link.circle")
-                            .foregroundColor(viewModel.isStravaConnected ? .orange : .gray)
-                        Text("Strava")
-                            .font(.bodyLarge)
+                        Label("Strava", systemImage: viewModel.isStravaConnected ? "checkmark.circle.fill" : "link.circle")
+                            .foregroundColor(viewModel.isStravaConnected ? .orange : .primary)
                         Spacer()
                         if viewModel.isStravaConnected {
-                            Text("Connected")
-                                .font(.labelMedium)
+                            Image(systemName: "checkmark.circle.fill")
                                 .foregroundColor(.green)
                         } else {
-                            Button(action: {
-                                Task {
-                                    await viewModel.connectToStrava()
-                                }
-                            }) {
-                                Text("Connect")
-                                    .font(.bodyMedium)
+                            Button("Connect") {
+                                Task { await viewModel.connectToStrava() }
                             }
+                            .font(.subheadline)
                         }
                     }
-
-                    if let error = viewModel.stravaError {
-                        Text(error)
-                            .font(.labelMedium)
-                            .foregroundColor(.red)
-                    }
+                    .font(.subheadline)
                 }
-                .padding()
+                .padding(12)
                 .background(Color(.systemBackground))
                 .cornerRadius(12)
 
                 Spacer()
 
                 // Start Button
-                VStack(spacing: 8) {
-                    Button(action: {
-                        let workout = viewModel.createWorkout()
-                        workoutViewModel = WorkoutViewModel(
-                            workout: workout,
-                            kickrService: viewModel.kickrService,
-                            heartRateService: viewModel.heartRateService,
-                            healthKitManager: viewModel.healthKitManager,
-                            liveActivityManager: viewModel.liveActivityManager
-                        )
-                        showWorkout = true
-                    }) {
-                        HStack {
-                            Image(systemName: "play.fill")
-                            Text("Start Workout")
-                        }
-                        .font(.headlineSmall)
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(viewModel.canStartWorkout ? Color.green : Color.gray)
-                        .cornerRadius(12)
+                Button(action: {
+                    let workout = viewModel.createWorkout()
+                    workoutViewModel = WorkoutViewModel(
+                        workout: workout,
+                        kickrService: viewModel.kickrService,
+                        heartRateService: viewModel.heartRateService,
+                        healthKitManager: viewModel.healthKitManager,
+                        liveActivityManager: viewModel.liveActivityManager
+                    )
+                    showWorkout = true
+                }) {
+                    HStack {
+                        Image(systemName: "play.fill")
+                        Text("Start Workout")
                     }
-                    .disabled(!viewModel.canStartWorkout)
+                    .font(.headline)
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(viewModel.canStartWorkout ? Color.green : Color.gray)
+                    .cornerRadius(12)
+                }
+                .disabled(!viewModel.canStartWorkout)
 
-                    if !viewModel.canStartWorkout {
-                        Text(viewModel.startButtonHelpText)
-                            .font(.labelMedium)
-                            .foregroundColor(.secondary)
-                    }
+                if !viewModel.canStartWorkout {
+                    Text(viewModel.startButtonHelpText)
+                        .font(.caption)
+                        .foregroundColor(.secondary)
                 }
             }
             .padding()
