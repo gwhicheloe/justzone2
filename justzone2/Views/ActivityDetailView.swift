@@ -424,30 +424,49 @@ private struct ChartData {
             warmupEndIndex = 0
         }
 
-        // Find cooldown start (when rolling average power drops below threshold)
+        // Find cooldown start using backward search with heavily smoothed data
+        // This approach finds where the main workout ENDS rather than where cooldown STARTS
         var cooldownStartIndex: Int
-        if let watts = streams.watts, watts.count > warmupEndIndex + 30 {
-            // Calculate average power from middle portion
+        if let watts = streams.watts, watts.count > warmupEndIndex + 60 {
+            // Create heavily smoothed power data for detection (~30 second window)
+            // This eliminates noise and brief dips that could confuse detection
+            let smoothWindowSize = min(30, max(10, watts.count / 20))
+            var smoothedForDetection: [Int] = []
+            for i in 0..<watts.count {
+                let halfWindow = smoothWindowSize / 2
+                let start = max(0, i - halfWindow)
+                let end = min(watts.count, i + halfWindow + 1)
+                let window = watts[start..<end]
+                smoothedForDetection.append(window.reduce(0, +) / window.count)
+            }
+
+            // Calculate baseline average from middle 50% (most reliable portion)
             let middleStart = warmupEndIndex + (watts.count - warmupEndIndex) / 4
             let middleEnd = warmupEndIndex + (watts.count - warmupEndIndex) * 3 / 4
-            let middlePortion = Array(watts[middleStart..<middleEnd])
+            let middlePortion = Array(smoothedForDetection[middleStart..<middleEnd])
             let avgPower = middlePortion.isEmpty ? 100 : middlePortion.reduce(0, +) / middlePortion.count
 
-            // Threshold: 60% of average power
-            let threshold = avgPower * 6 / 10
-            let windowSize = 10
+            // Higher threshold: 75% of average (more aggressive than previous 60%)
+            let threshold = avgPower * 75 / 100
+
+            // Window size for checking sustained power (prevents false positives from brief spikes)
+            let checkWindowSize = min(20, max(5, watts.count / 30))
 
             // Default to end of data
             cooldownStartIndex = watts.count - 1
 
-            // Search forward from 70% mark, find first window where average drops below threshold
-            let searchStart = warmupEndIndex + (watts.count - warmupEndIndex) * 7 / 10
-            for i in searchStart..<(watts.count - windowSize) {
-                let window = watts[i..<(i + windowSize)]
-                let windowAvg = window.reduce(0, +) / windowSize
-                if windowAvg < threshold {
-                    // Cut just before this bad window starts
-                    cooldownStartIndex = max(warmupEndIndex, i - 1)
+            // Search BACKWARD from end to find last point with sustained normal power
+            // This naturally skips past zeros/cliffs at the end
+            for i in stride(from: watts.count - checkWindowSize - 1, through: warmupEndIndex, by: -1) {
+                let windowEnd = i + checkWindowSize
+                let window = smoothedForDetection[i..<windowEnd]
+                let windowAvg = window.reduce(0, +) / checkWindowSize
+
+                if windowAvg >= threshold {
+                    // Found sustained normal power - end chart at START of this window
+                    // Then subtract additional buffer to ensure we're well clear of any decline
+                    let safetyBuffer = smoothWindowSize  // Extra margin for display smoothing
+                    cooldownStartIndex = max(warmupEndIndex, i - safetyBuffer)
                     break
                 }
             }
@@ -467,9 +486,11 @@ private struct ChartData {
         }
 
         // Build smoothed power data (excluding warmup and cooldown)
+        // Use very aggressive smoothing (~2 minute window) for an almost flat line
+        // Zone 2 power should be steady, so heavy smoothing reveals the true trend
         let computedPowerData: [(time: Double, value: Int)]
         if let watts = streams.watts, !watts.isEmpty, warmupEndIndex <= cooldownStartIndex {
-            let windowSize = max(1, min(15, watts.count / 10))
+            let windowSize = max(30, min(120, watts.count / 10))
             var smoothed: [Int] = []
             for i in 0..<watts.count {
                 let start = max(0, i - windowSize / 2)

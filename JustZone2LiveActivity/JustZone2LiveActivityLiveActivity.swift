@@ -115,45 +115,45 @@ struct LockScreenView: View {
                 }
             }
 
-            HStack(spacing: 20) {
+            HStack(spacing: 16) {
                 // Elapsed Time
-                VStack(spacing: 4) {
+                VStack(spacing: 2) {
                     Text(context.state.formattedTime)
-                        .font(.system(size: 32, weight: .bold, design: .monospaced))
+                        .font(.system(size: 24, weight: .bold, design: .monospaced))
                     Text("Elapsed")
-                        .font(.caption)
+                        .font(.caption2)
                         .foregroundColor(.secondary)
                 }
 
                 Spacer()
 
                 // Heart Rate
-                VStack(spacing: 4) {
-                    HStack(spacing: 4) {
+                VStack(spacing: 2) {
+                    HStack(spacing: 2) {
                         Image(systemName: "heart.fill")
                             .foregroundColor(.red)
+                            .font(.subheadline)
                         Text("\(context.state.currentHeartRate)")
-                            .font(.title)
-                            .fontWeight(.bold)
+                            .font(.system(size: 22, weight: .bold))
                     }
                     Text("bpm")
-                        .font(.caption)
+                        .font(.caption2)
                         .foregroundColor(.secondary)
                 }
 
                 Spacer()
 
                 // Power
-                VStack(spacing: 4) {
-                    HStack(spacing: 4) {
+                VStack(spacing: 2) {
+                    HStack(spacing: 2) {
                         Image(systemName: "bolt.fill")
                             .foregroundColor(.yellow)
+                            .font(.subheadline)
                         Text("\(context.state.currentPower)")
-                            .font(.title)
-                            .fontWeight(.bold)
+                            .font(.system(size: 22, weight: .bold))
                     }
                     Text("watts")
-                        .font(.caption)
+                        .font(.caption2)
                         .foregroundColor(.secondary)
                 }
             }

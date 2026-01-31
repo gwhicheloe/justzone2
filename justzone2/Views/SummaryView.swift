@@ -7,7 +7,15 @@ struct SummaryView: View {
     var onDismiss: () -> Void
     @State private var chartSaved = false
     @State private var showPhotoSavedAlert = false
-    @State private var hasUploaded = false
+
+    private var buttonColor: Color {
+        switch viewModel.uploadState {
+        case .idle: return .orange
+        case .uploading: return .orange.opacity(0.6)
+        case .success: return .gray
+        case .error: return .red
+        }
+    }
 
     var body: some View {
         ScrollView {
@@ -86,116 +94,64 @@ struct SummaryView: View {
                             .cornerRadius(12)
                         }
                     } else {
-                        switch viewModel.uploadState {
-                        case .idle:
-                            if hasUploaded {
-                                // Already uploaded, show disabled state
-                                HStack {
-                                    Image(systemName: "checkmark.circle.fill")
-                                    Text("Already Uploaded")
-                                }
-                                .font(.headlineSmall)
-                                .foregroundColor(.white.opacity(0.7))
-                                .frame(maxWidth: .infinity)
-                                .padding()
-                                .background(Color.gray)
-                                .cornerRadius(12)
-                            } else {
-                                Button(action: {
-                                    Task {
-                                        await viewModel.uploadToStrava()
-                                        // Save chart after successful upload
-                                        if case .success = viewModel.uploadState {
-                                            hasUploaded = true
-                                            saveChartToPhotos()
-                                        }
+                        // Upload button - changes appearance based on state
+                        VStack(spacing: 12) {
+                            Button(action: {
+                                viewModel.uploadState = .uploading
+                                Task {
+                                    await viewModel.uploadToStrava()
+                                    if case .success = viewModel.uploadState {
+                                        saveChartToPhotos()
                                     }
-                                }) {
-                                    HStack {
+                                }
+                            }) {
+                                HStack {
+                                    switch viewModel.uploadState {
+                                    case .idle:
                                         Image(systemName: "arrow.up.circle.fill")
                                         Text("Upload to Strava")
+                                    case .uploading:
+                                        ProgressView()
+                                            .tint(.white)
+                                        Text("Uploading...")
+                                    case .success:
+                                        Image(systemName: "checkmark.circle.fill")
+                                        Text("Uploaded")
+                                    case .error:
+                                        Image(systemName: "exclamationmark.triangle.fill")
+                                        Text("Failed - Tap to Retry")
                                     }
-                                    .font(.headlineSmall)
-                                    .foregroundColor(.white)
-                                    .frame(maxWidth: .infinity)
-                                    .padding()
-                                    .background(Color.orange)
-                                    .cornerRadius(12)
                                 }
+                                .font(.headlineSmall)
+                                .foregroundColor(.white)
+                                .frame(maxWidth: .infinity)
+                                .padding()
+                                .background(buttonColor)
+                                .cornerRadius(12)
                             }
+                            .disabled(viewModel.uploadState.isUploading || viewModel.uploadState.isSuccess)
 
-                        case .uploading:
-                            VStack(spacing: 8) {
-                                ProgressView(value: viewModel.uploadProgress)
-                                    .progressViewStyle(LinearProgressViewStyle(tint: .orange))
-                                Text("Uploading...")
-                                    .font(.bodyMedium)
-                                    .foregroundColor(.secondary)
-                            }
-                            .padding()
-
-                        case .success(let activityId):
-                            VStack(spacing: 16) {
-                                // Big success checkmark
-                                Image(systemName: "checkmark.circle.fill")
-                                    .font(.system(size: 50))
-                                    .foregroundColor(.green)
-
-                                Text("Uploaded to Strava!")
-                                    .font(.headlineSmall)
-
-                                if chartSaved {
-                                    HStack {
-                                        Image(systemName: "photo.fill")
-                                            .foregroundColor(.blue)
-                                        Text("Chart saved to Photos")
-                                            .font(.labelMedium)
-                                    }
-                                    .foregroundColor(.secondary)
-                                }
-
+                            // Show Strava link after successful upload
+                            if case .success(let activityId) = viewModel.uploadState {
                                 Link(destination: URL(string: "https://www.strava.com/activities/\(activityId)")!) {
                                     HStack {
                                         Text("View on Strava")
                                         Image(systemName: "arrow.up.right.square")
                                     }
-                                    .font(.headlineSmall)
-                                    .foregroundColor(.white)
-                                    .frame(maxWidth: .infinity)
-                                    .padding()
-                                    .background(Color.orange)
-                                    .cornerRadius(12)
+                                    .font(.bodyMedium)
+                                    .foregroundColor(.orange)
                                 }
                             }
-                            .padding()
-                            .background(Color.green.opacity(0.1))
-                            .cornerRadius(12)
 
-                        case .error(let message):
-                            VStack(spacing: 8) {
+                            if chartSaved {
                                 HStack {
-                                    Image(systemName: "exclamationmark.triangle.fill")
-                                        .foregroundColor(.red)
-                                    Text("Upload Failed")
-                                        .font(.headlineSmall)
+                                    Image(systemName: "photo.fill")
+                                        .foregroundColor(.blue)
+                                    Text("Chart saved to Photos")
+                                        .font(.labelMedium)
                                 }
-
-                                Text(message)
-                                    .font(.labelMedium)
-                                    .foregroundColor(.secondary)
-
-                                Button("Retry") {
-                                    viewModel.resetUploadState()
-                                    Task {
-                                        await viewModel.uploadToStrava()
-                                    }
-                                }
-                                .font(.bodyMedium)
-                                .foregroundColor(.orange)
+                                .foregroundColor(.secondary)
                             }
-                            .padding()
-                            .background(Color.red.opacity(0.1))
-                            .cornerRadius(12)
                         }
                     }
                 }

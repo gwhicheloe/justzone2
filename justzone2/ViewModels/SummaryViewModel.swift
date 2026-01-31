@@ -6,6 +6,16 @@ enum UploadState {
     case uploading
     case success(activityId: Int)
     case error(String)
+
+    var isUploading: Bool {
+        if case .uploading = self { return true }
+        return false
+    }
+
+    var isSuccess: Bool {
+        if case .success = self { return true }
+        return false
+    }
 }
 
 @MainActor
@@ -44,15 +54,22 @@ class SummaryViewModel: ObservableObject {
     }
 
     func uploadToStrava() async {
-        // Prevent double upload
-        guard case .idle = uploadState else {
-            print("Upload blocked - not in idle state: \(uploadState)")
+        // Only proceed if idle or uploading (view may have set uploading state)
+        switch uploadState {
+        case .idle:
+            print("Starting upload...")
+            uploadState = .uploading
+            await performUpload()
+        case .uploading:
+            print("Starting upload (state already set by view)...")
+            await performUpload()
+        case .success, .error:
+            print("Upload blocked - already completed or failed: \(uploadState)")
             return
         }
+    }
 
-        print("Starting upload...")
-        uploadState = .uploading
-
+    private func performUpload() async {
         do {
             let activityId = try await stravaService.uploadWorkout(workout)
             print("Upload successful! Activity ID: \(activityId)")
