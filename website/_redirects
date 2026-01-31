@@ -1,0 +1,8 @@
+# Cloudflare Pages redirects
+# https://developers.cloudflare.com/pages/configuration/redirects/
+
+# Handle SPA-style routes (if needed in future)
+# /* /index.html 200
+
+# Privacy policy placeholder
+/privacy /index.html#privacy 302
