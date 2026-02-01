@@ -6,16 +6,7 @@ struct SummaryView: View {
     @ObservedObject var viewModel: SummaryViewModel
     var onDismiss: () -> Void
     @State private var chartSaved = false
-    @State private var showPhotoSavedAlert = false
-
-    private var buttonColor: Color {
-        switch viewModel.uploadState {
-        case .idle: return .orange
-        case .uploading: return .orange.opacity(0.6)
-        case .success: return .gray
-        case .error: return .red
-        }
-    }
+    @State private var uploadState: UploadState = .ready
 
     var body: some View {
         ScrollView {
@@ -96,43 +87,14 @@ struct SummaryView: View {
                     } else {
                         // Upload button - changes appearance based on state
                         VStack(spacing: 12) {
-                            Button(action: {
-                                viewModel.uploadState = .uploading
-                                Task {
-                                    await viewModel.uploadToStrava()
-                                    if case .success = viewModel.uploadState {
-                                        saveChartToPhotos()
-                                    }
-                                }
-                            }) {
-                                HStack {
-                                    switch viewModel.uploadState {
-                                    case .idle:
-                                        Image(systemName: "arrow.up.circle.fill")
-                                        Text("Upload to Strava")
-                                    case .uploading:
-                                        ProgressView()
-                                            .tint(.white)
-                                        Text("Uploading...")
-                                    case .success:
-                                        Image(systemName: "checkmark.circle.fill")
-                                        Text("Uploaded")
-                                    case .error:
-                                        Image(systemName: "exclamationmark.triangle.fill")
-                                        Text("Failed - Tap to Retry")
-                                    }
-                                }
-                                .font(.headlineSmall)
-                                .foregroundColor(.white)
-                                .frame(maxWidth: .infinity)
-                                .padding()
-                                .background(buttonColor)
-                                .cornerRadius(12)
+                            UploadButton(state: uploadState) {
+                                // Immediate local feedback
+                                uploadState = .processing
+                                viewModel.upload()
                             }
-                            .disabled(viewModel.uploadState.isUploading || viewModel.uploadState.isSuccess)
 
                             // Show Strava link after successful upload
-                            if case .success(let activityId) = viewModel.uploadState {
+                            if case .complete(let activityId) = uploadState {
                                 Link(destination: URL(string: "https://www.strava.com/activities/\(activityId)")!) {
                                     HStack {
                                         Text("View on Strava")
@@ -188,38 +150,30 @@ struct SummaryView: View {
         .background(Color(.systemGroupedBackground))
         .navigationBarBackButtonHidden(true)
         .navigationTitle("Summary")
-        .alert("Photo Saved", isPresented: $showPhotoSavedAlert) {
-            Button("OK", role: .cancel) { }
-        } message: {
-            Text("Your workout chart has been saved to Photos. You can add it to your Strava activity.")
+        .onReceive(viewModel.$uploadState) { newState in
+            uploadState = newState
+            if case .complete = newState {
+                saveChartToPhotos()
+            }
         }
     }
 
     @MainActor
     private func saveChartToPhotos() {
-        print("saveChartToPhotos called, samples count: \(viewModel.workout.samples.count)")
-
-        // Create the export view
         let exportView = ExportableChartView(workout: viewModel.workout)
 
-        // Render to image
         let renderer = ImageRenderer(content: exportView)
         renderer.scale = 2.0
         renderer.proposedSize = .init(width: 600, height: 450)
 
-        // Try to get the image
-        guard let image = renderer.uiImage else {
-            print("Failed to render chart image - uiImage is nil")
-            return
-        }
+        guard let image = renderer.uiImage else { return }
 
-        print("Image rendered successfully: \(image.size)")
+        // Convert to JPEG (opaque, no alpha channel) to avoid memory warnings
+        guard let jpegData = image.jpegData(compressionQuality: 0.9),
+              let jpegImage = UIImage(data: jpegData) else { return }
 
-        // Save to photo library
-        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+        UIImageWriteToSavedPhotosAlbum(jpegImage, nil, nil, nil)
         chartSaved = true
-        showPhotoSavedAlert = true
-        print("Chart saved to photos successfully")
     }
 }
 
@@ -244,6 +198,50 @@ struct StatCard: View {
         .padding()
         .background(Color(.secondarySystemBackground))
         .cornerRadius(8)
+    }
+}
+
+struct UploadButton: View {
+    let state: UploadState
+    let action: () -> Void
+
+    private var buttonColor: Color {
+        switch state {
+        case .ready: return .orange
+        case .processing: return .gray
+        case .complete: return .green
+        case .failed: return .red
+        }
+    }
+
+    var body: some View {
+        Button(action: action) {
+            HStack {
+                switch state {
+                case .ready:
+                    Image(systemName: "arrow.up.circle.fill")
+                    Text("Upload to Strava")
+                case .processing:
+                    ProgressView()
+                        .tint(.white)
+                    Text("Uploading...")
+                case .complete:
+                    Image(systemName: "checkmark.circle.fill")
+                    Text("Uploaded to Strava")
+                case .failed:
+                    Image(systemName: "exclamationmark.circle.fill")
+                    Text("Failed - Tap to Retry")
+                }
+            }
+            .font(.headlineSmall)
+            .foregroundColor(.white)
+            .frame(maxWidth: .infinity)
+            .padding()
+            .background(buttonColor)
+            .cornerRadius(12)
+        }
+        .buttonStyle(.plain)
+        .disabled(!state.canTap)
     }
 }
 

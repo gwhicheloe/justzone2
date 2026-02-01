@@ -6,6 +6,7 @@ struct WorkoutView: View {
     let stravaService: StravaService
     @Binding var isPresented: Bool
     @State private var showSummary = false
+    @State private var summaryViewModel: SummaryViewModel?
 
     var body: some View {
         VStack(spacing: 0) {
@@ -110,16 +111,14 @@ struct WorkoutView: View {
             }
         }
         .navigationDestination(isPresented: $showSummary) {
-            SummaryView(
-                viewModel: SummaryViewModel(
-                    workout: viewModel.workout,
-                    stravaService: stravaService
-                ),
-                onDismiss: {
-                    // Pop back to root
-                    isPresented = false
-                }
-            )
+            if let summaryVM = summaryViewModel {
+                SummaryView(
+                    viewModel: summaryVM,
+                    onDismiss: {
+                        isPresented = false
+                    }
+                )
+            }
         }
         .onAppear {
             if viewModel.state == .idle {
@@ -131,6 +130,11 @@ struct WorkoutView: View {
         }
         .onChange(of: viewModel.state) { oldState, newState in
             if newState == .completed {
+                // Create the SummaryViewModel ONCE when workout completes
+                summaryViewModel = SummaryViewModel(
+                    workout: viewModel.workout,
+                    stravaService: stravaService
+                )
                 showSummary = true
             }
         }

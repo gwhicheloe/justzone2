@@ -1,26 +1,23 @@
 import SwiftUI
 import Combine
 
-enum UploadState {
-    case idle
-    case uploading
-    case success(activityId: Int)
-    case error(String)
+enum UploadState: Equatable {
+    case ready
+    case processing
+    case complete(activityId: Int)
+    case failed(message: String)
 
-    var isUploading: Bool {
-        if case .uploading = self { return true }
-        return false
-    }
-
-    var isSuccess: Bool {
-        if case .success = self { return true }
-        return false
+    var canTap: Bool {
+        switch self {
+        case .ready, .failed: return true
+        case .processing, .complete: return false
+        }
     }
 }
 
 @MainActor
 class SummaryViewModel: ObservableObject {
-    @Published var uploadState: UploadState = .idle
+    @Published private(set) var uploadState: UploadState = .ready
     @Published var uploadProgress: Double = 0
     @Published var isStravaConnected: Bool = false
 
@@ -49,34 +46,42 @@ class SummaryViewModel: ObservableObject {
         do {
             try await stravaService.authenticate()
         } catch {
-            uploadState = .error(error.localizedDescription)
+            uploadState = .failed(message: error.localizedDescription)
         }
     }
 
-    func uploadToStrava() async {
-        // Only proceed if idle or uploading (view may have set uploading state)
-        switch uploadState {
-        case .idle:
-            print("Starting upload...")
-            uploadState = .uploading
-            await performUpload()
-        case .uploading:
-            print("Starting upload (state already set by view)...")
-            await performUpload()
-        case .success, .error:
-            print("Upload blocked - already completed or failed: \(uploadState)")
-            return
-        }
-    }
+    func upload() {
+        guard uploadState.canTap else { return }
 
-    private func performUpload() async {
-        do {
-            let activityId = try await stravaService.uploadWorkout(workout)
-            print("Upload successful! Activity ID: \(activityId)")
-            uploadState = .success(activityId: activityId)
-        } catch {
-            print("Upload failed: \(error.localizedDescription)")
-            uploadState = .error(error.localizedDescription)
+        // Immediate state change - no delay
+        uploadState = .processing
+
+        Task {
+            let startTime = Date()
+
+            // Do the upload
+            var activityId: Int?
+            var uploadError: Error?
+
+            do {
+                activityId = try await stravaService.uploadWorkout(workout)
+            } catch {
+                uploadError = error
+            }
+
+            // Ensure minimum 1.5 seconds of "uploading" state for clear feedback
+            let elapsed = Date().timeIntervalSince(startTime)
+            if elapsed < 1.5 {
+                let remaining = UInt64((1.5 - elapsed) * 1_000_000_000)
+                try? await Task.sleep(nanoseconds: remaining)
+            }
+
+            // Update to final state
+            if let activityId = activityId {
+                uploadState = .complete(activityId: activityId)
+            } else if let error = uploadError {
+                uploadState = .failed(message: error.localizedDescription)
+            }
         }
     }
 
@@ -93,12 +98,8 @@ class SummaryViewModel: ObservableObject {
     }
 
     var stravaActivityURL: URL? {
-        guard case .success(let activityId) = uploadState else { return nil }
+        guard case .complete(let activityId) = uploadState else { return nil }
         return URL(string: "https://www.strava.com/activities/\(activityId)")
-    }
-
-    func resetUploadState() {
-        uploadState = .idle
     }
 
     func discardWorkout() {
