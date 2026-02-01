@@ -342,6 +342,40 @@ a:hover {
     transform: scale(1.15);
 }
 
+/* Video Container */
+.video-container {
+    display: flex;
+    justify-content: center;
+}
+
+.phone-video-frame {
+    background: linear-gradient(145deg, #3A3A3C 0%, #1C1C1E 100%);
+    border-radius: 60px;
+    padding: 16px;
+    box-shadow: var(--shadow-card), 0 0 60px rgba(52, 199, 89, 0.15);
+}
+
+.phone-video-frame video {
+    display: block;
+    width: auto;
+    height: 700px;
+    border-radius: 40px;
+    background: var(--color-bg);
+}
+
+@media (max-width: 600px) {
+    .phone-video-frame video {
+        height: 500px;
+        width: auto;
+        border-radius: 32px;
+    }
+
+    .phone-video-frame {
+        border-radius: 44px;
+        padding: 12px;
+    }
+}
+
 /* ===== Features Section ===== */
 .features {
     padding: 100px 0;
