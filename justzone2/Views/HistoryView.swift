@@ -34,7 +34,8 @@ struct HistoryView: View {
                         }
                         .pickerStyle(.segmented)
                         .frame(width: 180)
-                        .padding(.vertical, 8)
+                        .padding(.top, 8)
+                        .padding(.bottom, 20)
 
                         switch viewMode {
                         case .list:
