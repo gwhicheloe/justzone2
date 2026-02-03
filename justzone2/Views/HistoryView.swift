@@ -51,7 +51,8 @@ struct HistoryView: View {
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     Text("History")
-                        .font(.custom("ArialRoundedMTBold", size: 17))
+                        .font(.custom("ArialRoundedMTBold", size: 22))
+                        .foregroundColor(.green)
                 }
                 if viewModel.isStravaConnected && !viewModel.isLoading {
                     ToolbarItem(placement: .navigationBarTrailing) {

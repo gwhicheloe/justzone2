@@ -107,7 +107,8 @@ struct WorkoutView: View {
         .toolbar {
             ToolbarItem(placement: .principal) {
                 Text(stateTitle)
-                    .font(.custom("ArialRoundedMTBold", size: 17))
+                    .font(.custom("ArialRoundedMTBold", size: 22))
+                    .foregroundColor(.green)
             }
         }
         .navigationDestination(isPresented: $showSummary) {

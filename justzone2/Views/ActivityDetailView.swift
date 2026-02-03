@@ -49,7 +49,8 @@ struct ActivityDetailView: View {
         .toolbar {
             ToolbarItem(placement: .principal) {
                 Text("Activity")
-                    .font(.custom("ArialRoundedMTBold", size: 17))
+                    .font(.custom("ArialRoundedMTBold", size: 22))
+                    .foregroundColor(.green)
             }
         }
         .task(id: currentIndex) {

@@ -190,8 +190,9 @@ struct SetupView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .principal) {
-                    Text("JustZone2")
-                        .font(.custom("ArialRoundedMTBold", size: 17))
+                    Text("Justzone2")
+                        .font(.custom("ArialRoundedMTBold", size: 22))
+                        .foregroundColor(.green)
                 }
             }
             .navigationDestination(isPresented: $showWorkout) {

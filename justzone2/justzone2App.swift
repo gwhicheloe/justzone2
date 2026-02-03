@@ -63,9 +63,9 @@ struct SplashView: View {
                         value: isAnimating
                     )
 
-                Text("JustZone2")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
+                Text("Justzone2")
+                    .font(.custom("ArialRoundedMTBold", size: 34))
+                    .foregroundColor(.green)
 
                 Text("Zone 2 Training")
                     .font(.subheadline)

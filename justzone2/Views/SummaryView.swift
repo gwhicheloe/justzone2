@@ -153,7 +153,8 @@ struct SummaryView: View {
         .toolbar {
             ToolbarItem(placement: .principal) {
                 Text("Summary")
-                    .font(.custom("ArialRoundedMTBold", size: 17))
+                    .font(.custom("ArialRoundedMTBold", size: 22))
+                    .foregroundColor(.green)
             }
         }
         .onReceive(viewModel.$uploadState) { newState in
