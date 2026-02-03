@@ -592,13 +592,14 @@ private struct ChartData {
                 let sumX2 = regressionData.reduce(0) { $0 + $1.x * $1.x }
                 let denominator = n * sumX2 - sumX * sumX
 
-                if denominator != 0, let first = regressionData.first, let last = regressionData.last {
+                if denominator != 0 {
                     let slope = (n * sumXY - sumX * sumY) / denominator
                     let intercept = (sumY - slope * sumX) / n
                     computedSlope = slope
+                    // Extend trend line across entire chart period
                     trendLinePoints = [
-                        (x: first.x, y: slope * first.x + intercept),
-                        (x: last.x, y: slope * last.x + intercept)
+                        (x: 0, y: intercept),
+                        (x: maxTime, y: slope * maxTime + intercept)
                     ]
                 } else {
                     trendLinePoints = []
