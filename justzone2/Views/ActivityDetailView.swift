@@ -45,8 +45,13 @@ struct ActivityDetailView: View {
             }
             .padding()
         }
-        .navigationTitle("Activity")
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text("Activity")
+                    .font(.custom("ArialRoundedMTBold", size: 17))
+            }
+        }
         .task(id: currentIndex) {
             await loadStreams()
         }

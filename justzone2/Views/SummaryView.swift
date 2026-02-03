@@ -149,7 +149,13 @@ struct SummaryView: View {
         }
         .background(Color(.systemGroupedBackground))
         .navigationBarBackButtonHidden(true)
-        .navigationTitle("Summary")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text("Summary")
+                    .font(.custom("ArialRoundedMTBold", size: 17))
+            }
+        }
         .onReceive(viewModel.$uploadState) { newState in
             uploadState = newState
             if case .complete = newState {

@@ -187,7 +187,13 @@ struct SetupView: View {
             }
             .padding()
             .background(Color(.systemGroupedBackground))
-            .navigationTitle("JustZone2")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text("JustZone2")
+                        .font(.custom("ArialRoundedMTBold", size: 17))
+                }
+            }
             .navigationDestination(isPresented: $showWorkout) {
                 if let workoutVM = workoutViewModel {
                     WorkoutView(

@@ -47,8 +47,12 @@ struct HistoryView: View {
                     }
                 }
             }
-            .navigationTitle("History")
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text("History")
+                        .font(.custom("ArialRoundedMTBold", size: 17))
+                }
                 if viewModel.isStravaConnected && !viewModel.isLoading {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button(action: {
