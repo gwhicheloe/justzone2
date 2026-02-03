@@ -39,6 +39,7 @@ struct SettingsView: View {
                         }
                         .frame(maxWidth: .infinity)
                     }
+                    .listRowBackground(Color.green.opacity(0.1))
                 } header: {
                     Text("Zone 2 Heart Rate Range")
                 } footer: {
