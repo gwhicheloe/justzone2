@@ -8,30 +8,36 @@ struct SettingsView: View {
             Form {
                 // Zone 2 Heart Rate Range
                 Section {
-                    HStack {
-                        Text("Min HR")
-                        Spacer()
-                        Picker("", selection: $viewModel.zone2Min) {
-                            ForEach(viewModel.hrOptions, id: \.self) { hr in
-                                Text("\(hr) bpm").tag(hr)
+                    HStack(spacing: 16) {
+                        VStack {
+                            Text("Min HR")
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                            Picker("", selection: $viewModel.zone2Min) {
+                                ForEach(viewModel.hrOptions, id: \.self) { hr in
+                                    Text("\(hr)").tag(hr)
+                                }
                             }
+                            .pickerStyle(.wheel)
+                            .frame(height: 100)
+                            .clipped()
                         }
-                        .pickerStyle(.wheel)
-                        .frame(width: 120, height: 100)
-                        .clipped()
-                    }
+                        .frame(maxWidth: .infinity)
 
-                    HStack {
-                        Text("Max HR")
-                        Spacer()
-                        Picker("", selection: $viewModel.zone2Max) {
-                            ForEach(viewModel.hrOptions, id: \.self) { hr in
-                                Text("\(hr) bpm").tag(hr)
+                        VStack {
+                            Text("Max HR")
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                            Picker("", selection: $viewModel.zone2Max) {
+                                ForEach(viewModel.hrOptions, id: \.self) { hr in
+                                    Text("\(hr)").tag(hr)
+                                }
                             }
+                            .pickerStyle(.wheel)
+                            .frame(height: 100)
+                            .clipped()
                         }
-                        .pickerStyle(.wheel)
-                        .frame(width: 120, height: 100)
-                        .clipped()
+                        .frame(maxWidth: .infinity)
                     }
                 } header: {
                     Text("Zone 2 Heart Rate Range")

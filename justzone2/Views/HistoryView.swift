@@ -1,9 +1,15 @@
 import SwiftUI
 import Charts
 
+enum HistoryViewMode: Int, CaseIterable {
+    case list
+    case bubbleChart
+    case lineChart
+}
+
 struct HistoryView: View {
     @ObservedObject var viewModel: HistoryViewModel
-    @State private var showGraph = false
+    @State private var viewMode: HistoryViewMode = .list
     @State private var zoomLevel: CGFloat = 1.0
     @State private var baseZoomLevel: CGFloat = 1.0
 
@@ -21,18 +27,22 @@ struct HistoryView: View {
                 } else {
                     VStack(spacing: 0) {
                         // Toggle picker
-                        Picker("View", selection: $showGraph) {
-                            Image(systemName: "list.bullet").tag(false)
-                            Image(systemName: "chart.xyaxis.line").tag(true)
+                        Picker("View", selection: $viewMode) {
+                            Image(systemName: "list.bullet").tag(HistoryViewMode.list)
+                            Image(systemName: "chart.dots.scatter").tag(HistoryViewMode.bubbleChart)
+                            Image(systemName: "chart.xyaxis.line").tag(HistoryViewMode.lineChart)
                         }
                         .pickerStyle(.segmented)
-                        .frame(width: 120)
+                        .frame(width: 180)
                         .padding(.vertical, 8)
 
-                        if showGraph {
-                            graphView
-                        } else {
+                        switch viewMode {
+                        case .list:
                             listView
+                        case .bubbleChart:
+                            bubbleChartView
+                        case .lineChart:
+                            lineChartView
                         }
                     }
                 }
@@ -141,10 +151,10 @@ struct HistoryView: View {
         }
     }
 
-    private var graphView: some View {
-        let chartData = viewModel.activities.filter {
+    private var bubbleChartView: some View {
+        let chartData = filterOutliers(viewModel.activities.filter {
             $0.averageHeartrate != nil && $0.averageWatts != nil
-        }.sorted { $0.startDate < $1.startDate }
+        }).sorted { $0.startDate < $1.startDate }
 
         return VStack(spacing: 12) {
             if chartData.isEmpty {
@@ -177,7 +187,7 @@ struct HistoryView: View {
                 .chartXAxis {
                     AxisMarks(values: .automatic(desiredCount: 5)) { value in
                         AxisGridLine()
-                        AxisValueLabel(format: .dateTime.day().month(.abbreviated), anchor: .top)
+                        AxisValueLabel(format: dateAxisFormat, anchor: .top)
                     }
                 }
                 .chartYAxis {
@@ -199,7 +209,7 @@ struct HistoryView: View {
                         .onChanged { value in
                             let newZoom = baseZoomLevel * value.magnification
                             withAnimation(.interactiveSpring) {
-                                zoomLevel = max(1.0, min(newZoom, 10.0))
+                                zoomLevel = max(1.0, min(newZoom, 15.0))
                             }
                         }
                         .onEnded { _ in
@@ -228,14 +238,14 @@ struct HistoryView: View {
 
                     Button(action: {
                         withAnimation(.smooth(duration: 0.3)) {
-                            zoomLevel = min(10.0, zoomLevel * 1.5)
+                            zoomLevel = min(15.0, zoomLevel * 1.5)
                             baseZoomLevel = zoomLevel
                         }
                     }) {
                         Image(systemName: "plus.magnifyingglass")
                             .font(.headlineMedium)
                     }
-                    .disabled(zoomLevel >= 10.0)
+                    .disabled(zoomLevel >= 15.0)
 
                     Spacer()
 
@@ -295,6 +305,17 @@ struct HistoryView: View {
         }
     }
 
+    /// Date format for axis - shows year when viewing > 6 months of data
+    private var dateAxisFormat: Date.FormatStyle {
+        if zoomLevel < 2.0 {
+            // Zoomed out - show month and year
+            return .dateTime.month(.abbreviated).year(.twoDigits)
+        } else {
+            // Zoomed in - show day and month
+            return .dateTime.day().month(.abbreviated)
+        }
+    }
+
     private func calculateDateRange(for chartData: [StravaActivity]) -> ClosedRange<Date> {
         let dates = chartData.map { $0.startDate }
         guard let minDate = dates.min(), let maxDate = dates.max() else {
@@ -332,6 +353,256 @@ struct HistoryView: View {
         } else {
             return Color(red: 1, green: 1 - (normalized - 0.5) * 2, blue: 0)
         }
+    }
+
+    /// Filter out obvious outliers (values below 75% of median)
+    private func filterOutliers(_ activities: [StravaActivity]) -> [StravaActivity] {
+        guard activities.count >= 3 else { return activities }
+
+        // Calculate medians
+        let powers = activities.compactMap { $0.averageWatts }.sorted()
+        let hrs = activities.compactMap { $0.averageHeartrate }.sorted()
+
+        guard !powers.isEmpty, !hrs.isEmpty else { return activities }
+
+        let medianPower = powers[powers.count / 2]
+        let medianHR = hrs[hrs.count / 2]
+
+        // Filter out activities where power or HR is below 75% of median
+        let powerThreshold = medianPower * 0.75
+        let hrThreshold = medianHR * 0.75
+
+        return activities.filter { activity in
+            guard let power = activity.averageWatts, let hr = activity.averageHeartrate else {
+                return false
+            }
+            return power >= powerThreshold && hr >= hrThreshold
+        }
+    }
+
+    // MARK: - Line Chart View
+
+    private var lineChartView: some View {
+        let chartData = filterOutliers(viewModel.activities.filter {
+            $0.averageHeartrate != nil && $0.averageWatts != nil
+        }).sorted { $0.startDate < $1.startDate }
+
+        return VStack(spacing: 12) {
+            if chartData.isEmpty {
+                Spacer()
+                Text("No activities with HR and power data")
+                    .font(.bodyMedium)
+                    .foregroundColor(.secondary)
+                Spacer()
+            } else {
+                let minHR = (chartData.compactMap { $0.averageHeartrate }.min() ?? 100) - 5
+                let maxHR = (chartData.compactMap { $0.averageHeartrate }.max() ?? 160) + 5
+                let minPower = (chartData.compactMap { $0.averageWatts }.min() ?? 100) - 10
+                let maxPower = (chartData.compactMap { $0.averageWatts }.max() ?? 200) + 10
+
+                // Zone 2 HR range from settings
+                let z2Min = UserDefaults.standard.integer(forKey: "zone2Min")
+                let z2Max = UserDefaults.standard.integer(forKey: "zone2Max")
+                let zone2Min = z2Min > 0 ? z2Min : 120
+                let zone2Max = z2Max > 0 ? z2Max : 140
+
+                // Build line segments (break if gap > 2 weeks)
+                let twoWeeks: TimeInterval = 14 * 24 * 60 * 60
+                let hrSegments = buildLineSegments(from: chartData, getValue: { $0.averageHeartrate ?? 0 }, maxGap: twoWeeks)
+                let powerSegments = buildLineSegments(from: chartData, getValue: { $0.averageWatts ?? 0 }, maxGap: twoWeeks)
+
+                // Calculate visible date range based on zoom level
+                let dateRange = calculateDateRange(for: chartData)
+
+                HStack(spacing: 0) {
+                    // Left Y-axis (Power)
+                    VStack {
+                        Text("\(Int(maxPower))")
+                        Spacer()
+                        Text("\(Int(minPower))")
+                    }
+                    .font(.tiny)
+                    .foregroundColor(.blue)
+                    .frame(width: 30)
+
+                    ZStack {
+                        // Power lines (blue)
+                        Chart {
+                            ForEach(Array(powerSegments.enumerated()), id: \.offset) { segmentIndex, segment in
+                                ForEach(Array(segment.enumerated()), id: \.offset) { pointIndex, point in
+                                    LineMark(
+                                        x: .value("Date", point.date),
+                                        y: .value("Power", point.value),
+                                        series: .value("Segment", "power-\(segmentIndex)")
+                                    )
+                                    .foregroundStyle(Color.blue)
+                                    .lineStyle(StrokeStyle(lineWidth: 2))
+                                }
+                            }
+                        }
+                        .chartYScale(domain: minPower...maxPower)
+                        .chartXScale(domain: dateRange)
+                        .chartYAxis(.hidden)
+                        .chartXAxis {
+                            AxisMarks(values: .automatic(desiredCount: 5)) { value in
+                                AxisGridLine()
+                                AxisValueLabel(format: dateAxisFormat, anchor: .top)
+                            }
+                        }
+
+                        // HR lines (red) with Zone 2 band
+                        Chart {
+                            // Zone 2 band
+                            RectangleMark(
+                                yStart: .value("Zone Min", zone2Min),
+                                yEnd: .value("Zone Max", zone2Max)
+                            )
+                            .foregroundStyle(.green.opacity(0.2))
+
+                            // HR data lines
+                            ForEach(Array(hrSegments.enumerated()), id: \.offset) { segmentIndex, segment in
+                                ForEach(Array(segment.enumerated()), id: \.offset) { pointIndex, point in
+                                    LineMark(
+                                        x: .value("Date", point.date),
+                                        y: .value("HR", point.value),
+                                        series: .value("Segment", "hr-\(segmentIndex)")
+                                    )
+                                    .foregroundStyle(Color.red)
+                                    .lineStyle(StrokeStyle(lineWidth: 2))
+                                }
+                            }
+                        }
+                        .chartYScale(domain: minHR...maxHR)
+                        .chartXScale(domain: dateRange)
+                        .chartYAxis(.hidden)
+                        .chartXAxis(.hidden)
+                    }
+                    .frame(height: 220)
+                    .contentShape(Rectangle())
+                    .gesture(
+                        MagnifyGesture()
+                            .onChanged { value in
+                                let newZoom = baseZoomLevel * value.magnification
+                                withAnimation(.interactiveSpring) {
+                                    zoomLevel = max(1.0, min(newZoom, 15.0))
+                                }
+                            }
+                            .onEnded { _ in
+                                baseZoomLevel = zoomLevel
+                            }
+                    )
+                    .animation(.smooth(duration: 0.3), value: zoomLevel)
+
+                    // Right Y-axis (HR)
+                    VStack {
+                        Text("\(Int(maxHR))")
+                        Spacer()
+                        Text("\(Int(minHR))")
+                    }
+                    .font(.tiny)
+                    .foregroundColor(.red)
+                    .frame(width: 30)
+                }
+                .padding(.horizontal)
+
+                // Zoom controls
+                HStack(spacing: 20) {
+                    Button(action: {
+                        withAnimation(.smooth(duration: 0.3)) {
+                            zoomLevel = max(1.0, zoomLevel / 1.5)
+                            baseZoomLevel = zoomLevel
+                        }
+                    }) {
+                        Image(systemName: "minus.magnifyingglass")
+                            .font(.headlineMedium)
+                    }
+                    .disabled(zoomLevel <= 1.01)
+
+                    Text(String(format: "%.1fx", zoomLevel))
+                        .font(.labelMedium)
+                        .monospacedDigit()
+                        .frame(width: 40)
+
+                    Button(action: {
+                        withAnimation(.smooth(duration: 0.3)) {
+                            zoomLevel = min(15.0, zoomLevel * 1.5)
+                            baseZoomLevel = zoomLevel
+                        }
+                    }) {
+                        Image(systemName: "plus.magnifyingglass")
+                            .font(.headlineMedium)
+                    }
+                    .disabled(zoomLevel >= 15.0)
+
+                    Spacer()
+
+                    if zoomLevel > 1.01 {
+                        Button("Reset") {
+                            withAnimation(.smooth(duration: 0.3)) {
+                                zoomLevel = 1.0
+                                baseZoomLevel = 1.0
+                            }
+                        }
+                        .font(.labelMedium)
+                        .foregroundColor(.orange)
+                    }
+                }
+                .padding(.horizontal)
+
+                // Legend
+                HStack(spacing: 16) {
+                    HStack(spacing: 4) {
+                        RoundedRectangle(cornerRadius: 1).fill(Color.blue).frame(width: 16, height: 3)
+                        Text("Avg Power")
+                            .font(.tiny)
+                            .foregroundColor(.secondary)
+                    }
+                    HStack(spacing: 4) {
+                        RoundedRectangle(cornerRadius: 1).fill(Color.red).frame(width: 16, height: 3)
+                        Text("Avg HR")
+                            .font(.tiny)
+                            .foregroundColor(.secondary)
+                    }
+                }
+                .padding(.top, 4)
+
+                Text("Pinch to zoom • Lines break after 2+ week gaps")
+                    .font(.tiny)
+                    .foregroundColor(.secondary)
+
+                Spacer()
+            }
+        }
+    }
+
+    private func buildLineSegments(from activities: [StravaActivity], getValue: (StravaActivity) -> Double, maxGap: TimeInterval) -> [[(date: Date, value: Double)]] {
+        var segments: [[(date: Date, value: Double)]] = []
+        var currentSegment: [(date: Date, value: Double)] = []
+
+        for activity in activities {
+            let point = (date: activity.startDate, value: getValue(activity))
+
+            if let lastPoint = currentSegment.last {
+                let gap = activity.startDate.timeIntervalSince(lastPoint.date)
+                if gap > maxGap {
+                    // Gap too large, start new segment
+                    if !currentSegment.isEmpty {
+                        segments.append(currentSegment)
+                    }
+                    currentSegment = [point]
+                } else {
+                    currentSegment.append(point)
+                }
+            } else {
+                currentSegment.append(point)
+            }
+        }
+
+        if !currentSegment.isEmpty {
+            segments.append(currentSegment)
+        }
+
+        return segments
     }
 }
 
@@ -378,11 +649,6 @@ struct CompactActivityRowContent: View {
             }
 
             Spacer()
-
-            // Chevron indicator for navigation
-            Image(systemName: "chevron.right")
-                .font(.labelSmall)
-                .foregroundColor(.secondary)
         }
         .padding(.vertical, 1)
     }

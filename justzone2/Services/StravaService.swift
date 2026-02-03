@@ -137,7 +137,7 @@ class StravaService: NSObject, ObservableObject {
         }
     }
 
-    func fetchActivities(page: Int = 1, perPage: Int = 100) async throws -> [StravaActivity] {
+    func fetchActivities(page: Int = 1, perPage: Int = 100, after: Date? = nil) async throws -> [StravaActivity] {
         guard isAuthenticated else {
             throw StravaError.notAuthenticated
         }
@@ -152,10 +152,16 @@ class StravaService: NSObject, ObservableObject {
         }
 
         var components = URLComponents(string: "https://www.strava.com/api/v3/athlete/activities")!
-        components.queryItems = [
+        var queryItems = [
             URLQueryItem(name: "page", value: String(page)),
             URLQueryItem(name: "per_page", value: String(perPage))
         ]
+
+        if let after = after {
+            queryItems.append(URLQueryItem(name: "after", value: String(Int(after.timeIntervalSince1970))))
+        }
+
+        components.queryItems = queryItems
 
         var request = URLRequest(url: components.url!)
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
@@ -174,6 +180,33 @@ class StravaService: NSObject, ObservableObject {
             let errorMessage = String(data: data, encoding: .utf8) ?? "Unknown error"
             throw StravaError.uploadFailed(errorMessage)
         }
+    }
+
+    /// Fetch all activities from the last N years, handling pagination
+    func fetchAllActivities(years: Int = 3) async throws -> [StravaActivity] {
+        let after = Calendar.current.date(byAdding: .year, value: -years, to: Date())
+        var allActivities: [StravaActivity] = []
+        var page = 1
+        let perPage = 100
+
+        while true {
+            let activities = try await fetchActivities(page: page, perPage: perPage, after: after)
+            allActivities.append(contentsOf: activities)
+
+            // If we got fewer than perPage, we've reached the end
+            if activities.count < perPage {
+                break
+            }
+
+            page += 1
+
+            // Safety limit to prevent infinite loops
+            if page > 50 {
+                break
+            }
+        }
+
+        return allActivities
     }
 
     // MARK: - Upload

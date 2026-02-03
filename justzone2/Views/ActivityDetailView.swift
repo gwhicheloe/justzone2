@@ -388,6 +388,36 @@ private struct StreamChartView: View {
                     }
                 }
             }
+
+            // Analytics
+            if chartData.timeInZonePercent != nil || chartData.hrDriftPerHour != nil {
+                Divider()
+                    .padding(.vertical, 4)
+
+                HStack(spacing: 24) {
+                    if let timeInZone = chartData.timeInZonePercent {
+                        VStack(spacing: 2) {
+                            Text("\(timeInZone)%")
+                                .font(.headlineMedium)
+                                .foregroundColor(timeInZone >= 80 ? .green : (timeInZone >= 60 ? .orange : .red))
+                            Text("Time in Zone")
+                                .font(.labelSmall)
+                                .foregroundColor(.secondary)
+                        }
+                    }
+
+                    if let drift = chartData.hrDriftPerHour {
+                        VStack(spacing: 2) {
+                            Text(String(format: "%+.1f", drift))
+                                .font(.headlineMedium)
+                                .foregroundColor(abs(drift) <= 5 ? .green : (abs(drift) <= 10 ? .orange : .red))
+                            Text("HR Drift/hr")
+                                .font(.labelSmall)
+                                .foregroundColor(.secondary)
+                        }
+                    }
+                }
+            }
         }
         .padding()
         .background(Color(.secondarySystemBackground))
@@ -406,6 +436,8 @@ private struct ChartData {
     let maxTime: Double
     let zone2Min: Int
     let zone2Max: Int
+    let timeInZonePercent: Int?      // Percentage of time HR was in Zone 2
+    let hrDriftPerHour: Double?      // HR trend slope in bpm per hour
 
     init(streams: ActivityStreams) {
         // Zone 2 settings
@@ -540,6 +572,7 @@ private struct ChartData {
         maxTime = computedHRData.last?.time ?? computedPowerData.last?.time ?? 1
 
         // Trend line (excluding last 10% for cooldown)
+        var computedSlope: Double?
         if computedHRData.count >= 5 {
             let skipEnd = computedHRData.count / 10
             let endIndex = computedHRData.count - skipEnd
@@ -556,6 +589,7 @@ private struct ChartData {
                 if denominator != 0, let first = regressionData.first, let last = regressionData.last {
                     let slope = (n * sumXY - sumX * sumY) / denominator
                     let intercept = (sumY - slope * sumX) / n
+                    computedSlope = slope
                     trendLinePoints = [
                         (x: first.x, y: slope * first.x + intercept),
                         (x: last.x, y: slope * last.x + intercept)
@@ -568,6 +602,21 @@ private struct ChartData {
             }
         } else {
             trendLinePoints = []
+        }
+
+        // Calculate time in zone percentage
+        if !computedHRData.isEmpty {
+            let inZoneCount = computedHRData.filter { $0.value >= zone2MinVal && $0.value <= zone2MaxVal }.count
+            timeInZonePercent = (inZoneCount * 100) / computedHRData.count
+        } else {
+            timeInZonePercent = nil
+        }
+
+        // Calculate HR drift per hour (slope is in bpm per minute, convert to per hour)
+        if let slope = computedSlope {
+            hrDriftPerHour = slope * 60
+        } else {
+            hrDriftPerHour = nil
         }
     }
 }

@@ -59,7 +59,8 @@ class HistoryViewModel: ObservableObject {
         error = nil
 
         do {
-            let allActivities = try await stravaService.fetchActivities()
+            // Fetch all activities from last 3 years
+            let allActivities = try await stravaService.fetchAllActivities(years: 3)
             // Filter to only Zone 2 activities
             activities = allActivities.filter { activity in
                 activity.name.localizedCaseInsensitiveContains("Zone 2") ||
@@ -83,7 +84,8 @@ class HistoryViewModel: ObservableObject {
         error = nil
 
         do {
-            let allActivities = try await stravaService.fetchActivities()
+            // Fetch all activities from last 3 years
+            let allActivities = try await stravaService.fetchAllActivities(years: 3)
             activities = allActivities.filter { activity in
                 activity.name.localizedCaseInsensitiveContains("Zone 2") ||
                 activity.name.localizedCaseInsensitiveContains("Zone2") ||

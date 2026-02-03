@@ -29,7 +29,7 @@ struct SetupView: View {
                     .frame(maxWidth: .infinity)
                 }
                 .padding(12)
-                .background(Color(.systemBackground))
+                .background(Color.green.opacity(0.1))
                 .cornerRadius(12)
 
                 // Device Section
@@ -116,7 +116,7 @@ struct SetupView: View {
 
                     HStack {
                         Label("Apple Health", systemImage: viewModel.isHealthKitAuthorized ? "heart.fill" : "heart")
-                            .foregroundColor(viewModel.isHealthKitAuthorized ? .red : .primary)
+                            .foregroundColor(viewModel.isHealthKitAuthorized ? .green : .primary)
                         Spacer()
                         if viewModel.isHealthKitAuthorized {
                             Image(systemName: "checkmark.circle.fill")
@@ -134,7 +134,7 @@ struct SetupView: View {
 
                     HStack {
                         Label("Strava", systemImage: viewModel.isStravaConnected ? "checkmark.circle.fill" : "link.circle")
-                            .foregroundColor(viewModel.isStravaConnected ? .orange : .primary)
+                            .foregroundColor(viewModel.isStravaConnected ? .green : .primary)
                         Spacer()
                         if viewModel.isStravaConnected {
                             Image(systemName: "checkmark.circle.fill")
