@@ -373,15 +373,18 @@ struct HistoryView: View {
         let medianPower = powers[powers.count / 2]
         let medianHR = hrs[hrs.count / 2]
 
-        // Filter out activities where power or HR is below 75% of median
-        let powerThreshold = medianPower * 0.75
-        let hrThreshold = medianHR * 0.75
+        // Filter out activities outside 75%-125% of median
+        let powerLowThreshold = medianPower * 0.75
+        let powerHighThreshold = medianPower * 1.25
+        let hrLowThreshold = medianHR * 0.75
+        let hrHighThreshold = medianHR * 1.25
 
         return activities.filter { activity in
             guard let power = activity.averageWatts, let hr = activity.averageHeartrate else {
                 return false
             }
-            return power >= powerThreshold && hr >= hrThreshold
+            return power >= powerLowThreshold && power <= powerHighThreshold &&
+                   hr >= hrLowThreshold && hr <= hrHighThreshold
         }
     }
 
@@ -400,10 +403,19 @@ struct HistoryView: View {
                     .foregroundColor(.secondary)
                 Spacer()
             } else {
-                let minHR = (chartData.compactMap { $0.averageHeartrate }.min() ?? 100) - 5
-                let maxHR = (chartData.compactMap { $0.averageHeartrate }.max() ?? 160) + 5
-                let minPower = (chartData.compactMap { $0.averageWatts }.min() ?? 100) - 10
-                let maxPower = (chartData.compactMap { $0.averageWatts }.max() ?? 200) + 10
+                // Use 5th and 95th percentile for Y-axis to avoid outliers stretching the chart
+                let sortedHR = chartData.compactMap { $0.averageHeartrate }.sorted()
+                let sortedPower = chartData.compactMap { $0.averageWatts }.sorted()
+
+                let hrP5 = sortedHR.isEmpty ? 100.0 : sortedHR[max(0, sortedHR.count / 20)]
+                let hrP95 = sortedHR.isEmpty ? 160.0 : sortedHR[min(sortedHR.count - 1, sortedHR.count * 19 / 20)]
+                let powerP5 = sortedPower.isEmpty ? 100.0 : sortedPower[max(0, sortedPower.count / 20)]
+                let powerP95 = sortedPower.isEmpty ? 200.0 : sortedPower[min(sortedPower.count - 1, sortedPower.count * 19 / 20)]
+
+                let minHR = hrP5 - 5
+                let maxHR = hrP95 + 5
+                let minPower = powerP5 - 10
+                let maxPower = powerP95 + 10
 
                 // Zone 2 HR range from settings
                 let z2Min = UserDefaults.standard.integer(forKey: "zone2Min")
