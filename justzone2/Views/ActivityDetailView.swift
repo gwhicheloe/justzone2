@@ -334,7 +334,7 @@ private struct StreamChartView: View {
                                     y: .value("HR", point.y),
                                     series: .value("Series", "trend")
                                 )
-                                .foregroundStyle(Color.black)
+                                .foregroundStyle(Color.primary)
                                 .lineStyle(StrokeStyle(lineWidth: 2, dash: [5, 3]))
                             }
                         }
@@ -385,7 +385,7 @@ private struct StreamChartView: View {
                     if !chartData.trendLinePoints.isEmpty {
                         HStack(spacing: 4) {
                             RoundedRectangle(cornerRadius: 1)
-                                .fill(Color.black)
+                                .fill(Color.primary)
                                 .frame(width: 12, height: 2)
                             Text("HR Trend")
                                 .font(.labelSmall)
