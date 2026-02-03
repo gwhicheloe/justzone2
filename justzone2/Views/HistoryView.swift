@@ -445,7 +445,7 @@ struct HistoryView: View {
                     }
                     .font(.tiny)
                     .foregroundColor(.blue)
-                    .frame(width: 30)
+                    .frame(width: 30, height: 220)
 
                     ZStack {
                         // Power lines (blue)
@@ -525,7 +525,7 @@ struct HistoryView: View {
                     }
                     .font(.tiny)
                     .foregroundColor(.red)
-                    .frame(width: 30)
+                    .frame(width: 30, height: 220)
                 }
                 .padding(.horizontal)
 
