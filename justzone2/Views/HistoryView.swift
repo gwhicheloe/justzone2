@@ -431,10 +431,15 @@ struct HistoryView: View {
                 // Calculate visible date range based on zoom level
                 let dateRange = calculateDateRange(for: chartData)
 
+                let midPower = (minPower + maxPower) / 2
+                let midHR = (minHR + maxHR) / 2
+
                 HStack(spacing: 0) {
                     // Left Y-axis (Power)
                     VStack {
                         Text("\(Int(maxPower))")
+                        Spacer()
+                        Text("\(Int(midPower))")
                         Spacer()
                         Text("\(Int(minPower))")
                     }
@@ -513,6 +518,8 @@ struct HistoryView: View {
                     // Right Y-axis (HR)
                     VStack {
                         Text("\(Int(maxHR))")
+                        Spacer()
+                        Text("\(Int(midHR))")
                         Spacer()
                         Text("\(Int(minHR))")
                     }
