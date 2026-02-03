@@ -86,7 +86,7 @@ struct SettingsView: View {
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     Text("Settings")
-                        .font(.custom("ArialRoundedMTBold", size: 22))
+                        .font(.custom("ArialRoundedMTBold", size: 28))
                         .foregroundColor(.green)
                 }
             }
