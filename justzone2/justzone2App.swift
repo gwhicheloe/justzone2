@@ -54,8 +54,8 @@ struct SplashView: View {
                 .ignoresSafeArea()
 
             VStack(spacing: 20) {
-                Image(systemName: "bicycle")
-                    .font(.system(size: 80, weight: .light))
+                Image(systemName: "figure.outdoor.cycle")
+                    .font(.system(size: 80))
                     .foregroundColor(.green)
                     .scaleEffect(isAnimating ? 1.05 : 1.0)
                     .animation(
