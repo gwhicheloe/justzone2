@@ -42,8 +42,6 @@ struct SettingsView: View {
                     .listRowBackground(Color.green.opacity(0.1))
                 } header: {
                     Text("Zone 2 Heart Rate Range")
-                } footer: {
-                    Text("Set your personal Zone 2 heart rate range for training guidance.")
                 }
 
                 // Strava Connection
