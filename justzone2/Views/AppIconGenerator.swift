@@ -5,14 +5,13 @@ import SwiftUI
 struct AppIconGenerator: View {
     var body: some View {
         ZStack {
-            // Solid green background
-            Color.green
+            // Solid black background
+            Color.black
 
-            // Big "2"
+            // Big green "2" in Arial Rounded MT Bold
             Text("2")
-                .font(.system(size: 700, weight: .bold, design: .rounded))
-                .foregroundColor(.white)
-                .shadow(color: .black.opacity(0.2), radius: 20, x: 0, y: 10)
+                .font(.custom("ArialRoundedMTBold", size: 700))
+                .foregroundColor(.green)
         }
         .frame(width: 1024, height: 1024) // App Store size
     }
