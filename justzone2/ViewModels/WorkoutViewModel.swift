@@ -231,6 +231,27 @@ class WorkoutViewModel: ObservableObject {
         max(workout.targetDuration - elapsedTime, 0)
     }
 
+    // MARK: - Chunk-based timing (10-minute chunks)
+
+    var chunkDuration: TimeInterval { 10 * 60 } // 10 minutes
+
+    var currentChunk: Int {
+        min(Int(elapsedTime / chunkDuration) + 1, totalChunks)
+    }
+
+    var totalChunks: Int {
+        max(1, Int(ceil(workout.targetDuration / chunkDuration)))
+    }
+
+    var timeRemainingInChunk: TimeInterval {
+        // For the last chunk, use actual remaining time
+        if currentChunk == totalChunks {
+            return remainingTime
+        }
+        let timeInCurrentChunk = elapsedTime.truncatingRemainder(dividingBy: chunkDuration)
+        return chunkDuration - timeInCurrentChunk
+    }
+
     func formatTime(_ time: TimeInterval) -> String {
         let totalSeconds = Int(time)
         let hours = totalSeconds / 3600

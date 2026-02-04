@@ -10,7 +10,7 @@ struct WorkoutView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            // Progress Bar
+            // Progress Bar with Chunk Markers
             GeometryReader { geometry in
                 ZStack(alignment: .leading) {
                     Rectangle()
@@ -19,6 +19,14 @@ struct WorkoutView: View {
                     Rectangle()
                         .fill(Color.green)
                         .frame(width: geometry.size.width * viewModel.progress)
+
+                    // Chunk dividers
+                    ForEach(1..<viewModel.totalChunks, id: \.self) { chunk in
+                        Rectangle()
+                            .fill(Color.white.opacity(0.5))
+                            .frame(width: 2)
+                            .offset(x: geometry.size.width * (Double(chunk) / Double(viewModel.totalChunks)) - 1)
+                    }
                 }
             }
             .frame(height: 8)
@@ -44,15 +52,38 @@ struct WorkoutView: View {
                     }
                     .padding(.top, 12)
 
-                    // Time
-                    VStack(spacing: 4) {
-                        Text(viewModel.formatTime(viewModel.elapsedTime))
-                            .font(.displayMedium)
-                            .monospacedDigit()
-
-                        Text("Remaining: \(viewModel.formatTime(viewModel.remainingTime))")
-                            .font(.bodyMedium)
+                    // Time - Chunk-based display
+                    VStack(spacing: 8) {
+                        // Chunk indicator
+                        Text("Chunk \(viewModel.currentChunk) of \(viewModel.totalChunks)")
+                            .font(.subheadline)
                             .foregroundColor(.secondary)
+
+                        // Large chunk countdown
+                        Text(viewModel.formatTime(viewModel.timeRemainingInChunk))
+                            .font(.system(size: 64, weight: .bold, design: .rounded))
+                            .monospacedDigit()
+                            .foregroundColor(.green)
+
+                        // Smaller total times
+                        HStack(spacing: 24) {
+                            VStack(spacing: 2) {
+                                Text(viewModel.formatTime(viewModel.elapsedTime))
+                                    .font(.title3)
+                                    .monospacedDigit()
+                                Text("elapsed")
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+                            }
+                            VStack(spacing: 2) {
+                                Text(viewModel.formatTime(viewModel.remainingTime))
+                                    .font(.title3)
+                                    .monospacedDigit()
+                                Text("remaining")
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+                            }
+                        }
                     }
 
                     // Chart
