@@ -54,12 +54,12 @@ struct SplashView: View {
                 .ignoresSafeArea()
 
             VStack(spacing: 20) {
-                Image(systemName: "figure.indoor.cycle")
-                    .font(.system(size: 80))
+                Image(systemName: "bicycle")
+                    .font(.system(size: 80, weight: .light))
                     .foregroundColor(.green)
-                    .scaleEffect(isAnimating ? 1.1 : 1.0)
+                    .scaleEffect(isAnimating ? 1.05 : 1.0)
                     .animation(
-                        .easeInOut(duration: 0.8).repeatForever(autoreverses: true),
+                        .easeInOut(duration: 1.0).repeatForever(autoreverses: true),
                         value: isAnimating
                     )
 
