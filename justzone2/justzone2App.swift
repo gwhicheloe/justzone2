@@ -11,7 +11,7 @@ struct justzone2App: App {
                 TabView {
                     SetupView(viewModel: appState.setupViewModel)
                         .tabItem {
-                            Label("Workout", systemImage: "figure.indoor.cycle")
+                            Label("Workout", systemImage: "figure.outdoor.cycle")
                         }
 
                     HistoryView(viewModel: appState.historyViewModel)
