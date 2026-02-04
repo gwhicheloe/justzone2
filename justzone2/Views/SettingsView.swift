@@ -5,47 +5,49 @@ struct SettingsView: View {
 
     var body: some View {
         NavigationStack {
-            Form {
+            VStack(spacing: 12) {
                 // Zone 2 Heart Rate Range
-                Section {
-                    HStack(spacing: 16) {
-                        VStack {
-                            Text("Min HR")
-                                .font(.caption)
-                                .foregroundColor(.secondary)
-                            Picker("", selection: $viewModel.zone2Min) {
-                                ForEach(viewModel.hrOptions, id: \.self) { hr in
-                                    Text("\(hr)").tag(hr)
-                                }
+                HStack(spacing: 8) {
+                    VStack {
+                        Text("Min HR")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                        Picker("", selection: $viewModel.zone2Min) {
+                            ForEach(viewModel.hrOptions, id: \.self) { hr in
+                                Text("\(hr)").tag(hr)
                             }
-                            .pickerStyle(.wheel)
-                            .frame(height: 100)
-                            .clipped()
                         }
-                        .frame(maxWidth: .infinity)
-
-                        VStack {
-                            Text("Max HR")
-                                .font(.caption)
-                                .foregroundColor(.secondary)
-                            Picker("", selection: $viewModel.zone2Max) {
-                                ForEach(viewModel.hrOptions, id: \.self) { hr in
-                                    Text("\(hr)").tag(hr)
-                                }
-                            }
-                            .pickerStyle(.wheel)
-                            .frame(height: 100)
-                            .clipped()
-                        }
-                        .frame(maxWidth: .infinity)
+                        .pickerStyle(.wheel)
+                        .frame(height: 100)
+                        .clipped()
                     }
-                    .listRowBackground(Color.green.opacity(0.1))
-                } header: {
-                    Text("Zone 2 Heart Rate Range")
+                    .frame(maxWidth: .infinity)
+
+                    VStack {
+                        Text("Max HR")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                        Picker("", selection: $viewModel.zone2Max) {
+                            ForEach(viewModel.hrOptions, id: \.self) { hr in
+                                Text("\(hr)").tag(hr)
+                            }
+                        }
+                        .pickerStyle(.wheel)
+                        .frame(height: 100)
+                        .clipped()
+                    }
+                    .frame(maxWidth: .infinity)
                 }
+                .padding(12)
+                .background(Color.green.opacity(0.1))
+                .cornerRadius(12)
 
                 // Strava Connection
-                Section {
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Strava")
+                        .font(.subheadline)
+                        .fontWeight(.semibold)
+
                     HStack {
                         Image(systemName: viewModel.isStravaConnected ? "checkmark.circle.fill" : "link.circle")
                             .foregroundColor(viewModel.isStravaConnected ? .green : .orange)
@@ -65,22 +67,34 @@ struct SettingsView: View {
                             }
                         }
                     }
-                } header: {
-                    Text("Strava")
+                    .font(.subheadline)
                 }
+                .padding(12)
+                .background(Color(.systemBackground))
+                .cornerRadius(12)
 
                 // App Info
-                Section {
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("About")
+                        .font(.subheadline)
+                        .fontWeight(.semibold)
+
                     HStack {
                         Text("Version")
                         Spacer()
                         Text(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0")
                             .foregroundColor(.secondary)
                     }
-                } header: {
-                    Text("About")
+                    .font(.subheadline)
                 }
+                .padding(12)
+                .background(Color(.systemBackground))
+                .cornerRadius(12)
+
+                Spacer()
             }
+            .padding()
+            .background(Color(.systemGroupedBackground))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .principal) {
