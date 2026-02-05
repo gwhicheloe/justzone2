@@ -1,5 +1,5 @@
 /**
- * JustZone2 Marketing Website
+ * Justzone2 Marketing Website
  * Minimal JavaScript for interactivity
  */
 
