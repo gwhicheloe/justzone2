@@ -10,8 +10,10 @@ class SettingsViewModel: ObservableObject {
         didSet { UserDefaults.standard.set(zone2Max, forKey: "zone2Max") }
     }
     @Published var isStravaConnected = false
+    @Published var showClearConfirmation = false
 
     let stravaService: StravaService
+    var onClearData: (() async -> Void)?
 
     init(stravaService: StravaService) {
         self.stravaService = stravaService
@@ -32,6 +34,10 @@ class SettingsViewModel: ObservableObject {
 
     func disconnectStrava() {
         stravaService.logout()
+    }
+
+    func clearData() async {
+        await onClearData?()
     }
 
     // HR range options: 60-200 bpm

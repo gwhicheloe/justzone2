@@ -3,8 +3,12 @@ import Combine
 
 @MainActor
 class SetupViewModel: ObservableObject {
-    @Published var targetPower: Int = Constants.defaultTargetPower
-    @Published var targetDuration: TimeInterval = Constants.defaultDuration
+    @Published var targetPower: Int {
+        didSet { UserDefaults.standard.set(targetPower, forKey: "targetPower") }
+    }
+    @Published var targetDuration: TimeInterval {
+        didSet { UserDefaults.standard.set(targetDuration, forKey: "targetDuration") }
+    }
     @Published var isReadyToStart = false
     @Published var isBluetoothEnabled = false
     @Published var isScanning = false
@@ -12,6 +16,8 @@ class SetupViewModel: ObservableObject {
     @Published var discoveredHRMonitors: [DeviceInfo] = []
     @Published var kickrConnected = false
     @Published var hrConnected = false
+    @Published var connectedKickrId: UUID?
+    @Published var connectedHRId: UUID?
     @Published var kickrConnecting = false
     @Published var hrConnecting = false
     @Published var kickrError: String?
@@ -45,6 +51,12 @@ class SetupViewModel: ObservableObject {
         self.healthKitManager = healthKitManager
         self.liveActivityManager = liveActivityManager
 
+        let savedPower = UserDefaults.standard.object(forKey: "targetPower") as? Int
+        self.targetPower = savedPower ?? Constants.defaultTargetPower
+
+        let savedDuration = UserDefaults.standard.object(forKey: "targetDuration") as? TimeInterval
+        self.targetDuration = savedDuration ?? Constants.defaultDuration
+
         setupBindings()
     }
 
@@ -76,6 +88,9 @@ class SetupViewModel: ObservableObject {
             }
             .store(in: &cancellables)
 
+        kickrService.$connectedDeviceId
+            .assign(to: &$connectedKickrId)
+
         kickrService.$connectionError
             .sink { [weak self] error in
                 self?.kickrError = error
@@ -94,6 +109,9 @@ class SetupViewModel: ObservableObject {
                 }
             }
             .store(in: &cancellables)
+
+        heartRateService.$connectedDeviceId
+            .assign(to: &$connectedHRId)
 
         heartRateService.$connectionError
             .sink { [weak self] error in

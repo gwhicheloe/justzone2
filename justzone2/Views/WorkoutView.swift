@@ -378,12 +378,13 @@ struct WorkoutChartView: View {
 }
 
 #Preview {
+    @Previewable @State var bluetooth = BluetoothManager()
     NavigationStack {
         WorkoutView(
             viewModel: WorkoutViewModel(
                 workout: Workout(targetPower: 150, targetDuration: 30 * 60),
-                kickrService: KickrService(bluetoothManager: BluetoothManager()),
-                heartRateService: HeartRateService(bluetoothManager: BluetoothManager()),
+                kickrService: KickrService(bluetoothManager: bluetooth),
+                heartRateService: HeartRateService(bluetoothManager: bluetooth),
                 healthKitManager: HealthKitManager(),
                 liveActivityManager: LiveActivityManager()
             ),

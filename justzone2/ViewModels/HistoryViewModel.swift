@@ -5,6 +5,7 @@ import Combine
 class HistoryViewModel: ObservableObject {
     @Published var activities: [StravaActivity] = []
     @Published var isLoading = false
+    @Published var loadingProgress: String?
     @Published var error: String?
     @Published var isStravaConnected = false
     @Published var lastUpdated: Date?
@@ -15,6 +16,7 @@ class HistoryViewModel: ObservableObject {
     let streamsCache = StreamsCacheService()
 
     private var cancellables = Set<AnyCancellable>()
+    private var dataCleared = false
     private let cacheKey = "cachedActivities"
     private let lastUpdatedKey = "activitiesLastUpdated"
 
@@ -52,21 +54,41 @@ class HistoryViewModel: ObservableObject {
         }
     }
 
+    /// Initial full download — fetches year by year with progress
     func refreshActivities() async {
         guard isStravaConnected else { return }
 
+        dataCleared = false
         isLoading = true
         error = nil
 
         do {
-            // Fetch all activities from last 3 years
-            let allActivities = try await stravaService.fetchAllActivities(years: 3)
-            // Filter to only Zone 2 activities
-            activities = allActivities.filter { activity in
-                activity.name.localizedCaseInsensitiveContains("Zone 2") ||
-                activity.name.localizedCaseInsensitiveContains("Zone2") ||
-                activity.name.localizedCaseInsensitiveContains("Z2")
+            let currentYear = Calendar.current.component(.year, from: Date())
+            var consecutiveEmptyYears = 0
+
+            for year in stride(from: currentYear, through: currentYear - 10, by: -1) {
+                loadingProgress = "Loading \(year)..."
+
+                let yearActivities = try await stravaService.fetchActivitiesForYear(year)
+                let zone2 = yearActivities.filter { isZone2Activity($0) }
+
+                if zone2.isEmpty {
+                    consecutiveEmptyYears += 1
+                } else {
+                    consecutiveEmptyYears = 0
+                    activities.append(contentsOf: zone2)
+                    activities.sort { $0.startDate > $1.startDate }
+                    saveToCache()
+                }
+
+                // Stop after 2 consecutive empty years
+                if consecutiveEmptyYears >= 2 {
+                    break
+                }
             }
+
+            // Deduplicate by ID (in case of overlap)
+            deduplicateActivities()
             saveToCache()
         } catch is CancellationError {
             // Ignore cancellation
@@ -74,37 +96,75 @@ class HistoryViewModel: ObservableObject {
             self.error = error.localizedDescription
         }
 
+        loadingProgress = nil
         isLoading = false
     }
 
+    /// Incremental refresh — only fetches activities since the most recent cached one
     func refreshActivitiesFromPullDown() async {
         guard isStravaConnected else { return }
         guard !isLoading else { return }
 
+        // If no cached data, do a full download instead
+        guard !activities.isEmpty else {
+            await refreshActivities()
+            return
+        }
+
+        isLoading = true
         error = nil
 
         do {
-            // Fetch all activities from last 3 years
-            let allActivities = try await stravaService.fetchAllActivities(years: 3)
-            activities = allActivities.filter { activity in
-                activity.name.localizedCaseInsensitiveContains("Zone 2") ||
-                activity.name.localizedCaseInsensitiveContains("Zone2") ||
-                activity.name.localizedCaseInsensitiveContains("Z2")
+            // Fetch from 1 month before the latest activity to catch any gaps
+            let latestDate = activities.first?.startDate ?? Date()
+            let fetchFrom = Calendar.current.date(byAdding: .month, value: -1, to: latestDate) ?? latestDate
+
+            let recentActivities = try await stravaService.fetchActivitiesSince(fetchFrom)
+            let zone2 = recentActivities.filter { isZone2Activity($0) }
+
+            // Merge by ID — new entries replace existing ones
+            var activityMap = Dictionary(uniqueKeysWithValues: activities.map { ($0.id, $0) })
+            for activity in zone2 {
+                activityMap[activity.id] = activity
             }
+
+            activities = activityMap.values.sorted { $0.startDate > $1.startDate }
             saveToCache()
         } catch is CancellationError {
             // Ignore cancellation - user released early
         } catch {
             self.error = error.localizedDescription
         }
+
+        isLoading = false
     }
 
     func loadActivities() async {
-        // If we have cached data, don't fetch from Strava
-        if !activities.isEmpty {
+        // If we have cached data or user just cleared data, don't auto-fetch
+        if !activities.isEmpty || dataCleared {
             return
         }
         await refreshActivities()
+    }
+
+    func clearAllData() async {
+        activities = []
+        dataCleared = true
+        UserDefaults.standard.removeObject(forKey: cacheKey)
+        UserDefaults.standard.removeObject(forKey: lastUpdatedKey)
+        lastUpdated = nil
+        await streamsCache.clearCache()
+    }
+
+    private func isZone2Activity(_ activity: StravaActivity) -> Bool {
+        activity.name.localizedCaseInsensitiveContains("Zone 2") ||
+        activity.name.localizedCaseInsensitiveContains("Zone2") ||
+        activity.name.localizedCaseInsensitiveContains("Z2")
+    }
+
+    private func deduplicateActivities() {
+        var seen = Set<Int>()
+        activities = activities.filter { seen.insert($0.id).inserted }
     }
 
     func connectToStrava() async {

@@ -18,7 +18,7 @@ struct HistoryView: View {
             Group {
                 if !viewModel.isStravaConnected {
                     connectPrompt
-                } else if viewModel.isLoading {
+                } else if viewModel.isLoading && viewModel.activities.isEmpty {
                     loadingView
                 } else if let error = viewModel.error {
                     errorView(error)
@@ -55,15 +55,6 @@ struct HistoryView: View {
                         .font(.custom("ArialRoundedMTBold", size: 28))
                         .foregroundColor(.green)
                 }
-                if viewModel.isStravaConnected && !viewModel.isLoading {
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button(action: {
-                            Task { await viewModel.refreshActivities() }
-                        }) {
-                            Image(systemName: "arrow.clockwise")
-                        }
-                    }
-                }
             }
             .onAppear {
                 if viewModel.isStravaConnected && viewModel.activities.isEmpty {
@@ -97,7 +88,7 @@ struct HistoryView: View {
     private var loadingView: some View {
         VStack(spacing: 12) {
             ProgressView()
-            Text("Loading...")
+            Text(viewModel.loadingProgress ?? "Loading...")
                 .font(.labelMedium)
                 .foregroundColor(.secondary)
         }
@@ -122,17 +113,22 @@ struct HistoryView: View {
     }
 
     private var emptyView: some View {
-        VStack(spacing: 12) {
-            Image(systemName: "figure.indoor.cycle")
-                .font(.headlineLarge)
-                .foregroundColor(.secondary)
-            Text("No Zone 2 Workouts")
-                .font(.bodyMedium)
-            Button("Refresh") {
-                Task { await viewModel.loadActivities() }
+        ScrollView {
+            VStack(spacing: 12) {
+                Image(systemName: "figure.indoor.cycle")
+                    .font(.headlineLarge)
+                    .foregroundColor(.secondary)
+                Text("No Zone 2 Workouts")
+                    .font(.bodyMedium)
+                Text("Pull down to refresh")
+                    .font(.labelMedium)
+                    .foregroundColor(.secondary)
             }
-            .font(.labelMedium)
-            .foregroundColor(.orange)
+            .frame(maxWidth: .infinity)
+            .padding(.top, 100)
+        }
+        .refreshable {
+            await viewModel.refreshActivitiesFromPullDown()
         }
     }
 

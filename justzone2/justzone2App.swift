@@ -118,5 +118,10 @@ class AppState: ObservableObject {
         )
         self.historyViewModel = HistoryViewModel(stravaService: strava)
         self.settingsViewModel = SettingsViewModel(stravaService: strava)
+
+        let history = self.historyViewModel
+        self.settingsViewModel.onClearData = {
+            await history.clearAllData()
+        }
     }
 }

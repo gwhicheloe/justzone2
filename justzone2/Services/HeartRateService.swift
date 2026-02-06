@@ -4,6 +4,7 @@ import Combine
 @MainActor
 class HeartRateService: NSObject, ObservableObject {
     @Published var isConnected = false
+    @Published var connectedDeviceId: UUID?
     @Published var currentHeartRate: Int = 0
     @Published var connectionError: String?
 
@@ -68,6 +69,7 @@ class HeartRateService: NSObject, ObservableObject {
         guard device.type == .heartRateMonitor else { return }
         connectionError = nil
         peripheral = device.peripheral
+        connectedDeviceId = device.id
         peripheral?.delegate = self
         bluetoothManager?.connect(device.peripheral)
     }
@@ -80,6 +82,7 @@ class HeartRateService: NSObject, ObservableObject {
 
     private func cleanup() {
         isConnected = false
+        connectedDeviceId = nil
         currentHeartRate = 0
         peripheral = nil
         heartRateMeasurementCharacteristic = nil

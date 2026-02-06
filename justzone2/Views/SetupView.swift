@@ -71,8 +71,8 @@ struct SetupView: View {
                     ForEach(viewModel.discoveredKickrs) { device in
                         DeviceRow(
                             device: device,
-                            isConnected: viewModel.kickrConnected,
-                            isConnecting: viewModel.kickrConnecting,
+                            isConnected: viewModel.connectedKickrId == device.id,
+                            isConnecting: viewModel.kickrConnecting && viewModel.connectedKickrId == device.id,
                             onConnect: { viewModel.connectKickr(device) },
                             onDisconnect: { viewModel.disconnectKickr() }
                         )
@@ -97,8 +97,8 @@ struct SetupView: View {
                     ForEach(limitedHRMonitors) { device in
                         DeviceRow(
                             device: device,
-                            isConnected: viewModel.hrConnected,
-                            isConnecting: viewModel.hrConnecting,
+                            isConnected: viewModel.connectedHRId == device.id,
+                            isConnecting: viewModel.hrConnecting && viewModel.connectedHRId == device.id,
                             onConnect: { viewModel.connectHeartRateMonitor(device) },
                             onDisconnect: { viewModel.disconnectHeartRateMonitor() }
                         )

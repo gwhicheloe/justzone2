@@ -137,7 +137,7 @@ class StravaService: NSObject, ObservableObject {
         }
     }
 
-    func fetchActivities(page: Int = 1, perPage: Int = 100, after: Date? = nil) async throws -> [StravaActivity] {
+    func fetchActivities(page: Int = 1, perPage: Int = 100, after: Date? = nil, before: Date? = nil) async throws -> [StravaActivity] {
         guard isAuthenticated else {
             throw StravaError.notAuthenticated
         }
@@ -161,6 +161,10 @@ class StravaService: NSObject, ObservableObject {
             queryItems.append(URLQueryItem(name: "after", value: String(Int(after.timeIntervalSince1970))))
         }
 
+        if let before = before {
+            queryItems.append(URLQueryItem(name: "before", value: String(Int(before.timeIntervalSince1970))))
+        }
+
         components.queryItems = queryItems
 
         var request = URLRequest(url: components.url!)
@@ -182,25 +186,50 @@ class StravaService: NSObject, ObservableObject {
         }
     }
 
-    /// Fetch all activities from the last N years, handling pagination
-    func fetchAllActivities(years: Int = 3) async throws -> [StravaActivity] {
-        let after = Calendar.current.date(byAdding: .year, value: -years, to: Date())
+    /// Fetch all activities for a specific calendar year, handling pagination
+    func fetchActivitiesForYear(_ year: Int) async throws -> [StravaActivity] {
+        let calendar = Calendar.current
+        let after = calendar.date(from: DateComponents(year: year, month: 1, day: 1))!
+        let before = calendar.date(from: DateComponents(year: year + 1, month: 1, day: 1))!
+
         var allActivities: [StravaActivity] = []
         var page = 1
         let perPage = 100
 
         while true {
-            let activities = try await fetchActivities(page: page, perPage: perPage, after: after)
+            let activities = try await fetchActivities(page: page, perPage: perPage, after: after, before: before)
             allActivities.append(contentsOf: activities)
 
-            // If we got fewer than perPage, we've reached the end
             if activities.count < perPage {
                 break
             }
 
             page += 1
 
-            // Safety limit to prevent infinite loops
+            if page > 50 {
+                break
+            }
+        }
+
+        return allActivities
+    }
+
+    /// Fetch all activities since a given date, handling pagination
+    func fetchActivitiesSince(_ date: Date) async throws -> [StravaActivity] {
+        var allActivities: [StravaActivity] = []
+        var page = 1
+        let perPage = 100
+
+        while true {
+            let activities = try await fetchActivities(page: page, perPage: perPage, after: date)
+            allActivities.append(contentsOf: activities)
+
+            if activities.count < perPage {
+                break
+            }
+
+            page += 1
+
             if page > 50 {
                 break
             }

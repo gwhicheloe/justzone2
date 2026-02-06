@@ -73,6 +73,41 @@ struct SettingsView: View {
                 .background(Color(.systemBackground))
                 .cornerRadius(12)
 
+                // Data
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Data")
+                        .font(.subheadline)
+                        .fontWeight(.semibold)
+
+                    Button {
+                        viewModel.showClearConfirmation = true
+                    } label: {
+                        HStack {
+                            Text("Clear Cached Data")
+                                .foregroundColor(.red)
+                            Spacer()
+                            Image(systemName: "trash")
+                                .foregroundColor(.red)
+                        }
+                        .font(.subheadline)
+                    }
+                }
+                .padding(12)
+                .background(Color(.systemBackground))
+                .cornerRadius(12)
+                .confirmationDialog(
+                    "Clear all cached activities and stream data?",
+                    isPresented: $viewModel.showClearConfirmation,
+                    titleVisibility: .visible
+                ) {
+                    Button("Delete", role: .destructive) {
+                        Task {
+                            await viewModel.clearData()
+                        }
+                    }
+                    Button("Don't Delete", role: .cancel) {}
+                }
+
                 // App Info
                 VStack(alignment: .leading, spacing: 8) {
                     Text("About")

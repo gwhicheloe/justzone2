@@ -4,6 +4,7 @@ import Combine
 @MainActor
 class KickrService: NSObject, ObservableObject {
     @Published var isConnected = false
+    @Published var connectedDeviceId: UUID?
     @Published var isControlling = false
     @Published var currentPower: Int = 0
     @Published var targetPower: Int = 0
@@ -71,6 +72,7 @@ class KickrService: NSObject, ObservableObject {
         guard device.type == .kickr else { return }
         connectionError = nil
         peripheral = device.peripheral
+        connectedDeviceId = device.id
         peripheral?.delegate = self
         bluetoothManager?.connect(device.peripheral)
     }
@@ -141,6 +143,7 @@ class KickrService: NSObject, ObservableObject {
 
     private func cleanup() {
         isConnected = false
+        connectedDeviceId = nil
         isControlling = false
         currentPower = 0
         peripheral = nil
