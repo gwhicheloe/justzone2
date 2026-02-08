@@ -781,6 +781,7 @@
 				CODE_SIGN_ENTITLEMENTS = JustZone2Watch/JustZone2Watch.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = N66DNSAQQ9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = JustZone2Watch/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = JustZone2;
@@ -810,6 +811,7 @@
 				CODE_SIGN_ENTITLEMENTS = JustZone2Watch/JustZone2Watch.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = N66DNSAQQ9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = JustZone2Watch/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = JustZone2;

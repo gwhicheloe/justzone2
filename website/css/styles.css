@@ -492,11 +492,11 @@ a:hover {
     line-height: 1.7;
 }
 
-.strava-attribution {
-    font-size: 0.8rem;
-    color: var(--color-strava);
-    margin-top: 0.5rem;
-    font-weight: 600;
+.strava-badge {
+    height: 24px;
+    width: auto;
+    margin-top: 0.75rem;
+    opacity: 0.7;
 }
 
 /* ===== Why Zone 2 Section ===== */
