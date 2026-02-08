@@ -50,7 +50,7 @@ struct SettingsView: View {
 
                     HStack {
                         Image(systemName: viewModel.isStravaConnected ? "checkmark.circle.fill" : "link.circle")
-                            .foregroundColor(viewModel.isStravaConnected ? .green : .orange)
+                            .foregroundColor(viewModel.isStravaConnected ? .green : .strava)
                         Text(viewModel.isStravaConnected ? "Connected" : "Not connected")
                             .foregroundColor(viewModel.isStravaConnected ? .primary : .secondary)
                         Spacer()

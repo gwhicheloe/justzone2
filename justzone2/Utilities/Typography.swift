@@ -45,3 +45,10 @@ extension Font {
     static var timerMedium: Font { AppFont.custom(size: 32) }
     static var timerSmall: Font { AppFont.custom(size: 17) }
 }
+
+// MARK: - Brand Colors
+
+extension Color {
+    /// Official Strava brand orange (#FC5200) per https://developers.strava.com/guidelines/
+    static let strava = Color(red: 252 / 255, green: 82 / 255, blue: 0 / 255)
+}

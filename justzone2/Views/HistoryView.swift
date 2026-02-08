@@ -68,8 +68,8 @@ struct HistoryView: View {
         VStack(spacing: 16) {
             Image(systemName: "link.circle")
                 .font(.system(size: 50))
-                .foregroundColor(.orange)
-            Text("Connect to Strava")
+                .foregroundColor(.strava)
+            Text("Connect with Strava")
                 .font(.headlineSmall)
             Button(action: {
                 Task { await viewModel.connectToStrava() }
@@ -79,7 +79,7 @@ struct HistoryView: View {
                     .foregroundColor(.white)
                     .padding(.horizontal, 20)
                     .padding(.vertical, 10)
-                    .background(Color.orange)
+                    .background(Color.strava)
                     .cornerRadius(8)
             }
         }
@@ -107,7 +107,7 @@ struct HistoryView: View {
                 Task { await viewModel.loadActivities() }
             }
             .font(.labelMedium)
-            .foregroundColor(.orange)
+            .foregroundColor(.strava)
         }
         .padding()
     }
@@ -259,7 +259,7 @@ struct HistoryView: View {
                             }
                         }
                         .font(.labelMedium)
-                        .foregroundColor(.orange)
+                        .foregroundColor(.strava)
                     }
                 }
                 .padding(.horizontal)
@@ -565,7 +565,7 @@ struct HistoryView: View {
                             }
                         }
                         .font(.labelMedium)
-                        .foregroundColor(.orange)
+                        .foregroundColor(.strava)
                     }
                 }
                 .padding(.horizontal)

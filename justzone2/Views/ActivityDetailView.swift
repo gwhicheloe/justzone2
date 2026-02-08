@@ -194,7 +194,7 @@ struct ActivityDetailView: View {
             .foregroundColor(.white)
             .padding(.horizontal, 24)
             .padding(.vertical, 12)
-            .background(Color.orange)
+            .background(Color.strava)
             .cornerRadius(8)
         }
         .padding(.top, 8)

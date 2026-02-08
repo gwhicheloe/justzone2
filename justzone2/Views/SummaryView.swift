@@ -62,10 +62,9 @@ struct SummaryView: View {
 
                 // Strava Section
                 VStack(spacing: 16) {
-                    Text("STRAVA")
+                    Text("Strava")
                         .font(.headlineMedium)
-                        .foregroundColor(.orange)
-                        .tracking(2)
+                        .foregroundColor(.strava)
 
                     if !viewModel.isStravaConnected {
                         Button(action: {
@@ -75,13 +74,13 @@ struct SummaryView: View {
                         }) {
                             HStack {
                                 Image(systemName: "link")
-                                Text("Connect to Strava")
+                                Text("Connect with Strava")
                             }
                             .font(.headlineSmall)
                             .foregroundColor(.white)
                             .frame(maxWidth: .infinity)
                             .padding()
-                            .background(Color.orange)
+                            .background(Color.strava)
                             .cornerRadius(12)
                         }
                     } else {
@@ -101,7 +100,7 @@ struct SummaryView: View {
                                         Image(systemName: "arrow.up.right.square")
                                     }
                                     .font(.bodyMedium)
-                                    .foregroundColor(.orange)
+                                    .foregroundColor(.strava)
                                 }
                             }
 
@@ -214,7 +213,7 @@ struct UploadButton: View {
 
     private var buttonColor: Color {
         switch state {
-        case .ready: return .orange
+        case .ready: return .strava
         case .processing: return .gray
         case .complete: return .green
         case .failed: return .red

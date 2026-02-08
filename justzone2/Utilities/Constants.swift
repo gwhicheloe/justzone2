@@ -40,6 +40,10 @@ enum Constants {
     static let defaultDuration: TimeInterval = 30 * 60 // 30 minutes
     static let sampleInterval: TimeInterval = 1.0 // 1 Hz sampling
 
+    // MARK: - Strava Branding
+    // Official Strava brand color per https://developers.strava.com/guidelines/
+    static let stravaOrangeHex = "#FC5200"
+
     // MARK: - Keychain Keys
     static let stravaAccessTokenKey = "strava_access_token"
     static let stravaRefreshTokenKey = "strava_refresh_token"

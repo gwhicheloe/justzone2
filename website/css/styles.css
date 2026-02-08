@@ -8,6 +8,7 @@
     --color-text: #FFFFFF;
     --color-text-secondary: #8E8E93;
     --color-text-muted: #636366;
+    --color-strava: #FC5200;
     --color-border: #3A3A3C;
     --font-family: 'Nunito', -apple-system, BlinkMacSystemFont, sans-serif;
     --radius-sm: 8px;
@@ -489,6 +490,13 @@ a:hover {
 .feature-card p {
     font-size: 0.95rem;
     line-height: 1.7;
+}
+
+.strava-attribution {
+    font-size: 0.8rem;
+    color: var(--color-strava);
+    margin-top: 0.5rem;
+    font-weight: 600;
 }
 
 /* ===== Why Zone 2 Section ===== */
