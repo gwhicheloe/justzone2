@@ -120,12 +120,18 @@ class HistoryViewModel: ObservableObject {
             let fetchFrom = Calendar.current.date(byAdding: .month, value: -1, to: latestDate) ?? latestDate
 
             let recentActivities = try await stravaService.fetchActivitiesSince(fetchFrom)
-            let zone2 = recentActivities.filter { isZone2Activity($0) }
 
-            // Merge by ID — new entries replace existing ones
+            // Build a lookup of all fetched IDs so we can detect renames
+            let fetchedById = Dictionary(uniqueKeysWithValues: recentActivities.map { ($0.id, $0) })
+
+            // Merge by ID — update existing, add new Zone 2, remove renamed non-Zone 2
             var activityMap = Dictionary(uniqueKeysWithValues: activities.map { ($0.id, $0) })
-            for activity in zone2 {
-                activityMap[activity.id] = activity
+            for (id, activity) in fetchedById {
+                if isZone2Activity(activity) {
+                    activityMap[id] = activity
+                } else {
+                    activityMap.removeValue(forKey: id)
+                }
             }
 
             activities = activityMap.values.sorted { $0.startDate > $1.startDate }
