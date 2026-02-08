@@ -26,6 +26,10 @@ class SetupViewModel: ObservableObject {
     @Published var stravaError: String?
     @Published var isHealthKitAuthorized = false
     @Published var healthKitError: String?
+    @Published var useWatchHR = false
+    @Published var isWatchAvailable = false
+    @Published var isWatchReachable = false
+    @Published var isWatchAppInstalled = false
 
     let bluetoothManager: BluetoothManager
     let kickrService: KickrService
@@ -33,6 +37,7 @@ class SetupViewModel: ObservableObject {
     let stravaService: StravaService
     let healthKitManager: HealthKitManager
     let liveActivityManager: LiveActivityManager
+    let watchConnectivityService: WatchConnectivityService
 
     private var cancellables = Set<AnyCancellable>()
 
@@ -42,7 +47,8 @@ class SetupViewModel: ObservableObject {
         heartRateService: HeartRateService,
         stravaService: StravaService,
         healthKitManager: HealthKitManager,
-        liveActivityManager: LiveActivityManager
+        liveActivityManager: LiveActivityManager,
+        watchConnectivityService: WatchConnectivityService
     ) {
         self.bluetoothManager = bluetoothManager
         self.kickrService = kickrService
@@ -50,6 +56,7 @@ class SetupViewModel: ObservableObject {
         self.stravaService = stravaService
         self.healthKitManager = healthKitManager
         self.liveActivityManager = liveActivityManager
+        self.watchConnectivityService = watchConnectivityService
 
         let savedPower = UserDefaults.standard.object(forKey: "targetPower") as? Int
         self.targetPower = savedPower ?? Constants.defaultTargetPower
@@ -128,6 +135,16 @@ class SetupViewModel: ObservableObject {
         // Forward HealthKit authorization state
         healthKitManager.$isAuthorized
             .assign(to: &$isHealthKitAuthorized)
+
+        // Forward Watch availability — show option when a Watch is paired
+        watchConnectivityService.$isWatchPaired
+            .assign(to: &$isWatchAvailable)
+
+        watchConnectivityService.$isWatchReachable
+            .assign(to: &$isWatchReachable)
+
+        watchConnectivityService.$isWatchAppInstalled
+            .assign(to: &$isWatchAppInstalled)
     }
 
     func startScanning() {
@@ -158,6 +175,8 @@ class SetupViewModel: ObservableObject {
     }
 
     func connectHeartRateMonitor(_ device: DeviceInfo) {
+        // Deselect Watch HR when connecting Bluetooth HR
+        useWatchHR = false
         hrConnecting = true
         hrError = nil
         heartRateService.connect(to: device)
@@ -166,6 +185,18 @@ class SetupViewModel: ObservableObject {
     func disconnectHeartRateMonitor() {
         hrConnecting = false
         heartRateService.disconnect()
+    }
+
+    func selectWatchHR() {
+        useWatchHR = true
+        // Disconnect any Bluetooth HR monitor
+        heartRateService.disconnect()
+        hrConnected = false
+        hrConnecting = false
+    }
+
+    func deselectWatchHR() {
+        useWatchHR = false
     }
 
     func connectToStrava() async {

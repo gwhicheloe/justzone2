@@ -30,6 +30,8 @@ class WorkoutViewModel: ObservableObject {
     let heartRateService: HeartRateService
     let healthKitManager: HealthKitManager
     let liveActivityManager: LiveActivityManager
+    let watchConnectivityService: WatchConnectivityService
+    let useWatchHR: Bool
 
     private var timerCancellable: AnyCancellable?
     private var cancellables = Set<AnyCancellable>()
@@ -40,21 +42,30 @@ class WorkoutViewModel: ObservableObject {
         kickrService: KickrService,
         heartRateService: HeartRateService,
         healthKitManager: HealthKitManager,
-        liveActivityManager: LiveActivityManager
+        liveActivityManager: LiveActivityManager,
+        watchConnectivityService: WatchConnectivityService,
+        useWatchHR: Bool = false
     ) {
         self.workout = workout
         self.kickrService = kickrService
         self.heartRateService = heartRateService
         self.healthKitManager = healthKitManager
         self.liveActivityManager = liveActivityManager
+        self.watchConnectivityService = watchConnectivityService
+        self.useWatchHR = useWatchHR
 
         setupBindings()
     }
 
     private func setupBindings() {
-        // Subscribe to HR updates
-        heartRateService.$currentHeartRate
-            .assign(to: &$currentHeartRate)
+        // Subscribe to HR updates - from Watch or Bluetooth
+        if useWatchHR {
+            watchConnectivityService.$watchHeartRate
+                .assign(to: &$currentHeartRate)
+        } else {
+            heartRateService.$currentHeartRate
+                .assign(to: &$currentHeartRate)
+        }
 
         // Subscribe to power updates
         kickrService.$currentPower
@@ -90,6 +101,11 @@ class WorkoutViewModel: ObservableObject {
             print("Failed to start Live Activity: \(error.localizedDescription)")
         }
 
+        // Start Watch HR sampling if using Watch as HR source
+        if useWatchHR {
+            watchConnectivityService.sendStartHRSampling()
+        }
+
         // Start workout immediately - ERG will engage in background
         workoutStartTime = Date()
         state = .running
@@ -117,6 +133,17 @@ class WorkoutViewModel: ObservableObject {
             power: currentPower,
             isPaused: true
         )
+
+        // Notify Watch
+        watchConnectivityService.sendWorkoutUpdate(
+            heartRate: currentHeartRate,
+            power: currentPower,
+            elapsedTime: elapsedTime,
+            chunkRemaining: timeRemainingInChunk,
+            currentChunk: currentChunk,
+            totalChunks: totalChunks,
+            state: "paused"
+        )
     }
 
     func resumeWorkout() {
@@ -135,6 +162,17 @@ class WorkoutViewModel: ObservableObject {
             heartRate: currentHeartRate,
             power: currentPower,
             isPaused: false
+        )
+
+        // Notify Watch
+        watchConnectivityService.sendWorkoutUpdate(
+            heartRate: currentHeartRate,
+            power: currentPower,
+            elapsedTime: elapsedTime,
+            chunkRemaining: timeRemainingInChunk,
+            currentChunk: currentChunk,
+            totalChunks: totalChunks,
+            state: "running"
         )
 
         startTimer()
@@ -160,6 +198,12 @@ class WorkoutViewModel: ObservableObject {
 
         // End Live Activity
         liveActivityManager.endLiveActivity()
+
+        // Stop Watch HR sampling and notify workout ended
+        if useWatchHR {
+            watchConnectivityService.sendStopHRSampling()
+        }
+        watchConnectivityService.sendWorkoutEnded()
 
         // Allow screen to sleep again
         UIApplication.shared.isIdleTimerDisabled = false
@@ -207,6 +251,17 @@ class WorkoutViewModel: ObservableObject {
             heartRate: currentHeartRate,
             power: currentPower,
             isPaused: false
+        )
+
+        // Update Watch companion display
+        watchConnectivityService.sendWorkoutUpdate(
+            heartRate: currentHeartRate,
+            power: currentPower,
+            elapsedTime: elapsedTime,
+            chunkRemaining: timeRemainingInChunk,
+            currentChunk: currentChunk,
+            totalChunks: totalChunks,
+            state: "running"
         )
 
         // Add to chart data

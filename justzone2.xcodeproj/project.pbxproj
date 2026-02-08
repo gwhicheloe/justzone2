@@ -11,12 +11,6 @@
 		1100000000000002 /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000002 /* Workout.swift */; };
 		1100000000000003 /* WorkoutSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000003 /* WorkoutSample.swift */; };
 		1100000000000004 /* DeviceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000004 /* DeviceInfo.swift */; };
-		1100000000000024 /* ActivityStreams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000024 /* ActivityStreams.swift */; };
-		1100000000000025 /* StreamsCacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000025 /* StreamsCacheService.swift */; };
-		1100000000000026 /* ActivityDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000026 /* ActivityDetailView.swift */; };
-		1100000000000020 /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000020 /* HealthKitManager.swift */; };
-		1100000000000021 /* LiveActivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000021 /* LiveActivityManager.swift */; };
-		1100000000000022 /* WorkoutActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000022 /* WorkoutActivityAttributes.swift */; };
 		1100000000000005 /* BluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000005 /* BluetoothManager.swift */; };
 		1100000000000006 /* KickrService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000006 /* KickrService.swift */; };
 		1100000000000007 /* HeartRateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000007 /* HeartRateService.swift */; };
@@ -32,8 +26,14 @@
 		1100000000000011 /* DurationPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000011 /* DurationPicker.swift */; };
 		1100000000000012 /* FITEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000012 /* FITEncoder.swift */; };
 		1100000000000013 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000013 /* Constants.swift */; };
-		1100000000000023 /* Typography.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000023 /* Typography.swift */; };
 		1100000000000014 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2200000000000014 /* Assets.xcassets */; };
+		1100000000000020 /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000020 /* HealthKitManager.swift */; };
+		1100000000000021 /* LiveActivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000021 /* LiveActivityManager.swift */; };
+		1100000000000022 /* WorkoutActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000022 /* WorkoutActivityAttributes.swift */; };
+		1100000000000023 /* Typography.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000023 /* Typography.swift */; };
+		1100000000000024 /* ActivityStreams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000024 /* ActivityStreams.swift */; };
+		1100000000000025 /* StreamsCacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000025 /* StreamsCacheService.swift */; };
+		1100000000000026 /* ActivityDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000026 /* ActivityDetailView.swift */; };
 		187B106A2F263AC800165DEA /* AppIconGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187B10692F263AC700165DEA /* AppIconGenerator.swift */; };
 		18C58F052F294A4600B04598 /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C58F042F294A4500B04598 /* HistoryViewModel.swift */; };
 		18C58F072F294AA100B04598 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C58F062F294AA100B04598 /* HistoryView.swift */; };
@@ -42,6 +42,8 @@
 		18C58F142F2A9F5A00B04598 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18C58F132F2A9F5A00B04598 /* WidgetKit.framework */; };
 		18C58F162F2A9F5A00B04598 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18C58F152F2A9F5A00B04598 /* SwiftUI.framework */; };
 		18C58F272F2A9F5C00B04598 /* JustZone2LiveActivityExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 18C58F112F2A9F5A00B04598 /* JustZone2LiveActivityExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		BB00000000000001 /* WatchConnectivityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB00000000000030 /* WatchConnectivityService.swift */; };
+		BB00000000000002 /* JustZone2Watch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = BB00000000000031 /* JustZone2Watch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +53,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 18C58F102F2A9F5A00B04598;
 			remoteInfo = JustZone2LiveActivityExtension;
+		};
+		BB00000000000010 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8800000000000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BB00000000000070;
+			remoteInfo = JustZone2Watch;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -64,6 +73,17 @@
 				18C58F272F2A9F5C00B04598 /* JustZone2LiveActivityExtension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BB00000000000020 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				BB00000000000002 /* JustZone2Watch.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -87,9 +107,6 @@
 		2200000000000007 /* HeartRateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateService.swift; sourceTree = "<group>"; };
 		2200000000000008 /* StravaService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StravaService.swift; sourceTree = "<group>"; };
 		2200000000000009 /* SetupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupViewModel.swift; sourceTree = "<group>"; };
-		2200000000000020 /* HealthKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
-		2200000000000021 /* LiveActivityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveActivityManager.swift; sourceTree = "<group>"; };
-		2200000000000022 /* WorkoutActivityAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutActivityAttributes.swift; sourceTree = "<group>"; };
 		220000000000000A /* WorkoutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutViewModel.swift; sourceTree = "<group>"; };
 		220000000000000B /* SummaryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryViewModel.swift; sourceTree = "<group>"; };
 		220000000000000C /* SetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupView.swift; sourceTree = "<group>"; };
@@ -100,13 +117,18 @@
 		2200000000000011 /* DurationPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DurationPicker.swift; sourceTree = "<group>"; };
 		2200000000000012 /* FITEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FITEncoder.swift; sourceTree = "<group>"; };
 		2200000000000013 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		2200000000000014 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		2200000000000015 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2200000000000020 /* HealthKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
+		2200000000000021 /* LiveActivityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveActivityManager.swift; sourceTree = "<group>"; };
+		2200000000000022 /* WorkoutActivityAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutActivityAttributes.swift; sourceTree = "<group>"; };
 		2200000000000023 /* Typography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typography.swift; sourceTree = "<group>"; };
 		2200000000000024 /* ActivityStreams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityStreams.swift; sourceTree = "<group>"; };
 		2200000000000025 /* StreamsCacheService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamsCacheService.swift; sourceTree = "<group>"; };
 		2200000000000026 /* ActivityDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDetailView.swift; sourceTree = "<group>"; };
-		2200000000000014 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		2200000000000015 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3300000000000001 /* justzone2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = justzone2.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BB00000000000030 /* WatchConnectivityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchConnectivityService.swift; sourceTree = "<group>"; };
+		BB00000000000031 /* JustZone2Watch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JustZone2Watch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -117,10 +139,18 @@
 			);
 			target = 18C58F102F2A9F5A00B04598 /* JustZone2LiveActivityExtension */;
 		};
+		BB00000000000040 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = BB00000000000070 /* JustZone2Watch */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		18C58F172F2A9F5A00B04598 /* JustZone2LiveActivity */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (18C58F282F2A9F5C00B04598 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = JustZone2LiveActivity; sourceTree = "<group>"; };
+		BB00000000000050 /* JustZone2Watch */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (BB00000000000040 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = JustZone2Watch; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +164,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		4400000000000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BB00000000000060 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -157,6 +194,7 @@
 			children = (
 				5500000000000002 /* justzone2 */,
 				18C58F172F2A9F5A00B04598 /* JustZone2LiveActivity */,
+				BB00000000000050 /* JustZone2Watch */,
 				18C58F122F2A9F5A00B04598 /* Frameworks */,
 				5500000000000003 /* Products */,
 			);
@@ -182,6 +220,7 @@
 			children = (
 				3300000000000001 /* justzone2.app */,
 				18C58F112F2A9F5A00B04598 /* JustZone2LiveActivityExtension.appex */,
+				BB00000000000031 /* JustZone2Watch.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -208,6 +247,7 @@
 				2200000000000020 /* HealthKitManager.swift */,
 				2200000000000021 /* LiveActivityManager.swift */,
 				2200000000000025 /* StreamsCacheService.swift */,
+				BB00000000000030 /* WatchConnectivityService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -301,15 +341,39 @@
 				4400000000000001 /* Frameworks */,
 				6600000000000003 /* Resources */,
 				18C58F2C2F2A9F5C00B04598 /* Embed Foundation Extensions */,
+				BB00000000000020 /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				18C58F262F2A9F5C00B04598 /* PBXTargetDependency */,
+				BB000000000000A0 /* PBXTargetDependency */,
 			);
 			name = justzone2;
 			productName = justzone2;
 			productReference = 3300000000000001 /* justzone2.app */;
+			productType = "com.apple.product-type.application";
+		};
+		BB00000000000070 /* JustZone2Watch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BB000000000000C0 /* Build configuration list for PBXNativeTarget "JustZone2Watch" */;
+			buildPhases = (
+				BB00000000000090 /* Sources */,
+				BB00000000000060 /* Frameworks */,
+				BB00000000000080 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				BB00000000000050 /* JustZone2Watch */,
+			);
+			name = JustZone2Watch;
+			packageProductDependencies = (
+			);
+			productName = JustZone2Watch;
+			productReference = BB00000000000031 /* JustZone2Watch.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -328,6 +392,9 @@
 					6600000000000001 = {
 						CreatedOnToolsVersion = 15.0;
 					};
+					BB00000000000070 = {
+						CreatedOnToolsVersion = 26.2;
+					};
 				};
 			};
 			buildConfigurationList = 7700000000000001 /* Build configuration list for PBXProject "justzone2" */;
@@ -345,6 +412,7 @@
 			targets = (
 				6600000000000001 /* justzone2 */,
 				18C58F102F2A9F5A00B04598 /* JustZone2LiveActivityExtension */,
+				BB00000000000070 /* JustZone2Watch */,
 			);
 		};
 /* End PBXProject section */
@@ -362,6 +430,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				1100000000000014 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BB00000000000080 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -410,6 +485,14 @@
 				1100000000000024 /* ActivityStreams.swift in Sources */,
 				1100000000000025 /* StreamsCacheService.swift in Sources */,
 				1100000000000026 /* ActivityDetailView.swift in Sources */,
+				BB00000000000001 /* WatchConnectivityService.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BB00000000000090 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -420,6 +503,11 @@
 			isa = PBXTargetDependency;
 			target = 18C58F102F2A9F5A00B04598 /* JustZone2LiveActivityExtension */;
 			targetProxy = 18C58F252F2A9F5C00B04598 /* PBXContainerItemProxy */;
+		};
+		BB000000000000A0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BB00000000000070 /* JustZone2Watch */;
+			targetProxy = BB00000000000010 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -685,6 +773,64 @@
 			};
 			name = Release;
 		};
+		BB000000000000B1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = JustZone2Watch/JustZone2Watch.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = JustZone2Watch/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = JustZone2;
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.justzone2.app;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.justzone2.app.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = NO;
+				SUPPORTED_PLATFORMS = "watchos watchsimulator";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
+			};
+			name = Debug;
+		};
+		BB000000000000B2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = JustZone2Watch/JustZone2Watch.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = JustZone2Watch/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = JustZone2;
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.justzone2.app;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.justzone2.app.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = NO;
+				SUPPORTED_PLATFORMS = "watchos watchsimulator";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -711,6 +857,15 @@
 			buildConfigurations = (
 				9900000000000003 /* Debug */,
 				9900000000000004 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BB000000000000C0 /* Build configuration list for PBXNativeTarget "JustZone2Watch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BB000000000000B1 /* Debug */,
+				BB000000000000B2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

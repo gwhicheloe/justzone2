@@ -90,6 +90,7 @@ class AppState: ObservableObject {
     let stravaService: StravaService
     let healthKitManager: HealthKitManager
     let liveActivityManager: LiveActivityManager
+    let watchConnectivityService: WatchConnectivityService
     let setupViewModel: SetupViewModel
     let historyViewModel: HistoryViewModel
     let settingsViewModel: SettingsViewModel
@@ -101,6 +102,7 @@ class AppState: ObservableObject {
         let strava = StravaService()
         let healthKit = HealthKitManager()
         let liveActivity = LiveActivityManager()
+        let watchConnectivity = WatchConnectivityService()
 
         self.bluetoothManager = bluetooth
         self.kickrService = kickr
@@ -108,13 +110,15 @@ class AppState: ObservableObject {
         self.stravaService = strava
         self.healthKitManager = healthKit
         self.liveActivityManager = liveActivity
+        self.watchConnectivityService = watchConnectivity
         self.setupViewModel = SetupViewModel(
             bluetoothManager: bluetooth,
             kickrService: kickr,
             heartRateService: heartRate,
             stravaService: strava,
             healthKitManager: healthKit,
-            liveActivityManager: liveActivity
+            liveActivityManager: liveActivity,
+            watchConnectivityService: watchConnectivity
         )
         self.historyViewModel = HistoryViewModel(stravaService: strava)
         self.settingsViewModel = SettingsViewModel(stravaService: strava)

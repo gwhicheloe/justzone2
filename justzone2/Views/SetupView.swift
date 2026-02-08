@@ -103,6 +103,60 @@ struct SetupView: View {
                             onDisconnect: { viewModel.disconnectHeartRateMonitor() }
                         )
                     }
+
+                    // Apple Watch HR option
+                    if viewModel.isWatchAvailable {
+                        Divider()
+
+                        VStack(alignment: .leading, spacing: 4) {
+                            HStack {
+                                Image(systemName: "applewatch")
+                                    .foregroundColor(viewModel.useWatchHR ? .green : viewModel.isWatchAppInstalled ? .primary : .secondary)
+                                Text("Apple Watch")
+                                    .font(.subheadline)
+                                    .foregroundColor(viewModel.isWatchAppInstalled ? .primary : .secondary)
+                                Spacer()
+                                if viewModel.useWatchHR {
+                                    HStack(spacing: 4) {
+                                        Text("Selected")
+                                            .font(.caption)
+                                            .foregroundColor(.green)
+                                        Image(systemName: "checkmark.circle.fill")
+                                            .foregroundColor(.green)
+                                    }
+                                } else if viewModel.isWatchAppInstalled {
+                                    Button("Select") {
+                                        viewModel.selectWatchHR()
+                                    }
+                                    .font(.subheadline)
+                                }
+                            }
+                            .contentShape(Rectangle())
+                            .onTapGesture {
+                                guard viewModel.isWatchAppInstalled else { return }
+                                if viewModel.useWatchHR {
+                                    viewModel.deselectWatchHR()
+                                } else {
+                                    viewModel.selectWatchHR()
+                                }
+                            }
+
+                            if !viewModel.isWatchAppInstalled {
+                                Label("Install JustZone2 on your Watch to enable", systemImage: "applewatch.slash")
+                                    .font(.caption2)
+                                    .foregroundColor(.secondary)
+                            } else if viewModel.useWatchHR {
+                                HStack(spacing: 4) {
+                                    Circle()
+                                        .fill(viewModel.isWatchReachable ? Color.green : Color.orange)
+                                        .frame(width: 6, height: 6)
+                                    Text(viewModel.isWatchReachable ? "Watch app connected" : "Open Watch app to connect")
+                                        .font(.caption2)
+                                        .foregroundColor(.secondary)
+                                }
+                            }
+                        }
+                    }
                 }
                 .padding(12)
                 .background(Color(.systemBackground))
@@ -162,7 +216,9 @@ struct SetupView: View {
                         kickrService: viewModel.kickrService,
                         heartRateService: viewModel.heartRateService,
                         healthKitManager: viewModel.healthKitManager,
-                        liveActivityManager: viewModel.liveActivityManager
+                        liveActivityManager: viewModel.liveActivityManager,
+                        watchConnectivityService: viewModel.watchConnectivityService,
+                        useWatchHR: viewModel.useWatchHR
                     )
                     showWorkout = true
                 }) {
@@ -231,12 +287,15 @@ struct SetupView: View {
     let healthKitManager = HealthKitManager()
     let liveActivityManager = LiveActivityManager()
 
+    let watchConnectivityService = WatchConnectivityService()
+
     return SetupView(viewModel: SetupViewModel(
         bluetoothManager: bluetoothManager,
         kickrService: kickrService,
         heartRateService: heartRateService,
         stravaService: stravaService,
         healthKitManager: healthKitManager,
-        liveActivityManager: liveActivityManager
+        liveActivityManager: liveActivityManager,
+        watchConnectivityService: watchConnectivityService
     ))
 }

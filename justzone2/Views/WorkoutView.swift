@@ -386,7 +386,8 @@ struct WorkoutChartView: View {
                 kickrService: KickrService(bluetoothManager: bluetooth),
                 heartRateService: HeartRateService(bluetoothManager: bluetooth),
                 healthKitManager: HealthKitManager(),
-                liveActivityManager: LiveActivityManager()
+                liveActivityManager: LiveActivityManager(),
+                watchConnectivityService: WatchConnectivityService()
             ),
             stravaService: StravaService(),
             isPresented: .constant(true)
