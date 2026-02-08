@@ -1,0 +1,28 @@
+<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Matching SF Symbol figure.outdoor.cycle -->
+
+  <!-- Back wheel -->
+  <circle cx="24" cy="64" r="16" stroke="#34C759" stroke-width="4" fill="none"/>
+
+  <!-- Front wheel -->
+  <circle cx="76" cy="64" r="16" stroke="#34C759" stroke-width="4" fill="none"/>
+
+  <!-- Head -->
+  <circle cx="68" cy="24" r="7" fill="#34C759"/>
+
+  <!-- Body - curved back from head to seat -->
+  <path d="M 62 30 Q 48 36 44 50" stroke="#34C759" stroke-width="6" stroke-linecap="round" fill="none"/>
+
+  <!-- Arm - from shoulder to handlebar -->
+  <path d="M 58 34 Q 68 38 72 48" stroke="#34C759" stroke-width="5" stroke-linecap="round" fill="none"/>
+
+  <!-- Legs - to pedals -->
+  <path d="M 44 50 L 50 64" stroke="#34C759" stroke-width="5" stroke-linecap="round" fill="none"/>
+  <path d="M 44 50 Q 38 58 42 64" stroke="#34C759" stroke-width="5" stroke-linecap="round" fill="none"/>
+
+  <!-- Bike frame - simple lines -->
+  <line x1="24" y1="64" x2="50" y2="50" stroke="#34C759" stroke-width="4" stroke-linecap="round"/>
+  <line x1="50" y1="50" x2="72" y2="48" stroke="#34C759" stroke-width="4" stroke-linecap="round"/>
+  <line x1="72" y1="48" x2="76" y2="64" stroke="#34C759" stroke-width="4" stroke-linecap="round"/>
+  <line x1="50" y1="50" x2="50" y2="64" stroke="#34C759" stroke-width="4" stroke-linecap="round"/>
+</svg>
