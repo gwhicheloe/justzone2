@@ -544,12 +544,25 @@ private struct ChartData {
         }
         powerData = computedPowerData
 
-        // Build HR data (excluding warmup and cooldown)
+        // Build HR data (excluding warmup and cooldown), filtering sensor glitches
         let computedHRData: [(time: Double, value: Int)]
         if let heartrate = streams.heartrate, warmupEndIndex <= cooldownStartIndex, cooldownStartIndex < heartrate.count {
+            // Filter out HR sensor glitches: replace values that drop more than
+            // 30 BPM below a rolling average with the previous valid value
+            var cleanedHR = Array(heartrate[warmupEndIndex...cooldownStartIndex])
+            if cleanedHR.count > 10 {
+                let windowSize = 15
+                for i in windowSize..<cleanedHR.count {
+                    let windowStart = max(0, i - windowSize)
+                    let window = cleanedHR[windowStart..<i]
+                    let avg = window.reduce(0, +) / window.count
+                    if cleanedHR[i] < avg - 30 {
+                        cleanedHR[i] = cleanedHR[i - 1]
+                    }
+                }
+            }
             let trimmedTime = Array(streams.time[warmupEndIndex...cooldownStartIndex])
-            let trimmedHR = Array(heartrate[warmupEndIndex...cooldownStartIndex])
-            computedHRData = zip(trimmedTime, trimmedHR).map { (time: Double($0) / 60 - timeOffset, value: $1) }
+            computedHRData = zip(trimmedTime, cleanedHR).map { (time: Double($0) / 60 - timeOffset, value: $1) }
         } else {
             computedHRData = []
         }

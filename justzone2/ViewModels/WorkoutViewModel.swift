@@ -37,7 +37,7 @@ class WorkoutViewModel: ObservableObject {
     let zoneTargetingEnabled: Bool
     @Published var adjustedPower: Int = 0
     private var hrBuffer: [Int] = []
-    private let hrBufferSize = 30
+    private let hrBufferSize = 45
     private var lastAdjustmentTime: Date?
     private var lastAdjustmentWasDecrease = false
     private let zone2Min: Int
@@ -45,8 +45,8 @@ class WorkoutViewModel: ObservableObject {
     private let powerStepSize = 5
     private let maxDriftFromTarget = 30
     private let warmUpGracePeriod: TimeInterval = 180
-    private let cooldownAfterDecrease: TimeInterval = 60
-    private let cooldownAfterIncrease: TimeInterval = 90
+    private let cooldownAfterDecrease: TimeInterval = 90
+    private let cooldownAfterIncrease: TimeInterval = 60
 
     private var timerCancellable: AnyCancellable?
     private var cancellables = Set<AnyCancellable>()

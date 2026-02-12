@@ -10,6 +10,8 @@ class KickrService: NSObject, ObservableObject {
     @Published var targetPower: Int = 0
     @Published var connectionError: String?
 
+    private var powerBuffer: [Int] = []
+    private let powerBufferSize = 3
     private weak var bluetoothManager: BluetoothManager?
     private var peripheral: CBPeripheral?
     private var controlPointCharacteristic: CBCharacteristic?
@@ -282,7 +284,11 @@ extension KickrService: CBPeripheralDelegate {
         if (flags & 0x40) != 0 {
             guard offset + 2 <= data.count else { return }
             let power = Int16(data[offset]) | (Int16(data[offset + 1]) << 8)
-            currentPower = Int(power)
+            powerBuffer.append(Int(power))
+            if powerBuffer.count > powerBufferSize {
+                powerBuffer.removeFirst()
+            }
+            currentPower = powerBuffer.reduce(0, +) / powerBuffer.count
         }
     }
 

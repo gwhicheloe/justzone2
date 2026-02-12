@@ -45,62 +45,55 @@ struct WatchWorkoutView: View {
     // MARK: - Active Workout
 
     private var workoutActiveView: some View {
-        ScrollView {
-            VStack(spacing: 8) {
-                // Chunk indicator
-                if sessionManager.totalChunks > 0 {
-                    Text("Chunk \(sessionManager.currentChunk) of \(sessionManager.totalChunks)")
-                        .font(.caption2)
-                        .foregroundColor(.secondary)
-                }
-
-                // Heart Rate
-                HStack(spacing: 4) {
-                    Image(systemName: "heart.fill")
-                        .foregroundColor(.red)
-                        .font(.caption)
-                    Text(sessionManager.heartRate > 0 ? "\(sessionManager.heartRate)" : "--")
-                        .font(.system(size: 36, weight: .bold, design: .rounded))
-                    Text("BPM")
-                        .font(.caption2)
-                        .foregroundColor(.secondary)
-                }
-
-                // Power
-                HStack(spacing: 4) {
-                    Image(systemName: "bolt.fill")
-                        .foregroundColor(.blue)
-                        .font(.caption)
-                    Text(sessionManager.power > 0 ? "\(sessionManager.power)" : "--")
-                        .font(.system(size: 36, weight: .bold, design: .rounded))
-                    Text("W")
-                        .font(.caption2)
-                        .foregroundColor(.secondary)
-                }
-
-                // Chunk time remaining
-                Text(sessionManager.formatTime(sessionManager.chunkRemaining))
-                    .font(.system(size: 28, weight: .bold, design: .rounded))
-                    .monospacedDigit()
-                    .foregroundColor(.green)
-
-                Text("remaining")
+        VStack(spacing: 4) {
+            // Chunk indicator
+            if sessionManager.totalChunks > 0 {
+                Text("\(sessionManager.currentChunk)/\(sessionManager.totalChunks)")
                     .font(.caption2)
                     .foregroundColor(.secondary)
-
-                // Paused indicator
-                if sessionManager.workoutState == "paused" {
-                    Text("PAUSED")
-                        .font(.caption)
-                        .fontWeight(.semibold)
-                        .foregroundColor(.orange)
-                        .padding(.horizontal, 8)
-                        .padding(.vertical, 4)
-                        .background(Color.orange.opacity(0.2))
-                        .cornerRadius(4)
-                }
             }
-            .padding(.horizontal, 4)
+
+            // Heart Rate
+            HStack(spacing: 2) {
+                Image(systemName: "heart.fill")
+                    .foregroundColor(.red)
+                    .font(.system(size: 10))
+                Text(sessionManager.heartRate > 0 ? "\(sessionManager.heartRate)" : "--")
+                    .font(.system(size: 34, weight: .bold, design: .rounded))
+                Text("BPM")
+                    .font(.system(size: 10))
+                    .foregroundColor(.secondary)
+            }
+
+            // Power
+            HStack(spacing: 2) {
+                Image(systemName: "bolt.fill")
+                    .foregroundColor(.blue)
+                    .font(.system(size: 10))
+                Text(sessionManager.power > 0 ? "\(sessionManager.power)" : "--")
+                    .font(.system(size: 34, weight: .bold, design: .rounded))
+                Text("W")
+                    .font(.system(size: 10))
+                    .foregroundColor(.secondary)
+            }
+
+            // Chunk time remaining
+            Text(sessionManager.formatTime(sessionManager.chunkRemaining))
+                .font(.system(size: 26, weight: .bold, design: .rounded))
+                .monospacedDigit()
+                .foregroundColor(.green)
+
+            Text("remaining")
+                .font(.system(size: 10))
+                .foregroundColor(.secondary)
+
+            // Paused indicator
+            if sessionManager.workoutState == "paused" {
+                Text("PAUSED")
+                    .font(.caption2)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.orange)
+            }
         }
     }
 

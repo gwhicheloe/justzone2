@@ -299,9 +299,10 @@ struct SetupView: View {
                             Text("Zone Targeting automatically adjusts your trainer's power to keep your heart rate within your Zone 2 range.")
 
                             VStack(alignment: .leading, spacing: 8) {
-                                Label("Uses a 30-second rolling average of your heart rate to avoid reacting to momentary spikes", systemImage: "heart.fill")
+                                Label("Uses a 45-second rolling average of your heart rate to avoid reacting to brief spikes", systemImage: "heart.fill")
                                 Label("Adjusts power in small 5W steps, up to ±30W from your target", systemImage: "plusminus")
                                 Label("Waits 60–90 seconds between adjustments to let your heart rate settle", systemImage: "timer")
+                                Label("Slower to decrease power than increase, so drink breaks don't ratchet you down", systemImage: "arrow.down.right")
                                 Label("Skips the first 3 minutes to allow for warm-up", systemImage: "figure.walk")
                             }
                             .font(.subheadline)
