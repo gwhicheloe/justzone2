@@ -44,6 +44,9 @@
 		18C58F272F2A9F5C00B04598 /* JustZone2LiveActivityExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 18C58F112F2A9F5A00B04598 /* JustZone2LiveActivityExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		BB00000000000001 /* WatchConnectivityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB00000000000030 /* WatchConnectivityService.swift */; };
 		BB00000000000002 /* JustZone2Watch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = BB00000000000031 /* JustZone2Watch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		CC00000000000001 /* JustZone2WatchComplication.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = CC00000000000030 /* JustZone2WatchComplication.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		CC00000000000002 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18C58F132F2A9F5A00B04598 /* WidgetKit.framework */; };
+		CC00000000000003 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18C58F152F2A9F5A00B04598 /* SwiftUI.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +63,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = BB00000000000070;
 			remoteInfo = JustZone2Watch;
+		};
+		CC00000000000010 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8800000000000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CC00000000000060;
+			remoteInfo = JustZone2WatchComplication;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -84,6 +94,17 @@
 				BB00000000000002 /* JustZone2Watch.app in Embed Watch Content */,
 			);
 			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC00000000000020 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				CC00000000000001 /* JustZone2WatchComplication.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -129,6 +150,7 @@
 		3300000000000001 /* justzone2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = justzone2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB00000000000030 /* WatchConnectivityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchConnectivityService.swift; sourceTree = "<group>"; };
 		BB00000000000031 /* JustZone2Watch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JustZone2Watch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CC00000000000030 /* JustZone2WatchComplication.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = JustZone2WatchComplication.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -146,11 +168,19 @@
 			);
 			target = BB00000000000070 /* JustZone2Watch */;
 		};
+		CC00000000000035 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = CC00000000000060 /* JustZone2WatchComplication */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		18C58F172F2A9F5A00B04598 /* JustZone2LiveActivity */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (18C58F282F2A9F5C00B04598 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = JustZone2LiveActivity; sourceTree = "<group>"; };
 		BB00000000000050 /* JustZone2Watch */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (BB00000000000040 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = JustZone2Watch; sourceTree = "<group>"; };
+		CC00000000000040 /* JustZone2WatchComplication */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (CC00000000000035 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = JustZone2WatchComplication; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,6 +207,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CC00000000000050 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC00000000000003 /* SwiftUI.framework in Frameworks */,
+				CC00000000000002 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -195,6 +234,7 @@
 				5500000000000002 /* justzone2 */,
 				18C58F172F2A9F5A00B04598 /* JustZone2LiveActivity */,
 				BB00000000000050 /* JustZone2Watch */,
+				CC00000000000040 /* JustZone2WatchComplication */,
 				18C58F122F2A9F5A00B04598 /* Frameworks */,
 				5500000000000003 /* Products */,
 			);
@@ -221,6 +261,7 @@
 				3300000000000001 /* justzone2.app */,
 				18C58F112F2A9F5A00B04598 /* JustZone2LiveActivityExtension.appex */,
 				BB00000000000031 /* JustZone2Watch.app */,
+				CC00000000000030 /* JustZone2WatchComplication.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -361,10 +402,12 @@
 				BB00000000000090 /* Sources */,
 				BB00000000000060 /* Frameworks */,
 				BB00000000000080 /* Resources */,
+				CC00000000000020 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				CC00000000000090 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				BB00000000000050 /* JustZone2Watch */,
@@ -375,6 +418,28 @@
 			productName = JustZone2Watch;
 			productReference = BB00000000000031 /* JustZone2Watch.app */;
 			productType = "com.apple.product-type.application";
+		};
+		CC00000000000060 /* JustZone2WatchComplication */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CC000000000000B0 /* Build configuration list for PBXNativeTarget "JustZone2WatchComplication" */;
+			buildPhases = (
+				CC00000000000080 /* Sources */,
+				CC00000000000050 /* Frameworks */,
+				CC00000000000070 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				CC00000000000040 /* JustZone2WatchComplication */,
+			);
+			name = JustZone2WatchComplication;
+			packageProductDependencies = (
+			);
+			productName = JustZone2WatchComplication;
+			productReference = CC00000000000030 /* JustZone2WatchComplication.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -395,6 +460,9 @@
 					BB00000000000070 = {
 						CreatedOnToolsVersion = 26.2;
 					};
+					CC00000000000060 = {
+						CreatedOnToolsVersion = 26.2;
+					};
 				};
 			};
 			buildConfigurationList = 7700000000000001 /* Build configuration list for PBXProject "justzone2" */;
@@ -413,6 +481,7 @@
 				6600000000000001 /* justzone2 */,
 				18C58F102F2A9F5A00B04598 /* JustZone2LiveActivityExtension */,
 				BB00000000000070 /* JustZone2Watch */,
+				CC00000000000060 /* JustZone2WatchComplication */,
 			);
 		};
 /* End PBXProject section */
@@ -434,6 +503,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		BB00000000000080 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC00000000000070 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -496,6 +572,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CC00000000000080 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -508,6 +591,11 @@
 			isa = PBXTargetDependency;
 			target = BB00000000000070 /* JustZone2Watch */;
 			targetProxy = BB00000000000010 /* PBXContainerItemProxy */;
+		};
+		CC00000000000090 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CC00000000000060 /* JustZone2WatchComplication */;
+			targetProxy = CC00000000000010 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -785,7 +873,10 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = JustZone2Watch/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = JustZone2;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "JustZone2 reads your heart rate to send to the iPhone app during workouts.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "JustZone2 uses a workout session to access heart rate data continuously.";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.justzone2.app;
+				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -799,7 +890,7 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 8.0;
+				WATCHOS_DEPLOYMENT_TARGET = 26.0;
 			};
 			name = Debug;
 		};
@@ -815,7 +906,10 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = JustZone2Watch/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = JustZone2;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "JustZone2 reads your heart rate to send to the iPhone app during workouts.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "JustZone2 uses a workout session to access heart rate data continuously.";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.justzone2.app;
+				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -829,7 +923,61 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 8.0;
+				WATCHOS_DEPLOYMENT_TARGET = 26.0;
+			};
+			name = Release;
+		};
+		CC000000000000A1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = N66DNSAQQ9;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = JustZone2WatchComplication/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.justzone2.app.watchkitapp.complication;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "watchos watchsimulator";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 26.0;
+			};
+			name = Debug;
+		};
+		CC000000000000A2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = N66DNSAQQ9;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = JustZone2WatchComplication/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.justzone2.app.watchkitapp.complication;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "watchos watchsimulator";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 26.0;
 			};
 			name = Release;
 		};
@@ -868,6 +1016,15 @@
 			buildConfigurations = (
 				BB000000000000B1 /* Debug */,
 				BB000000000000B2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CC000000000000B0 /* Build configuration list for PBXNativeTarget "JustZone2WatchComplication" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CC000000000000A1 /* Debug */,
+				CC000000000000A2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

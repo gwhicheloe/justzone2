@@ -47,7 +47,9 @@ struct WorkoutView: View {
                             iconColor: .blue,
                             value: viewModel.currentPower > 0 ? "\(viewModel.currentPower)" : "--",
                             unit: "W",
-                            targetValue: viewModel.workout.targetPower
+                            targetValue: viewModel.adjustedPower,
+                            originalTarget: viewModel.zoneTargetingEnabled && viewModel.adjustedPower != viewModel.workout.targetPower
+                                ? viewModel.workout.targetPower : nil
                         )
                     }
                     .padding(.top, 12)
@@ -90,7 +92,7 @@ struct WorkoutView: View {
                     if !viewModel.chartData.isEmpty {
                         WorkoutChartView(
                             chartData: viewModel.chartData,
-                            targetPower: viewModel.workout.targetPower
+                            targetPower: viewModel.adjustedPower
                         )
                         .padding(.horizontal)
                     }
@@ -192,6 +194,7 @@ struct CompactMetricView: View {
     let value: String
     let unit: String
     var targetValue: Int? = nil
+    var originalTarget: Int? = nil
 
     var body: some View {
         VStack(spacing: 4) {
@@ -210,9 +213,20 @@ struct CompactMetricView: View {
             }
 
             if let target = targetValue {
-                Text("Target: \(target)W")
-                    .font(.labelSmall)
-                    .foregroundColor(.secondary)
+                if let original = originalTarget {
+                    HStack(spacing: 4) {
+                        Text("Target: \(target)W")
+                            .font(.labelSmall)
+                            .foregroundColor(.green)
+                        Text("(\(original)W)")
+                            .font(.labelSmall)
+                            .foregroundColor(.secondary)
+                    }
+                } else {
+                    Text("Target: \(target)W")
+                        .font(.labelSmall)
+                        .foregroundColor(.secondary)
+                }
             }
         }
         .frame(maxWidth: .infinity)

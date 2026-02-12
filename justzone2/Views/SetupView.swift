@@ -4,6 +4,7 @@ struct SetupView: View {
     @ObservedObject var viewModel: SetupViewModel
     @State private var showWorkout = false
     @State private var workoutViewModel: WorkoutViewModel?
+    @State private var showZoneTargetingInfo = false
 
     // Limit HR monitors to avoid crowded gyms filling the screen
     private var limitedHRMonitors: [DeviceInfo] {
@@ -13,152 +14,176 @@ struct SetupView: View {
     var body: some View {
         NavigationStack {
             VStack(spacing: 12) {
-                // Workout Configuration - side by side
-                HStack(spacing: 8) {
-                    PowerPicker(
-                        selectedPower: $viewModel.targetPower,
-                        options: viewModel.powerOptions
-                    )
-                    .frame(maxWidth: .infinity)
+                // Workout Configuration
+                VStack(spacing: 8) {
+                    HStack(spacing: 8) {
+                        PowerPicker(
+                            selectedPower: $viewModel.targetPower,
+                            options: viewModel.powerOptions
+                        )
+                        .frame(maxWidth: .infinity)
 
-                    DurationPicker(
-                        selectedDuration: $viewModel.targetDuration,
-                        options: viewModel.durationOptions,
-                        formatDuration: viewModel.formatDuration
-                    )
-                    .frame(maxWidth: .infinity)
+                        DurationPicker(
+                            selectedDuration: $viewModel.targetDuration,
+                            options: viewModel.durationOptions,
+                            formatDuration: viewModel.formatDuration
+                        )
+                        .frame(maxWidth: .infinity)
+                    }
+
+                    Divider()
+
+                    HStack {
+                        Image(systemName: "heart.text.square")
+                            .foregroundColor(viewModel.zoneTargetingEnabled ? .green : .secondary)
+                        Text("Zone Targeting")
+                            .font(.subheadline)
+                        Button {
+                            showZoneTargetingInfo = true
+                        } label: {
+                            Image(systemName: "info.circle")
+                                .foregroundColor(.secondary)
+                                .font(.subheadline)
+                        }
+                        Spacer()
+                        Toggle("", isOn: $viewModel.zoneTargetingEnabled)
+                            .labelsHidden()
+                            .tint(.green)
+                    }
                 }
                 .padding(12)
                 .background(Color.green.opacity(0.1))
                 .cornerRadius(12)
 
                 // Device Section
-                VStack(alignment: .leading, spacing: 8) {
-                    HStack {
-                        Text("Devices")
-                            .font(.subheadline)
-                            .fontWeight(.semibold)
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 8) {
+                        HStack {
+                            Text("Devices")
+                                .font(.subheadline)
+                                .fontWeight(.semibold)
 
-                        Spacer()
+                            Spacer()
 
-                        if viewModel.isScanning {
-                            ProgressView()
-                                .scaleEffect(0.7)
-                        }
-
-                        Button(viewModel.isScanning ? "Stop" : "Scan") {
                             if viewModel.isScanning {
-                                viewModel.stopScanning()
-                            } else {
-                                viewModel.startScanning()
+                                ProgressView()
+                                    .scaleEffect(0.7)
                             }
+
+                            Button(viewModel.isScanning ? "Stop" : "Scan") {
+                                if viewModel.isScanning {
+                                    viewModel.stopScanning()
+                                } else {
+                                    viewModel.startScanning()
+                                }
+                            }
+                            .font(.subheadline)
                         }
-                        .font(.subheadline)
-                    }
 
-                    if !viewModel.isBluetoothEnabled {
-                        Label("Bluetooth disabled", systemImage: "exclamationmark.triangle.fill")
-                            .font(.caption)
-                            .foregroundColor(.orange)
-                    }
+                        if !viewModel.isBluetoothEnabled {
+                            Label("Bluetooth disabled", systemImage: "exclamationmark.triangle.fill")
+                                .font(.caption)
+                                .foregroundColor(.orange)
+                        }
 
-                    // Smart Trainers
-                    if viewModel.discoveredKickrs.isEmpty && !viewModel.kickrConnected {
-                        Label("No trainers found", systemImage: "bicycle")
-                            .font(.caption)
-                            .foregroundColor(.secondary)
-                    }
-                    ForEach(viewModel.discoveredKickrs) { device in
-                        DeviceRow(
-                            device: device,
-                            isConnected: viewModel.connectedKickrId == device.id,
-                            isConnecting: viewModel.kickrConnecting && viewModel.connectedKickrId == device.id,
-                            onConnect: { viewModel.connectKickr(device) },
-                            onDisconnect: { viewModel.disconnectKickr() }
-                        )
-                    }
-
-                    Divider()
-
-                    // Heart Rate Monitors (limited to 3)
-                    HStack {
-                        if viewModel.discoveredHRMonitors.isEmpty && !viewModel.hrConnected {
-                            Label("No HR monitors found", systemImage: "heart")
+                        // Smart Trainers
+                        if viewModel.discoveredKickrs.isEmpty && !viewModel.kickrConnected {
+                            Label("No trainers found", systemImage: "bicycle")
                                 .font(.caption)
                                 .foregroundColor(.secondary)
                         }
-                        if viewModel.discoveredHRMonitors.count > 3 {
-                            Spacer()
-                            Text("\(viewModel.discoveredHRMonitors.count) nearby")
-                                .font(.caption2)
-                                .foregroundColor(.secondary)
+                        ForEach(viewModel.discoveredKickrs) { device in
+                            DeviceRow(
+                                device: device,
+                                isConnected: viewModel.connectedKickrId == device.id,
+                                isConnecting: viewModel.kickrConnecting && viewModel.connectedKickrId == device.id,
+                                onConnect: { viewModel.connectKickr(device) },
+                                onDisconnect: { viewModel.disconnectKickr() }
+                            )
                         }
-                    }
-                    ForEach(limitedHRMonitors) { device in
-                        DeviceRow(
-                            device: device,
-                            isConnected: viewModel.connectedHRId == device.id,
-                            isConnecting: viewModel.hrConnecting && viewModel.connectedHRId == device.id,
-                            onConnect: { viewModel.connectHeartRateMonitor(device) },
-                            onDisconnect: { viewModel.disconnectHeartRateMonitor() }
-                        )
-                    }
 
-                    // Apple Watch HR option
-                    if viewModel.isWatchAvailable {
                         Divider()
 
-                        VStack(alignment: .leading, spacing: 4) {
-                            HStack {
-                                Image(systemName: "applewatch")
-                                    .foregroundColor(viewModel.useWatchHR ? .green : viewModel.isWatchAppInstalled ? .primary : .secondary)
-                                Text("Apple Watch")
-                                    .font(.subheadline)
-                                    .foregroundColor(viewModel.isWatchAppInstalled ? .primary : .secondary)
+                        // Heart Rate Monitors
+                        HStack {
+                            if viewModel.discoveredHRMonitors.isEmpty && !viewModel.hrConnected {
+                                Label("No HR monitors found", systemImage: "heart")
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+                            }
+                            if viewModel.discoveredHRMonitors.count > 3 {
                                 Spacer()
-                                if viewModel.useWatchHR {
-                                    HStack(spacing: 4) {
-                                        Text("Selected")
-                                            .font(.caption)
-                                            .foregroundColor(.green)
-                                        Image(systemName: "checkmark.circle.fill")
-                                            .foregroundColor(.green)
-                                    }
-                                } else if viewModel.isWatchAppInstalled {
-                                    Button("Select") {
-                                        viewModel.selectWatchHR()
-                                    }
-                                    .font(.subheadline)
-                                }
-                            }
-                            .contentShape(Rectangle())
-                            .onTapGesture {
-                                guard viewModel.isWatchAppInstalled else { return }
-                                if viewModel.useWatchHR {
-                                    viewModel.deselectWatchHR()
-                                } else {
-                                    viewModel.selectWatchHR()
-                                }
-                            }
-
-                            if !viewModel.isWatchAppInstalled {
-                                Label("Install JustZone2 on your Watch to enable", systemImage: "applewatch.slash")
+                                Text("\(viewModel.discoveredHRMonitors.count) nearby")
                                     .font(.caption2)
                                     .foregroundColor(.secondary)
-                            } else if viewModel.useWatchHR {
-                                HStack(spacing: 4) {
-                                    Circle()
-                                        .fill(viewModel.isWatchReachable ? Color.green : Color.orange)
-                                        .frame(width: 6, height: 6)
-                                    Text(viewModel.isWatchReachable ? "Watch app connected" : "Open Watch app to connect")
+                            }
+                        }
+                        ForEach(limitedHRMonitors) { device in
+                            DeviceRow(
+                                device: device,
+                                isConnected: viewModel.connectedHRId == device.id,
+                                isConnecting: viewModel.hrConnecting && viewModel.connectedHRId == device.id,
+                                onConnect: { viewModel.connectHeartRateMonitor(device) },
+                                onDisconnect: { viewModel.disconnectHeartRateMonitor() }
+                            )
+                        }
+
+                        // Apple Watch HR option
+                        if viewModel.isWatchAvailable {
+                            Divider()
+
+                            VStack(alignment: .leading, spacing: 4) {
+                                HStack {
+                                    Image(systemName: "applewatch")
+                                        .foregroundColor(viewModel.useWatchHR ? .green : viewModel.isWatchAppInstalled ? .primary : .secondary)
+                                    Text("Apple Watch")
+                                        .font(.subheadline)
+                                        .foregroundColor(viewModel.isWatchAppInstalled ? .primary : .secondary)
+                                    Spacer()
+                                    if viewModel.useWatchHR {
+                                        HStack(spacing: 4) {
+                                            Text("Selected")
+                                                .font(.caption)
+                                                .foregroundColor(.green)
+                                            Image(systemName: "checkmark.circle.fill")
+                                                .foregroundColor(.green)
+                                        }
+                                    } else if viewModel.isWatchAppInstalled {
+                                        Button("Select") {
+                                            viewModel.selectWatchHR()
+                                        }
+                                        .font(.subheadline)
+                                    }
+                                }
+                                .contentShape(Rectangle())
+                                .onTapGesture {
+                                    guard viewModel.isWatchAppInstalled else { return }
+                                    if viewModel.useWatchHR {
+                                        viewModel.deselectWatchHR()
+                                    } else {
+                                        viewModel.selectWatchHR()
+                                    }
+                                }
+
+                                if !viewModel.isWatchAppInstalled {
+                                    Label("Install JustZone2 on your Watch to enable", systemImage: "applewatch.slash")
                                         .font(.caption2)
                                         .foregroundColor(.secondary)
+                                } else if viewModel.useWatchHR {
+                                    HStack(spacing: 4) {
+                                        Circle()
+                                            .fill(viewModel.isWatchReachable ? Color.green : Color.orange)
+                                            .frame(width: 6, height: 6)
+                                        Text(viewModel.isWatchReachable ? "Watch app connected" : "Open Watch app to connect")
+                                            .font(.caption2)
+                                            .foregroundColor(.secondary)
+                                    }
                                 }
                             }
                         }
                     }
+                    .padding(12)
                 }
-                .padding(12)
                 .background(Color(.systemBackground))
                 .cornerRadius(12)
 
@@ -218,7 +243,8 @@ struct SetupView: View {
                         healthKitManager: viewModel.healthKitManager,
                         liveActivityManager: viewModel.liveActivityManager,
                         watchConnectivityService: viewModel.watchConnectivityService,
-                        useWatchHR: viewModel.useWatchHR
+                        useWatchHR: viewModel.useWatchHR,
+                        zoneTargetingEnabled: viewModel.zoneTargetingEnabled
                     )
                     showWorkout = true
                 }) {
@@ -265,6 +291,38 @@ struct SetupView: View {
                     // Clean up when returning to setup
                     workoutViewModel = nil
                 }
+            }
+            .sheet(isPresented: $showZoneTargetingInfo) {
+                NavigationStack {
+                    ScrollView {
+                        VStack(alignment: .leading, spacing: 16) {
+                            Text("Zone Targeting automatically adjusts your trainer's power to keep your heart rate within your Zone 2 range.")
+
+                            VStack(alignment: .leading, spacing: 8) {
+                                Label("Uses a 30-second rolling average of your heart rate to avoid reacting to momentary spikes", systemImage: "heart.fill")
+                                Label("Adjusts power in small 5W steps, up to ±30W from your target", systemImage: "plusminus")
+                                Label("Waits 60–90 seconds between adjustments to let your heart rate settle", systemImage: "timer")
+                                Label("Skips the first 3 minutes to allow for warm-up", systemImage: "figure.walk")
+                            }
+                            .font(.subheadline)
+
+                            Text("Set your Zone 2 heart rate range in Settings.")
+                                .font(.subheadline)
+                                .foregroundColor(.secondary)
+                        }
+                        .padding()
+                    }
+                    .navigationTitle("Zone Targeting")
+                    .navigationBarTitleDisplayMode(.inline)
+                    .toolbar {
+                        ToolbarItem(placement: .confirmationAction) {
+                            Button("Done") {
+                                showZoneTargetingInfo = false
+                            }
+                        }
+                    }
+                }
+                .presentationDetents([.medium])
             }
         }
         .onAppear {

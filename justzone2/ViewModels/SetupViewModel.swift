@@ -26,6 +26,9 @@ class SetupViewModel: ObservableObject {
     @Published var stravaError: String?
     @Published var isHealthKitAuthorized = false
     @Published var healthKitError: String?
+    @Published var zoneTargetingEnabled: Bool {
+        didSet { UserDefaults.standard.set(zoneTargetingEnabled, forKey: "zoneTargetingEnabled") }
+    }
     @Published var useWatchHR = false
     @Published var isWatchAvailable = false
     @Published var isWatchReachable = false
@@ -63,6 +66,8 @@ class SetupViewModel: ObservableObject {
 
         let savedDuration = UserDefaults.standard.object(forKey: "targetDuration") as? TimeInterval
         self.targetDuration = savedDuration ?? Constants.defaultDuration
+
+        self.zoneTargetingEnabled = UserDefaults.standard.bool(forKey: "zoneTargetingEnabled")
 
         setupBindings()
     }

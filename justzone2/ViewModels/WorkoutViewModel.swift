@@ -33,6 +33,21 @@ class WorkoutViewModel: ObservableObject {
     let watchConnectivityService: WatchConnectivityService
     let useWatchHR: Bool
 
+    // MARK: - Zone Targeting
+    let zoneTargetingEnabled: Bool
+    @Published var adjustedPower: Int = 0
+    private var hrBuffer: [Int] = []
+    private let hrBufferSize = 30
+    private var lastAdjustmentTime: Date?
+    private var lastAdjustmentWasDecrease = false
+    private let zone2Min: Int
+    private let zone2Max: Int
+    private let powerStepSize = 5
+    private let maxDriftFromTarget = 30
+    private let warmUpGracePeriod: TimeInterval = 180
+    private let cooldownAfterDecrease: TimeInterval = 60
+    private let cooldownAfterIncrease: TimeInterval = 90
+
     private var timerCancellable: AnyCancellable?
     private var cancellables = Set<AnyCancellable>()
     private var workoutStartTime: Date?
@@ -44,7 +59,8 @@ class WorkoutViewModel: ObservableObject {
         healthKitManager: HealthKitManager,
         liveActivityManager: LiveActivityManager,
         watchConnectivityService: WatchConnectivityService,
-        useWatchHR: Bool = false
+        useWatchHR: Bool = false,
+        zoneTargetingEnabled: Bool = false
     ) {
         self.workout = workout
         self.kickrService = kickrService
@@ -53,6 +69,13 @@ class WorkoutViewModel: ObservableObject {
         self.liveActivityManager = liveActivityManager
         self.watchConnectivityService = watchConnectivityService
         self.useWatchHR = useWatchHR
+        self.zoneTargetingEnabled = zoneTargetingEnabled
+        self.adjustedPower = workout.targetPower
+
+        let z2Min = UserDefaults.standard.integer(forKey: "zone2Min")
+        self.zone2Min = z2Min > 0 ? z2Min : 120
+        let z2Max = UserDefaults.standard.integer(forKey: "zone2Max")
+        self.zone2Max = z2Max > 0 ? z2Max : 140
 
         setupBindings()
     }
@@ -150,7 +173,8 @@ class WorkoutViewModel: ObservableObject {
         guard state == .paused else { return }
 
         kickrService.startWorkout()
-        kickrService.setTargetPower(workout.targetPower)
+        kickrService.setTargetPower(adjustedPower)
+        lastAdjustmentTime = Date()
         state = .running
 
         // Resume HealthKit session
@@ -237,6 +261,9 @@ class WorkoutViewModel: ObservableObject {
 
         workout.addSample(heartRate: hr, power: pwr)
 
+        // Zone targeting: auto-adjust power based on HR
+        evaluateZoneTargeting()
+
         // Add samples to HealthKit
         if let heartRate = hr {
             healthKitManager.addHeartRateSample(heartRate, at: now)
@@ -305,6 +332,65 @@ class WorkoutViewModel: ObservableObject {
         }
         let timeInCurrentChunk = elapsedTime.truncatingRemainder(dividingBy: chunkDuration)
         return chunkDuration - timeInCurrentChunk
+    }
+
+    // MARK: - Zone Targeting
+
+    private func evaluateZoneTargeting() {
+        guard zoneTargetingEnabled else { return }
+        guard currentHeartRate > 0 else { return }
+
+        // Always update the rolling HR buffer (even during warm-up)
+        hrBuffer.append(currentHeartRate)
+        if hrBuffer.count > hrBufferSize {
+            hrBuffer.removeFirst(hrBuffer.count - hrBufferSize)
+        }
+
+        // Don't make adjustments during warm-up
+        guard elapsedTime >= warmUpGracePeriod else { return }
+
+        // Need a full buffer before making decisions
+        guard hrBuffer.count >= hrBufferSize else { return }
+
+        // Compute smoothed HR (30-second rolling average)
+        let smoothedHR = hrBuffer.reduce(0, +) / hrBuffer.count
+
+        // Dead band — if smoothed HR is within zone, do nothing
+        if smoothedHR >= zone2Min && smoothedHR <= zone2Max {
+            return
+        }
+
+        // Cooldown — check if enough time has elapsed since last adjustment
+        let now = Date()
+        if let lastAdj = lastAdjustmentTime {
+            let requiredCooldown = lastAdjustmentWasDecrease
+                ? cooldownAfterDecrease
+                : cooldownAfterIncrease
+            guard now.timeIntervalSince(lastAdj) >= requiredCooldown else { return }
+        }
+
+        // Determine direction of adjustment
+        var newPower = adjustedPower
+
+        if smoothedHR > zone2Max {
+            newPower -= powerStepSize
+            lastAdjustmentWasDecrease = true
+        } else if smoothedHR < zone2Min {
+            newPower += powerStepSize
+            lastAdjustmentWasDecrease = false
+        }
+
+        // Clamp to max drift range and minimum
+        let lowerBound = workout.targetPower - maxDriftFromTarget
+        let upperBound = workout.targetPower + maxDriftFromTarget
+        newPower = max(max(lowerBound, 50), min(upperBound, newPower))
+
+        // Apply if changed
+        if newPower != adjustedPower {
+            adjustedPower = newPower
+            kickrService.setTargetPower(adjustedPower)
+            lastAdjustmentTime = now
+        }
     }
 
     func formatTime(_ time: TimeInterval) -> String {

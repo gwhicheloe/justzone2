@@ -43,13 +43,8 @@ struct DeviceRow: View {
                 .foregroundColor(isConnected ? .green : .secondary)
                 .frame(width: 30)
 
-            VStack(alignment: .leading, spacing: 2) {
-                Text(device.name)
-                    .font(.bodyLarge)
-                Text(device.type.displayName)
-                    .font(.labelMedium)
-                    .foregroundColor(.secondary)
-            }
+            Text(device.name)
+                .font(.bodyLarge)
 
             Spacer()
 

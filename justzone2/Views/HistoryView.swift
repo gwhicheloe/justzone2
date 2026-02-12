@@ -95,21 +95,27 @@ struct HistoryView: View {
     }
 
     private func errorView(_ error: String) -> some View {
-        VStack(spacing: 12) {
-            Image(systemName: "exclamationmark.triangle")
-                .font(.headlineLarge)
-                .foregroundColor(.red)
-            Text(error)
+        ScrollView {
+            VStack(spacing: 12) {
+                Image(systemName: "exclamationmark.triangle")
+                    .font(.headlineLarge)
+                    .foregroundColor(.red)
+                Text(error)
+                    .font(.labelMedium)
+                    .foregroundColor(.secondary)
+                    .multilineTextAlignment(.center)
+                Button("Retry") {
+                    Task { await viewModel.refreshActivities() }
+                }
                 .font(.labelMedium)
-                .foregroundColor(.secondary)
-                .multilineTextAlignment(.center)
-            Button("Retry") {
-                Task { await viewModel.loadActivities() }
+                .foregroundColor(.strava)
             }
-            .font(.labelMedium)
-            .foregroundColor(.strava)
+            .frame(maxWidth: .infinity)
+            .padding(.top, 100)
         }
-        .padding()
+        .refreshable {
+            await viewModel.refreshActivities()
+        }
     }
 
     private var emptyView: some View {

@@ -23,12 +23,8 @@ struct WatchWorkoutView: View {
 
     private var waitingView: some View {
         VStack(spacing: 12) {
-            Image(systemName: "figure.indoor.cycle")
-                .font(.system(size: 36))
-                .foregroundColor(.green)
-
-            Text("JustZone2")
-                .font(.headline)
+            Text("2")
+                .font(.system(size: 48, weight: .bold, design: .rounded))
                 .foregroundColor(.green)
 
             Text("Waiting for workout...")
