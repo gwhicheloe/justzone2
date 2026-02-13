@@ -45,8 +45,6 @@
 		BB00000000000001 /* WatchConnectivityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB00000000000030 /* WatchConnectivityService.swift */; };
 		BB00000000000002 /* JustZone2Watch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = BB00000000000031 /* JustZone2Watch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		CC00000000000001 /* JustZone2WatchComplication.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = CC00000000000030 /* JustZone2WatchComplication.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		CC00000000000002 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18C58F132F2A9F5A00B04598 /* WidgetKit.framework */; };
-		CC00000000000003 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18C58F152F2A9F5A00B04598 /* SwiftUI.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -211,8 +209,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CC00000000000003 /* SwiftUI.framework in Frameworks */,
-				CC00000000000002 /* WidgetKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -936,6 +932,8 @@
 				DEVELOPMENT_TEAM = N66DNSAQQ9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = JustZone2WatchComplication/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = JustZone2WatchComplication;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -963,6 +961,8 @@
 				DEVELOPMENT_TEAM = N66DNSAQQ9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = JustZone2WatchComplication/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = JustZone2WatchComplication;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
