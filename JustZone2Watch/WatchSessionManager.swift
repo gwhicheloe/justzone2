@@ -66,16 +66,27 @@ class WatchSessionManager: NSObject, ObservableObject {
         self.workoutBuilder = builder
 
         session.startActivity(with: Date())
+        self.workoutState = "running"
+
         Task {
             do {
                 try await builder.beginCollection(at: Date())
             } catch {
                 print("Watch builder beginCollection failed: \(error.localizedDescription)")
             }
-            try await session.startMirroringToCompanionDevice()
+            do {
+                try await session.startMirroringToCompanionDevice()
+            } catch {
+                print("Watch mirroring failed: \(error.localizedDescription)")
+                // Retry mirroring after a short delay
+                try? await Task.sleep(nanoseconds: 2_000_000_000)
+                do {
+                    try await session.startMirroringToCompanionDevice()
+                } catch {
+                    print("Watch mirroring retry failed: \(error.localizedDescription)")
+                }
+            }
         }
-
-        self.workoutState = "running"
     }
 
     /// Start a primary workout session (called from WCSession message as backup).
@@ -100,23 +111,37 @@ class WatchSessionManager: NSObject, ObservableObject {
             self.workoutBuilder = builder
 
             session.startActivity(with: Date())
+            self.workoutState = "running"
+
             Task {
                 do {
                     try await builder.beginCollection(at: Date())
                 } catch {
                     print("Watch builder beginCollection failed: \(error.localizedDescription)")
                 }
-                try await session.startMirroringToCompanionDevice()
+                do {
+                    try await session.startMirroringToCompanionDevice()
+                } catch {
+                    print("Watch mirroring failed: \(error.localizedDescription)")
+                    // Retry mirroring after a short delay
+                    try? await Task.sleep(nanoseconds: 2_000_000_000)
+                    do {
+                        try await session.startMirroringToCompanionDevice()
+                    } catch {
+                        print("Watch mirroring retry failed: \(error.localizedDescription)")
+                    }
+                }
             }
-
-            self.workoutState = "running"
         } catch {
             print("Watch workout session creation failed: \(error.localizedDescription)")
         }
     }
 
     func endPrimaryWorkout() {
+        // Guard and nil out synchronously to prevent double-end from concurrent callers
         guard let session = workoutSession, let builder = workoutBuilder else { return }
+        self.workoutSession = nil
+        self.workoutBuilder = nil
 
         session.stopActivity(with: Date())
 
@@ -128,8 +153,6 @@ class WatchSessionManager: NSObject, ObservableObject {
                 print("Watch workout end failed: \(error.localizedDescription)")
             }
             session.end()
-            self.workoutSession = nil
-            self.workoutBuilder = nil
             self.workoutState = "ended"
         }
     }
@@ -217,8 +240,29 @@ extension WatchSessionManager: HKWorkoutSessionDelegate {
         _ workoutSession: HKWorkoutSession,
         didDisconnectFromRemoteDeviceWithError error: Error?
     ) {
-        if let error = error {
-            print("Watch disconnected from iPhone: \(error.localizedDescription)")
+        Task { @MainActor in
+            if let error = error {
+                print("Watch disconnected from iPhone: \(error.localizedDescription)")
+            } else {
+                print("Watch disconnected from iPhone (no error)")
+            }
+
+            // Re-mirror if we still have an active session
+            guard self.workoutSession != nil else { return }
+            print("Watch attempting to re-mirror...")
+
+            // Retry mirroring with backoff
+            for attempt in 1...3 {
+                try? await Task.sleep(nanoseconds: UInt64(attempt) * 2_000_000_000)
+                guard self.workoutSession != nil else { return }
+                do {
+                    try await workoutSession.startMirroringToCompanionDevice()
+                    print("Watch re-mirroring succeeded on attempt \(attempt)")
+                    return
+                } catch {
+                    print("Watch re-mirroring attempt \(attempt) failed: \(error.localizedDescription)")
+                }
+            }
         }
     }
 }
@@ -243,7 +287,16 @@ extension WatchSessionManager: HKLiveWorkoutBuilderDelegate {
                 let unit = HKUnit.count().unitDivided(by: .minute())
                 let bpm = Int(quantity.doubleValue(for: unit))
                 self.heartRate = bpm
+                self.sendHRToPhone(bpm)
             }
+        }
+    }
+
+    private func sendHRToPhone(_ heartRate: Int) {
+        guard let session = workoutSession else { return }
+        guard let encoded = try? JSONEncoder().encode(WatchToPhoneData(heartRate: heartRate)) else { return }
+        Task {
+            try? await session.sendToRemoteWorkoutSession(data: encoded)
         }
     }
 }
@@ -302,6 +355,26 @@ extension WatchSessionManager: WCSessionDelegate {
                 // Mode B: display-only
                 guard self.workoutSession == nil else { return }
                 self.workoutState = "ended"
+
+            default:
+                break
+            }
+        }
+    }
+
+    nonisolated func session(_ session: WCSession, didReceiveUserInfo userInfo: [String: Any] = [:]) {
+        guard let type = userInfo["type"] as? String else { return }
+
+        Task { @MainActor in
+            switch type {
+            case "startWorkout":
+                // Guaranteed-delivery backup from iPhone via transferUserInfo
+                guard self.workoutSession == nil else { return }
+                await self.requestAuthorization()
+                self.startPrimaryWorkout()
+
+            case "stopWorkout":
+                self.endPrimaryWorkout()
 
             default:
                 break

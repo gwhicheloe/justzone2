@@ -32,26 +32,6 @@ struct WorkoutView: View {
             }
             .frame(height: 8)
 
-            // Watch disconnected banner
-            if viewModel.watchDisconnected && viewModel.useWatchHR {
-                HStack(spacing: 8) {
-                    ProgressView()
-                        .tint(.white)
-                        .scaleEffect(0.7)
-                    Text("Watch disconnected — reconnecting...")
-                        .font(.caption)
-                        .foregroundColor(.white)
-                    Spacer()
-                    Button("Use HR Strap") {
-                        viewModel.switchToBLEHR()
-                    }
-                    .font(.caption.bold())
-                    .foregroundColor(.white)
-                }
-                .padding(.horizontal, 12)
-                .padding(.vertical, 6)
-                .background(Color.orange)
-            }
 
             ScrollView {
                 VStack(spacing: 20) {
@@ -173,7 +153,6 @@ struct WorkoutView: View {
                         Image(systemName: "heart.circle.fill")
                             .font(.title2)
                             .foregroundColor(hrSourceIconColor)
-                            .symbolEffect(.pulse, isActive: viewModel.watchDisconnected && viewModel.useWatchHR)
 
                         if viewModel.isSwitchingHRSource {
                             ProgressView()
@@ -190,18 +169,34 @@ struct WorkoutView: View {
                 Button("Switch to HR Strap") {
                     viewModel.switchToBLEHR()
                 }
-                .disabled(!viewModel.heartRateService.isConnected)
+                if !viewModel.isWatchConnected {
+                    Button("Retry Watch Connection") {
+                        viewModel.retryWatchConnection()
+                    }
+                }
             } else {
                 Button("Switch to Apple Watch") {
                     viewModel.switchToWatchHR()
                 }
-                .disabled(!viewModel.watchConnectivityService.isWatchReachable)
+                Button("Change HR Strap") {
+                    viewModel.startHRStrapSelection()
+                }
             }
             Button("Cancel", role: .cancel) {}
         } message: {
-            Text(viewModel.useWatchHR
-                ? "Currently using Apple Watch"
-                : "Currently using HR Strap")
+            if viewModel.useWatchHR {
+                if viewModel.isWatchConnected {
+                    Text("Currently using Apple Watch")
+                } else {
+                    Text("Apple Watch not connected — tap Retry or switch to HR strap")
+                }
+            } else {
+                if viewModel.heartRateService.isConnected {
+                    Text("Currently using HR Strap")
+                } else {
+                    Text("No HR strap connected")
+                }
+            }
         }
         .alert("HR Source", isPresented: .init(
             get: { viewModel.hrSourceError != nil },
@@ -212,6 +207,11 @@ struct WorkoutView: View {
             if let error = viewModel.hrSourceError {
                 Text(error)
             }
+        }
+        .sheet(isPresented: $viewModel.showHRStrapPicker) {
+            viewModel.bluetoothManager.stopScanning()
+        } content: {
+            HRStrapPickerSheet(viewModel: viewModel)
         }
         .navigationDestination(isPresented: $showSummary) {
             if let summaryVM = summaryViewModel {
@@ -247,7 +247,7 @@ struct WorkoutView: View {
         if viewModel.isSwitchingHRSource {
             return .gray
         }
-        if viewModel.watchDisconnected && viewModel.useWatchHR {
+        if viewModel.useWatchHR && !viewModel.isWatchConnected {
             return .orange
         }
         return .green
@@ -359,9 +359,6 @@ struct WorkoutChartView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("Workout Progress")
-                .font(.headlineSmall)
-
             HStack(spacing: 0) {
                 // Left Y-axis labels (Power)
                 VStack {
@@ -470,12 +467,66 @@ struct WorkoutChartView: View {
     }
 }
 
+struct HRStrapPickerSheet: View {
+    @ObservedObject var viewModel: WorkoutViewModel
+
+    private var hrMonitors: [DeviceInfo] {
+        Array(viewModel.bluetoothManager.discoveredHRMonitors.prefix(5))
+    }
+
+    var body: some View {
+        NavigationStack {
+            VStack(spacing: 16) {
+                if hrMonitors.isEmpty {
+                    VStack(spacing: 12) {
+                        ProgressView()
+                        Text("Scanning for HR monitors...")
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
+                    }
+                    .frame(maxHeight: .infinity)
+                } else {
+                    List(hrMonitors) { device in
+                        Button {
+                            viewModel.selectAndConnectHRStrap(device)
+                        } label: {
+                            HStack {
+                                Image(systemName: "heart.fill")
+                                    .foregroundColor(viewModel.heartRateService.connectedDeviceId == device.id ? .green : .red)
+                                Text(device.name)
+                                    .foregroundColor(.primary)
+                                Spacer()
+                                if viewModel.heartRateService.connectedDeviceId == device.id {
+                                    Image(systemName: "checkmark.circle.fill")
+                                        .foregroundColor(.green)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            .navigationTitle("Select HR Strap")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancel") {
+                        viewModel.showHRStrapPicker = false
+                        viewModel.bluetoothManager.stopScanning()
+                    }
+                }
+            }
+        }
+        .presentationDetents([.medium])
+    }
+}
+
 #Preview {
     @Previewable @State var bluetooth = BluetoothManager()
     NavigationStack {
         WorkoutView(
             viewModel: WorkoutViewModel(
                 workout: Workout(targetPower: 150, targetDuration: 30 * 60),
+                bluetoothManager: bluetooth,
                 kickrService: KickrService(bluetoothManager: bluetooth),
                 heartRateService: HeartRateService(bluetoothManager: bluetooth),
                 healthKitManager: HealthKitManager(),

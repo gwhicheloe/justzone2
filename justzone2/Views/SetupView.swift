@@ -240,6 +240,7 @@ struct SetupView: View {
                     let workout = viewModel.createWorkout()
                     workoutViewModel = WorkoutViewModel(
                         workout: workout,
+                        bluetoothManager: viewModel.bluetoothManager,
                         kickrService: viewModel.kickrService,
                         heartRateService: viewModel.heartRateService,
                         healthKitManager: viewModel.healthKitManager,

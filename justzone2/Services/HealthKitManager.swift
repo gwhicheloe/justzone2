@@ -14,7 +14,6 @@ class HealthKitManager: NSObject, ObservableObject {
     private var mirroredBuilder: HKLiveWorkoutBuilder?
     @Published var mirroredHeartRate: Int = 0
     @Published var mirroredSessionDisconnected = false
-    private var reconnecting = false
 
     @Published var isAuthorized = false
     @Published var authorizationError: String?
@@ -108,41 +107,15 @@ class HealthKitManager: NSObject, ObservableObject {
         builder.delegate = self
         self.mirroredBuilder = builder
 
-        // Clear reconnection state
-        if reconnecting {
-            reconnecting = false
-        }
+        // Clear disconnection state (reconnection succeeded)
         mirroredSessionDisconnected = false
 
         sessionState = .running
     }
 
-    /// Attempt to reconnect a lost mirrored session by re-launching the Watch app.
-    private func attemptReconnection() {
-        guard !reconnecting else { return }
-        reconnecting = true
-
-        Task {
-            // Wait briefly for Watch to finish restarting
-            try? await Task.sleep(nanoseconds: 2_000_000_000)
-
-            // Try to re-launch Watch app
-            do {
-                try await startWatchWorkout()
-            } catch {
-                print("Reconnection: failed to launch Watch app: \(error.localizedDescription)")
-            }
-
-            // Wait up to 10 seconds for mirrored session to arrive
-            try? await Task.sleep(nanoseconds: 10_000_000_000)
-
-            // If still reconnecting after timeout, give up
-            if reconnecting {
-                reconnecting = false
-                // mirroredSessionDisconnected stays true — WorkoutViewModel can offer switch to BLE
-            }
-        }
-    }
+    // Reconnection is handled by WorkoutViewModel's persistent Watch connection loop.
+    // HealthKitManager just sets the disconnected flag; the ViewModel detects isMirrored == false
+    // and retries startWatchWorkout() automatically.
 
     /// Send workout data to Watch via the mirrored session's data channel.
     func sendDataToWatch(_ data: PhoneToWatchData) {
@@ -181,7 +154,6 @@ class HealthKitManager: NSObject, ObservableObject {
 
     /// Clean up the mirrored session.
     func endMirroredSession() {
-        reconnecting = false
         mirroredSessionDisconnected = false
         mirroredSession = nil
         mirroredBuilder = nil
@@ -320,7 +292,12 @@ extension HealthKitManager: HKWorkoutSessionDelegate {
         _ workoutSession: HKWorkoutSession,
         didReceiveDataFromRemoteWorkoutSession data: [Data]
     ) {
-        // Watch could send data here if needed in the future
+        Task { @MainActor in
+            for datum in data {
+                guard let update = try? JSONDecoder().decode(WatchToPhoneData.self, from: datum) else { continue }
+                self.mirroredHeartRate = update.heartRate
+            }
+        }
     }
 
     nonisolated func workoutSession(
@@ -339,8 +316,6 @@ extension HealthKitManager: HKWorkoutSessionDelegate {
             self.mirroredHeartRate = 0
             self.mirroredSession = nil
             self.mirroredBuilder = nil
-
-            self.attemptReconnection()
         }
     }
 }

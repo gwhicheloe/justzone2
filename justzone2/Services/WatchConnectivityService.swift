@@ -20,17 +20,26 @@ class WatchConnectivityService: NSObject, ObservableObject {
     // MARK: - Mode A: Backup Commands (WCSession fallback for mirrored session)
 
     func sendStartWorkout() {
-        guard let session = session, session.isReachable else { return }
-        session.sendMessage(["type": "startWorkout"], replyHandler: nil) { error in
-            print("Watch send failed: \(error.localizedDescription)")
+        guard let session = session else { return }
+        // Use sendMessage for immediate delivery when reachable
+        if session.isReachable {
+            session.sendMessage(["type": "startWorkout"], replyHandler: nil) { error in
+                print("Watch sendMessage failed: \(error.localizedDescription)")
+            }
         }
+        // Always queue via transferUserInfo as guaranteed-delivery fallback
+        // This persists and delivers even when Watch screen is off
+        session.transferUserInfo(["type": "startWorkout", "timestamp": Date().timeIntervalSince1970])
     }
 
     func sendStopWorkout() {
-        guard let session = session, session.isReachable else { return }
-        session.sendMessage(["type": "stopWorkout"], replyHandler: nil) { error in
-            print("Watch send failed: \(error.localizedDescription)")
+        guard let session = session else { return }
+        if session.isReachable {
+            session.sendMessage(["type": "stopWorkout"], replyHandler: nil) { error in
+                print("Watch sendMessage failed: \(error.localizedDescription)")
+            }
         }
+        session.transferUserInfo(["type": "stopWorkout", "timestamp": Date().timeIntervalSince1970])
     }
 
     func sendPauseWorkout() {
