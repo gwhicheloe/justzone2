@@ -6,7 +6,6 @@ class WatchConnectivityService: NSObject, ObservableObject {
     @Published var isWatchReachable = false
     @Published var isWatchPaired = false
     @Published var isWatchAppInstalled = false
-    @Published var watchHeartRate: Int = 0
 
     private var session: WCSession?
 
@@ -18,7 +17,37 @@ class WatchConnectivityService: NSObject, ObservableObject {
         session?.activate()
     }
 
-    // MARK: - Send to Watch
+    // MARK: - Mode A: Backup Commands (WCSession fallback for mirrored session)
+
+    func sendStartWorkout() {
+        guard let session = session, session.isReachable else { return }
+        session.sendMessage(["type": "startWorkout"], replyHandler: nil) { error in
+            print("Watch send failed: \(error.localizedDescription)")
+        }
+    }
+
+    func sendStopWorkout() {
+        guard let session = session, session.isReachable else { return }
+        session.sendMessage(["type": "stopWorkout"], replyHandler: nil) { error in
+            print("Watch send failed: \(error.localizedDescription)")
+        }
+    }
+
+    func sendPauseWorkout() {
+        guard let session = session, session.isReachable else { return }
+        session.sendMessage(["type": "pauseWorkout"], replyHandler: nil) { error in
+            print("Watch send failed: \(error.localizedDescription)")
+        }
+    }
+
+    func sendResumeWorkout() {
+        guard let session = session, session.isReachable else { return }
+        session.sendMessage(["type": "resumeWorkout"], replyHandler: nil) { error in
+            print("Watch send failed: \(error.localizedDescription)")
+        }
+    }
+
+    // MARK: - Mode B: Display-Only Updates (no mirrored session)
 
     func sendWorkoutUpdate(
         heartRate: Int,
@@ -48,20 +77,6 @@ class WatchConnectivityService: NSObject, ObservableObject {
     func sendWorkoutEnded() {
         guard let session = session, session.isReachable else { return }
         session.sendMessage(["type": "workoutEnded"], replyHandler: nil) { error in
-            print("Watch send failed: \(error.localizedDescription)")
-        }
-    }
-
-    func sendStartHRSampling() {
-        guard let session = session, session.isReachable else { return }
-        session.sendMessage(["type": "startHRSampling"], replyHandler: nil) { error in
-            print("Watch send failed: \(error.localizedDescription)")
-        }
-    }
-
-    func sendStopHRSampling() {
-        guard let session = session, session.isReachable else { return }
-        session.sendMessage(["type": "stopHRSampling"], replyHandler: nil) { error in
             print("Watch send failed: \(error.localizedDescription)")
         }
     }
@@ -101,16 +116,6 @@ extension WatchConnectivityService: WCSessionDelegate {
         Task { @MainActor in
             self.isWatchPaired = session.isPaired
             self.isWatchAppInstalled = session.isWatchAppInstalled
-        }
-    }
-
-    nonisolated func session(_ session: WCSession, didReceiveMessage message: [String: Any]) {
-        guard let type = message["type"] as? String else { return }
-
-        if type == "heartRate", let bpm = message["bpm"] as? Int {
-            Task { @MainActor in
-                self.watchHeartRate = bpm
-            }
         }
     }
 }

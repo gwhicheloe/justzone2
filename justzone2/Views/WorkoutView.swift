@@ -7,6 +7,7 @@ struct WorkoutView: View {
     @Binding var isPresented: Bool
     @State private var showSummary = false
     @State private var summaryViewModel: SummaryViewModel?
+    @State private var showHRSourcePicker = false
 
     var body: some View {
         VStack(spacing: 0) {
@@ -30,6 +31,27 @@ struct WorkoutView: View {
                 }
             }
             .frame(height: 8)
+
+            // Watch disconnected banner
+            if viewModel.watchDisconnected && viewModel.useWatchHR {
+                HStack(spacing: 8) {
+                    ProgressView()
+                        .tint(.white)
+                        .scaleEffect(0.7)
+                    Text("Watch disconnected — reconnecting...")
+                        .font(.caption)
+                        .foregroundColor(.white)
+                    Spacer()
+                    Button("Use HR Strap") {
+                        viewModel.switchToBLEHR()
+                    }
+                    .font(.caption.bold())
+                    .foregroundColor(.white)
+                }
+                .padding(.horizontal, 12)
+                .padding(.vertical, 6)
+                .background(Color.orange)
+            }
 
             ScrollView {
                 VStack(spacing: 20) {
@@ -143,6 +165,53 @@ struct WorkoutView: View {
                     .font(.custom("ArialRoundedMTBold", size: 28))
                     .foregroundColor(.green)
             }
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    showHRSourcePicker = true
+                } label: {
+                    ZStack {
+                        Image(systemName: "heart.circle.fill")
+                            .font(.title2)
+                            .foregroundColor(hrSourceIconColor)
+                            .symbolEffect(.pulse, isActive: viewModel.watchDisconnected && viewModel.useWatchHR)
+
+                        if viewModel.isSwitchingHRSource {
+                            ProgressView()
+                                .scaleEffect(0.6)
+                                .tint(.white)
+                        }
+                    }
+                }
+                .disabled(viewModel.isSwitchingHRSource)
+            }
+        }
+        .confirmationDialog("Heart Rate Source", isPresented: $showHRSourcePicker) {
+            if viewModel.useWatchHR {
+                Button("Switch to HR Strap") {
+                    viewModel.switchToBLEHR()
+                }
+                .disabled(!viewModel.heartRateService.isConnected)
+            } else {
+                Button("Switch to Apple Watch") {
+                    viewModel.switchToWatchHR()
+                }
+                .disabled(!viewModel.watchConnectivityService.isWatchReachable)
+            }
+            Button("Cancel", role: .cancel) {}
+        } message: {
+            Text(viewModel.useWatchHR
+                ? "Currently using Apple Watch"
+                : "Currently using HR Strap")
+        }
+        .alert("HR Source", isPresented: .init(
+            get: { viewModel.hrSourceError != nil },
+            set: { if !$0 { viewModel.hrSourceError = nil } }
+        )) {
+            Button("OK") { viewModel.hrSourceError = nil }
+        } message: {
+            if let error = viewModel.hrSourceError {
+                Text(error)
+            }
         }
         .navigationDestination(isPresented: $showSummary) {
             if let summaryVM = summaryViewModel {
@@ -172,6 +241,16 @@ struct WorkoutView: View {
                 showSummary = true
             }
         }
+    }
+
+    private var hrSourceIconColor: Color {
+        if viewModel.isSwitchingHRSource {
+            return .gray
+        }
+        if viewModel.watchDisconnected && viewModel.useWatchHR {
+            return .orange
+        }
+        return .green
     }
 
     private var stateTitle: String {

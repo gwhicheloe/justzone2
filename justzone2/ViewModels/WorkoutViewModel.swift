@@ -26,12 +26,17 @@ class WorkoutViewModel: ObservableObject {
     @Published var chartData: [ChartDataPoint] = []
     @Published var healthKitWorkout: HKWorkout?
 
+    // HR source switching
+    @Published var useWatchHR: Bool
+    @Published var watchDisconnected = false
+    @Published var isSwitchingHRSource = false
+    @Published var hrSourceError: String?
+
     let kickrService: KickrService
     let heartRateService: HeartRateService
     let healthKitManager: HealthKitManager
     let liveActivityManager: LiveActivityManager
     let watchConnectivityService: WatchConnectivityService
-    let useWatchHR: Bool
 
     // MARK: - Zone Targeting
     let zoneTargetingEnabled: Bool
@@ -49,8 +54,11 @@ class WorkoutViewModel: ObservableObject {
     private let cooldownAfterIncrease: TimeInterval = 60
 
     private var timerCancellable: AnyCancellable?
+    private var hrCancellable: AnyCancellable?
     private var cancellables = Set<AnyCancellable>()
     private var workoutStartTime: Date?
+    private var powerBuffer: [Int] = []
+    private let powerSmoothingWindow = 5
 
     init(
         workout: Workout,
@@ -81,19 +89,111 @@ class WorkoutViewModel: ObservableObject {
     }
 
     private func setupBindings() {
-        // Subscribe to HR updates - from Watch or Bluetooth
-        if useWatchHR {
-            watchConnectivityService.$watchHeartRate
-                .assign(to: &$currentHeartRate)
-        } else {
-            heartRateService.$currentHeartRate
-                .assign(to: &$currentHeartRate)
-        }
+        // Initial HR binding
+        bindHRSource()
 
         // Subscribe to power updates
         kickrService.$currentPower
             .assign(to: &$currentPower)
+
+        // Monitor Watch disconnection
+        healthKitManager.$mirroredSessionDisconnected
+            .assign(to: &$watchDisconnected)
     }
+
+    private func bindHRSource() {
+        hrCancellable?.cancel()
+        if useWatchHR {
+            // Mode A: HR flows through mirrored HKWorkoutSession
+            hrCancellable = healthKitManager.$mirroredHeartRate
+                .sink { [weak self] hr in self?.currentHeartRate = hr }
+        } else {
+            // Mode B: HR from Bluetooth HR monitor
+            hrCancellable = heartRateService.$currentHeartRate
+                .sink { [weak self] hr in self?.currentHeartRate = hr }
+        }
+    }
+
+    // MARK: - HR Source Switching
+
+    func switchToWatchHR() {
+        guard !isSwitchingHRSource else { return }
+        guard state == .running || state == .paused else { return }
+
+        isSwitchingHRSource = true
+        hrSourceError = nil
+
+        Task {
+            // End standalone HK session
+            _ = try? await healthKitManager.endWorkoutSession()
+
+            // Launch Watch workout
+            do {
+                try await healthKitManager.startWatchWorkout()
+            } catch {
+                print("Switch to Watch: failed to launch Watch app: \(error.localizedDescription)")
+            }
+            // Backup via WCSession
+            watchConnectivityService.sendStartWorkout()
+
+            // Wait for mirrored session (up to 5 seconds)
+            let deadline = Date().addingTimeInterval(5)
+            while !healthKitManager.isMirrored && Date() < deadline {
+                try? await Task.sleep(nanoseconds: 100_000_000)
+            }
+
+            if healthKitManager.isMirrored {
+                // Success
+                useWatchHR = true
+                bindHRSource()
+                sendDataToWatch(state: state == .paused ? "paused" : "running")
+            } else {
+                // Timeout — revert to standalone
+                do {
+                    try await healthKitManager.startWorkoutSession()
+                } catch {
+                    print("Switch to Watch: failed to restart standalone: \(error.localizedDescription)")
+                }
+                hrSourceError = "Watch did not respond — keeping HR strap"
+            }
+
+            isSwitchingHRSource = false
+        }
+    }
+
+    func switchToBLEHR() {
+        guard !isSwitchingHRSource else { return }
+        guard state == .running || state == .paused else { return }
+
+        isSwitchingHRSource = true
+        hrSourceError = nil
+
+        Task {
+            // Tell Watch to end its primary session
+            sendDataToWatch(state: "ended")
+            watchConnectivityService.sendStopWorkout()
+
+            // Clean up mirrored session
+            healthKitManager.endMirroredSession()
+
+            // Start standalone session
+            do {
+                try await healthKitManager.startWorkoutSession()
+            } catch {
+                print("Switch to BLE: failed to start standalone: \(error.localizedDescription)")
+                hrSourceError = "Failed to start workout session"
+                isSwitchingHRSource = false
+                return
+            }
+
+            useWatchHR = false
+            bindHRSource()
+
+            isSwitchingHRSource = false
+        }
+    }
+
+    // MARK: - Workout Lifecycle
 
     func startWorkout() {
         guard state == .idle else { return }
@@ -105,12 +205,25 @@ class WorkoutViewModel: ObservableObject {
         kickrService.setTargetPower(workout.targetPower)
         kickrService.startWorkout()
 
-        // Start HealthKit workout session for background execution
-        Task {
-            do {
-                try await healthKitManager.startWorkoutSession()
-            } catch {
-                print("Failed to start HealthKit session: \(error.localizedDescription)")
+        if useWatchHR {
+            // Mode A: Launch Watch app to start primary session with mirroring
+            Task {
+                do {
+                    try await healthKitManager.startWatchWorkout()
+                } catch {
+                    print("Failed to start Watch workout: \(error.localizedDescription)")
+                }
+            }
+            // Backup: send start command via WCSession in case startWatchApp doesn't trigger
+            watchConnectivityService.sendStartWorkout()
+        } else {
+            // Mode B: Start standalone HealthKit session on iPhone
+            Task {
+                do {
+                    try await healthKitManager.startWorkoutSession()
+                } catch {
+                    print("Failed to start HealthKit session: \(error.localizedDescription)")
+                }
             }
         }
 
@@ -122,11 +235,6 @@ class WorkoutViewModel: ObservableObject {
             )
         } catch {
             print("Failed to start Live Activity: \(error.localizedDescription)")
-        }
-
-        // Start Watch HR sampling if using Watch as HR source
-        if useWatchHR {
-            watchConnectivityService.sendStartHRSampling()
         }
 
         // Start workout immediately - ERG will engage in background
@@ -146,8 +254,25 @@ class WorkoutViewModel: ObservableObject {
 
         kickrService.stopWorkout()
 
-        // Pause HealthKit session
-        healthKitManager.pauseWorkoutSession()
+        if useWatchHR {
+            // Mode A: Send pause state via mirrored session data channel
+            sendDataToWatch(state: "paused")
+            // Backup via WCSession
+            watchConnectivityService.sendPauseWorkout()
+        } else {
+            // Mode B: Pause standalone session directly
+            healthKitManager.pauseWorkoutSession()
+            // Notify Watch display
+            watchConnectivityService.sendWorkoutUpdate(
+                heartRate: currentHeartRate,
+                power: currentPower,
+                elapsedTime: elapsedTime,
+                chunkRemaining: timeRemainingInChunk,
+                currentChunk: currentChunk,
+                totalChunks: totalChunks,
+                state: "paused"
+            )
+        }
 
         // Update Live Activity to show paused state
         liveActivityManager.updateLiveActivity(
@@ -155,17 +280,6 @@ class WorkoutViewModel: ObservableObject {
             heartRate: currentHeartRate,
             power: currentPower,
             isPaused: true
-        )
-
-        // Notify Watch
-        watchConnectivityService.sendWorkoutUpdate(
-            heartRate: currentHeartRate,
-            power: currentPower,
-            elapsedTime: elapsedTime,
-            chunkRemaining: timeRemainingInChunk,
-            currentChunk: currentChunk,
-            totalChunks: totalChunks,
-            state: "paused"
         )
     }
 
@@ -177,8 +291,25 @@ class WorkoutViewModel: ObservableObject {
         lastAdjustmentTime = Date()
         state = .running
 
-        // Resume HealthKit session
-        healthKitManager.resumeWorkoutSession()
+        if useWatchHR {
+            // Mode A: Send resume state via mirrored session data channel
+            sendDataToWatch(state: "running")
+            // Backup via WCSession
+            watchConnectivityService.sendResumeWorkout()
+        } else {
+            // Mode B: Resume standalone session directly
+            healthKitManager.resumeWorkoutSession()
+            // Notify Watch display
+            watchConnectivityService.sendWorkoutUpdate(
+                heartRate: currentHeartRate,
+                power: currentPower,
+                elapsedTime: elapsedTime,
+                chunkRemaining: timeRemainingInChunk,
+                currentChunk: currentChunk,
+                totalChunks: totalChunks,
+                state: "running"
+            )
+        }
 
         // Update Live Activity to show running state
         liveActivityManager.updateLiveActivity(
@@ -186,17 +317,6 @@ class WorkoutViewModel: ObservableObject {
             heartRate: currentHeartRate,
             power: currentPower,
             isPaused: false
-        )
-
-        // Notify Watch
-        watchConnectivityService.sendWorkoutUpdate(
-            heartRate: currentHeartRate,
-            power: currentPower,
-            elapsedTime: elapsedTime,
-            chunkRemaining: timeRemainingInChunk,
-            currentChunk: currentChunk,
-            totalChunks: totalChunks,
-            state: "running"
         )
 
         startTimer()
@@ -211,23 +331,28 @@ class WorkoutViewModel: ObservableObject {
 
         kickrService.stopWorkout()
 
-        // End HealthKit session and save workout
-        Task {
-            do {
-                healthKitWorkout = try await healthKitManager.endWorkoutSession()
-            } catch {
-                print("Failed to end HealthKit session: \(error.localizedDescription)")
+        if useWatchHR {
+            // Mode A: Tell Watch to end its primary session (saves workout to Health)
+            sendDataToWatch(state: "ended")
+            // Backup via WCSession
+            watchConnectivityService.sendStopWorkout()
+            // Clean up mirrored session on iPhone side
+            healthKitManager.endMirroredSession()
+        } else {
+            // Mode B: End standalone session and save workout
+            Task {
+                do {
+                    healthKitWorkout = try await healthKitManager.endWorkoutSession()
+                } catch {
+                    print("Failed to end HealthKit session: \(error.localizedDescription)")
+                }
             }
+            // Notify Watch display
+            watchConnectivityService.sendWorkoutEnded()
         }
 
         // End Live Activity
         liveActivityManager.endLiveActivity()
-
-        // Stop Watch HR sampling and notify workout ended
-        if useWatchHR {
-            watchConnectivityService.sendStopHRSampling()
-        }
-        watchConnectivityService.sendWorkoutEnded()
 
         // Allow screen to sleep again
         UIApplication.shared.isIdleTimerDisabled = false
@@ -247,6 +372,7 @@ class WorkoutViewModel: ObservableObject {
 
     private func timerTick() {
         guard state == .running else { return }
+        guard !isSwitchingHRSource else { return }
 
         let now = Date()
 
@@ -264,12 +390,31 @@ class WorkoutViewModel: ObservableObject {
         // Zone targeting: auto-adjust power based on HR
         evaluateZoneTargeting()
 
-        // Add samples to HealthKit
-        if let heartRate = hr {
-            healthKitManager.addHeartRateSample(heartRate, at: now)
-        }
-        if let power = pwr {
-            healthKitManager.addPowerSample(power, at: now)
+        if useWatchHR {
+            // Mode A: Send power/chunk data to Watch via mirrored session
+            sendDataToWatch(state: "running")
+            // Add power to mirrored builder (Watch handles HR)
+            if let power = pwr {
+                healthKitManager.addPowerToMirroredBuilder(power, at: now)
+            }
+        } else {
+            // Mode B: Add samples to standalone HealthKit session
+            if let heartRate = hr {
+                healthKitManager.addHeartRateSample(heartRate, at: now)
+            }
+            if let power = pwr {
+                healthKitManager.addPowerSample(power, at: now)
+            }
+            // Update Watch companion display via WCSession
+            watchConnectivityService.sendWorkoutUpdate(
+                heartRate: currentHeartRate,
+                power: currentPower,
+                elapsedTime: elapsedTime,
+                chunkRemaining: timeRemainingInChunk,
+                currentChunk: currentChunk,
+                totalChunks: totalChunks,
+                state: "running"
+            )
         }
 
         // Update Live Activity
@@ -280,28 +425,40 @@ class WorkoutViewModel: ObservableObject {
             isPaused: false
         )
 
-        // Update Watch companion display
-        watchConnectivityService.sendWorkoutUpdate(
-            heartRate: currentHeartRate,
-            power: currentPower,
-            elapsedTime: elapsedTime,
-            chunkRemaining: timeRemainingInChunk,
-            currentChunk: currentChunk,
-            totalChunks: totalChunks,
-            state: "running"
-        )
-
-        // Add to chart data
+        // Add to chart data with smoothed power
+        if let power = pwr {
+            powerBuffer.append(power)
+            if powerBuffer.count > powerSmoothingWindow {
+                powerBuffer.removeFirst(powerBuffer.count - powerSmoothingWindow)
+            }
+        }
+        let smoothedPower = powerBuffer.isEmpty ? pwr : powerBuffer.reduce(0, +) / powerBuffer.count
         chartData.append(ChartDataPoint(
             time: elapsedTime,
             heartRate: hr,
-            power: pwr
+            power: smoothedPower
         ))
 
         // Check if target duration reached
         if elapsedTime >= workout.targetDuration {
             stopWorkout()
         }
+    }
+
+    // MARK: - Mode A: Send Data to Watch
+
+    private func sendDataToWatch(state: String) {
+        let data = PhoneToWatchData(
+            power: currentPower,
+            elapsedTime: elapsedTime,
+            chunkRemaining: timeRemainingInChunk,
+            currentChunk: currentChunk,
+            totalChunks: totalChunks,
+            adjustedPower: adjustedPower,
+            targetPower: workout.targetPower,
+            state: state
+        )
+        healthKitManager.sendDataToWatch(data)
     }
 
     var progress: Double {

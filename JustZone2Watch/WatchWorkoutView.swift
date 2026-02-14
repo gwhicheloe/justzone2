@@ -21,6 +21,18 @@ struct WatchWorkoutView: View {
 
     // MARK: - Waiting State
 
+    private var buildId: String {
+        // Use the app binary's modification date as a build timestamp
+        guard let executableURL = Bundle.main.executableURL,
+              let attrs = try? FileManager.default.attributesOfItem(atPath: executableURL.path),
+              let date = attrs[.modificationDate] as? Date else {
+            return "b?"
+        }
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMdd.HHmm"
+        return "b\(formatter.string(from: date))"
+    }
+
     private var waitingView: some View {
         VStack(spacing: 12) {
             Text("2")
@@ -33,12 +45,16 @@ struct WatchWorkoutView: View {
 
             HStack(spacing: 4) {
                 Circle()
-                    .fill(sessionManager.isPhoneReachable ? Color.green : Color.red)
+                    .fill(Color.green)
                     .frame(width: 8, height: 8)
-                Text(sessionManager.isPhoneReachable ? "iPhone connected" : "iPhone not reachable")
+                Text("Ready")
                     .font(.caption2)
                     .foregroundColor(.secondary)
             }
+
+            Text(buildId)
+                .font(.system(size: 9))
+                .foregroundColor(.gray.opacity(0.5))
         }
     }
 

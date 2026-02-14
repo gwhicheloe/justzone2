@@ -43,6 +43,7 @@
 		18C58F162F2A9F5A00B04598 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18C58F152F2A9F5A00B04598 /* SwiftUI.framework */; };
 		18C58F272F2A9F5C00B04598 /* JustZone2LiveActivityExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 18C58F112F2A9F5A00B04598 /* JustZone2LiveActivityExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		BB00000000000001 /* WatchConnectivityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB00000000000030 /* WatchConnectivityService.swift */; };
+		DD00000000000001 /* WorkoutSessionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD00000000000010 /* WorkoutSessionData.swift */; };
 		BB00000000000002 /* JustZone2Watch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = BB00000000000031 /* JustZone2Watch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		CC00000000000001 /* JustZone2WatchComplication.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = CC00000000000030 /* JustZone2WatchComplication.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
@@ -147,6 +148,7 @@
 		2200000000000026 /* ActivityDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDetailView.swift; sourceTree = "<group>"; };
 		3300000000000001 /* justzone2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = justzone2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB00000000000030 /* WatchConnectivityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchConnectivityService.swift; sourceTree = "<group>"; };
+		DD00000000000010 /* WorkoutSessionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSessionData.swift; sourceTree = "<group>"; };
 		BB00000000000031 /* JustZone2Watch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JustZone2Watch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC00000000000030 /* JustZone2WatchComplication.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = JustZone2WatchComplication.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -270,6 +272,7 @@
 				2200000000000004 /* DeviceInfo.swift */,
 				2200000000000022 /* WorkoutActivityAttributes.swift */,
 				2200000000000024 /* ActivityStreams.swift */,
+				DD00000000000010 /* WorkoutSessionData.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -558,6 +561,7 @@
 				1100000000000025 /* StreamsCacheService.swift in Sources */,
 				1100000000000026 /* ActivityDetailView.swift in Sources */,
 				BB00000000000001 /* WatchConnectivityService.swift in Sources */,
+				DD00000000000001 /* WorkoutSessionData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -872,6 +876,7 @@
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "JustZone2 reads your heart rate to send to the iPhone app during workouts.";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "JustZone2 uses a workout session to access heart rate data continuously.";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.justzone2.app;
+				INFOPLIST_KEY_WKBackgroundModes = "workout-processing";
 				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -904,6 +909,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = JustZone2;
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "JustZone2 reads your heart rate to send to the iPhone app during workouts.";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "JustZone2 uses a workout session to access heart rate data continuously.";
+				INFOPLIST_KEY_WKBackgroundModes = "workout-processing";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.justzone2.app;
 				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = NO;
 				LD_RUNPATH_SEARCH_PATHS = (

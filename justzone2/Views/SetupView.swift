@@ -172,9 +172,9 @@ struct SetupView: View {
                                 } else if viewModel.useWatchHR {
                                     HStack(spacing: 4) {
                                         Circle()
-                                            .fill(viewModel.isWatchReachable ? Color.green : Color.orange)
+                                            .fill(Color.green)
                                             .frame(width: 6, height: 6)
-                                        Text(viewModel.isWatchReachable ? "Watch app connected" : "Open Watch app to connect")
+                                        Text("Watch HR will start with workout")
                                             .font(.caption2)
                                             .foregroundColor(.secondary)
                                     }
@@ -186,6 +186,8 @@ struct SetupView: View {
                 }
                 .background(Color(.systemBackground))
                 .cornerRadius(12)
+                .fixedSize(horizontal: false, vertical: true)
+                .frame(maxHeight: 260)
 
                 // Integrations Section
                 VStack(alignment: .leading, spacing: 8) {

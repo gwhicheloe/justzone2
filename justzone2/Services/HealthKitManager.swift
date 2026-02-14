@@ -4,16 +4,34 @@ import HealthKit
 @MainActor
 class HealthKitManager: NSObject, ObservableObject {
     private let healthStore = HKHealthStore()
+
+    // Mode B: Standalone session (iPhone creates its own)
     private var workoutSession: HKWorkoutSession?
     private var workoutBuilder: HKLiveWorkoutBuilder?
+
+    // Mode A: Mirrored session (received from Watch)
+    private var mirroredSession: HKWorkoutSession?
+    private var mirroredBuilder: HKLiveWorkoutBuilder?
+    @Published var mirroredHeartRate: Int = 0
+    @Published var mirroredSessionDisconnected = false
+    private var reconnecting = false
 
     @Published var isAuthorized = false
     @Published var authorizationError: String?
     @Published var sessionState: HKWorkoutSessionState = .notStarted
 
+    var isStandaloneSessionActive: Bool { workoutSession != nil }
+
     override init() {
         super.init()
         checkAuthorizationStatus()
+
+        // Mode A: Receive mirrored session from Watch
+        healthStore.workoutSessionMirroringStartHandler = { [weak self] session in
+            Task { @MainActor in
+                self?.handleMirroredSession(session)
+            }
+        }
     }
 
     // MARK: - Authorization
@@ -62,7 +80,116 @@ class HealthKitManager: NSObject, ObservableObject {
         }
     }
 
-    // MARK: - Workout Session
+    // MARK: - Mode A: Mirrored Session (Watch HR)
+
+    /// Launch the Watch app and trigger workout session mirroring.
+    func startWatchWorkout() async throws {
+        let config = HKWorkoutConfiguration()
+        config.activityType = .cycling
+        config.locationType = .indoor
+        try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
+            healthStore.startWatchApp(with: config) { success, error in
+                if let error = error {
+                    continuation.resume(throwing: error)
+                } else {
+                    continuation.resume()
+                }
+            }
+        }
+    }
+
+    /// Called when the Watch mirrors its primary session to this iPhone.
+    private func handleMirroredSession(_ session: HKWorkoutSession) {
+        // Clean up any previous mirrored session
+        self.mirroredSession = session
+        session.delegate = self
+
+        let builder = session.associatedWorkoutBuilder()
+        builder.delegate = self
+        self.mirroredBuilder = builder
+
+        // Clear reconnection state
+        if reconnecting {
+            reconnecting = false
+        }
+        mirroredSessionDisconnected = false
+
+        sessionState = .running
+    }
+
+    /// Attempt to reconnect a lost mirrored session by re-launching the Watch app.
+    private func attemptReconnection() {
+        guard !reconnecting else { return }
+        reconnecting = true
+
+        Task {
+            // Wait briefly for Watch to finish restarting
+            try? await Task.sleep(nanoseconds: 2_000_000_000)
+
+            // Try to re-launch Watch app
+            do {
+                try await startWatchWorkout()
+            } catch {
+                print("Reconnection: failed to launch Watch app: \(error.localizedDescription)")
+            }
+
+            // Wait up to 10 seconds for mirrored session to arrive
+            try? await Task.sleep(nanoseconds: 10_000_000_000)
+
+            // If still reconnecting after timeout, give up
+            if reconnecting {
+                reconnecting = false
+                // mirroredSessionDisconnected stays true — WorkoutViewModel can offer switch to BLE
+            }
+        }
+    }
+
+    /// Send workout data to Watch via the mirrored session's data channel.
+    func sendDataToWatch(_ data: PhoneToWatchData) {
+        guard let session = mirroredSession else { return }
+        guard let encoded = try? JSONEncoder().encode(data) else { return }
+        Task {
+            try? await session.sendToRemoteWorkoutSession(data: encoded)
+        }
+    }
+
+    /// Add power sample to the mirrored builder (iPhone contributes power data).
+    func addPowerToMirroredBuilder(_ power: Int, at date: Date) {
+        guard power > 0, let builder = mirroredBuilder else { return }
+
+        let powerType = HKQuantityType(.cyclingPower)
+        let powerUnit = HKUnit.watt()
+        let quantity = HKQuantity(unit: powerUnit, doubleValue: Double(power))
+        let sample = HKQuantitySample(
+            type: powerType,
+            quantity: quantity,
+            start: date,
+            end: date
+        )
+
+        builder.add([sample]) { _, error in
+            if let error = error {
+                print("Failed to add power to mirrored builder: \(error.localizedDescription)")
+            }
+        }
+    }
+
+    /// Whether a mirrored session is active (Mode A).
+    var isMirrored: Bool {
+        mirroredSession != nil
+    }
+
+    /// Clean up the mirrored session.
+    func endMirroredSession() {
+        reconnecting = false
+        mirroredSessionDisconnected = false
+        mirroredSession = nil
+        mirroredBuilder = nil
+        mirroredHeartRate = 0
+        sessionState = .notStarted
+    }
+
+    // MARK: - Mode B: Standalone Session (BLE HR)
 
     func startWorkoutSession() async throws {
         guard isAuthorized else {
@@ -125,7 +252,7 @@ class HealthKitManager: NSObject, ObservableObject {
         }
     }
 
-    // MARK: - Sample Collection
+    // MARK: - Mode B: Sample Collection
 
     func addHeartRateSample(_ heartRate: Int, at date: Date) {
         guard heartRate > 0 else { return }
@@ -140,7 +267,7 @@ class HealthKitManager: NSObject, ObservableObject {
             end: date
         )
 
-        workoutBuilder?.add([sample]) { success, error in
+        workoutBuilder?.add([sample]) { _, error in
             if let error = error {
                 print("Failed to add heart rate sample: \(error.localizedDescription)")
             }
@@ -160,7 +287,7 @@ class HealthKitManager: NSObject, ObservableObject {
             end: date
         )
 
-        workoutBuilder?.add([sample]) { success, error in
+        workoutBuilder?.add([sample]) { _, error in
             if let error = error {
                 print("Failed to add power sample: \(error.localizedDescription)")
             }
@@ -188,6 +315,34 @@ extension HealthKitManager: HKWorkoutSessionDelegate {
     ) {
         print("Workout session failed: \(error.localizedDescription)")
     }
+
+    nonisolated func workoutSession(
+        _ workoutSession: HKWorkoutSession,
+        didReceiveDataFromRemoteWorkoutSession data: [Data]
+    ) {
+        // Watch could send data here if needed in the future
+    }
+
+    nonisolated func workoutSession(
+        _ workoutSession: HKWorkoutSession,
+        didDisconnectFromRemoteDeviceWithError error: Error?
+    ) {
+        Task { @MainActor in
+            if let error = error {
+                print("Mirrored session disconnected: \(error.localizedDescription)")
+            }
+
+            // Only attempt reconnection if we had an active mirrored session
+            guard self.mirroredSession != nil else { return }
+
+            self.mirroredSessionDisconnected = true
+            self.mirroredHeartRate = 0
+            self.mirroredSession = nil
+            self.mirroredBuilder = nil
+
+            self.attemptReconnection()
+        }
+    }
 }
 
 // MARK: - HKLiveWorkoutBuilderDelegate
@@ -201,7 +356,20 @@ extension HealthKitManager: HKLiveWorkoutBuilderDelegate {
         _ workoutBuilder: HKLiveWorkoutBuilder,
         didCollectDataOf collectedTypes: Set<HKSampleType>
     ) {
-        // Handle collected data if needed
+        Task { @MainActor in
+            // Only extract HR from the mirrored builder (Mode A)
+            guard workoutBuilder === self.mirroredBuilder else { return }
+
+            let hrType = HKQuantityType(.heartRate)
+            guard collectedTypes.contains(hrType) else { return }
+
+            if let stats = workoutBuilder.statistics(for: hrType),
+               let quantity = stats.mostRecentQuantity() {
+                let unit = HKUnit.count().unitDivided(by: .minute())
+                let bpm = Int(quantity.doubleValue(for: unit))
+                self.mirroredHeartRate = bpm
+            }
+        }
     }
 }
 
