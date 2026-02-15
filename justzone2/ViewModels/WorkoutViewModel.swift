@@ -46,6 +46,7 @@ class WorkoutViewModel: ObservableObject {
     private let hrBufferSize = 45
     private var lastAdjustmentTime: Date?
     private var lastAdjustmentWasDecrease = false
+    private var hasReachedZone2 = false
     private let zone2Min: Int
     private let zone2Max: Int
     private let powerStepSize = 5
@@ -483,6 +484,14 @@ class WorkoutViewModel: ObservableObject {
         let smoothedHR = hrBuffer.reduce(0, +) / hrBuffer.count
 
         if smoothedHR >= zone2Min && smoothedHR <= zone2Max {
+            hasReachedZone2 = true
+            return
+        }
+
+        // Don't increase power until HR has entered Zone 2 at least once.
+        // During warm-up, HR naturally rises — increasing power prematurely
+        // causes overshoot once the body catches up.
+        if smoothedHR < zone2Min && !hasReachedZone2 {
             return
         }
 
