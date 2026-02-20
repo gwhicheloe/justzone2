@@ -44,7 +44,7 @@ struct DeviceRow: View {
                 .frame(width: 30)
 
             Text(device.name)
-                .font(.bodyLarge)
+                .font(.subheadline)
 
             Spacer()
 

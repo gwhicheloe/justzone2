@@ -18,8 +18,8 @@ struct WorkoutView: View {
                         .fill(Color.gray.opacity(0.3))
 
                     Rectangle()
-                        .fill(Color.green)
-                        .frame(width: geometry.size.width * viewModel.progress)
+                        .fill(viewModel.state == .cooldown ? Color.orange : Color.green)
+                        .frame(width: geometry.size.width * (viewModel.state == .cooldown ? 1.0 : viewModel.progress))
 
                     // Chunk dividers
                     ForEach(1..<viewModel.totalChunks, id: \.self) { chunk in
@@ -56,36 +56,67 @@ struct WorkoutView: View {
                     }
                     .padding(.top, 12)
 
-                    // Time - Chunk-based display
+                    // Time display
                     VStack(spacing: 8) {
-                        // Chunk indicator
-                        Text("Chunk \(viewModel.currentChunk) of \(viewModel.totalChunks)")
-                            .font(.subheadline)
-                            .foregroundColor(.secondary)
+                        if viewModel.isWarmingUp {
+                            // Warm-up countdown
+                            Text(viewModel.formatTime(viewModel.warmUpRemaining))
+                                .font(.system(size: 64, weight: .bold, design: .rounded))
+                                .monospacedDigit()
+                                .foregroundColor(.orange)
 
-                        // Large chunk countdown
-                        Text(viewModel.formatTime(viewModel.timeRemainingInChunk))
-                            .font(.system(size: 64, weight: .bold, design: .rounded))
-                            .monospacedDigit()
-                            .foregroundColor(.green)
-
-                        // Smaller total times
-                        HStack(spacing: 24) {
-                            VStack(spacing: 2) {
-                                Text(viewModel.formatTime(viewModel.elapsedTime))
-                                    .font(.title3)
-                                    .monospacedDigit()
-                                Text("elapsed")
-                                    .font(.caption)
-                                    .foregroundColor(.secondary)
+                            HStack(spacing: 24) {
+                                VStack(spacing: 2) {
+                                    Text(viewModel.formatTime(viewModel.elapsedTime))
+                                        .font(.title3)
+                                        .monospacedDigit()
+                                    Text("elapsed")
+                                        .font(.caption)
+                                        .foregroundColor(.secondary)
+                                }
+                                VStack(spacing: 2) {
+                                    Text(viewModel.formatTime(viewModel.remainingTime))
+                                        .font(.title3)
+                                        .monospacedDigit()
+                                    Text("remaining")
+                                        .font(.caption)
+                                        .foregroundColor(.secondary)
+                                }
                             }
-                            VStack(spacing: 2) {
-                                Text(viewModel.formatTime(viewModel.remainingTime))
-                                    .font(.title3)
-                                    .monospacedDigit()
-                                Text("remaining")
-                                    .font(.caption)
-                                    .foregroundColor(.secondary)
+                        } else if viewModel.state == .cooldown {
+                            // Cool-down: just show elapsed time
+                            Text(viewModel.formatTime(viewModel.elapsedTime))
+                                .font(.system(size: 64, weight: .bold, design: .rounded))
+                                .monospacedDigit()
+                                .foregroundColor(.orange)
+                        } else {
+                            // Normal chunk-based display
+                            Text("Chunk \(viewModel.currentChunk) of \(viewModel.totalChunks)")
+                                .font(.subheadline)
+                                .foregroundColor(.secondary)
+
+                            Text(viewModel.formatTime(viewModel.timeRemainingInChunk))
+                                .font(.system(size: 64, weight: .bold, design: .rounded))
+                                .monospacedDigit()
+                                .foregroundColor(.green)
+
+                            HStack(spacing: 24) {
+                                VStack(spacing: 2) {
+                                    Text(viewModel.formatTime(viewModel.elapsedTime))
+                                        .font(.title3)
+                                        .monospacedDigit()
+                                    Text("elapsed")
+                                        .font(.caption)
+                                        .foregroundColor(.secondary)
+                                }
+                                VStack(spacing: 2) {
+                                    Text(viewModel.formatTime(viewModel.remainingTime))
+                                        .font(.title3)
+                                        .monospacedDigit()
+                                    Text("remaining")
+                                        .font(.caption)
+                                        .foregroundColor(.secondary)
+                                }
                             }
                         }
                     }
@@ -125,8 +156,11 @@ struct WorkoutView: View {
                     }
 
                     Button(action: {
-                        viewModel.stopWorkout()
-                        showSummary = true
+                        if viewModel.state == .cooldown {
+                            viewModel.stopCooldown()
+                        } else {
+                            viewModel.stopWorkout()
+                        }
                     }) {
                         Image(systemName: "stop.fill")
                             .font(.title)
@@ -143,7 +177,7 @@ struct WorkoutView: View {
             ToolbarItem(placement: .principal) {
                 Text(stateTitle)
                     .font(.custom("ArialRoundedMTBold", size: 28))
-                    .foregroundColor(.green)
+                    .foregroundColor(viewModel.isWarmingUp || viewModel.state == .cooldown ? .orange : .green)
             }
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
@@ -234,10 +268,12 @@ struct WorkoutView: View {
         .onChange(of: viewModel.state) { oldState, newState in
             if newState == .completed {
                 // Create the SummaryViewModel ONCE when workout completes
-                summaryViewModel = SummaryViewModel(
-                    workout: viewModel.workout,
-                    stravaService: stravaService
-                )
+                if summaryViewModel == nil {
+                    summaryViewModel = SummaryViewModel(
+                        workout: viewModel.workout,
+                        stravaService: stravaService
+                    )
+                }
                 showSummary = true
             }
         }
@@ -258,9 +294,11 @@ struct WorkoutView: View {
         case .idle:
             return "Starting..."
         case .running:
-            return "Zone 2 Workout"
+            return viewModel.isWarmingUp ? "Warm Up" : "Zone 2 Workout"
         case .paused:
             return "Paused"
+        case .cooldown:
+            return "Cool Down"
         case .completed:
             return "Complete"
         }

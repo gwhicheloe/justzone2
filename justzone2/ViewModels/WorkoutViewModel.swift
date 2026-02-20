@@ -6,6 +6,7 @@ enum WorkoutState {
     case idle
     case running
     case paused
+    case cooldown
     case completed
 }
 
@@ -38,6 +39,19 @@ class WorkoutViewModel: ObservableObject {
     let healthKitManager: HealthKitManager
     let liveActivityManager: LiveActivityManager
     let watchConnectivityService: WatchConnectivityService
+
+    // MARK: - Warm Up & Cool Down
+    let warmUpEnabled: Bool
+    private let warmUpDuration: TimeInterval = 60
+    private var warmUpComplete = false
+
+    var isWarmingUp: Bool {
+        warmUpEnabled && state == .running && !warmUpComplete
+    }
+
+    var warmUpRemaining: TimeInterval {
+        max(warmUpDuration - elapsedTime, 0)
+    }
 
     // MARK: - Zone Targeting
     let zoneTargetingEnabled: Bool
@@ -74,7 +88,8 @@ class WorkoutViewModel: ObservableObject {
         liveActivityManager: LiveActivityManager,
         watchConnectivityService: WatchConnectivityService,
         useWatchHR: Bool = false,
-        zoneTargetingEnabled: Bool = false
+        zoneTargetingEnabled: Bool = false,
+        warmUpEnabled: Bool = false
     ) {
         self.workout = workout
         self.bluetoothManager = bluetoothManager
@@ -85,6 +100,7 @@ class WorkoutViewModel: ObservableObject {
         self.watchConnectivityService = watchConnectivityService
         self.useWatchHR = useWatchHR
         self.zoneTargetingEnabled = zoneTargetingEnabled
+        self.warmUpEnabled = warmUpEnabled
         self.adjustedPower = workout.targetPower
 
         let z2Min = UserDefaults.standard.integer(forKey: "zone2Min")
@@ -201,7 +217,8 @@ class WorkoutViewModel: ObservableObject {
 
         UIApplication.shared.isIdleTimerDisabled = true
 
-        kickrService.setTargetPower(workout.targetPower)
+        let startPower = warmUpEnabled ? workout.targetPower / 2 : workout.targetPower
+        kickrService.setTargetPower(startPower)
         kickrService.startWorkout()
 
         if useWatchHR {
@@ -285,7 +302,8 @@ class WorkoutViewModel: ObservableObject {
         guard state == .paused else { return }
 
         kickrService.startWorkout()
-        kickrService.setTargetPower(adjustedPower)
+        let resumePower = warmUpEnabled && !warmUpComplete ? workout.targetPower / 2 : adjustedPower
+        kickrService.setTargetPower(resumePower)
         lastAdjustmentTime = Date()
         state = .running
 
@@ -335,6 +353,47 @@ class WorkoutViewModel: ObservableObject {
         UIApplication.shared.isIdleTimerDisabled = false
     }
 
+    private func startCooldown() {
+        workout.finish()
+        state = .cooldown
+
+        kickrService.setTargetPower(workout.targetPower / 2)
+
+        liveActivityManager.endLiveActivity()
+
+        if useWatchHR {
+            sendDataToWatch(state: "running")
+        } else {
+            sendWatchDisplayUpdate(state: "running")
+        }
+    }
+
+    func stopCooldown() {
+        timerCancellable?.cancel()
+        timerCancellable = nil
+
+        state = .completed
+
+        kickrService.stopWorkout()
+
+        if useWatchHR {
+            sendDataToWatch(state: "ended")
+            watchConnectivityService.sendStopWorkout()
+            healthKitManager.endMirroredSession()
+        } else {
+            Task {
+                do {
+                    healthKitWorkout = try await healthKitManager.endWorkoutSession()
+                } catch {
+                    print("Failed to end HealthKit session: \(error.localizedDescription)")
+                }
+            }
+            watchConnectivityService.sendWorkoutEnded()
+        }
+
+        UIApplication.shared.isIdleTimerDisabled = false
+    }
+
     private func startTimer() {
         timerCancellable?.cancel()
         timerCancellable = Timer.publish(every: Constants.sampleInterval, on: .main, in: .common)
@@ -348,13 +407,29 @@ class WorkoutViewModel: ObservableObject {
     }
 
     private func timerTick() {
-        guard state == .running else { return }
+        guard state == .running || state == .cooldown else { return }
         guard !isSwitchingHRSource else { return }
 
         let now = Date()
 
         if let startTime = workoutStartTime {
             elapsedTime = now.timeIntervalSince(startTime)
+        }
+
+        // Cool-down: just keep Watch updated, skip everything else
+        if state == .cooldown {
+            if useWatchHR {
+                sendDataToWatch(state: "running")
+            } else {
+                sendWatchDisplayUpdate(state: "running")
+            }
+            return
+        }
+
+        // Warm-up → full power transition
+        if warmUpEnabled && !warmUpComplete && elapsedTime >= warmUpDuration {
+            warmUpComplete = true
+            kickrService.setTargetPower(adjustedPower)
         }
 
         let hr = currentHeartRate > 0 ? currentHeartRate : nil
@@ -405,7 +480,7 @@ class WorkoutViewModel: ObservableObject {
         ))
 
         if elapsedTime >= workout.targetDuration {
-            stopWorkout()
+            startCooldown()
         }
     }
 

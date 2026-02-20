@@ -5,6 +5,7 @@ struct SetupView: View {
     @State private var showWorkout = false
     @State private var workoutViewModel: WorkoutViewModel?
     @State private var showZoneTargetingInfo = false
+    @State private var showWarmUpInfo = false
 
     // Limit HR monitors to avoid crowded gyms filling the screen
     private var limitedHRMonitors: [DeviceInfo] {
@@ -47,6 +48,24 @@ struct SetupView: View {
                         }
                         Spacer()
                         Toggle("", isOn: $viewModel.zoneTargetingEnabled)
+                            .labelsHidden()
+                            .tint(.green)
+                    }
+
+                    HStack {
+                        Image(systemName: "flame")
+                            .foregroundColor(viewModel.warmUpEnabled ? .green : .secondary)
+                        Text("Warm Up")
+                            .font(.subheadline)
+                        Button {
+                            showWarmUpInfo = true
+                        } label: {
+                            Image(systemName: "info.circle")
+                                .foregroundColor(.secondary)
+                                .font(.subheadline)
+                        }
+                        Spacer()
+                        Toggle("", isOn: $viewModel.warmUpEnabled)
                             .labelsHidden()
                             .tint(.green)
                     }
@@ -102,20 +121,22 @@ struct SetupView: View {
                             )
                         }
 
-                        Divider()
-
                         // Heart Rate Monitors
-                        HStack {
-                            if viewModel.discoveredHRMonitors.isEmpty && !viewModel.hrConnected {
-                                Label("No HR monitors found", systemImage: "heart")
-                                    .font(.caption)
-                                    .foregroundColor(.secondary)
-                            }
-                            if viewModel.discoveredHRMonitors.count > 3 {
-                                Spacer()
-                                Text("\(viewModel.discoveredHRMonitors.count) nearby")
-                                    .font(.caption2)
-                                    .foregroundColor(.secondary)
+                        if !viewModel.useWatchHR || !viewModel.discoveredHRMonitors.isEmpty || viewModel.hrConnected {
+                            Divider()
+
+                            HStack {
+                                if viewModel.discoveredHRMonitors.isEmpty && !viewModel.hrConnected {
+                                    Label("No HR monitors found", systemImage: "heart")
+                                        .font(.caption)
+                                        .foregroundColor(.secondary)
+                                }
+                                if viewModel.discoveredHRMonitors.count > 3 {
+                                    Spacer()
+                                    Text("\(viewModel.discoveredHRMonitors.count) nearby")
+                                        .font(.caption2)
+                                        .foregroundColor(.secondary)
+                                }
                             }
                         }
                         ForEach(limitedHRMonitors) { device in
@@ -233,9 +254,7 @@ struct SetupView: View {
                 .background(Color(.systemBackground))
                 .cornerRadius(12)
 
-                Spacer()
-
-                // Start Button
+                // Start Button — always pinned at the bottom
                 Button(action: {
                     let workout = viewModel.createWorkout()
                     workoutViewModel = WorkoutViewModel(
@@ -247,7 +266,8 @@ struct SetupView: View {
                         liveActivityManager: viewModel.liveActivityManager,
                         watchConnectivityService: viewModel.watchConnectivityService,
                         useWatchHR: viewModel.useWatchHR,
-                        zoneTargetingEnabled: viewModel.zoneTargetingEnabled
+                        zoneTargetingEnabled: viewModel.zoneTargetingEnabled,
+                        warmUpEnabled: viewModel.warmUpEnabled
                     )
                     showWorkout = true
                 }) {
@@ -322,6 +342,33 @@ struct SetupView: View {
                         ToolbarItem(placement: .confirmationAction) {
                             Button("Done") {
                                 showZoneTargetingInfo = false
+                            }
+                        }
+                    }
+                }
+                .presentationDetents([.medium])
+            }
+            .sheet(isPresented: $showWarmUpInfo) {
+                NavigationStack {
+                    ScrollView {
+                        VStack(alignment: .leading, spacing: 16) {
+                            Text("Warm Up eases you into the workout by starting at a lower power.")
+
+                            VStack(alignment: .leading, spacing: 8) {
+                                Label("First 60 seconds at half your target power", systemImage: "flame")
+                                Label("Gives your legs and heart rate time to ramp up naturally", systemImage: "heart.fill")
+                                Label("Warm-up time counts toward total workout duration", systemImage: "timer")
+                            }
+                            .font(.subheadline)
+                        }
+                        .padding()
+                    }
+                    .navigationTitle("Warm Up")
+                    .navigationBarTitleDisplayMode(.inline)
+                    .toolbar {
+                        ToolbarItem(placement: .confirmationAction) {
+                            Button("Done") {
+                                showWarmUpInfo = false
                             }
                         }
                     }

@@ -29,6 +29,9 @@ class SetupViewModel: ObservableObject {
     @Published var zoneTargetingEnabled: Bool {
         didSet { UserDefaults.standard.set(zoneTargetingEnabled, forKey: "zoneTargetingEnabled") }
     }
+    @Published var warmUpEnabled: Bool {
+        didSet { UserDefaults.standard.set(warmUpEnabled, forKey: "warmUpEnabled") }
+    }
     @Published var useWatchHR = false
     @Published var isWatchAvailable = false
     @Published var isWatchReachable = false
@@ -68,6 +71,7 @@ class SetupViewModel: ObservableObject {
         self.targetDuration = savedDuration ?? Constants.defaultDuration
 
         self.zoneTargetingEnabled = UserDefaults.standard.bool(forKey: "zoneTargetingEnabled")
+        self.warmUpEnabled = UserDefaults.standard.bool(forKey: "warmUpEnabled")
 
         setupBindings()
     }
