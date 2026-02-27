@@ -311,7 +311,8 @@ struct SetupView: View {
             }
             .onChange(of: showWorkout) { oldValue, newValue in
                 if !newValue {
-                    // Clean up when returning to setup
+                    // Stop KICKR (may still be at cool-down power) then clean up
+                    viewModel.kickrService.stopWorkout()
                     workoutViewModel = nil
                 }
             }

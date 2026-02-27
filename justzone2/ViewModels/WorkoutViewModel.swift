@@ -6,7 +6,6 @@ enum WorkoutState {
     case idle
     case running
     case paused
-    case cooldown
     case completed
 }
 
@@ -54,7 +53,7 @@ class WorkoutViewModel: ObservableObject {
     }
 
     // MARK: - Zone Targeting
-    let zoneTargetingEnabled: Bool
+    @Published var zoneTargetingEnabled: Bool
     @Published var adjustedPower: Int = 0
     private var hrBuffer: [Int] = []
     private let hrBufferSize = 45
@@ -354,27 +353,13 @@ class WorkoutViewModel: ObservableObject {
     }
 
     private func startCooldown() {
-        workout.finish()
-        state = .cooldown
-
-        kickrService.setTargetPower(workout.targetPower / 2)
-
-        liveActivityManager.endLiveActivity()
-
-        if useWatchHR {
-            sendDataToWatch(state: "running")
-        } else {
-            sendWatchDisplayUpdate(state: "running")
-        }
-    }
-
-    func stopCooldown() {
         timerCancellable?.cancel()
         timerCancellable = nil
 
-        state = .completed
+        workout.finish()
 
-        kickrService.stopWorkout()
+        // Leave KICKR running at half power so rider can cool down while viewing summary
+        kickrService.setTargetPower(workout.targetPower / 2)
 
         if useWatchHR {
             sendDataToWatch(state: "ended")
@@ -391,7 +376,10 @@ class WorkoutViewModel: ObservableObject {
             watchConnectivityService.sendWorkoutEnded()
         }
 
+        liveActivityManager.endLiveActivity()
         UIApplication.shared.isIdleTimerDisabled = false
+
+        state = .completed
     }
 
     private func startTimer() {
@@ -407,23 +395,13 @@ class WorkoutViewModel: ObservableObject {
     }
 
     private func timerTick() {
-        guard state == .running || state == .cooldown else { return }
+        guard state == .running else { return }
         guard !isSwitchingHRSource else { return }
 
         let now = Date()
 
         if let startTime = workoutStartTime {
             elapsedTime = now.timeIntervalSince(startTime)
-        }
-
-        // Cool-down: just keep Watch updated, skip everything else
-        if state == .cooldown {
-            if useWatchHR {
-                sendDataToWatch(state: "running")
-            } else {
-                sendWatchDisplayUpdate(state: "running")
-            }
-            return
         }
 
         // Warm-up → full power transition
@@ -563,10 +541,13 @@ class WorkoutViewModel: ObservableObject {
             return
         }
 
-        // Don't increase power until HR has entered Zone 2 at least once.
-        // During warm-up, HR naturally rises — increasing power prematurely
-        // causes overshoot once the body catches up.
-        if smoothedHR < zone2Min && !hasReachedZone2 {
+        // Three phases:
+        // 0–3 min:  grace period (handled above, zone targeting doesn't run)
+        // 3–10 min: zone targeting active but won't increase power — lets HR
+        //           rise naturally without causing overshoot
+        // 10 min+:  full bidirectional adjustments — if target power was set
+        //           too low, zone targeting will now push it up toward zone
+        if smoothedHR < zone2Min && !hasReachedZone2 && elapsedTime < 10 * 60 {
             return
         }
 
@@ -597,6 +578,22 @@ class WorkoutViewModel: ObservableObject {
             kickrService.setTargetPower(adjustedPower)
             lastAdjustmentTime = now
         }
+    }
+
+    // MARK: - Manual Power Adjustment
+
+    func incrementPower() {
+        adjustedPower = min(adjustedPower + powerStepSize, workout.targetPower + maxDriftFromTarget)
+        kickrService.setTargetPower(adjustedPower)
+        lastAdjustmentTime = Date()
+        lastAdjustmentWasDecrease = false
+    }
+
+    func decrementPower() {
+        adjustedPower = max(adjustedPower - powerStepSize, max(workout.targetPower - maxDriftFromTarget, 50))
+        kickrService.setTargetPower(adjustedPower)
+        lastAdjustmentTime = Date()
+        lastAdjustmentWasDecrease = true
     }
 
     func formatTime(_ time: TimeInterval) -> String {

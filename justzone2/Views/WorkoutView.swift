@@ -18,8 +18,8 @@ struct WorkoutView: View {
                         .fill(Color.gray.opacity(0.3))
 
                     Rectangle()
-                        .fill(viewModel.state == .cooldown ? Color.orange : Color.green)
-                        .frame(width: geometry.size.width * (viewModel.state == .cooldown ? 1.0 : viewModel.progress))
+                        .fill(Color.green)
+                        .frame(width: geometry.size.width * viewModel.progress)
 
                     // Chunk dividers
                     ForEach(1..<viewModel.totalChunks, id: \.self) { chunk in
@@ -44,15 +44,33 @@ struct WorkoutView: View {
                             unit: "BPM"
                         )
 
-                        CompactMetricView(
-                            icon: "bolt.fill",
-                            iconColor: .blue,
-                            value: viewModel.currentPower > 0 ? "\(viewModel.currentPower)" : "--",
-                            unit: "W",
-                            targetValue: viewModel.adjustedPower,
-                            originalTarget: viewModel.zoneTargetingEnabled && viewModel.adjustedPower != viewModel.workout.targetPower
-                                ? viewModel.workout.targetPower : nil
-                        )
+                        // Power metric with manual ±5W buttons
+                        HStack(spacing: 8) {
+                            Button(action: { viewModel.decrementPower() }) {
+                                Image(systemName: "minus.circle.fill")
+                                    .font(.title2)
+                                    .foregroundColor(.blue.opacity(0.7))
+                            }
+                            .disabled(viewModel.state != .running)
+
+                            CompactMetricView(
+                                icon: "bolt.fill",
+                                iconColor: .blue,
+                                value: viewModel.currentPower > 0 ? "\(viewModel.currentPower)" : "--",
+                                unit: "W",
+                                targetValue: viewModel.adjustedPower,
+                                originalTarget: viewModel.zoneTargetingEnabled && viewModel.adjustedPower != viewModel.workout.targetPower
+                                    ? viewModel.workout.targetPower : nil
+                            )
+
+                            Button(action: { viewModel.incrementPower() }) {
+                                Image(systemName: "plus.circle.fill")
+                                    .font(.title2)
+                                    .foregroundColor(.blue.opacity(0.7))
+                            }
+                            .disabled(viewModel.state != .running)
+                        }
+                        .frame(maxWidth: .infinity)
                     }
                     .padding(.top, 12)
 
@@ -83,12 +101,6 @@ struct WorkoutView: View {
                                         .foregroundColor(.secondary)
                                 }
                             }
-                        } else if viewModel.state == .cooldown {
-                            // Cool-down: just show elapsed time
-                            Text(viewModel.formatTime(viewModel.elapsedTime))
-                                .font(.system(size: 64, weight: .bold, design: .rounded))
-                                .monospacedDigit()
-                                .foregroundColor(.orange)
                         } else {
                             // Normal chunk-based display
                             Text("Chunk \(viewModel.currentChunk) of \(viewModel.totalChunks)")
@@ -134,41 +146,52 @@ struct WorkoutView: View {
             }
 
                 // Controls
-                HStack(spacing: 40) {
-                    if viewModel.state == .running {
-                        Button(action: { viewModel.pauseWorkout() }) {
-                            Image(systemName: "pause.fill")
-                                .font(.title)
-                                .foregroundColor(.white)
-                                .frame(width: 60, height: 60)
-                                .background(Color.orange)
-                                .clipShape(Circle())
+                VStack(spacing: 16) {
+                    HStack(spacing: 40) {
+                        if viewModel.state == .running {
+                            Button(action: { viewModel.pauseWorkout() }) {
+                                Image(systemName: "pause.fill")
+                                    .font(.title)
+                                    .foregroundColor(.white)
+                                    .frame(width: 60, height: 60)
+                                    .background(Color.orange)
+                                    .clipShape(Circle())
+                            }
+                        } else if viewModel.state == .paused {
+                            Button(action: { viewModel.resumeWorkout() }) {
+                                Image(systemName: "play.fill")
+                                    .font(.title)
+                                    .foregroundColor(.white)
+                                    .frame(width: 60, height: 60)
+                                    .background(Color.green)
+                                    .clipShape(Circle())
+                            }
                         }
-                    } else if viewModel.state == .paused {
-                        Button(action: { viewModel.resumeWorkout() }) {
-                            Image(systemName: "play.fill")
+
+                        Button(action: {
+                            viewModel.stopWorkout()
+                        }) {
+                            Image(systemName: "stop.fill")
                                 .font(.title)
                                 .foregroundColor(.white)
                                 .frame(width: 60, height: 60)
-                                .background(Color.green)
+                                .background(Color.red)
                                 .clipShape(Circle())
                         }
                     }
 
-                    Button(action: {
-                        if viewModel.state == .cooldown {
-                            viewModel.stopCooldown()
-                        } else {
-                            viewModel.stopWorkout()
-                        }
-                    }) {
-                        Image(systemName: "stop.fill")
-                            .font(.title)
-                            .foregroundColor(.white)
-                            .frame(width: 60, height: 60)
-                            .background(Color.red)
-                            .clipShape(Circle())
+                    // Zone Targeting toggle
+                    HStack(spacing: 8) {
+                        Image(systemName: viewModel.zoneTargetingEnabled ? "heart.text.square.fill" : "heart.text.square")
+                            .foregroundColor(viewModel.zoneTargetingEnabled ? .green : .secondary)
+                        Text("Zone Targeting")
+                            .font(.subheadline)
+                            .foregroundColor(viewModel.zoneTargetingEnabled ? .primary : .secondary)
+                        Toggle("", isOn: $viewModel.zoneTargetingEnabled)
+                            .labelsHidden()
+                            .tint(.green)
                     }
+                    .padding(.horizontal, 40)
                 }
                 .padding(.bottom, 40)
         }
@@ -177,7 +200,7 @@ struct WorkoutView: View {
             ToolbarItem(placement: .principal) {
                 Text(stateTitle)
                     .font(.custom("ArialRoundedMTBold", size: 28))
-                    .foregroundColor(viewModel.isWarmingUp || viewModel.state == .cooldown ? .orange : .green)
+                    .foregroundColor(viewModel.isWarmingUp ? .orange : .green)
             }
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
@@ -297,8 +320,6 @@ struct WorkoutView: View {
             return viewModel.isWarmingUp ? "Warm Up" : "Zone 2 Workout"
         case .paused:
             return "Paused"
-        case .cooldown:
-            return "Cool Down"
         case .completed:
             return "Complete"
         }
