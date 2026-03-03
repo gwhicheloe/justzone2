@@ -53,20 +53,26 @@ class WorkoutViewModel: ObservableObject {
     }
 
     // MARK: - Zone Targeting
-    @Published var zoneTargetingEnabled: Bool
+    @Published var zoneTargetingEnabled: Bool {
+        didSet { if zoneTargetingEnabled { resetPID() } }
+    }
     @Published var adjustedPower: Int = 0
     private var hrBuffer: [Int] = []
     private let hrBufferSize = 45
-    private var lastAdjustmentTime: Date?
-    private var lastAdjustmentWasDecrease = false
     private var hasReachedZone2 = false
     private let zone2Min: Int
     private let zone2Max: Int
-    private let powerStepSize = 5
     private let maxDriftFromTarget = 30
     private let warmUpGracePeriod: TimeInterval = 180
-    private let cooldownAfterDecrease: TimeInterval = 90
-    private let cooldownAfterIncrease: TimeInterval = 60
+
+    // PID state
+    private let pidKp: Double = 0.5            // W/bpm
+    private let pidKi: Double = 0.008          // W/(bpm·s)
+    private var pidIntegral: Double = 0
+    private var pidOutputWatts: Double = 0
+    // Rate limits — increase slowly (athlete settling), decrease faster (safety)
+    private let pidMaxRateIncrease: Double = 5.0 / 90.0  // 5W per 90s
+    private let pidMaxRateDecrease: Double = 5.0 / 45.0  // 5W per 45s
 
     private var timerCancellable: AnyCancellable?
     private var hrCancellable: AnyCancellable?
@@ -303,7 +309,7 @@ class WorkoutViewModel: ObservableObject {
         kickrService.startWorkout()
         let resumePower = warmUpEnabled && !warmUpComplete ? workout.targetPower / 2 : adjustedPower
         kickrService.setTargetPower(resumePower)
-        lastAdjustmentTime = Date()
+        resetPID()
         state = .running
 
         if useWatchHR {
@@ -520,7 +526,12 @@ class WorkoutViewModel: ObservableObject {
         return chunkDuration - timeInCurrentChunk
     }
 
-    // MARK: - Zone Targeting
+    // MARK: - Zone Targeting (PID)
+
+    private func resetPID() {
+        pidIntegral = 0
+        pidOutputWatts = Double(adjustedPower - workout.targetPower)
+    }
 
     private func evaluateZoneTargeting() {
         guard zoneTargetingEnabled else { return }
@@ -531,69 +542,68 @@ class WorkoutViewModel: ObservableObject {
             hrBuffer.removeFirst(hrBuffer.count - hrBufferSize)
         }
 
+        // Grace period — let HR settle before PID engages
         guard elapsedTime >= warmUpGracePeriod else { return }
         guard hrBuffer.count >= hrBufferSize else { return }
 
-        let smoothedHR = hrBuffer.reduce(0, +) / hrBuffer.count
+        let smoothedHR = Double(hrBuffer.reduce(0, +)) / Double(hrBuffer.count)
+        let setpoint = Double(zone2Min + zone2Max) / 2.0
 
-        if smoothedHR >= zone2Min && smoothedHR <= zone2Max {
+        if smoothedHR >= Double(zone2Min) && smoothedHR <= Double(zone2Max) {
             hasReachedZone2 = true
-            return
         }
 
-        // Three phases:
-        // 0–3 min:  grace period (handled above, zone targeting doesn't run)
-        // 3–10 min: zone targeting active but won't increase power — lets HR
-        //           rise naturally without causing overshoot
-        // 10 min+:  full bidirectional adjustments — if target power was set
-        //           too low, zone targeting will now push it up toward zone
-        if smoothedHR < zone2Min && !hasReachedZone2 && elapsedTime < 10 * 60 {
-            return
+        // error > 0  → HR below zone → need more power
+        // error < 0  → HR above zone → need less power
+        let error = setpoint - smoothedHR
+
+        // Early settling phase (3–10 min, before HR has ever reached zone):
+        // don't accumulate integral — prevents windup from building while we
+        // block power increases, which would cause a sudden surge when released
+        let inEarlyPhase = !hasReachedZone2 && elapsedTime < 10 * 60
+        if !inEarlyPhase {
+            pidIntegral += error * Constants.sampleInterval
+            // Anti-windup clamp
+            let maxIntegral = Double(maxDriftFromTarget) / max(pidKi, 0.001)
+            pidIntegral = max(-maxIntegral, min(maxIntegral, pidIntegral))
         }
 
-        let now = Date()
-        if let lastAdj = lastAdjustmentTime {
-            let requiredCooldown = lastAdjustmentWasDecrease
-                ? cooldownAfterDecrease
-                : cooldownAfterIncrease
-            guard now.timeIntervalSince(lastAdj) >= requiredCooldown else { return }
-        }
+        let rawOutput = pidKp * error + pidKi * pidIntegral
 
-        var newPower = adjustedPower
+        // Rate-limit how fast the output can move each tick:
+        // - Early settling: no increases allowed (athlete still warming up)
+        // - Normal: increase slowly, decrease faster for safety
+        let dt = Constants.sampleInterval
+        let maxIncrease = inEarlyPhase ? 0.0 : pidMaxRateIncrease * dt
+        let maxDecrease = pidMaxRateDecrease * dt
 
-        if smoothedHR > zone2Max {
-            newPower -= powerStepSize
-            lastAdjustmentWasDecrease = true
-        } else if smoothedHR < zone2Min {
-            newPower += powerStepSize
-            lastAdjustmentWasDecrease = false
-        }
+        let delta = rawOutput - pidOutputWatts
+        let clampedDelta = max(-maxDecrease, min(maxIncrease, delta))
+        pidOutputWatts += clampedDelta
+        pidOutputWatts = max(Double(-maxDriftFromTarget), min(Double(maxDriftFromTarget), pidOutputWatts))
 
-        let lowerBound = workout.targetPower - maxDriftFromTarget
-        let upperBound = workout.targetPower + maxDriftFromTarget
-        newPower = max(max(lowerBound, 50), min(upperBound, newPower))
-
+        let newPower = max(50, workout.targetPower + Int(pidOutputWatts.rounded()))
         if newPower != adjustedPower {
             adjustedPower = newPower
             kickrService.setTargetPower(adjustedPower)
-            lastAdjustmentTime = now
         }
     }
 
     // MARK: - Manual Power Adjustment
 
     func incrementPower() {
-        adjustedPower = min(adjustedPower + powerStepSize, workout.targetPower + maxDriftFromTarget)
+        adjustedPower = min(adjustedPower + 5, workout.targetPower + maxDriftFromTarget)
         kickrService.setTargetPower(adjustedPower)
-        lastAdjustmentTime = Date()
-        lastAdjustmentWasDecrease = false
+        // Sync PID so it doesn't immediately fight the manual change
+        pidOutputWatts = Double(adjustedPower - workout.targetPower)
+        pidIntegral = 0
     }
 
     func decrementPower() {
-        adjustedPower = max(adjustedPower - powerStepSize, max(workout.targetPower - maxDriftFromTarget, 50))
+        adjustedPower = max(adjustedPower - 5, max(workout.targetPower - maxDriftFromTarget, 50))
         kickrService.setTargetPower(adjustedPower)
-        lastAdjustmentTime = Date()
-        lastAdjustmentWasDecrease = true
+        pidOutputWatts = Double(adjustedPower - workout.targetPower)
+        pidIntegral = 0
     }
 
     func formatTime(_ time: TimeInterval) -> String {
