@@ -320,14 +320,14 @@ struct SetupView: View {
                 NavigationStack {
                     ScrollView {
                         VStack(alignment: .leading, spacing: 16) {
-                            Text("Zone Targeting automatically adjusts your trainer's power to keep your heart rate within your Zone 2 range.")
+                            Text("Zone Targeting uses a PID controller to automatically adjust your trainer's power and keep your heart rate at the midpoint of your Zone 2 range.")
 
                             VStack(alignment: .leading, spacing: 8) {
+                                Label("Targets the midpoint of your Zone 2 range using a PID controller", systemImage: "heart.text.square.fill")
                                 Label("Uses a 45-second rolling average of your heart rate to avoid reacting to brief spikes", systemImage: "heart.fill")
-                                Label("Adjusts power in small 5W steps, up to ±30W from your target", systemImage: "plusminus")
-                                Label("Waits 60–90 seconds between adjustments to let your heart rate settle", systemImage: "timer")
-                                Label("Slower to decrease power than increase, so drink breaks don't ratchet you down", systemImage: "arrow.down.right")
-                                Label("Skips the first 3 minutes to allow for warm-up", systemImage: "figure.walk")
+                                Label("Adjusts power smoothly and continuously, up to ±30W from your target", systemImage: "plusminus")
+                                Label("Ramps up slowly (5W/90s) and backs off faster (5W/45s) for safety", systemImage: "arrow.up.arrow.down")
+                                Label("Skips the first 3 minutes, then holds power steady until your heart rate reaches zone", systemImage: "figure.walk")
                             }
                             .font(.subheadline)
 
