@@ -7,12 +7,6 @@ struct ActivityDetailView: View {
     @State private var streams: ActivityStreams?
     @State private var isLoading = true
     @State private var errorMessage: String?
-    @State private var chartHeight: CGFloat = ActivityDetailView.currentChartHeight()
-
-    private static func currentChartHeight() -> CGFloat {
-        let bounds = UIScreen.main.bounds
-        return bounds.width > bounds.height ? 340 : 240
-    }
 
     private var activity: StravaActivity {
         viewModel.activities[currentIndex]
@@ -32,24 +26,19 @@ struct ActivityDetailView: View {
     }
 
     var body: some View {
-        ScrollView {
-            VStack(spacing: 20) {
-                // Header
-                headerSection
-
-                // Stats Grid
-                statsGrid
-
-                // Chart or loading/error state
-                chartSection
-
-                // Navigation arrows
-                navigationControls
-
-                // Strava Link
-                stravaLinkButton
+        GeometryReader { geometry in
+            let isLandscape = geometry.size.width > geometry.size.height
+            let chartHeight: CGFloat = isLandscape ? 340 : 240
+            ScrollView {
+                VStack(spacing: 20) {
+                    headerSection
+                    statsGrid
+                    chartContent(chartHeight: chartHeight)
+                    navigationControls
+                    stravaLinkButton
+                }
+                .padding()
             }
-            .padding()
         }
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
@@ -61,9 +50,6 @@ struct ActivityDetailView: View {
         }
         .task(id: currentIndex) {
             await loadStreams()
-        }
-        .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
-            chartHeight = ActivityDetailView.currentChartHeight()
         }
     }
 
@@ -121,7 +107,7 @@ struct ActivityDetailView: View {
     // MARK: - Chart Section
 
     @ViewBuilder
-    private var chartSection: some View {
+    private func chartContent(chartHeight: CGFloat) -> some View {
         if isLoading {
             VStack(spacing: 12) {
                 ProgressView()
@@ -146,7 +132,6 @@ struct ActivityDetailView: View {
             .cornerRadius(12)
         } else if let streams = streams, streams.hasData {
             StreamChartView(streams: streams, chartHeight: chartHeight)
-                .padding(.horizontal, -8)  // expand beyond VStack padding, leaving 8px margins
         } else {
             VStack(spacing: 12) {
                 Image(systemName: "chart.line.downtrend.xyaxis")
@@ -364,7 +349,8 @@ private struct StreamChartView: View {
                     }
                 }
                 .padding(.horizontal, 4)
-                .padding(.vertical, 4)
+                .padding(.top, 4)
+                .padding(.bottom, 24)  // clear X-axis label area at the bottom
             }
             .frame(height: chartHeight)
 
