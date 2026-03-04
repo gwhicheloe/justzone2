@@ -3,10 +3,15 @@ import Charts
 
 struct ActivityDetailView: View {
     @ObservedObject var viewModel: HistoryViewModel
+    @Environment(\.verticalSizeClass) private var verticalSizeClass
     @State private var currentIndex: Int
     @State private var streams: ActivityStreams?
     @State private var isLoading = true
     @State private var errorMessage: String?
+
+    private var chartHeight: CGFloat {
+        verticalSizeClass == .compact ? 340 : 240
+    }
 
     private var activity: StravaActivity {
         viewModel.activities[currentIndex]
@@ -71,13 +76,13 @@ struct ActivityDetailView: View {
     // MARK: - Header Section
 
     private var headerSection: some View {
-        VStack(spacing: 4) {
+        VStack(spacing: 2) {
             Text(activity.name)
-                .font(.headlineLarge)
+                .font(.headline)
                 .multilineTextAlignment(.center)
 
             Text(viewModel.formatDate(activity.startDate))
-                .font(.bodyMedium)
+                .font(.caption)
                 .foregroundColor(.secondary)
         }
     }
@@ -136,7 +141,8 @@ struct ActivityDetailView: View {
             .background(Color(.secondarySystemBackground))
             .cornerRadius(12)
         } else if let streams = streams, streams.hasData {
-            StreamChartView(streams: streams)
+            StreamChartView(streams: streams, chartHeight: chartHeight)
+                .padding(.horizontal, -16)  // break out of VStack padding for full width
         } else {
             VStack(spacing: 12) {
                 Image(systemName: "chart.line.downtrend.xyaxis")
@@ -248,121 +254,115 @@ private struct StatBox: View {
 
 private struct StreamChartView: View {
     let streams: ActivityStreams
-    @Environment(\.verticalSizeClass) private var verticalSizeClass
+    let chartHeight: CGFloat
 
     // Pre-computed chart data to avoid repeated calculations
     private let chartData: ChartData
 
-    init(streams: ActivityStreams) {
+    init(streams: ActivityStreams, chartHeight: CGFloat) {
         self.streams = streams
+        self.chartHeight = chartHeight
         self.chartData = ChartData(streams: streams)
-    }
-
-    private var chartHeight: CGFloat {
-        verticalSizeClass == .compact ? 340 : 240
     }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text("Workout Data")
                 .font(.headlineSmall)
+                .padding(.horizontal, 16)
 
-            HStack(spacing: 0) {
-                // Left Y-axis labels (Power)
+            // Chart area — Y-axis labels overlaid inside to use full width
+            ZStack {
+                // Power chart (left axis) - smoothed
                 if !chartData.powerData.isEmpty {
-                    VStack {
-                        Text("\(chartData.powerRange.upperBound)")
-                        Spacer()
-                        Text("\(chartData.powerRange.lowerBound)")
-                    }
-                    .font(.tiny)
-                    .foregroundColor(.blue)
-                    .frame(width: 30)
-                }
-
-                // Chart area with overlaid charts
-                ZStack {
-                    // Power chart (left axis) - smoothed
-                    if !chartData.powerData.isEmpty {
-                        Chart {
-                            ForEach(Array(chartData.powerData.enumerated()), id: \.offset) { _, point in
-                                LineMark(
-                                    x: .value("Time", point.time),
-                                    y: .value("Power", point.value)
-                                )
-                                .foregroundStyle(Color.blue)
-                                .lineStyle(StrokeStyle(lineWidth: 1.5))
-                            }
+                    Chart {
+                        ForEach(Array(chartData.powerData.enumerated()), id: \.offset) { _, point in
+                            LineMark(
+                                x: .value("Time", point.time),
+                                y: .value("Power", point.value)
+                            )
+                            .foregroundStyle(Color.blue)
+                            .lineStyle(StrokeStyle(lineWidth: 1.5))
                         }
-                        .chartYScale(domain: chartData.powerRange)
-                        .chartXScale(domain: 0...max(1, chartData.maxTime))
-                        .chartYAxis(.hidden)
-                        .chartXAxis {
-                            AxisMarks(position: .bottom) { value in
-                                AxisGridLine()
-                                AxisValueLabel {
-                                    if let mins = value.as(Double.self) {
-                                        Text("\(Int(mins))m")
-                                            .font(.tiny)
-                                    }
+                    }
+                    .chartYScale(domain: chartData.powerRange)
+                    .chartXScale(domain: 0...max(1, chartData.maxTime))
+                    .chartYAxis(.hidden)
+                    .chartXAxis {
+                        AxisMarks(position: .bottom) { value in
+                            AxisGridLine()
+                            AxisValueLabel {
+                                if let mins = value.as(Double.self) {
+                                    Text("\(Int(mins))m")
+                                        .font(.tiny)
                                 }
                             }
                         }
                     }
-
-                    // Heart rate chart (right axis)
-                    if !chartData.hrData.isEmpty {
-                        Chart {
-                            // Zone 2 HR band
-                            RectangleMark(
-                                xStart: .value("Start", 0),
-                                xEnd: .value("End", max(1, chartData.maxTime)),
-                                yStart: .value("Zone Min", chartData.zone2Min),
-                                yEnd: .value("Zone Max", chartData.zone2Max)
-                            )
-                            .foregroundStyle(.green.opacity(0.2))
-
-                            // HR data line
-                            ForEach(Array(chartData.hrData.enumerated()), id: \.offset) { _, point in
-                                LineMark(
-                                    x: .value("Time", point.time),
-                                    y: .value("HR", point.value)
-                                )
-                                .foregroundStyle(Color.red)
-                                .lineStyle(StrokeStyle(lineWidth: 1.5))
-                            }
-
-                            // HR trend line (excluding cooldown)
-                            ForEach(Array(chartData.trendLinePoints.enumerated()), id: \.offset) { _, point in
-                                LineMark(
-                                    x: .value("Time", point.x),
-                                    y: .value("HR", point.y),
-                                    series: .value("Series", "trend")
-                                )
-                                .foregroundStyle(Color.primary)
-                                .lineStyle(StrokeStyle(lineWidth: 2, dash: [5, 3]))
-                            }
-                        }
-                        .chartYScale(domain: chartData.hrRange)
-                        .chartXScale(domain: 0...max(1, chartData.maxTime))
-                        .chartYAxis(.hidden)
-                        .chartXAxis(.hidden)
-                    }
                 }
-                .frame(height: chartHeight)
 
-                // Right Y-axis labels (Heart Rate)
+                // Heart rate chart (right axis)
                 if !chartData.hrData.isEmpty {
-                    VStack {
-                        Text("\(chartData.hrRange.upperBound)")
-                        Spacer()
-                        Text("\(chartData.hrRange.lowerBound)")
+                    Chart {
+                        RectangleMark(
+                            xStart: .value("Start", 0),
+                            xEnd: .value("End", max(1, chartData.maxTime)),
+                            yStart: .value("Zone Min", chartData.zone2Min),
+                            yEnd: .value("Zone Max", chartData.zone2Max)
+                        )
+                        .foregroundStyle(.green.opacity(0.2))
+
+                        ForEach(Array(chartData.hrData.enumerated()), id: \.offset) { _, point in
+                            LineMark(
+                                x: .value("Time", point.time),
+                                y: .value("HR", point.value)
+                            )
+                            .foregroundStyle(Color.red)
+                            .lineStyle(StrokeStyle(lineWidth: 1.5))
+                        }
+
+                        ForEach(Array(chartData.trendLinePoints.enumerated()), id: \.offset) { _, point in
+                            LineMark(
+                                x: .value("Time", point.x),
+                                y: .value("HR", point.y),
+                                series: .value("Series", "trend")
+                            )
+                            .foregroundStyle(Color.primary)
+                            .lineStyle(StrokeStyle(lineWidth: 2, dash: [5, 3]))
+                        }
                     }
-                    .font(.tiny)
-                    .foregroundColor(.red)
-                    .frame(width: 30)
+                    .chartYScale(domain: chartData.hrRange)
+                    .chartXScale(domain: 0...max(1, chartData.maxTime))
+                    .chartYAxis(.hidden)
+                    .chartXAxis(.hidden)
                 }
+
+                // Y-axis labels overlaid inside chart edges
+                HStack(alignment: .top) {
+                    if !chartData.powerData.isEmpty {
+                        VStack(alignment: .leading) {
+                            Text("\(chartData.powerRange.upperBound)")
+                            Spacer()
+                            Text("\(chartData.powerRange.lowerBound)")
+                        }
+                        .font(.tiny)
+                        .foregroundColor(.blue.opacity(0.8))
+                    }
+                    Spacer()
+                    if !chartData.hrData.isEmpty {
+                        VStack(alignment: .trailing) {
+                            Text("\(chartData.hrRange.upperBound)")
+                            Spacer()
+                            Text("\(chartData.hrRange.lowerBound)")
+                        }
+                        .font(.tiny)
+                        .foregroundColor(.red.opacity(0.8))
+                    }
+                }
+                .padding(.horizontal, 4)
+                .padding(.vertical, 4)
             }
+            .frame(height: chartHeight)
 
             // Legend
             HStack(spacing: 12) {
@@ -399,10 +399,12 @@ private struct StreamChartView: View {
                     }
                 }
             }
+            .padding(.horizontal, 16)
 
             // Analytics
             if chartData.timeInZonePercent != nil || chartData.hrDriftPerHour != nil {
                 Divider()
+                    .padding(.horizontal, 16)
                     .padding(.vertical, 4)
 
                 HStack(spacing: 24) {
@@ -428,9 +430,10 @@ private struct StreamChartView: View {
                         }
                     }
                 }
+                .padding(.horizontal, 16)
             }
         }
-        .padding()
+        .padding(.vertical, 12)
         .background(Color(.secondarySystemBackground))
         .cornerRadius(12)
     }
