@@ -3,14 +3,15 @@ import Charts
 
 struct ActivityDetailView: View {
     @ObservedObject var viewModel: HistoryViewModel
-    @Environment(\.verticalSizeClass) private var verticalSizeClass
     @State private var currentIndex: Int
     @State private var streams: ActivityStreams?
     @State private var isLoading = true
     @State private var errorMessage: String?
+    @State private var chartHeight: CGFloat = ActivityDetailView.currentChartHeight()
 
-    private var chartHeight: CGFloat {
-        verticalSizeClass == .compact ? 340 : 240
+    private static func currentChartHeight() -> CGFloat {
+        let bounds = UIScreen.main.bounds
+        return bounds.width > bounds.height ? 340 : 240
     }
 
     private var activity: StravaActivity {
@@ -60,6 +61,9 @@ struct ActivityDetailView: View {
         }
         .task(id: currentIndex) {
             await loadStreams()
+        }
+        .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
+            chartHeight = ActivityDetailView.currentChartHeight()
         }
     }
 
@@ -142,7 +146,7 @@ struct ActivityDetailView: View {
             .cornerRadius(12)
         } else if let streams = streams, streams.hasData {
             StreamChartView(streams: streams, chartHeight: chartHeight)
-                .padding(.horizontal, -16)  // break out of VStack padding for full width
+                .padding(.horizontal, -8)  // expand beyond VStack padding, leaving 8px margins
         } else {
             VStack(spacing: 12) {
                 Image(systemName: "chart.line.downtrend.xyaxis")
