@@ -248,6 +248,7 @@ private struct StatBox: View {
 
 private struct StreamChartView: View {
     let streams: ActivityStreams
+    @Environment(\.verticalSizeClass) private var verticalSizeClass
 
     // Pre-computed chart data to avoid repeated calculations
     private let chartData: ChartData
@@ -255,6 +256,10 @@ private struct StreamChartView: View {
     init(streams: ActivityStreams) {
         self.streams = streams
         self.chartData = ChartData(streams: streams)
+    }
+
+    private var chartHeight: CGFloat {
+        verticalSizeClass == .compact ? 340 : 240
     }
 
     var body: some View {
@@ -344,7 +349,7 @@ private struct StreamChartView: View {
                         .chartXAxis(.hidden)
                     }
                 }
-                .frame(height: 180)
+                .frame(height: chartHeight)
 
                 // Right Y-axis labels (Heart Rate)
                 if !chartData.hrData.isEmpty {
@@ -571,8 +576,8 @@ private struct ChartData {
         // Compute ranges
         if !computedPowerData.isEmpty {
             let values = computedPowerData.map { $0.value }
-            let minP = max(0, (values.min() ?? 100) - 20)
-            let maxP = (values.max() ?? 200) + 20
+            let minP = max(0, (values.min() ?? 100) - 10)
+            let maxP = (values.max() ?? 200) + 10
             powerRange = minP...maxP
         } else {
             powerRange = 0...200
@@ -580,8 +585,9 @@ private struct ChartData {
 
         if !computedHRData.isEmpty {
             let values = computedHRData.map { $0.value }
-            let minHR = max(0, (values.min() ?? 60) - 10)
-            let maxHR = (values.max() ?? 180) + 10
+            // Use 5 bpm padding but ensure Zone 2 band is always fully visible
+            let minHR = max(0, min((values.min() ?? 60) - 5, zone2MinVal - 5))
+            let maxHR = max((values.max() ?? 180) + 5, zone2MaxVal + 5)
             hrRange = minHR...maxHR
         } else {
             hrRange = 60...180

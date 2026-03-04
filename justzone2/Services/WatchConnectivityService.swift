@@ -32,6 +32,17 @@ class WatchConnectivityService: NSObject, ObservableObject {
         session.transferUserInfo(["type": "startWorkout", "timestamp": Date().timeIntervalSince1970])
     }
 
+    /// Mode B: tells Watch to start a display-only session (no HR, no saved workout)
+    /// so the Watch app stays alive in the background for update delivery.
+    func sendStartDisplayWorkout() {
+        guard let session = session else { return }
+        if session.isReachable {
+            session.sendMessage(["type": "startDisplayWorkout"], replyHandler: nil) { error in
+                print("Watch sendMessage failed: \(error.localizedDescription)")
+            }
+        }
+    }
+
     func sendStopWorkout() {
         guard let session = session else { return }
         if session.isReachable {

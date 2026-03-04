@@ -66,7 +66,7 @@ class HistoryViewModel: ObservableObject {
             let currentYear = Calendar.current.component(.year, from: Date())
             var consecutiveEmptyYears = 0
 
-            for year in stride(from: currentYear, through: currentYear - 10, by: -1) {
+            for year in stride(from: currentYear, through: currentYear - 20, by: -1) {
                 loadingProgress = "Loading \(year)..."
 
                 let yearActivities = try await stravaService.fetchActivitiesForYear(year)
@@ -81,8 +81,8 @@ class HistoryViewModel: ObservableObject {
                     saveToCache()
                 }
 
-                // Stop after 2 consecutive empty years
-                if consecutiveEmptyYears >= 2 {
+                // Stop after 5 consecutive empty years — allows for multi-year gaps
+                if consecutiveEmptyYears >= 5 {
                     break
                 }
             }

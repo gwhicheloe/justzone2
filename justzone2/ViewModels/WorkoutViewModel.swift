@@ -236,6 +236,9 @@ class WorkoutViewModel: ObservableObject {
                     print("Failed to start HealthKit session: \(error.localizedDescription)")
                 }
             }
+            // Start a display-only session on the Watch so it stays alive in the
+            // background and can receive workout updates via WCSession
+            watchConnectivityService.sendStartDisplayWorkout()
         }
 
         do {

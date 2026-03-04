@@ -137,21 +137,51 @@ class WatchSessionManager: NSObject, ObservableObject {
         }
     }
 
+    /// Start a display-only session (no builder, no HR collection, no saved workout).
+    /// Used in Mode B (BLE HR strap on iPhone) to keep the Watch app alive in the
+    /// background so it can receive workout updates via WCSession.
+    func startDisplaySession() {
+        guard workoutSession == nil else { return }
+
+        let config = HKWorkoutConfiguration()
+        config.activityType = .cycling
+        config.locationType = .indoor
+
+        do {
+            let session = try HKWorkoutSession(healthStore: healthStore, configuration: config)
+            session.delegate = self
+            self.workoutSession = session
+            // No builder — nothing will be recorded or saved
+            session.startActivity(with: Date())
+            self.workoutState = "running"
+        } catch {
+            print("Watch display session creation failed: \(error.localizedDescription)")
+        }
+    }
+
     func endPrimaryWorkout() {
         // Guard and nil out synchronously to prevent double-end from concurrent callers
-        guard let session = workoutSession, let builder = workoutBuilder else { return }
+        guard let session = workoutSession else {
+            workoutState = "ended"
+            return
+        }
+        let builder = workoutBuilder
         self.workoutSession = nil
         self.workoutBuilder = nil
 
         session.stopActivity(with: Date())
 
         Task {
-            do {
-                try await builder.endCollection(at: Date())
-                try await builder.finishWorkout()
-            } catch {
-                print("Watch workout end failed: \(error.localizedDescription)")
+            if let builder = builder {
+                // Mode A: save the workout
+                do {
+                    try await builder.endCollection(at: Date())
+                    try await builder.finishWorkout()
+                } catch {
+                    print("Watch workout end failed: \(error.localizedDescription)")
+                }
             }
+            // Mode B (no builder): just end the session — nothing saved
             session.end()
             self.workoutState = "ended"
         }
@@ -330,6 +360,12 @@ extension WatchSessionManager: WCSessionDelegate {
                 await self.requestAuthorization()
                 self.startPrimaryWorkout()
 
+            case "startDisplayWorkout":
+                // Mode B: Watch is display-only (HR strap on iPhone). Start a session
+                // so watchOS keeps the app alive in the background for update delivery.
+                await self.requestAuthorization()
+                self.startDisplaySession()
+
             case "stopWorkout":
                 // Backup stop signal from iPhone
                 self.endPrimaryWorkout()
@@ -341,8 +377,9 @@ extension WatchSessionManager: WCSessionDelegate {
                 self.workoutSession?.resume()
 
             case "workoutUpdate":
-                // Mode B: display-only updates when Watch is passive (no primary session)
-                guard self.workoutSession == nil else { return }
+                // Accept updates when there's no session (old Mode B) OR when in display
+                // mode (session but no builder — Watch keeps app alive, iPhone has HR source)
+                guard self.workoutSession == nil || self.workoutBuilder == nil else { return }
                 self.heartRate = message["heartRate"] as? Int ?? self.heartRate
                 self.power = message["power"] as? Int ?? self.power
                 self.elapsedTime = message["elapsedTime"] as? TimeInterval ?? self.elapsedTime
@@ -352,9 +389,8 @@ extension WatchSessionManager: WCSessionDelegate {
                 self.workoutState = message["state"] as? String ?? self.workoutState
 
             case "workoutEnded":
-                // Mode B: display-only
-                guard self.workoutSession == nil else { return }
-                self.workoutState = "ended"
+                // End display session if running, otherwise just update state
+                self.endPrimaryWorkout()
 
             default:
                 break
