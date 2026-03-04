@@ -1,7 +1,23 @@
 import SwiftUI
+import UIKit
+
+// MARK: - App Delegate (orientation control)
+
+class AppDelegate: NSObject, UIApplicationDelegate {
+    /// Screens set this to unlock landscape; all others remain portrait-only.
+    static var orientationLock: UIInterfaceOrientationMask = .portrait
+
+    func application(
+        _ application: UIApplication,
+        supportedInterfaceOrientationsFor window: UIWindow?
+    ) -> UIInterfaceOrientationMask {
+        AppDelegate.orientationLock
+    }
+}
 
 @main
 struct justzone2App: App {
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @StateObject private var appState = AppState()
     @State private var showSplash = true
 

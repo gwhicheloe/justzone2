@@ -28,16 +28,21 @@ struct ActivityDetailView: View {
     var body: some View {
         GeometryReader { geometry in
             let isLandscape = geometry.size.width > geometry.size.height
-            let chartHeight: CGFloat = isLandscape ? 340 : 240
-            ScrollView {
-                VStack(spacing: 20) {
-                    headerSection
-                    statsGrid
-                    chartContent(chartHeight: chartHeight)
-                    navigationControls
-                    stravaLinkButton
+            if isLandscape, let streams = streams, streams.hasData {
+                // Landscape: chart fills the full screen, nothing else
+                StreamChartView(streams: streams, chartHeight: geometry.size.height - 8)
+            } else {
+                // Portrait: full layout
+                ScrollView {
+                    VStack(spacing: 20) {
+                        headerSection
+                        statsGrid
+                        chartContent(chartHeight: 240)
+                        navigationControls
+                        stravaLinkButton
+                    }
+                    .padding()
                 }
-                .padding()
             }
         }
         .navigationBarTitleDisplayMode(.inline)
@@ -50,6 +55,16 @@ struct ActivityDetailView: View {
         }
         .task(id: currentIndex) {
             await loadStreams()
+        }
+        .onAppear {
+            AppDelegate.orientationLock = .allButUpsideDown
+        }
+        .onDisappear {
+            AppDelegate.orientationLock = .portrait
+            // Rotate back to portrait
+            if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+                scene.requestGeometryUpdate(.iOS(interfaceOrientations: .portrait))
+            }
         }
     }
 
