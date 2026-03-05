@@ -7,6 +7,7 @@ struct ActivityDetailView: View {
     @State private var streams: ActivityStreams?
     @State private var isLoading = true
     @State private var errorMessage: String?
+    @State private var isLandscape = false
 
     private var activity: StravaActivity {
         viewModel.activities[currentIndex]
@@ -27,30 +28,43 @@ struct ActivityDetailView: View {
 
     var body: some View {
         GeometryReader { geometry in
-            let isLandscape = geometry.size.width > geometry.size.height
-            if isLandscape, let streams = streams, streams.hasData {
-                // Landscape: chart fills the full screen, nothing else
-                StreamChartView(streams: streams, chartHeight: geometry.size.height - 8)
-            } else {
-                // Portrait: full layout
-                ScrollView {
-                    VStack(spacing: 20) {
-                        headerSection
-                        statsGrid
-                        chartContent(chartHeight: 240)
-                        navigationControls
-                        stravaLinkButton
+            let landscape = geometry.size.width > geometry.size.height
+            Group {
+                if landscape, let streams = streams, streams.hasData {
+                    // Landscape: chart fills the full screen with stats overlay
+                    let chartData = ChartData(streams: streams)
+                    ZStack(alignment: .top) {
+                        StreamChartView(streams: streams, chartHeight: geometry.size.height - 8)
+                        landscapeStatsBar(chartData: chartData)
                     }
-                    .padding()
+                } else {
+                    // Portrait: full layout
+                    ScrollView {
+                        VStack(spacing: 20) {
+                            headerSection
+                            statsGrid
+                            chartContent(chartHeight: 240)
+                            navigationControls
+                            stravaLinkButton
+                        }
+                        .padding()
+                    }
                 }
+            }
+            .onChange(of: geometry.size) { _, size in
+                isLandscape = size.width > size.height
             }
         }
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar(.hidden, for: .tabBar)
+        .toolbar(isLandscape ? .hidden : .visible, for: .navigationBar)
         .toolbar {
-            ToolbarItem(placement: .principal) {
-                Text("Activity")
-                    .font(.custom("ArialRoundedMTBold", size: 28))
-                    .foregroundColor(.green)
+            if !isLandscape {
+                ToolbarItem(placement: .principal) {
+                    Text("Activity")
+                        .font(.custom("ArialRoundedMTBold", size: 28))
+                        .foregroundColor(.green)
+                }
             }
         }
         .task(id: currentIndex) {
@@ -58,14 +72,74 @@ struct ActivityDetailView: View {
         }
         .onAppear {
             AppDelegate.orientationLock = .allButUpsideDown
+            isLandscape = UIScreen.main.bounds.width > UIScreen.main.bounds.height
         }
         .onDisappear {
             AppDelegate.orientationLock = .portrait
-            // Rotate back to portrait
-            if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
-                scene.requestGeometryUpdate(.iOS(interfaceOrientations: .portrait))
-            }
+            isLandscape = false
+            UIViewController.attemptRotationToDeviceOrientation()
         }
+    }
+
+    @ViewBuilder
+    private func landscapeStatsBar(chartData: ChartData) -> some View {
+        HStack(spacing: 10) {
+            Text(activity.name)
+                .lineLimit(1)
+                .truncationMode(.tail)
+                .frame(maxWidth: 160, alignment: .leading)
+
+            statDivider
+            Text(viewModel.formatDuration(activity.movingTime))
+
+            if let power = activity.averageWatts {
+                statDivider
+                HStack(spacing: 3) {
+                    Image(systemName: "bolt.fill").foregroundColor(.blue)
+                    Text("\(Int(power))W")
+                }
+            }
+
+            if let hr = activity.averageHeartrate {
+                statDivider
+                HStack(spacing: 3) {
+                    Image(systemName: "heart.fill").foregroundColor(.red)
+                    Text("\(Int(hr))")
+                }
+            }
+
+            if let timeInZone = chartData.timeInZonePercent {
+                statDivider
+                HStack(spacing: 3) {
+                    Image(systemName: "checkmark.circle").foregroundColor(.green)
+                    Text("\(timeInZone)% in zone")
+                }
+            }
+
+            if let drift = chartData.hrDriftPerHour {
+                statDivider
+                HStack(spacing: 3) {
+                    Image(systemName: "arrow.trend.up").foregroundColor(.secondary)
+                    Text(String(format: "%+.1f bpm/hr", drift))
+                }
+            }
+
+            Spacer(minLength: 0)
+        }
+        .font(.caption2)
+        .foregroundColor(.primary)
+        .padding(.horizontal, 12)
+        .padding(.vertical, 5)
+        .background(.ultraThinMaterial)
+        .cornerRadius(8)
+        .padding(.top, 8)
+        .padding(.horizontal, 12)
+    }
+
+    private var statDivider: some View {
+        Rectangle()
+            .fill(Color.secondary.opacity(0.4))
+            .frame(width: 1, height: 10)
     }
 
     private func goToPrevious() {

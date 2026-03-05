@@ -2,16 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSBluetoothAlwaysUsageDescription</key>
-	<string>JustZone2 needs Bluetooth to connect to your KICKR trainer and heart rate monitor.</string>
-	<key>NSBluetoothPeripheralUsageDescription</key>
-	<string>JustZone2 needs Bluetooth to connect to your KICKR trainer and heart rate monitor.</string>
-	<key>NSHealthShareUsageDescription</key>
-	<string>JustZone2 reads your heart rate during workouts to track Zone 2 training.</string>
-	<key>NSHealthUpdateUsageDescription</key>
-	<string>JustZone2 saves your workouts to Apple Health so they appear in the Fitness app.</string>
-	<key>NSSupportsLiveActivities</key>
-	<true/>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>

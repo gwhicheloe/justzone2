@@ -1,5 +1,6 @@
 import SwiftUI
 import Charts
+import UIKit
 
 enum HistoryViewMode: Int, CaseIterable {
     case list
@@ -12,57 +13,94 @@ struct HistoryView: View {
     @State private var viewMode: HistoryViewMode = .list
     @State private var zoomLevel: CGFloat = 1.0
     @State private var baseZoomLevel: CGFloat = 1.0
+    @State private var isLandscape = false
 
     var body: some View {
         NavigationStack {
-            Group {
-                if !viewModel.isStravaConnected {
-                    connectPrompt
-                } else if viewModel.isLoading && viewModel.activities.isEmpty {
-                    loadingView
-                } else if let error = viewModel.error {
-                    errorView(error)
-                } else if viewModel.activities.isEmpty {
-                    emptyView
-                } else {
-                    VStack(spacing: 0) {
-                        // Toggle picker
-                        Picker("View", selection: $viewMode) {
-                            Image(systemName: "list.bullet").tag(HistoryViewMode.list)
-                            Image(systemName: "chart.dots.scatter").tag(HistoryViewMode.bubbleChart)
-                            Image(systemName: "chart.xyaxis.line").tag(HistoryViewMode.lineChart)
-                        }
-                        .pickerStyle(.segmented)
-                        .frame(width: 180)
-                        .padding(.top, 8)
-                        .padding(.bottom, 20)
+            GeometryReader { geometry in
+                Group {
+                    if !viewModel.isStravaConnected {
+                        connectPrompt
+                    } else if viewModel.isLoading && viewModel.activities.isEmpty {
+                        loadingView
+                    } else if let error = viewModel.error {
+                        errorView(error)
+                    } else if viewModel.activities.isEmpty {
+                        emptyView
+                    } else {
+                        VStack(spacing: 0) {
+                            Picker("View", selection: $viewMode) {
+                                Image(systemName: "list.bullet").tag(HistoryViewMode.list)
+                                Image(systemName: "chart.dots.scatter").tag(HistoryViewMode.bubbleChart)
+                                Image(systemName: "chart.xyaxis.line").tag(HistoryViewMode.lineChart)
+                            }
+                            .pickerStyle(.segmented)
+                            .frame(width: 180)
+                            .padding(.top, 8)
+                            .padding(.bottom, 20)
 
-                        switch viewMode {
-                        case .list:
-                            listView
-                        case .bubbleChart:
-                            bubbleChartView
-                        case .lineChart:
-                            lineChartView
+                            switch viewMode {
+                            case .list:
+                                listView
+                            case .bubbleChart:
+                                bubbleChartView
+                                    .toolbar(isLandscape ? .hidden : .visible, for: .tabBar)
+                            case .lineChart:
+                                lineChartView
+                                    .toolbar(isLandscape ? .hidden : .visible, for: .tabBar)
+                            }
                         }
                     }
+                }
+                .onChange(of: geometry.size) { _, size in
+                    isLandscape = size.width > size.height
+                }
+                .onChange(of: viewMode) { _, newMode in
+                    updateOrientationLock(for: newMode)
+                }
+                .onAppear {
+                    isLandscape = geometry.size.width > geometry.size.height
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .principal) {
-                    Text("History")
-                        .font(.custom("ArialRoundedMTBold", size: 28))
-                        .foregroundColor(.green)
+                if !isLandscape {
+                    ToolbarItem(placement: .principal) {
+                        Text("History")
+                            .font(.custom("ArialRoundedMTBold", size: 28))
+                            .foregroundColor(.green)
+                    }
                 }
             }
             .onAppear {
                 if viewModel.isStravaConnected && viewModel.activities.isEmpty {
                     Task { await viewModel.loadActivities() }
                 }
+                updateOrientationLock(for: viewMode)
             }
         }
+        .onDisappear {
+            forcePortrait()
+        }
     }
+
+    private func updateOrientationLock(for mode: HistoryViewMode) {
+        switch mode {
+        case .list:
+            forcePortrait()
+        case .bubbleChart, .lineChart:
+            AppDelegate.orientationLock = .allButUpsideDown
+            // Trigger iOS to re-query application(_:supportedInterfaceOrientationsFor:)
+            // same mechanism that fires automatically on NavigationLink push/pop
+            UIViewController.attemptRotationToDeviceOrientation()
+        }
+    }
+
+    private func forcePortrait() {
+        AppDelegate.orientationLock = .portrait
+        UIViewController.attemptRotationToDeviceOrientation()
+    }
+
 
     private var connectPrompt: some View {
         VStack(spacing: 16) {
@@ -304,9 +342,6 @@ struct HistoryView: View {
                 }
                 .padding(.top, 4)
 
-                Text("Pinch to zoom • Shows most recent when zoomed")
-                    .font(.tiny)
-                    .foregroundColor(.secondary)
 
                 Spacer()
             }
@@ -593,7 +628,7 @@ struct HistoryView: View {
                 }
                 .padding(.top, 4)
 
-                Text("Pinch to zoom • Lines break after 2+ week gaps")
+                Text("Lines break after 2+ week gaps")
                     .font(.tiny)
                     .foregroundColor(.secondary)
 
