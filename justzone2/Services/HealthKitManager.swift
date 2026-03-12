@@ -83,14 +83,17 @@ class HealthKitManager: NSObject, ObservableObject {
 
     /// Launch the Watch app and trigger workout session mirroring.
     func startWatchWorkout() async throws {
+        dlog("[IPHONE-HK] startWatchWorkout — calling startWatchApp(.indoor)")
         let config = HKWorkoutConfiguration()
         config.activityType = .cycling
         config.locationType = .indoor
         try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
             healthStore.startWatchApp(with: config) { success, error in
                 if let error = error {
+                    dlog("[IPHONE-HK] startWatchApp FAILED: \(error.localizedDescription)")
                     continuation.resume(throwing: error)
                 } else {
+                    dlog("[IPHONE-HK] startWatchApp succeeded (success=\(success))")
                     continuation.resume()
                 }
             }
@@ -99,6 +102,7 @@ class HealthKitManager: NSObject, ObservableObject {
 
     /// Called when the Watch mirrors its primary session to this iPhone.
     private func handleMirroredSession(_ session: HKWorkoutSession) {
+        dlog("[IPHONE-HK] handleMirroredSession — mirrored session received from Watch")
         // Clean up any previous mirrored session
         self.mirroredSession = session
         session.delegate = self
@@ -111,6 +115,7 @@ class HealthKitManager: NSObject, ObservableObject {
         mirroredSessionDisconnected = false
 
         sessionState = .running
+        dlog("[IPHONE-HK] mirrored session set up — isMirrored=true")
     }
 
     // Reconnection is handled by WorkoutViewModel's persistent Watch connection loop.
@@ -159,6 +164,23 @@ class HealthKitManager: NSObject, ObservableObject {
         mirroredBuilder = nil
         mirroredHeartRate = 0
         sessionState = .notStarted
+    }
+
+    /// Launch the Watch app in display-only mode (Mode B: BLE HR strap on iPhone).
+    /// Uses .outdoor locationType as a signal to the Watch to skip builder/recording.
+    func startWatchDisplayApp() async throws {
+        let config = HKWorkoutConfiguration()
+        config.activityType = .cycling
+        config.locationType = .outdoor  // Signal: display-only, no HR recording on Watch
+        try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
+            healthStore.startWatchApp(with: config) { success, error in
+                if let error = error {
+                    continuation.resume(throwing: error)
+                } else {
+                    continuation.resume()
+                }
+            }
+        }
     }
 
     // MARK: - Mode B: Standalone Session (BLE HR)
@@ -294,7 +316,11 @@ extension HealthKitManager: HKWorkoutSessionDelegate {
     ) {
         Task { @MainActor in
             for datum in data {
-                guard let update = try? JSONDecoder().decode(WatchToPhoneData.self, from: datum) else { continue }
+                guard let update = try? JSONDecoder().decode(WatchToPhoneData.self, from: datum) else {
+                    dlog("[IPHONE-HK] didReceiveDataFromRemote: decode failed")
+                    continue
+                }
+                dlog("[IPHONE-HK] received HR from Watch: \(update.heartRate) bpm")
                 self.mirroredHeartRate = update.heartRate
             }
         }
@@ -304,11 +330,8 @@ extension HealthKitManager: HKWorkoutSessionDelegate {
         _ workoutSession: HKWorkoutSession,
         didDisconnectFromRemoteDeviceWithError error: Error?
     ) {
+        dlog("[IPHONE-HK] mirrored session disconnected: \(error?.localizedDescription ?? "no error")")
         Task { @MainActor in
-            if let error = error {
-                print("Mirrored session disconnected: \(error.localizedDescription)")
-            }
-
             // Only attempt reconnection if we had an active mirrored session
             guard self.mirroredSession != nil else { return }
 
@@ -316,6 +339,7 @@ extension HealthKitManager: HKWorkoutSessionDelegate {
             self.mirroredHeartRate = 0
             self.mirroredSession = nil
             self.mirroredBuilder = nil
+            dlog("[IPHONE-HK] mirrored session cleared — WorkoutViewModel will retry")
         }
     }
 }

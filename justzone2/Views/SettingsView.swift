@@ -108,6 +108,9 @@ struct SettingsView: View {
                     Button("Don't Delete", role: .cancel) {}
                 }
 
+                // Diagnostics
+                DiagnosticsCard()
+
                 // App Info
                 VStack(alignment: .leading, spacing: 8) {
                     Text("About")
@@ -140,6 +143,81 @@ struct SettingsView: View {
             }
         }
     }
+}
+
+// MARK: - Diagnostics Card
+
+struct DiagnosticsCard: View {
+    @State private var entryCount = DiagnosticsLogger.shared.entryCount
+    @State private var showingShareSheet = false
+    @State private var showClearConfirmation = false
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text("Diagnostics")
+                .font(.subheadline)
+                .fontWeight(.semibold)
+
+            HStack {
+                Image(systemName: "doc.text")
+                    .foregroundColor(.secondary)
+                Text("\(entryCount) log entries")
+                    .foregroundColor(.secondary)
+                Spacer()
+            }
+            .font(.subheadline)
+
+            HStack(spacing: 12) {
+                Button {
+                    showingShareSheet = true
+                } label: {
+                    Label("Share Log", systemImage: "square.and.arrow.up")
+                        .font(.subheadline)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 8)
+                        .background(Color.green.opacity(0.15))
+                        .cornerRadius(8)
+                }
+
+                Button {
+                    showClearConfirmation = true
+                } label: {
+                    Label("Clear", systemImage: "trash")
+                        .font(.subheadline)
+                        .foregroundColor(.red)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 8)
+                        .background(Color.red.opacity(0.1))
+                        .cornerRadius(8)
+                }
+            }
+        }
+        .padding(12)
+        .background(Color(.systemBackground))
+        .cornerRadius(12)
+        .onAppear { entryCount = DiagnosticsLogger.shared.entryCount }
+        .sheet(isPresented: $showingShareSheet) {
+            ShareSheet(url: DiagnosticsLogger.shared.shareURL)
+                .ignoresSafeArea()
+        }
+        .confirmationDialog("Clear all diagnostic logs?", isPresented: $showClearConfirmation, titleVisibility: .visible) {
+            Button("Clear Logs", role: .destructive) {
+                DiagnosticsLogger.shared.clear()
+                entryCount = 0
+            }
+            Button("Cancel", role: .cancel) {}
+        }
+    }
+}
+
+struct ShareSheet: UIViewControllerRepresentable {
+    let url: URL
+
+    func makeUIViewController(context: Context) -> UIActivityViewController {
+        UIActivityViewController(activityItems: [url], applicationActivities: nil)
+    }
+
+    func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {}
 }
 
 #Preview {

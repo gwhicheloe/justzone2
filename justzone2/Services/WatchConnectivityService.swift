@@ -95,10 +95,14 @@ class WatchConnectivityService: NSObject, ObservableObject {
     }
 
     func sendWorkoutEnded() {
-        guard let session = session, session.isReachable else { return }
-        session.sendMessage(["type": "workoutEnded"], replyHandler: nil) { error in
-            print("Watch send failed: \(error.localizedDescription)")
+        guard let session = session else { return }
+        if session.isReachable {
+            session.sendMessage(["type": "workoutEnded"], replyHandler: nil) { error in
+                print("Watch send failed: \(error.localizedDescription)")
+            }
         }
+        // Guaranteed delivery fallback — ensures Watch ends session even if screen is off
+        session.transferUserInfo(["type": "workoutEnded", "timestamp": Date().timeIntervalSince1970])
     }
 }
 
@@ -136,6 +140,16 @@ extension WatchConnectivityService: WCSessionDelegate {
         Task { @MainActor in
             self.isWatchPaired = session.isPaired
             self.isWatchAppInstalled = session.isWatchAppInstalled
+        }
+    }
+
+    /// Receives guaranteed-delivery messages from Watch (e.g. Watch-side diagnostic logs).
+    nonisolated func session(_ session: WCSession, didReceiveUserInfo userInfo: [String: Any] = [:]) {
+        guard let type = userInfo["type"] as? String else { return }
+        if type == "watchLog", let log = userInfo["log"] as? String {
+            let lineCount = log.components(separatedBy: "\n").filter { !$0.isEmpty }.count
+            dlog("[IPHONE-WC] Watch log received (\(lineCount) lines)")
+            DiagnosticsLogger.shared.appendWatchLog(log)
         }
     }
 }

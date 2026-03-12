@@ -92,13 +92,17 @@ struct HistoryView: View {
             AppDelegate.orientationLock = .allButUpsideDown
             // Trigger iOS to re-query application(_:supportedInterfaceOrientationsFor:)
             // same mechanism that fires automatically on NavigationLink push/pop
-            UIViewController.attemptRotationToDeviceOrientation()
+            UIApplication.shared.connectedScenes
+                .compactMap { $0 as? UIWindowScene }
+                .forEach { $0.keyWindow?.rootViewController?.setNeedsUpdateOfSupportedInterfaceOrientations() }
         }
     }
 
     private func forcePortrait() {
         AppDelegate.orientationLock = .portrait
-        UIViewController.attemptRotationToDeviceOrientation()
+        UIApplication.shared.connectedScenes
+                .compactMap { $0 as? UIWindowScene }
+                .forEach { $0.keyWindow?.rootViewController?.setNeedsUpdateOfSupportedInterfaceOrientations() }
     }
 
 
