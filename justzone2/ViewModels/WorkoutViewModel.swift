@@ -80,6 +80,7 @@ class WorkoutViewModel: ObservableObject {
     private var workoutStartTime: Date?
     private var powerBuffer: [Int] = []
     private let powerSmoothingWindow = 5
+    private var accumulatedDistance: Double = 0
 
     /// Whether the Watch mirrored session is currently active on the iPhone.
     var isWatchConnected: Bool { healthKitManager.isMirrored }
@@ -236,9 +237,17 @@ class WorkoutViewModel: ObservableObject {
                     print("Failed to start HealthKit session: \(error.localizedDescription)")
                 }
             }
-            // Start a display-only session on the Watch so it stays alive in the
-            // background and can receive workout updates via WCSession
-            watchConnectivityService.sendStartDisplayWorkout()
+            // Launch Watch app via HealthKit so it gets "primary workout app" status
+            // (wrist-raise auto-resume). .outdoor locationType signals display-only mode.
+            Task {
+                do {
+                    try await healthKitManager.startWatchDisplayApp()
+                } catch {
+                    print("Watch display app launch failed, falling back to WCSession: \(error.localizedDescription)")
+                    // Fallback: WCSession message still triggers startDisplaySession() on Watch
+                    watchConnectivityService.sendStartDisplayWorkout()
+                }
+            }
         }
 
         do {
@@ -251,6 +260,7 @@ class WorkoutViewModel: ObservableObject {
         }
 
         workoutStartTime = Date()
+        accumulatedDistance = 0
         state = .running
         startTimer()
     }
@@ -259,25 +269,31 @@ class WorkoutViewModel: ObservableObject {
     /// The Watch handles mirroring robustness (retry on failure, re-mirror on disconnect).
     private func launchWatchWorkout() {
         Task {
+            dlog("[IPHONE-VM] launchWatchWorkout attempt 1")
             // Attempt 1
             do {
                 try await healthKitManager.startWatchWorkout()
+                dlog("[IPHONE-VM] startWatchWorkout attempt 1 returned OK")
             } catch {
-                print("Watch launch attempt 1 failed: \(error.localizedDescription)")
+                dlog("[IPHONE-VM] startWatchWorkout attempt 1 FAILED: \(error.localizedDescription)")
             }
             watchConnectivityService.sendStartWorkout()
+            dlog("[IPHONE-VM] sendStartWorkout (WCSession backup) sent")
 
             // Wait for mirrored session
             try? await Task.sleep(nanoseconds: 10_000_000_000)
+            dlog("[IPHONE-VM] after 10s wait — isMirrored=\(healthKitManager.isMirrored)")
             if healthKitManager.isMirrored { return }
 
             // Attempt 2
-            print("Watch not mirrored after 10s, retrying launch...")
+            dlog("[IPHONE-VM] launchWatchWorkout attempt 2")
             do {
                 try await healthKitManager.startWatchWorkout()
+                dlog("[IPHONE-VM] startWatchWorkout attempt 2 returned OK")
             } catch {
-                print("Watch launch attempt 2 failed: \(error.localizedDescription)")
+                dlog("[IPHONE-VM] startWatchWorkout attempt 2 FAILED: \(error.localizedDescription)")
             }
+            dlog("[IPHONE-VM] after attempt 2 — isMirrored=\(healthKitManager.isMirrored)")
         }
     }
 
@@ -421,8 +437,11 @@ class WorkoutViewModel: ObservableObject {
 
         let hr = currentHeartRate > 0 ? currentHeartRate : nil
         let pwr = currentPower > 0 ? currentPower : nil
+        let cad = kickrService.currentCadence > 0 ? kickrService.currentCadence : nil
+        let speed = virtualSpeed(watts: currentPower)
+        accumulatedDistance += speed * Constants.sampleInterval
 
-        workout.addSample(heartRate: hr, power: pwr)
+        workout.addSample(heartRate: hr, power: pwr, cadence: cad, speed: speed > 0 ? speed : nil, distance: accumulatedDistance)
         evaluateZoneTargeting()
 
         if useWatchHR && healthKitManager.isMirrored {
@@ -485,6 +504,24 @@ class WorkoutViewModel: ObservableObject {
             state: state
         )
         healthKitManager.sendDataToWatch(data)
+    }
+
+    /// Virtual speed (m/s) from power using standard cycling aerodynamic model on flat road.
+    /// P = 0.5·CdA·ρ·v³ + Crr·m·g·v  — solved with Newton-Raphson.
+    /// CdA=0.5 matches a typical road cyclist on the hoods (~17 mph at 168W).
+    private func virtualSpeed(watts: Int) -> Double {
+        let P = Double(max(watts, 0))
+        guard P > 0 else { return 0 }
+        let a = 0.5 * 0.5 * 1.225          // 0.5·CdA·ρ, CdA=0.5 m² (hoods position)
+        let b = 0.004 * 80.0 * 9.81         // Crr·m·g (rolling resistance)
+        var v = 6.0  // initial guess (~22 km/h)
+        for _ in 0..<20 {
+            let fv = a * v * v * v + b * v - P
+            let dfv = 3.0 * a * v * v + b
+            v -= fv / dfv
+            if v < 0 { v = 0.1 }
+        }
+        return v
     }
 
     /// Send display-only updates to Watch via WCSession (used when mirrored session isn't active).

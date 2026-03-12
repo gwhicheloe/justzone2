@@ -6,6 +6,11 @@ enum TCXEncoder {
         let dateFormatter = ISO8601DateFormatter()
         dateFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
 
+        // Each sample represents 1 second of work: power (W) × 1s = joules.
+        // Divide by 1000 to get kJ; kJ ≈ kcal for cycling (25% mechanical efficiency).
+        let totalJoules = workout.samples.compactMap { $0.power }.reduce(0) { $0 + $1 }
+        let calories = totalJoules / 1000
+
         var xml = """
         <?xml version="1.0" encoding="UTF-8"?>
         <TrainingCenterDatabase xmlns="http://www.garmin.com/xmlschemas/TrainingCenterDatabase/v2">
@@ -14,8 +19,8 @@ enum TCXEncoder {
               <Id>\(dateFormatter.string(from: workout.startDate))</Id>
               <Lap StartTime="\(dateFormatter.string(from: workout.startDate))">
                 <TotalTimeSeconds>\(workout.actualDuration)</TotalTimeSeconds>
-                <DistanceMeters>0</DistanceMeters>
-                <Calories>0</Calories>
+                <DistanceMeters>\(String(format: "%.1f", workout.totalDistance))</DistanceMeters>
+                <Calories>\(calories)</Calories>
                 <Intensity>Active</Intensity>
                 <TriggerMethod>Manual</TriggerMethod>
 
@@ -28,6 +33,9 @@ enum TCXEncoder {
         if let maxHR = workout.maxHeartRate {
             xml += "        <MaximumHeartRateBpm><Value>\(maxHR)</Value></MaximumHeartRateBpm>\n"
         }
+        if let avgCadence = workout.averageCadence {
+            xml += "        <Cadence>\(avgCadence)</Cadence>\n"
+        }
 
         xml += "        <Track>\n"
 
@@ -36,17 +44,29 @@ enum TCXEncoder {
             let sampleTime = workout.startDate.addingTimeInterval(sample.timestamp)
             xml += "          <Trackpoint>\n"
             xml += "            <Time>\(dateFormatter.string(from: sampleTime))</Time>\n"
+            xml += "            <DistanceMeters>\(String(format: "%.1f", sample.distance))</DistanceMeters>\n"
 
             if let hr = sample.heartRate {
                 xml += "            <HeartRateBpm><Value>\(hr)</Value></HeartRateBpm>\n"
             }
 
+            if let cadence = sample.cadence {
+                xml += "            <Cadence>\(cadence)</Cadence>\n"
+            }
+
+            // TPX extension for cycling-specific fields
+            var tpxFields = ""
+            if let speed = sample.speed {
+                tpxFields += "                  <Speed>\(String(format: "%.4f", speed))</Speed>\n"
+            }
             if let power = sample.power {
+                tpxFields += "                  <Watts>\(power)</Watts>\n"
+            }
+            if !tpxFields.isEmpty {
                 xml += """
                             <Extensions>
                               <TPX xmlns="http://www.garmin.com/xmlschemas/ActivityExtension/v2">
-                                <Watts>\(power)</Watts>
-                              </TPX>
+                \(tpxFields)              </TPX>
                             </Extensions>
 
                 """

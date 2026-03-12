@@ -7,6 +7,7 @@ class KickrService: NSObject, ObservableObject {
     @Published var connectedDeviceId: UUID?
     @Published var isControlling = false
     @Published var currentPower: Int = 0
+    @Published var currentCadence: Int = 0
     @Published var targetPower: Int = 0
     @Published var connectionError: String?
 
@@ -260,8 +261,12 @@ extension KickrService: CBPeripheralDelegate {
             offset += 2
         }
 
-        // Instantaneous Cadence (bit 2)
+        // Instantaneous Cadence (bit 2) — FTMS resolution: 0.5 rpm, so value / 2 = rpm
         if (flags & 0x04) != 0 {
+            if offset + 2 <= data.count {
+                let raw = UInt16(data[offset]) | (UInt16(data[offset + 1]) << 8)
+                currentCadence = Int(raw) / 2
+            }
             offset += 2
         }
 

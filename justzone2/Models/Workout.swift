@@ -44,9 +44,26 @@ struct Workout: Codable, Identifiable {
         samples.compactMap { $0.power }.max()
     }
 
-    mutating func addSample(heartRate: Int?, power: Int?) {
+    var totalDistance: Double {
+        samples.last?.distance ?? 0
+    }
+
+    var averageCadence: Int? {
+        let cadenceSamples = samples.compactMap { $0.cadence }.filter { $0 > 0 }
+        guard !cadenceSamples.isEmpty else { return nil }
+        return cadenceSamples.reduce(0, +) / cadenceSamples.count
+    }
+
+    mutating func addSample(heartRate: Int?, power: Int?, cadence: Int?, speed: Double?, distance: Double) {
         let timestamp = Date().timeIntervalSince(startDate)
-        let sample = WorkoutSample(timestamp: timestamp, heartRate: heartRate, power: power)
+        let sample = WorkoutSample(
+            timestamp: timestamp,
+            heartRate: heartRate,
+            power: power,
+            cadence: cadence,
+            speed: speed,
+            distance: distance
+        )
         samples.append(sample)
     }
 

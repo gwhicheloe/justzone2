@@ -695,9 +695,9 @@ struct MiniChartView: View {
             viewModel: SummaryViewModel(
                 workout: {
                     var workout = Workout(targetPower: 150, targetDuration: 30 * 60)
-                    workout.addSample(heartRate: 130, power: 148)
-                    workout.addSample(heartRate: 135, power: 152)
-                    workout.addSample(heartRate: 140, power: 150)
+                    workout.addSample(heartRate: 130, power: 148, cadence: 85, speed: nil, distance: 0)
+                    workout.addSample(heartRate: 135, power: 152, cadence: 87, speed: nil, distance: 200)
+                    workout.addSample(heartRate: 140, power: 150, cadence: 86, speed: nil, distance: 400)
                     workout.finish()
                     return workout
                 }(),
