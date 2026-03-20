@@ -350,22 +350,27 @@ struct CompactMetricView: View {
                     .foregroundColor(.secondary)
             }
 
-            if let target = targetValue {
-                if let original = originalTarget {
-                    HStack(spacing: 4) {
+            Group {
+                if let target = targetValue {
+                    if let original = originalTarget {
+                        HStack(spacing: 4) {
+                            Text("Target: \(target)W")
+                                .font(.labelSmall)
+                                .foregroundColor(.green)
+                            Text("(\(original)W)")
+                                .font(.labelSmall)
+                                .foregroundColor(.secondary)
+                        }
+                    } else {
                         Text("Target: \(target)W")
-                            .font(.labelSmall)
-                            .foregroundColor(.green)
-                        Text("(\(original)W)")
                             .font(.labelSmall)
                             .foregroundColor(.secondary)
                     }
                 } else {
-                    Text("Target: \(target)W")
-                        .font(.labelSmall)
-                        .foregroundColor(.secondary)
+                    Color.clear
                 }
             }
+            .frame(height: 20)
         }
         .frame(maxWidth: .infinity)
     }
