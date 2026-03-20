@@ -46,6 +46,7 @@
 		BB00000000000002 /* JustZone2Watch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = BB00000000000031 /* JustZone2Watch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		CC00000000000001 /* JustZone2WatchComplication.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = CC00000000000030 /* JustZone2WatchComplication.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		DD00000000000001 /* WorkoutSessionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD00000000000010 /* WorkoutSessionData.swift */; };
+		DD00000000000002 /* WorkoutRecovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD00000000000011 /* WorkoutRecovery.swift */; };
 		1100000000000027 /* DiagnosticsLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000027 /* DiagnosticsLogger.swift */; };
 /* End PBXBuildFile section */
 
@@ -152,6 +153,7 @@
 		BB00000000000031 /* JustZone2Watch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JustZone2Watch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC00000000000030 /* JustZone2WatchComplication.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = JustZone2WatchComplication.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD00000000000010 /* WorkoutSessionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSessionData.swift; sourceTree = "<group>"; };
+		DD00000000000011 /* WorkoutRecovery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutRecovery.swift; sourceTree = "<group>"; };
 		2200000000000027 /* DiagnosticsLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagnosticsLogger.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -275,6 +277,7 @@
 				2200000000000022 /* WorkoutActivityAttributes.swift */,
 				2200000000000024 /* ActivityStreams.swift */,
 				DD00000000000010 /* WorkoutSessionData.swift */,
+				DD00000000000011 /* WorkoutRecovery.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -565,6 +568,7 @@
 				1100000000000026 /* ActivityDetailView.swift in Sources */,
 				BB00000000000001 /* WatchConnectivityService.swift in Sources */,
 				DD00000000000001 /* WorkoutSessionData.swift in Sources */,
+				DD00000000000002 /* WorkoutRecovery.swift in Sources */,
 				1100000000000027 /* DiagnosticsLogger.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -6,6 +6,7 @@ struct SetupView: View {
     @State private var workoutViewModel: WorkoutViewModel?
     @State private var showZoneTargetingInfo = false
     @State private var showWarmUpInfo = false
+    @State private var pendingRecovery: WorkoutRecovery?
 
     // Limit HR monitors to avoid crowded gyms filling the screen
     private var limitedHRMonitors: [DeviceInfo] {
@@ -15,6 +16,51 @@ struct SetupView: View {
     var body: some View {
         NavigationStack {
             VStack(spacing: 12) {
+                // Recovery Banner
+                if let recovery = pendingRecovery {
+                    VStack(spacing: 8) {
+                        HStack(spacing: 10) {
+                            Image(systemName: "arrow.counterclockwise.circle.fill")
+                                .font(.title2)
+                                .foregroundColor(.orange)
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text("Recover Workout?")
+                                    .font(.subheadline)
+                                    .fontWeight(.semibold)
+                                Text("Your workout was interrupted. Resume from \(formatElapsed(recovery.elapsedTime)).")
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+                            }
+                            Spacer()
+                        }
+                        HStack(spacing: 10) {
+                            Button("Discard") {
+                                viewModel.healthKitManager.discardPendingRecovery()
+                                pendingRecovery = nil
+                            }
+                            .font(.subheadline)
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 8)
+                            .background(Color(.systemFill))
+                            .cornerRadius(8)
+
+                            Button("Resume") {
+                                resumeRecoveredWorkout(recovery)
+                            }
+                            .font(.subheadline)
+                            .fontWeight(.semibold)
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 8)
+                            .background(Color.orange)
+                            .foregroundColor(.white)
+                            .cornerRadius(8)
+                        }
+                    }
+                    .padding(12)
+                    .background(Color.orange.opacity(0.1))
+                    .cornerRadius(12)
+                }
+
                 // Workout Configuration
                 VStack(spacing: 8) {
                     HStack(spacing: 8) {
@@ -385,7 +431,62 @@ struct SetupView: View {
             }
             // Check HealthKit authorization
             viewModel.healthKitManager.checkAuthorizationStatus()
+            // Check for BLE-HR recovery (no Watch session to hold, just saved state)
+            if pendingRecovery == nil, let saved = WorkoutRecoveryStore.load(), !saved.useWatchHR {
+                pendingRecovery = saved
+            }
         }
+        .onReceive(viewModel.healthKitManager.$pendingRecovery) { recovery in
+            if let recovery {
+                pendingRecovery = recovery
+            }
+        }
+    }
+
+    private func resumeRecoveredWorkout(_ recovery: WorkoutRecovery) {
+        let workout = Workout(
+            targetPower: recovery.targetPower,
+            targetDuration: recovery.targetDuration
+        )
+        let vm = WorkoutViewModel(
+            workout: workout,
+            bluetoothManager: viewModel.bluetoothManager,
+            kickrService: viewModel.kickrService,
+            heartRateService: viewModel.heartRateService,
+            healthKitManager: viewModel.healthKitManager,
+            liveActivityManager: viewModel.liveActivityManager,
+            watchConnectivityService: viewModel.watchConnectivityService,
+            useWatchHR: recovery.useWatchHR,
+            zoneTargetingEnabled: recovery.zoneTargetingEnabled,
+            warmUpEnabled: recovery.warmUpEnabled
+        )
+        if recovery.useWatchHR {
+            viewModel.healthKitManager.claimPendingRecovery()
+        }
+        workoutViewModel = vm
+        pendingRecovery = nil
+        showWorkout = true
+
+        // Start the timer after navigation; for BLE HR, also start a fresh HealthKit session
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            if !recovery.useWatchHR {
+                Task {
+                    try? await viewModel.healthKitManager.startWorkoutSession()
+                }
+            }
+            vm.resumeRecoveredWorkout(elapsedTime: recovery.elapsedTime)
+        }
+    }
+
+    private func formatElapsed(_ time: TimeInterval) -> String {
+        let totalSeconds = Int(time)
+        let hours = totalSeconds / 3600
+        let minutes = (totalSeconds % 3600) / 60
+        let seconds = totalSeconds % 60
+        if hours > 0 {
+            return String(format: "%d:%02d:%02d", hours, minutes, seconds)
+        }
+        return String(format: "%02d:%02d", minutes, seconds)
     }
 }
 

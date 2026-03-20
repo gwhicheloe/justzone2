@@ -263,6 +263,60 @@ class WorkoutViewModel: ObservableObject {
         accumulatedDistance = 0
         healthKitManager.isWorkoutActive = true
         state = .running
+
+        WorkoutRecoveryStore.save(WorkoutRecovery(
+            targetPower: workout.targetPower,
+            targetDuration: workout.targetDuration,
+            elapsedTime: 0,
+            useWatchHR: useWatchHR,
+            zoneTargetingEnabled: zoneTargetingEnabled,
+            warmUpEnabled: warmUpEnabled
+        ))
+
+        startTimer()
+    }
+
+    /// Resume a workout after iOS killed and relaunched the app.
+    /// The Watch mirrored session must already be claimed via healthKitManager.claimPendingRecovery().
+    func resumeRecoveredWorkout(elapsedTime: TimeInterval) {
+        guard state == .idle else { return }
+
+        UIApplication.shared.isIdleTimerDisabled = true
+
+        self.elapsedTime = elapsedTime
+        workoutStartTime = Date() - elapsedTime
+        accumulatedDistance = 0
+
+        // If warm-up already passed, mark it complete
+        if warmUpEnabled && elapsedTime >= warmUpDuration {
+            warmUpComplete = true
+        }
+
+        let resumePower = warmUpEnabled && !warmUpComplete ? workout.targetPower / 2 : adjustedPower
+        kickrService.setTargetPower(resumePower)
+        kickrService.startWorkout()
+
+        do {
+            try liveActivityManager.startLiveActivity(
+                targetPower: workout.targetPower,
+                targetDuration: workout.targetDuration
+            )
+        } catch {
+            print("Failed to start Live Activity on recovery: \(error.localizedDescription)")
+        }
+
+        healthKitManager.isWorkoutActive = true
+        state = .running
+
+        WorkoutRecoveryStore.save(WorkoutRecovery(
+            targetPower: workout.targetPower,
+            targetDuration: workout.targetDuration,
+            elapsedTime: elapsedTime,
+            useWatchHR: useWatchHR,
+            zoneTargetingEnabled: zoneTargetingEnabled,
+            warmUpEnabled: warmUpEnabled
+        ))
+
         startTimer()
     }
 
@@ -375,6 +429,7 @@ class WorkoutViewModel: ObservableObject {
         }
 
         healthKitManager.isWorkoutActive = false
+        WorkoutRecoveryStore.clear()
         liveActivityManager.endLiveActivity()
         UIApplication.shared.isIdleTimerDisabled = false
     }
@@ -404,6 +459,7 @@ class WorkoutViewModel: ObservableObject {
         }
 
         healthKitManager.isWorkoutActive = false
+        WorkoutRecoveryStore.clear()
         liveActivityManager.endLiveActivity()
         UIApplication.shared.isIdleTimerDisabled = false
 
@@ -431,6 +487,8 @@ class WorkoutViewModel: ObservableObject {
         if let startTime = workoutStartTime {
             elapsedTime = now.timeIntervalSince(startTime)
         }
+
+        WorkoutRecoveryStore.updateElapsedTime(elapsedTime)
 
         // Warm-up → full power transition
         if warmUpEnabled && !warmUpComplete && elapsedTime >= warmUpDuration {

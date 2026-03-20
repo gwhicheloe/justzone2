@@ -37,6 +37,7 @@ class HistoryViewModel: ObservableObject {
             decoder.dateDecodingStrategy = .iso8601
             if let cached = try? decoder.decode([StravaActivity].self, from: data) {
                 activities = cached
+                deduplicateActivities()
             }
         }
         if let date = UserDefaults.standard.object(forKey: lastUpdatedKey) as? Date {
@@ -77,6 +78,7 @@ class HistoryViewModel: ObservableObject {
                 } else {
                     consecutiveEmptyYears = 0
                     activities.append(contentsOf: zone2)
+                    deduplicateActivities()
                     activities.sort { $0.startDate > $1.startDate }
                     saveToCache()
                 }
@@ -177,6 +179,11 @@ class HistoryViewModel: ObservableObject {
         do {
             try await stravaService.authenticate()
         } catch {
+            // ASWebAuthenticationSession error 1 = user cancelled — not an error
+            let nsError = error as NSError
+            if nsError.domain == "com.apple.AuthenticationServices.WebAuthenticationSession" && nsError.code == 1 {
+                return
+            }
             self.error = error.localizedDescription
         }
     }

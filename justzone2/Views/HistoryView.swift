@@ -107,21 +107,30 @@ struct HistoryView: View {
 
 
     private var connectPrompt: some View {
-        VStack(spacing: 16) {
-            Image(systemName: "link.circle")
-                .font(.system(size: 50))
-                .foregroundColor(.strava)
-            Text("Connect with Strava")
+        VStack(spacing: 20) {
+            Spacer()
+            Image(systemName: "figure.indoor.cycle")
+                .font(.system(size: 64))
+                .foregroundColor(.green)
+            Text("Track your Zone 2 progress")
                 .font(.headlineSmall)
+            Text("Connect Strava to view your workout history, trends, and fitness data.")
+                .font(.labelMedium)
+                .foregroundColor(.secondary)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 32)
             Button(action: {
                 Task { await viewModel.connectToStrava() }
             }) {
                 Image("btn_strava_connect_orange")
                     .resizable()
                     .scaledToFit()
-                    .frame(height: 48)
+                    .frame(height: 52)
             }
+            .padding(.top, 4)
+            Spacer()
         }
+        .frame(maxWidth: .infinity)
     }
 
     private var loadingView: some View {

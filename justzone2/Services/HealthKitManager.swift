@@ -15,6 +15,10 @@ class HealthKitManager: NSObject, ObservableObject {
     @Published var mirroredHeartRate: Int = 0
     @Published var mirroredSessionDisconnected = false
 
+    // Recovery: mirrored session held pending user confirmation
+    private var pendingRecoverySession: HKWorkoutSession?
+    @Published var pendingRecovery: WorkoutRecovery?
+
     @Published var isAuthorized = false
     @Published var authorizationError: String?
     @Published var sessionState: HKWorkoutSessionState = .notStarted
@@ -108,14 +112,23 @@ class HealthKitManager: NSObject, ObservableObject {
     private func handleMirroredSession(_ session: HKWorkoutSession) {
         dlog("[IPHONE-HK] handleMirroredSession — mirrored session received from Watch (isWorkoutActive=\(isWorkoutActive))")
 
-        // If no workout is active on the iPhone, this is a background-relaunch orphaned session
-        // (iOS killed the app mid-workout and relaunched it). End the session so Watch stops.
         guard isWorkoutActive else {
-            dlog("[IPHONE-HK] handleMirroredSession — no active workout, ending orphaned session")
-            session.end()
+            // Check if this is a recoverable killed-session
+            if let recovery = WorkoutRecoveryStore.load() {
+                dlog("[IPHONE-HK] handleMirroredSession — no active workout but saved state found, holding for recovery")
+                pendingRecoverySession = session
+                pendingRecovery = recovery
+            } else {
+                dlog("[IPHONE-HK] handleMirroredSession — no active workout, ending orphaned session")
+                session.end()
+            }
             return
         }
 
+        setupMirroredSession(session)
+    }
+
+    private func setupMirroredSession(_ session: HKWorkoutSession) {
         self.mirroredSession = session
         session.delegate = self
 
@@ -126,6 +139,24 @@ class HealthKitManager: NSObject, ObservableObject {
         mirroredSessionDisconnected = false
         sessionState = .running
         dlog("[IPHONE-HK] mirrored session set up — isMirrored=true")
+    }
+
+    /// Called when the user confirms recovery. Sets up the pending session as the active mirrored session.
+    func claimPendingRecovery() {
+        guard let session = pendingRecoverySession else { return }
+        setupMirroredSession(session)
+        pendingRecoverySession = nil
+        pendingRecovery = nil
+        dlog("[IPHONE-HK] claimPendingRecovery — mirrored session claimed for recovery")
+    }
+
+    /// Called when the user discards the recovery. Ends the pending session.
+    func discardPendingRecovery() {
+        pendingRecoverySession?.end()
+        pendingRecoverySession = nil
+        pendingRecovery = nil
+        WorkoutRecoveryStore.clear()
+        dlog("[IPHONE-HK] discardPendingRecovery — orphaned session ended")
     }
 
     // Reconnection is handled by WorkoutViewModel's persistent Watch connection loop.
