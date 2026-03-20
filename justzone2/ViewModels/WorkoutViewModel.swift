@@ -261,6 +261,7 @@ class WorkoutViewModel: ObservableObject {
 
         workoutStartTime = Date()
         accumulatedDistance = 0
+        healthKitManager.isWorkoutActive = true
         state = .running
         startTimer()
     }
@@ -373,6 +374,7 @@ class WorkoutViewModel: ObservableObject {
             watchConnectivityService.sendWorkoutEnded()
         }
 
+        healthKitManager.isWorkoutActive = false
         liveActivityManager.endLiveActivity()
         UIApplication.shared.isIdleTimerDisabled = false
     }
@@ -401,6 +403,7 @@ class WorkoutViewModel: ObservableObject {
             watchConnectivityService.sendWorkoutEnded()
         }
 
+        healthKitManager.isWorkoutActive = false
         liveActivityManager.endLiveActivity()
         UIApplication.shared.isIdleTimerDisabled = false
 

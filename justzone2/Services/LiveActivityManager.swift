@@ -59,6 +59,20 @@ class LiveActivityManager: ObservableObject {
         }
     }
 
+    /// End any Live Activities left over from a previous killed session.
+    /// Safe to call on every launch — no-ops if nothing is running.
+    func endOrphanedActivities() {
+        Task {
+            for activity in Activity<WorkoutActivityAttributes>.activities {
+                await activity.end(nil, dismissalPolicy: .immediate)
+            }
+            await MainActor.run {
+                self.currentActivity = nil
+                self.isActivityActive = false
+            }
+        }
+    }
+
     func endLiveActivity() {
         guard let activity = currentActivity else { return }
 

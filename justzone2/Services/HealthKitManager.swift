@@ -19,6 +19,10 @@ class HealthKitManager: NSObject, ObservableObject {
     @Published var authorizationError: String?
     @Published var sessionState: HKWorkoutSessionState = .notStarted
 
+    /// Set by WorkoutViewModel when a workout is actively running.
+    /// Used to detect orphaned sessions on background relaunch.
+    var isWorkoutActive = false
+
     var isStandaloneSessionActive: Bool { workoutSession != nil }
 
     override init() {
@@ -102,8 +106,16 @@ class HealthKitManager: NSObject, ObservableObject {
 
     /// Called when the Watch mirrors its primary session to this iPhone.
     private func handleMirroredSession(_ session: HKWorkoutSession) {
-        dlog("[IPHONE-HK] handleMirroredSession — mirrored session received from Watch")
-        // Clean up any previous mirrored session
+        dlog("[IPHONE-HK] handleMirroredSession — mirrored session received from Watch (isWorkoutActive=\(isWorkoutActive))")
+
+        // If no workout is active on the iPhone, this is a background-relaunch orphaned session
+        // (iOS killed the app mid-workout and relaunched it). End the session so Watch stops.
+        guard isWorkoutActive else {
+            dlog("[IPHONE-HK] handleMirroredSession — no active workout, ending orphaned session")
+            session.end()
+            return
+        }
+
         self.mirroredSession = session
         session.delegate = self
 
@@ -111,9 +123,7 @@ class HealthKitManager: NSObject, ObservableObject {
         builder.delegate = self
         self.mirroredBuilder = builder
 
-        // Clear disconnection state (reconnection succeeded)
         mirroredSessionDisconnected = false
-
         sessionState = .running
         dlog("[IPHONE-HK] mirrored session set up — isMirrored=true")
     }

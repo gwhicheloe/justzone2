@@ -143,5 +143,8 @@ class AppState: ObservableObject {
         self.settingsViewModel.onClearData = {
             await history.clearAllData()
         }
+
+        // End any Live Activity left over from a previous killed session.
+        liveActivity.endOrphanedActivities()
     }
 }
