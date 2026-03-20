@@ -174,19 +174,48 @@ The Live Activity extension is in `JustZone2LiveActivity/`.
 - **Combine**: Published properties for reactive updates
 - **CBPeripheralDelegate**: Async BLE operations via delegate callbacks wrapped in Task
 
-## Current State (Jan 2025)
+## Current State (Mar 2026)
 
 ### Features
 - **History tab** - Zone 2 activities from Strava with list and graph views
 - **Activity detail view** - Individual activity with HR/power chart, prev/next navigation
 - **Graph view** - Domain-based zooming with pinch gesture, anchored to most recent data
-- **Settings tab** - Zone 2 HR range pickers, Strava connect/disconnect
+- **Settings tab** - Zone 2 HR range pickers, Strava connect/disconnect, diagnostics log share
 - **HealthKit** - Workouts save to Apple Health with HR and power data
 - **Live Activities** - Lock screen and Dynamic Island visibility during workouts
 - **Secure auth** - Strava client secret handled by Cloudflare Worker
+- **Apple Watch** - Mode A (Watch HR via HealthKit mirroring) and Mode B (BLE strap, Watch as display)
+- **Strava enrichment** - Distance, speed, cadence and correct calories in TCX uploads
+- **On-device diagnostics** - Persistent log file shareable from Settings; Watch logs sent to iPhone at workout end
+
+### Watch Modes
+
+**Mode A** — Watch measures HR via HealthKit mirrored session. iPhone calls `startWatchApp(with: .indoor)`. Watch records HR samples and sends to iPhone via the mirrored session channel.
+
+**Mode B** — BLE HR strap on iPhone, Watch is display-only. iPhone calls `startWatchApp(with: .outdoor)`. Watch detects `.outdoor` locationType and starts a display-only session (no builder). iPhone pushes updates via WCSession `sendMessage`.
+
+**Key reliability pattern**: `mirroringEstablished` flag on `WatchSessionManager`. WCSession display-update guard only fires when mirroring is confirmed working. If mirroring fails silently, Watch accepts WCSession fallback updates instead of blocking them.
+
+### Diagnostics
+
+- `DiagnosticsLogger.swift` — iPhone-side, persistent to `Documents/justzone2_diagnostics.txt`, NSLock thread-safe, callable via `dlog()` from any isolation context
+- `WatchLogStore.swift` — Watch-side in-memory store, NSLock thread-safe, held as `nonisolated(unsafe) let` on `WatchSessionManager` so `nonisolated func wlog()` can append
+- Watch flushes log to iPhone via `transferUserInfo(["type": "watchLog", ...])` at workout end
+- Settings → Diagnostics card: entry count, Share Log (UIActivityViewController), Clear
+
+### Strava TCX Enrichment
+
+- **Cadence**: parsed from FTMS Indoor Bike Data bit 2 (uint16 / 2 = rpm)
+- **Virtual speed**: Newton-Raphson solution to power equation, CdA=0.5 (hoods), ~17 mph at 168W
+- **Distance**: integrated from virtual speed each timer tick
+- **Calories**: `sum(watts) * interval / 1000` → kJ ≈ kcal
+- TCX includes per-trackpoint `<DistanceMeters>`, `<Cadence>`, TPX `<Speed>` extension
 
 ### Key Files
-- `HealthKitManager.swift` - HKWorkoutSession for background execution
+- `HealthKitManager.swift` - HKWorkoutSession for background execution; `startWatchDisplayApp()` for Mode B
+- `WatchSessionManager.swift` - Full Watch workout logic; `mirroringEstablished` flag; `wlog()`
+- `WatchLogStore.swift` - Thread-safe Watch log store (Watch target)
+- `DiagnosticsLogger.swift` - Persistent iPhone diagnostics logger
 - `LiveActivityManager.swift` - ActivityKit Live Activity management
 - `HistoryView.swift` - Graph with `MagnifyGesture` for pinch-to-zoom
 - `StravaService.swift` - OAuth via Cloudflare Worker
