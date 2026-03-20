@@ -72,16 +72,10 @@ struct SummaryView: View {
                                 await viewModel.connectToStrava()
                             }
                         }) {
-                            HStack {
-                                Image(systemName: "link")
-                                Text("Connect with Strava")
-                            }
-                            .font(.headlineSmall)
-                            .foregroundColor(.white)
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(Color.strava)
-                            .cornerRadius(12)
+                            Image("btn_strava_connect_orange")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(height: 48)
                         }
                     } else {
                         // Upload button - changes appearance based on state

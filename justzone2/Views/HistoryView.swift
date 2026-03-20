@@ -116,13 +116,10 @@ struct HistoryView: View {
             Button(action: {
                 Task { await viewModel.connectToStrava() }
             }) {
-                Text("Connect")
-                    .font(.bodyMedium)
-                    .foregroundColor(.white)
-                    .padding(.horizontal, 20)
-                    .padding(.vertical, 10)
-                    .background(Color.strava)
-                    .cornerRadius(8)
+                Image("btn_strava_connect_orange")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(height: 48)
             }
         }
     }
