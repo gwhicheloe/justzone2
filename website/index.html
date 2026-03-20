@@ -13,6 +13,23 @@
     <link rel="icon" type="image/png" href="images/app-icon.png">
 </head>
 <body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-inner">
+            <a href="#" class="nav-brand">Justzone2</a>
+            <div class="nav-links">
+                <a href="#screenshots">Screenshots</a>
+                <a href="#features">Features</a>
+                <a href="#why-zone2">Why Zone 2?</a>
+                <a href="#resources">Resources</a>
+            </div>
+            <a href="https://apps.apple.com/app/justzone2" class="nav-cta">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                Download
+            </a>
+        </div>
+    </nav>
+
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-background">
@@ -21,18 +38,23 @@
             <div class="pulse-ring pulse-ring-3"></div>
         </div>
         <div class="container hero-content">
-            <div class="app-icon-wrapper">
-                <div class="app-icon-glow"></div>
-                <div class="app-icon">
-                    <img src="images/figure.outdoor.cycle.svg" alt="Justzone2">
+            <div class="hero-text">
+                <div class="app-icon-wrapper">
+                    <div class="app-icon-glow"></div>
+                    <div class="app-icon">
+                        <img src="images/figure.outdoor.cycle.svg" alt="Justzone2">
+                    </div>
                 </div>
+                <h1 class="brand-title">Justzone2</h1>
+                <h2 class="tagline">Zone 2 training<br>made simple</h2>
+                <p class="hero-subtitle">Control your Wahoo KICKR in ERG mode, stay in your heart rate zone, and sync with Strava. One app. One purchase. No subscription.</p>
+                <a href="https://apps.apple.com/app/justzone2" class="app-store-badge">
+                    <img src="images/Download_on_the_App_Store_Badge_US-UK_RGB_wht_092917.svg" alt="Download on the App Store">
+                </a>
             </div>
-            <h1 class="brand-title">Justzone2</h1>
-            <h2 class="tagline">Zone 2 training<br>made simple</h2>
-            <p class="hero-subtitle">Control your Wahoo KICKR in ERG mode, stay in your heart rate zone, and sync with Strava. One app. One purchase. No subscription.</p>
-            <a href="https://apps.apple.com/app/justzone2" class="app-store-badge">
-                <img src="images/Download_on_the_App_Store_Badge_US-UK_RGB_wht_092917.svg" alt="Download on the App Store">
-            </a>
+            <div class="hero-visual">
+                <img src="images/Workout-mockup.png" alt="Justzone2 Workout Screen" class="hero-mockup">
+            </div>
         </div>
         <a href="#screenshots" class="scroll-indicator" aria-label="Scroll down">
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -57,7 +79,7 @@
     </section>
 
     <!-- Features Section -->
-    <section class="features">
+    <section id="features" class="features">
         <div class="container">
             <h2>Everything you need.<br><span class="highlight">Nothing you don't.</span></h2>
             <div class="features-grid">
@@ -120,7 +142,7 @@
     </section>
 
     <!-- Why Zone 2 Section -->
-    <section class="why-zone2">
+    <section id="why-zone2" class="why-zone2">
         <div class="container">
             <div class="why-content">
                 <div class="why-text">
@@ -166,23 +188,14 @@
                     </ul>
                 </div>
                 <div class="why-illustration">
-                    <svg viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="150" cy="150" r="120" stroke="#34C759" stroke-width="2" opacity="0.2"/>
-                        <circle cx="150" cy="150" r="90" stroke="#34C759" stroke-width="2" opacity="0.3"/>
-                        <circle cx="150" cy="150" r="60" stroke="#34C759" stroke-width="3" opacity="0.5"/>
-                        <circle cx="150" cy="150" r="30" fill="#34C759" opacity="0.3"/>
-                        <path d="M60 180C80 140 120 160 150 120C180 80 220 100 240 140" stroke="#34C759" stroke-width="4" stroke-linecap="round" fill="none"/>
-                        <circle cx="150" cy="120" r="8" fill="#34C759"/>
-                        <text x="150" y="200" text-anchor="middle" fill="#34C759" font-size="16" font-weight="bold">ZONE 2</text>
-                        <text x="150" y="220" text-anchor="middle" fill="#666" font-size="12">Optimal Training Zone</text>
-                    </svg>
+                    <img src="images/Activity-mockup.png" alt="Justzone2 Activity Detail" class="why-mockup">
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Videos & Research Section -->
-    <section class="resources">
+    <section id="resources" class="resources">
         <div class="container">
             <h2>Learn from the experts</h2>
             <p class="section-subtitle">Curated videos and research on Zone 2 training</p>

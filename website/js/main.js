@@ -9,6 +9,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Smooth scroll for anchor links
     initSmoothScroll();
+
+    // Navbar scroll state
+    initNavbar();
 });
 
 /**
@@ -44,6 +47,19 @@ function initScrollAnimations() {
         el.classList.add('animate-on-scroll');
         observer.observe(el);
     });
+}
+
+/**
+ * Add scrolled class to navbar once user scrolls past the hero
+ */
+function initNavbar() {
+    const navbar = document.getElementById('navbar');
+    if (!navbar) return;
+    const onScroll = () => {
+        navbar.classList.toggle('scrolled', window.scrollY > 40);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
 }
 
 /**
