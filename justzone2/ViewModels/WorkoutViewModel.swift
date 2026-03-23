@@ -59,7 +59,6 @@ class WorkoutViewModel: ObservableObject {
     @Published var adjustedPower: Int = 0
     private var hrBuffer: [Int] = []
     private let hrBufferSize = 45
-    private var hasReachedZone2 = false
     private let zone2Min: Int
     private let zone2Max: Int
     private let maxDriftFromTarget = 30
@@ -73,6 +72,10 @@ class WorkoutViewModel: ObservableObject {
     // Rate limits — increase slowly (athlete settling), decrease faster (safety)
     private let pidMaxRateIncrease: Double = 5.0 / 90.0  // 5W per 90s
     private let pidMaxRateDecrease: Double = 5.0 / 45.0  // 5W per 45s
+
+    // HR gradient — scale power increases while HR is still rising
+    private var heavySmoothHR: Double = 0          // 300 s EMA of raw HR
+    private let hrGradientSaturation: Double = 2.0 // bpm/min at which increases fully suppressed
 
     private var timerCancellable: AnyCancellable?
     private var hrCancellable: AnyCancellable?
@@ -632,16 +635,26 @@ class WorkoutViewModel: ObservableObject {
     private func resetPID() {
         pidIntegral = 0
         pidOutputWatts = Double(adjustedPower - workout.targetPower)
+        heavySmoothHR = 0
     }
 
     private func evaluateZoneTargeting() {
         guard zoneTargetingEnabled else { return }
         guard currentHeartRate > 0 else { return }
 
+        // Always update buffers so history is ready when PID engages
         hrBuffer.append(currentHeartRate)
         if hrBuffer.count > hrBufferSize {
             hrBuffer.removeFirst(hrBuffer.count - hrBufferSize)
         }
+
+        // Heavy-smoothed HR (τ = 300 s EMA) — tick-to-tick derivative gives a
+        // stable gradient without needing a separate history buffer
+        let emaAlpha = Constants.sampleInterval / 300.0
+        let prevSmoothHR = heavySmoothHR
+        heavySmoothHR = heavySmoothHR > 0
+            ? emaAlpha * Double(currentHeartRate) + (1 - emaAlpha) * heavySmoothHR
+            : Double(currentHeartRate)
 
         // Grace period — let HR settle before PID engages
         guard elapsedTime >= warmUpGracePeriod else { return }
@@ -650,32 +663,25 @@ class WorkoutViewModel: ObservableObject {
         let smoothedHR = Double(hrBuffer.reduce(0, +)) / Double(hrBuffer.count)
         let setpoint = Double(zone2Min + zone2Max) / 2.0
 
-        if smoothedHR >= Double(zone2Min) && smoothedHR <= Double(zone2Max) {
-            hasReachedZone2 = true
-        }
-
         // error > 0  → HR below zone → need more power
         // error < 0  → HR above zone → need less power
         let error = setpoint - smoothedHR
 
-        // Early settling phase (3–10 min, before HR has ever reached zone):
-        // don't accumulate integral — prevents windup from building while we
-        // block power increases, which would cause a sudden surge when released
-        let inEarlyPhase = !hasReachedZone2 && elapsedTime < 10 * 60
-        if !inEarlyPhase {
-            pidIntegral += error * Constants.sampleInterval
-            // Anti-windup clamp
-            let maxIntegral = Double(maxDriftFromTarget) / max(pidKi, 0.001)
-            pidIntegral = max(-maxIntegral, min(maxIntegral, pidIntegral))
-        }
+        // Gradient of the slow EMA (bpm/min). Scale integral accumulation and
+        // max increase rate proportionally — smooth back-off with no extra state.
+        let hrGradient = prevSmoothHR > 0
+            ? (heavySmoothHR - prevSmoothHR) / Constants.sampleInterval * 60.0
+            : 0.0
+        let gradientFactor = max(0.0, min(1.0, 1.0 - hrGradient / hrGradientSaturation))
+
+        pidIntegral += gradientFactor * error * Constants.sampleInterval
+        let maxIntegral = Double(maxDriftFromTarget) / max(pidKi, 0.001)
+        pidIntegral = max(-maxIntegral, min(maxIntegral, pidIntegral))
 
         let rawOutput = pidKp * error + pidKi * pidIntegral
 
-        // Rate-limit how fast the output can move each tick:
-        // - Early settling: no increases allowed (athlete still warming up)
-        // - Normal: increase slowly, decrease faster for safety
         let dt = Constants.sampleInterval
-        let maxIncrease = inEarlyPhase ? 0.0 : pidMaxRateIncrease * dt
+        let maxIncrease = gradientFactor * pidMaxRateIncrease * dt
         let maxDecrease = pidMaxRateDecrease * dt
 
         let delta = rawOutput - pidOutputWatts
