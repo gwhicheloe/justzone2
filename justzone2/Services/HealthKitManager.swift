@@ -339,6 +339,7 @@ extension HealthKitManager: HKWorkoutSessionDelegate {
         from fromState: HKWorkoutSessionState,
         date: Date
     ) {
+        dlog("[IPHONE-HK] session state: \(fromState.rawValue) → \(toState.rawValue)")
         Task { @MainActor in
             self.sessionState = toState
         }
@@ -348,7 +349,7 @@ extension HealthKitManager: HKWorkoutSessionDelegate {
         _ workoutSession: HKWorkoutSession,
         didFailWithError error: Error
     ) {
-        print("Workout session failed: \(error.localizedDescription)")
+        dlog("[IPHONE-HK] session FAILED: \(error.localizedDescription)")
     }
 
     nonisolated func workoutSession(
@@ -361,7 +362,6 @@ extension HealthKitManager: HKWorkoutSessionDelegate {
                     dlog("[IPHONE-HK] didReceiveDataFromRemote: decode failed")
                     continue
                 }
-                dlog("[IPHONE-HK] received HR from Watch: \(update.heartRate) bpm")
                 self.mirroredHeartRate = update.heartRate
             }
         }

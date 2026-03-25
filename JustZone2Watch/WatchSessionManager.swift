@@ -84,12 +84,11 @@ class WatchSessionManager: NSObject, ObservableObject {
         let locationType = session.workoutConfiguration.locationType
         wlog("[WATCH] handleStartFromPhone — locationType=\(locationType.rawValue), existing session=\(workoutSession != nil)")
 
-        guard workoutSession == nil else {
-            wlog("[WATCH] handleStartFromPhone — BLOCKED: workoutSession already exists, ending stale session first")
+        if workoutSession != nil {
+            wlog("[WATCH] handleStartFromPhone — stale session exists, ending it before proceeding")
             endPrimaryWorkout()
-            // Give the old session a moment to clean up, then proceed
-            try? await Task.sleep(nanoseconds: 500_000_000)
-            return
+            // Give the old session a moment to clean up
+            try? await Task.sleep(nanoseconds: 1_000_000_000)
         }
 
         self.workoutSession = session
@@ -376,7 +375,6 @@ extension WatchSessionManager: HKLiveWorkoutBuilderDelegate {
                 let unit = HKUnit.count().unitDivided(by: .minute())
                 let bpm = Int(quantity.doubleValue(for: unit))
                 self.heartRate = bpm
-                wlog("[WATCH] HR collected: \(bpm) bpm — sending to iPhone (mirroring=\(self.mirroringEstablished))")
                 self.sendHRToPhone(bpm)
             }
         }

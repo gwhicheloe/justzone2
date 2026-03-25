@@ -361,6 +361,8 @@ struct CompactMetricView: View {
                                 .font(.labelSmall)
                                 .foregroundColor(.secondary)
                         }
+                        .minimumScaleFactor(0.7)
+                        .lineLimit(1)
                     } else {
                         Text("Target: \(target)W")
                             .font(.labelSmall)

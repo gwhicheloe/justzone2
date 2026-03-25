@@ -166,6 +166,9 @@ struct DiagnosticsCard: View {
                 Spacer()
             }
             .font(.subheadline)
+            .onReceive(Timer.publish(every: 2, on: .main, in: .common).autoconnect()) { _ in
+                entryCount = DiagnosticsLogger.shared.entryCount
+            }
 
             HStack(spacing: 12) {
                 Button {
