@@ -21,6 +21,9 @@ class WatchSessionManager: NSObject, ObservableObject {
     /// Used to decide whether WCSession display updates should be accepted as fallback.
     private var mirroringEstablished = false
 
+    /// Prevents duplicate session starts when both mirroring handler and WCSession backup fire simultaneously.
+    private var isStartingWorkout = false
+
     // MARK: - Watch-side log (sent to iPhone at workout end)
 
     /// Thread-safe log store — held as a `let` so nonisolated methods can access it safely.
@@ -67,7 +70,7 @@ class WatchSessionManager: NSObject, ObservableObject {
     func requestAuthorization() async {
         wlog("[WATCH] requestAuthorization called")
         let typesToRead: Set<HKObjectType> = [HKQuantityType(.heartRate)]
-        let typesToWrite: Set<HKSampleType> = [HKWorkoutType.workoutType()]
+        let typesToWrite: Set<HKSampleType> = [HKWorkoutType.workoutType(), HKQuantityType(.heartRate)]
         do {
             try await healthStore.requestAuthorization(toShare: typesToWrite, read: typesToRead)
             wlog("[WATCH] requestAuthorization completed")
@@ -82,7 +85,14 @@ class WatchSessionManager: NSObject, ObservableObject {
     /// Uses locationType to distinguish Mode A (full recording) from Mode B (display-only).
     private func handleStartFromPhone(session: HKWorkoutSession) async {
         let locationType = session.workoutConfiguration.locationType
-        wlog("[WATCH] handleStartFromPhone — locationType=\(locationType.rawValue), existing session=\(workoutSession != nil)")
+        wlog("[WATCH] handleStartFromPhone — locationType=\(locationType.rawValue), existing session=\(workoutSession != nil), starting=\(isStartingWorkout)")
+
+        guard !isStartingWorkout else {
+            wlog("[WATCH] handleStartFromPhone — BLOCKED: already starting")
+            return
+        }
+        isStartingWorkout = true
+        defer { isStartingWorkout = false }
 
         if workoutSession != nil {
             wlog("[WATCH] handleStartFromPhone — stale session exists, ending it before proceeding")
@@ -132,9 +142,9 @@ class WatchSessionManager: NSObject, ObservableObject {
 
     /// Start a primary workout session (called from WCSession message as backup).
     func startPrimaryWorkout() {
-        wlog("[WATCH] startPrimaryWorkout — existing session=\(workoutSession != nil)")
-        guard workoutSession == nil else {
-            wlog("[WATCH] startPrimaryWorkout — BLOCKED: workoutSession already exists")
+        wlog("[WATCH] startPrimaryWorkout — existing session=\(workoutSession != nil), starting=\(isStartingWorkout)")
+        guard workoutSession == nil, !isStartingWorkout else {
+            wlog("[WATCH] startPrimaryWorkout — BLOCKED: session exists or already starting")
             return
         }
 
@@ -210,6 +220,7 @@ class WatchSessionManager: NSObject, ObservableObject {
         self.workoutSession = nil
         self.workoutBuilder = nil
         self.mirroringEstablished = false
+        self.isStartingWorkout = false
 
         session.stopActivity(with: Date())
 
@@ -374,6 +385,9 @@ extension WatchSessionManager: HKLiveWorkoutBuilderDelegate {
                let quantity = stats.mostRecentQuantity() {
                 let unit = HKUnit.count().unitDivided(by: .minute())
                 let bpm = Int(quantity.doubleValue(for: unit))
+                if self.heartRate == 0 {
+                    wlog("[WATCH] HR first sample: \(bpm) bpm — collection working")
+                }
                 self.heartRate = bpm
                 self.sendHRToPhone(bpm)
             }
