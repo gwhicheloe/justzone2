@@ -24,6 +24,9 @@ class WatchSessionManager: NSObject, ObservableObject {
     /// Prevents duplicate session starts when both mirroring handler and WCSession backup fire simultaneously.
     private var isStartingWorkout = false
 
+    /// One-shot flag to log WCSession HR fallback activation once per workout.
+    private var loggedWCSessionFallback = false
+
     // MARK: - Watch-side log (sent to iPhone at workout end)
 
     /// Thread-safe log store — held as a `let` so nonisolated methods can access it safely.
@@ -221,6 +224,7 @@ class WatchSessionManager: NSObject, ObservableObject {
         self.workoutBuilder = nil
         self.mirroringEstablished = false
         self.isStartingWorkout = false
+        self.loggedWCSessionFallback = false
 
         session.stopActivity(with: Date())
 
@@ -395,17 +399,28 @@ extension WatchSessionManager: HKLiveWorkoutBuilderDelegate {
     }
 
     private func sendHRToPhone(_ heartRate: Int) {
-        guard let session = workoutSession else {
-            wlog("[WATCH] sendHRToPhone: no session, cannot send")
-            return
-        }
-        guard let encoded = try? JSONEncoder().encode(WatchToPhoneData(heartRate: heartRate)) else { return }
-        Task {
-            do {
-                try await session.sendToRemoteWorkoutSession(data: encoded)
-            } catch {
-                wlog("[WATCH] sendHRToPhone FAILED: \(error.localizedDescription)")
+        if mirroringEstablished {
+            // Primary path: mirrored session data channel
+            guard let session = workoutSession else {
+                wlog("[WATCH] sendHRToPhone: no session, cannot send")
+                return
             }
+            guard let encoded = try? JSONEncoder().encode(WatchToPhoneData(heartRate: heartRate)) else { return }
+            Task {
+                do {
+                    try await session.sendToRemoteWorkoutSession(data: encoded)
+                } catch {
+                    wlog("[WATCH] sendHRToPhone FAILED: \(error.localizedDescription)")
+                }
+            }
+        } else {
+            // Fallback: send HR via WCSession when mirroring isn't established
+            guard let wc = wcSession, wc.isReachable else { return }
+            if !loggedWCSessionFallback {
+                wlog("[WATCH] sendHRToPhone: using WCSession fallback (mirroring not established)")
+                loggedWCSessionFallback = true
+            }
+            wc.sendMessage(["type": "heartRateUpdate", "heartRate": heartRate], replyHandler: nil, errorHandler: nil)
         }
     }
 }

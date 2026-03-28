@@ -6,6 +6,8 @@ class WatchConnectivityService: NSObject, ObservableObject {
     @Published var isWatchReachable = false
     @Published var isWatchPaired = false
     @Published var isWatchAppInstalled = false
+    /// HR received from Watch via WCSession fallback (when mirroring fails).
+    @Published var fallbackHeartRate: Int = 0
 
     private var session: WCSession?
 
@@ -140,6 +142,16 @@ extension WatchConnectivityService: WCSessionDelegate {
         Task { @MainActor in
             self.isWatchPaired = session.isPaired
             self.isWatchAppInstalled = session.isWatchAppInstalled
+        }
+    }
+
+    /// Receives real-time messages from Watch (e.g. WCSession HR fallback when mirroring fails).
+    nonisolated func session(_ session: WCSession, didReceiveMessage message: [String: Any]) {
+        guard let type = message["type"] as? String else { return }
+        if type == "heartRateUpdate", let hr = message["heartRate"] as? Int {
+            Task { @MainActor in
+                self.fallbackHeartRate = hr
+            }
         }
     }
 

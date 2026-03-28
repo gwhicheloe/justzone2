@@ -130,7 +130,10 @@ class WorkoutViewModel: ObservableObject {
     private func bindHRSource() {
         hrCancellable?.cancel()
         if useWatchHR {
+            // Merge mirrored session HR (primary) with WCSession fallback HR
             hrCancellable = healthKitManager.$mirroredHeartRate
+                .combineLatest(watchConnectivityService.$fallbackHeartRate)
+                .map { mirrored, fallback in mirrored > 0 ? mirrored : fallback }
                 .sink { [weak self] hr in self?.currentHeartRate = hr }
         } else {
             hrCancellable = heartRateService.$currentHeartRate
