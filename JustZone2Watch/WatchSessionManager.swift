@@ -27,6 +27,10 @@ class WatchSessionManager: NSObject, ObservableObject {
     /// One-shot flag to log WCSession HR fallback activation once per workout.
     private var loggedWCSessionFallback = false
 
+    /// Direct HealthKit HR observation query — reads HR from system sensor data.
+    /// Bypasses HKLiveWorkoutDataSource which requires write authorization.
+    private var hrQuery: HKAnchoredObjectQuery?
+
     // MARK: - Watch-side log (sent to iPhone at workout end)
 
     /// Thread-safe log store — held as a `let` so nonisolated methods can access it safely.
@@ -72,11 +76,14 @@ class WatchSessionManager: NSObject, ObservableObject {
 
     func requestAuthorization() async {
         wlog("[WATCH] requestAuthorization called")
-        let typesToRead: Set<HKObjectType> = [HKQuantityType(.heartRate)]
-        let typesToWrite: Set<HKSampleType> = [HKWorkoutType.workoutType(), HKQuantityType(.heartRate)]
+        let hrType = HKQuantityType(.heartRate)
+        let typesToRead: Set<HKObjectType> = [hrType]
+        let typesToWrite: Set<HKSampleType> = [HKWorkoutType.workoutType(), hrType]
         do {
             try await healthStore.requestAuthorization(toShare: typesToWrite, read: typesToRead)
-            wlog("[WATCH] requestAuthorization completed")
+            let hrWriteStatus = healthStore.authorizationStatus(for: hrType)
+            // 0=notDetermined, 1=sharingDenied, 2=sharingAuthorized
+            wlog("[WATCH] requestAuthorization completed — HR write status: \(hrWriteStatus.rawValue)")
         } catch {
             wlog("[WATCH] requestAuthorization FAILED: \(error.localizedDescription)")
         }
@@ -135,6 +142,7 @@ class WatchSessionManager: NSObject, ObservableObject {
                 do {
                     try await builder.beginCollection(at: Date())
                     wlog("[WATCH] beginCollection succeeded")
+                    self.startHRObservation()
                 } catch {
                     wlog("[WATCH] beginCollection FAILED: \(error.localizedDescription)")
                 }
@@ -176,6 +184,7 @@ class WatchSessionManager: NSObject, ObservableObject {
                 do {
                     try await builder.beginCollection(at: Date())
                     wlog("[WATCH] startPrimaryWorkout beginCollection succeeded")
+                    self.startHRObservation()
                 } catch {
                     wlog("[WATCH] startPrimaryWorkout beginCollection FAILED: \(error.localizedDescription)")
                 }
@@ -225,6 +234,7 @@ class WatchSessionManager: NSObject, ObservableObject {
         self.mirroringEstablished = false
         self.isStartingWorkout = false
         self.loggedWCSessionFallback = false
+        stopHRObservation()
 
         session.stopActivity(with: Date())
 
@@ -270,6 +280,55 @@ class WatchSessionManager: NSObject, ObservableObject {
         }
         // All mirroring attempts failed — fall back to WCSession for display data
         wlog("[WATCH] All mirroring attempts failed. WCSession display updates will be used as fallback.")
+    }
+
+    // MARK: - HR Observation (read-only, no write permission needed)
+
+    /// Start observing HR directly from HealthKit. Uses READ permission only,
+    /// bypassing HKLiveWorkoutDataSource which silently fails without write permission.
+    private func startHRObservation() {
+        let hrType = HKQuantityType(.heartRate)
+        let predicate = HKQuery.predicateForSamples(withStart: Date(), end: nil, options: .strictStartDate)
+
+        let handleSamples: ([HKSample]?) -> Void = { [weak self] samples in
+            guard let samples = samples as? [HKQuantitySample],
+                  let latest = samples.last else { return }
+            let unit = HKUnit.count().unitDivided(by: .minute())
+            let bpm = Int(latest.quantity.doubleValue(for: unit))
+            guard bpm > 0 else { return }
+
+            Task { @MainActor [weak self] in
+                guard let self = self else { return }
+                if self.heartRate == 0 {
+                    self.wlog("[WATCH] HR first reading (query): \(bpm) bpm")
+                }
+                self.heartRate = bpm
+                self.sendHRToPhone(bpm)
+            }
+        }
+
+        let query = HKAnchoredObjectQuery(
+            type: hrType,
+            predicate: predicate,
+            anchor: nil,
+            limit: HKObjectQueryNoLimit
+        ) { _, samples, _, _, _ in
+            handleSamples(samples)
+        }
+        query.updateHandler = { _, samples, _, _, _ in
+            handleSamples(samples)
+        }
+
+        hrQuery = query
+        healthStore.execute(query)
+        wlog("[WATCH] HR observation query started")
+    }
+
+    private func stopHRObservation() {
+        if let query = hrQuery {
+            healthStore.stop(query)
+            hrQuery = nil
+        }
     }
 
     // MARK: - Time Formatting
