@@ -35,21 +35,38 @@ struct WatchWorkoutView: View {
 
     private var waitingView: some View {
         VStack(spacing: 12) {
-            Text("2")
-                .font(.system(size: 48, weight: .bold, design: .rounded))
-                .foregroundColor(.green)
+            if sessionManager.hrPermissionDenied {
+                Image(systemName: "heart.slash.fill")
+                    .font(.system(size: 28))
+                    .foregroundColor(.red)
 
-            Text("Waiting for workout...")
-                .font(.caption)
-                .foregroundColor(.secondary)
+                Text("Heart Rate\nPermission Required")
+                    .font(.caption)
+                    .fontWeight(.semibold)
+                    .multilineTextAlignment(.center)
+                    .foregroundColor(.red)
 
-            HStack(spacing: 4) {
-                Circle()
-                    .fill(Color.green)
-                    .frame(width: 8, height: 8)
-                Text("Ready")
-                    .font(.caption2)
+                Text("iPhone → Health\n→ Apps → JustZone2\n→ Enable Heart Rate")
+                    .font(.system(size: 11))
+                    .multilineTextAlignment(.center)
                     .foregroundColor(.secondary)
+            } else {
+                Text("2")
+                    .font(.system(size: 48, weight: .bold, design: .rounded))
+                    .foregroundColor(.green)
+
+                Text("Waiting for workout...")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+
+                HStack(spacing: 4) {
+                    Circle()
+                        .fill(Color.green)
+                        .frame(width: 8, height: 8)
+                    Text("Ready")
+                        .font(.caption2)
+                        .foregroundColor(.secondary)
+                }
             }
 
             Text(buildId)

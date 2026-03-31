@@ -11,6 +11,7 @@ class WatchSessionManager: NSObject, ObservableObject {
     @Published var totalChunks: Int = 0
     @Published var workoutState: String = "idle"
     @Published var isPhoneReachable = false
+    @Published var hrPermissionDenied = false
 
     private var wcSession: WCSession?
     private let healthStore = HKHealthStore()
@@ -84,6 +85,7 @@ class WatchSessionManager: NSObject, ObservableObject {
             let hrWriteStatus = healthStore.authorizationStatus(for: hrType)
             // 0=notDetermined, 1=sharingDenied, 2=sharingAuthorized
             wlog("[WATCH] requestAuthorization completed — HR write status: \(hrWriteStatus.rawValue)")
+            hrPermissionDenied = hrWriteStatus != .sharingAuthorized
         } catch {
             wlog("[WATCH] requestAuthorization FAILED: \(error.localizedDescription)")
         }
