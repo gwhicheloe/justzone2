@@ -36,6 +36,7 @@ class SetupViewModel: ObservableObject {
     @Published var isWatchAvailable = false
     @Published var isWatchReachable = false
     @Published var isWatchAppInstalled = false
+    @Published var hrBatteryLevel: Int?
 
     let bluetoothManager: BluetoothManager
     let kickrService: KickrService
@@ -137,6 +138,9 @@ class SetupViewModel: ObservableObject {
                 }
             }
             .store(in: &cancellables)
+
+        heartRateService.$batteryLevel
+            .assign(to: &$hrBatteryLevel)
 
         stravaService.$isAuthenticated
             .assign(to: &$isStravaConnected)

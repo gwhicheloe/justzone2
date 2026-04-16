@@ -4,6 +4,7 @@ struct DeviceRow: View {
     let device: DeviceInfo
     let isConnected: Bool
     var isConnecting: Bool = false
+    var batteryLevel: Int? = nil
     let onConnect: () -> Void
     let onDisconnect: () -> Void
 
@@ -45,6 +46,16 @@ struct DeviceRow: View {
 
             Text(device.name)
                 .font(.subheadline)
+                .lineLimit(1)
+
+            if let battery = batteryLevel {
+                HStack(spacing: 2) {
+                    Image(systemName: batteryIconName(for: battery))
+                    Text("\(battery)%")
+                }
+                .font(.caption2)
+                .foregroundColor(batteryColor(for: battery))
+            }
 
             Spacer()
 
@@ -65,6 +76,8 @@ struct DeviceRow: View {
                     }
                     Text(buttonText)
                         .font(.bodyMedium)
+                        .lineLimit(1)
+                        .fixedSize()
                 }
                 .padding(.horizontal, 12)
                 .padding(.vertical, 6)
@@ -75,6 +88,20 @@ struct DeviceRow: View {
             .disabled(isConnecting)
         }
         .padding(.vertical, 8)
+    }
+
+    private func batteryColor(for level: Int) -> Color {
+        if level < 10 { return .red }
+        if level < 30 { return .orange }
+        return .green
+    }
+
+    private func batteryIconName(for level: Int) -> String {
+        if level < 13 { return "battery.0percent" }
+        if level < 38 { return "battery.25percent" }
+        if level < 63 { return "battery.50percent" }
+        if level < 88 { return "battery.75percent" }
+        return "battery.100percent"
     }
 }
 

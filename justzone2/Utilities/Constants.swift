@@ -14,6 +14,10 @@ enum Constants {
     static let heartRateService = CBUUID(string: "180D")
     static let heartRateMeasurement = CBUUID(string: "2A37")
 
+    // Battery Service
+    static let batteryService = CBUUID(string: "180F")
+    static let batteryLevel = CBUUID(string: "2A19")
+
     // MARK: - FTMS Control Point OpCodes
     enum FTMSOpCode: UInt8 {
         case requestControl = 0x00

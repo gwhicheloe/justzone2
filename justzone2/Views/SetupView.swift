@@ -190,6 +190,7 @@ struct SetupView: View {
                                 device: device,
                                 isConnected: viewModel.connectedHRId == device.id,
                                 isConnecting: viewModel.hrConnecting && viewModel.connectedHRId == device.id,
+                                batteryLevel: viewModel.connectedHRId == device.id ? viewModel.hrBatteryLevel : nil,
                                 onConnect: { viewModel.connectHeartRateMonitor(device) },
                                 onDisconnect: { viewModel.disconnectHeartRateMonitor() }
                             )
@@ -254,7 +255,7 @@ struct SetupView: View {
                 .background(Color(.systemBackground))
                 .cornerRadius(12)
                 .fixedSize(horizontal: false, vertical: true)
-                .frame(maxHeight: 260)
+                .frame(maxHeight: 220)
 
                 // Integrations Section
                 VStack(alignment: .leading, spacing: 8) {

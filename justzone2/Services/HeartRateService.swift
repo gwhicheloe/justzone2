@@ -6,6 +6,7 @@ class HeartRateService: NSObject, ObservableObject {
     @Published var isConnected = false
     @Published var connectedDeviceId: UUID?
     @Published var currentHeartRate: Int = 0
+    @Published var batteryLevel: Int?
     @Published var connectionError: String?
 
     private weak var bluetoothManager: BluetoothManager?
@@ -34,7 +35,7 @@ class HeartRateService: NSObject, ObservableObject {
             }
             Task { @MainActor in
                 guard peripheral == self.peripheral else { return }
-                peripheral.discoverServices([Constants.heartRateService])
+                peripheral.discoverServices([Constants.heartRateService, Constants.batteryService])
             }
         }
         
@@ -84,6 +85,7 @@ class HeartRateService: NSObject, ObservableObject {
         isConnected = false
         connectedDeviceId = nil
         currentHeartRate = 0
+        batteryLevel = nil
         peripheral = nil
         heartRateMeasurementCharacteristic = nil
     }
@@ -102,6 +104,8 @@ extension HeartRateService: CBPeripheralDelegate {
             for service in services {
                 if service.uuid == Constants.heartRateService {
                     peripheral.discoverCharacteristics([Constants.heartRateMeasurement], for: service)
+                } else if service.uuid == Constants.batteryService {
+                    peripheral.discoverCharacteristics([Constants.batteryLevel], for: service)
                 }
             }
         }
@@ -121,6 +125,9 @@ extension HeartRateService: CBPeripheralDelegate {
                     self.heartRateMeasurementCharacteristic = characteristic
                     peripheral.setNotifyValue(true, for: characteristic)
                     isConnected = true
+                } else if characteristic.uuid == Constants.batteryLevel {
+                    peripheral.readValue(for: characteristic)
+                    peripheral.setNotifyValue(true, for: characteristic)
                 }
             }
         }
@@ -132,6 +139,9 @@ extension HeartRateService: CBPeripheralDelegate {
 
             if characteristic.uuid == Constants.heartRateMeasurement {
                 parseHeartRateData(data)
+            } else if characteristic.uuid == Constants.batteryLevel {
+                guard !data.isEmpty else { return }
+                batteryLevel = Int(data[0])
             }
         }
     }
