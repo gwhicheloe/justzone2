@@ -28,6 +28,9 @@ class WatchSessionManager: NSObject, ObservableObject {
     /// One-shot flag to log WCSession HR fallback activation once per workout.
     private var loggedWCSessionFallback = false
 
+    /// Counter for WCSession workoutUpdate messages — only log first and every 30th to reduce spam.
+    private var wcUpdateCount = 0
+
     /// Direct HealthKit HR observation query — reads HR from system sensor data.
     /// Bypasses HKLiveWorkoutDataSource which requires write authorization.
     private var hrQuery: HKAnchoredObjectQuery?
@@ -144,6 +147,16 @@ class WatchSessionManager: NSObject, ObservableObject {
                 do {
                     try await builder.beginCollection(at: Date())
                     wlog("[WATCH] beginCollection succeeded")
+
+                    // Verify session is still alive after beginCollection
+                    guard session.state == .running else {
+                        wlog("[WATCH] handleStartFromPhone: session died after beginCollection (state=\(session.state.rawValue)), aborting")
+                        self.workoutSession = nil
+                        self.workoutBuilder = nil
+                        self.workoutState = "ended"
+                        return
+                    }
+
                     self.startHRObservation()
                 } catch {
                     wlog("[WATCH] beginCollection FAILED: \(error.localizedDescription)")
@@ -186,6 +199,16 @@ class WatchSessionManager: NSObject, ObservableObject {
                 do {
                     try await builder.beginCollection(at: Date())
                     wlog("[WATCH] startPrimaryWorkout beginCollection succeeded")
+
+                    // Verify session is still alive after beginCollection
+                    guard session.state == .running else {
+                        wlog("[WATCH] startPrimaryWorkout: session died after beginCollection (state=\(session.state.rawValue)), aborting")
+                        self.workoutSession = nil
+                        self.workoutBuilder = nil
+                        self.workoutState = "ended"
+                        return
+                    }
+
                     self.startHRObservation()
                 } catch {
                     wlog("[WATCH] startPrimaryWorkout beginCollection FAILED: \(error.localizedDescription)")
@@ -236,6 +259,7 @@ class WatchSessionManager: NSObject, ObservableObject {
         self.mirroringEstablished = false
         self.isStartingWorkout = false
         self.loggedWCSessionFallback = false
+        self.wcUpdateCount = 0
         stopHRObservation()
 
         session.stopActivity(with: Date())
@@ -546,7 +570,10 @@ extension WatchSessionManager: WCSessionDelegate {
                     // Mirroring is working — discard WCSession display update (data comes via mirrored channel)
                     return
                 }
-                wlog("[WATCH] WCSession workoutUpdate accepted (mirroring not established)")
+                self.wcUpdateCount += 1
+                if self.wcUpdateCount == 1 || self.wcUpdateCount % 30 == 0 {
+                    wlog("[WATCH] WCSession workoutUpdate #\(self.wcUpdateCount) accepted (mirroring not established)")
+                }
                 self.heartRate = message["heartRate"] as? Int ?? self.heartRate
                 self.power = message["power"] as? Int ?? self.power
                 self.elapsedTime = message["elapsedTime"] as? TimeInterval ?? self.elapsedTime

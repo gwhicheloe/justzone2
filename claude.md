@@ -174,7 +174,7 @@ The Live Activity extension is in `JustZone2LiveActivity/`.
 - **Combine**: Published properties for reactive updates
 - **CBPeripheralDelegate**: Async BLE operations via delegate callbacks wrapped in Task
 
-## Current State (Mar 2026)
+## Current State (Apr 2026)
 
 ### Features
 - **History tab** - Zone 2 activities from Strava with list and graph views
@@ -187,6 +187,8 @@ The Live Activity extension is in `JustZone2LiveActivity/`.
 - **Apple Watch** - Mode A (Watch HR via HealthKit mirroring) and Mode B (BLE strap, Watch as display)
 - **Strava enrichment** - Distance, speed, cadence and correct calories in TCX uploads
 - **On-device diagnostics** - Persistent log file shareable from Settings; Watch logs sent to iPhone at workout end
+- **PID zone targeting** - Automatic power adjustment to keep HR in Zone 2 using PID controller
+- **Auto-complete** - Workout auto-completes when duration reached; warm-up and cool-down phases
 
 ### Watch Modes
 
@@ -194,7 +196,16 @@ The Live Activity extension is in `JustZone2LiveActivity/`.
 
 **Mode B** — BLE HR strap on iPhone, Watch is display-only. iPhone calls `startWatchApp(with: .outdoor)`. Watch detects `.outdoor` locationType and starts a display-only session (no builder). iPhone pushes updates via WCSession `sendMessage`.
 
-**Key reliability pattern**: `mirroringEstablished` flag on `WatchSessionManager`. WCSession display-update guard only fires when mirroring is confirmed working. If mirroring fails silently, Watch accepts WCSession fallback updates instead of blocking them.
+**Key reliability patterns**:
+- `mirroringEstablished` flag on `WatchSessionManager`. WCSession display-update guard only fires when mirroring is confirmed working. If mirroring fails silently, Watch accepts WCSession fallback updates instead of blocking them.
+- `isStartingWorkout` flag prevents duplicate session starts when mirroring handler, sendMessage, and transferUserInfo all fire simultaneously.
+- WCSession HR fallback: when mirroring isn't established, Watch sends HR via `WCSession.sendMessage` → iPhone's `WatchConnectivityService.fallbackHeartRate` → `WorkoutViewModel` merges with `combineLatest`.
+
+**Watch HR data flow** (Mode A):
+1. `HKLiveWorkoutDataSource` collects HR via `workoutBuilder(didCollectDataOf:)` (requires HR write permission)
+2. `HKAnchoredObjectQuery` reads HR directly from HealthKit as backup
+3. HR sent to iPhone via mirrored session (`sendToRemoteWorkoutSession`) or WCSession fallback
+4. Watch detects denied HR permission (`authorizationStatus == .sharingDenied`) and shows warning UI with instructions to enable in Health app
 
 ### Diagnostics
 
@@ -213,7 +224,8 @@ The Live Activity extension is in `JustZone2LiveActivity/`.
 
 ### Key Files
 - `HealthKitManager.swift` - HKWorkoutSession for background execution; `startWatchDisplayApp()` for Mode B
-- `WatchSessionManager.swift` - Full Watch workout logic; `mirroringEstablished` flag; `wlog()`
+- `WatchSessionManager.swift` - Full Watch workout logic; `mirroringEstablished` flag; `wlog()`; HR permission detection
+- `WatchConnectivityService.swift` - iPhone-side WCSession handling; `fallbackHeartRate` for WCSession HR fallback
 - `WatchLogStore.swift` - Thread-safe Watch log store (Watch target)
 - `DiagnosticsLogger.swift` - Persistent iPhone diagnostics logger
 - `LiveActivityManager.swift` - ActivityKit Live Activity management

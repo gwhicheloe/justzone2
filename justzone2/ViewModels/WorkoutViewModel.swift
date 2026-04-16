@@ -152,6 +152,7 @@ class WorkoutViewModel: ObservableObject {
 
         Task {
             _ = try? await healthKitManager.endWorkoutSession()
+            await healthKitManager.startBackgroundSession()
 
             useWatchHR = true
             bindHRSource()
@@ -206,6 +207,7 @@ class WorkoutViewModel: ObservableObject {
             sendDataToWatch(state: "ended")
             watchConnectivityService.sendStopWorkout()
             healthKitManager.endMirroredSession()
+            healthKitManager.endBackgroundSession()
 
             do {
                 try await healthKitManager.startWorkoutSession()
@@ -234,6 +236,9 @@ class WorkoutViewModel: ObservableObject {
         kickrService.startWorkout()
 
         if useWatchHR {
+            Task {
+                await healthKitManager.startBackgroundSession()
+            }
             launchWatchWorkout()
         } else {
             Task {
@@ -301,6 +306,12 @@ class WorkoutViewModel: ObservableObject {
         let resumePower = warmUpEnabled && !warmUpComplete ? workout.targetPower / 2 : adjustedPower
         kickrService.setTargetPower(resumePower)
         kickrService.startWorkout()
+
+        if useWatchHR {
+            Task {
+                await healthKitManager.startBackgroundSession()
+            }
+        }
 
         do {
             try liveActivityManager.startLiveActivity(
@@ -423,6 +434,7 @@ class WorkoutViewModel: ObservableObject {
             sendDataToWatch(state: "ended")
             watchConnectivityService.sendStopWorkout()
             healthKitManager.endMirroredSession()
+            healthKitManager.endBackgroundSession()
         } else {
             Task {
                 do {
@@ -453,6 +465,7 @@ class WorkoutViewModel: ObservableObject {
             sendDataToWatch(state: "ended")
             watchConnectivityService.sendStopWorkout()
             healthKitManager.endMirroredSession()
+            healthKitManager.endBackgroundSession()
         } else {
             Task {
                 do {

@@ -12,6 +12,9 @@ class HealthKitManager: NSObject, ObservableObject {
     // Mode A: Mirrored session (received from Watch)
     private var mirroredSession: HKWorkoutSession?
     private var mirroredBuilder: HKLiveWorkoutBuilder?
+
+    // Mode A: Background execution session (keeps iPhone alive while Watch records HR)
+    private var backgroundSession: HKWorkoutSession?
     @Published var mirroredHeartRate: Int = 0
     @Published var mirroredSessionDisconnected = false
 
@@ -207,6 +210,39 @@ class HealthKitManager: NSObject, ObservableObject {
         sessionState = .notStarted
     }
 
+    // MARK: - Mode A: Background Execution Session
+
+    /// Start a minimal HKWorkoutSession on the iPhone purely for background execution protection.
+    /// No builder or data source — this session exists only to prevent iOS from killing the app.
+    func startBackgroundSession() async {
+        guard backgroundSession == nil else {
+            dlog("[IPHONE-HK] startBackgroundSession — already active, skipping")
+            return
+        }
+
+        let config = HKWorkoutConfiguration()
+        config.activityType = .cycling
+        config.locationType = .indoor
+
+        do {
+            let session = try HKWorkoutSession(healthStore: healthStore, configuration: config)
+            session.delegate = self
+            self.backgroundSession = session
+            session.startActivity(with: Date())
+            dlog("[IPHONE-HK] startBackgroundSession — session started for background execution")
+        } catch {
+            dlog("[IPHONE-HK] startBackgroundSession FAILED: \(error.localizedDescription)")
+        }
+    }
+
+    /// End the background execution session. No workout is saved.
+    func endBackgroundSession() {
+        guard let session = backgroundSession else { return }
+        session.end()
+        self.backgroundSession = nil
+        dlog("[IPHONE-HK] endBackgroundSession — session ended")
+    }
+
     /// Launch the Watch app in display-only mode (Mode B: BLE HR strap on iPhone).
     /// Uses .outdoor locationType as a signal to the Watch to skip builder/recording.
     func startWatchDisplayApp() async throws {
@@ -339,9 +375,14 @@ extension HealthKitManager: HKWorkoutSessionDelegate {
         from fromState: HKWorkoutSessionState,
         date: Date
     ) {
-        dlog("[IPHONE-HK] session state: \(fromState.rawValue) → \(toState.rawValue)")
         Task { @MainActor in
-            self.sessionState = toState
+            if workoutSession === self.backgroundSession {
+                dlog("[IPHONE-HK] background session state: \(fromState.rawValue) → \(toState.rawValue)")
+                // Don't update sessionState for the background session
+            } else {
+                dlog("[IPHONE-HK] session state: \(fromState.rawValue) → \(toState.rawValue)")
+                self.sessionState = toState
+            }
         }
     }
 
@@ -349,7 +390,13 @@ extension HealthKitManager: HKWorkoutSessionDelegate {
         _ workoutSession: HKWorkoutSession,
         didFailWithError error: Error
     ) {
-        dlog("[IPHONE-HK] session FAILED: \(error.localizedDescription)")
+        Task { @MainActor in
+            if workoutSession === self.backgroundSession {
+                dlog("[IPHONE-HK] background session FAILED: \(error.localizedDescription)")
+            } else {
+                dlog("[IPHONE-HK] session FAILED: \(error.localizedDescription)")
+            }
+        }
     }
 
     nonisolated func workoutSession(
@@ -371,8 +418,13 @@ extension HealthKitManager: HKWorkoutSessionDelegate {
         _ workoutSession: HKWorkoutSession,
         didDisconnectFromRemoteDeviceWithError error: Error?
     ) {
-        dlog("[IPHONE-HK] mirrored session disconnected: \(error?.localizedDescription ?? "no error")")
         Task { @MainActor in
+            if workoutSession === self.backgroundSession {
+                dlog("[IPHONE-HK] background session disconnected (expected, ignoring)")
+                return
+            }
+
+            dlog("[IPHONE-HK] mirrored session disconnected: \(error?.localizedDescription ?? "no error")")
             // Only attempt reconnection if we had an active mirrored session
             guard self.mirroredSession != nil else { return }
 
