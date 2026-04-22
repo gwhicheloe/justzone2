@@ -48,6 +48,9 @@
 		DD00000000000001 /* WorkoutSessionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD00000000000010 /* WorkoutSessionData.swift */; };
 		DD00000000000002 /* WorkoutRecovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD00000000000011 /* WorkoutRecovery.swift */; };
 		1100000000000027 /* DiagnosticsLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000027 /* DiagnosticsLogger.swift */; };
+		1100000000000028 /* LocalWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000028 /* LocalWorkout.swift */; };
+		1100000000000029 /* LocalWorkoutStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000029 /* LocalWorkoutStore.swift */; };
+		110000000000002A /* LocalActivityDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220000000000002A /* LocalActivityDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -155,6 +158,9 @@
 		DD00000000000010 /* WorkoutSessionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSessionData.swift; sourceTree = "<group>"; };
 		DD00000000000011 /* WorkoutRecovery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutRecovery.swift; sourceTree = "<group>"; };
 		2200000000000027 /* DiagnosticsLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagnosticsLogger.swift; sourceTree = "<group>"; };
+		2200000000000028 /* LocalWorkout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalWorkout.swift; sourceTree = "<group>"; };
+		2200000000000029 /* LocalWorkoutStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalWorkoutStore.swift; sourceTree = "<group>"; };
+		220000000000002A /* LocalActivityDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalActivityDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -278,6 +284,7 @@
 				2200000000000024 /* ActivityStreams.swift */,
 				DD00000000000010 /* WorkoutSessionData.swift */,
 				DD00000000000011 /* WorkoutRecovery.swift */,
+				2200000000000028 /* LocalWorkout.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -294,6 +301,7 @@
 				2200000000000025 /* StreamsCacheService.swift */,
 				BB00000000000030 /* WatchConnectivityService.swift */,
 				2200000000000027 /* DiagnosticsLogger.swift */,
+				2200000000000029 /* LocalWorkoutStore.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -319,6 +327,7 @@
 				220000000000000D /* WorkoutView.swift */,
 				220000000000000E /* SummaryView.swift */,
 				2200000000000026 /* ActivityDetailView.swift */,
+				220000000000002A /* LocalActivityDetailView.swift */,
 				5500000000000008 /* Components */,
 				187B10692F263AC700165DEA /* AppIconGenerator.swift */,
 			);
@@ -570,6 +579,9 @@
 				DD00000000000001 /* WorkoutSessionData.swift in Sources */,
 				DD00000000000002 /* WorkoutRecovery.swift in Sources */,
 				1100000000000027 /* DiagnosticsLogger.swift in Sources */,
+				1100000000000028 /* LocalWorkout.swift in Sources */,
+				1100000000000029 /* LocalWorkoutStore.swift in Sources */,
+				110000000000002A /* LocalActivityDetailView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

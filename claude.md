@@ -189,6 +189,7 @@ The Live Activity extension is in `JustZone2LiveActivity/`.
 - **On-device diagnostics** - Persistent log file shareable from Settings; Watch logs sent to iPhone at workout end
 - **PID zone targeting** - Automatic power adjustment to keep HR in Zone 2 using PID controller
 - **Auto-complete** - Workout auto-completes when duration reached; warm-up and cool-down phases
+- **Crash recovery & deferred upload** - Workouts checkpoint every 5 min; in-progress and not-yet-uploaded workouts appear in History with a status badge and can be uploaded to Strava later
 
 ### Watch Modes
 
@@ -200,6 +201,7 @@ The Live Activity extension is in `JustZone2LiveActivity/`.
 - `mirroringEstablished` flag on `WatchSessionManager`. WCSession display-update guard only fires when mirroring is confirmed working. If mirroring fails silently, Watch accepts WCSession fallback updates instead of blocking them.
 - `isStartingWorkout` flag prevents duplicate session starts when mirroring handler, sendMessage, and transferUserInfo all fire simultaneously.
 - WCSession HR fallback: when mirroring isn't established, Watch sends HR via `WCSession.sendMessage` → iPhone's `WatchConnectivityService.fallbackHeartRate` → `WorkoutViewModel` merges with `combineLatest`.
+- **Background-start detection**: watchOS refuses to start `HKWorkoutSession` when the Watch app is backgrounded (`Client application cannot start a workout session while in the background`). Watch's `didFailWithError` detects this, sends `{type: "watchError", kind: "backgroundStart"}` to iPhone (via both `sendMessage` and `transferUserInfo`), and tears down the dead session so retries work. iPhone's `WorkoutViewModel` cancels its `watchLaunchTask`, populates `hrSourceError`, and `WorkoutView` shows a Retry / Use HR Strap alert.
 
 **Watch HR data flow** (Mode A):
 1. `HKLiveWorkoutDataSource` collects HR via `workoutBuilder(didCollectDataOf:)` (requires HR write permission)
@@ -214,6 +216,30 @@ The Live Activity extension is in `JustZone2LiveActivity/`.
 - Watch flushes log to iPhone via `transferUserInfo(["type": "watchLog", ...])` at workout end
 - Settings → Diagnostics card: entry count, Share Log (UIActivityViewController), Clear
 
+### Crash Recovery & Deferred Upload
+
+Single source of truth: `LocalWorkoutStore` (file-per-workout JSON at `Documents/workouts/{uuid}.json`, atomic writes, NSLock).
+
+**Model** — `LocalWorkout` wraps `Workout` with: `useWatchHR`, `zoneTargetingEnabled`, `warmUpEnabled`, `elapsedTime`, `status` (`.inProgress` or `.pendingUpload`), `lastCheckpoint`.
+
+**Checkpoint flow** (`WorkoutViewModel`):
+- Every 5 minutes during a workout, `saveCheckpoint(status: .inProgress)` persists full samples (HR, power, distance), not just settings
+- On stop/cooldown, status flips to `.pendingUpload`
+- On successful Strava upload (from `SummaryViewModel` or `HistoryViewModel.uploadLocalWorkout`), the local file is deleted
+
+**Recovery flow**:
+- `SetupView.onAppear` reads `LocalWorkoutStore.shared.mostRecentInProgress()` and shows a resume banner
+- `resumeRecoveredWorkout` passes `recovery.workout` (with samples) to a new `WorkoutViewModel`, which repopulates `accumulatedDistance` and `chartData` from existing samples
+
+**History integration**:
+- `HistoryViewModel.localWorkouts` loaded alongside Strava activities
+- `HistoryView` shows a "Pending Upload" section at top with `LocalWorkoutRow` — orange `arrow.counterclockwise.circle` for `.inProgress`, Strava-orange `icloud.and.arrow.up` for `.pendingUpload`
+- Tapping opens `LocalActivityDetailView` (chart, stats, Upload to Strava button, Delete with confirm)
+
+**Notes**:
+- `WorkoutRecovery` struct (in `Models/WorkoutRecovery.swift`) is retained — still used by `HealthKitManager.pendingRecovery` as a DTO, constructed from `LocalWorkoutStore.mostRecentInProgress()`
+- `WorkoutRecoveryStore` enum in the same file is dead code (safe to delete; no callers outside its own file)
+
 ### Strava TCX Enrichment
 
 - **Cadence**: parsed from FTMS Indoor Bike Data bit 2 (uint16 / 2 = rpm)
@@ -223,15 +249,17 @@ The Live Activity extension is in `JustZone2LiveActivity/`.
 - TCX includes per-trackpoint `<DistanceMeters>`, `<Cadence>`, TPX `<Speed>` extension
 
 ### Key Files
-- `HealthKitManager.swift` - HKWorkoutSession for background execution; `startWatchDisplayApp()` for Mode B
-- `WatchSessionManager.swift` - Full Watch workout logic; `mirroringEstablished` flag; `wlog()`; HR permission detection
-- `WatchConnectivityService.swift` - iPhone-side WCSession handling; `fallbackHeartRate` for WCSession HR fallback
+- `HealthKitManager.swift` - HKWorkoutSession for background execution; `startWatchDisplayApp()` for Mode B; `pendingRecovery` populated from `LocalWorkoutStore`
+- `WatchSessionManager.swift` - Full Watch workout logic; `mirroringEstablished` flag; `wlog()`; HR permission detection; background-start failure detection in `didFailWithError`
+- `WatchConnectivityService.swift` - iPhone-side WCSession handling; `fallbackHeartRate` for WCSession HR fallback; `watchStartError` for user-facing Watch errors
 - `WatchLogStore.swift` - Thread-safe Watch log store (Watch target)
 - `DiagnosticsLogger.swift` - Persistent iPhone diagnostics logger
 - `LiveActivityManager.swift` - ActivityKit Live Activity management
-- `HistoryView.swift` - Graph with `MagnifyGesture` for pinch-to-zoom
+- `HistoryView.swift` - Graph with `MagnifyGesture` for pinch-to-zoom; "Pending Upload" section for local workouts
 - `StravaService.swift` - OAuth via Cloudflare Worker
 - `ActivityDetailView.swift` - Individual activity detail with StreamChartView
+- `LocalActivityDetailView.swift` - Detail view for local (not-yet-uploaded or interrupted) workouts with Upload to Strava button
+- `LocalWorkout.swift` / `LocalWorkoutStore.swift` - File-per-workout JSON persistence for checkpoint & deferred upload
 - `StreamsCacheService.swift` - Caches Strava activity streams locally
 
 ### ActivityDetailView Architecture

@@ -80,10 +80,15 @@ class WorkoutViewModel: ObservableObject {
     private var timerCancellable: AnyCancellable?
     private var hrCancellable: AnyCancellable?
     private var cancellables = Set<AnyCancellable>()
+    private var watchLaunchTask: Task<Void, Never>?
     private var workoutStartTime: Date?
     private var powerBuffer: [Int] = []
     private let powerSmoothingWindow = 5
     private var accumulatedDistance: Double = 0
+
+    // Checkpoint persistence
+    private let checkpointInterval: TimeInterval = 300  // 5 minutes
+    private var lastCheckpointAt: TimeInterval = 0
 
     /// Whether the Watch mirrored session is currently active on the iPhone.
     var isWatchConnected: Bool { healthKitManager.isMirrored }
@@ -125,6 +130,19 @@ class WorkoutViewModel: ObservableObject {
 
         kickrService.$currentPower
             .assign(to: &$currentPower)
+
+        // Surface Watch-side session-start failures (e.g. app backgrounded) as
+        // an HR-source error and abort any pending launch retry.
+        watchConnectivityService.$watchStartError
+            .compactMap { $0 }
+            .sink { [weak self] message in
+                guard let self = self, self.useWatchHR else { return }
+                self.watchLaunchTask?.cancel()
+                self.watchLaunchTask = nil
+                self.hrSourceError = message
+                self.watchConnectivityService.watchStartError = nil
+            }
+            .store(in: &cancellables)
     }
 
     private func bindHRSource() {
@@ -275,14 +293,8 @@ class WorkoutViewModel: ObservableObject {
         healthKitManager.isWorkoutActive = true
         state = .running
 
-        WorkoutRecoveryStore.save(WorkoutRecovery(
-            targetPower: workout.targetPower,
-            targetDuration: workout.targetDuration,
-            elapsedTime: 0,
-            useWatchHR: useWatchHR,
-            zoneTargetingEnabled: zoneTargetingEnabled,
-            warmUpEnabled: warmUpEnabled
-        ))
+        saveCheckpoint(status: .inProgress)
+        lastCheckpointAt = 0
 
         startTimer()
     }
@@ -296,7 +308,12 @@ class WorkoutViewModel: ObservableObject {
 
         self.elapsedTime = elapsedTime
         workoutStartTime = Date() - elapsedTime
-        accumulatedDistance = 0
+        accumulatedDistance = workout.samples.last?.distance ?? 0
+
+        // Repopulate chart from any persisted samples so the chart shows the recovered history
+        chartData = workout.samples.map { sample in
+            ChartDataPoint(time: sample.timestamp, heartRate: sample.heartRate, power: sample.power)
+        }
 
         // If warm-up already passed, mark it complete
         if warmUpEnabled && elapsedTime >= warmUpDuration {
@@ -325,22 +342,18 @@ class WorkoutViewModel: ObservableObject {
         healthKitManager.isWorkoutActive = true
         state = .running
 
-        WorkoutRecoveryStore.save(WorkoutRecovery(
-            targetPower: workout.targetPower,
-            targetDuration: workout.targetDuration,
-            elapsedTime: elapsedTime,
-            useWatchHR: useWatchHR,
-            zoneTargetingEnabled: zoneTargetingEnabled,
-            warmUpEnabled: warmUpEnabled
-        ))
+        saveCheckpoint(status: .inProgress)
+        lastCheckpointAt = elapsedTime
 
         startTimer()
     }
 
     /// Launch the Watch app and send a start command. Simple two-attempt approach.
     /// The Watch handles mirroring robustness (retry on failure, re-mirror on disconnect).
+    /// Cancelled early if the Watch reports a session-start failure the user must resolve.
     private func launchWatchWorkout() {
-        Task {
+        watchLaunchTask?.cancel()
+        watchLaunchTask = Task {
             dlog("[IPHONE-VM] launchWatchWorkout attempt 1")
             // Attempt 1
             do {
@@ -354,6 +367,10 @@ class WorkoutViewModel: ObservableObject {
 
             // Wait for mirrored session
             try? await Task.sleep(nanoseconds: 10_000_000_000)
+            if Task.isCancelled {
+                dlog("[IPHONE-VM] launchWatchWorkout cancelled — Watch reported error")
+                return
+            }
             dlog("[IPHONE-VM] after 10s wait — isMirrored=\(healthKitManager.isMirrored)")
             if healthKitManager.isMirrored { return }
 
@@ -447,7 +464,7 @@ class WorkoutViewModel: ObservableObject {
         }
 
         healthKitManager.isWorkoutActive = false
-        WorkoutRecoveryStore.clear()
+        saveCheckpoint(status: .pendingUpload)
         liveActivityManager.endLiveActivity()
         UIApplication.shared.isIdleTimerDisabled = false
     }
@@ -478,7 +495,7 @@ class WorkoutViewModel: ObservableObject {
         }
 
         healthKitManager.isWorkoutActive = false
-        WorkoutRecoveryStore.clear()
+        saveCheckpoint(status: .pendingUpload)
         liveActivityManager.endLiveActivity()
         UIApplication.shared.isIdleTimerDisabled = false
 
@@ -506,8 +523,6 @@ class WorkoutViewModel: ObservableObject {
         if let startTime = workoutStartTime {
             elapsedTime = now.timeIntervalSince(startTime)
         }
-
-        WorkoutRecoveryStore.updateElapsedTime(elapsedTime)
 
         // Warm-up → full power transition
         if warmUpEnabled && !warmUpComplete && elapsedTime >= warmUpDuration {
@@ -565,9 +580,31 @@ class WorkoutViewModel: ObservableObject {
             power: smoothedPower
         ))
 
+        if elapsedTime - lastCheckpointAt >= checkpointInterval {
+            saveCheckpoint(status: .inProgress)
+            lastCheckpointAt = elapsedTime
+        }
+
         if elapsedTime >= workout.targetDuration {
             startCooldown()
         }
+    }
+
+    /// Persist the current workout (with samples) to disk. Used for periodic
+    /// checkpoints and final save on completion. Status determines whether
+    /// the workout is still recoverable (.inProgress) or awaiting Strava
+    /// upload (.pendingUpload).
+    private func saveCheckpoint(status: LocalWorkout.Status) {
+        let local = LocalWorkout(
+            workout: workout,
+            useWatchHR: useWatchHR,
+            zoneTargetingEnabled: zoneTargetingEnabled,
+            warmUpEnabled: warmUpEnabled,
+            elapsedTime: elapsedTime,
+            status: status,
+            lastCheckpoint: Date()
+        )
+        LocalWorkoutStore.shared.save(local)
     }
 
     // MARK: - Watch Data

@@ -19,13 +19,13 @@ struct HistoryView: View {
         NavigationStack {
             GeometryReader { geometry in
                 Group {
-                    if !viewModel.isStravaConnected {
+                    if !viewModel.isStravaConnected && viewModel.localWorkouts.isEmpty {
                         connectPrompt
                     } else if viewModel.isLoading && viewModel.activities.isEmpty {
                         loadingView
                     } else if let error = viewModel.error {
                         errorView(error)
-                    } else if viewModel.activities.isEmpty {
+                    } else if viewModel.activities.isEmpty && viewModel.localWorkouts.isEmpty {
                         emptyView
                     } else {
                         VStack(spacing: 0) {
@@ -76,6 +76,7 @@ struct HistoryView: View {
                 if viewModel.isStravaConnected && viewModel.activities.isEmpty {
                     Task { await viewModel.loadActivities() }
                 }
+                viewModel.loadLocalWorkouts()
                 updateOrientationLock(for: viewMode)
             }
         }
@@ -188,6 +189,24 @@ struct HistoryView: View {
 
     private var listView: some View {
         List {
+            if !viewModel.localWorkouts.isEmpty {
+                Section {
+                    ForEach(viewModel.localWorkouts) { local in
+                        NavigationLink(destination: LocalActivityDetailView(local: local, viewModel: viewModel)) {
+                            LocalWorkoutRow(local: local, viewModel: viewModel)
+                        }
+                    }
+                } header: {
+                    HStack(spacing: 6) {
+                        Image(systemName: "icloud.slash")
+                            .font(.tiny)
+                        Text("Pending Upload")
+                            .font(.tiny)
+                    }
+                    .foregroundColor(.secondary)
+                }
+            }
+
             if let lastUpdated = viewModel.lastUpdated {
                 Text("Updated \(viewModel.formatDate(lastUpdated))")
                     .font(.tiny)
@@ -203,6 +222,7 @@ struct HistoryView: View {
         }
         .listStyle(.plain)
         .refreshable {
+            viewModel.loadLocalWorkouts()
             await viewModel.refreshActivitiesFromPullDown()
         }
     }
@@ -715,6 +735,82 @@ struct CompactActivityRowContent: View {
                         .font(.tiny)
                         .foregroundColor(.red)
                     Text(activity.averageHeartrate.map { "\(Int($0))" } ?? "-")
+                        .font(.labelMedium)
+                }
+                .frame(width: 40, alignment: .leading)
+            }
+
+            Spacer()
+        }
+        .padding(.vertical, 1)
+    }
+}
+
+struct LocalWorkoutRow: View {
+    let local: LocalWorkout
+    let viewModel: HistoryViewModel
+
+    private var statusLabel: String {
+        switch local.status {
+        case .inProgress: return "Interrupted"
+        case .pendingUpload: return "Not uploaded"
+        }
+    }
+
+    private var statusIcon: String {
+        switch local.status {
+        case .inProgress: return "arrow.counterclockwise.circle"
+        case .pendingUpload: return "icloud.and.arrow.up"
+        }
+    }
+
+    private var statusColor: Color {
+        switch local.status {
+        case .inProgress: return .orange
+        case .pendingUpload: return .strava
+        }
+    }
+
+    var body: some View {
+        HStack(spacing: 8) {
+            Image(systemName: statusIcon)
+                .foregroundColor(statusColor)
+                .font(.labelMedium)
+
+            VStack(alignment: .leading, spacing: 2) {
+                Text(viewModel.formatDateWithTime(local.workout.startDate))
+                    .font(.labelMedium)
+                Text(statusLabel)
+                    .font(.tiny)
+                    .foregroundColor(statusColor)
+            }
+            .frame(width: 130, alignment: .leading)
+
+            HStack(spacing: 6) {
+                HStack(spacing: 2) {
+                    Image(systemName: "clock")
+                        .font(.tiny)
+                        .foregroundColor(.secondary)
+                    Text(viewModel.formatDuration(Int(local.elapsedTime)))
+                        .font(.labelMedium)
+                        .lineLimit(1)
+                }
+                .frame(width: 60, alignment: .leading)
+
+                HStack(spacing: 2) {
+                    Image(systemName: "bolt.fill")
+                        .font(.tiny)
+                        .foregroundColor(.blue)
+                    Text(local.workout.averagePower.map { "\($0)" } ?? "-")
+                        .font(.labelMedium)
+                }
+                .frame(width: 40, alignment: .leading)
+
+                HStack(spacing: 2) {
+                    Image(systemName: "heart.fill")
+                        .font(.tiny)
+                        .foregroundColor(.red)
+                    Text(local.workout.averageHeartRate.map { "\($0)" } ?? "-")
                         .font(.labelMedium)
                 }
                 .frame(width: 40, alignment: .leading)

@@ -8,6 +8,9 @@ class WatchConnectivityService: NSObject, ObservableObject {
     @Published var isWatchAppInstalled = false
     /// HR received from Watch via WCSession fallback (when mirroring fails).
     @Published var fallbackHeartRate: Int = 0
+    /// Non-nil when the Watch reported a session-start error the user needs to
+    /// resolve (e.g. Watch app was backgrounded). Set back to nil to dismiss.
+    @Published var watchStartError: String?
 
     private var session: WCSession?
 
@@ -152,6 +155,8 @@ extension WatchConnectivityService: WCSessionDelegate {
             Task { @MainActor in
                 self.fallbackHeartRate = hr
             }
+        } else if type == "watchError", let kind = message["kind"] as? String {
+            handleWatchError(kind: kind)
         }
     }
 
@@ -162,6 +167,22 @@ extension WatchConnectivityService: WCSessionDelegate {
             let lineCount = log.components(separatedBy: "\n").filter { !$0.isEmpty }.count
             dlog("[IPHONE-WC] Watch log received (\(lineCount) lines)")
             DiagnosticsLogger.shared.appendWatchLog(log)
+        } else if type == "watchError", let kind = userInfo["kind"] as? String {
+            handleWatchError(kind: kind)
+        }
+    }
+
+    nonisolated private func handleWatchError(kind: String) {
+        dlog("[IPHONE-WC] Watch error received — kind=\(kind)")
+        let message: String
+        switch kind {
+        case "backgroundStart":
+            message = "Your Apple Watch was asleep. Raise your wrist or tap the Watch screen to wake it, then tap the heart icon to retry."
+        default:
+            message = "Apple Watch couldn't start the workout."
+        }
+        Task { @MainActor in
+            self.watchStartError = message
         }
     }
 }

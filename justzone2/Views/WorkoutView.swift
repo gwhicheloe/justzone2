@@ -255,11 +255,23 @@ struct WorkoutView: View {
                 }
             }
         }
-        .alert("HR Source", isPresented: .init(
+        .alert("Apple Watch", isPresented: .init(
             get: { viewModel.hrSourceError != nil },
             set: { if !$0 { viewModel.hrSourceError = nil } }
         )) {
-            Button("OK") { viewModel.hrSourceError = nil }
+            if viewModel.useWatchHR && !viewModel.isWatchConnected {
+                Button("Retry") {
+                    viewModel.hrSourceError = nil
+                    viewModel.retryWatchConnection()
+                }
+                Button("Use HR Strap") {
+                    viewModel.hrSourceError = nil
+                    viewModel.switchToBLEHR()
+                }
+                Button("Cancel", role: .cancel) { viewModel.hrSourceError = nil }
+            } else {
+                Button("OK") { viewModel.hrSourceError = nil }
+            }
         } message: {
             if let error = viewModel.hrSourceError {
                 Text(error)

@@ -6,7 +6,7 @@ struct SetupView: View {
     @State private var workoutViewModel: WorkoutViewModel?
     @State private var showZoneTargetingInfo = false
     @State private var showWarmUpInfo = false
-    @State private var pendingRecovery: WorkoutRecovery?
+    @State private var pendingRecovery: LocalWorkout?
 
     // Limit HR monitors to avoid crowded gyms filling the screen
     private var limitedHRMonitors: [DeviceInfo] {
@@ -36,6 +36,7 @@ struct SetupView: View {
                         HStack(spacing: 10) {
                             Button("Discard") {
                                 viewModel.healthKitManager.discardPendingRecovery()
+                                LocalWorkoutStore.shared.delete(id: recovery.id)
                                 pendingRecovery = nil
                             }
                             .font(.subheadline)
@@ -432,25 +433,22 @@ struct SetupView: View {
             }
             // Check HealthKit authorization
             viewModel.healthKitManager.checkAuthorizationStatus()
-            // Check for BLE-HR recovery (no Watch session to hold, just saved state)
-            if pendingRecovery == nil, let saved = WorkoutRecoveryStore.load(), !saved.useWatchHR {
-                pendingRecovery = saved
+            // Check for in-progress workout to recover (samples + settings preserved)
+            if pendingRecovery == nil, let local = LocalWorkoutStore.shared.mostRecentInProgress(), !local.useWatchHR {
+                pendingRecovery = local
             }
         }
         .onReceive(viewModel.healthKitManager.$pendingRecovery) { recovery in
-            if let recovery {
-                pendingRecovery = recovery
+            // Watch HR path — match the HK pendingRecovery to the local workout
+            if recovery != nil, let local = LocalWorkoutStore.shared.mostRecentInProgress() {
+                pendingRecovery = local
             }
         }
     }
 
-    private func resumeRecoveredWorkout(_ recovery: WorkoutRecovery) {
-        let workout = Workout(
-            targetPower: recovery.targetPower,
-            targetDuration: recovery.targetDuration
-        )
+    private func resumeRecoveredWorkout(_ recovery: LocalWorkout) {
         let vm = WorkoutViewModel(
-            workout: workout,
+            workout: recovery.workout,
             bluetoothManager: viewModel.bluetoothManager,
             kickrService: viewModel.kickrService,
             heartRateService: viewModel.heartRateService,

@@ -117,10 +117,17 @@ class HealthKitManager: NSObject, ObservableObject {
 
         guard isWorkoutActive else {
             // Check if this is a recoverable killed-session
-            if let recovery = WorkoutRecoveryStore.load() {
+            if let local = LocalWorkoutStore.shared.mostRecentInProgress() {
                 dlog("[IPHONE-HK] handleMirroredSession — no active workout but saved state found, holding for recovery")
                 pendingRecoverySession = session
-                pendingRecovery = recovery
+                pendingRecovery = WorkoutRecovery(
+                    targetPower: local.workout.targetPower,
+                    targetDuration: local.workout.targetDuration,
+                    elapsedTime: local.elapsedTime,
+                    useWatchHR: local.useWatchHR,
+                    zoneTargetingEnabled: local.zoneTargetingEnabled,
+                    warmUpEnabled: local.warmUpEnabled
+                )
             } else {
                 dlog("[IPHONE-HK] handleMirroredSession — no active workout, ending orphaned session")
                 session.end()
@@ -158,7 +165,9 @@ class HealthKitManager: NSObject, ObservableObject {
         pendingRecoverySession?.end()
         pendingRecoverySession = nil
         pendingRecovery = nil
-        WorkoutRecoveryStore.clear()
+        if let local = LocalWorkoutStore.shared.mostRecentInProgress() {
+            LocalWorkoutStore.shared.delete(id: local.id)
+        }
         dlog("[IPHONE-HK] discardPendingRecovery — orphaned session ended")
     }
 

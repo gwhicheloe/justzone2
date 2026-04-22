@@ -4,6 +4,7 @@ import Combine
 @MainActor
 class HistoryViewModel: ObservableObject {
     @Published var activities: [StravaActivity] = []
+    @Published var localWorkouts: [LocalWorkout] = []
     @Published var isLoading = false
     @Published var loadingProgress: String?
     @Published var error: String?
@@ -29,6 +30,34 @@ class HistoryViewModel: ObservableObject {
 
         // Load cached activities
         loadFromCache()
+        loadLocalWorkouts()
+    }
+
+    /// Reload local workouts from disk. Call after upload completes or
+    /// when entering History so the pending list reflects current state.
+    func loadLocalWorkouts() {
+        localWorkouts = LocalWorkoutStore.shared.all()
+    }
+
+    /// Upload a local workout to Strava. On success, removes the local
+    /// file and triggers a refresh so the activity shows up under Strava.
+    /// Returns the new Strava activity ID, or nil on failure.
+    @discardableResult
+    func uploadLocalWorkout(_ local: LocalWorkout) async -> Int? {
+        do {
+            let activityId = try await stravaService.uploadWorkout(local.workout)
+            LocalWorkoutStore.shared.delete(id: local.id)
+            loadLocalWorkouts()
+            return activityId
+        } catch {
+            self.error = error.localizedDescription
+            return nil
+        }
+    }
+
+    func deleteLocalWorkout(_ local: LocalWorkout) {
+        LocalWorkoutStore.shared.delete(id: local.id)
+        loadLocalWorkouts()
     }
 
     private func loadFromCache() {

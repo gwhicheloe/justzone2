@@ -401,7 +401,43 @@ extension WatchSessionManager: HKWorkoutSessionDelegate {
         _ workoutSession: HKWorkoutSession,
         didFailWithError error: Error
     ) {
-        wlog("[WATCH] session FAILED: \(error.localizedDescription)")
+        let description = error.localizedDescription
+        wlog("[WATCH] session FAILED: \(description)")
+
+        // watchOS refuses to start HKWorkoutSession when the Watch app is
+        // backgrounded. Tell the iPhone so it can prompt the user to wake
+        // the Watch, and tear down the dead session so a retry can proceed.
+        let isBackgroundStart = description.localizedCaseInsensitiveContains("background")
+        guard isBackgroundStart else { return }
+
+        wlog("[WATCH] session FAILED — background-start detected, notifying iPhone")
+        if WCSession.isSupported() {
+            let wc = WCSession.default
+            if wc.isReachable {
+                wc.sendMessage(
+                    ["type": "watchError", "kind": "backgroundStart"],
+                    replyHandler: nil,
+                    errorHandler: nil
+                )
+            }
+            wc.transferUserInfo([
+                "type": "watchError",
+                "kind": "backgroundStart",
+                "timestamp": Date().timeIntervalSince1970
+            ])
+        }
+
+        Task { @MainActor in
+            self.workoutSession = nil
+            self.workoutBuilder = nil
+            self.mirroringEstablished = false
+            self.isStartingWorkout = false
+            self.loggedWCSessionFallback = false
+            self.wcUpdateCount = 0
+            self.workoutState = "ended"
+            self.stopHRObservation()
+            self.wlog("[WATCH] session FAILED cleanup complete — ready for retry")
+        }
     }
 
     nonisolated func workoutSession(

@@ -79,6 +79,9 @@ class SummaryViewModel: ObservableObject {
             // Update to final state
             if let activityId = activityId {
                 uploadState = .complete(activityId: activityId)
+                // Strava now has a copy — drop the local file so it doesn't show
+                // as pending in History
+                LocalWorkoutStore.shared.delete(id: workout.id)
             } else if let error = uploadError {
                 uploadState = .failed(message: error.localizedDescription)
             }
@@ -103,8 +106,6 @@ class SummaryViewModel: ObservableObject {
     }
 
     func discardWorkout() {
-        // Currently workouts are not persisted locally, so discard just means
-        // not uploading to Strava and returning to the setup screen.
-        // If local storage is added later, this would delete the workout.
+        LocalWorkoutStore.shared.delete(id: workout.id)
     }
 }
