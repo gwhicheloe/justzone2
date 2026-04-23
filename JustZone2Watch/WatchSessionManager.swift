@@ -527,22 +527,34 @@ extension WatchSessionManager: HKLiveWorkoutBuilderDelegate {
                 return
             }
             guard let encoded = try? JSONEncoder().encode(WatchToPhoneData(heartRate: heartRate)) else { return }
-            Task {
+            Task { @MainActor in
                 do {
                     try await session.sendToRemoteWorkoutSession(data: encoded)
                 } catch {
                     wlog("[WATCH] sendHRToPhone FAILED: \(error.localizedDescription)")
+                    // The mirrored session is dead even though didDisconnectFromRemote
+                    // wasn't called. Flip the flag and re-route via WCSession so HR
+                    // doesn't black-hole until the next disconnect event (which may
+                    // never come).
+                    self.mirroringEstablished = false
+                    self.sendHRViaWCSession(heartRate)
+                    // Try to re-mirror in the background — if it succeeds, we're
+                    // back on the primary channel for subsequent samples.
+                    await self.startMirroringWithRetry(session: session, maxAttempts: 3)
                 }
             }
         } else {
-            // Fallback: send HR via WCSession when mirroring isn't established
-            guard let wc = wcSession, wc.isReachable else { return }
-            if !loggedWCSessionFallback {
-                wlog("[WATCH] sendHRToPhone: using WCSession fallback (mirroring not established)")
-                loggedWCSessionFallback = true
-            }
-            wc.sendMessage(["type": "heartRateUpdate", "heartRate": heartRate], replyHandler: nil, errorHandler: nil)
+            sendHRViaWCSession(heartRate)
         }
+    }
+
+    private func sendHRViaWCSession(_ heartRate: Int) {
+        guard let wc = wcSession, wc.isReachable else { return }
+        if !loggedWCSessionFallback {
+            wlog("[WATCH] sendHRToPhone: using WCSession fallback (mirroring not established)")
+            loggedWCSessionFallback = true
+        }
+        wc.sendMessage(["type": "heartRateUpdate", "heartRate": heartRate], replyHandler: nil, errorHandler: nil)
     }
 }
 

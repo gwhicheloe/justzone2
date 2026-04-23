@@ -253,6 +253,11 @@ class WorkoutViewModel: ObservableObject {
         kickrService.setTargetPower(startPower)
         kickrService.startWorkout()
 
+        // Set BEFORE launching the Watch — otherwise a fast-arriving mirrored
+        // session can hit handleMirroredSession while isWorkoutActive is still
+        // false and get killed as an orphan.
+        healthKitManager.isWorkoutActive = true
+
         if useWatchHR {
             Task {
                 await healthKitManager.startBackgroundSession()
@@ -290,7 +295,6 @@ class WorkoutViewModel: ObservableObject {
 
         workoutStartTime = Date()
         accumulatedDistance = 0
-        healthKitManager.isWorkoutActive = true
         state = .running
 
         saveCheckpoint(status: .inProgress)
