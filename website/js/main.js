@@ -1,81 +1,41 @@
-/**
- * Justzone2 Marketing Website
- * Minimal JavaScript for interactivity
- */
+// Nav scroll
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 32), {passive:true});
 
-document.addEventListener('DOMContentLoaded', () => {
-    // Intersection Observer for scroll animations
-    initScrollAnimations();
+// Reveal
+const ro = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); ro.unobserve(e.target); }});
+}, {threshold:.06, rootMargin:'0px 0px -30px 0px'});
+document.querySelectorAll('.rv').forEach(el => ro.observe(el));
 
-    // Smooth scroll for anchor links
-    initSmoothScroll();
-
-    // Navbar scroll state
-    initNavbar();
+// Smooth anchor scroll
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) { e.preventDefault(); t.scrollIntoView({behavior:'smooth', block:'start'}); }
+  });
 });
 
-/**
- * Initialize scroll-triggered animations using Intersection Observer
- */
-function initScrollAnimations() {
-    // Check for reduced motion preference
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        return;
-    }
-
-    const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.1
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                observer.unobserve(entry.target);
-            }
-        });
-    }, observerOptions);
-
-    // Observe elements that should animate on scroll
-    const animatedElements = document.querySelectorAll(
-        '.feature-card, .resource-card, .phone, .benefits-list li'
-    );
-
-    animatedElements.forEach(el => {
-        el.classList.add('animate-on-scroll');
-        observer.observe(el);
-    });
-}
-
-/**
- * Add scrolled class to navbar once user scrolls past the hero
- */
-function initNavbar() {
-    const navbar = document.getElementById('navbar');
-    if (!navbar) return;
-    const onScroll = () => {
-        navbar.classList.toggle('scrolled', window.scrollY > 40);
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-}
-
-/**
- * Initialize smooth scrolling for anchor links
- */
-function initSmoothScroll() {
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        });
-    });
-}
+// Live phone
+let elapsed = 1700, total = 3600, chunk = 900;
+let hr = 142, pw = 168;
+const fmt = s => `${String(Math.floor(s/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`;
+const els = {
+  timer: document.getElementById('hp-timer'),
+  elapsed: document.getElementById('hp-elapsed'),
+  remain: document.getElementById('hp-remain'),
+  pb: document.getElementById('prog-bar'),
+  hr: document.getElementById('hp-hr'),
+  pw: document.getElementById('hp-pw')
+};
+setInterval(() => {
+  elapsed = Math.min(total, elapsed + 1);
+  const inChunk = elapsed % chunk;
+  const remaining = chunk - inChunk;
+  els.timer && (els.timer.textContent = fmt(remaining));
+  els.elapsed && (els.elapsed.textContent = fmt(elapsed));
+  els.remain && (els.remain.textContent = fmt(total - elapsed));
+  els.pb && els.pb.setAttribute('width', String(Math.round((elapsed / total) * 270)));
+  if (Math.random() > .68) { hr += Math.random() > .5 ? 1 : -1; hr = Math.max(139, Math.min(147, hr)); els.hr && (els.hr.textContent = hr); }
+  if (Math.random() > .76) { pw += Math.random() > .5 ? 1 : -1; pw = Math.max(163, Math.min(173, pw)); els.pw && (els.pw.textContent = pw); }
+}, 1000);
