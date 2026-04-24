@@ -63,7 +63,33 @@ body>*{position:relative;z-index:1}
 .nav-links a:hover{color:var(--t0)}
 .nav-cta{display:inline-flex;align-items:center;gap:6px;background:var(--g);color:#000;font-weight:800;font-size:.82rem;padding:8px 16px;border-radius:var(--r-pill);transition:background .2s,transform .15s,box-shadow .2s;box-shadow:0 0 0 0 var(--g-glow)}
 .nav-cta:hover{background:var(--g-dark);transform:translateY(-1px);box-shadow:0 0 24px var(--g-glow)}
-@media(max-width:680px){.nav-links{display:none}}
+.nav-toggle{display:none;width:36px;height:36px;position:relative;margin-right:8px;padding:0;background:transparent;border:none;cursor:pointer}
+.nav-toggle span{position:absolute;left:8px;right:8px;height:1.5px;background:var(--t0);border-radius:2px;transition:transform .25s,opacity .2s,top .25s}
+.nav-toggle span:nth-child(1){top:12px}
+.nav-toggle span:nth-child(2){top:17px}
+.nav-toggle span:nth-child(3){top:22px}
+.nav-toggle.open span:nth-child(1){top:17px;transform:rotate(45deg)}
+.nav-toggle.open span:nth-child(2){opacity:0}
+.nav-toggle.open span:nth-child(3){top:17px;transform:rotate(-45deg)}
+@media(max-width:680px){
+  .nav-toggle{display:block}
+  .nav-links{
+    position:absolute;top:58px;left:0;right:0;
+    flex-direction:column;gap:0;
+    background:rgba(5,5,13,.92);
+    backdrop-filter:blur(24px) saturate(180%);
+    -webkit-backdrop-filter:blur(24px) saturate(180%);
+    border-bottom:1px solid var(--glass-border);
+    padding:8px 0;
+    transform:translateY(-8px);opacity:0;pointer-events:none;
+    transition:transform .25s,opacity .2s;
+  }
+  .nav-links.open{transform:none;opacity:1;pointer-events:auto}
+  .nav-links a{display:block;padding:14px 24px;font-size:.95rem;color:var(--t0);border-bottom:1px solid var(--ln)}
+  .nav-links a:last-child{border-bottom:none}
+  .nav-cta{padding:7px 12px;font-size:.78rem}
+  .nav-cta svg{display:none}
+}
 
 /* ── Hero ── */
 .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:90px 0 60px;position:relative;overflow:hidden}
@@ -339,3 +365,59 @@ footer{
 .rv{opacity:0;transform:translateY(20px);transition:opacity .7s ease,transform .7s ease}
 .rv.in{opacity:1;transform:none}
 .rv.d1{transition-delay:.08s}.rv.d2{transition-delay:.16s}.rv.d3{transition-delay:.24s}.rv.d4{transition-delay:.32s}
+
+/* ── CTA card (extracted from inline so it can be responsive) ── */
+.cta-card{
+  display:inline-block;
+  background:rgba(255,255,255,.05);
+  backdrop-filter:blur(28px) saturate(180%);
+  -webkit-backdrop-filter:blur(28px) saturate(180%);
+  border:1px solid rgba(255,255,255,.13);
+  border-radius:32px;
+  padding:64px 80px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.22), inset 0 -1px 0 rgba(0,0,0,.2), 0 24px 80px rgba(0,0,0,.6);
+  max-width:640px;
+  margin:0 auto;
+}
+
+/* ── Mobile polish ── */
+@media(max-width:600px){
+  .hero{padding:80px 0 40px;min-height:auto}
+  .hero-h1{font-size:clamp(2.4rem,11vw,3.6rem);letter-spacing:-.04em;margin-bottom:18px}
+  .hero-sub{font-size:.95rem;margin-bottom:28px;line-height:1.65}
+  .hero-actions{gap:14px}
+  .hero-ecg{bottom:20%;opacity:.12}
+
+  .pillar{padding:28px 22px}
+  .pillar-val{font-size:2.4rem;margin-bottom:6px}
+  .pillar-label{font-size:.78rem}
+
+  .features-head{margin-bottom:40px}
+  .feat-row{padding:22px 0}
+  .feat-title{padding-right:0;font-size:.9rem}
+  .feat-desc{font-size:.82rem;line-height:1.65}
+
+  .shots-head{margin-bottom:40px}
+  .shots-row{gap:12px}
+
+  .cta-card{padding:40px 24px;border-radius:24px}
+  .cta-h{font-size:clamp(2rem,9vw,2.8rem);letter-spacing:-.04em;line-height:1.05;margin-bottom:16px}
+  .cta-sub{font-size:.9rem;margin-bottom:28px}
+  .cta-badge img{height:42px}
+
+  .zt-fitness{margin-top:56px;padding-top:40px}
+
+  .section-h2{font-size:clamp(1.6rem,6vw,2rem)}
+  .section-sub{font-size:.9rem}
+
+  .footer-row{flex-direction:column;align-items:flex-start;gap:12px}
+  .footer-links{flex-wrap:wrap}
+}
+
+/* Prevent any section from spawning horizontal scroll on narrow viewports */
+@media(max-width:480px){
+  .wrap{padding:0 16px}
+  .section{padding:60px 0}
+  .pillars{padding:56px 0}
+  .hero-phone-col{display:none}
+}

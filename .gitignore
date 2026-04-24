@@ -22,3 +22,6 @@ Podfile.lock
 # Secrets (never commit these)
 # Uncomment if you create a separate secrets file:
 # Secrets.swift
+
+# Wrangler cache (contains account token)
+.wrangler/
