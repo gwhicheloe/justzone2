@@ -384,9 +384,10 @@ footer{
 /* ── Mobile polish ── */
 @media(max-width:600px){
   .hero{padding:80px 0 40px;min-height:auto}
-  .hero-body>*{min-width:0}
-  .hero-h1{font-size:clamp(2.4rem,11vw,3.6rem);letter-spacing:-.04em;margin-bottom:18px;overflow-wrap:anywhere}
-  .hero-sub{font-size:.95rem;margin-bottom:28px;line-height:1.65;max-width:100%}
+  .hero-body{width:100%;max-width:100%}
+  .hero-body>*{min-width:0;max-width:100%;width:100%}
+  .hero-h1{font-size:clamp(2.4rem,11vw,3.6rem);letter-spacing:-.04em;margin-bottom:18px;overflow-wrap:anywhere;max-width:100%}
+  .hero-sub{font-size:.95rem;margin-bottom:28px;line-height:1.65;max-width:100%;overflow-wrap:break-word;word-break:break-word}
   .hero-actions{gap:14px;flex-wrap:wrap}
   .hero-ecg{bottom:20%;opacity:.12}
 
