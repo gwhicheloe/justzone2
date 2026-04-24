@@ -21,6 +21,7 @@ class WatchSessionManager: NSObject, ObservableObject {
     /// True only when startMirroringToCompanionDevice() has succeeded and the channel is live.
     /// Used to decide whether WCSession display updates should be accepted as fallback.
     private var mirroringEstablished = false
+    private var lastMirroringRetryAt: Date?
 
     /// Prevents duplicate session starts when both mirroring handler and WCSession backup fire simultaneously.
     private var isStartingWorkout = false
@@ -260,6 +261,7 @@ class WatchSessionManager: NSObject, ObservableObject {
         self.isStartingWorkout = false
         self.loggedWCSessionFallback = false
         self.wcUpdateCount = 0
+        self.lastMirroringRetryAt = nil
         stopHRObservation()
 
         session.stopActivity(with: Date())
@@ -538,8 +540,14 @@ extension WatchSessionManager: HKLiveWorkoutBuilderDelegate {
                     // never come).
                     self.mirroringEstablished = false
                     self.sendHRViaWCSession(heartRate)
-                    // Try to re-mirror in the background — if it succeeds, we're
-                    // back on the primary channel for subsequent samples.
+                    // Throttled re-mirror: only try once every 30s so we don't loop
+                    // when startMirroringToCompanionDevice reports success but the
+                    // channel is still broken on iPhone's side.
+                    let now = Date()
+                    if let last = self.lastMirroringRetryAt, now.timeIntervalSince(last) < 30 {
+                        return
+                    }
+                    self.lastMirroringRetryAt = now
                     await self.startMirroringWithRetry(session: session, maxAttempts: 3)
                 }
             }
@@ -611,16 +619,14 @@ extension WatchSessionManager: WCSessionDelegate {
                 self.workoutSession?.resume()
 
             case "workoutUpdate":
-                // Only accept WCSession display updates when HealthKit mirroring is NOT active.
-                // When mirroring IS established, data flows via the mirrored session channel.
-                // When mirroring FAILS, iPhone falls back to WCSession updates — accept them here.
-                guard !self.mirroringEstablished else {
-                    // Mirroring is working — discard WCSession display update (data comes via mirrored channel)
-                    return
-                }
+                // Always accept WCSession display updates. The iPhone only sends these
+                // when IT believes mirroring isn't working. If the Watch also believes
+                // mirroring is up but it's actually broken (e.g. "Another session in
+                // progress"), the iPhone is the authority — trust its signal and display
+                // the data. Duplicate updates from a working mirror are harmless.
                 self.wcUpdateCount += 1
                 if self.wcUpdateCount == 1 || self.wcUpdateCount % 30 == 0 {
-                    wlog("[WATCH] WCSession workoutUpdate #\(self.wcUpdateCount) accepted (mirroring not established)")
+                    wlog("[WATCH] WCSession workoutUpdate #\(self.wcUpdateCount) accepted")
                 }
                 self.heartRate = message["heartRate"] as? Int ?? self.heartRate
                 self.power = message["power"] as? Int ?? self.power
