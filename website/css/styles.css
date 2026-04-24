@@ -1,6 +1,7 @@
 /* ── Reset ── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;tab-size:4}
+html,body{max-width:100%}
 body{font-family:'Nunito',system-ui,sans-serif;background:#05050D;color:#fff;overflow-x:hidden;line-height:1.6}
 img,svg{display:block}
 a{text-decoration:none;color:inherit}
@@ -207,7 +208,7 @@ body>*{position:relative;z-index:1}
 .feat-table{border-top:1px solid var(--ln)}
 .feat-row{display:grid;grid-template-columns:52px 1fr 1.4fr;gap:0;padding:28px 0;border-bottom:1px solid var(--ln);transition:background .25s,box-shadow .25s;cursor:default;align-items:start}
 .feat-row:hover{background:rgba(255,255,255,.04);box-shadow:inset 0 0 0 1px rgba(255,255,255,.07),inset 0 1px 0 rgba(255,255,255,.12)}
-@media(max-width:640px){.feat-row{grid-template-columns:40px 1fr;gap:8px}.feat-desc-col{grid-column:2}}
+@media(max-width:640px){.feat-row{grid-template-columns:40px 1fr;gap:8px 12px;row-gap:10px}.feat-title{grid-column:2}.feat-desc{grid-column:2;min-width:0}}
 .feat-n{font-size:.72rem;font-weight:700;color:var(--t3);padding-top:3px;font-variant-numeric:tabular-nums;letter-spacing:.05em}
 .feat-title{font-size:.95rem;font-weight:800;color:var(--t0);line-height:1.3;padding-right:24px}
 .feat-pill{display:inline-flex;align-items:center;gap:4px;margin-top:10px;font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--g);background:var(--g-10);border:1px solid rgba(52,199,89,.18);padding:3px 8px;border-radius:var(--r-pill)}
@@ -383,9 +384,10 @@ footer{
 /* ── Mobile polish ── */
 @media(max-width:600px){
   .hero{padding:80px 0 40px;min-height:auto}
-  .hero-h1{font-size:clamp(2.4rem,11vw,3.6rem);letter-spacing:-.04em;margin-bottom:18px}
-  .hero-sub{font-size:.95rem;margin-bottom:28px;line-height:1.65}
-  .hero-actions{gap:14px}
+  .hero-body>*{min-width:0}
+  .hero-h1{font-size:clamp(2.4rem,11vw,3.6rem);letter-spacing:-.04em;margin-bottom:18px;overflow-wrap:anywhere}
+  .hero-sub{font-size:.95rem;margin-bottom:28px;line-height:1.65;max-width:100%}
+  .hero-actions{gap:14px;flex-wrap:wrap}
   .hero-ecg{bottom:20%;opacity:.12}
 
   .pillar{padding:28px 22px}
