@@ -6,20 +6,30 @@ struct DurationPicker: View {
     let formatDuration: (TimeInterval) -> String
 
     var body: some View {
-        VStack(spacing: 4) {
-            Text("Duration")
-                .font(.bodyMedium)
-                .foregroundColor(.secondary)
-
+        Menu {
             Picker("Duration", selection: $selectedDuration) {
                 ForEach(options, id: \.self) { duration in
-                    Text(formatDuration(duration))
-                        .font(.bodyLarge)
-                        .tag(duration)
+                    Text(formatDuration(duration)).tag(duration)
                 }
             }
-            .pickerStyle(.wheel)
-            .frame(height: 100)
+        } label: {
+            VStack(spacing: 2) {
+                Text("Duration")
+                    .font(.system(size: 11))
+                    .foregroundColor(.secondary)
+                Text(formatDuration(selectedDuration))
+                    .font(.system(size: 17, weight: .semibold))
+                    .foregroundColor(.primary)
+            }
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 10)
+            .padding(.horizontal, 12)
+            .background(Color(.systemBackground))
+            .overlay(
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(Color.black.opacity(0.08), lineWidth: 1)
+            )
+            .clipShape(RoundedRectangle(cornerRadius: 10))
         }
     }
 }

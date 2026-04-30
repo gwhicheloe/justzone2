@@ -5,20 +5,30 @@ struct PowerPicker: View {
     let options: [Int]
 
     var body: some View {
-        VStack(spacing: 4) {
-            Text("Power")
-                .font(.bodyMedium)
-                .foregroundColor(.secondary)
-
+        Menu {
             Picker("Target Power", selection: $selectedPower) {
                 ForEach(options, id: \.self) { power in
-                    Text("\(power)W")
-                        .font(.bodyLarge)
-                        .tag(power)
+                    Text("\(power)W").tag(power)
                 }
             }
-            .pickerStyle(.wheel)
-            .frame(height: 100)
+        } label: {
+            VStack(spacing: 2) {
+                Text("Target Power")
+                    .font(.system(size: 11))
+                    .foregroundColor(.secondary)
+                Text("\(selectedPower)W")
+                    .font(.system(size: 17, weight: .semibold))
+                    .foregroundColor(.primary)
+            }
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 10)
+            .padding(.horizontal, 12)
+            .background(Color(.systemBackground))
+            .overlay(
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(Color.black.opacity(0.08), lineWidth: 1)
+            )
+            .clipShape(RoundedRectangle(cornerRadius: 10))
         }
     }
 }
