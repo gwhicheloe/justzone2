@@ -1,4 +1,8 @@
 import Foundation
+import HealthKit
+import WatchConnectivity
+import os
+import os.signpost
 
 /// Thread-safe persistent diagnostics logger. Callable from any isolation context.
 /// Watch-side logs are transferred via WCSession and appended automatically.
@@ -8,6 +12,9 @@ final class DiagnosticsLogger {
     private let lock = NSLock()
     private var entries: [String] = []
     private let maxEntries = 1000
+
+    /// OSLog channel for Instruments / Console.app signposts.
+    static let signpostLog = OSLog(subsystem: "com.gwhicheloe.justzone2", category: "comms")
 
     private init() {
         loadFromFile()
@@ -88,7 +95,36 @@ final class DiagnosticsLogger {
     }
 }
 
-/// Convenience free function — callable from any isolation context.
+// MARK: - Free functions (callable from any isolation context)
+
+/// Append a line to the persistent diagnostics log.
 func dlog(_ message: String) {
     DiagnosticsLogger.shared.log(message)
+}
+
+/// Emit an Instruments signpost event under the "comms" category.
+/// Visible in Console.app and Instruments → Points of Interest.
+func dsignpost(_ event: String) {
+    os_signpost(.event, log: DiagnosticsLogger.signpostLog, name: "comms", "%{public}s", event)
+}
+
+// MARK: - Helpers for human-readable diagnostic output
+
+/// Map HKWorkoutSessionState raw values to readable names.
+func hkStateName(_ state: HKWorkoutSessionState) -> String {
+    switch state {
+    case .notStarted: return "notStarted"
+    case .running:    return "running"
+    case .ended:      return "ended"
+    case .paused:     return "paused"
+    case .prepared:   return "prepared"
+    case .stopped:    return "stopped"
+    @unknown default: return "unknown(\(state.rawValue))"
+    }
+}
+
+/// One-line snapshot of an iPhone-side WCSession's state for diagnostic logs.
+func wcSnapshot(_ session: WCSession) -> String {
+    let active = session.activationState == .activated
+    return "active=\(active) reachable=\(session.isReachable) paired=\(session.isPaired) installed=\(session.isWatchAppInstalled)"
 }

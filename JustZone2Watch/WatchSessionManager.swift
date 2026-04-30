@@ -151,7 +151,7 @@ class WatchSessionManager: NSObject, ObservableObject {
 
                     // Verify session is still alive after beginCollection
                     guard session.state == .running else {
-                        wlog("[WATCH] handleStartFromPhone: session died after beginCollection (state=\(session.state.rawValue)), aborting")
+                        wlog("[WATCH] handleStartFromPhone: session died after beginCollection (state=\(hkStateName(session.state))), aborting")
                         self.workoutSession = nil
                         self.workoutBuilder = nil
                         self.workoutState = "ended"
@@ -203,7 +203,7 @@ class WatchSessionManager: NSObject, ObservableObject {
 
                     // Verify session is still alive after beginCollection
                     guard session.state == .running else {
-                        wlog("[WATCH] startPrimaryWorkout: session died after beginCollection (state=\(session.state.rawValue)), aborting")
+                        wlog("[WATCH] startPrimaryWorkout: session died after beginCollection (state=\(hkStateName(session.state))), aborting")
                         self.workoutSession = nil
                         self.workoutBuilder = nil
                         self.workoutState = "ended"
@@ -383,7 +383,8 @@ extension WatchSessionManager: HKWorkoutSessionDelegate {
         from fromState: HKWorkoutSessionState,
         date: Date
     ) {
-        wlog("[WATCH] session state changed: \(fromState.rawValue) → \(toState.rawValue)")
+        wlog("[WATCH] session state: \(hkStateName(fromState)) → \(hkStateName(toState))")
+        wsignpost("Watch session \(hkStateName(toState))")
         Task { @MainActor in
             switch toState {
             case .running:
@@ -557,12 +558,19 @@ extension WatchSessionManager: HKLiveWorkoutBuilderDelegate {
     }
 
     private func sendHRViaWCSession(_ heartRate: Int) {
-        guard let wc = wcSession, wc.isReachable else { return }
+        guard let wc = wcSession else { return }
         if !loggedWCSessionFallback {
-            wlog("[WATCH] sendHRToPhone: using WCSession fallback (mirroring not established)")
+            wlog("[WATCH] HR via WCSession fallback — \(wcSnapshot(wc))")
             loggedWCSessionFallback = true
         }
-        wc.sendMessage(["type": "heartRateUpdate", "heartRate": heartRate], replyHandler: nil, errorHandler: nil)
+        guard wc.isReachable else {
+            wlog("[WATCH] HR DROPPED — not reachable — \(wcSnapshot(wc))")
+            return
+        }
+        wc.sendMessage(["type": "heartRateUpdate", "heartRate": heartRate], replyHandler: nil) { [weak self] error in
+            self?.wlog("[WATCH] HR sendMessage FAILED: \(error.localizedDescription)")
+        }
+        wsignpost("Watch→iPhone HR=\(heartRate)")
     }
 }
 

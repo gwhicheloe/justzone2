@@ -230,7 +230,7 @@ class WorkoutViewModel: ObservableObject {
             do {
                 try await healthKitManager.startWorkoutSession()
             } catch {
-                print("Switch to BLE: failed to start standalone: \(error.localizedDescription)")
+                dlog("[IPHONE-VM] switchToBLE: startWorkoutSession FAILED: \(error.localizedDescription)")
                 hrSourceError = "Failed to start workout session"
                 isSwitchingHRSource = false
                 return
@@ -268,7 +268,7 @@ class WorkoutViewModel: ObservableObject {
                 do {
                     try await healthKitManager.startWorkoutSession()
                 } catch {
-                    print("Failed to start HealthKit session: \(error.localizedDescription)")
+                    dlog("[IPHONE-VM] startWorkoutSession FAILED: \(error.localizedDescription)")
                 }
             }
             // Launch Watch app via HealthKit so it gets "primary workout app" status
@@ -277,7 +277,7 @@ class WorkoutViewModel: ObservableObject {
                 do {
                     try await healthKitManager.startWatchDisplayApp()
                 } catch {
-                    print("Watch display app launch failed, falling back to WCSession: \(error.localizedDescription)")
+                    dlog("[IPHONE-VM] startWatchDisplayApp FAILED, falling back to WCSession: \(error.localizedDescription)")
                     // Fallback: WCSession message still triggers startDisplaySession() on Watch
                     watchConnectivityService.sendStartDisplayWorkout()
                 }
@@ -290,7 +290,7 @@ class WorkoutViewModel: ObservableObject {
                 targetDuration: workout.targetDuration
             )
         } catch {
-            print("Failed to start Live Activity: \(error.localizedDescription)")
+            dlog("[IPHONE-VM] startLiveActivity FAILED: \(error.localizedDescription)")
         }
 
         workoutStartTime = Date()
@@ -340,7 +340,7 @@ class WorkoutViewModel: ObservableObject {
                 targetDuration: workout.targetDuration
             )
         } catch {
-            print("Failed to start Live Activity on recovery: \(error.localizedDescription)")
+            dlog("[IPHONE-VM] startLiveActivity (recovery) FAILED: \(error.localizedDescription)")
         }
 
         healthKitManager.isWorkoutActive = true
@@ -461,7 +461,7 @@ class WorkoutViewModel: ObservableObject {
                 do {
                     healthKitWorkout = try await healthKitManager.endWorkoutSession()
                 } catch {
-                    print("Failed to end HealthKit session: \(error.localizedDescription)")
+                    dlog("[IPHONE-VM] endWorkoutSession FAILED: \(error.localizedDescription)")
                 }
             }
             watchConnectivityService.sendWorkoutEnded()
@@ -492,7 +492,7 @@ class WorkoutViewModel: ObservableObject {
                 do {
                     healthKitWorkout = try await healthKitManager.endWorkoutSession()
                 } catch {
-                    print("Failed to end HealthKit session: \(error.localizedDescription)")
+                    dlog("[IPHONE-VM] endWorkoutSession FAILED: \(error.localizedDescription)")
                 }
             }
             watchConnectivityService.sendWorkoutEnded()

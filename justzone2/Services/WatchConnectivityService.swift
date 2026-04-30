@@ -20,56 +20,65 @@ class WatchConnectivityService: NSObject, ObservableObject {
         session = WCSession.default
         session?.delegate = self
         session?.activate()
+        dlog("[IPHONE-WC] init — activate() called")
+    }
+
+    // MARK: - Send Helpers (route every send through one logged path)
+
+    /// Send a real-time message; logs reachability and any error.
+    private func send(_ payload: [String: Any], op: String) {
+        guard let session = session else {
+            dlog("[IPHONE-WC] \(op) DROPPED — no session")
+            return
+        }
+        dlog("[IPHONE-WC] \(op) — \(wcSnapshot(session))")
+        guard session.isReachable else {
+            dlog("[IPHONE-WC] \(op) DROPPED — not reachable")
+            return
+        }
+        session.sendMessage(payload, replyHandler: nil) { error in
+            dlog("[IPHONE-WC] \(op) sendMessage FAILED: \(error.localizedDescription)")
+        }
+        dsignpost("iPhone→Watch \(op)")
+    }
+
+    /// Queue a guaranteed-delivery message; logs reachability snapshot.
+    private func queue(_ payload: [String: Any], op: String) {
+        guard let session = session else {
+            dlog("[IPHONE-WC] \(op) (userInfo) DROPPED — no session")
+            return
+        }
+        var p = payload
+        p["timestamp"] = Date().timeIntervalSince1970
+        session.transferUserInfo(p)
+        dlog("[IPHONE-WC] \(op) (userInfo) queued — \(wcSnapshot(session))")
+        dsignpost("iPhone→Watch \(op) userInfo")
     }
 
     // MARK: - Mode A: Backup Commands (WCSession fallback for mirrored session)
 
     func sendStartWorkout() {
-        guard let session = session else { return }
-        // Use sendMessage for immediate delivery when reachable
-        if session.isReachable {
-            session.sendMessage(["type": "startWorkout"], replyHandler: nil) { error in
-                print("Watch sendMessage failed: \(error.localizedDescription)")
-            }
-        }
-        // Always queue via transferUserInfo as guaranteed-delivery fallback
-        // This persists and delivers even when Watch screen is off
-        session.transferUserInfo(["type": "startWorkout", "timestamp": Date().timeIntervalSince1970])
+        send(["type": "startWorkout"], op: "sendStartWorkout")
+        queue(["type": "startWorkout"], op: "sendStartWorkout")
     }
 
     /// Mode B: tells Watch to start a display-only session (no HR, no saved workout)
     /// so the Watch app stays alive in the background for update delivery.
     func sendStartDisplayWorkout() {
-        guard let session = session else { return }
-        if session.isReachable {
-            session.sendMessage(["type": "startDisplayWorkout"], replyHandler: nil) { error in
-                print("Watch sendMessage failed: \(error.localizedDescription)")
-            }
-        }
+        send(["type": "startDisplayWorkout"], op: "sendStartDisplayWorkout")
     }
 
     func sendStopWorkout() {
-        guard let session = session else { return }
-        if session.isReachable {
-            session.sendMessage(["type": "stopWorkout"], replyHandler: nil) { error in
-                print("Watch sendMessage failed: \(error.localizedDescription)")
-            }
-        }
-        session.transferUserInfo(["type": "stopWorkout", "timestamp": Date().timeIntervalSince1970])
+        send(["type": "stopWorkout"], op: "sendStopWorkout")
+        queue(["type": "stopWorkout"], op: "sendStopWorkout")
     }
 
     func sendPauseWorkout() {
-        guard let session = session, session.isReachable else { return }
-        session.sendMessage(["type": "pauseWorkout"], replyHandler: nil) { error in
-            print("Watch send failed: \(error.localizedDescription)")
-        }
+        send(["type": "pauseWorkout"], op: "sendPauseWorkout")
     }
 
     func sendResumeWorkout() {
-        guard let session = session, session.isReachable else { return }
-        session.sendMessage(["type": "resumeWorkout"], replyHandler: nil) { error in
-            print("Watch send failed: \(error.localizedDescription)")
-        }
+        send(["type": "resumeWorkout"], op: "sendResumeWorkout")
     }
 
     // MARK: - Mode B: Display-Only Updates (no mirrored session)
@@ -94,20 +103,15 @@ class WatchConnectivityService: NSObject, ObservableObject {
             "totalChunks": totalChunks,
             "state": state
         ]
+        // No log per tick (1 Hz spam); errors are logged.
         session.sendMessage(message, replyHandler: nil) { error in
-            print("Watch send failed: \(error.localizedDescription)")
+            dlog("[IPHONE-WC] sendWorkoutUpdate FAILED: \(error.localizedDescription)")
         }
     }
 
     func sendWorkoutEnded() {
-        guard let session = session else { return }
-        if session.isReachable {
-            session.sendMessage(["type": "workoutEnded"], replyHandler: nil) { error in
-                print("Watch send failed: \(error.localizedDescription)")
-            }
-        }
-        // Guaranteed delivery fallback — ensures Watch ends session even if screen is off
-        session.transferUserInfo(["type": "workoutEnded", "timestamp": Date().timeIntervalSince1970])
+        send(["type": "workoutEnded"], op: "sendWorkoutEnded")
+        queue(["type": "workoutEnded"], op: "sendWorkoutEnded")
     }
 }
 
@@ -119,6 +123,7 @@ extension WatchConnectivityService: WCSessionDelegate {
         activationDidCompleteWith activationState: WCSessionActivationState,
         error: Error?
     ) {
+        dlog("[IPHONE-WC] activation completed — state=\(activationState.rawValue) error=\(error?.localizedDescription ?? "none") \(wcSnapshot(session))")
         Task { @MainActor in
             self.isWatchPaired = session.isPaired
             self.isWatchAppInstalled = session.isWatchAppInstalled
@@ -127,21 +132,23 @@ extension WatchConnectivityService: WCSessionDelegate {
     }
 
     nonisolated func sessionDidBecomeInactive(_ session: WCSession) {
-        // Required for iOS — no action needed
+        dlog("[IPHONE-WC] sessionDidBecomeInactive")
     }
 
     nonisolated func sessionDidDeactivate(_ session: WCSession) {
-        // Reactivate after session transfer
+        dlog("[IPHONE-WC] sessionDidDeactivate — reactivating")
         session.activate()
     }
 
     nonisolated func sessionReachabilityDidChange(_ session: WCSession) {
+        dlog("[IPHONE-WC] reachability changed — \(wcSnapshot(session))")
         Task { @MainActor in
             self.isWatchReachable = session.isReachable
         }
     }
 
     nonisolated func sessionWatchStateDidChange(_ session: WCSession) {
+        dlog("[IPHONE-WC] watchState changed — \(wcSnapshot(session))")
         Task { @MainActor in
             self.isWatchPaired = session.isPaired
             self.isWatchAppInstalled = session.isWatchAppInstalled
@@ -152,11 +159,15 @@ extension WatchConnectivityService: WCSessionDelegate {
     nonisolated func session(_ session: WCSession, didReceiveMessage message: [String: Any]) {
         guard let type = message["type"] as? String else { return }
         if type == "heartRateUpdate", let hr = message["heartRate"] as? Int {
+            // Per-sample log would be 1 Hz spam; signpost for Instruments instead.
+            dsignpost("Watch→iPhone HR=\(hr)")
             Task { @MainActor in
                 self.fallbackHeartRate = hr
             }
         } else if type == "watchError", let kind = message["kind"] as? String {
             handleWatchError(kind: kind)
+        } else {
+            dlog("[IPHONE-WC] received message type=\(type)")
         }
     }
 
@@ -169,6 +180,8 @@ extension WatchConnectivityService: WCSessionDelegate {
             DiagnosticsLogger.shared.appendWatchLog(log)
         } else if type == "watchError", let kind = userInfo["kind"] as? String {
             handleWatchError(kind: kind)
+        } else {
+            dlog("[IPHONE-WC] received userInfo type=\(type)")
         }
     }
 

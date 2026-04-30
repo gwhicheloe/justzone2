@@ -200,7 +200,7 @@ class HealthKitManager: NSObject, ObservableObject {
 
         builder.add([sample]) { _, error in
             if let error = error {
-                print("Failed to add power to mirrored builder: \(error.localizedDescription)")
+                dlog("[IPHONE-HK] addPowerToMirroredBuilder FAILED: \(error.localizedDescription)")
             }
         }
     }
@@ -349,7 +349,7 @@ class HealthKitManager: NSObject, ObservableObject {
 
         workoutBuilder?.add([sample]) { _, error in
             if let error = error {
-                print("Failed to add heart rate sample: \(error.localizedDescription)")
+                dlog("[IPHONE-HK] addHeartRateSample FAILED: \(error.localizedDescription)")
             }
         }
     }
@@ -369,7 +369,7 @@ class HealthKitManager: NSObject, ObservableObject {
 
         workoutBuilder?.add([sample]) { _, error in
             if let error = error {
-                print("Failed to add power sample: \(error.localizedDescription)")
+                dlog("[IPHONE-HK] addPowerSample FAILED: \(error.localizedDescription)")
             }
         }
     }
@@ -385,11 +385,15 @@ extension HealthKitManager: HKWorkoutSessionDelegate {
         date: Date
     ) {
         Task { @MainActor in
+            let from = hkStateName(fromState)
+            let to = hkStateName(toState)
             if workoutSession === self.backgroundSession {
-                dlog("[IPHONE-HK] background session state: \(fromState.rawValue) → \(toState.rawValue)")
+                dlog("[IPHONE-HK] background session state: \(from) → \(to)")
+                dsignpost("iPhone bg session \(to)")
                 // Don't update sessionState for the background session
             } else {
-                dlog("[IPHONE-HK] session state: \(fromState.rawValue) → \(toState.rawValue)")
+                dlog("[IPHONE-HK] session state: \(from) → \(to)")
+                dsignpost("iPhone session \(to)")
                 self.sessionState = toState
             }
         }
