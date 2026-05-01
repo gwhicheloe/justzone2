@@ -7,6 +7,7 @@ struct SummaryView: View {
     var onDismiss: () -> Void
     @State private var chartSaved = false
     @State private var uploadState: UploadState = .ready
+    @State private var showDiscardConfirm = false
 
     var body: some View {
         ScrollView {
@@ -128,13 +129,25 @@ struct SummaryView: View {
                             .cornerRadius(12)
                     }
 
-                    Button(action: {
-                        viewModel.discardWorkout()
-                        onDismiss()
-                    }) {
+                    Button(role: .destructive) {
+                        showDiscardConfirm = true
+                    } label: {
                         Text("Discard Workout")
                             .font(.bodyMedium)
                             .foregroundColor(.red)
+                    }
+                    .confirmationDialog(
+                        "Discard this workout?",
+                        isPresented: $showDiscardConfirm,
+                        titleVisibility: .visible
+                    ) {
+                        Button("Discard Workout", role: .destructive) {
+                            viewModel.discardWorkout()
+                            onDismiss()
+                        }
+                        Button("Cancel", role: .cancel) { }
+                    } message: {
+                        Text("Your samples and stats will be deleted. This can't be undone.")
                     }
                 }
             }
