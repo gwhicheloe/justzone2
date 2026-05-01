@@ -70,10 +70,10 @@ class HealthKitManager: NSObject, ObservableObject {
 
     // MARK: - Watch App Launch
 
-    /// Launch the Watch app via HealthKit. We still use this as the trigger to
-    /// wake the Watch app — `workoutSessionMirroringStartHandler` fires on the
-    /// Watch side and that's what kicks off Watch's HR session. iPhone itself
-    /// no longer participates in the mirrored data channel.
+    /// Launch the Watch app via HealthKit. This is the only way for an iOS app
+    /// to wake a paired Watch app — the Watch's `workoutSessionMirroringStartHandler`
+    /// fires and the Watch starts its own HR-collecting session. We do not open
+    /// the mirrored data channel; HR flows back via WCSession instead.
     func startWatchWorkout() async throws {
         dlog("[IPHONE-HK] startWatchWorkout — calling startWatchApp(.indoor)")
         let config = HKWorkoutConfiguration()

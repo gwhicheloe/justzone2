@@ -262,16 +262,18 @@ class WatchSessionManager: NSObject, ObservableObject {
 
         Task {
             if let builder = builder {
-                // Mode A: save the workout
+                // iPhone owns the HealthKit workout record; Watch's builder is
+                // only used for HR collection access. Discard so we don't end
+                // up with two workout entries in Health.
                 do {
                     try await builder.endCollection(at: Date())
-                    try await builder.finishWorkout()
-                    wlog("[WATCH] endPrimaryWorkout: workout saved to HealthKit")
+                    try await builder.discardWorkout()
+                    wlog("[WATCH] endPrimaryWorkout: builder discarded (iPhone owns the record)")
                 } catch {
-                    wlog("[WATCH] endPrimaryWorkout: save FAILED: \(error.localizedDescription)")
+                    wlog("[WATCH] endPrimaryWorkout: discard FAILED: \(error.localizedDescription)")
                 }
             }
-            // Mode B (no builder): just end the session — nothing saved
+            // Mode B (no builder): nothing was being recorded.
             session.end()
             self.workoutState = "ended"
             wlog("[WATCH] endPrimaryWorkout complete")
@@ -411,50 +413,10 @@ extension WatchSessionManager: HKWorkoutSessionDelegate {
         }
     }
 
-    nonisolated func workoutSession(
-        _ workoutSession: HKWorkoutSession,
-        didReceiveDataFromRemoteWorkoutSession data: [Data]
-    ) {
-        Task { @MainActor in
-            for datum in data {
-                guard let update = try? JSONDecoder().decode(PhoneToWatchData.self, from: datum) else {
-                    wlog("[WATCH] didReceiveDataFromRemote: decode failed")
-                    continue
-                }
-
-                self.power = update.power
-                self.elapsedTime = update.elapsedTime
-                self.chunkRemaining = update.chunkRemaining
-                self.currentChunk = update.currentChunk
-                self.totalChunks = update.totalChunks
-
-                // Handle state changes from iPhone
-                switch update.state {
-                case "paused":
-                    if workoutSession.state == .running {
-                        workoutSession.pause()
-                    }
-                case "running":
-                    if workoutSession.state == .paused {
-                        workoutSession.resume()
-                    }
-                case "ended":
-                    self.endPrimaryWorkout()
-                default:
-                    break
-                }
-            }
-        }
-    }
-
-    nonisolated func workoutSession(
-        _ workoutSession: HKWorkoutSession,
-        didDisconnectFromRemoteDeviceWithError error: Error?
-    ) {
-        // We never call startMirroringToCompanionDevice now, so this should not fire.
-        // Logged for visibility in case watchOS still emits it during teardown.
-        wlog("[WATCH] didDisconnectFromRemoteDevice (unexpected — not mirroring): \(error?.localizedDescription ?? "no error")")
-    }
+    // didReceiveDataFromRemoteWorkoutSession and didDisconnectFromRemoteDeviceWithError
+    // are no longer relevant — we don't open a mirrored data channel. iPhone pushes
+    // display data (power, elapsed, state) over WCSession workoutUpdate messages
+    // and HR is sent back the same way.
 }
 
 // MARK: - HKLiveWorkoutBuilderDelegate

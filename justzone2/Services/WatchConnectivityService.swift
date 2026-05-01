@@ -64,7 +64,7 @@ class WatchConnectivityService: NSObject, ObservableObject {
         dsignpost("iPhone→Watch \(op) userInfo")
     }
 
-    // MARK: - Mode A: Backup Commands (WCSession fallback for mirrored session)
+    // MARK: - Workout Lifecycle Commands (iPhone → Watch)
 
     func sendStartWorkout() {
         send(["type": "startWorkout"], op: "sendStartWorkout")
@@ -90,7 +90,7 @@ class WatchConnectivityService: NSObject, ObservableObject {
         send(["type": "resumeWorkout"], op: "sendResumeWorkout")
     }
 
-    // MARK: - Mode B: Display-Only Updates (no mirrored session)
+    // MARK: - Display Updates (iPhone → Watch, ~1 Hz)
 
     func sendWorkoutUpdate(
         heartRate: Int,
