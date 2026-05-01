@@ -8,6 +8,10 @@ class WatchConnectivityService: NSObject, ObservableObject {
     @Published var isWatchAppInstalled = false
     /// HR received from Watch over WCSession (now the only HR transport).
     @Published var fallbackHeartRate: Int = 0
+    /// True once the Watch has delivered at least one HR sample for the current
+    /// workout. Used by UI to signal "Watch is recording" without needing a
+    /// separate session-state ack.
+    @Published var hasReceivedHR = false
     /// Non-nil when the Watch reported a session-start error the user needs to
     /// resolve (e.g. Watch app was backgrounded). Set back to nil to dismiss.
     @Published var watchStartError: String?
@@ -168,6 +172,7 @@ extension WatchConnectivityService: WCSessionDelegate {
             dsignpost("Watch→iPhone HR=\(hr) seq=\(seq)")
             Task { @MainActor in
                 self.fallbackHeartRate = hr
+                if !self.hasReceivedHR { self.hasReceivedHR = true }
                 self.recordHRDelivery(seq: seq)
             }
         } else if type == "watchError", let kind = message["kind"] as? String {
@@ -200,6 +205,7 @@ extension WatchConnectivityService: WCSessionDelegate {
         hrRecvCount = 0
         hrLastSeq = 0
         hrGaps = 0
+        hasReceivedHR = false
     }
 
     /// Receives guaranteed-delivery messages from Watch (e.g. Watch-side diagnostic logs).

@@ -90,8 +90,11 @@ class WorkoutViewModel: ObservableObject {
     private let checkpointInterval: TimeInterval = 300  // 5 minutes
     private var lastCheckpointAt: TimeInterval = 0
 
-    /// Whether the Watch mirrored session is currently active on the iPhone.
-    var isWatchConnected: Bool { healthKitManager.isMirrored }
+    /// Whether the Watch is currently sending HR samples for this workout.
+    /// True once at least one HR sample has arrived via WCSession.
+    var isWatchConnected: Bool {
+        useWatchHR && watchConnectivityService.hasReceivedHR
+    }
 
     init(
         workout: Workout,
@@ -148,10 +151,8 @@ class WorkoutViewModel: ObservableObject {
     private func bindHRSource() {
         hrCancellable?.cancel()
         if useWatchHR {
-            // Merge mirrored session HR (primary) with WCSession fallback HR
-            hrCancellable = healthKitManager.$mirroredHeartRate
-                .combineLatest(watchConnectivityService.$fallbackHeartRate)
-                .map { mirrored, fallback in mirrored > 0 ? mirrored : fallback }
+            // Single source: WCSession HR from Watch.
+            hrCancellable = watchConnectivityService.$fallbackHeartRate
                 .sink { [weak self] hr in self?.currentHeartRate = hr }
         } else {
             hrCancellable = heartRateService.$currentHeartRate
@@ -169,11 +170,11 @@ class WorkoutViewModel: ObservableObject {
         hrSourceError = nil
 
         Task {
-            _ = try? await healthKitManager.endWorkoutSession()
-            await healthKitManager.startBackgroundSession()
-
+            // The iPhone HK session keeps running across the switch — it's the
+            // record sink either way. We just change the HR feed source.
             useWatchHR = true
             bindHRSource()
+            watchConnectivityService.resetHRStats()
             launchWatchWorkout()
 
             isSwitchingHRSource = false
@@ -221,25 +222,12 @@ class WorkoutViewModel: ObservableObject {
         isSwitchingHRSource = true
         hrSourceError = nil
 
-        Task {
-            sendDataToWatch(state: "ended")
-            watchConnectivityService.sendStopWorkout()
-            healthKitManager.endMirroredSession()
-            healthKitManager.endBackgroundSession()
-
-            do {
-                try await healthKitManager.startWorkoutSession()
-            } catch {
-                dlog("[IPHONE-VM] switchToBLE: startWorkoutSession FAILED: \(error.localizedDescription)")
-                hrSourceError = "Failed to start workout session"
-                isSwitchingHRSource = false
-                return
-            }
-
-            useWatchHR = false
-            bindHRSource()
-            isSwitchingHRSource = false
-        }
+        // Stop the Watch session — we don't need its HR anymore.
+        watchConnectivityService.sendStopWorkout()
+        // iPhone HK session continues — same record sink.
+        useWatchHR = false
+        bindHRSource()
+        isSwitchingHRSource = false
     }
 
     // MARK: - Workout Lifecycle
@@ -254,32 +242,27 @@ class WorkoutViewModel: ObservableObject {
         kickrService.setTargetPower(startPower)
         kickrService.startWorkout()
 
-        // Set BEFORE launching the Watch — otherwise a fast-arriving mirrored
-        // session can hit handleMirroredSession while isWorkoutActive is still
-        // false and get killed as an orphan.
-        healthKitManager.isWorkoutActive = true
+        // iPhone always owns the workout record now — start the HK session
+        // regardless of HR source. HR samples flow into this builder via
+        // addHeartRateSample, sourced from Watch (Mode A) or BLE (Mode B).
+        Task {
+            do {
+                try await healthKitManager.startWorkoutSession()
+            } catch {
+                dlog("[IPHONE-VM] startWorkoutSession FAILED: \(error.localizedDescription)")
+            }
+        }
 
         if useWatchHR {
-            Task {
-                await healthKitManager.startBackgroundSession()
-            }
             launchWatchWorkout()
         } else {
-            Task {
-                do {
-                    try await healthKitManager.startWorkoutSession()
-                } catch {
-                    dlog("[IPHONE-VM] startWorkoutSession FAILED: \(error.localizedDescription)")
-                }
-            }
-            // Launch Watch app via HealthKit so it gets "primary workout app" status
-            // (wrist-raise auto-resume). .outdoor locationType signals display-only mode.
+            // Launch Watch in display-only mode so it stays alive in background
+            // for update delivery. Falls back to WCSession message if startWatchApp fails.
             Task {
                 do {
                     try await healthKitManager.startWatchDisplayApp()
                 } catch {
                     dlog("[IPHONE-VM] startWatchDisplayApp FAILED, falling back to WCSession: \(error.localizedDescription)")
-                    // Fallback: WCSession message still triggers startDisplaySession() on Watch
                     watchConnectivityService.sendStartDisplayWorkout()
                 }
             }
@@ -305,7 +288,7 @@ class WorkoutViewModel: ObservableObject {
     }
 
     /// Resume a workout after iOS killed and relaunched the app.
-    /// The Watch mirrored session must already be claimed via healthKitManager.claimPendingRecovery().
+    /// Repopulates samples and starts a fresh iPhone HK session for continued recording.
     func resumeRecoveredWorkout(elapsedTime: TimeInterval) {
         guard state == .idle else { return }
 
@@ -329,10 +312,16 @@ class WorkoutViewModel: ObservableObject {
         kickrService.setTargetPower(resumePower)
         kickrService.startWorkout()
 
-        if useWatchHR {
-            Task {
-                await healthKitManager.startBackgroundSession()
+        // Start a fresh iPhone HK session for the recovered workout.
+        Task {
+            do {
+                try await healthKitManager.startWorkoutSession()
+            } catch {
+                dlog("[IPHONE-VM] startWorkoutSession (recovery) FAILED: \(error.localizedDescription)")
             }
+        }
+        if useWatchHR {
+            launchWatchWorkout()
         }
 
         do {
@@ -344,7 +333,6 @@ class WorkoutViewModel: ObservableObject {
             dlog("[IPHONE-VM] startLiveActivity (recovery) FAILED: \(error.localizedDescription)")
         }
 
-        healthKitManager.isWorkoutActive = true
         state = .running
 
         saveCheckpoint(status: .inProgress)
@@ -353,41 +341,38 @@ class WorkoutViewModel: ObservableObject {
         startTimer()
     }
 
-    /// Launch the Watch app and send a start command. Simple two-attempt approach.
-    /// The Watch handles mirroring robustness (retry on failure, re-mirror on disconnect).
-    /// Cancelled early if the Watch reports a session-start failure the user must resolve.
+    /// Launch the Watch app via HealthKit (the only way to wake it from
+    /// iPhone) and send a WCSession backup so the Watch starts its session
+    /// even if the HK launch handler doesn't fire promptly. Watch then sends
+    /// HR back via WCSession; the iPhone will see hasReceivedHR flip true.
+    /// Cancelled early if the Watch reports a session-start error.
     private func launchWatchWorkout() {
         watchLaunchTask?.cancel()
         watchLaunchTask = Task {
-            dlog("[IPHONE-VM] launchWatchWorkout attempt 1")
-            // Attempt 1
+            dlog("[IPHONE-VM] launchWatchWorkout — startWatchApp + WCSession backup")
             do {
                 try await healthKitManager.startWatchWorkout()
-                dlog("[IPHONE-VM] startWatchWorkout attempt 1 returned OK")
+                dlog("[IPHONE-VM] startWatchWorkout returned OK")
             } catch {
-                dlog("[IPHONE-VM] startWatchWorkout attempt 1 FAILED: \(error.localizedDescription)")
+                dlog("[IPHONE-VM] startWatchWorkout FAILED: \(error.localizedDescription)")
             }
-            watchConnectivityService.sendStartWorkout()
-            dlog("[IPHONE-VM] sendStartWorkout (WCSession backup) sent")
-
-            // Wait for mirrored session
-            try? await Task.sleep(nanoseconds: 10_000_000_000)
             if Task.isCancelled {
                 dlog("[IPHONE-VM] launchWatchWorkout cancelled — Watch reported error")
                 return
             }
-            dlog("[IPHONE-VM] after 10s wait — isMirrored=\(healthKitManager.isMirrored)")
-            if healthKitManager.isMirrored { return }
+            watchConnectivityService.sendStartWorkout()
+            dlog("[IPHONE-VM] sendStartWorkout (WCSession backup) sent")
 
-            // Attempt 2
-            dlog("[IPHONE-VM] launchWatchWorkout attempt 2")
-            do {
-                try await healthKitManager.startWatchWorkout()
-                dlog("[IPHONE-VM] startWatchWorkout attempt 2 returned OK")
-            } catch {
-                dlog("[IPHONE-VM] startWatchWorkout attempt 2 FAILED: \(error.localizedDescription)")
+            // Synthetic timeout — emit a log if HR hasn't arrived in 15 s so
+            // shipped diagnostics show the silent-fail mode where Watch never
+            // started its session at all.
+            try? await Task.sleep(nanoseconds: 15_000_000_000)
+            if Task.isCancelled { return }
+            if !self.watchConnectivityService.hasReceivedHR {
+                dlog("[IPHONE-VM] WATCH_HR_TIMEOUT — no HR sample within 15s of launch")
+            } else {
+                dlog("[IPHONE-VM] launchWatchWorkout — HR arrived")
             }
-            dlog("[IPHONE-VM] after attempt 2 — isMirrored=\(healthKitManager.isMirrored)")
         }
     }
 
@@ -399,14 +384,9 @@ class WorkoutViewModel: ObservableObject {
         state = .paused
 
         kickrService.stopWorkout()
-
-        if useWatchHR {
-            sendDataToWatch(state: "paused")
-            watchConnectivityService.sendPauseWorkout()
-        } else {
-            healthKitManager.pauseWorkoutSession()
-            sendWatchDisplayUpdate(state: "paused")
-        }
+        healthKitManager.pauseWorkoutSession()
+        watchConnectivityService.sendPauseWorkout()
+        sendWatchDisplayUpdate(state: "paused")
 
         liveActivityManager.updateLiveActivity(
             elapsedTime: elapsedTime,
@@ -425,13 +405,9 @@ class WorkoutViewModel: ObservableObject {
         resetPID()
         state = .running
 
-        if useWatchHR {
-            sendDataToWatch(state: "running")
-            watchConnectivityService.sendResumeWorkout()
-        } else {
-            healthKitManager.resumeWorkoutSession()
-            sendWatchDisplayUpdate(state: "running")
-        }
+        healthKitManager.resumeWorkoutSession()
+        watchConnectivityService.sendResumeWorkout()
+        sendWatchDisplayUpdate(state: "running")
 
         liveActivityManager.updateLiveActivity(
             elapsedTime: elapsedTime,
@@ -451,24 +427,8 @@ class WorkoutViewModel: ObservableObject {
         state = .completed
 
         kickrService.stopWorkout()
+        endIPhoneSessionAndNotifyWatch()
 
-        if useWatchHR {
-            sendDataToWatch(state: "ended")
-            watchConnectivityService.sendStopWorkout()
-            healthKitManager.endMirroredSession()
-            healthKitManager.endBackgroundSession()
-        } else {
-            Task {
-                do {
-                    healthKitWorkout = try await healthKitManager.endWorkoutSession()
-                } catch {
-                    dlog("[IPHONE-VM] endWorkoutSession FAILED: \(error.localizedDescription)")
-                }
-            }
-            watchConnectivityService.sendWorkoutEnded()
-        }
-
-        healthKitManager.isWorkoutActive = false
         saveCheckpoint(status: .pendingUpload)
         liveActivityManager.endLiveActivity()
         UIApplication.shared.isIdleTimerDisabled = false
@@ -483,28 +443,30 @@ class WorkoutViewModel: ObservableObject {
         // Leave KICKR running at half power so rider can cool down while viewing summary
         kickrService.setTargetPower(workout.targetPower / 2)
 
-        if useWatchHR {
-            sendDataToWatch(state: "ended")
-            watchConnectivityService.sendStopWorkout()
-            healthKitManager.endMirroredSession()
-            healthKitManager.endBackgroundSession()
-        } else {
-            Task {
-                do {
-                    healthKitWorkout = try await healthKitManager.endWorkoutSession()
-                } catch {
-                    dlog("[IPHONE-VM] endWorkoutSession FAILED: \(error.localizedDescription)")
-                }
-            }
-            watchConnectivityService.sendWorkoutEnded()
-        }
+        endIPhoneSessionAndNotifyWatch()
 
-        healthKitManager.isWorkoutActive = false
         saveCheckpoint(status: .pendingUpload)
         liveActivityManager.endLiveActivity()
         UIApplication.shared.isIdleTimerDisabled = false
 
         state = .completed
+    }
+
+    /// End the iPhone HealthKit session (saves the workout to Health) and tell
+    /// the Watch to stop its session too. Same teardown for both modes.
+    private func endIPhoneSessionAndNotifyWatch() {
+        Task {
+            do {
+                healthKitWorkout = try await healthKitManager.endWorkoutSession()
+            } catch {
+                dlog("[IPHONE-VM] endWorkoutSession FAILED: \(error.localizedDescription)")
+            }
+        }
+        if useWatchHR {
+            watchConnectivityService.sendStopWorkout()
+        } else {
+            watchConnectivityService.sendWorkoutEnded()
+        }
     }
 
     private func startTimer() {
@@ -544,25 +506,15 @@ class WorkoutViewModel: ObservableObject {
         workout.addSample(heartRate: hr, power: pwr, cadence: cad, speed: speed > 0 ? speed : nil, distance: accumulatedDistance)
         evaluateZoneTargeting()
 
-        if useWatchHR && healthKitManager.isMirrored {
-            // Mode A (connected): Data flows through mirrored session
-            sendDataToWatch(state: "running")
-            if let power = pwr {
-                healthKitManager.addPowerToMirroredBuilder(power, at: now)
-            }
-        } else if useWatchHR {
-            // Mode A (not yet connected): Send display updates via WCSession so Watch shows data
-            sendWatchDisplayUpdate(state: "running")
-        } else {
-            // Mode B: Record to standalone HealthKit session
-            if let heartRate = hr {
-                healthKitManager.addHeartRateSample(heartRate, at: now)
-            }
-            if let power = pwr {
-                healthKitManager.addPowerSample(power, at: now)
-            }
-            sendWatchDisplayUpdate(state: "running")
+        // iPhone owns the HK record in both modes. HR comes from Watch
+        // (Mode A, via WCSession) or BLE strap (Mode B). Same write path.
+        if let heartRate = hr {
+            healthKitManager.addHeartRateSample(heartRate, at: now)
         }
+        if let power = pwr {
+            healthKitManager.addPowerSample(power, at: now)
+        }
+        sendWatchDisplayUpdate(state: "running")
 
         liveActivityManager.updateLiveActivity(
             elapsedTime: elapsedTime,
@@ -614,20 +566,6 @@ class WorkoutViewModel: ObservableObject {
 
     // MARK: - Watch Data
 
-    private func sendDataToWatch(state: String) {
-        let data = PhoneToWatchData(
-            power: currentPower,
-            elapsedTime: elapsedTime,
-            chunkRemaining: timeRemainingInChunk,
-            currentChunk: currentChunk,
-            totalChunks: totalChunks,
-            adjustedPower: adjustedPower,
-            targetPower: workout.targetPower,
-            state: state
-        )
-        healthKitManager.sendDataToWatch(data)
-    }
-
     /// Virtual speed (m/s) from power using standard cycling aerodynamic model on flat road.
     /// P = 0.5·CdA·ρ·v³ + Crr·m·g·v  — solved with Newton-Raphson.
     /// CdA=0.5 matches a typical road cyclist on the hoods (~17 mph at 168W).
@@ -646,7 +584,7 @@ class WorkoutViewModel: ObservableObject {
         return v
     }
 
-    /// Send display-only updates to Watch via WCSession (used when mirrored session isn't active).
+    /// Send display data (HR, power, elapsed, state) to Watch over WCSession.
     private func sendWatchDisplayUpdate(state: String) {
         watchConnectivityService.sendWorkoutUpdate(
             heartRate: currentHeartRate,

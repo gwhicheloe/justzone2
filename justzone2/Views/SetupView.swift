@@ -35,7 +35,6 @@ struct SetupView: View {
                         }
                         HStack(spacing: 10) {
                             Button("Discard") {
-                                viewModel.healthKitManager.discardPendingRecovery()
                                 LocalWorkoutStore.shared.delete(id: recovery.id)
                                 pendingRecovery = nil
                             }
@@ -483,13 +482,7 @@ struct SetupView: View {
             // Check HealthKit authorization
             viewModel.healthKitManager.checkAuthorizationStatus()
             // Check for in-progress workout to recover (samples + settings preserved)
-            if pendingRecovery == nil, let local = LocalWorkoutStore.shared.mostRecentInProgress(), !local.useWatchHR {
-                pendingRecovery = local
-            }
-        }
-        .onReceive(viewModel.healthKitManager.$pendingRecovery) { recovery in
-            // Watch HR path — match the HK pendingRecovery to the local workout
-            if recovery != nil, let local = LocalWorkoutStore.shared.mostRecentInProgress() {
+            if pendingRecovery == nil, let local = LocalWorkoutStore.shared.mostRecentInProgress() {
                 pendingRecovery = local
             }
         }
@@ -508,20 +501,12 @@ struct SetupView: View {
             zoneTargetingEnabled: recovery.zoneTargetingEnabled,
             warmUpEnabled: recovery.warmUpEnabled
         )
-        if recovery.useWatchHR {
-            viewModel.healthKitManager.claimPendingRecovery()
-        }
         workoutViewModel = vm
         pendingRecovery = nil
         showWorkout = true
 
-        // Start the timer after navigation; for BLE HR, also start a fresh HealthKit session
+        // resumeRecoveredWorkout will start its own iPhone HK session.
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            if !recovery.useWatchHR {
-                Task {
-                    try? await viewModel.healthKitManager.startWorkoutSession()
-                }
-            }
             vm.resumeRecoveredWorkout(elapsedTime: recovery.elapsedTime)
         }
     }
