@@ -184,30 +184,37 @@ The Live Activity extension is in `JustZone2LiveActivity/`.
 - **HealthKit** - Workouts save to Apple Health with HR and power data
 - **Live Activities** - Lock screen and Dynamic Island visibility during workouts
 - **Secure auth** - Strava client secret handled by Cloudflare Worker
-- **Apple Watch** - Mode A (Watch HR via HealthKit mirroring) and Mode B (BLE strap, Watch as display)
+- **Apple Watch** - Mode A (Watch HR over WCSession) and Mode B (BLE strap, Watch as display) — both backed by an iPhone-owned `HKWorkoutSession`
 - **Strava enrichment** - Distance, speed, cadence and correct calories in TCX uploads
 - **On-device diagnostics** - Persistent log file shareable from Settings; Watch logs sent to iPhone at workout end
 - **PID zone targeting** - Automatic power adjustment to keep HR in Zone 2 using PID controller
 - **Auto-complete** - Workout auto-completes when duration reached; warm-up and cool-down phases
 - **Crash recovery & deferred upload** - Workouts checkpoint every 5 min; in-progress and not-yet-uploaded workouts appear in History with a status badge and can be uploaded to Strava later
 
-### Watch Modes
+### Watch Modes (May 2026 rebuild — WCSession-only)
 
-**Mode A** — Watch measures HR via HealthKit mirrored session. iPhone calls `startWatchApp(with: .indoor)`. Watch records HR samples and sends to iPhone via the mirrored session channel.
+iPhone owns the canonical `HKWorkoutSession` (created by `HealthKitManager.startWorkoutSession`) for **both** modes. It saves the workout to HealthKit and uploads to Strava. The Watch's session, when used, is a sensor + display attached over WCSession — never a co-author of the workout record.
 
-**Mode B** — BLE HR strap on iPhone, Watch is display-only. iPhone calls `startWatchApp(with: .outdoor)`. Watch detects `.outdoor` locationType and starts a display-only session (no builder). iPhone pushes updates via WCSession `sendMessage`.
+**Mode A** (Watch HR) — iPhone calls `healthStore.startWatchApp(with: .indoor)` to wake the Watch. The Watch's `workoutSessionMirroringStartHandler` fires; the Watch uses the passed session as a normal local `HKWorkoutSession` (HR collection + background runtime) and discards its builder at end. HR samples flow back to iPhone via `WCSession.sendMessage("heartRateUpdate")` with monotonic `seq` numbers; iPhone writes them to its own builder.
 
-**Key reliability patterns**:
-- `mirroringEstablished` flag on `WatchSessionManager`. WCSession display-update guard only fires when mirroring is confirmed working. If mirroring fails silently, Watch accepts WCSession fallback updates instead of blocking them.
-- `isStartingWorkout` flag prevents duplicate session starts when mirroring handler, sendMessage, and transferUserInfo all fire simultaneously.
-- WCSession HR fallback: when mirroring isn't established, Watch sends HR via `WCSession.sendMessage` → iPhone's `WatchConnectivityService.fallbackHeartRate` → `WorkoutViewModel` merges with `combineLatest`.
-- **Background-start detection**: watchOS refuses to start `HKWorkoutSession` when the Watch app is backgrounded (`Client application cannot start a workout session while in the background`). Watch's `didFailWithError` detects this, sends `{type: "watchError", kind: "backgroundStart"}` to iPhone (via both `sendMessage` and `transferUserInfo`), and tears down the dead session so retries work. iPhone's `WorkoutViewModel` cancels its `watchLaunchTask`, populates `hrSourceError`, and `WorkoutView` shows a Retry / Use HR Strap alert.
+**Mode B** (BLE HR strap) — iPhone calls `startWatchApp(with: .outdoor)`. Watch detects `.outdoor` and starts a display-only session (no builder). HR comes from the BLE strap on iPhone.
+
+**Why we abandoned mirroring (FB20723311):** `startMirroringToCompanionDevice` and `sendToRemoteWorkoutSession` are chronically broken on iOS/watchOS 26 — confirmed Apple regression with no fix. Symptoms were "Another session is in progress" / "Primary session is unreachable" looping for an entire workout. We kept `startWatchApp` (the only iPhone→Watch wake-up API) but skip everything that would open the mirrored data channel.
+
+**Reliability patterns**:
+- `isStartingWorkout` flag prevents duplicate session starts when both the mirroring-handler launch path and the WCSession `startWorkout` backup fire close together.
+- HR sequence numbers (`hrSendSeq` on Watch, `recordHRDelivery` on iPhone) make sample drops visible in shipping diagnostics. iPhone logs first arrival, any gap, and a 30-sample rollup.
+- WCSession reachability snapshots (`wcSnapshot()`) are logged before every send so we can tell unreachable-drop from successful-send-but-no-receipt.
+- `os_signpost` events (`dsignpost`/`wsignpost`) emit Instruments Points-of-Interest for every key transition.
+- Synthetic timeout: iPhone logs `WATCH_HR_TIMEOUT` if no HR sample arrives within 15s of `launchWatchWorkout` — flags silent-fail mode where Watch never started its session.
+- **Background-start detection**: watchOS refuses to start `HKWorkoutSession` when the Watch app is backgrounded. Watch's `didFailWithError` detects this, sends `{type: "watchError", kind: "backgroundStart"}` to iPhone (via both `sendMessage` and `transferUserInfo`), and tears down the dead session. iPhone's `WorkoutViewModel` cancels its `watchLaunchTask`, populates `hrSourceError`, and `WorkoutView` shows Retry / Use HR Strap.
 
 **Watch HR data flow** (Mode A):
-1. `HKLiveWorkoutDataSource` collects HR via `workoutBuilder(didCollectDataOf:)` (requires HR write permission)
-2. `HKAnchoredObjectQuery` reads HR directly from HealthKit as backup
-3. HR sent to iPhone via mirrored session (`sendToRemoteWorkoutSession`) or WCSession fallback
-4. Watch detects denied HR permission (`authorizationStatus == .sharingDenied`) and shows warning UI with instructions to enable in Health app
+1. Watch's `HKAnchoredObjectQuery` reads HR from the user's HealthStore (works without write permission); `HKLiveWorkoutDataSource` is also wired but only reports if write permission is granted.
+2. Each new sample → `wlog`-counted `WCSession.sendMessage("heartRateUpdate", seq=N)`.
+3. iPhone's `WatchConnectivityService.didReceiveMessage` updates `fallbackHeartRate` and runs `recordHRDelivery(seq:)` to detect gaps.
+4. `WorkoutViewModel.bindHRSource` is bound directly to `fallbackHeartRate`; on every iPhone tick the current HR is added to the iPhone's HK builder.
+5. Watch detects denied HR permission (`authorizationStatus == .sharingDenied`) and shows a warning UI.
 
 ### Diagnostics
 
@@ -237,8 +244,7 @@ Single source of truth: `LocalWorkoutStore` (file-per-workout JSON at `Documents
 - Tapping opens `LocalActivityDetailView` (chart, stats, Upload to Strava button, Delete with confirm)
 
 **Notes**:
-- `WorkoutRecovery` struct (in `Models/WorkoutRecovery.swift`) is retained — still used by `HealthKitManager.pendingRecovery` as a DTO, constructed from `LocalWorkoutStore.mostRecentInProgress()`
-- `WorkoutRecoveryStore` enum in the same file is dead code (safe to delete; no callers outside its own file)
+- Recovery flows entirely through `LocalWorkoutStore` since the May 2026 rebuild — the legacy `WorkoutRecovery` DTO and `WorkoutRecoveryStore` enum (UserDefaults backed) are gone.
 
 ### Strava TCX Enrichment
 
@@ -250,7 +256,7 @@ Single source of truth: `LocalWorkoutStore` (file-per-workout JSON at `Documents
 
 ### Key Files
 - `HealthKitManager.swift` - HKWorkoutSession for background execution; `startWatchDisplayApp()` for Mode B; `pendingRecovery` populated from `LocalWorkoutStore`
-- `WatchSessionManager.swift` - Full Watch workout logic; `mirroringEstablished` flag; `wlog()`; HR permission detection; background-start failure detection in `didFailWithError`
+- `WatchSessionManager.swift` - Watch HR-collection session, WCSession HR send (with `hrSendSeq`), `wlog()`, HR permission detection, background-start failure detection in `didFailWithError`. No mirroring API calls.
 - `WatchConnectivityService.swift` - iPhone-side WCSession handling; `fallbackHeartRate` for WCSession HR fallback; `watchStartError` for user-facing Watch errors
 - `WatchLogStore.swift` - Thread-safe Watch log store (Watch target)
 - `DiagnosticsLogger.swift` - Persistent iPhone diagnostics logger
