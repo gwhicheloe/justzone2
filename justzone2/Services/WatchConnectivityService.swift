@@ -6,13 +6,18 @@ class WatchConnectivityService: NSObject, ObservableObject {
     @Published var isWatchReachable = false
     @Published var isWatchPaired = false
     @Published var isWatchAppInstalled = false
-    /// HR received from Watch via WCSession fallback (when mirroring fails).
+    /// HR received from Watch over WCSession (now the only HR transport).
     @Published var fallbackHeartRate: Int = 0
     /// Non-nil when the Watch reported a session-start error the user needs to
     /// resolve (e.g. Watch app was backgrounded). Set back to nil to dismiss.
     @Published var watchStartError: String?
 
     private var session: WCSession?
+
+    // HR delivery stats — used to surface drops in shipping diagnostics.
+    private var hrRecvCount = 0
+    private var hrLastSeq = 0
+    private var hrGaps = 0
 
     override init() {
         super.init()
@@ -155,20 +160,46 @@ extension WatchConnectivityService: WCSessionDelegate {
         }
     }
 
-    /// Receives real-time messages from Watch (e.g. WCSession HR fallback when mirroring fails).
+    /// Receives real-time messages from Watch (HR samples + control errors).
     nonisolated func session(_ session: WCSession, didReceiveMessage message: [String: Any]) {
         guard let type = message["type"] as? String else { return }
         if type == "heartRateUpdate", let hr = message["heartRate"] as? Int {
-            // Per-sample log would be 1 Hz spam; signpost for Instruments instead.
-            dsignpost("Watch→iPhone HR=\(hr)")
+            let seq = message["seq"] as? Int ?? 0
+            dsignpost("Watch→iPhone HR=\(hr) seq=\(seq)")
             Task { @MainActor in
                 self.fallbackHeartRate = hr
+                self.recordHRDelivery(seq: seq)
             }
         } else if type == "watchError", let kind = message["kind"] as? String {
             handleWatchError(kind: kind)
         } else {
             dlog("[IPHONE-WC] received message type=\(type)")
         }
+    }
+
+    /// Track HR samples received — log first arrival, gaps, and a 30-sample rollup.
+    private func recordHRDelivery(seq: Int) {
+        hrRecvCount += 1
+        if hrRecvCount == 1 {
+            dlog("[IPHONE-WC] HR first received seq=\(seq)")
+        }
+        // Detect a gap: seq jumped by >1 since last
+        if seq > 0 && hrLastSeq > 0 && seq > hrLastSeq + 1 {
+            let dropped = seq - hrLastSeq - 1
+            hrGaps += dropped
+            dlog("[IPHONE-WC] HR gap detected — last=\(hrLastSeq) now=\(seq) dropped=\(dropped)")
+        }
+        if seq > 0 { hrLastSeq = seq }
+        if hrRecvCount % 30 == 0 {
+            dlog("[IPHONE-WC] HR rollup — received=\(hrRecvCount) latestSeq=\(hrLastSeq) totalGaps=\(hrGaps)")
+        }
+    }
+
+    /// Reset HR counters at the start of a workout.
+    func resetHRStats() {
+        hrRecvCount = 0
+        hrLastSeq = 0
+        hrGaps = 0
     }
 
     /// Receives guaranteed-delivery messages from Watch (e.g. Watch-side diagnostic logs).

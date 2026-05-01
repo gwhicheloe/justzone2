@@ -248,6 +248,7 @@ class WorkoutViewModel: ObservableObject {
         guard state == .idle else { return }
 
         UIApplication.shared.isIdleTimerDisabled = true
+        watchConnectivityService.resetHRStats()
 
         let startPower = warmUpEnabled ? workout.targetPower / 2 : workout.targetPower
         kickrService.setTargetPower(startPower)

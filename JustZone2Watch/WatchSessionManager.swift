@@ -18,19 +18,15 @@ class WatchSessionManager: NSObject, ObservableObject {
     private var workoutSession: HKWorkoutSession?
     private var workoutBuilder: HKLiveWorkoutBuilder?
 
-    /// True only when startMirroringToCompanionDevice() has succeeded and the channel is live.
-    /// Used to decide whether WCSession display updates should be accepted as fallback.
-    private var mirroringEstablished = false
-    private var lastMirroringRetryAt: Date?
-
     /// Prevents duplicate session starts when both mirroring handler and WCSession backup fire simultaneously.
     private var isStartingWorkout = false
 
-    /// One-shot flag to log WCSession HR fallback activation once per workout.
-    private var loggedWCSessionFallback = false
-
     /// Counter for WCSession workoutUpdate messages — only log first and every 30th to reduce spam.
     private var wcUpdateCount = 0
+
+    /// Sequence counter for HR samples sent to iPhone via WCSession.
+    /// Lets the iPhone detect dropped samples by spotting gaps in the seq stream.
+    private var hrSendSeq: Int = 0
 
     /// Direct HealthKit HR observation query — reads HR from system sensor data.
     /// Bypasses HKLiveWorkoutDataSource which requires write authorization.
@@ -127,8 +123,11 @@ class WatchSessionManager: NSObject, ObservableObject {
             self.workoutState = "running"
             wlog("[WATCH] Mode B session started")
         } else {
-            // Mode A: Full recording with HR collection and mirroring back to iPhone.
-            wlog("[WATCH] Mode A full recording session starting — requesting auth")
+            // Mode A: Watch records HR via its own session and ships HR to iPhone via WCSession.
+            // We do NOT call startMirroringToCompanionDevice — Apple's mirrored data channel is
+            // chronically broken on iOS/watchOS 26 (FB20723311). The session passed by
+            // workoutSessionMirroringStartHandler is used as a normal local session.
+            wlog("[WATCH] Mode A recording session starting — requesting auth")
             await requestAuthorization()
 
             let builder = session.associatedWorkoutBuilder()
@@ -142,7 +141,7 @@ class WatchSessionManager: NSObject, ObservableObject {
 
             session.startActivity(with: Date())
             self.workoutState = "running"
-            wlog("[WATCH] Mode A session started, beginning collection + mirroring")
+            wlog("[WATCH] Mode A session started, beginning collection")
 
             Task {
                 do {
@@ -162,7 +161,6 @@ class WatchSessionManager: NSObject, ObservableObject {
                 } catch {
                     wlog("[WATCH] beginCollection FAILED: \(error.localizedDescription)")
                 }
-                await startMirroringWithRetry(session: session, maxAttempts: 3)
             }
         }
     }
@@ -214,7 +212,6 @@ class WatchSessionManager: NSObject, ObservableObject {
                 } catch {
                     wlog("[WATCH] startPrimaryWorkout beginCollection FAILED: \(error.localizedDescription)")
                 }
-                await startMirroringWithRetry(session: session, maxAttempts: 3)
             }
         } catch {
             wlog("[WATCH] startPrimaryWorkout session creation FAILED: \(error.localizedDescription)")
@@ -248,20 +245,17 @@ class WatchSessionManager: NSObject, ObservableObject {
     }
 
     func endPrimaryWorkout() {
-        wlog("[WATCH] endPrimaryWorkout — session=\(workoutSession != nil), builder=\(workoutBuilder != nil), mirroring=\(mirroringEstablished)")
+        wlog("[WATCH] endPrimaryWorkout — session=\(workoutSession != nil), builder=\(workoutBuilder != nil), hrSent=\(hrSendSeq)")
         guard let session = workoutSession else {
             workoutState = "ended"
-            mirroringEstablished = false
             return
         }
         let builder = workoutBuilder
         self.workoutSession = nil
         self.workoutBuilder = nil
-        self.mirroringEstablished = false
         self.isStartingWorkout = false
-        self.loggedWCSessionFallback = false
         self.wcUpdateCount = 0
-        self.lastMirroringRetryAt = nil
+        self.hrSendSeq = 0
         stopHRObservation()
 
         session.stopActivity(with: Date())
@@ -283,31 +277,6 @@ class WatchSessionManager: NSObject, ObservableObject {
             wlog("[WATCH] endPrimaryWorkout complete")
             self.sendLogToPhone()
         }
-    }
-
-    // MARK: - Mirroring
-
-    private func startMirroringWithRetry(session: HKWorkoutSession, maxAttempts: Int) async {
-        for attempt in 1...maxAttempts {
-            guard workoutSession != nil else {
-                wlog("[WATCH] startMirroringWithRetry: session ended, aborting")
-                return
-            }
-            wlog("[WATCH] startMirroringToCompanionDevice attempt \(attempt)/\(maxAttempts)")
-            do {
-                try await session.startMirroringToCompanionDevice()
-                mirroringEstablished = true
-                wlog("[WATCH] startMirroringToCompanionDevice SUCCEEDED on attempt \(attempt)")
-                return
-            } catch {
-                wlog("[WATCH] startMirroringToCompanionDevice FAILED attempt \(attempt): \(error.localizedDescription)")
-                if attempt < maxAttempts {
-                    try? await Task.sleep(nanoseconds: UInt64(attempt) * 2_000_000_000)
-                }
-            }
-        }
-        // All mirroring attempts failed — fall back to WCSession for display data
-        wlog("[WATCH] All mirroring attempts failed. WCSession display updates will be used as fallback.")
     }
 
     // MARK: - HR Observation (read-only, no write permission needed)
@@ -433,10 +402,9 @@ extension WatchSessionManager: HKWorkoutSessionDelegate {
         Task { @MainActor in
             self.workoutSession = nil
             self.workoutBuilder = nil
-            self.mirroringEstablished = false
             self.isStartingWorkout = false
-            self.loggedWCSessionFallback = false
             self.wcUpdateCount = 0
+            self.hrSendSeq = 0
             self.workoutState = "ended"
             self.stopHRObservation()
             self.wlog("[WATCH] session FAILED cleanup complete — ready for retry")
@@ -483,14 +451,9 @@ extension WatchSessionManager: HKWorkoutSessionDelegate {
         _ workoutSession: HKWorkoutSession,
         didDisconnectFromRemoteDeviceWithError error: Error?
     ) {
-        wlog("[WATCH] mirroring disconnected: \(error?.localizedDescription ?? "no error")")
-        Task { @MainActor in
-            self.mirroringEstablished = false
-
-            guard self.workoutSession != nil else { return }
-            wlog("[WATCH] attempting to re-mirror after disconnect...")
-            await self.startMirroringWithRetry(session: workoutSession, maxAttempts: 3)
-        }
+        // We never call startMirroringToCompanionDevice now, so this should not fire.
+        // Logged for visibility in case watchOS still emits it during teardown.
+        wlog("[WATCH] didDisconnectFromRemoteDevice (unexpected — not mirroring): \(error?.localizedDescription ?? "no error")")
     }
 }
 
@@ -522,55 +485,33 @@ extension WatchSessionManager: HKLiveWorkoutBuilderDelegate {
         }
     }
 
+    /// HR sample → iPhone, single channel: WCSession sendMessage with monotonic seq.
+    /// Periodic counter log (every 30 samples) lets us spot black-holes in shipped diagnostics.
     private func sendHRToPhone(_ heartRate: Int) {
-        if mirroringEstablished {
-            // Primary path: mirrored session data channel
-            guard let session = workoutSession else {
-                wlog("[WATCH] sendHRToPhone: no session, cannot send")
-                return
-            }
-            guard let encoded = try? JSONEncoder().encode(WatchToPhoneData(heartRate: heartRate)) else { return }
-            Task { @MainActor in
-                do {
-                    try await session.sendToRemoteWorkoutSession(data: encoded)
-                } catch {
-                    wlog("[WATCH] sendHRToPhone FAILED: \(error.localizedDescription)")
-                    // The mirrored session is dead even though didDisconnectFromRemote
-                    // wasn't called. Flip the flag and re-route via WCSession so HR
-                    // doesn't black-hole until the next disconnect event (which may
-                    // never come).
-                    self.mirroringEstablished = false
-                    self.sendHRViaWCSession(heartRate)
-                    // Throttled re-mirror: only try once every 30s so we don't loop
-                    // when startMirroringToCompanionDevice reports success but the
-                    // channel is still broken on iPhone's side.
-                    let now = Date()
-                    if let last = self.lastMirroringRetryAt, now.timeIntervalSince(last) < 30 {
-                        return
-                    }
-                    self.lastMirroringRetryAt = now
-                    await self.startMirroringWithRetry(session: session, maxAttempts: 3)
-                }
-            }
-        } else {
-            sendHRViaWCSession(heartRate)
-        }
-    }
-
-    private func sendHRViaWCSession(_ heartRate: Int) {
         guard let wc = wcSession else { return }
-        if !loggedWCSessionFallback {
-            wlog("[WATCH] HR via WCSession fallback — \(wcSnapshot(wc))")
-            loggedWCSessionFallback = true
+        hrSendSeq += 1
+        let seq = hrSendSeq
+
+        if seq == 1 {
+            wlog("[WATCH] HR first send seq=\(seq) bpm=\(heartRate) — \(wcSnapshot(wc))")
+        } else if seq % 30 == 0 {
+            wlog("[WATCH] HR send #\(seq) bpm=\(heartRate) — \(wcSnapshot(wc))")
         }
+
         guard wc.isReachable else {
-            wlog("[WATCH] HR DROPPED — not reachable — \(wcSnapshot(wc))")
+            // Don't spam — only log first drop and every 30th
+            if seq == 1 || seq % 30 == 0 {
+                wlog("[WATCH] HR DROPPED — not reachable seq=\(seq) — \(wcSnapshot(wc))")
+            }
             return
         }
-        wc.sendMessage(["type": "heartRateUpdate", "heartRate": heartRate], replyHandler: nil) { [weak self] error in
-            self?.wlog("[WATCH] HR sendMessage FAILED: \(error.localizedDescription)")
+        wc.sendMessage(
+            ["type": "heartRateUpdate", "heartRate": heartRate, "seq": seq],
+            replyHandler: nil
+        ) { [weak self] error in
+            self?.wlog("[WATCH] HR sendMessage FAILED seq=\(seq): \(error.localizedDescription)")
         }
-        wsignpost("Watch→iPhone HR=\(heartRate)")
+        wsignpost("Watch→iPhone HR=\(heartRate) seq=\(seq)")
     }
 }
 
@@ -627,11 +568,7 @@ extension WatchSessionManager: WCSessionDelegate {
                 self.workoutSession?.resume()
 
             case "workoutUpdate":
-                // Always accept WCSession display updates. The iPhone only sends these
-                // when IT believes mirroring isn't working. If the Watch also believes
-                // mirroring is up but it's actually broken (e.g. "Another session in
-                // progress"), the iPhone is the authority — trust its signal and display
-                // the data. Duplicate updates from a working mirror are harmless.
+                // iPhone pushes power/elapsed/state to Watch ~1 Hz via WCSession.
                 self.wcUpdateCount += 1
                 if self.wcUpdateCount == 1 || self.wcUpdateCount % 30 == 0 {
                     wlog("[WATCH] WCSession workoutUpdate #\(self.wcUpdateCount) accepted")
