@@ -8,6 +8,7 @@ struct WorkoutView: View {
     @State private var showSummary = false
     @State private var summaryViewModel: SummaryViewModel?
     @State private var showHRSourcePicker = false
+    @State private var shareETAText: String?
 
     var body: some View {
         VStack(spacing: 0) {
@@ -204,6 +205,15 @@ struct WorkoutView: View {
             }
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
+                    shareETAText = buildETAMessage()
+                } label: {
+                    Image(systemName: "square.and.arrow.up")
+                        .font(.title3)
+                        .foregroundColor(.green)
+                }
+            }
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
                     showHRSourcePicker = true
                 } label: {
                     ZStack {
@@ -220,6 +230,12 @@ struct WorkoutView: View {
                 }
                 .disabled(viewModel.isSwitchingHRSource)
             }
+        }
+        .sheet(item: Binding(
+            get: { shareETAText.map { ShareItem(text: $0) } },
+            set: { shareETAText = $0?.text }
+        )) { item in
+            ShareSheet(items: [item.text])
         }
         .confirmationDialog("Heart Rate Source", isPresented: $showHRSourcePicker) {
             if viewModel.useWatchHR {
@@ -336,7 +352,24 @@ struct WorkoutView: View {
             return "Complete"
         }
     }
+
+    /// Build the share-ETA message text. Recomputes on each tap so sharing
+    /// mid-workout produces an accurate "done by" time.
+    private func buildETAMessage() -> String {
+        let remaining = max(viewModel.workout.targetDuration - viewModel.elapsedTime, 0)
+        let endTime = Date().addingTimeInterval(remaining)
+        let formatter = DateFormatter()
+        formatter.timeStyle = .short
+        return "Doing a Zone 2 ride. Done by \(formatter.string(from: endTime)) 🚴"
+    }
 }
+
+/// Identifiable wrapper so we can drive a sheet from an optional String.
+private struct ShareItem: Identifiable {
+    let text: String
+    var id: String { text }
+}
+
 
 struct CompactMetricView: View {
     let icon: String

@@ -214,10 +214,18 @@ struct DiagnosticsCard: View {
 }
 
 struct ShareSheet: UIViewControllerRepresentable {
-    let url: URL
+    let items: [Any]
+
+    init(items: [Any]) {
+        self.items = items
+    }
+
+    init(url: URL) {
+        self.items = [url]
+    }
 
     func makeUIViewController(context: Context) -> UIActivityViewController {
-        UIActivityViewController(activityItems: [url], applicationActivities: nil)
+        UIActivityViewController(activityItems: items, applicationActivities: nil)
     }
 
     func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {}
