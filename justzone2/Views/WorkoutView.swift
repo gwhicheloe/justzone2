@@ -22,6 +22,18 @@ struct WorkoutView: View {
             }
         }
         .toolbar(isLandscape ? .hidden : .visible, for: .navigationBar)
+        .onAppear {
+            AppDelegate.orientationLock = .allButUpsideDown
+            UIApplication.shared.connectedScenes
+                .compactMap { $0 as? UIWindowScene }
+                .forEach { $0.keyWindow?.rootViewController?.setNeedsUpdateOfSupportedInterfaceOrientations() }
+        }
+        .onDisappear {
+            AppDelegate.orientationLock = .portrait
+            UIApplication.shared.connectedScenes
+                .compactMap { $0 as? UIWindowScene }
+                .forEach { $0.keyWindow?.rootViewController?.setNeedsUpdateOfSupportedInterfaceOrientations() }
+        }
     }
 
     /// Landscape: chart fills the screen with only a thin progress bar and a
