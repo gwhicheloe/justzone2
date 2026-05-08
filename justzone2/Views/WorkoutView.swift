@@ -9,8 +9,80 @@ struct WorkoutView: View {
     @State private var summaryViewModel: SummaryViewModel?
     @State private var showHRSourcePicker = false
     @State private var shareETAText: String?
+    @Environment(\.verticalSizeClass) private var verticalSizeClass
+
+    private var isLandscape: Bool { verticalSizeClass == .compact }
 
     var body: some View {
+        Group {
+            if isLandscape {
+                landscapeBody
+            } else {
+                portraitBody
+            }
+        }
+        .toolbar(isLandscape ? .hidden : .visible, for: .navigationBar)
+    }
+
+    /// Landscape: chart fills the screen with only a thin progress bar and a
+    /// tiny chunk-status line at the top. Rotate back to portrait for controls.
+    private var landscapeBody: some View {
+        VStack(spacing: 4) {
+            // Progress bar with chunk dividers
+            GeometryReader { geometry in
+                ZStack(alignment: .leading) {
+                    Rectangle().fill(Color.gray.opacity(0.3))
+                    Rectangle()
+                        .fill(Color.green)
+                        .frame(width: geometry.size.width * viewModel.progress)
+                    ForEach(1..<viewModel.totalChunks, id: \.self) { chunk in
+                        Rectangle()
+                            .fill(Color.white.opacity(0.5))
+                            .frame(width: 2)
+                            .offset(x: geometry.size.width * (Double(chunk) / Double(viewModel.totalChunks)) - 1)
+                    }
+                }
+            }
+            .frame(height: 4)
+
+            // Tiny status row
+            HStack {
+                Text("Chunk \(viewModel.currentChunk) of \(viewModel.totalChunks)")
+                    .fontWeight(.semibold)
+                Text("·")
+                    .foregroundColor(.secondary)
+                Text("\(viewModel.formatTime(viewModel.timeRemainingInChunk)) left")
+                    .foregroundColor(.secondary)
+                Spacer()
+                if viewModel.state == .paused {
+                    Text("PAUSED")
+                        .fontWeight(.bold)
+                        .foregroundColor(.orange)
+                }
+            }
+            .font(.caption)
+            .padding(.horizontal, 12)
+            .padding(.top, 2)
+
+            // Chart fills remaining space
+            if !viewModel.chartData.isEmpty {
+                WorkoutChartView(
+                    chartData: viewModel.chartData,
+                    targetPower: viewModel.adjustedPower
+                )
+                .padding(.horizontal, 8)
+                .padding(.bottom, 8)
+            } else {
+                Spacer()
+                Text("Waiting for data…")
+                    .foregroundColor(.secondary)
+                Spacer()
+            }
+        }
+        .ignoresSafeArea(.container, edges: .bottom)
+    }
+
+    private var portraitBody: some View {
         VStack(spacing: 0) {
             // Progress Bar with Chunk Markers
             GeometryReader { geometry in
