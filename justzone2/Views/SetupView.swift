@@ -388,6 +388,27 @@ struct SetupView: View {
                         }
                         Text(viewModel.startButtonHelpText)
                             .foregroundColor(viewModel.watchHRWaitingForApp ? .orange : .secondary)
+                        if viewModel.watchHRWaitingForApp {
+                            Spacer(minLength: 4)
+                            Button {
+                                viewModel.wakeWatchApp()
+                            } label: {
+                                HStack(spacing: 4) {
+                                    if viewModel.isWakingWatch {
+                                        ProgressView()
+                                            .scaleEffect(0.7)
+                                    }
+                                    Text(viewModel.isWakingWatch ? "Waking…" : "Wake Watch")
+                                        .fontWeight(.semibold)
+                                }
+                                .padding(.horizontal, 10)
+                                .padding(.vertical, 4)
+                                .background(Color.orange.opacity(0.15))
+                                .foregroundColor(.orange)
+                                .clipShape(Capsule())
+                            }
+                            .disabled(viewModel.isWakingWatch)
+                        }
                     }
                     .font(.caption)
                 }

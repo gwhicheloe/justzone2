@@ -212,6 +212,29 @@ class SetupViewModel: ObservableObject {
         useWatchHR = false
     }
 
+    /// Bring the Watch app to the foreground via HealthKit's startWatchApp.
+    /// This is the only iPhone-side API that can launch a paired watchOS app
+    /// (whether it's suspended in the background or never opened this session).
+    /// `isWatchReachable` flips true once the Watch app is foreground.
+    @Published var isWakingWatch = false
+
+    func wakeWatchApp() {
+        guard !isWakingWatch else { return }
+        isWakingWatch = true
+        Task {
+            do {
+                try await healthKitManager.startWatchWorkout()
+            } catch {
+                dlog("[IPHONE-VM] wakeWatchApp FAILED: \(error.localizedDescription)")
+            }
+            // Give the Watch a moment to come up so the spinner doesn't snap off
+            // before isReachable updates. Either reachability flips by then or
+            // the user can tap again.
+            try? await Task.sleep(nanoseconds: 3_000_000_000)
+            isWakingWatch = false
+        }
+    }
+
     func connectToStrava() async {
         stravaError = nil
         do {
