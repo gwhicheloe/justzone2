@@ -31,6 +31,9 @@ class WorkoutViewModel: ObservableObject {
     @Published var isSwitchingHRSource = false
     @Published var hrSourceError: String?
     @Published var showHRStrapPicker = false
+    /// Mirrors watchConnectivityService.hasReceivedHR so SwiftUI reactively
+    /// re-renders banners/alerts that depend on Watch HR delivery state.
+    @Published private(set) var hasWatchHR: Bool = false
 
     let bluetoothManager: BluetoothManager
     let kickrService: KickrService
@@ -93,7 +96,7 @@ class WorkoutViewModel: ObservableObject {
     /// Whether the Watch is currently sending HR samples for this workout.
     /// True once at least one HR sample has arrived via WCSession.
     var isWatchConnected: Bool {
-        useWatchHR && watchConnectivityService.hasReceivedHR
+        useWatchHR && hasWatchHR
     }
 
     init(
@@ -134,6 +137,12 @@ class WorkoutViewModel: ObservableObject {
         kickrService.$currentPower
             .assign(to: &$currentPower)
 
+        // Mirror Watch HR delivery state into a @Published on this VM so
+        // SwiftUI views that depend on it (Connecting banner, alert content)
+        // re-render when it flips.
+        watchConnectivityService.$hasReceivedHR
+            .assign(to: &$hasWatchHR)
+
         // Surface Watch-side session-start failures (e.g. app backgrounded) as
         // an HR-source error and abort any pending launch retry.
         watchConnectivityService.$watchStartError
@@ -165,6 +174,7 @@ class WorkoutViewModel: ObservableObject {
     func switchToWatchHR() {
         guard !isSwitchingHRSource else { return }
         guard state == .running || state == .paused else { return }
+        dlog("[IPHONE-VM] switchToWatchHR — useWatchHR true")
 
         isSwitchingHRSource = true
         hrSourceError = nil
@@ -184,6 +194,7 @@ class WorkoutViewModel: ObservableObject {
     func switchToBLEHR() {
         guard !isSwitchingHRSource else { return }
         guard state == .running || state == .paused else { return }
+        dlog("[IPHONE-VM] switchToBLEHR — strapConnected=\(heartRateService.isConnected)")
 
         if heartRateService.isConnected {
             completeSwitchToBLE()
@@ -194,12 +205,14 @@ class WorkoutViewModel: ObservableObject {
 
     func startHRStrapSelection() {
         guard state == .running || state == .paused else { return }
+        dlog("[IPHONE-VM] startHRStrapSelection — opening picker")
         bluetoothManager.startScanning()
         showHRStrapPicker = true
     }
 
     func selectAndConnectHRStrap(_ device: DeviceInfo) {
         guard !isSwitchingHRSource else { return }
+        dlog("[IPHONE-VM] selectAndConnectHRStrap — device=\(device.name)")
 
         if heartRateService.isConnected {
             heartRateService.disconnect()
@@ -215,10 +228,12 @@ class WorkoutViewModel: ObservableObject {
     /// Retry Watch connection from heart button (e.g. if initial launch failed).
     func retryWatchConnection() {
         guard useWatchHR, !isWatchConnected else { return }
+        dlog("[IPHONE-VM] retryWatchConnection — user tapped Retry")
         launchWatchWorkout()
     }
 
     private func completeSwitchToBLE() {
+        dlog("[IPHONE-VM] completeSwitchToBLE — useWatchHR false")
         isSwitchingHRSource = true
         hrSourceError = nil
 
@@ -346,34 +361,52 @@ class WorkoutViewModel: ObservableObject {
     /// even if the HK launch handler doesn't fire promptly. Watch then sends
     /// HR back via WCSession; the iPhone will see hasReceivedHR flip true.
     /// Cancelled early if the Watch reports a session-start error.
+    ///
+    /// If no HR arrives within 15 s, automatically retries the start once.
+    /// If still no HR by 30 s total, surfaces an alert to the user with
+    /// Retry / Use HR Strap options via `hrSourceError`.
     private func launchWatchWorkout() {
         watchLaunchTask?.cancel()
         watchLaunchTask = Task {
-            dlog("[IPHONE-VM] launchWatchWorkout — startWatchApp + WCSession backup")
-            do {
-                try await healthKitManager.startWatchWorkout()
-                dlog("[IPHONE-VM] startWatchWorkout returned OK")
-            } catch {
-                dlog("[IPHONE-VM] startWatchWorkout FAILED: \(error.localizedDescription)")
-            }
-            if Task.isCancelled {
-                dlog("[IPHONE-VM] launchWatchWorkout cancelled — Watch reported error")
-                return
-            }
-            watchConnectivityService.sendStartWorkout()
-            dlog("[IPHONE-VM] sendStartWorkout (WCSession backup) sent")
+            await tryStartWatch(attempt: 1)
 
-            // Synthetic timeout — emit a log if HR hasn't arrived in 15 s so
-            // shipped diagnostics show the silent-fail mode where Watch never
-            // started its session at all.
+            // Wait for HR. If none in 15 s, auto-retry once.
             try? await Task.sleep(nanoseconds: 15_000_000_000)
             if Task.isCancelled { return }
-            if !self.watchConnectivityService.hasReceivedHR {
-                dlog("[IPHONE-VM] WATCH_HR_TIMEOUT — no HR sample within 15s of launch")
-            } else {
+            if watchConnectivityService.hasReceivedHR {
                 dlog("[IPHONE-VM] launchWatchWorkout — HR arrived")
+                return
             }
+            dlog("[IPHONE-VM] WATCH_HR_TIMEOUT — no HR within 15s, auto-retrying")
+            await tryStartWatch(attempt: 2)
+
+            // Wait another 15 s. If still nothing, surface the alert.
+            try? await Task.sleep(nanoseconds: 15_000_000_000)
+            if Task.isCancelled { return }
+            if watchConnectivityService.hasReceivedHR {
+                dlog("[IPHONE-VM] launchWatchWorkout — HR arrived after auto-retry")
+                return
+            }
+            dlog("[IPHONE-VM] WATCH_HR_TIMEOUT_FINAL — surfacing alert (30s total)")
+            hrSourceError = "Apple Watch isn't sending heart rate. Tap Retry, or switch to your HR strap."
         }
+    }
+
+    /// One launch attempt: HKHealthStore.startWatchApp(.indoor) + WCSession backup.
+    private func tryStartWatch(attempt: Int) async {
+        dlog("[IPHONE-VM] launchWatchWorkout attempt \(attempt) — startWatchApp + WCSession backup")
+        do {
+            try await healthKitManager.startWatchWorkout()
+            dlog("[IPHONE-VM] startWatchWorkout attempt \(attempt) returned OK")
+        } catch {
+            dlog("[IPHONE-VM] startWatchWorkout attempt \(attempt) FAILED: \(error.localizedDescription)")
+        }
+        if Task.isCancelled {
+            dlog("[IPHONE-VM] launchWatchWorkout cancelled — Watch reported error")
+            return
+        }
+        watchConnectivityService.sendStartWorkout()
+        dlog("[IPHONE-VM] sendStartWorkout (WCSession backup) attempt \(attempt) sent")
     }
 
     func pauseWorkout() {

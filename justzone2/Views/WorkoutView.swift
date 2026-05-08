@@ -45,6 +45,8 @@ struct WorkoutView: View {
             }
             .frame(height: 4)
 
+            connectingBanner
+
             // Tiny status row
             HStack {
                 Text("Chunk \(viewModel.currentChunk) of \(viewModel.totalChunks)")
@@ -105,6 +107,7 @@ struct WorkoutView: View {
             }
             .frame(height: 8)
 
+            connectingBanner
 
             ScrollView {
                 VStack(spacing: 20) {
@@ -422,6 +425,27 @@ struct WorkoutView: View {
             return "Paused"
         case .completed:
             return "Complete"
+        }
+    }
+
+    /// "Connecting to Apple Watch…" banner. Shown when the user picked Watch
+    /// HR but no sample has arrived yet. Disappears as soon as `hasWatchHR`
+    /// flips true. Empty view otherwise so layout doesn't shift.
+    @ViewBuilder
+    private var connectingBanner: some View {
+        if viewModel.useWatchHR
+            && !viewModel.hasWatchHR
+            && (viewModel.state == .running || viewModel.state == .paused) {
+            HStack(spacing: 8) {
+                ProgressView()
+                    .scaleEffect(0.7)
+                Text("Connecting to Apple Watch…")
+                    .font(.caption)
+                    .foregroundColor(.orange)
+            }
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 6)
+            .background(Color.orange.opacity(0.1))
         }
     }
 
