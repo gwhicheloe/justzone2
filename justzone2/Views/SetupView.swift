@@ -381,9 +381,15 @@ struct SetupView: View {
                 .disabled(!viewModel.canStartWorkout)
 
                 if !viewModel.canStartWorkout {
-                    Text(viewModel.startButtonHelpText)
-                        .font(.caption)
-                        .foregroundColor(.secondary)
+                    HStack(spacing: 6) {
+                        if viewModel.watchHRWaitingForApp {
+                            Image(systemName: "applewatch")
+                                .foregroundColor(.orange)
+                        }
+                        Text(viewModel.startButtonHelpText)
+                            .foregroundColor(viewModel.watchHRWaitingForApp ? .orange : .secondary)
+                    }
+                    .font(.caption)
                 }
             }
             .padding()

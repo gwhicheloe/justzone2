@@ -239,8 +239,15 @@ class SetupViewModel: ObservableObject {
         Workout(targetPower: targetPower, targetDuration: targetDuration)
     }
 
+    /// True when Apple Watch is the chosen HR source but the Watch app
+    /// isn't currently reachable (i.e. not running in the foreground).
+    /// `WCSession.isReachable` flips true the moment the Watch app opens.
+    var watchHRWaitingForApp: Bool {
+        useWatchHR && !isWatchReachable
+    }
+
     var canStartWorkout: Bool {
-        kickrConnected && isHealthKitAuthorized
+        kickrConnected && isHealthKitAuthorized && !watchHRWaitingForApp
     }
 
     var startButtonHelpText: String {
@@ -250,6 +257,8 @@ class SetupViewModel: ObservableObject {
             return "Connect your smart trainer to start"
         } else if !isHealthKitAuthorized {
             return "Enable Apple Health to track workouts"
+        } else if watchHRWaitingForApp {
+            return "Open JustZone2 on your Apple Watch to continue"
         }
         return ""
     }
