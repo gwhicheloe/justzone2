@@ -22,17 +22,80 @@ struct WorkoutView: View {
             }
         }
         .toolbar(isLandscape ? .hidden : .visible, for: .navigationBar)
+        // The Watch-error alert, navigation push to Summary, and the workout's
+        // .onChange(of: state) MUST live on the outer Group, not on portraitBody.
+        // Otherwise, if the workout completes (or fails) while the device is in
+        // landscape, portraitBody isn't in the view hierarchy and none of these
+        // modifiers fire — the user gets stuck on a frozen workout screen.
+        .alert("Apple Watch", isPresented: .init(
+            get: { viewModel.hrSourceError != nil },
+            set: { if !$0 { viewModel.hrSourceError = nil } }
+        )) {
+            if viewModel.useWatchHR && !viewModel.isWatchConnected {
+                Button("Retry") {
+                    viewModel.hrSourceError = nil
+                    viewModel.retryWatchConnection()
+                }
+                Button("Use HR Strap") {
+                    viewModel.hrSourceError = nil
+                    viewModel.switchToBLEHR()
+                }
+                Button("Cancel", role: .cancel) { viewModel.hrSourceError = nil }
+            } else {
+                Button("OK") { viewModel.hrSourceError = nil }
+            }
+        } message: {
+            if let error = viewModel.hrSourceError {
+                Text(error)
+            }
+        }
+        .navigationDestination(isPresented: $showSummary) {
+            if let summaryVM = summaryViewModel {
+                SummaryView(
+                    viewModel: summaryVM,
+                    onDismiss: {
+                        isPresented = false
+                    }
+                )
+            }
+        }
         .onAppear {
             AppDelegate.orientationLock = .allButUpsideDown
             UIApplication.shared.connectedScenes
                 .compactMap { $0 as? UIWindowScene }
                 .forEach { $0.keyWindow?.rootViewController?.setNeedsUpdateOfSupportedInterfaceOrientations() }
+
+            if viewModel.state == .idle {
+                // Small delay to ensure view is fully loaded
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    viewModel.startWorkout()
+                }
+            }
         }
         .onDisappear {
             AppDelegate.orientationLock = .portrait
             UIApplication.shared.connectedScenes
                 .compactMap { $0 as? UIWindowScene }
                 .forEach { $0.keyWindow?.rootViewController?.setNeedsUpdateOfSupportedInterfaceOrientations() }
+        }
+        .onChange(of: viewModel.state) { _, newState in
+            if newState == .completed {
+                // Force portrait so SummaryView (designed for portrait) renders
+                // correctly even if the user was in landscape when auto-complete
+                // fired.
+                AppDelegate.orientationLock = .portrait
+                UIApplication.shared.connectedScenes
+                    .compactMap { $0 as? UIWindowScene }
+                    .forEach { $0.keyWindow?.rootViewController?.setNeedsUpdateOfSupportedInterfaceOrientations() }
+
+                if summaryViewModel == nil {
+                    summaryViewModel = SummaryViewModel(
+                        workout: viewModel.workout,
+                        stravaService: stravaService
+                    )
+                }
+                showSummary = true
+            }
         }
     }
 
@@ -358,62 +421,10 @@ struct WorkoutView: View {
                 }
             }
         }
-        .alert("Apple Watch", isPresented: .init(
-            get: { viewModel.hrSourceError != nil },
-            set: { if !$0 { viewModel.hrSourceError = nil } }
-        )) {
-            if viewModel.useWatchHR && !viewModel.isWatchConnected {
-                Button("Retry") {
-                    viewModel.hrSourceError = nil
-                    viewModel.retryWatchConnection()
-                }
-                Button("Use HR Strap") {
-                    viewModel.hrSourceError = nil
-                    viewModel.switchToBLEHR()
-                }
-                Button("Cancel", role: .cancel) { viewModel.hrSourceError = nil }
-            } else {
-                Button("OK") { viewModel.hrSourceError = nil }
-            }
-        } message: {
-            if let error = viewModel.hrSourceError {
-                Text(error)
-            }
-        }
         .sheet(isPresented: $viewModel.showHRStrapPicker) {
             viewModel.bluetoothManager.stopScanning()
         } content: {
             HRStrapPickerSheet(viewModel: viewModel)
-        }
-        .navigationDestination(isPresented: $showSummary) {
-            if let summaryVM = summaryViewModel {
-                SummaryView(
-                    viewModel: summaryVM,
-                    onDismiss: {
-                        isPresented = false
-                    }
-                )
-            }
-        }
-        .onAppear {
-            if viewModel.state == .idle {
-                // Small delay to ensure view is fully loaded
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                    viewModel.startWorkout()
-                }
-            }
-        }
-        .onChange(of: viewModel.state) { oldState, newState in
-            if newState == .completed {
-                // Create the SummaryViewModel ONCE when workout completes
-                if summaryViewModel == nil {
-                    summaryViewModel = SummaryViewModel(
-                        workout: viewModel.workout,
-                        stravaService: stravaService
-                    )
-                }
-                showSummary = true
-            }
         }
     }
 
