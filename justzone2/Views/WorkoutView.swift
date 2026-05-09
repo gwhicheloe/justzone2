@@ -571,15 +571,29 @@ struct WorkoutChartView: View {
         }
     }
 
+    /// Skip the first 2 minutes of warm-up ramp when computing axis bounds —
+    /// otherwise the low ramp-up values squash steady-state Zone 2 detail
+    /// into a thin band. Warm-up data still draws (clipped at the bottom).
+    /// Falls back to all data while the workout is too young to have a
+    /// meaningful steady-state.
+    private static let warmupSkipSeconds: Double = 120
+
+    private var steadyStateData: [ChartDataPoint] {
+        let trimmed = chartData.filter { $0.time >= Self.warmupSkipSeconds }
+        return trimmed.count >= 5 ? trimmed : chartData
+    }
+
     private var powerRange: ClosedRange<Int> {
-        let minP = max(0, (chartData.compactMap { $0.power }.min() ?? 100) - 20)
-        let maxP = max(chartData.compactMap { $0.power }.max() ?? 200, targetPower) + 20
+        let powers = steadyStateData.compactMap { $0.power }
+        let minP = max(0, (powers.min() ?? 100) - 20)
+        let maxP = max(powers.max() ?? 200, targetPower) + 20
         return minP...maxP
     }
 
     private var hrRange: ClosedRange<Int> {
-        let minHR = max(0, (chartData.compactMap { $0.heartRate }.min() ?? 60) - 10)
-        let maxHR = (chartData.compactMap { $0.heartRate }.max() ?? 180) + 10
+        let hrs = steadyStateData.compactMap { $0.heartRate }
+        let minHR = max(0, (hrs.min() ?? 60) - 10)
+        let maxHR = (hrs.max() ?? 180) + 10
         return minHR...maxHR
     }
 
