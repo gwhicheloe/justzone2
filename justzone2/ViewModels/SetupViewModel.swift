@@ -263,9 +263,9 @@ class SetupViewModel: ObservableObject {
         return ""
     }
 
-    // Power range: 120-200W in 5W increments (Zone 2 range)
+    // Power range: 120-300W in 5W increments
     var powerOptions: [Int] {
-        stride(from: 120, through: 200, by: 5).map { $0 }
+        stride(from: 120, through: 300, by: 5).map { $0 }
     }
 
     // Duration range: 5min - 3hrs in 5min increments
