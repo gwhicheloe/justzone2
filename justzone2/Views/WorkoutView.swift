@@ -22,6 +22,7 @@ struct WorkoutView: View {
             }
         }
         .toolbar(isLandscape ? .hidden : .visible, for: .navigationBar)
+        .toolbar(isLandscape ? .hidden : .visible, for: .tabBar)
         // The Watch-error alert, navigation push to Summary, and the workout's
         // .onChange(of: state) MUST live on the outer Group, not on portraitBody.
         // Otherwise, if the workout completes (or fails) while the device is in
