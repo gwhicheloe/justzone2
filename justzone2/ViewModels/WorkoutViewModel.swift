@@ -27,7 +27,9 @@ class WorkoutViewModel: ObservableObject {
     @Published var healthKitWorkout: HKWorkout?
 
     // HR source switching
-    @Published var useWatchHR: Bool
+    @Published var hrSource: HRSource
+    /// Computed shorthand kept so read sites don't all need to migrate at once.
+    var useWatchHR: Bool { hrSource == .appleWatch }
     @Published var isSwitchingHRSource = false
     @Published var hrSourceError: String?
     @Published var showHRStrapPicker = false
@@ -107,7 +109,7 @@ class WorkoutViewModel: ObservableObject {
         healthKitManager: HealthKitManager,
         liveActivityManager: LiveActivityManager,
         watchConnectivityService: WatchConnectivityService,
-        useWatchHR: Bool = false,
+        hrSource: HRSource = .bleStrap,
         zoneTargetingEnabled: Bool = false,
         warmUpEnabled: Bool = false
     ) {
@@ -118,7 +120,7 @@ class WorkoutViewModel: ObservableObject {
         self.healthKitManager = healthKitManager
         self.liveActivityManager = liveActivityManager
         self.watchConnectivityService = watchConnectivityService
-        self.useWatchHR = useWatchHR
+        self.hrSource = hrSource
         self.zoneTargetingEnabled = zoneTargetingEnabled
         self.warmUpEnabled = warmUpEnabled
         self.adjustedPower = workout.targetPower
@@ -159,11 +161,17 @@ class WorkoutViewModel: ObservableObject {
 
     private func bindHRSource() {
         hrCancellable?.cancel()
-        if useWatchHR {
-            // Single source: WCSession HR from Watch.
+        switch hrSource {
+        case .appleWatch:
+            // Watch streams HR over WCSession.
             hrCancellable = watchConnectivityService.$fallbackHeartRate
                 .sink { [weak self] hr in self?.currentHeartRate = hr }
-        } else {
+        case .airPods:
+            // AirPods native HR — wired up in the next commit. For now, fall
+            // back to whichever source has data; iPhone builder will publish
+            // HR samples when this path is enabled.
+            hrCancellable = nil
+        case .bleStrap:
             hrCancellable = heartRateService.$currentHeartRate
                 .sink { [weak self] hr in self?.currentHeartRate = hr }
         }
@@ -174,7 +182,7 @@ class WorkoutViewModel: ObservableObject {
     func switchToWatchHR() {
         guard !isSwitchingHRSource else { return }
         guard state == .running || state == .paused else { return }
-        dlog("[IPHONE-VM] switchToWatchHR — useWatchHR true")
+        dlog("[IPHONE-VM] switchToWatchHR — hrSource → appleWatch")
 
         isSwitchingHRSource = true
         hrSourceError = nil
@@ -182,7 +190,7 @@ class WorkoutViewModel: ObservableObject {
         Task {
             // The iPhone HK session keeps running across the switch — it's the
             // record sink either way. We just change the HR feed source.
-            useWatchHR = true
+            hrSource = .appleWatch
             bindHRSource()
             watchConnectivityService.resetHRStats()
             launchWatchWorkout()
@@ -233,14 +241,14 @@ class WorkoutViewModel: ObservableObject {
     }
 
     private func completeSwitchToBLE() {
-        dlog("[IPHONE-VM] completeSwitchToBLE — useWatchHR false")
+        dlog("[IPHONE-VM] completeSwitchToBLE — hrSource → bleStrap")
         isSwitchingHRSource = true
         hrSourceError = nil
 
         // Stop the Watch session — we don't need its HR anymore.
         watchConnectivityService.sendStopWorkout()
         // iPhone HK session continues — same record sink.
-        useWatchHR = false
+        hrSource = .bleStrap
         bindHRSource()
         isSwitchingHRSource = false
     }

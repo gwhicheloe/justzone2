@@ -11,6 +11,7 @@
 		1100000000000002 /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000002 /* Workout.swift */; };
 		1100000000000003 /* WorkoutSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000003 /* WorkoutSample.swift */; };
 		1100000000000004 /* DeviceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000004 /* DeviceInfo.swift */; };
+		DD00000000000020 /* HRSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD00000000000021 /* HRSource.swift */; };
 		1100000000000005 /* BluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000005 /* BluetoothManager.swift */; };
 		1100000000000006 /* KickrService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000006 /* KickrService.swift */; };
 		1100000000000007 /* HeartRateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000007 /* HeartRateService.swift */; };
@@ -125,6 +126,7 @@
 		2200000000000002 /* Workout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workout.swift; sourceTree = "<group>"; };
 		2200000000000003 /* WorkoutSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSample.swift; sourceTree = "<group>"; };
 		2200000000000004 /* DeviceInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceInfo.swift; sourceTree = "<group>"; };
+		DD00000000000021 /* HRSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRSource.swift; sourceTree = "<group>"; };
 		2200000000000005 /* BluetoothManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothManager.swift; sourceTree = "<group>"; };
 		2200000000000006 /* KickrService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KickrService.swift; sourceTree = "<group>"; };
 		2200000000000007 /* HeartRateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateService.swift; sourceTree = "<group>"; };
@@ -276,6 +278,7 @@
 				2200000000000002 /* Workout.swift */,
 				2200000000000003 /* WorkoutSample.swift */,
 				2200000000000004 /* DeviceInfo.swift */,
+				DD00000000000021 /* HRSource.swift */,
 				2200000000000022 /* WorkoutActivityAttributes.swift */,
 				2200000000000024 /* ActivityStreams.swift */,
 				2200000000000028 /* LocalWorkout.swift */,
@@ -543,6 +546,7 @@
 				1100000000000002 /* Workout.swift in Sources */,
 				1100000000000003 /* WorkoutSample.swift in Sources */,
 				1100000000000004 /* DeviceInfo.swift in Sources */,
+				DD00000000000020 /* HRSource.swift in Sources */,
 				1100000000000005 /* BluetoothManager.swift in Sources */,
 				18C58F072F294AA100B04598 /* HistoryView.swift in Sources */,
 				1100000000000006 /* KickrService.swift in Sources */,

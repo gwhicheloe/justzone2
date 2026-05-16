@@ -361,7 +361,7 @@ struct SetupView: View {
                         healthKitManager: viewModel.healthKitManager,
                         liveActivityManager: viewModel.liveActivityManager,
                         watchConnectivityService: viewModel.watchConnectivityService,
-                        useWatchHR: viewModel.useWatchHR,
+                        hrSource: viewModel.hrSource,
                         zoneTargetingEnabled: viewModel.zoneTargetingEnabled,
                         warmUpEnabled: viewModel.warmUpEnabled
                     )
@@ -503,7 +503,7 @@ struct SetupView: View {
             healthKitManager: viewModel.healthKitManager,
             liveActivityManager: viewModel.liveActivityManager,
             watchConnectivityService: viewModel.watchConnectivityService,
-            useWatchHR: recovery.useWatchHR,
+            hrSource: recovery.useWatchHR ? .appleWatch : .bleStrap,
             zoneTargetingEnabled: recovery.zoneTargetingEnabled,
             warmUpEnabled: recovery.warmUpEnabled
         )

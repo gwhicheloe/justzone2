@@ -32,7 +32,9 @@ class SetupViewModel: ObservableObject {
     @Published var warmUpEnabled: Bool {
         didSet { UserDefaults.standard.set(warmUpEnabled, forKey: "warmUpEnabled") }
     }
-    @Published var useWatchHR = false
+    @Published var hrSource: HRSource = .bleStrap
+    /// Computed shorthand kept so read sites don't all need to migrate at once.
+    var useWatchHR: Bool { hrSource == .appleWatch }
     @Published var isWatchAvailable = false
     @Published var isWatchReachable = false
     @Published var isWatchAppInstalled = false
@@ -188,8 +190,8 @@ class SetupViewModel: ObservableObject {
     }
 
     func connectHeartRateMonitor(_ device: DeviceInfo) {
-        // Deselect Watch HR when connecting Bluetooth HR
-        useWatchHR = false
+        // Switch HR source to the connected strap.
+        hrSource = .bleStrap
         hrConnecting = true
         hrError = nil
         heartRateService.connect(to: device)
@@ -201,7 +203,7 @@ class SetupViewModel: ObservableObject {
     }
 
     func selectWatchHR() {
-        useWatchHR = true
+        hrSource = .appleWatch
         // Disconnect any Bluetooth HR monitor
         heartRateService.disconnect()
         hrConnected = false
@@ -209,7 +211,7 @@ class SetupViewModel: ObservableObject {
     }
 
     func deselectWatchHR() {
-        useWatchHR = false
+        hrSource = .bleStrap
     }
 
     func connectToStrava() async {
