@@ -389,38 +389,36 @@ struct WorkoutView: View {
             ShareSheet(items: [item.text])
         }
         .confirmationDialog("Heart Rate Source", isPresented: $showHRSourcePicker) {
-            if viewModel.useWatchHR {
-                Button("Switch to HR Strap") {
-                    viewModel.switchToBLEHR()
-                }
-                if !viewModel.isWatchConnected {
-                    Button("Retry Watch Connection") {
-                        viewModel.retryWatchConnection()
-                    }
-                }
-            } else {
+            // Show the two NOT-currently-selected sources as switch options,
+            // plus a Retry for Watch if it's selected but not delivering HR.
+            if viewModel.hrSource != .appleWatch {
                 Button("Switch to Apple Watch") {
                     viewModel.switchToWatchHR()
                 }
+            }
+            if viewModel.hrSource != .airPods {
+                Button("Switch to AirPods Pro") {
+                    viewModel.switchToAirPods()
+                }
+            }
+            if viewModel.hrSource != .bleStrap {
+                Button("Switch to HR Strap") {
+                    viewModel.switchToBLEHR()
+                }
+            }
+            if viewModel.hrSource == .appleWatch && !viewModel.isWatchConnected {
+                Button("Retry Watch Connection") {
+                    viewModel.retryWatchConnection()
+                }
+            }
+            if viewModel.hrSource == .bleStrap {
                 Button("Change HR Strap") {
                     viewModel.startHRStrapSelection()
                 }
             }
             Button("Cancel", role: .cancel) {}
         } message: {
-            if viewModel.useWatchHR {
-                if viewModel.isWatchConnected {
-                    Text("Currently using Apple Watch")
-                } else {
-                    Text("Apple Watch not connected — tap Retry or switch to HR strap")
-                }
-            } else {
-                if viewModel.heartRateService.isConnected {
-                    Text("Currently using HR Strap")
-                } else {
-                    Text("No HR strap connected")
-                }
-            }
+            Text(hrPickerMessage)
         }
         .sheet(isPresented: $viewModel.showHRStrapPicker) {
             viewModel.bluetoothManager.stopScanning()
@@ -452,18 +450,36 @@ struct WorkoutView: View {
         }
     }
 
-    /// "Connecting to Apple Watch…" banner. Shown when the user picked Watch
-    /// HR but no sample has arrived yet. Disappears as soon as `hasWatchHR`
-    /// flips true. Empty view otherwise so layout doesn't shift.
+    /// Status text shown under the HR-source picker.
+    private var hrPickerMessage: String {
+        switch viewModel.hrSource {
+        case .appleWatch:
+            return viewModel.isHRSourceConnected
+                ? "Currently using Apple Watch"
+                : "Apple Watch not connected — tap Retry or switch source"
+        case .airPods:
+            return viewModel.isHRSourceConnected
+                ? "Currently using AirPods Pro"
+                : "Waiting for AirPods Pro — make sure they're worn"
+        case .bleStrap:
+            return viewModel.heartRateService.isConnected
+                ? "Currently using HR Strap"
+                : "No HR strap connected"
+        }
+    }
+
+    /// "Connecting to {source}…" banner. Shown for any non-strap HR source
+    /// while we're waiting for the first sample. Disappears as soon as the
+    /// source publishes HR. Empty view otherwise so layout doesn't shift.
     @ViewBuilder
     private var connectingBanner: some View {
-        if viewModel.useWatchHR
-            && !viewModel.hasWatchHR
+        if viewModel.hrSource != .bleStrap
+            && !viewModel.isHRSourceConnected
             && (viewModel.state == .running || viewModel.state == .paused) {
             HStack(spacing: 8) {
                 ProgressView()
                     .scaleEffect(0.7)
-                Text("Connecting to Apple Watch…")
+                Text("Connecting to \(viewModel.hrSource.displayName)…")
                     .font(.caption)
                     .foregroundColor(.orange)
             }

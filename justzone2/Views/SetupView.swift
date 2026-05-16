@@ -278,6 +278,71 @@ struct SetupView: View {
                                     }
                                 }
                             }
+
+                            // AirPods Pro HR option (Pro 3+ in-ear HR sensor)
+                            Divider()
+
+                            VStack(alignment: .leading, spacing: 4) {
+                                HStack {
+                                    Image(systemName: "airpodspro")
+                                        .foregroundColor(viewModel.hrSource == .airPods ? .green : .primary)
+                                        .frame(width: 30)
+                                    Text("AirPods Pro")
+                                        .font(.subheadline)
+                                    Spacer()
+                                    if viewModel.hrSource == .airPods {
+                                        HStack(spacing: 4) {
+                                            Image(systemName: "checkmark.circle.fill")
+                                                .font(.caption)
+                                            Text("Selected")
+                                                .font(.caption)
+                                                .fontWeight(.medium)
+                                        }
+                                        .padding(.horizontal, 8)
+                                        .padding(.vertical, 3)
+                                        .background(Color.green.opacity(0.1))
+                                        .foregroundColor(.green)
+                                        .clipShape(Capsule())
+                                    } else {
+                                        Button("Select") {
+                                            viewModel.hrSource = .airPods
+                                            viewModel.heartRateService.disconnect()
+                                            viewModel.hrConnected = false
+                                            viewModel.hrConnecting = false
+                                        }
+                                        .font(.subheadline)
+                                        .padding(.horizontal, 12)
+                                        .padding(.vertical, 6)
+                                        .background(Color.blue.opacity(0.1))
+                                        .foregroundColor(.blue)
+                                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                                    }
+                                }
+                                .padding(.vertical, 8)
+                                .contentShape(Rectangle())
+                                .onTapGesture {
+                                    if viewModel.hrSource == .airPods {
+                                        viewModel.hrSource = .bleStrap
+                                    } else {
+                                        viewModel.hrSource = .airPods
+                                        viewModel.heartRateService.disconnect()
+                                        viewModel.hrConnected = false
+                                        viewModel.hrConnecting = false
+                                    }
+                                }
+
+                                if viewModel.hrSource == .airPods {
+                                    HStack(spacing: 4) {
+                                        Circle()
+                                            .fill(Color.green)
+                                            .frame(width: 6, height: 6)
+                                        Text("Wear AirPods Pro 3 during workout — HR auto-detected")
+                                            .font(.caption2)
+                                            .foregroundColor(.secondary)
+                                    }
+                                    .padding(.bottom, 6)
+                                }
+                            }
                         }
                         .padding(.horizontal, 12)
                     }

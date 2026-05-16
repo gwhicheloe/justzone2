@@ -36,6 +36,8 @@ class WorkoutViewModel: ObservableObject {
     /// Mirrors watchConnectivityService.hasReceivedHR so SwiftUI reactively
     /// re-renders banners/alerts that depend on Watch HR delivery state.
     @Published private(set) var hasWatchHR: Bool = false
+    /// Mirrors healthKitManager.hasReceivedBuilderHR for the AirPods path.
+    @Published private(set) var hasNativeHR: Bool = false
 
     let bluetoothManager: BluetoothManager
     let kickrService: KickrService
@@ -145,6 +147,10 @@ class WorkoutViewModel: ObservableObject {
         watchConnectivityService.$hasReceivedHR
             .assign(to: &$hasWatchHR)
 
+        // Same for the AirPods (native HKLiveWorkoutBuilder HR) path.
+        healthKitManager.$hasReceivedBuilderHR
+            .assign(to: &$hasNativeHR)
+
         // Surface Watch-side session-start failures (e.g. app backgrounded) as
         // an HR-source error and abort any pending launch retry.
         watchConnectivityService.$watchStartError
@@ -167,13 +173,24 @@ class WorkoutViewModel: ObservableObject {
             hrCancellable = watchConnectivityService.$fallbackHeartRate
                 .sink { [weak self] hr in self?.currentHeartRate = hr }
         case .airPods:
-            // AirPods native HR — wired up in the next commit. For now, fall
-            // back to whichever source has data; iPhone builder will publish
-            // HR samples when this path is enabled.
-            hrCancellable = nil
+            // AirPods Pro 3 in-ear PPG → HealthKit store → iPhone's
+            // HKLiveWorkoutBuilder auto-collects → didCollectDataOf delegate
+            // publishes builderHeartRate. We just subscribe to it.
+            hrCancellable = healthKitManager.$builderHeartRate
+                .sink { [weak self] hr in self?.currentHeartRate = hr }
         case .bleStrap:
             hrCancellable = heartRateService.$currentHeartRate
                 .sink { [weak self] hr in self?.currentHeartRate = hr }
+        }
+    }
+
+    /// Whether the chosen HR source is currently producing samples.
+    /// Drives the "Connecting to X…" banner in WorkoutView.
+    var isHRSourceConnected: Bool {
+        switch hrSource {
+        case .appleWatch: return hasWatchHR
+        case .airPods:    return hasNativeHR
+        case .bleStrap:   return heartRateService.isConnected
         }
     }
 
@@ -209,6 +226,24 @@ class WorkoutViewModel: ObservableObject {
         } else {
             startHRStrapSelection()
         }
+    }
+
+    func switchToAirPods() {
+        guard !isSwitchingHRSource else { return }
+        guard state == .running || state == .paused else { return }
+        dlog("[IPHONE-VM] switchToAirPods — hrSource → airPods")
+
+        isSwitchingHRSource = true
+        hrSourceError = nil
+
+        // If we're leaving the Watch source, tell the Watch to stop its session.
+        if hrSource == .appleWatch {
+            watchConnectivityService.sendStopWorkout()
+        }
+        healthKitManager.resetBuilderHRStats()
+        hrSource = .airPods
+        bindHRSource()
+        isSwitchingHRSource = false
     }
 
     func startHRStrapSelection() {
@@ -260,6 +295,7 @@ class WorkoutViewModel: ObservableObject {
 
         UIApplication.shared.isIdleTimerDisabled = true
         watchConnectivityService.resetHRStats()
+        healthKitManager.resetBuilderHRStats()
 
         let startPower = warmUpEnabled ? workout.targetPower / 2 : workout.targetPower
         kickrService.setTargetPower(startPower)
@@ -547,9 +583,11 @@ class WorkoutViewModel: ObservableObject {
         workout.addSample(heartRate: hr, power: pwr, cadence: cad, speed: speed > 0 ? speed : nil, distance: accumulatedDistance)
         evaluateZoneTargeting()
 
-        // iPhone owns the HK record in both modes. HR comes from Watch
-        // (Mode A, via WCSession) or BLE strap (Mode B). Same write path.
-        if let heartRate = hr {
+        // iPhone owns the HK record. HR samples need a manual write only when
+        // the source doesn't already feed the builder — Watch (WCSession) and
+        // BLE strap. AirPods writes natively via HKLiveWorkoutDataSource, so
+        // a manual add would duplicate the sample.
+        if let heartRate = hr, !hrSource.writesToBuilderNatively {
             healthKitManager.addHeartRateSample(heartRate, at: now)
         }
         if let power = pwr {

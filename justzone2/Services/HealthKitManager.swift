@@ -15,6 +15,16 @@ class HealthKitManager: NSObject, ObservableObject {
     @Published var authorizationError: String?
     @Published var sessionState: HKWorkoutSessionState = .notStarted
 
+    /// HR samples collected by HKLiveWorkoutDataSource — used for AirPods Pro 3,
+    /// which pushes HR into the user's HealthKit store and the builder picks it
+    /// up automatically. Zero for non-native sources (Watch over WCSession,
+    /// BLE strap via heartRateService).
+    @Published var builderHeartRate: Int = 0
+    /// True once at least one native HR sample has arrived for this workout.
+    @Published var hasReceivedBuilderHR: Bool = false
+
+    private var builderHRCount = 0
+
     var isStandaloneSessionActive: Bool { workoutSession != nil }
 
     override init() {
@@ -257,8 +267,35 @@ extension HealthKitManager: HKLiveWorkoutBuilderDelegate {
         _ workoutBuilder: HKLiveWorkoutBuilder,
         didCollectDataOf collectedTypes: Set<HKSampleType>
     ) {
-        // iPhone has no native HR sensor; HR arrives via WCSession from Watch
-        // and is added manually via addHeartRateSample. Nothing to do here.
+        let hrType = HKQuantityType(.heartRate)
+        guard collectedTypes.contains(hrType) else { return }
+        guard let stats = workoutBuilder.statistics(for: hrType),
+              let quantity = stats.mostRecentQuantity() else { return }
+        let unit = HKUnit.count().unitDivided(by: .minute())
+        let bpm = Int(quantity.doubleValue(for: unit))
+        guard bpm > 0 else { return }
+
+        Task { @MainActor in
+            if !self.hasReceivedBuilderHR {
+                self.hasReceivedBuilderHR = true
+                dlog("[IPHONE-HK] HR first received via builder — bpm=\(bpm)")
+            }
+            self.builderHeartRate = bpm
+            self.builderHRCount += 1
+            if self.builderHRCount % 30 == 0 {
+                dlog("[IPHONE-HK] HR builder rollup — received=\(self.builderHRCount) bpm=\(bpm)")
+            }
+            dsignpost("Builder HR=\(bpm) count=\(self.builderHRCount)")
+        }
+    }
+}
+
+extension HealthKitManager {
+    /// Reset builder-HR counters at the start of a workout.
+    func resetBuilderHRStats() {
+        builderHeartRate = 0
+        hasReceivedBuilderHR = false
+        builderHRCount = 0
     }
 }
 
