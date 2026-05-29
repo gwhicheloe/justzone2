@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="A coffee nerd's guide to the PID controller that keeps your heart rate in Zone 2 — the same control loop that holds your espresso machine at 93°C.">
+<meta name="theme-color" content="#34C759">
+<title>The Espresso in the Algorithm: How the Zone 2 PID Works — Justzone2</title>
+<meta property="og:title" content="The Espresso in the Algorithm: How the Zone 2 PID Works">
+<meta property="og:description" content="The controller holding your heart rate in Zone 2 is the same one holding your espresso machine at 93°C. Here's how it's built.">
+<meta property="og:image" content="https://www.justzone2.com/images/blog/sa-calobra.jpg">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/styles.css">
+<link rel="icon" type="image/svg+xml" href="../images/app-icon.svg">
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="nav" id="nav">
+  <div class="wrap nav-row">
+    <a href="../index.html" class="nav-logo">Justzone2</a>
+    <nav class="nav-links" id="nav-links">
+      <a href="../index.html#features">Features</a>
+      <a href="../index.html#how-it-works">How It Works</a>
+      <a href="../index.html#why-zone2">Why Zone 2</a>
+      <a href="../index.html#resources">Resources</a>
+      <a href="index.html">Blog</a>
+    </nav>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <a href="../index.html" class="nav-cta">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+      Download
+    </a>
+  </div>
+</nav>
+
+<section class="section subpage">
+  <div class="wrap">
+    <article class="article">
+      <a href="index.html" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        All posts
+      </a>
+
+      <span class="post-tag rv">Under the Hood</span>
+      <h1 class="post-title rv d1">The Espresso in the Algorithm: How the Zone 2 PID Works</h1>
+      <div class="post-meta rv d1">29 May 2026 · <span>9 min read</span></div>
+
+      <div class="post-body">
+        <p>I am, by any reasonable definition, a coffee nerd. I weigh my beans to the tenth of a gram. I know my group head holds temperature better than the cheap machine it replaced. And the reason that better machine pulls a better shot comes down to four letters that should be familiar to anyone who's gone down the espresso rabbit hole: <strong>PID</strong>.</p>
+
+        <p>A budget espresso machine controls its boiler with a simple thermostat — heat full-blast until it's too hot, switch off until it's too cold, repeat. The temperature saws up and down by several degrees, and your shot tastes different every time. A good machine runs a <strong>PID controller</strong> instead, holding the water within a fraction of a degree of, say, 93°C. Same boiler, same heating element — vastly better coffee. The magic isn't more power. It's <em>control</em>.</p>
+
+        <p>When I set out to keep a rider's heart rate pinned in Zone 2, I realised I'd already met this problem. Holding a heart rate is holding a temperature. So Justzone2's zone targeting is, at its heart, the same controller that's in a nice espresso machine — pointed at your cardiovascular system instead of a boiler.</p>
+
+        <h2>What a PID actually does (the coffee version)</h2>
+        <p>A PID controller has one job: drive a measured value (the <em>process variable</em>) to a target (the <em>setpoint</em>) and hold it there. It does this by watching the <strong>error</strong> — the gap between where you are and where you want to be — and reacting in three ways:</p>
+
+        <p><strong>P — Proportional.</strong> React to the error right now. Boiler 8° too cold? Push hard. 1° off? Ease up. The bigger the gap, the bigger the response.</p>
+
+        <p><strong>I — Integral.</strong> React to the error that <em>won't go away</em>. If your machine stubbornly sits 2° cool no matter what P does, the integral term quietly accumulates that persistent miss and trims it out. It's what kills the steady-state offset.</p>
+
+        <p><strong>D — Derivative.</strong> React to how fast the error is changing. Temperature rocketing up toward the target? Start backing off <em>early</em>, before you overshoot and scorch the shot.</p>
+
+        <p>Now swap the boiler for a rider. The setpoint is the middle of your Zone 2 heart-rate band. The process variable is your live heart rate. And the "heating element" is the target power we send to the Wahoo KICKR over Bluetooth — more watts drives your heart rate up, fewer lets it drift down.</p>
+
+        <figure class="post-figure rv">
+          <svg viewBox="0 0 720 290" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-label="Block diagram of the heart-rate control loop">
+            <defs>
+              <marker id="ah" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+                <path d="M0,0 L8,4.5 L0,9 Z" fill="#34C759"/>
+              </marker>
+            </defs>
+            <rect width="720" height="290" fill="#0A0A14"/>
+            <g font-family="Nunito,system-ui,sans-serif" font-size="13" font-weight="700">
+              <!-- Setpoint -->
+              <rect x="20" y="104" width="118" height="60" rx="12" fill="rgba(52,199,89,.10)" stroke="#34C759" stroke-width="1.6"/>
+              <text x="79" y="130" text-anchor="middle" fill="#fff">Zone 2 target</text>
+              <text x="79" y="148" text-anchor="middle" fill="rgba(255,255,255,.45)" font-weight="600" font-size="11">setpoint (bpm)</text>
+              <!-- arrow to sum -->
+              <line x1="138" y1="134" x2="180" y2="134" stroke="#34C759" stroke-width="1.6" marker-end="url(#ah)"/>
+              <!-- Summing junction -->
+              <circle cx="200" cy="134" r="17" fill="none" stroke="#34C759" stroke-width="1.6"/>
+              <text x="200" y="139" text-anchor="middle" fill="#fff" font-size="15">Σ</text>
+              <text x="183" y="170" fill="#FF5F5F" font-size="13" font-weight="800">−</text>
+              <!-- arrow to PI -->
+              <line x1="217" y1="134" x2="262" y2="134" stroke="#34C759" stroke-width="1.6" marker-end="url(#ah)"/>
+              <text x="240" y="124" text-anchor="middle" fill="rgba(255,255,255,.45)" font-size="11" font-weight="600">error</text>
+              <!-- PI block -->
+              <rect x="264" y="100" width="138" height="68" rx="12" fill="rgba(52,199,89,.10)" stroke="#34C759" stroke-width="1.6"/>
+              <text x="333" y="128" text-anchor="middle" fill="#fff">PI controller</text>
+              <text x="333" y="148" text-anchor="middle" fill="#8DFFA0" font-size="12" font-weight="700" font-family="ui-monospace,Menlo,monospace">Kp·e + Ki·∫e</text>
+              <!-- arrow to plant -->
+              <line x1="402" y1="134" x2="452" y2="134" stroke="#34C759" stroke-width="1.6" marker-end="url(#ah)"/>
+              <text x="427" y="124" text-anchor="middle" fill="rgba(255,255,255,.45)" font-size="11" font-weight="600">watts</text>
+              <!-- Plant -->
+              <rect x="454" y="100" width="166" height="68" rx="12" fill="rgba(79,195,247,.08)" stroke="var(--pw)" stroke-width="1.6"/>
+              <text x="537" y="128" text-anchor="middle" fill="#fff">KICKR + you</text>
+              <text x="537" y="148" text-anchor="middle" fill="rgba(255,255,255,.45)" font-weight="600" font-size="11">the "boiler"</text>
+              <!-- arrow to output -->
+              <line x1="620" y1="134" x2="680" y2="134" stroke="#34C759" stroke-width="1.6" marker-end="url(#ah)"/>
+              <text x="676" y="120" text-anchor="end" fill="#FF5F5F" font-size="12" font-weight="800">HR</text>
+              <!-- Feedback path -->
+              <polyline points="650,134 650,244 200,244 200,151" fill="none" stroke="rgba(255,255,255,.28)" stroke-width="1.4" stroke-dasharray="5 4" marker-end="url(#ah)"/>
+              <text x="425" y="238" text-anchor="middle" fill="rgba(255,255,255,.45)" font-size="11" font-weight="600">measured heart rate (sensor feedback)</text>
+            </g>
+          </svg>
+          <figcaption>The loop, once per second: compare target to measured HR, compute a power correction, send it to the KICKR, measure the new HR, repeat. Identical in shape to the loop holding your espresso boiler at temperature.</figcaption>
+        </figure>
+
+        <h2>The core, in about five lines</h2>
+        <p>Strip away the safety rails and the controller is genuinely small. Every second we read the heart rate, compute the error against the setpoint, and turn it into a wattage to add to (or subtract from) your target power:</p>
+
+        <div class="eq"><em>output</em> = Kp · e + Ki · ∫ e&nbsp;dt &nbsp;&nbsp;&nbsp; where&nbsp; e = target − HR</div>
+
+        <div class="codeblock"><span class="c">// runs once per second (1 Hz)</span>
+<span class="k">let</span> error    = setpoint - smoothedHR          <span class="c">// bpm, +ve ⇒ HR too low</span>
+integral += gradientFactor * error * dt          <span class="c">// accumulate (anti-windup clamped)</span>
+<span class="k">let</span> output   = Kp * error + Ki * integral       <span class="c">// watts vs. your target</span>
+
+<span class="c">// slew-limit + clamp to ±30 W, then drive the trainer</span>
+kickr.setTargetPower(targetPower + output)
+</div>
+
+        <p>A positive error means your heart rate is below the zone, so we add watts. Negative means you're above it, so we back off. The proportional term does the bulk of the work; the integral term mops up the slow, stubborn drift — exactly like the boiler that always runs a touch cool.</p>
+
+        <p>The real values, all tuned on actual rides:</p>
+
+        <table class="params">
+          <tr><th>Parameter</th><th>Value</th><th>What it's for</th></tr>
+          <tr><td>Kp</td><td>0.5 W/bpm</td><td>Proportional gain — react to the error now</td></tr>
+          <tr><td>Ki</td><td>0.008 W/(bpm·s)</td><td>Integral gain — erase steady-state drift</td></tr>
+          <tr><td>setpoint</td><td>mid Zone 2</td><td>Midpoint of your HR band</td></tr>
+          <tr><td>HR smoothing</td><td>45 s average</td><td>Kill beat-to-beat noise before it hits the loop</td></tr>
+          <tr><td>output clamp</td><td>±30 W</td><td>Assist your target — never hijack it</td></tr>
+          <tr><td>grace period</td><td>180 s</td><td>Let HR settle before the loop engages</td></tr>
+          <tr><td>sample rate</td><td>1 Hz</td><td>One correction per second</td></tr>
+        </table>
+
+        <h2>Where it stops being a textbook PID</h2>
+        <p>Here's the confession the title buried: there's no D in this PID. And the reason is pure coffee-nerd pedantry about <em>signal quality</em>.</p>
+
+        <p>A derivative term reacts to the rate of change of the error. That's brilliant when your sensor is clean — but a heart-rate signal is anything but. It jitters beat to beat, a strap shifts, a packet drops over Bluetooth and you get a phantom 20-bpm spike. Feed that into a derivative term and it amplifies every bit of that noise, yanking the power up and down on garbage data. Coffee people know the equivalent: a noisy thermocouple makes a D-heavy controller <em>chatter</em> the heater. The cure in both worlds is the same — don't differentiate noise.</p>
+
+        <p>So instead of a classic derivative, we do something gentler. We keep a heavily smoothed view of your heart rate — a 300-second exponential moving average — and look at the <em>trend</em> of that slow signal: is your HR drifting up, holding, or falling? That trend (in bpm per minute) becomes a <strong>gradient factor</strong> that schedules the gain:</p>
+
+        <div class="eq">gradientFactor = clamp( 1 − <em>HRtrend</em> / 2&nbsp;bpm·min⁻¹ , 0…1 )</div>
+
+        <p>If your heart rate is already climbing — the classic <strong>cardiac drift</strong> of a long session — the gradient factor shrinks toward zero and we stop adding power, because the last thing a rising heart rate needs is more watts. It's a derivative's anticipation without a derivative's noise: feedforward damping from a signal slow enough to trust.</p>
+
+        <h2>You can't un-burn a shot</h2>
+        <p>The other place coffee instinct shaped the code: <strong>asymmetry</strong>. Over-extracting an espresso is unrecoverable — once it's bitter, it's bitter — so a careful barista creeps <em>up</em> on the target and bails the moment it tips. The controller treats your heart rate the same way. Pushing HR too high is the costly direction: it kicks you out of Zone 2, spikes fatigue, and ruins the whole point of the session. So the loop is deliberately lopsided:</p>
+
+        <table class="params">
+          <tr><th>Direction</th><th>Max rate</th><th>Why</th></tr>
+          <tr><td>add power</td><td>+5 W / 90 s</td><td>Creep up cautiously — never chase HR over the line</td></tr>
+          <tr><td>shed power</td><td>−5 W / 45 s</td><td>Retreat twice as fast when HR runs hot</td></tr>
+        </table>
+
+        <p>Quick to back off, slow to push — and that increase rate is itself throttled by the gradient factor, so a rising heart rate makes the controller even more reluctant to add load. The result is a power line that eases rather than lurches.</p>
+
+        <figure class="post-figure rv">
+          <svg viewBox="0 0 720 320" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-label="Graph of heart rate easing into the Zone 2 band while power trims to hold it">
+            <rect width="720" height="320" fill="#0A0A14"/>
+            <!-- Zone 2 band -->
+            <rect x="70" y="118" width="610" height="56" fill="rgba(52,199,89,.13)"/>
+            <text x="676" y="150" text-anchor="end" fill="rgba(52,199,89,.7)" font-size="12" font-weight="800" font-family="Nunito,system-ui">ZONE 2</text>
+            <!-- axes -->
+            <line x1="70" y1="40" x2="70" y2="270" stroke="rgba(255,255,255,.18)" stroke-width="1"/>
+            <line x1="70" y1="270" x2="680" y2="270" stroke="rgba(255,255,255,.18)" stroke-width="1"/>
+            <!-- grace region -->
+            <rect x="70" y="40" width="86" height="230" fill="rgba(255,255,255,.03)"/>
+            <line x1="156" y1="40" x2="156" y2="270" stroke="rgba(255,255,255,.14)" stroke-width="1" stroke-dasharray="4 4"/>
+            <text x="113" y="58" text-anchor="middle" fill="rgba(255,255,255,.4)" font-size="11" font-weight="600" font-family="Nunito,system-ui">180 s grace</text>
+            <!-- Power curve (blue, dashed) -->
+            <path d="M70,150 C150,118 175,112 240,128 C330,150 470,176 680,182" fill="none" stroke="var(--pw)" stroke-width="2.4" stroke-dasharray="7 5"/>
+            <!-- HR curve (red) -->
+            <path d="M70,244 C150,244 188,168 290,152 C410,134 540,150 680,148" fill="none" stroke="#FF5F5F" stroke-width="2.8"/>
+            <!-- legend -->
+            <g font-family="Nunito,system-ui,sans-serif" font-size="12" font-weight="700">
+              <line x1="92" y1="294" x2="120" y2="294" stroke="#FF5F5F" stroke-width="2.8"/>
+              <text x="126" y="298" fill="rgba(255,255,255,.65)">Heart rate</text>
+              <line x1="232" y1="294" x2="260" y2="294" stroke="var(--pw)" stroke-width="2.4" stroke-dasharray="7 5"/>
+              <text x="266" y="298" fill="rgba(255,255,255,.65)">Power (KICKR)</text>
+              <text x="676" y="264" text-anchor="end" fill="rgba(255,255,255,.35)" font-size="11">time →</text>
+            </g>
+          </svg>
+          <figcaption>Power leads, heart rate follows. The controller pushes early to lift HR into the band, then trims the watts as you approach — easing in with no overshoot, then holding through cardiac drift.</figcaption>
+        </figure>
+
+        <h2>The rails that keep it honest</h2>
+        <p>Two more safeguards, both with espresso cousins. <strong>Anti-windup:</strong> the integral term is clamped so it can't silently accumulate a huge correction during the grace period or a sensor dropout and then dump it all at once — the controller equivalent of a boiler that forgets it's already been heating for a minute. And <strong>output clamping:</strong> the whole correction is bounded to ±30 W of the power <em>you</em> chose. The app assists your target; it never seizes control of the workout. There's a hard floor at 50 W so it can never stall you out.</p>
+
+        <h2>Tuning is just dialling in</h2>
+        <p>Every coffee nerd has dialled in a new bag: tweak one variable, taste, adjust, repeat. Tuning these gains was the same loop. Too much proportional gain and the system <em>hunts</em> — power and heart rate oscillating around the target like a machine overshooting its temperature every cycle. Too much integral and it lurches: a slow, ponderous overshoot as the accumulated term overcorrects. I landed deliberately conservative, because a Zone 2 ride is long and the human body is a laggy, slow-responding plant — a big thermal mass, basically. Better smooth and patient than snappy and twitchy.</p>
+
+        <blockquote class="pullquote">The best control systems are invisible. You don't think about the PID in your espresso machine — you just get a good shot.</blockquote>
+
+        <p>That's the whole goal here too. You set a power target, switch on zone targeting, and forget the controller exists. It sits in the background a thousand corrections deep, creeping up and easing off, holding you in the zone while you get lost in a podcast. Just like a good espresso machine: all that careful control, entirely so you never have to think about it.</p>
+
+        <p>Now if you'll excuse me, my next shot is calling — and I've got a base-building hour to spin first.</p>
+      </div>
+
+      <div class="post-cta rv">
+        <h3>Let the controller hold the line.</h3>
+        <p>Set your power, flip on zone targeting, and a thousand tiny corrections a session keep your heart rate exactly where the adaptations happen.</p>
+        <a href="../index.html" class="btn-store">
+          <img src="../images/app-store-badge.svg" alt="Download on the App Store" onerror="this.parentElement.innerHTML='<div style=\'background:#fff;color:#000;padding:10px 18px;border-radius:9px;font-weight:800;font-size:14px;font-family:Nunito,sans-serif\'>⬇ App Store</div>'">
+        </a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="wrap">
+    <div class="footer-row">
+      <div class="footer-brand">
+        <img src="../images/figure.outdoor.cycle.svg" width="26" height="26" alt="Justzone2" onerror="this.style.display='none'">
+        Justzone2
+      </div>
+      <div class="footer-links">
+        <a href="../index.html">Home</a>
+        <a href="index.html">Blog</a>
+        <a href="mailto:support@justzone2.app">Contact</a>
+        <a href="../privacy.html">Privacy Policy</a>
+      </div>
+    </div>
+    <p class="footer-copy">&copy; 2025 Justzone2. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>
