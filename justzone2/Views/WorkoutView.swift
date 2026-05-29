@@ -575,23 +575,25 @@ struct WorkoutChartView: View {
     }
 
     private var powerData: [(time: Double, value: Int)] {
-        chartData.compactMap { point in
+        steadyStateData.compactMap { point in
             guard let power = point.power else { return nil }
             return (time: point.time / 60, value: power)
         }
     }
 
     private var heartRateData: [(time: Double, value: Int)] {
-        chartData.compactMap { point in
+        steadyStateData.compactMap { point in
             guard let hr = point.heartRate else { return nil }
             return (time: point.time / 60, value: hr)
         }
     }
 
-    /// Skip the first 2 minutes of warm-up ramp when computing axis bounds —
-    /// otherwise the low ramp-up values squash steady-state Zone 2 detail
-    /// into a thin band. Warm-up data still draws (clipped at the bottom).
-    /// Falls back to all data while the workout is too young to have a
+    /// Skip the first 2 minutes of warm-up ramp from both the drawn series and
+    /// the axis bounds — otherwise the low ramp-up values squash steady-state
+    /// Zone 2 detail into a thin band, and drawing the warm-up while scaling to
+    /// steady state clips it to the axis floor (a misleading vertical cliff).
+    /// Once trimmed, the X-axis starts at the window so warm-up scrolls off
+    /// cleanly. Falls back to all data while the workout is too young to have a
     /// meaningful steady-state.
     private static let warmupSkipSeconds: Double = 120
 
@@ -614,8 +616,18 @@ struct WorkoutChartView: View {
         return minHR...maxHR
     }
 
+    private var minTime: Double {
+        (steadyStateData.map { $0.time }.min() ?? 0) / 60
+    }
+
     private var maxTime: Double {
-        (chartData.map { $0.time }.max() ?? 60) / 60
+        (steadyStateData.map { $0.time }.max() ?? 60) / 60
+    }
+
+    /// X-axis domain shared by both overlaid charts. Anchored at the window
+    /// start so warm-up scrolls off once trimmed; always at least 1 min wide.
+    private var timeDomain: ClosedRange<Double> {
+        minTime...max(minTime + 1, maxTime)
     }
 
     var body: some View {
@@ -650,7 +662,7 @@ struct WorkoutChartView: View {
                         }
                     }
                     .chartYScale(domain: powerRange)
-                    .chartXScale(domain: 0...max(1, maxTime))
+                    .chartXScale(domain: timeDomain)
                     .chartYAxis(.hidden)
                     .chartXAxis {
                         AxisMarks(position: .bottom)
@@ -660,8 +672,8 @@ struct WorkoutChartView: View {
                     Chart {
                         // Zone 2 HR band
                         RectangleMark(
-                            xStart: .value("Start", 0),
-                            xEnd: .value("End", max(1, maxTime)),
+                            xStart: .value("Start", timeDomain.lowerBound),
+                            xEnd: .value("End", timeDomain.upperBound),
                             yStart: .value("Zone Min", zone2Min),
                             yEnd: .value("Zone Max", zone2Max)
                         )
@@ -677,7 +689,7 @@ struct WorkoutChartView: View {
                         }
                     }
                     .chartYScale(domain: hrRange)
-                    .chartXScale(domain: 0...max(1, maxTime))
+                    .chartXScale(domain: timeDomain)
                     .chartYAxis(.hidden)
                     .chartXAxis(.hidden)
                 }
