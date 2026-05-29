@@ -88,6 +88,10 @@ class WorkoutViewModel: ObservableObject {
     private var hrCancellable: AnyCancellable?
     private var cancellables = Set<AnyCancellable>()
     private var watchLaunchTask: Task<Void, Never>?
+    /// A cold `startWatchApp` wake can take ~45–60 s to launch the Watch app,
+    /// start its HKWorkoutSession, and bring up the WCSession channel. Wait out
+    /// that window before surfacing the "no HR" alert.
+    private static let watchColdStartTimeout: TimeInterval = 45
     private var workoutStartTime: Date?
     private var powerBuffer: [Int] = []
     private let powerSmoothingWindow = 5
@@ -406,51 +410,50 @@ class WorkoutViewModel: ObservableObject {
     /// HR back via WCSession; the iPhone will see hasReceivedHR flip true.
     /// Cancelled early if the Watch reports a session-start error.
     ///
-    /// If no HR arrives within 15 s, automatically retries the start once.
-    /// If still no HR by 30 s total, surfaces an alert to the user with
-    /// Retry / Use HR Strap options via `hrSourceError`.
+    /// Waits out the cold-start window (`watchColdStartTimeout`), polling for
+    /// the first HR sample. We deliberately issue `startWatchApp` only once: a
+    /// second wake mid-launch can reset the Watch's in-progress launch and push
+    /// first-HR even later. The queued `transferUserInfo` backup guarantees the
+    /// start command reaches the Watch even while it's unreachable. If still no
+    /// HR by the deadline, surfaces an alert with Retry / Use HR Strap options
+    /// via `hrSourceError` (the user's Retry then triggers a fresh launch).
     private func launchWatchWorkout() {
         watchLaunchTask?.cancel()
         watchLaunchTask = Task {
-            await tryStartWatch(attempt: 1)
+            await tryStartWatch()
 
-            // Wait for HR. If none in 15 s, auto-retry once.
-            try? await Task.sleep(nanoseconds: 15_000_000_000)
-            if Task.isCancelled { return }
-            if watchConnectivityService.hasReceivedHR {
-                dlog("[IPHONE-VM] launchWatchWorkout — HR arrived")
-                return
+            // Poll for the first HR sample across the cold-start window rather
+            // than re-launching — a cold Watch app can take ~45–60 s to deliver.
+            let deadline = Date().addingTimeInterval(Self.watchColdStartTimeout)
+            while Date() < deadline {
+                try? await Task.sleep(nanoseconds: 1_000_000_000)
+                if Task.isCancelled { return }
+                if watchConnectivityService.hasReceivedHR {
+                    dlog("[IPHONE-VM] launchWatchWorkout — HR arrived")
+                    return
+                }
             }
-            dlog("[IPHONE-VM] WATCH_HR_TIMEOUT — no HR within 15s, auto-retrying")
-            await tryStartWatch(attempt: 2)
 
-            // Wait another 15 s. If still nothing, surface the alert.
-            try? await Task.sleep(nanoseconds: 15_000_000_000)
-            if Task.isCancelled { return }
-            if watchConnectivityService.hasReceivedHR {
-                dlog("[IPHONE-VM] launchWatchWorkout — HR arrived after auto-retry")
-                return
-            }
-            dlog("[IPHONE-VM] WATCH_HR_TIMEOUT_FINAL — surfacing alert (30s total)")
+            dlog("[IPHONE-VM] WATCH_HR_TIMEOUT_FINAL — no HR within \(Int(Self.watchColdStartTimeout))s, surfacing alert")
             hrSourceError = "Apple Watch isn't sending heart rate. Tap Retry, or switch to your HR strap."
         }
     }
 
-    /// One launch attempt: HKHealthStore.startWatchApp(.indoor) + WCSession backup.
-    private func tryStartWatch(attempt: Int) async {
-        dlog("[IPHONE-VM] launchWatchWorkout attempt \(attempt) — startWatchApp + WCSession backup")
+    /// One launch: HKHealthStore.startWatchApp(.indoor) + WCSession backup.
+    private func tryStartWatch() async {
+        dlog("[IPHONE-VM] launchWatchWorkout — startWatchApp + WCSession backup")
         do {
             try await healthKitManager.startWatchWorkout()
-            dlog("[IPHONE-VM] startWatchWorkout attempt \(attempt) returned OK")
+            dlog("[IPHONE-VM] startWatchWorkout returned OK")
         } catch {
-            dlog("[IPHONE-VM] startWatchWorkout attempt \(attempt) FAILED: \(error.localizedDescription)")
+            dlog("[IPHONE-VM] startWatchWorkout FAILED: \(error.localizedDescription)")
         }
         if Task.isCancelled {
             dlog("[IPHONE-VM] launchWatchWorkout cancelled — Watch reported error")
             return
         }
         watchConnectivityService.sendStartWorkout()
-        dlog("[IPHONE-VM] sendStartWorkout (WCSession backup) attempt \(attempt) sent")
+        dlog("[IPHONE-VM] sendStartWorkout (WCSession backup) sent")
     }
 
     func pauseWorkout() {

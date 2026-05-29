@@ -40,7 +40,7 @@ class WatchSessionManager: NSObject, ObservableObject {
     /// Callable from any isolation context (nonisolated delegates, completion handlers, etc.)
     nonisolated func wlog(_ message: String) {
         let f = DateFormatter()
-        f.dateFormat = "HH:mm:ss.SSS"
+        f.dateFormat = "yyyy-MM-dd HH:mm:ss.SSS"
         let entry = "[\(f.string(from: Date()))] \(message)"
         print(entry)
         watchLog.append(entry)
