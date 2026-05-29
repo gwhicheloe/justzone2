@@ -60,10 +60,18 @@ final class DiagnosticsLogger {
         saveToFileAsync()
     }
 
-    /// Save and return the log file URL — pass directly to UIActivityViewController.
+    /// Save and return a dated copy of the log — pass directly to
+    /// UIActivityViewController. Exporting under a date/time-stamped filename
+    /// means successive exports don't overwrite each other.
     var shareURL: URL {
         saveToFile()
-        return logFileURL
+        let f = DateFormatter()
+        f.dateFormat = "yyyy-MM-dd_HHmm"
+        let name = "justzone2_diagnostics_\(f.string(from: Date())).txt"
+        let exportURL = FileManager.default.temporaryDirectory.appendingPathComponent(name)
+        try? FileManager.default.removeItem(at: exportURL)
+        try? FileManager.default.copyItem(at: logFileURL, to: exportURL)
+        return exportURL
     }
 
     // MARK: - Persistence
@@ -90,7 +98,7 @@ final class DiagnosticsLogger {
 
     private static func timestamp() -> String {
         let f = DateFormatter()
-        f.dateFormat = "HH:mm:ss.SSS"
+        f.dateFormat = "yyyy-MM-dd HH:mm:ss.SSS"
         return f.string(from: Date())
     }
 }
