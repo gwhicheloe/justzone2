@@ -543,3 +543,49 @@ footer{
 .params td:first-child{font-family:ui-monospace,Menlo,monospace;color:var(--g);font-weight:600;white-space:nowrap}
 .params td{color:var(--t1)}
 .params tr:hover td{color:var(--t0)}
+
+/* ── Coming soon / notify CTAs ── */
+.btn-notify{display:inline-flex;align-items:center;gap:8px;background:var(--g);color:#000;font-weight:800;font-size:.95rem;padding:13px 22px;border-radius:var(--r-pill);transition:background .2s,transform .15s,box-shadow .2s;box-shadow:0 0 24px var(--g-glow)}
+.btn-notify:hover{background:var(--g-dark);transform:translateY(-2px);box-shadow:0 0 36px var(--g-glow)}
+.btn-notify svg{flex-shrink:0}
+.soon-note{margin-top:14px;font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--t2)}
+.soon-note .dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--g);margin-right:7px;vertical-align:middle}
+.nav-cta.soon{background:transparent;color:var(--g);border:1px solid var(--glass-g-border);box-shadow:none}
+.nav-cta.soon:hover{background:var(--glass-g-bg);box-shadow:0 0 18px var(--g-glow);transform:translateY(-1px)}
+
+
+/* ── Mobile hero hardening v2 (kill horizontal overflow + dead space) ── */
+html,body{overflow-x:hidden;width:100%}
+@media(max-width:600px){
+  .hero{min-height:auto;padding:84px 0 40px}
+  .hero-body{display:block}
+  .hero-body>div{max-width:100%}
+  .eyebrow{white-space:normal;line-height:1.4;align-items:flex-start}
+  .eyebrow-text{white-space:normal}
+  .hero-h1{overflow-wrap:anywhere}
+  .hero-sub{max-width:100%;overflow-wrap:anywhere}
+  .hero-actions{flex-wrap:wrap;gap:12px}
+  .btn-notify{width:100%;justify-content:center}
+  .hero-actions .hero-link{width:100%;justify-content:center}
+  .soon-note{margin-top:10px}
+  .marquee-strip{margin-top:28px}
+}
+
+/* ── Mobile hero hardening v3 (force-correct, beats any conflicting rule) ── */
+@media(max-width:600px){
+  .hero-body{display:block !important}
+  .hero-body>div{width:100% !important;max-width:100% !important;min-width:0 !important}
+  .hero-h1{overflow-wrap:anywhere}
+  .hero-sub{width:100% !important;max-width:100% !important;white-space:normal !important;overflow-wrap:anywhere !important}
+  .hero-actions{display:flex;flex-direction:column;align-items:flex-start;gap:14px}
+  .btn-notify{width:auto !important;max-width:100% !important}
+  .hero-actions .hero-link{width:auto !important}
+}
+
+/* ── Mobile hero hardening v4 (tie hero text to viewport width, immune to wide ancestors) ── */
+@media(max-width:600px){
+  .hero{overflow-x:clip}
+  .hero-body>div{box-sizing:border-box !important;width:calc(100vw - 40px) !important;max-width:calc(100vw - 40px) !important}
+  .hero-h1,.eyebrow{max-width:100% !important}
+  .hero-sub{width:100% !important;max-width:100% !important;white-space:normal !important;word-break:break-word !important;overflow-wrap:anywhere !important}
+}

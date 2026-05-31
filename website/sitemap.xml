@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://www.justzone2.com/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://www.justzone2.com/blog/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.justzone2.com/blog/sa-calobra-pr</loc><lastmod>2026-05-29</lastmod><priority>0.6</priority></url>
+  <url><loc>https://www.justzone2.com/blog/finding-zone-2</loc><lastmod>2026-05-29</lastmod><priority>0.6</priority></url>
+  <url><loc>https://www.justzone2.com/blog/pid-coffee</loc><lastmod>2026-05-29</lastmod><priority>0.6</priority></url>
+  <url><loc>https://www.justzone2.com/blog/getting-started</loc><lastmod>2026-05-30</lastmod><priority>0.6</priority></url>
+  <url><loc>https://www.justzone2.com/privacy.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+</urlset>
