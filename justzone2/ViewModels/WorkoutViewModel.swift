@@ -211,6 +211,10 @@ class WorkoutViewModel: ObservableObject {
         Task {
             // The iPhone HK session keeps running across the switch — it's the
             // record sink either way. We just change the HR feed source.
+            // Detach any live data source first: if we were on AirPods it has
+            // iOS pulling HR from the Watch, which would block our Watch app's
+            // own session from starting.
+            healthKitManager.detachLiveHRCollection()
             hrSource = .appleWatch
             bindHRSource()
             watchConnectivityService.resetHRStats()
@@ -245,6 +249,9 @@ class WorkoutViewModel: ObservableObject {
             watchConnectivityService.sendStopWorkout()
         }
         healthKitManager.resetBuilderHRStats()
+        // The session may have started without a live data source (Watch/BLE
+        // start). AirPods needs it, so attach now if it isn't already.
+        healthKitManager.attachLiveHRCollection()
         hrSource = .airPods
         bindHRSource()
         isSwitchingHRSource = false
@@ -308,9 +315,11 @@ class WorkoutViewModel: ObservableObject {
         // iPhone always owns the workout record now — start the HK session
         // regardless of HR source. HR samples flow into this builder via
         // addHeartRateSample, sourced from Watch (Mode A) or BLE (Mode B).
+        // Only AirPods needs the live data source; attaching it for the Watch
+        // source makes iOS commandeer the Watch for HR and blocks our Watch app.
         Task {
             do {
-                try await healthKitManager.startWorkoutSession()
+                try await healthKitManager.startWorkoutSession(collectLiveHR: hrSource.writesToBuilderNatively)
             } catch {
                 dlog("[IPHONE-VM] startWorkoutSession FAILED: \(error.localizedDescription)")
             }
@@ -378,7 +387,7 @@ class WorkoutViewModel: ObservableObject {
         // Start a fresh iPhone HK session for the recovered workout.
         Task {
             do {
-                try await healthKitManager.startWorkoutSession()
+                try await healthKitManager.startWorkoutSession(collectLiveHR: hrSource.writesToBuilderNatively)
             } catch {
                 dlog("[IPHONE-VM] startWorkoutSession (recovery) FAILED: \(error.localizedDescription)")
             }
@@ -419,6 +428,7 @@ class WorkoutViewModel: ObservableObject {
     /// via `hrSourceError` (the user's Retry then triggers a fresh launch).
     private func launchWatchWorkout() {
         watchLaunchTask?.cancel()
+        watchConnectivityService.markWatchLaunch()
         watchLaunchTask = Task {
             await tryStartWatch()
 

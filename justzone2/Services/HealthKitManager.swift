@@ -25,6 +25,12 @@ class HealthKitManager: NSObject, ObservableObject {
 
     private var builderHRCount = 0
 
+    /// True only while a live HR data source is attached (AirPods). Used to
+    /// detect the regression where iOS commandeers the Watch to feed HR into
+    /// the builder even though we never attached a data source.
+    private var liveHRSourceEnabled = false
+    private var loggedUnexpectedBuilderHR = false
+
     var isStandaloneSessionActive: Bool { workoutSession != nil }
 
     override init() {
@@ -121,7 +127,17 @@ class HealthKitManager: NSObject, ObservableObject {
 
     // MARK: - iPhone Workout Session (single, used for all modes)
 
-    func startWorkoutSession() async throws {
+    /// Start the iPhone-owned workout session (background execution + record sink).
+    ///
+    /// - Parameter collectLiveHR: attach an `HKLiveWorkoutDataSource` so the
+    ///   builder auto-collects heart rate. This is **only** wanted for AirPods,
+    ///   where in-ear HR lands in the HealthKit store. It must NOT be attached
+    ///   for the Apple Watch source: an iPhone has no HR sensor, so a live
+    ///   cycling data source makes iOS commandeer the paired Watch to supply HR
+    ///   — which starts a competing Watch workout and blocks our own Watch app's
+    ///   session from starting ("another session is in progress"). That was the
+    ///   AirPods regression that broke Watch HR.
+    func startWorkoutSession(collectLiveHR: Bool = false) async throws {
         guard isAuthorized else {
             throw HealthKitError.notAuthorized
         }
@@ -137,19 +153,49 @@ class HealthKitManager: NSObject, ObservableObject {
             workoutSession?.delegate = self
             workoutBuilder?.delegate = self
 
-            workoutBuilder?.dataSource = HKLiveWorkoutDataSource(
-                healthStore: healthStore,
-                workoutConfiguration: configuration
-            )
+            if collectLiveHR {
+                workoutBuilder?.dataSource = HKLiveWorkoutDataSource(
+                    healthStore: healthStore,
+                    workoutConfiguration: configuration
+                )
+            }
+            liveHRSourceEnabled = collectLiveHR
+            loggedUnexpectedBuilderHR = false
 
             let startDate = Date()
             workoutSession?.startActivity(with: startDate)
             try await workoutBuilder?.beginCollection(at: startDate)
-            dlog("[IPHONE-HK] startWorkoutSession — session running, builder collecting")
+            dlog("[IPHONE-HK] startWorkoutSession — session running, builder collecting (liveHR=\(collectLiveHR))")
         } catch {
             dlog("[IPHONE-HK] startWorkoutSession FAILED: \(error.localizedDescription)")
             throw HealthKitError.sessionStartFailed(error.localizedDescription)
         }
+    }
+
+    /// Attach a live HR data source to the already-running builder — used when
+    /// the user switches to AirPods mid-workout (the session started without one
+    /// because the original source was Watch/BLE).
+    func attachLiveHRCollection() {
+        guard let builder = workoutBuilder, builder.dataSource == nil else { return }
+        let configuration = HKWorkoutConfiguration()
+        configuration.activityType = .cycling
+        configuration.locationType = .indoor
+        builder.dataSource = HKLiveWorkoutDataSource(
+            healthStore: healthStore,
+            workoutConfiguration: configuration
+        )
+        liveHRSourceEnabled = true
+        dlog("[IPHONE-HK] attachLiveHRCollection — live HR data source attached mid-workout")
+    }
+
+    /// Detach the live HR data source — used when switching AWAY from AirPods to
+    /// the Watch, so iOS stops pulling HR from the Watch and frees it to run our
+    /// own Watch app session.
+    func detachLiveHRCollection() {
+        guard let builder = workoutBuilder, builder.dataSource != nil else { return }
+        builder.dataSource = nil
+        liveHRSourceEnabled = false
+        dlog("[IPHONE-HK] detachLiveHRCollection — live HR data source removed")
     }
 
     func pauseWorkoutSession() {
@@ -276,6 +322,13 @@ extension HealthKitManager: HKLiveWorkoutBuilderDelegate {
         guard bpm > 0 else { return }
 
         Task { @MainActor in
+            // Anomaly detector: builder HR while no live data source is attached
+            // means iOS is commandeering the Watch to feed HR — the exact bug
+            // that breaks Watch HR. Log it loudly, once per workout.
+            if !self.liveHRSourceEnabled && !self.loggedUnexpectedBuilderHR {
+                self.loggedUnexpectedBuilderHR = true
+                dlog("[IPHONE-HK] ⚠️ ANOMALY — builder HR=\(bpm) with NO live data source attached; iOS may be commandeering the Watch")
+            }
             if !self.hasReceivedBuilderHR {
                 self.hasReceivedBuilderHR = true
                 dlog("[IPHONE-HK] HR first received via builder — bpm=\(bpm)")

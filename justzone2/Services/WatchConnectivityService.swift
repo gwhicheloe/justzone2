@@ -22,6 +22,9 @@ class WatchConnectivityService: NSObject, ObservableObject {
     private var hrRecvCount = 0
     private var hrLastSeq = 0
     private var hrGaps = 0
+    /// Stamped when the iPhone (re)launches the Watch workout, so we can log how
+    /// long the Watch took to deliver its first HR sample.
+    private var watchLaunchTime: Date?
 
     override init() {
         super.init()
@@ -182,11 +185,21 @@ extension WatchConnectivityService: WCSessionDelegate {
         }
     }
 
+    /// Called by WorkoutViewModel each time it (re)launches the Watch workout.
+    func markWatchLaunch() {
+        watchLaunchTime = Date()
+    }
+
     /// Track HR samples received — log first arrival, gaps, and a 30-sample rollup.
     private func recordHRDelivery(seq: Int) {
         hrRecvCount += 1
         if hrRecvCount == 1 {
-            dlog("[IPHONE-WC] HR first received seq=\(seq)")
+            if let launch = watchLaunchTime {
+                let secs = Date().timeIntervalSince(launch)
+                dlog(String(format: "[IPHONE-WC] HR first received seq=%d — Watch HR online in %.1fs", seq, secs))
+            } else {
+                dlog("[IPHONE-WC] HR first received seq=\(seq)")
+            }
         }
         // Detect a gap: seq jumped by >1 since last
         if seq > 0 && hrLastSeq > 0 && seq > hrLastSeq + 1 {
@@ -206,6 +219,7 @@ extension WatchConnectivityService: WCSessionDelegate {
         hrLastSeq = 0
         hrGaps = 0
         hasReceivedHR = false
+        watchLaunchTime = nil
     }
 
     /// Receives guaranteed-delivery messages from Watch (e.g. Watch-side diagnostic logs).
