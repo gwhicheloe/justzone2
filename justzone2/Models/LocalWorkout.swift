@@ -16,6 +16,12 @@ struct LocalWorkout: Codable, Identifiable {
     var elapsedTime: TimeInterval
     var status: Status
     var lastCheckpoint: Date
+    /// HR source display name and Zone 2 range captured at workout time, so the
+    /// Strava description can be rebuilt on deferred upload. Optional for
+    /// backward compatibility with checkpoints saved before these were added.
+    var hrSourceName: String?
+    var zone2Min: Int?
+    var zone2Max: Int?
 
     var id: UUID { workout.id }
 }

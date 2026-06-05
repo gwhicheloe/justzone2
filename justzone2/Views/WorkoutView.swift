@@ -92,7 +92,12 @@ struct WorkoutView: View {
                 if summaryViewModel == nil {
                     summaryViewModel = SummaryViewModel(
                         workout: viewModel.workout,
-                        stravaService: stravaService
+                        stravaService: stravaService,
+                        zoneTargetingEnabled: viewModel.zoneTargetingEnabled,
+                        warmUpEnabled: viewModel.warmUpEnabled,
+                        hrSourceName: viewModel.hrSource.displayName,
+                        zone2Min: viewModel.zone2MinValue,
+                        zone2Max: viewModel.zone2MaxValue
                     )
                 }
                 showSummary = true

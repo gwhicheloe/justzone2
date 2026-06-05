@@ -24,11 +24,31 @@ class SummaryViewModel: ObservableObject {
     let workout: Workout
     let stravaService: StravaService
 
+    /// Workout parameters used to build the Strava activity description.
+    let zoneTargetingEnabled: Bool
+    let warmUpEnabled: Bool
+    let hrSourceName: String
+    let zone2Min: Int
+    let zone2Max: Int
+
     private var cancellables = Set<AnyCancellable>()
 
-    init(workout: Workout, stravaService: StravaService) {
+    init(
+        workout: Workout,
+        stravaService: StravaService,
+        zoneTargetingEnabled: Bool = false,
+        warmUpEnabled: Bool = false,
+        hrSourceName: String = "HR Strap",
+        zone2Min: Int = 120,
+        zone2Max: Int = 140
+    ) {
         self.workout = workout
         self.stravaService = stravaService
+        self.zoneTargetingEnabled = zoneTargetingEnabled
+        self.warmUpEnabled = warmUpEnabled
+        self.hrSourceName = hrSourceName
+        self.zone2Min = zone2Min
+        self.zone2Max = zone2Max
         self.isStravaConnected = stravaService.isAuthenticated
 
         setupBindings()
@@ -64,7 +84,15 @@ class SummaryViewModel: ObservableObject {
             var uploadError: Error?
 
             do {
-                activityId = try await stravaService.uploadWorkout(workout)
+                let description = StravaService.buildDescription(
+                    workout: workout,
+                    zoneTargetingEnabled: zoneTargetingEnabled,
+                    warmUpEnabled: warmUpEnabled,
+                    hrSourceName: hrSourceName,
+                    zone2Min: zone2Min,
+                    zone2Max: zone2Max
+                )
+                activityId = try await stravaService.uploadWorkout(workout, description: description)
             } catch {
                 uploadError = error
             }

@@ -68,6 +68,10 @@ class WorkoutViewModel: ObservableObject {
     private let hrBufferSize = 45
     private let zone2Min: Int
     private let zone2Max: Int
+    /// Public read-only accessors for the active Zone 2 range (e.g. for the
+    /// Strava description). The private versions drive the PID.
+    var zone2MinValue: Int { zone2Min }
+    var zone2MaxValue: Int { zone2Max }
     private let maxDriftFromTarget = 30
     private let warmUpGracePeriod: TimeInterval = 180
 
@@ -651,7 +655,10 @@ class WorkoutViewModel: ObservableObject {
             warmUpEnabled: warmUpEnabled,
             elapsedTime: elapsedTime,
             status: status,
-            lastCheckpoint: Date()
+            lastCheckpoint: Date(),
+            hrSourceName: hrSource.displayName,
+            zone2Min: zone2Min,
+            zone2Max: zone2Max
         )
         LocalWorkoutStore.shared.save(local)
     }

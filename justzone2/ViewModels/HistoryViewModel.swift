@@ -45,7 +45,15 @@ class HistoryViewModel: ObservableObject {
     @discardableResult
     func uploadLocalWorkout(_ local: LocalWorkout) async -> Int? {
         do {
-            let activityId = try await stravaService.uploadWorkout(local.workout)
+            let description = StravaService.buildDescription(
+                workout: local.workout,
+                zoneTargetingEnabled: local.zoneTargetingEnabled,
+                warmUpEnabled: local.warmUpEnabled,
+                hrSourceName: local.hrSourceName ?? (local.useWatchHR ? "Apple Watch" : "HR Strap"),
+                zone2Min: local.zone2Min ?? 120,
+                zone2Max: local.zone2Max ?? 140
+            )
+            let activityId = try await stravaService.uploadWorkout(local.workout, description: description)
             LocalWorkoutStore.shared.delete(id: local.id)
             loadLocalWorkouts()
             return activityId

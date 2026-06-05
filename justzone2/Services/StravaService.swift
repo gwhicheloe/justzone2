@@ -240,7 +240,32 @@ class StravaService: NSObject, ObservableObject {
 
     // MARK: - Upload
 
-    func uploadWorkout(_ workout: Workout) async throws -> Int {
+    /// Build the Strava activity description from the workout's parameters, so
+    /// the History view (and Strava itself) records how the session was set up.
+    static func buildDescription(
+        workout: Workout,
+        zoneTargetingEnabled: Bool,
+        warmUpEnabled: Bool,
+        hrSourceName: String,
+        zone2Min: Int,
+        zone2Max: Int
+    ) -> String {
+        var lines: [String] = []
+        lines.append("Target power: \(workout.targetPower) W")
+        lines.append("Duration: \(Int((workout.targetDuration / 60).rounded())) min")
+        if zoneTargetingEnabled {
+            lines.append("Zone targeting: On (HR \(zone2Min)–\(zone2Max) bpm)")
+        } else {
+            lines.append("Zone targeting: Off")
+        }
+        lines.append("Warm-up: \(warmUpEnabled ? "On" : "Off")")
+        lines.append("HR source: \(hrSourceName)")
+        lines.append("")
+        lines.append("Recorded with JustZone2")
+        return lines.joined(separator: "\n")
+    }
+
+    func uploadWorkout(_ workout: Workout, description: String? = nil) async throws -> Int {
         guard isAuthenticated else {
             throw StravaError.notAuthenticated
         }
@@ -289,6 +314,13 @@ class StravaService: NSObject, ObservableObject {
         body.append("--\(boundary)\r\n".data(using: .utf8)!)
         body.append("Content-Disposition: form-data; name=\"name\"\r\n\r\n".data(using: .utf8)!)
         body.append("Zone 2 Workout\r\n".data(using: .utf8)!)
+
+        // Description (workout parameters, for History display + Strava record)
+        if let description = description, !description.isEmpty {
+            body.append("--\(boundary)\r\n".data(using: .utf8)!)
+            body.append("Content-Disposition: form-data; name=\"description\"\r\n\r\n".data(using: .utf8)!)
+            body.append("\(description)\r\n".data(using: .utf8)!)
+        }
 
         // File
         body.append("--\(boundary)\r\n".data(using: .utf8)!)
