@@ -12,8 +12,12 @@ struct HRZonesView: View {
         NavigationStack {
             VStack(spacing: 0) {
                 hrPickers
+                    .disabled(!viewModel.isEditing)
+                    .opacity(viewModel.isEditing ? 1 : 0.55)
 
-                Text("Drag the dividers to set your zones. Zone 2 drives your workouts.")
+                Text(viewModel.isEditing
+                     ? "Drag the dividers to set your zones. Zone 2 drives your workouts."
+                     : "Tap Edit to change your zones. Zone 2 drives your workouts.")
                     .font(.footnote)
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
@@ -32,6 +36,23 @@ struct HRZonesView: View {
             }
             .navigationTitle("Heart Rate Zones")
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    if viewModel.isEditing {
+                        Button("Save") { viewModel.save(); Haptics.impact() }
+                            .fontWeight(.bold)
+                            .disabled(!viewModel.hasChanges)
+                    } else {
+                        Button("Edit") { viewModel.beginEdit() }
+                    }
+                }
+                ToolbarItem(placement: .topBarLeading) {
+                    if viewModel.isEditing {
+                        Button("Discard", role: .cancel) { viewModel.discard() }
+                            .foregroundColor(.red)
+                    }
+                }
+            }
         }
     }
 
@@ -45,33 +66,38 @@ struct HRZonesView: View {
     }
 
     private var hrPickers: some View {
-        VStack(spacing: 8) {
-            pickerRow(binding: restingBinding, range: Array(30...120), label: "Min HR")
-            pickerRow(binding: maxBinding, range: Array(120...230), label: "Max HR")
+        HStack(spacing: 12) {
+            pickerBox(binding: restingBinding, range: Array(30...120), label: "Min HR")
+            pickerBox(binding: maxBinding, range: Array(120...230), label: "Max HR")
         }
-        .padding(12)
-        .background(Color.green.opacity(0.1))
-        .cornerRadius(12)
         .padding(.horizontal, 16)
-        .padding(.top, 8)
-        .padding(.bottom, 6)
+        .padding(.top, 6)
+        .padding(.bottom, 10)
     }
 
-    private func pickerRow(binding: Binding<Int>, range: [Int], label: String) -> some View {
-        HStack(spacing: 12) {
-            Picker("", selection: binding) {
-                ForEach(range, id: \.self) { Text("\($0)").tag($0) }
-            }
-            .pickerStyle(.wheel)
-            .frame(maxWidth: .infinity)
-            .frame(height: 72)
-            .clipped()
-
+    private func pickerBox(binding: Binding<Int>, range: [Int], label: String) -> some View {
+        VStack(spacing: 4) {
             Text(label)
-                .font(.headline)
-                .foregroundColor(.secondary)
-                .frame(maxWidth: .infinity, alignment: .leading)
+                .font(.caption).foregroundColor(.secondary)
+            Menu {
+                Picker("", selection: binding) {
+                    ForEach(range, id: \.self) { Text("\($0)").tag($0) }
+                }
+            } label: {
+                HStack {
+                    Text("\(binding.wrappedValue)")
+                        .font(.title3.bold()).monospacedDigit()
+                        .foregroundColor(.primary)
+                    Spacer()
+                    Image(systemName: "chevron.up.chevron.down")
+                        .font(.caption2).foregroundColor(.secondary)
+                }
+                .padding(.horizontal, 14).padding(.vertical, 8)
+                .background(RoundedRectangle(cornerRadius: 10).fill(Color.green.opacity(0.12)))
+                .overlay(RoundedRectangle(cornerRadius: 10).strokeBorder(Color.green.opacity(0.3), lineWidth: 1))
+            }
         }
+        .frame(maxWidth: .infinity)
     }
 
     // MARK: - Zone stack
@@ -85,76 +111,94 @@ struct HRZonesView: View {
             return h - frac * h
         }
 
+        // The coloured bars occupy a narrow column on the left; zone text sits
+        // to the right of the column, vertically centred on each band.
+        let barWidth = min(160, size.width * 0.55)
+
         return ZStack(alignment: .topLeading) {
-            // Zone bands (top zone first so it draws downward).
+            // Zone bars (top zone first so it draws downward).
             ForEach(viewModel.bands.reversed()) { band in
                 let top = y(for: band.upper)
                 let bottom = y(for: band.lower)
-                bandView(band, top: top, height: max(0, bottom - top), width: size.width)
+                bandBar(band, top: top, height: max(0, bottom - top), width: barWidth)
             }
 
-            // Draggable dividers (between zones). Top/bottom edges are fixed —
-            // set by the Min/Max HR pickers above.
+            // Zone text labels to the right of the bars.
+            ForEach(viewModel.bands) { band in
+                let top = y(for: band.upper)
+                let bottom = y(for: band.lower)
+                bandLabel(band, top: top, height: max(0, bottom - top), barWidth: barWidth, totalWidth: size.width)
+            }
+
+            // Draggable dividers (between zones), confined to the bar column.
             ForEach(0..<viewModel.dividers.count, id: \.self) { i in
                 handle(
                     bpm: viewModel.dividers[i],
                     y: y(for: viewModel.dividers[i]),
-                    width: size.width
+                    width: barWidth
                 ) { newBpm in viewModel.setDivider(i, to: newBpm) }
             }
 
             // Live HR marker (BLE strap only — the only live source outside a workout).
             if heartRateService.isConnected, heartRateService.currentHeartRate > 0 {
-                liveHRMarker(bpm: heartRateService.currentHeartRate, y: y(for: heartRateService.currentHeartRate), width: size.width)
+                liveHRMarker(bpm: heartRateService.currentHeartRate, y: y(for: heartRateService.currentHeartRate), width: barWidth)
             }
         }
         .coordinateSpace(name: "stack")
     }
 
-    private func bandView(_ band: HRZoneBand, top: CGFloat, height: CGFloat, width: CGFloat) -> some View {
+    /// The coloured bar for a zone (no text inside).
+    private func bandBar(_ band: HRZoneBand, top: CGFloat, height: CGFloat, width: CGFloat) -> some View {
         let isZ2 = band.zone == .z2
-        return ZStack {
-            RoundedRectangle(cornerRadius: 10)
-                .fill(band.zone.color.opacity(isZ2 ? 0.30 : 0.18))
-                .overlay(
-                    RoundedRectangle(cornerRadius: 10)
-                        .strokeBorder(band.zone.color.opacity(isZ2 ? 0.9 : 0.4),
-                                      lineWidth: isZ2 ? 2 : 1)
-                )
-                .shadow(color: isZ2 ? band.zone.color.opacity(0.5) : .clear,
-                        radius: isZ2 ? 10 : 0)
+        return RoundedRectangle(cornerRadius: 10)
+            .fill(band.zone.color.opacity(isZ2 ? 0.30 : 0.18))
+            .overlay(
+                RoundedRectangle(cornerRadius: 10)
+                    .strokeBorder(band.zone.color.opacity(isZ2 ? 0.9 : 0.4),
+                                  lineWidth: isZ2 ? 2 : 1)
+            )
+            .shadow(color: isZ2 ? band.zone.color.opacity(0.5) : .clear,
+                    radius: isZ2 ? 10 : 0)
+            .frame(width: width, height: height)
+            .offset(y: top)
+    }
 
-            HStack(alignment: .center, spacing: 8) {
-                VStack(alignment: .leading, spacing: 1) {
-                    HStack(spacing: 5) {
-                        Text(band.zone.label)
-                            .font(.subheadline.bold())
-                        if isZ2 {
-                            Image(systemName: "star.fill")
-                                .font(.caption2)
-                                .foregroundColor(band.zone.color)
-                        }
+    /// Zone name + range text, placed to the right of the bar column.
+    private func bandLabel(_ band: HRZoneBand, top: CGFloat, height: CGFloat, barWidth: CGFloat, totalWidth: CGFloat) -> some View {
+        let isZ2 = band.zone == .z2
+        let textWidth = totalWidth - barWidth - 16
+        return HStack(alignment: .center, spacing: 8) {
+            VStack(alignment: .leading, spacing: 1) {
+                Text(band.zone.label)
+                    .font(.subheadline.bold())
+                    .foregroundColor(band.zone.color)
+                    .lineLimit(1)
+                    .fixedSize(horizontal: true, vertical: false)
+                Text(band.zone.name)
+                    .font(.caption2)
+                    .foregroundColor(.secondary)
+                    .lineLimit(1)
+            }
+            Spacer(minLength: 4)
+            VStack(alignment: .trailing, spacing: 1) {
+                HStack(spacing: 4) {
+                    if isZ2 {
+                        Image(systemName: "star.fill")
+                            .font(.system(size: 9))
+                            .foregroundColor(band.zone.color)
                     }
-                    Text(band.zone.name)
-                        .font(.caption2)
-                        .foregroundColor(.secondary)
-                }
-                Spacer()
-                VStack(alignment: .trailing, spacing: 1) {
                     Text("\(band.lower)–\(band.upper)")
                         .font(.caption.monospacedDigit().bold())
-                    Text("\(pctOfMax(band.lower))–\(pctOfMax(band.upper))% max")
-                        .font(.system(size: 9))
-                        .foregroundColor(.secondary)
                 }
+                Text("\(pctOfMax(band.lower))–\(pctOfMax(band.upper))% max")
+                    .font(.system(size: 9))
+                    .foregroundColor(.secondary)
             }
-            // Left inset clears the divider grip tab that sits at the band's top edge.
-            .padding(.leading, 52)
-            .padding(.trailing, 14)
-            .opacity(height > 30 ? 1 : 0)  // hide labels in very thin bands
+            .fixedSize(horizontal: true, vertical: false)
         }
-        .frame(width: width, height: height)
-        .offset(y: top)
+        .frame(width: textWidth, height: max(height, 16), alignment: .leading)
+        .offset(x: barWidth + 16, y: top)
+        .opacity(height > 22 ? 1 : 0)
     }
 
     // MARK: - Handles
@@ -171,21 +215,6 @@ struct HRZonesView: View {
             Rectangle()
                 .fill(lineColor)
                 .frame(width: width, height: handleHeight)
-
-            // Grip tab on the left — signals the line is draggable.
-            HStack(spacing: 1.5) {
-                ForEach(0..<3, id: \.self) { _ in
-                    Capsule().fill(Color.secondary)
-                        .frame(width: 9, height: 1.5)
-                }
-            }
-            .padding(.horizontal, 7).padding(.vertical, 6)
-            .background(
-                RoundedRectangle(cornerRadius: 6)
-                    .fill(Color(.systemBackground))
-                    .overlay(RoundedRectangle(cornerRadius: 6).strokeBorder(lineColor, lineWidth: 1.5))
-            )
-            .position(x: 22, y: 0)
 
             // bpm pill on the right.
             Text("\(bpm)")
@@ -254,12 +283,14 @@ struct HRZonesView: View {
 
     private var footer: some View {
         HStack {
-            Button {
-                viewModel.resetToDefaults()
-                Haptics.impact()
-            } label: {
-                Label("Reset to % of max", systemImage: "arrow.counterclockwise")
-                    .font(.subheadline)
+            if viewModel.isEditing {
+                Button {
+                    viewModel.resetToDefaults()
+                    Haptics.impact()
+                } label: {
+                    Label("Reset to % of max", systemImage: "arrow.counterclockwise")
+                        .font(.subheadline)
+                }
             }
             Spacer()
             if heartRateService.isConnected {

@@ -73,27 +73,65 @@ final class HRZonesViewModel: ObservableObject {
 
     var fullRange: Int { max(1, maxHR - restingHR) }
 
-    // MARK: - Editing
+    // MARK: - Edit mode
+
+    /// Zones can only be changed while editing — guards against accidental drags
+    /// altering the Zone 2 range that drives the trainer. Edits stay in memory
+    /// until Save; Discard restores the snapshot taken at Begin Edit.
+    @Published private(set) var isEditing = false
+    @Published private(set) var hasChanges = false
+    private var snapshot: (resting: Int, dividers: [Int], maxHR: Int)?
+
+    func beginEdit() {
+        snapshot = (restingHR, dividers, maxHR)
+        hasChanges = false
+        isEditing = true
+    }
+
+    func save() {
+        normalize()
+        persist()
+        snapshot = nil
+        hasChanges = false
+        isEditing = false
+    }
+
+    func discard() {
+        if let s = snapshot {
+            restingHR = s.resting
+            dividers = s.dividers
+            maxHR = s.maxHR
+        }
+        snapshot = nil
+        hasChanges = false
+        isEditing = false
+    }
+
+    // MARK: - Editing (in-memory only; persisted on save)
 
     /// Move divider `index` (0...3) to `bpm`, clamped so anchors never cross.
     func setDivider(_ index: Int, to bpm: Int) {
+        guard isEditing else { return }
         let lowerBound = (index == 0 ? restingHR : dividers[index - 1]) + minGap
         let upperBound = (index == dividers.count - 1 ? maxHR : dividers[index + 1]) - minGap
         dividers[index] = min(max(bpm, lowerBound), upperBound)
-        persist()
+        hasChanges = true
     }
 
     func setResting(to bpm: Int) {
+        guard isEditing else { return }
         restingHR = min(max(bpm, absoluteFloor), dividers[0] - minGap)
-        persist()
+        hasChanges = true
     }
 
     /// Drag the Max HR ceiling. Zones below rescale proportionally so the
     /// relative shape is preserved.
     func setMaxHR(to bpm: Int) {
+        guard isEditing else { return }
         let newMax = min(max(bpm, dividers[dividers.count - 1] + minGap), absoluteCeiling)
         let oldSpan = Double(maxHR - restingHR)
-        guard oldSpan > 0 else { maxHR = newMax; persist(); return }
+        hasChanges = true
+        guard oldSpan > 0 else { maxHR = newMax; return }
         let newSpan = Double(newMax - restingHR)
         dividers = dividers.map { d in
             let frac = Double(d - restingHR) / oldSpan
@@ -101,13 +139,13 @@ final class HRZonesViewModel: ObservableObject {
         }
         maxHR = newMax
         normalize()
-        persist()
     }
 
     /// Reset to Strava's default %-of-max zone boundaries so the user's zones
     /// line up with what Strava shows for the same ride. Strava's bands (cycling)
     /// are Z1 ≤59%, Z2 59–78%, Z3 78–87%, Z4 87–97%, Z5 97–100% of max HR.
     func resetToDefaults() {
+        guard isEditing else { return }
         let m = Double(maxHR)
         dividers = [
             Int((m * 0.59).rounded()),   // Z1 / Z2
@@ -116,7 +154,7 @@ final class HRZonesViewModel: ObservableObject {
             Int((m * 0.97).rounded()),   // Z4 / Z5
         ]
         normalize()
-        persist()
+        hasChanges = true
     }
 
     // MARK: - Persistence
