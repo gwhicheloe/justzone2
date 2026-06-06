@@ -401,7 +401,7 @@ footer{
 /* ── Reveal ── */
 .rv{opacity:0;transform:translateY(20px);transition:opacity .7s ease,transform .7s ease}
 .rv.in{opacity:1;transform:none}
-.rv.d1{transition-delay:.08s}.rv.d2{transition-delay:.16s}.rv.d3{transition-delay:.24s}.rv.d4{transition-delay:.32s}
+.rv.d1{transition-delay:.08s}.rv.d2{transition-delay:.16s}.rv.d3{transition-delay:.24s}.rv.d4{transition-delay:.32s}.rv.d5{transition-delay:.40s}
 
 /* ── CTA card (extracted from inline so it can be responsive) ── */
 .cta-card{
@@ -610,3 +610,29 @@ html,body{overflow-x:hidden;width:100%}
   .hrs-card{padding:24px 14px}
   .hrs-icon{width:68px;height:68px}
 }
+
+/* ── From the blog (homepage) ── */
+.fromblog{padding:96px 0}
+.fromblog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:48px}
+.fb-card{display:block;padding:24px;border-radius:var(--r-lg);text-decoration:none;
+  background:var(--glass-bg);border:1px solid var(--glass-border);
+  backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);
+  box-shadow:inset 0 1px 0 var(--glass-spec),0 12px 32px rgba(0,0,0,.3);
+  transition:transform .4s var(--ease),border-color .3s,box-shadow .3s}
+.fb-card:hover{transform:translateY(-6px);border-color:var(--glass-g-border);box-shadow:inset 0 1px 0 var(--glass-g-spec),0 20px 44px rgba(0,0,0,.5)}
+.fb-tag{font-size:.66rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--g)}
+.fb-card h3{font-size:1.1rem;font-weight:800;letter-spacing:-.02em;line-height:1.25;color:var(--t0);margin:10px 0 8px}
+.fb-card p{font-size:.9rem;color:var(--t1);line-height:1.55}
+@media(max-width:760px){.fromblog-grid{grid-template-columns:1fr}}
+
+/* ── FAQ ── */
+.faq{padding:96px 0}
+.faq-list{max-width:760px;margin:40px auto 0}
+.faq-item{border-bottom:1px solid var(--ln)}
+.faq-item summary{list-style:none;cursor:pointer;padding:20px 0;display:flex;justify-content:space-between;align-items:center;gap:16px;
+  font-size:1.05rem;font-weight:700;color:var(--t0)}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{content:'+';font-size:1.4rem;font-weight:400;color:var(--g);flex-shrink:0;transition:transform .2s}
+.faq-item[open] summary::after{transform:rotate(45deg)}
+.faq-item p{padding:0 0 20px;color:var(--t1);line-height:1.7;font-size:.98rem;max-width:680px}
+.faq-item a{color:var(--g);text-decoration:none;border-bottom:1px solid var(--glass-g-border)}

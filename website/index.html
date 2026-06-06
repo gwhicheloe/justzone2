@@ -25,7 +25,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/styles.css?v=5">
+<link rel="stylesheet" href="css/styles.css?v=6">
 <link rel="icon" type="image/svg+xml" href="images/app-icon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="images/icons/favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="images/icons/favicon-16.png">
@@ -45,6 +45,27 @@
   "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD", "availability": "https://schema.org/PreOrder" }
 }
 </script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "What is Zone 2 training?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Zone 2 is a low-intensity heart-rate zone — roughly 60–80% of your maximum heart rate — where you can still hold a conversation. Training here builds aerobic base, grows mitochondria, and improves fat metabolism. It is the foundation of endurance fitness, which is why elite athletes spend most of their training time in it." } },
+    { "@type": "Question", "name": "What is JustZone2?",
+      "acceptedAnswer": { "@type": "Answer", "text": "JustZone2 is an iOS app for indoor cyclists that holds your heart rate in Zone 2 automatically. Connect a smart trainer such as a Wahoo KICKR, set a power target, and a PID controller continuously adjusts resistance to keep you in the zone, then syncs the workout to Strava." } },
+    { "@type": "Question", "name": "Which smart trainers and sensors are supported?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Any trainer that supports the FTMS Bluetooth standard, including the Wahoo KICKR range. For heart rate you can use a Bluetooth chest strap, an optical arm band, an Apple Watch, or AirPods Pro 3." } },
+    { "@type": "Question", "name": "How do I calculate my Zone 2 heart rate?",
+      "acceptedAnswer": { "@type": "Answer", "text": "A common starting estimate is 60–70% of your maximum heart rate (roughly 220 minus your age). JustZone2 lets you set all five zones directly on a visual editor and matches Strava's zone percentages by default." } },
+    { "@type": "Question", "name": "Does JustZone2 work with Strava?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. Completed workouts upload to Strava automatically with power, heart rate, cadence, distance and calories, and the activity is titled by the zone you trained in." } },
+    { "@type": "Question", "name": "Is there a subscription?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. JustZone2 is a one-time purchase with no subscription. It is coming soon to the App Store." } }
+  ]
+}
+</script>
 </head>
 <body>
 
@@ -56,7 +77,7 @@
       <a href="#features">Features</a>
       <a href="#how-it-works">How It Works</a>
       <a href="#why-zone2">Why Zone 2</a>
-      <a href="#resources">Resources</a>
+      <a href="#faq">FAQ</a>
       <a href="blog/index.html">Blog</a>
     </nav>
     <button class="nav-toggle" id="nav-toggle" aria-label="Menu" aria-expanded="false">
@@ -219,7 +240,7 @@
   <div class="wrap">
     <div class="shots-head rv">
       <div class="section-label">App</div>
-      <h2 class="section-h2">Four screens. All you need.</h2>
+      <h2 class="section-h2">Five screens. All you need.</h2>
     </div>
     <div class="shots-row">
       <!-- Shared phone shell macro -->
@@ -237,15 +258,22 @@
         <div class="shot-cap">Workout</div>
       </div>
 
-      <!-- Activity Detail -->
+      <!-- Heart Rate Zones -->
       <div class="shot-col rv d3">
+        <picture><source srcset="images/Zones-mockup.webp" type="image/webp">
+        <img class="shot-img" src="images/Zones-mockup.png" width="169" height="340" alt="Justzone2 heart rate zones editor" loading="lazy"></picture>
+        <div class="shot-cap">HR Zones</div>
+      </div>
+
+      <!-- Activity Detail -->
+      <div class="shot-col rv d4">
         <picture><source srcset="images/Activity-mockup.webp" type="image/webp">
         <img class="shot-img" src="images/Activity-mockup.png" width="169" height="340" alt="Justzone2 activity detail screen" loading="lazy"></picture>
         <div class="shot-cap">Activity Detail</div>
       </div>
 
       <!-- History / Bubble -->
-      <div class="shot-col rv d4">
+      <div class="shot-col rv d5">
         <picture><source srcset="images/Bubble-mockup.webp" type="image/webp">
         <img class="shot-img" src="images/Bubble-mockup.png" width="169" height="340" alt="Justzone2 activity history screen" loading="lazy"></picture>
         <div class="shot-cap">Activity History</div>
@@ -493,6 +521,74 @@
         <div class="res-thumb"><img src="https://img.youtube.com/vi/9xhtTO3VV8g/mqdefault.jpg" alt="Zone 2 for Cyclists"><div class="res-overlay"><div class="res-play"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div></div></div>
         <div class="res-info"><p class="res-title">Zone 2 for Cyclists</p><p class="res-sub">Incorporating Zone 2 into your cycling training plan</p></div>
       </a>
+    </div>
+  </div>
+</section>
+
+<!-- From the blog -->
+<section id="blog" class="fromblog section">
+  <div class="wrap">
+    <div class="shots-head rv" style="text-align:center">
+      <div class="section-label">From the blog</div>
+      <h2 class="section-h2">Zone 2, in depth.</h2>
+    </div>
+    <div class="fromblog-grid">
+      <a href="blog/getting-started.html" class="fb-card rv d1">
+        <span class="fb-tag">Guide</span>
+        <h3>Getting Started: Your First Ride</h3>
+        <p>Pair your trainer, set your zone, and let the app hold your heart rate in Zone 2.</p>
+      </a>
+      <a href="blog/finding-zone-2.html" class="fb-card rv d2">
+        <span class="fb-tag">Zone 2 Life</span>
+        <h3>The Easy Hour: How Zone 2 Fits a Real Life</h3>
+        <p>Why riding slower around a busy schedule left me fitter, calmer and sleeping better.</p>
+      </a>
+      <a href="blog/pid-coffee.html" class="fb-card rv d3">
+        <span class="fb-tag">Under the Hood</span>
+        <h3>The Espresso in the Algorithm</h3>
+        <p>How the PID controller that holds your heart rate works — explained through coffee.</p>
+      </a>
+    </div>
+    <div style="text-align:center;margin-top:32px" class="rv">
+      <a href="blog/index.html" class="hero-link">Read the blog
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="faq section">
+  <div class="wrap">
+    <div class="shots-head rv" style="text-align:center">
+      <div class="section-label">FAQ</div>
+      <h2 class="section-h2">Common questions.</h2>
+    </div>
+    <div class="faq-list rv">
+      <details class="faq-item">
+        <summary>What is Zone 2 training?</summary>
+        <p>Zone 2 is a low-intensity heart-rate zone — roughly 60–80% of your maximum heart rate — where you can still hold a conversation. Training here builds aerobic base, grows mitochondria, and improves fat metabolism. It's the foundation of endurance fitness, which is why elite athletes spend most of their training time in it.</p>
+      </details>
+      <details class="faq-item">
+        <summary>What is JustZone2?</summary>
+        <p>JustZone2 is an iOS app for indoor cyclists that holds your heart rate in Zone 2 automatically. Connect a smart trainer (like a Wahoo KICKR), set a power target, and a PID controller continuously adjusts resistance to keep you in the zone for the whole session, then syncs the workout to Strava.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Which smart trainers and sensors are supported?</summary>
+        <p>Any trainer that supports the FTMS Bluetooth standard, including the Wahoo KICKR range. For heart rate you can use a Bluetooth chest strap, an optical arm band, an Apple Watch, or AirPods Pro 3.</p>
+      </details>
+      <details class="faq-item">
+        <summary>How do I calculate my Zone 2 heart rate?</summary>
+        <p>A common starting estimate is 60–70% of your maximum heart rate (roughly 220 minus your age). JustZone2 lets you set all five zones directly on a visual editor, and matches Strava's zone percentages by default. See <a href="blog/getting-started.html">the getting started guide</a> for details.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Does JustZone2 work with Strava?</summary>
+        <p>Yes. Completed workouts upload to Strava automatically with power, heart rate, cadence, distance and calories, and the activity is titled by the zone you trained in.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Is there a subscription?</summary>
+        <p>No. JustZone2 is a one-time purchase with no subscription. It's coming soon to the App Store.</p>
+      </details>
     </div>
   </div>
 </section>
