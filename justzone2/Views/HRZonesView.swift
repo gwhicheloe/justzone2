@@ -37,6 +37,11 @@ struct HRZonesView: View {
             .navigationTitle("Heart Rate Zones")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text("Heart Rate Zones")
+                        .font(.headline)
+                        .foregroundColor(.green)
+                }
                 ToolbarItem(placement: .topBarTrailing) {
                     if viewModel.isEditing {
                         Button("Save") { viewModel.save(); Haptics.impact() }
