@@ -6,42 +6,6 @@ struct SettingsView: View {
     var body: some View {
         NavigationStack {
             VStack(spacing: 12) {
-                // Zone 2 Heart Rate Range
-                HStack(spacing: 8) {
-                    VStack {
-                        Text("Min HR")
-                            .font(.caption)
-                            .foregroundColor(.secondary)
-                        Picker("", selection: $viewModel.zone2Min) {
-                            ForEach(viewModel.hrOptions, id: \.self) { hr in
-                                Text("\(hr)").tag(hr)
-                            }
-                        }
-                        .pickerStyle(.wheel)
-                        .frame(height: 100)
-                        .clipped()
-                    }
-                    .frame(maxWidth: .infinity)
-
-                    VStack {
-                        Text("Max HR")
-                            .font(.caption)
-                            .foregroundColor(.secondary)
-                        Picker("", selection: $viewModel.zone2Max) {
-                            ForEach(viewModel.hrOptions, id: \.self) { hr in
-                                Text("\(hr)").tag(hr)
-                            }
-                        }
-                        .pickerStyle(.wheel)
-                        .frame(height: 100)
-                        .clipped()
-                    }
-                    .frame(maxWidth: .infinity)
-                }
-                .padding(12)
-                .background(Color.green.opacity(0.1))
-                .cornerRadius(12)
-
                 // Strava Connection
                 VStack(alignment: .leading, spacing: 8) {
                     Text("Strava")

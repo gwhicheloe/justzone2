@@ -49,6 +49,9 @@
 		1100000000000027 /* DiagnosticsLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000027 /* DiagnosticsLogger.swift */; };
 		1100000000000028 /* LocalWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000028 /* LocalWorkout.swift */; };
 		1100000000000029 /* LocalWorkoutStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000029 /* LocalWorkoutStore.swift */; };
+		1100000000000040 /* HRZones.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000030 /* HRZones.swift */; };
+		1100000000000041 /* HRZonesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000031 /* HRZonesViewModel.swift */; };
+		1100000000000042 /* HRZonesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000032 /* HRZonesView.swift */; };
 		110000000000002A /* LocalActivityDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220000000000002A /* LocalActivityDetailView.swift */; };
 /* End PBXBuildFile section */
 
@@ -158,6 +161,9 @@
 		2200000000000027 /* DiagnosticsLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagnosticsLogger.swift; sourceTree = "<group>"; };
 		2200000000000028 /* LocalWorkout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalWorkout.swift; sourceTree = "<group>"; };
 		2200000000000029 /* LocalWorkoutStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalWorkoutStore.swift; sourceTree = "<group>"; };
+		2200000000000030 /* HRZones.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRZones.swift; sourceTree = "<group>"; };
+		2200000000000031 /* HRZonesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRZonesViewModel.swift; sourceTree = "<group>"; };
+		2200000000000032 /* HRZonesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRZonesView.swift; sourceTree = "<group>"; };
 		220000000000002A /* LocalActivityDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalActivityDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -282,6 +288,7 @@
 				2200000000000022 /* WorkoutActivityAttributes.swift */,
 				2200000000000024 /* ActivityStreams.swift */,
 				2200000000000028 /* LocalWorkout.swift */,
+				2200000000000030 /* HRZones.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -311,6 +318,7 @@
 				2200000000000009 /* SetupViewModel.swift */,
 				220000000000000A /* WorkoutViewModel.swift */,
 				220000000000000B /* SummaryViewModel.swift */,
+				2200000000000031 /* HRZonesViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -320,6 +328,7 @@
 			children = (
 				18C58F0A2F294F0700B04598 /* SettingsView.swift */,
 				18C58F062F294AA100B04598 /* HistoryView.swift */,
+				2200000000000032 /* HRZonesView.swift */,
 				220000000000000C /* SetupView.swift */,
 				220000000000000D /* WorkoutView.swift */,
 				220000000000000E /* SummaryView.swift */,
@@ -577,6 +586,9 @@
 				1100000000000027 /* DiagnosticsLogger.swift in Sources */,
 				1100000000000028 /* LocalWorkout.swift in Sources */,
 				1100000000000029 /* LocalWorkoutStore.swift in Sources */,
+				1100000000000040 /* HRZones.swift in Sources */,
+				1100000000000041 /* HRZonesViewModel.swift in Sources */,
+				1100000000000042 /* HRZonesView.swift in Sources */,
 				110000000000002A /* LocalActivityDetailView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

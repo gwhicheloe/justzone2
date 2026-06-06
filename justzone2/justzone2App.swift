@@ -35,6 +35,11 @@ struct justzone2App: App {
                             Label("History", systemImage: "clock.arrow.circlepath")
                         }
 
+                    HRZonesView(heartRateService: appState.heartRateService)
+                        .tabItem {
+                            Label("Zones", systemImage: "heart.text.square")
+                        }
+
                     SettingsView(viewModel: appState.settingsViewModel)
                         .tabItem {
                             Label("Settings", systemImage: "gear")
