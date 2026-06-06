@@ -147,18 +147,29 @@ struct HRZonesView: View {
         .coordinateSpace(name: "stack")
     }
 
-    /// The coloured bar for a zone (no text inside).
+    /// The coloured bar for a zone (no text inside). The colour is composited
+    /// over a near-black base with a subtle top→bottom gradient so it reads as a
+    /// rich, muted tone with depth — never a flat saturated block.
     private func bandBar(_ band: HRZoneBand, top: CGFloat, height: CGFloat, width: CGFloat) -> some View {
         let isZ2 = band.zone == .z2
+        let c = band.zone.color
+        let base = Color(red: 0.07, green: 0.07, blue: 0.09)  // panel charcoal
+        let fill = LinearGradient(
+            colors: [
+                base.blended(with: c, amount: isZ2 ? 0.62 : 0.46),
+                base.blended(with: c, amount: isZ2 ? 0.48 : 0.32),
+            ],
+            startPoint: .top, endPoint: .bottom
+        )
         return RoundedRectangle(cornerRadius: 10)
-            .fill(band.zone.color.opacity(isZ2 ? 0.30 : 0.18))
+            .fill(fill)
             .overlay(
                 RoundedRectangle(cornerRadius: 10)
-                    .strokeBorder(band.zone.color.opacity(isZ2 ? 0.9 : 0.4),
-                                  lineWidth: isZ2 ? 2 : 1)
+                    .strokeBorder(c.opacity(isZ2 ? 0.85 : 0.45),
+                                  lineWidth: isZ2 ? 1.5 : 1)
             )
-            .shadow(color: isZ2 ? band.zone.color.opacity(0.5) : .clear,
-                    radius: isZ2 ? 10 : 0)
+            .shadow(color: isZ2 ? c.opacity(0.35) : .clear,
+                    radius: isZ2 ? 8 : 0)
             .frame(width: width, height: height)
             .offset(y: top)
     }
@@ -305,6 +316,23 @@ struct HRZonesView: View {
     private func pctOfMax(_ bpm: Int) -> Int {
         guard viewModel.maxHR > 0 else { return 0 }
         return Int((Double(bpm) / Double(viewModel.maxHR) * 100).rounded())
+    }
+}
+
+extension Color {
+    /// Linear RGB blend toward `other` by `amount` (0 = self, 1 = other).
+    func blended(with other: Color, amount: Double) -> Color {
+        let a = UIColor(self), b = UIColor(other)
+        var r1: CGFloat = 0, g1: CGFloat = 0, b1: CGFloat = 0, a1: CGFloat = 0
+        var r2: CGFloat = 0, g2: CGFloat = 0, b2: CGFloat = 0, a2: CGFloat = 0
+        a.getRed(&r1, green: &g1, blue: &b1, alpha: &a1)
+        b.getRed(&r2, green: &g2, blue: &b2, alpha: &a2)
+        let t = CGFloat(min(max(amount, 0), 1))
+        return Color(
+            red: Double(r1 + (r2 - r1) * t),
+            green: Double(g1 + (g2 - g1) * t),
+            blue: Double(b1 + (b2 - b1) * t)
+        )
     }
 }
 

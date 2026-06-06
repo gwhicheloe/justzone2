@@ -265,6 +265,16 @@ class StravaService: NSObject, ObservableObject {
         return lines.joined(separator: "\n")
     }
 
+    /// Strava activity title based on the zone the workout predominantly sat in.
+    /// Falls back to "Zone 2 Workout" when there's no HR data to classify.
+    static func activityTitle(for workout: Workout) -> String {
+        let hrs = workout.samples.compactMap { $0.heartRate }
+        guard let zone = HRZoneBoundaries.dominantZone(heartRates: hrs) else {
+            return "Zone 2 Workout"
+        }
+        return "Zone \(zone.rawValue) Workout"
+    }
+
     func uploadWorkout(_ workout: Workout, description: String? = nil) async throws -> Int {
         guard isAuthenticated else {
             throw StravaError.notAuthenticated
@@ -310,10 +320,10 @@ class StravaService: NSObject, ObservableObject {
         body.append("Content-Disposition: form-data; name=\"data_type\"\r\n\r\n".data(using: .utf8)!)
         body.append("tcx\r\n".data(using: .utf8)!)
 
-        // Name
+        // Name — titled by the zone the workout predominantly sat in.
         body.append("--\(boundary)\r\n".data(using: .utf8)!)
         body.append("Content-Disposition: form-data; name=\"name\"\r\n\r\n".data(using: .utf8)!)
-        body.append("Zone 2 Workout\r\n".data(using: .utf8)!)
+        body.append("\(Self.activityTitle(for: workout))\r\n".data(using: .utf8)!)
 
         // Description (workout parameters, for History display + Strava record)
         if let description = description, !description.isEmpty {

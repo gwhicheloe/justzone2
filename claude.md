@@ -167,6 +167,43 @@ The Live Activity extension is in `JustZone2LiveActivity/`.
 - ERG mode sets resistance to maintain target power regardless of cadence
 - Strava uploads use TCX format with power extension data
 
+## Deploying to the iPhone over WiFi
+
+George's iPhone is paired for wireless development, so the app can be built and
+installed without a cable (even when working away from the Mac, same network).
+When he says "push to my phone" / "update the app on my phone", do this — it is
+**not** a git push:
+
+```bash
+export DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer
+
+# 1. Confirm the phone is reachable (look for "available (paired)")
+xcrun devicectl list devices | grep -i iphone
+#   "Bas iphone 12 mini"  udid: 7E1A97BE-6015-55AC-AB49-EDB6A32DB63E   (devicectl)
+#   xcodebuild device id:  00008101-00160DDE3404001E
+
+# 2. Build for the device (slow part; valid auto-signing, team N66DNSAQQ9)
+xcodebuild -scheme justzone2 \
+  -destination 'platform=iOS,id=00008101-00160DDE3404001E' \
+  -allowProvisioningUpdates build
+
+# 3. Install over the network tunnel (use the devicectl UDID, not the xcodebuild id)
+APP=$(find ~/Library/Developer/Xcode/DerivedData/justzone2-*/Build/Products/Debug-iphoneos -maxdepth 1 -name "justzone2.app" | head -1)
+xcrun devicectl device install app --device 7E1A97BE-6015-55AC-AB49-EDB6A32DB63E "$APP"
+```
+
+Notes:
+- Installs but does not launch — he taps the icon. (devicectl can't reliably launch a Debug build.)
+- Debug build signed with the dev profile → ~7-day provisioning expiry; fine for testing.
+- If the phone isn't listed, it usually needs one cabled reconnect, or both devices on the same network with the phone unlocked.
+
+## Simulator screenshots of a specific tab
+
+To screenshot a non-default tab (e.g. the Zones screen) — simctl has no tap command,
+and osascript clicking is blocked (no assistive access). Temporarily set
+`TabView(selection: .constant(N))` + add `.tag(0..3)` to each tab, build, screenshot,
+then revert. Sim: `iPhone Air`; dark mode via `xcrun simctl ui <udid> appearance dark`.
+
 ## Architecture Patterns
 
 - **MVVM**: ViewModels own business logic, Views are declarative
