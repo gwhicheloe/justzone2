@@ -21,6 +21,16 @@ class WatchSessionManager: NSObject, ObservableObject {
     /// Prevents duplicate session starts when both mirroring handler and WCSession backup fire simultaneously.
     private var isStartingWorkout = false
 
+    /// Mode A: the mirrored session handed over by `workoutSessionMirroringStartHandler`,
+    /// held while we wait (armed) for the user to press Start on the Watch.
+    private var pendingSession: HKWorkoutSession?
+
+    /// True from the moment a workout starts until it ends. Lets the mirroring
+    /// handler tell a *fresh* launch (→ arm and show Start) apart from a *re-wake*
+    /// during an active workout (→ the iPhone watchdog reviving a stalled HR
+    /// stream; just foregrounding restores reachability, don't re-arm).
+    private var workoutInProgress = false
+
     /// Counter for WCSession workoutUpdate messages — only log first and every 30th to reduce spam.
     private var wcUpdateCount = 0
 
@@ -94,128 +104,152 @@ class WatchSessionManager: NSObject, ObservableObject {
     // MARK: - Primary Workout Session
 
     /// Called when iPhone launches this app via startWatchApp(with:).
-    /// Uses locationType to distinguish Mode A (full recording) from Mode B (display-only).
+    /// Uses locationType to distinguish Mode A (Watch HR) from Mode B (display-only).
+    ///
+    /// Mode A no longer auto-starts: the iPhone wakes us, we *arm* and show a
+    /// Start button, and the user pressing Start (while the app is foreground +
+    /// awake) brings the session up cleanly — which avoids the background-start
+    /// failure and the iOS-commandeering that froze HR mid-ride.
     private func handleStartFromPhone(session: HKWorkoutSession) async {
         let locationType = session.workoutConfiguration.locationType
-        wlog("[WATCH] handleStartFromPhone — locationType=\(locationType.rawValue), existing session=\(workoutSession != nil), starting=\(isStartingWorkout)")
+        wlog("[WATCH] handleStartFromPhone — locationType=\(locationType.rawValue), existing session=\(workoutSession != nil), inProgress=\(workoutInProgress), starting=\(isStartingWorkout)")
 
+        if locationType == .outdoor {
+            // Mode B: Display-only — auto-start (no user action needed).
+            guard !isStartingWorkout, workoutSession == nil else {
+                wlog("[WATCH] handleStartFromPhone (Mode B) — BLOCKED: starting or session exists")
+                return
+            }
+            isStartingWorkout = true
+            defer { isStartingWorkout = false }
+            self.workoutSession = session
+            session.delegate = self
+            wlog("[WATCH] Mode B display session starting")
+            session.startActivity(with: Date())
+            self.workoutState = "running"
+            self.workoutInProgress = true
+            wlog("[WATCH] Mode B session started")
+            return
+        }
+
+        // Mode A.
+        if workoutInProgress {
+            // Re-wake from the iPhone watchdog while a workout is active. Just
+            // launching foregrounds us and restores WCSession reachability —
+            // don't re-arm or restart (the startWorkout backup handles a dead
+            // session if iOS killed it).
+            wlog("[WATCH] handleStartFromPhone (Mode A) — re-wake during active workout, not re-arming")
+            return
+        }
+
+        // Fresh Mode A launch: arm and wait for the user to press Start.
+        self.pendingSession = session
+        self.workoutState = "armed"
+        wlog("[WATCH] handleStartFromPhone (Mode A) — armed, showing Start button")
+    }
+
+    /// Mode A: the user pressed Start on the Watch. Start the session now (we're
+    /// foreground + awake, so it comes up cleanly), then tell the iPhone to begin
+    /// in lock-step via `watchDidStart`.
+    func startArmedWorkout() {
+        wlog("[WATCH] startArmedWorkout — user pressed Start on Watch")
+        let session = pendingSession
+        pendingSession = nil
+        Task { await beginModeASession(session) }
+    }
+
+    /// Shared Mode A start: use the mirrored session if we have one, else create
+    /// a fresh local session (WCSession backup / revive path). Records HR via the
+    /// builder + a read-only query and ships it to the iPhone over WCSession. We
+    /// do NOT call startMirroringToCompanionDevice — Apple's mirrored data channel
+    /// is chronically broken on iOS/watchOS 26 (FB20723311).
+    private func beginModeASession(_ providedSession: HKWorkoutSession?) async {
         guard !isStartingWorkout else {
-            wlog("[WATCH] handleStartFromPhone — BLOCKED: already starting")
+            wlog("[WATCH] beginModeASession — BLOCKED: already starting")
             return
         }
         isStartingWorkout = true
         defer { isStartingWorkout = false }
 
         if workoutSession != nil {
-            wlog("[WATCH] handleStartFromPhone — stale session exists, ending it before proceeding")
+            wlog("[WATCH] beginModeASession — stale session exists, ending it first")
             endPrimaryWorkout()
-            // Give the old session a moment to clean up
             try? await Task.sleep(nanoseconds: 1_000_000_000)
         }
 
-        self.workoutSession = session
-        session.delegate = self
+        await requestAuthorization()
 
-        if locationType == .outdoor {
-            // Mode B: Display-only — no builder, no HR recording, no duplicate workout saved.
-            wlog("[WATCH] Mode B display session starting")
-            session.startActivity(with: Date())
-            self.workoutState = "running"
-            wlog("[WATCH] Mode B session started")
+        let session: HKWorkoutSession
+        if let providedSession {
+            session = providedSession
         } else {
-            // Mode A: Watch records HR via its own session and ships HR to iPhone via WCSession.
-            // We do NOT call startMirroringToCompanionDevice — Apple's mirrored data channel is
-            // chronically broken on iOS/watchOS 26 (FB20723311). The session passed by
-            // workoutSessionMirroringStartHandler is used as a normal local session.
-            wlog("[WATCH] Mode A recording session starting — requesting auth")
-            await requestAuthorization()
-
-            let builder = session.associatedWorkoutBuilder()
-            builder.delegate = self
-            builder.dataSource = HKLiveWorkoutDataSource(
-                healthStore: healthStore,
-                workoutConfiguration: session.workoutConfiguration
-            )
-            self.workoutBuilder = builder
-            wlog("[WATCH] Mode A builder created")
-
-            session.startActivity(with: Date())
-            self.workoutState = "running"
-            wlog("[WATCH] Mode A session started, beginning collection")
-
-            Task {
-                do {
-                    try await builder.beginCollection(at: Date())
-                    wlog("[WATCH] beginCollection succeeded")
-
-                    // Verify session is still alive after beginCollection
-                    guard session.state == .running else {
-                        wlog("[WATCH] handleStartFromPhone: session died after beginCollection (state=\(hkStateName(session.state))), aborting")
-                        self.workoutSession = nil
-                        self.workoutBuilder = nil
-                        self.workoutState = "ended"
-                        return
-                    }
-
-                    self.startHRObservation()
-                } catch {
-                    wlog("[WATCH] beginCollection FAILED: \(error.localizedDescription)")
-                }
+            let config = HKWorkoutConfiguration()
+            config.activityType = .cycling
+            config.locationType = .indoor
+            do {
+                session = try HKWorkoutSession(healthStore: healthStore, configuration: config)
+            } catch {
+                wlog("[WATCH] beginModeASession — session creation FAILED: \(error.localizedDescription)")
+                self.workoutState = "ended"
+                return
             }
+        }
+
+        session.delegate = self
+        self.workoutSession = session
+
+        let builder = session.associatedWorkoutBuilder()
+        builder.delegate = self
+        builder.dataSource = HKLiveWorkoutDataSource(
+            healthStore: healthStore,
+            workoutConfiguration: session.workoutConfiguration
+        )
+        self.workoutBuilder = builder
+
+        session.startActivity(with: Date())
+        self.workoutState = "running"
+        self.workoutInProgress = true
+        notifyPhoneWatchStarted()
+        wlog("[WATCH] beginModeASession — session started, beginning collection")
+
+        do {
+            try await builder.beginCollection(at: Date())
+            wlog("[WATCH] beginModeASession beginCollection succeeded")
+
+            guard session.state == .running else {
+                wlog("[WATCH] beginModeASession — session died after beginCollection (state=\(hkStateName(session.state))), aborting")
+                self.workoutSession = nil
+                self.workoutBuilder = nil
+                self.workoutInProgress = false
+                self.workoutState = "ended"
+                return
+            }
+
+            self.startHRObservation()
+        } catch {
+            wlog("[WATCH] beginModeASession beginCollection FAILED: \(error.localizedDescription)")
         }
     }
 
-    /// Start a primary workout session (called from WCSession message as backup).
+    /// Tell the iPhone the user pressed Start so it begins its own session.
+    private func notifyPhoneWatchStarted() {
+        guard let wc = wcSession else { return }
+        if wc.isReachable {
+            wc.sendMessage(["type": "watchDidStart"], replyHandler: nil, errorHandler: nil)
+        }
+        wc.transferUserInfo(["type": "watchDidStart", "timestamp": Date().timeIntervalSince1970])
+        wlog("[WATCH] notifyPhoneWatchStarted — sent watchDidStart")
+    }
+
+    /// Start a primary workout session from a WCSession backup / revive message
+    /// (no mirrored session handed over). Creates a fresh local session.
     func startPrimaryWorkout() {
-        wlog("[WATCH] startPrimaryWorkout — existing session=\(workoutSession != nil), starting=\(isStartingWorkout)")
+        wlog("[WATCH] startPrimaryWorkout (backup) — existing session=\(workoutSession != nil), starting=\(isStartingWorkout)")
         guard workoutSession == nil, !isStartingWorkout else {
             wlog("[WATCH] startPrimaryWorkout — BLOCKED: session exists or already starting")
             return
         }
-
-        let config = HKWorkoutConfiguration()
-        config.activityType = .cycling
-        config.locationType = .indoor
-
-        do {
-            let session = try HKWorkoutSession(healthStore: healthStore, configuration: config)
-            session.delegate = self
-            self.workoutSession = session
-
-            let builder = session.associatedWorkoutBuilder()
-            builder.delegate = self
-            builder.dataSource = HKLiveWorkoutDataSource(
-                healthStore: healthStore,
-                workoutConfiguration: config
-            )
-            self.workoutBuilder = builder
-
-            session.startActivity(with: Date())
-            self.workoutState = "running"
-            wlog("[WATCH] startPrimaryWorkout session started")
-
-            Task {
-                do {
-                    try await builder.beginCollection(at: Date())
-                    wlog("[WATCH] startPrimaryWorkout beginCollection succeeded")
-
-                    // Verify session is still alive after beginCollection
-                    guard session.state == .running else {
-                        wlog("[WATCH] startPrimaryWorkout: session died after beginCollection (state=\(hkStateName(session.state))), aborting")
-                        self.workoutSession = nil
-                        self.workoutBuilder = nil
-                        self.workoutState = "ended"
-                        return
-                    }
-
-                    self.startHRObservation()
-                } catch {
-                    wlog("[WATCH] startPrimaryWorkout beginCollection FAILED: \(error.localizedDescription)")
-                }
-            }
-        } catch {
-            wlog("[WATCH] startPrimaryWorkout session creation FAILED: \(error.localizedDescription)")
-        }
+        Task { await beginModeASession(nil) }
     }
 
     /// Start a display-only session (no builder, no HR collection, no saved workout).
@@ -254,6 +288,8 @@ class WatchSessionManager: NSObject, ObservableObject {
         self.workoutSession = nil
         self.workoutBuilder = nil
         self.isStartingWorkout = false
+        self.workoutInProgress = false
+        self.pendingSession = nil
         self.wcUpdateCount = 0
         self.hrSendSeq = 0
         stopHRObservation()
@@ -405,6 +441,8 @@ extension WatchSessionManager: HKWorkoutSessionDelegate {
             self.workoutSession = nil
             self.workoutBuilder = nil
             self.isStartingWorkout = false
+            self.workoutInProgress = false
+            self.pendingSession = nil
             self.wcUpdateCount = 0
             self.hrSendSeq = 0
             self.workoutState = "ended"
@@ -504,6 +542,15 @@ extension WatchSessionManager: WCSessionDelegate {
 
         Task { @MainActor in
             switch type {
+            case "prepareWorkout":
+                // Mode A fresh launch: arm and show the Start button (belt-and-
+                // suspenders for when the mirroring handler didn't fire because
+                // the app was already foreground).
+                wlog("[WATCH] WCSession prepareWorkout — arming")
+                if self.workoutSession == nil && !self.workoutInProgress && !self.isStartingWorkout {
+                    self.workoutState = "armed"
+                }
+
             case "startWorkout":
                 // Backup trigger from iPhone (in case startWatchApp didn't fire the handler)
                 wlog("[WATCH] WCSession startWorkout — existing session=\(self.workoutSession != nil)")

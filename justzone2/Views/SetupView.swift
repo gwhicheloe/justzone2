@@ -433,8 +433,8 @@ struct SetupView: View {
                     showWorkout = true
                 }) {
                     HStack {
-                        Image(systemName: "play.fill")
-                        Text("Start Workout")
+                        Image(systemName: viewModel.useWatchHR ? "applewatch" : "play.fill")
+                        Text(viewModel.useWatchHR ? "Start on Watch" : "Start Workout")
                     }
                     .font(.headline)
                     .foregroundColor(.white)

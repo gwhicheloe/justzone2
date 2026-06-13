@@ -33,6 +33,13 @@ class WorkoutViewModel: ObservableObject {
     @Published var isSwitchingHRSource = false
     @Published var hrSourceError: String?
     @Published var showHRStrapPicker = false
+    /// Mode A only: the iPhone has woken the Watch and is waiting for the user
+    /// to press Start on the Watch before the workout actually begins. Drives
+    /// the "Press Start on your Watch" overlay in WorkoutView.
+    @Published var waitingForWatchStart = false
+    /// True while the watchdog is silently re-waking a stalled Watch HR stream
+    /// mid-workout. Drives a subtle "Reconnecting Apple Watch…" banner.
+    @Published var isRevivingWatchHR = false
     /// Mirrors watchConnectivityService.hasReceivedHR so SwiftUI reactively
     /// re-renders banners/alerts that depend on Watch HR delivery state.
     @Published private(set) var hasWatchHR: Bool = false
@@ -96,6 +103,24 @@ class WorkoutViewModel: ObservableObject {
     /// start its HKWorkoutSession, and bring up the WCSession channel. Wait out
     /// that window before surfacing the "no HR" alert.
     private static let watchColdStartTimeout: TimeInterval = 45
+
+    // MARK: - Watch start + HR watchdog
+    /// Mode A: how long to wait for the user to press Start on the Watch before
+    /// offering the "start on phone instead" escape.
+    private static let watchArmTimeout: TimeInterval = 60
+    /// No fresh Watch HR for this long (mid-workout) ⇒ treat the stream as
+    /// stalled (the watchOS-26 mirroring bug) and begin a silent revive.
+    private static let watchHRStaleThreshold: TimeInterval = 20
+    /// Still no Watch HR this long after a stall began ⇒ surface the alert.
+    private static let watchHRDeadThreshold: TimeInterval = 60
+    /// Re-wake the Watch at most this often while reviving.
+    private static let watchReviveInterval: TimeInterval = 20
+    private var watchArmTask: Task<Void, Never>?
+    private var watchReviveTask: Task<Void, Never>?
+    /// Non-nil while the Watch HR stream is considered stalled; stamped when the
+    /// stall was first detected so we can escalate to an alert after a while.
+    private var watchStallSince: Date?
+
     private var workoutStartTime: Date?
     private var powerBuffer: [Int] = []
     private let powerSmoothingWindow = 5
@@ -165,11 +190,22 @@ class WorkoutViewModel: ObservableObject {
             .compactMap { $0 }
             .sink { [weak self] message in
                 guard let self = self, self.useWatchHR else { return }
+                self.watchConnectivityService.watchStartError = nil
+                // While arming, the overlay (with its "start on phone instead"
+                // escape) owns the UI — don't also throw an alert.
+                guard !self.waitingForWatchStart else { return }
                 self.watchLaunchTask?.cancel()
                 self.watchLaunchTask = nil
+                self.clearWatchStall()
                 self.hrSourceError = message
-                self.watchConnectivityService.watchStartError = nil
             }
+            .store(in: &cancellables)
+
+        // Mode A Watch-initiated start: when the user presses Start on the
+        // Watch, the Watch confirms and the iPhone begins its own session.
+        watchConnectivityService.$watchStartedWorkout
+            .filter { $0 }
+            .sink { [weak self] _ in self?.watchDidStartWorkout() }
             .store(in: &cancellables)
     }
 
@@ -247,6 +283,7 @@ class WorkoutViewModel: ObservableObject {
 
         isSwitchingHRSource = true
         hrSourceError = nil
+        clearWatchStall()
 
         // If we're leaving the Watch source, tell the Watch to stop its session.
         if hrSource == .appleWatch {
@@ -283,17 +320,27 @@ class WorkoutViewModel: ObservableObject {
         completeSwitchToBLE()
     }
 
-    /// Retry Watch connection from heart button (e.g. if initial launch failed).
+    /// Retry the Watch from the heart button / alert. Re-arms if we're still
+    /// waiting for the user to start on the Watch; otherwise re-wakes a stalled
+    /// mid-workout Watch HR stream.
     func retryWatchConnection() {
-        guard useWatchHR, !isWatchConnected else { return }
-        dlog("[IPHONE-VM] retryWatchConnection — user tapped Retry")
-        launchWatchWorkout()
+        guard useWatchHR else { return }
+        if waitingForWatchStart {
+            dlog("[IPHONE-VM] retryWatchConnection — re-arming Watch start")
+            armWatchStart()
+            return
+        }
+        // Mid-workout retry: re-wake the Watch. We don't gate on isWatchConnected
+        // because a stalled stream still reads "connected" (HR arrived earlier).
+        dlog("[IPHONE-VM] retryWatchConnection — user tapped Retry, reviving Watch HR")
+        reviveWatchHR(userInitiated: true)
     }
 
     private func completeSwitchToBLE() {
         dlog("[IPHONE-VM] completeSwitchToBLE — hrSource → bleStrap")
         isSwitchingHRSource = true
         hrSourceError = nil
+        clearWatchStall()
 
         // Stop the Watch session — we don't need its HR anymore.
         watchConnectivityService.sendStopWorkout()
@@ -303,24 +350,165 @@ class WorkoutViewModel: ObservableObject {
         isSwitchingHRSource = false
     }
 
+    // MARK: - Watch HR Watchdog (mid-workout stall detection + silent revive)
+
+    /// Run once per timer tick while the workout is active. If the Watch HR
+    /// stream has gone quiet (the watchOS-26 mirroring bug), start silently
+    /// re-waking the Watch; if it stays dead, surface an alert so the rider can
+    /// retry or switch to a strap.
+    private func checkWatchHRWatchdog() {
+        guard useWatchHR, state == .running else {
+            if watchStallSince != nil { clearWatchStall() }
+            return
+        }
+
+        let now = Date()
+        // Baseline is the last HR arrival, or the workout start if none yet —
+        // this catches both "HR was flowing then froze" and "HR never arrived".
+        let baseline = watchConnectivityService.lastHRAt ?? workoutStartTime ?? now
+        let sinceHR = now.timeIntervalSince(baseline)
+
+        if sinceHR < Self.watchHRStaleThreshold {
+            if watchStallSince != nil {
+                dlog("[IPHONE-VM] WATCH_HR_RECOVERED — fresh HR after stall")
+                clearWatchStall()
+            }
+            return
+        }
+
+        // Stalled.
+        if watchStallSince == nil {
+            watchStallSince = now
+            isRevivingWatchHR = true
+            dlog("[IPHONE-VM] WATCH_HR_STALL — no Watch HR for \(Int(sinceHR))s, starting silent revive")
+            startWatchReviveLoop()
+        }
+
+        // Escalate to a user-facing alert if it stays dead too long.
+        if let since = watchStallSince,
+           now.timeIntervalSince(since) >= Self.watchHRDeadThreshold,
+           hrSourceError == nil {
+            dlog("[IPHONE-VM] WATCH_HR_DEAD — still no HR \(Int(now.timeIntervalSince(since)))s after stall, alerting")
+            hrSourceError = "Apple Watch heart rate stopped and isn't recovering. Tap Retry, or switch to your HR strap."
+        }
+    }
+
+    /// Re-wake the Watch every `watchReviveInterval` seconds until HR returns
+    /// (or the source changes). The act of re-foregrounding the Watch app
+    /// restores WCSession reachability; the queued start backup restarts the
+    /// Watch's session if iOS killed it.
+    private func startWatchReviveLoop() {
+        watchReviveTask?.cancel()
+        watchReviveTask = Task {
+            while !Task.isCancelled {
+                guard useWatchHR, state == .running, watchStallSince != nil else { return }
+                reviveWatchHR(userInitiated: false)
+                try? await Task.sleep(nanoseconds: UInt64(Self.watchReviveInterval * 1_000_000_000))
+            }
+        }
+    }
+
+    private func reviveWatchHR(userInitiated: Bool) {
+        dlog("[IPHONE-VM] \(userInitiated ? "reviveWatchHR (user retry)" : "WATCH_HR_REVIVE") — re-waking Watch")
+        if userInitiated { isRevivingWatchHR = true }
+        Task { await tryStartWatch() }
+    }
+
+    private func clearWatchStall() {
+        watchStallSince = nil
+        isRevivingWatchHR = false
+        watchReviveTask?.cancel()
+        watchReviveTask = nil
+    }
+
     // MARK: - Workout Lifecycle
 
     func startWorkout() {
-        guard state == .idle else { return }
+        guard state == .idle, !waitingForWatchStart else { return }
 
         UIApplication.shared.isIdleTimerDisabled = true
         watchConnectivityService.resetHRStats()
         healthKitManager.resetBuilderHRStats()
 
+        // Mode A: don't start anything yet. Wake the Watch and wait for the user
+        // to press Start on the foregrounded Watch app — starting the session
+        // from an awake, foreground Watch is what dodges the background-start
+        // failure and the iOS-commandeering that freeze HR. The workout actually
+        // begins in `beginWorkout` once the Watch confirms (or the user uses the
+        // "start on phone instead" escape).
+        if useWatchHR {
+            armWatchStart()
+        } else {
+            beginWorkout(watchAlreadyStarted: false)
+        }
+    }
+
+    /// Mode A: wake the Watch app so its Start button appears, then wait for the
+    /// user to tap it. If the Watch can't be reached, WorkoutView's overlay
+    /// offers a "start on phone instead" escape.
+    private func armWatchStart() {
+        dlog("[IPHONE-VM] armWatchStart — waking Watch, waiting for user to press Start on Watch")
+        waitingForWatchStart = true
+        watchConnectivityService.markWatchLaunch()
+        watchArmTask?.cancel()
+        watchArmTask = Task {
+            do {
+                try await healthKitManager.startWatchWorkout()   // wake the Watch app (.indoor)
+                dlog("[IPHONE-VM] armWatchStart — startWatchApp returned OK")
+            } catch {
+                dlog("[IPHONE-VM] armWatchStart — startWatchApp FAILED: \(error.localizedDescription)")
+            }
+            if Task.isCancelled { return }
+            // Belt-and-suspenders: also ask over WCSession in case the Watch app
+            // was already foreground and the mirroring handler didn't fire.
+            watchConnectivityService.sendPrepareWorkout()
+
+            // Just wait for the user to tap Start on the Watch (which flips
+            // state to .running via watchDidStartWorkout). Log if it never comes.
+            let deadline = Date().addingTimeInterval(Self.watchArmTimeout)
+            while Date() < deadline {
+                try? await Task.sleep(nanoseconds: 1_000_000_000)
+                if Task.isCancelled || state == .running { return }
+            }
+            if waitingForWatchStart {
+                dlog("[IPHONE-VM] armWatchStart — TIMEOUT, Watch never confirmed Start")
+            }
+        }
+    }
+
+    /// Mode A: the Watch reported the user pressed Start. Begin in lock-step.
+    func watchDidStartWorkout() {
+        guard waitingForWatchStart, state == .idle else { return }
+        dlog("[IPHONE-VM] watchDidStartWorkout — Watch initiated; beginning iPhone workout")
+        beginWorkout(watchAlreadyStarted: true)
+    }
+
+    /// Escape hatch from the "Press Start on your Watch" overlay — start the
+    /// workout from the phone using the legacy iPhone-driven Watch launch.
+    func startOnPhoneInstead() {
+        guard waitingForWatchStart, state == .idle else { return }
+        dlog("[IPHONE-VM] startOnPhoneInstead — user bypassed Watch Start")
+        beginWorkout(watchAlreadyStarted: false)
+    }
+
+    /// The real workout start: KICKR, iPhone HK session, timer, Live Activity.
+    /// - Parameter watchAlreadyStarted: true when the Watch initiated (its
+    ///   session is already running); false when starting from the phone, in
+    ///   which case we kick the Watch the legacy way and let the watchdog revive.
+    private func beginWorkout(watchAlreadyStarted: Bool) {
+        waitingForWatchStart = false
+        watchArmTask?.cancel()
+        watchArmTask = nil
+
         let startPower = warmUpEnabled ? workout.targetPower / 2 : workout.targetPower
         kickrService.setTargetPower(startPower)
         kickrService.startWorkout()
 
-        // iPhone always owns the workout record now — start the HK session
-        // regardless of HR source. HR samples flow into this builder via
-        // addHeartRateSample, sourced from Watch (Mode A) or BLE (Mode B).
-        // Only AirPods needs the live data source; attaching it for the Watch
-        // source makes iOS commandeer the Watch for HR and blocks our Watch app.
+        // iPhone always owns the workout record — start the HK session regardless
+        // of HR source. HR samples flow into this builder via addHeartRateSample,
+        // sourced from Watch (Mode A) or BLE (Mode B). Only AirPods needs the
+        // live data source; attaching it for the Watch source makes iOS
+        // commandeer the Watch for HR and blocks our Watch app.
         Task {
             do {
                 try await healthKitManager.startWorkoutSession(collectLiveHR: hrSource.writesToBuilderNatively)
@@ -330,7 +518,12 @@ class WorkoutViewModel: ObservableObject {
         }
 
         if useWatchHR {
-            launchWatchWorkout()
+            // The Watch starts its own session when the user taps Start on it. If
+            // we're starting from the phone instead, fall back to the legacy
+            // launch so the Watch still comes up.
+            if !watchAlreadyStarted {
+                launchWatchWorkout()
+            }
         } else {
             // Launch Watch in display-only mode so it stays alive in background
             // for update delivery. Falls back to WCSession message if startWatchApp fails.
@@ -549,6 +742,10 @@ class WorkoutViewModel: ObservableObject {
     /// End the iPhone HealthKit session (saves the workout to Health) and tell
     /// the Watch to stop its session too. Same teardown for both modes.
     private func endIPhoneSessionAndNotifyWatch() {
+        clearWatchStall()
+        watchArmTask?.cancel(); watchArmTask = nil
+        watchLaunchTask?.cancel(); watchLaunchTask = nil
+        waitingForWatchStart = false
         Task {
             do {
                 healthKitWorkout = try await healthKitManager.endWorkoutSession()
@@ -578,6 +775,8 @@ class WorkoutViewModel: ObservableObject {
     private func timerTick() {
         guard state == .running else { return }
         guard !isSwitchingHRSource else { return }
+
+        checkWatchHRWatchdog()
 
         let now = Date()
 

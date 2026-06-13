@@ -6,6 +6,8 @@ struct WatchWorkoutView: View {
     var body: some View {
         Group {
             switch sessionManager.workoutState {
+            case "armed":
+                armedView
             case "running", "paused":
                 workoutActiveView
             case "ended":
@@ -17,6 +19,44 @@ struct WatchWorkoutView: View {
         .task {
             await sessionManager.requestAuthorization()
         }
+    }
+
+    // MARK: - Armed (waiting for user to Start)
+
+    /// Shown after the iPhone wakes the Watch for a Mode A workout. The user taps
+    /// Start here — starting the session from the foreground Watch app is what
+    /// makes HR come up reliably.
+    private var armedView: some View {
+        VStack(spacing: 10) {
+            if sessionManager.hrPermissionDenied {
+                Image(systemName: "heart.slash.fill")
+                    .font(.system(size: 24))
+                    .foregroundColor(.red)
+                Text("Enable Heart Rate\non iPhone first")
+                    .font(.caption2)
+                    .multilineTextAlignment(.center)
+                    .foregroundColor(.red)
+            }
+
+            Button {
+                sessionManager.startArmedWorkout()
+            } label: {
+                VStack(spacing: 4) {
+                    Image(systemName: "play.fill")
+                        .font(.system(size: 26))
+                    Text("Start")
+                        .font(.system(size: 18, weight: .bold, design: .rounded))
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 10)
+            }
+            .tint(.green)
+
+            Text("Start your Zone 2 workout")
+                .font(.caption2)
+                .foregroundColor(.secondary)
+        }
+        .padding(.horizontal, 4)
     }
 
     // MARK: - Waiting State

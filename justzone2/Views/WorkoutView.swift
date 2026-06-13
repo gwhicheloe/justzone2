@@ -21,6 +21,16 @@ struct WorkoutView: View {
                 portraitBody
             }
         }
+        .overlay {
+            if viewModel.waitingForWatchStart {
+                watchStartWaitingOverlay
+            }
+        }
+        .overlay(alignment: .top) {
+            if viewModel.isRevivingWatchHR && !viewModel.waitingForWatchStart {
+                watchRevivingBanner
+            }
+        }
         .toolbar(isLandscape ? .hidden : .visible, for: .navigationBar)
         .toolbar(isLandscape ? .hidden : .visible, for: .tabBar)
         // The Watch-error alert, navigation push to Summary, and the workout's
@@ -32,7 +42,7 @@ struct WorkoutView: View {
             get: { viewModel.hrSourceError != nil },
             set: { if !$0 { viewModel.hrSourceError = nil } }
         )) {
-            if viewModel.useWatchHR && !viewModel.isWatchConnected {
+            if viewModel.useWatchHR && (!viewModel.isWatchConnected || viewModel.isRevivingWatchHR) {
                 Button("Retry") {
                     viewModel.hrSourceError = nil
                     viewModel.retryWatchConnection()
@@ -492,6 +502,62 @@ struct WorkoutView: View {
             .padding(.vertical, 6)
             .background(Color.orange.opacity(0.1))
         }
+    }
+
+    /// Mode A: full-screen "Press Start on your Watch" prompt shown while the
+    /// iPhone waits for the user to start the workout on the foregrounded Watch.
+    private var watchStartWaitingOverlay: some View {
+        ZStack {
+            Color(.systemBackground).opacity(0.96).ignoresSafeArea()
+            VStack(spacing: 22) {
+                Image(systemName: "applewatch.radiowaves.left.and.right")
+                    .font(.system(size: 60))
+                    .foregroundColor(.green)
+                    .symbolEffect(.variableColor.iterative, options: .repeating)
+
+                VStack(spacing: 8) {
+                    Text("Press Start on your Watch")
+                        .font(.title3.bold())
+                        .multilineTextAlignment(.center)
+                    Text("Open JustZone2 on your Apple Watch and tap Start. Starting from the Watch keeps your heart rate reliable.")
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 32)
+                }
+
+                ProgressView()
+                    .padding(.top, 4)
+
+                Button {
+                    viewModel.startOnPhoneInstead()
+                } label: {
+                    Text("Start on phone instead")
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                        .underline()
+                }
+                .padding(.top, 8)
+            }
+            .padding()
+        }
+    }
+
+    /// Subtle top banner shown while the watchdog is silently re-waking a
+    /// stalled Watch HR stream mid-workout.
+    private var watchRevivingBanner: some View {
+        HStack(spacing: 8) {
+            ProgressView()
+                .scaleEffect(0.7)
+            Text("Reconnecting Apple Watch…")
+                .font(.caption)
+                .foregroundColor(.orange)
+        }
+        .padding(.horizontal, 14)
+        .padding(.vertical, 8)
+        .background(.ultraThinMaterial, in: Capsule())
+        .overlay(Capsule().stroke(Color.orange.opacity(0.4), lineWidth: 1))
+        .padding(.top, 8)
     }
 
     /// Build the share-ETA message text. Recomputes on each tap so sharing

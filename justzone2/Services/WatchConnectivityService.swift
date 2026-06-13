@@ -15,6 +15,15 @@ class WatchConnectivityService: NSObject, ObservableObject {
     /// Non-nil when the Watch reported a session-start error the user needs to
     /// resolve (e.g. Watch app was backgrounded). Set back to nil to dismiss.
     @Published var watchStartError: String?
+    /// Flips true when the Watch reports the user pressed Start on the Watch
+    /// (Mode A, Watch-initiated start). The iPhone observes this to begin its
+    /// own session in lock-step. Reset to false by `resetHRStats()`.
+    @Published var watchStartedWorkout = false
+
+    /// Wall-clock time the most recent Watch HR sample arrived. The
+    /// WorkoutViewModel watchdog reads this to detect a stalled/frozen Watch HR
+    /// stream (the watchOS-26 mirroring bug) and trigger a silent revive.
+    private(set) var lastHRAt: Date?
 
     private var session: WCSession?
 
@@ -72,6 +81,15 @@ class WatchConnectivityService: NSObject, ObservableObject {
     func sendStartWorkout() {
         send(["type": "startWorkout"], op: "sendStartWorkout")
         queue(["type": "startWorkout"], op: "sendStartWorkout")
+    }
+
+    /// Mode A (Watch-initiated start): tell the Watch to show its Start button
+    /// and wait for the user to tap it, rather than auto-starting. The user
+    /// pressing Start on the foregrounded Watch app is what makes the session
+    /// come up cleanly and dodges the iOS-commandeering / background-start bugs.
+    func sendPrepareWorkout() {
+        send(["type": "prepareWorkout"], op: "sendPrepareWorkout")
+        queue(["type": "prepareWorkout"], op: "sendPrepareWorkout")
     }
 
     /// Mode B: tells Watch to start a display-only session (no HR, no saved workout)
@@ -174,10 +192,14 @@ extension WatchConnectivityService: WCSessionDelegate {
             let seq = message["seq"] as? Int ?? 0
             dsignpost("Watch→iPhone HR=\(hr) seq=\(seq)")
             Task { @MainActor in
+                self.lastHRAt = Date()
                 self.fallbackHeartRate = hr
                 if !self.hasReceivedHR { self.hasReceivedHR = true }
                 self.recordHRDelivery(seq: seq)
             }
+        } else if type == "watchDidStart" {
+            dlog("[IPHONE-WC] watchDidStart received — user pressed Start on Watch")
+            Task { @MainActor in self.watchStartedWorkout = true }
         } else if type == "watchError", let kind = message["kind"] as? String {
             handleWatchError(kind: kind)
         } else {
@@ -220,6 +242,8 @@ extension WatchConnectivityService: WCSessionDelegate {
         hrGaps = 0
         hasReceivedHR = false
         watchLaunchTime = nil
+        lastHRAt = nil
+        watchStartedWorkout = false
     }
 
     /// Receives guaranteed-delivery messages from Watch (e.g. Watch-side diagnostic logs).
@@ -229,6 +253,9 @@ extension WatchConnectivityService: WCSessionDelegate {
             let lineCount = log.components(separatedBy: "\n").filter { !$0.isEmpty }.count
             dlog("[IPHONE-WC] Watch log received (\(lineCount) lines)")
             DiagnosticsLogger.shared.appendWatchLog(log)
+        } else if type == "watchDidStart" {
+            dlog("[IPHONE-WC] watchDidStart received (userInfo) — user pressed Start on Watch")
+            Task { @MainActor in self.watchStartedWorkout = true }
         } else if type == "watchError", let kind = userInfo["kind"] as? String {
             handleWatchError(kind: kind)
         } else {
