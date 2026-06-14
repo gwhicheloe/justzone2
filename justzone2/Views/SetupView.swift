@@ -415,46 +415,31 @@ struct SetupView: View {
                     .cornerRadius(12)
                 }
 
-                // Start Button — always pinned at the bottom
-                Button(action: {
-                    let workout = viewModel.createWorkout()
-                    workoutViewModel = WorkoutViewModel(
-                        workout: workout,
-                        bluetoothManager: viewModel.bluetoothManager,
-                        kickrService: viewModel.kickrService,
-                        heartRateService: viewModel.heartRateService,
-                        healthKitManager: viewModel.healthKitManager,
-                        liveActivityManager: viewModel.liveActivityManager,
-                        watchConnectivityService: viewModel.watchConnectivityService,
-                        hrSource: viewModel.hrSource,
-                        zoneTargetingEnabled: viewModel.zoneTargetingEnabled,
-                        warmUpEnabled: viewModel.warmUpEnabled
-                    )
-                    showWorkout = true
-                }) {
-                    HStack {
-                        Image(systemName: viewModel.useWatchHR ? "applewatch" : "play.fill")
-                        Text(viewModel.useWatchHR ? "Start on Watch" : "Start Workout")
-                    }
-                    .font(.headline)
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(viewModel.canStartWorkout ? Color.green : Color.gray)
-                    .cornerRadius(12)
-                }
-                .disabled(!viewModel.canStartWorkout)
-
-                if !viewModel.canStartWorkout {
-                    HStack(spacing: 6) {
-                        if viewModel.watchHRWaitingForApp {
-                            Image(systemName: "applewatch")
-                                .foregroundColor(.orange)
+                // Start — pinned at the bottom. Mode A (Apple Watch HR) is
+                // started from the Watch, so we show a prompt instead of a
+                // button; all other modes start from this button.
+                if viewModel.useWatchHR {
+                    watchStartPrompt
+                } else {
+                    Button(action: { buildAndNavigateToWorkout() }) {
+                        HStack {
+                            Image(systemName: "play.fill")
+                            Text("Start Workout")
                         }
-                        Text(viewModel.startButtonHelpText)
-                            .foregroundColor(viewModel.watchHRWaitingForApp ? .orange : .secondary)
+                        .font(.headline)
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(viewModel.canStartWorkout ? Color.green : Color.gray)
+                        .cornerRadius(12)
                     }
-                    .font(.caption)
+                    .disabled(!viewModel.canStartWorkout)
+
+                    if !viewModel.canStartWorkout {
+                        Text(viewModel.startButtonHelpText)
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                    }
                 }
             }
             .padding()
@@ -481,6 +466,37 @@ struct SetupView: View {
                     // Stop KICKR (may still be at cool-down power) then clean up
                     viewModel.kickrService.stopWorkout()
                     workoutViewModel = nil
+                    // Back on Setup: clear the consumed Watch-start signal and
+                    // re-arm the Watch for the next ride.
+                    viewModel.clearWatchStartedFlag()
+                    viewModel.armWatchStartIfReady()
+                }
+            }
+            // Mode A: when everything's ready, arm the already-open Watch app so
+            // its Start button appears.
+            .onChange(of: viewModel.canStartWorkout) { _, _ in
+                viewModel.armWatchStartIfReady()
+            }
+            .onChange(of: viewModel.useWatchHR) { _, _ in
+                viewModel.armWatchStartIfReady()
+            }
+            // Mode A: the user pressed Start on the Watch — begin + navigate.
+            .onChange(of: viewModel.watchStartedWorkout) { _, started in
+                guard started else { return }
+                // Already in a workout (e.g. a mid-ride revive re-sent
+                // watchDidStart): just consume the signal, don't disturb it.
+                guard !showWorkout, workoutViewModel == nil else {
+                    viewModel.clearWatchStartedFlag()
+                    return
+                }
+                if viewModel.useWatchHR, viewModel.canStartWorkout {
+                    buildAndNavigateToWorkout()
+                } else {
+                    // Watch started but the phone can't run this workout (trainer
+                    // dropped, or HR source no longer the Watch) — stand the Watch
+                    // session back down so it isn't left running orphaned.
+                    viewModel.watchConnectivityService.sendStopWorkout()
+                    viewModel.clearWatchStartedFlag()
                 }
             }
             .sheet(isPresented: $showZoneTargetingInfo) {
@@ -556,7 +572,113 @@ struct SetupView: View {
             if pendingRecovery == nil, let local = LocalWorkoutStore.shared.mostRecentInProgress() {
                 pendingRecovery = local
             }
+            // Drop any stale "Watch started" signal, then arm the Watch if we're
+            // already ready (Mode A).
+            viewModel.clearWatchStartedFlag()
+            viewModel.armWatchStartIfReady()
         }
+    }
+
+    /// Mode A: the workout is started from the Apple Watch. When the setup is
+    /// ready we prompt the user to press Start on the Watch; otherwise we show
+    /// what's still missing (trainer, Health, or opening the Watch app).
+    private var watchStartPrompt: some View {
+        let ready = viewModel.canStartWorkout
+        let watchOpen = viewModel.isWatchReachable
+        let accent: Color = ready ? .green : .orange
+
+        return VStack(spacing: 14) {
+            // Live Watch-app status so the user can see whether the Watch app is
+            // actually open and talking to the phone. A static check/slash here —
+            // the animated element is the Watch glyph below.
+            HStack(spacing: 8) {
+                Image(systemName: watchOpen ? "checkmark.circle.fill" : "applewatch.slash")
+                    .foregroundColor(watchOpen ? .green : .orange)
+                Text(watchOpen ? "Watch app open" : "Watch app not open")
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundColor(watchOpen ? .green : .orange)
+                Spacer()
+                Circle()
+                    .fill(watchOpen ? Color.green : Color.orange)
+                    .frame(width: 9, height: 9)
+            }
+
+            Divider()
+
+            // Primary instruction. The action is on the Watch, so the icon is an
+            // (animated) Watch glyph — never a phone-style play button — to avoid
+            // inviting a tap on the phone. The animation signals "waiting on you,
+            // over on the Watch."
+            if ready {
+                watchActionRow(
+                    icon: "applewatch.radiowaves.left.and.right", tint: .green, animated: true,
+                    title: "Press Start on your Watch",
+                    subtitle: "Start the workout on your Apple Watch — there's nothing to press here."
+                )
+            } else if viewModel.watchHRWaitingForApp {
+                watchActionRow(
+                    icon: "applewatch", tint: .orange, animated: true,
+                    title: "Open JustZone2 on your Watch",
+                    subtitle: "Launch the app on your Apple Watch to continue."
+                )
+            } else {
+                watchActionRow(
+                    icon: "exclamationmark.triangle.fill", tint: .orange, animated: false,
+                    title: viewModel.startButtonHelpText, subtitle: nil
+                )
+            }
+        }
+        .padding()
+        .frame(maxWidth: .infinity)
+        .background(accent.opacity(0.12))
+        .cornerRadius(14)
+        .overlay(
+            RoundedRectangle(cornerRadius: 14)
+                .stroke(accent.opacity(0.4), lineWidth: 1)
+        )
+    }
+
+    @ViewBuilder
+    private func watchActionRow(icon: String, tint: Color, animated: Bool, title: String, subtitle: String?) -> some View {
+        HStack(spacing: 12) {
+            Image(systemName: icon)
+                .font(.system(size: 34))
+                .foregroundColor(tint)
+                .symbolEffect(.variableColor.iterative, options: .repeating, isActive: animated)
+                .frame(width: 40)
+            VStack(alignment: .leading, spacing: 3) {
+                Text(title)
+                    .font(.headline)
+                    .fixedSize(horizontal: false, vertical: true)
+                if let subtitle {
+                    Text(subtitle)
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+            }
+            Spacer(minLength: 0)
+        }
+    }
+
+    /// Build a fresh WorkoutViewModel from the current setup and navigate to the
+    /// workout screen. Used by the Mode B Start button and the Mode A
+    /// Watch-initiated start.
+    private func buildAndNavigateToWorkout() {
+        let workout = viewModel.createWorkout()
+        workoutViewModel = WorkoutViewModel(
+            workout: workout,
+            bluetoothManager: viewModel.bluetoothManager,
+            kickrService: viewModel.kickrService,
+            heartRateService: viewModel.heartRateService,
+            healthKitManager: viewModel.healthKitManager,
+            liveActivityManager: viewModel.liveActivityManager,
+            watchConnectivityService: viewModel.watchConnectivityService,
+            hrSource: viewModel.hrSource,
+            zoneTargetingEnabled: viewModel.zoneTargetingEnabled,
+            warmUpEnabled: viewModel.warmUpEnabled
+        )
+        showWorkout = true
     }
 
     private func resumeRecoveredWorkout(_ recovery: LocalWorkout) {

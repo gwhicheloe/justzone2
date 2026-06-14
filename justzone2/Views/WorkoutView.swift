@@ -21,13 +21,8 @@ struct WorkoutView: View {
                 portraitBody
             }
         }
-        .overlay {
-            if viewModel.waitingForWatchStart {
-                watchStartWaitingOverlay
-            }
-        }
         .overlay(alignment: .top) {
-            if viewModel.isRevivingWatchHR && !viewModel.waitingForWatchStart {
+            if viewModel.isRevivingWatchHR {
                 watchRevivingBanner
             }
         }
@@ -501,45 +496,6 @@ struct WorkoutView: View {
             .frame(maxWidth: .infinity)
             .padding(.vertical, 6)
             .background(Color.orange.opacity(0.1))
-        }
-    }
-
-    /// Mode A: full-screen "Press Start on your Watch" prompt shown while the
-    /// iPhone waits for the user to start the workout on the foregrounded Watch.
-    private var watchStartWaitingOverlay: some View {
-        ZStack {
-            Color(.systemBackground).opacity(0.96).ignoresSafeArea()
-            VStack(spacing: 22) {
-                Image(systemName: "applewatch.radiowaves.left.and.right")
-                    .font(.system(size: 60))
-                    .foregroundColor(.green)
-                    .symbolEffect(.variableColor.iterative, options: .repeating)
-
-                VStack(spacing: 8) {
-                    Text("Press Start on your Watch")
-                        .font(.title3.bold())
-                        .multilineTextAlignment(.center)
-                    Text("Open JustZone2 on your Apple Watch and tap Start. Starting from the Watch keeps your heart rate reliable.")
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
-                        .multilineTextAlignment(.center)
-                        .padding(.horizontal, 32)
-                }
-
-                ProgressView()
-                    .padding(.top, 4)
-
-                Button {
-                    viewModel.startOnPhoneInstead()
-                } label: {
-                    Text("Start on phone instead")
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
-                        .underline()
-                }
-                .padding(.top, 8)
-            }
-            .padding()
         }
     }
 

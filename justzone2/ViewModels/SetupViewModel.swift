@@ -39,6 +39,9 @@ class SetupViewModel: ObservableObject {
     @Published var isWatchReachable = false
     @Published var isWatchAppInstalled = false
     @Published var hrBatteryLevel: Int?
+    /// Mirrors the Watch's "user pressed Start" signal. In Mode A the workout is
+    /// started from the Watch; SetupView watches this to begin + navigate.
+    @Published var watchStartedWorkout = false
 
     let bluetoothManager: BluetoothManager
     let kickrService: KickrService
@@ -160,6 +163,23 @@ class SetupViewModel: ObservableObject {
 
         watchConnectivityService.$isWatchAppInstalled
             .assign(to: &$isWatchAppInstalled)
+
+        watchConnectivityService.$watchStartedWorkout
+            .assign(to: &$watchStartedWorkout)
+    }
+
+    /// Mode A: arm the (already-open) Watch app so it shows its Start button.
+    /// `canStartWorkout` guarantees the Watch app is reachable, so a direct
+    /// WCSession message lands. Safe to call repeatedly (idempotent on the Watch).
+    func armWatchStartIfReady() {
+        guard useWatchHR, canStartWorkout else { return }
+        watchConnectivityService.sendPrepareWorkout()
+    }
+
+    /// Clear a stale "Watch started" signal (e.g. left over from a prior workout)
+    /// so we don't auto-navigate on the next visit to Setup.
+    func clearWatchStartedFlag() {
+        watchConnectivityService.watchStartedWorkout = false
     }
 
     func startScanning() {
