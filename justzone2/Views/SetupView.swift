@@ -15,7 +15,8 @@ struct SetupView: View {
 
     var body: some View {
         NavigationStack {
-            VStack(spacing: 12) {
+            ScrollView {
+            VStack(spacing: 10) {
                 // Recovery Banner
                 if let recovery = pendingRecovery {
                     VStack(spacing: 8) {
@@ -61,75 +62,17 @@ struct SetupView: View {
                     .cornerRadius(12)
                 }
 
-                // Workout Configuration
-                VStack(spacing: 0) {
-                    HStack(spacing: 8) {
-                        PowerPicker(
-                            selectedPower: $viewModel.targetPower,
-                            options: viewModel.powerOptions
-                        )
-                        .frame(maxWidth: .infinity)
-
-                        DurationPicker(
-                            selectedDuration: $viewModel.targetDuration,
-                            options: viewModel.durationOptions,
-                            formatDuration: viewModel.formatDuration
-                        )
-                        .frame(maxWidth: .infinity)
-                    }
-                    .padding(.bottom, 4)
-
-                    Divider().padding(.vertical, 6)
-
-                    HStack {
-                        Image(systemName: "heart.text.square")
-                            .foregroundColor(viewModel.zoneTargetingEnabled ? .green : .secondary)
-                        Text("Zone Targeting")
-                            .font(.subheadline)
-                        Button {
-                            showZoneTargetingInfo = true
-                        } label: {
-                            Image(systemName: "info.circle")
-                                .foregroundColor(.secondary)
-                                .font(.subheadline)
-                        }
-                        Spacer()
-                        Toggle("", isOn: $viewModel.zoneTargetingEnabled)
-                            .labelsHidden()
-                            .tint(.green)
-                    }
-
-                    Divider().padding(.vertical, 6)
-
-                    HStack {
-                        Image(systemName: "flame")
-                            .foregroundColor(viewModel.warmUpEnabled ? .orange : .secondary)
-                        Text("Warm Up")
-                            .font(.subheadline)
-                        Button {
-                            showWarmUpInfo = true
-                        } label: {
-                            Image(systemName: "info.circle")
-                                .foregroundColor(.secondary)
-                                .font(.subheadline)
-                        }
-                        Spacer()
-                        Toggle("", isOn: $viewModel.warmUpEnabled)
-                            .labelsHidden()
-                            .tint(.green)
-                    }
-                }
-                .padding(12)
-                .background(Color.green.opacity(0.1))
-                .cornerRadius(12)
+                // Workout Configuration — the hero panel
+                configCard
 
                 // Devices section
-                VStack(alignment: .leading, spacing: 6) {
-                    HStack {
+                VStack(alignment: .leading, spacing: 8) {
+                    HStack(spacing: 6) {
+                        Image(systemName: "antenna.radiowaves.left.and.right")
+                            .font(.system(size: 11, weight: .bold))
                         Text("DEVICES")
-                            .font(.system(size: 13, weight: .semibold))
-                            .tracking(0.5)
-                            .foregroundColor(.secondary)
+                            .font(.system(size: 12, weight: .semibold))
+                            .tracking(1.2)
 
                         Spacer()
 
@@ -145,12 +88,16 @@ struct SetupView: View {
                                 viewModel.startScanning()
                             }
                         }
-                        .font(.subheadline)
+                        .font(.caption.weight(.semibold))
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 5)
+                        .background(Capsule().fill(Color.green.opacity(0.16)))
+                        .foregroundStyle(.green)
                     }
+                    .foregroundStyle(.secondary)
                     .padding(.horizontal, 4)
 
-                    ScrollView {
-                        VStack(alignment: .leading, spacing: 0) {
+                    VStack(alignment: .leading, spacing: 0) {
                             if !viewModel.isBluetoothEnabled {
                                 Label("Bluetooth disabled", systemImage: "exclamationmark.triangle.fill")
                                     .font(.caption)
@@ -213,11 +160,9 @@ struct SetupView: View {
 
                                 VStack(alignment: .leading, spacing: 4) {
                                     HStack {
-                                        Image(systemName: "applewatch")
-                                            .foregroundColor(viewModel.useWatchHR ? .green : viewModel.isWatchAppInstalled ? .primary : .secondary)
-                                            .frame(width: 30)
+                                        iconChip("applewatch", tint: viewModel.useWatchHR ? .green : .secondary)
                                         Text("Apple Watch")
-                                            .font(.subheadline)
+                                            .font(.subheadline.weight(.medium))
                                             .foregroundColor(viewModel.isWatchAppInstalled ? .primary : .secondary)
                                         Spacer()
                                         if viewModel.useWatchHR {
@@ -237,12 +182,11 @@ struct SetupView: View {
                                             Button("Select") {
                                                 viewModel.selectWatchHR()
                                             }
-                                            .font(.subheadline)
-                                            .padding(.horizontal, 12)
-                                            .padding(.vertical, 6)
-                                            .background(Color.blue.opacity(0.1))
+                                            .font(.subheadline.weight(.semibold))
+                                            .padding(.horizontal, 14)
+                                            .padding(.vertical, 7)
+                                            .background(Capsule().fill(Color.blue.opacity(0.18)))
                                             .foregroundColor(.blue)
-                                            .clipShape(RoundedRectangle(cornerRadius: 8))
                                         } else {
                                             Text("Not installed")
                                                 .font(.caption)
@@ -284,11 +228,9 @@ struct SetupView: View {
 
                             VStack(alignment: .leading, spacing: 4) {
                                 HStack {
-                                    Image(systemName: "airpodspro")
-                                        .foregroundColor(viewModel.hrSource == .airPods ? .green : .primary)
-                                        .frame(width: 30)
+                                    iconChip("airpodspro", tint: viewModel.hrSource == .airPods ? .green : .secondary)
                                     Text("AirPods Pro")
-                                        .font(.subheadline)
+                                        .font(.subheadline.weight(.medium))
                                     Spacer()
                                     if viewModel.hrSource == .airPods {
                                         HStack(spacing: 4) {
@@ -310,12 +252,11 @@ struct SetupView: View {
                                             viewModel.hrConnected = false
                                             viewModel.hrConnecting = false
                                         }
-                                        .font(.subheadline)
-                                        .padding(.horizontal, 12)
-                                        .padding(.vertical, 6)
-                                        .background(Color.blue.opacity(0.1))
+                                        .font(.subheadline.weight(.semibold))
+                                        .padding(.horizontal, 14)
+                                        .padding(.vertical, 7)
+                                        .background(Capsule().fill(Color.blue.opacity(0.18)))
                                         .foregroundColor(.blue)
-                                        .clipShape(RoundedRectangle(cornerRadius: 8))
                                     }
                                 }
                                 .padding(.vertical, 8)
@@ -344,75 +285,27 @@ struct SetupView: View {
                                 }
                             }
                         }
-                        .padding(.horizontal, 12)
-                    }
-                    .background(Color(.systemBackground))
-                    .cornerRadius(12)
-                    .frame(maxHeight: 240)
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 4)
+                    .glassCard()
                 }
 
-                // Integrations section
-                VStack(alignment: .leading, spacing: 6) {
-                    Text("INTEGRATIONS")
-                        .font(.system(size: 13, weight: .semibold))
-                        .tracking(0.5)
-                        .foregroundColor(.secondary)
-                        .padding(.horizontal, 4)
+                // Integrations section — compact, side-by-side
+                VStack(alignment: .leading, spacing: 8) {
+                    sectionHeader("Integrations", systemImage: "app.connected.to.app.below.fill")
 
-                    VStack(spacing: 0) {
-                        HStack {
-                            Image(systemName: viewModel.isHealthKitAuthorized ? "heart.fill" : "heart")
-                                .foregroundColor(viewModel.isHealthKitAuthorized ? .green : .secondary)
-                                .frame(width: 30)
-                            Text("Apple Health")
-                                .font(.subheadline)
-                            Spacer()
-                            if viewModel.isHealthKitAuthorized {
-                                Image(systemName: "checkmark.circle.fill")
-                                    .foregroundColor(.green)
-                            } else {
-                                Button("Connect") {
-                                    Task { await viewModel.requestHealthKitAuthorization() }
-                                }
-                                .font(.subheadline)
-                                .padding(.horizontal, 12)
-                                .padding(.vertical, 6)
-                                .background(Color.blue.opacity(0.1))
-                                .foregroundColor(.blue)
-                                .clipShape(RoundedRectangle(cornerRadius: 8))
-                            }
-                        }
-                        .padding(.vertical, 8)
-
-                        Divider()
-
-                        HStack {
-                            Image(systemName: viewModel.isStravaConnected ? "checkmark.circle.fill" : "link.circle")
-                                .foregroundColor(viewModel.isStravaConnected ? .green : Color(red: 0.99, green: 0.32, blue: 0))
-                                .frame(width: 30)
-                            Text("Strava")
-                                .font(.subheadline)
-                            Spacer()
-                            if viewModel.isStravaConnected {
-                                Image(systemName: "checkmark.circle.fill")
-                                    .foregroundColor(.green)
-                            } else {
-                                Button("Connect") {
-                                    Task { await viewModel.connectToStrava() }
-                                }
-                                .font(.subheadline)
-                                .padding(.horizontal, 12)
-                                .padding(.vertical, 6)
-                                .background(Color(red: 0.99, green: 0.32, blue: 0).opacity(0.1))
-                                .foregroundColor(Color(red: 0.99, green: 0.32, blue: 0))
-                                .clipShape(RoundedRectangle(cornerRadius: 8))
-                            }
-                        }
-                        .padding(.vertical, 8)
+                    HStack(spacing: 10) {
+                        integrationTile(
+                            icon: "heart.fill", tint: .pink, title: "Apple Health",
+                            connected: viewModel.isHealthKitAuthorized,
+                            connect: { Task { await viewModel.requestHealthKitAuthorization() } }
+                        )
+                        integrationTile(
+                            icon: "figure.outdoor.cycle", tint: Self.stravaOrange, title: "Strava",
+                            connected: viewModel.isStravaConnected,
+                            connect: { Task { await viewModel.connectToStrava() } }
+                        )
                     }
-                    .padding(.horizontal, 12)
-                    .background(Color(.systemBackground))
-                    .cornerRadius(12)
                 }
 
                 // Start — pinned at the bottom. Mode A (Apple Watch HR) is
@@ -422,16 +315,29 @@ struct SetupView: View {
                     watchStartPrompt
                 } else {
                     Button(action: { buildAndNavigateToWorkout() }) {
-                        HStack {
+                        HStack(spacing: 8) {
                             Image(systemName: "play.fill")
                             Text("Start Workout")
                         }
                         .font(.headline)
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(viewModel.canStartWorkout ? Color.green : Color.gray)
-                        .cornerRadius(12)
+                        .padding(.vertical, 14)
+                        .background {
+                            if viewModel.canStartWorkout {
+                                LinearGradient(
+                                    colors: [Color.green, Color.green.opacity(0.78)],
+                                    startPoint: .top, endPoint: .bottom
+                                )
+                            } else {
+                                Color.gray.opacity(0.4)
+                            }
+                        }
+                        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+                        .shadow(
+                            color: viewModel.canStartWorkout ? Color.green.opacity(0.35) : .clear,
+                            radius: 10, y: 4
+                        )
                     }
                     .disabled(!viewModel.canStartWorkout)
 
@@ -443,7 +349,18 @@ struct SetupView: View {
                 }
             }
             .padding()
-            .background(Color(.systemGroupedBackground))
+            }
+            .scrollBounceBehavior(.basedOnSize)
+            .background(
+                ZStack {
+                    Color(.systemGroupedBackground)
+                    RadialGradient(
+                        colors: [Color.green.opacity(0.18), Color.clear],
+                        center: .top, startRadius: 0, endRadius: 360
+                    )
+                }
+                .ignoresSafeArea()
+            )
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .principal) {
@@ -473,12 +390,14 @@ struct SetupView: View {
                 }
             }
             // Mode A: when everything's ready, arm the already-open Watch app so
-            // its Start button appears.
+            // its Start button appears. Only while we're on the setup screen —
+            // mid-workout (showWorkout) reachability flaps would otherwise spam
+            // the Watch with prepareWorkout messages it ignores anyway.
             .onChange(of: viewModel.canStartWorkout) { _, _ in
-                viewModel.armWatchStartIfReady()
+                if !showWorkout { viewModel.armWatchStartIfReady() }
             }
             .onChange(of: viewModel.useWatchHR) { _, _ in
-                viewModel.armWatchStartIfReady()
+                if !showWorkout { viewModel.armWatchStartIfReady() }
             }
             // Mode A: the user pressed Start on the Watch — begin + navigate.
             .onChange(of: viewModel.watchStartedWorkout) { _, started in
@@ -579,86 +498,208 @@ struct SetupView: View {
         }
     }
 
-    /// Mode A: the workout is started from the Apple Watch. When the setup is
-    /// ready we prompt the user to press Start on the Watch; otherwise we show
-    /// what's still missing (trainer, Health, or opening the Watch app).
+    // MARK: - Hero configuration panel
+
+    /// The headline card: target power + duration as glass "stat" tiles, then the
+    /// Zone Targeting / Warm Up options, all on a soft green-gradient panel.
+    private var configCard: some View {
+        VStack(spacing: 10) {
+            HStack(spacing: 10) {
+                PowerPicker(
+                    selectedPower: $viewModel.targetPower,
+                    options: viewModel.powerOptions
+                )
+                .frame(maxWidth: .infinity)
+
+                DurationPicker(
+                    selectedDuration: $viewModel.targetDuration,
+                    options: viewModel.durationOptions,
+                    formatDuration: viewModel.formatDuration
+                )
+                .frame(maxWidth: .infinity)
+            }
+
+            HStack(spacing: 10) {
+                configToggleTile(
+                    icon: "target", tint: .green, title: "Zone Targeting",
+                    isOn: $viewModel.zoneTargetingEnabled,
+                    info: { showZoneTargetingInfo = true }
+                )
+                configToggleTile(
+                    icon: "flame.fill", tint: .orange, title: "Warm Up",
+                    isOn: $viewModel.warmUpEnabled,
+                    info: { showWarmUpInfo = true }
+                )
+            }
+        }
+        .padding(12)
+        .background(
+            RoundedRectangle(cornerRadius: 24, style: .continuous)
+                .fill(
+                    LinearGradient(
+                        colors: [Color.green.opacity(0.28), Color.green.opacity(0.06)],
+                        startPoint: .topLeading, endPoint: .bottomTrailing
+                    )
+                )
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 24, style: .continuous)
+                .stroke(Color.green.opacity(0.30), lineWidth: 1)
+        )
+    }
+
+    /// A compact half-width option tile (Zone Targeting / Warm Up) so the two sit
+    /// side by side and keep the hero panel short.
+    private func configToggleTile(
+        icon: String, tint: Color, title: String,
+        isOn: Binding<Bool>, info: @escaping () -> Void
+    ) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            HStack {
+                iconChip(icon, tint: isOn.wrappedValue ? tint : .secondary)
+                Spacer()
+                Toggle("", isOn: isOn)
+                    .labelsHidden()
+                    .tint(tint)
+            }
+            HStack(spacing: 4) {
+                Text(title)
+                    .font(.subheadline.weight(.medium))
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.8)
+                Button(action: info) {
+                    Image(systemName: "info.circle")
+                        .font(.caption2)
+                        .foregroundStyle(.tertiary)
+                }
+                .buttonStyle(.plain)
+            }
+        }
+        .padding(10)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(
+            RoundedRectangle(cornerRadius: 14, style: .continuous)
+                .fill(.ultraThinMaterial)
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 14, style: .continuous)
+                .stroke(Color.white.opacity(0.08), lineWidth: 1)
+        )
+    }
+
+    /// SF Symbol in a tinted rounded-square chip — the core "designed list" motif.
+    private func iconChip(_ name: String, tint: Color) -> some View {
+        Image(systemName: name)
+            .font(.system(size: 14, weight: .semibold))
+            .foregroundStyle(tint)
+            .frame(width: 32, height: 32)
+            .background(
+                RoundedRectangle(cornerRadius: 9, style: .continuous)
+                    .fill(tint.opacity(0.16))
+            )
+    }
+
+    static let stravaOrange = Color(red: 0.99, green: 0.32, blue: 0)
+
+    /// A subtle, designed section label: small glyph + tracked caps title.
+    private func sectionHeader(_ title: String, systemImage: String) -> some View {
+        HStack(spacing: 6) {
+            Image(systemName: systemImage)
+                .font(.system(size: 11, weight: .bold))
+            Text(title.uppercased())
+                .font(.system(size: 12, weight: .semibold))
+                .tracking(1.2)
+        }
+        .foregroundStyle(.secondary)
+        .padding(.horizontal, 4)
+    }
+
+    /// Compact integration tile — icon chip, name, and a small status line.
+    /// Tapping connects when not yet connected.
+    private func integrationTile(
+        icon: String, tint: Color, title: String,
+        connected: Bool, connect: @escaping () -> Void
+    ) -> some View {
+        HStack(spacing: 10) {
+            iconChip(icon, tint: tint)
+            VStack(alignment: .leading, spacing: 1) {
+                Text(title)
+                    .font(.caption.weight(.semibold))
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.8)
+                Text(connected ? "Connected" : "Tap to connect")
+                    .font(.caption2)
+                    .foregroundStyle(connected ? .green : .secondary)
+            }
+            Spacer(minLength: 0)
+            if connected {
+                Image(systemName: "checkmark.circle.fill")
+                    .font(.footnote)
+                    .foregroundStyle(.green)
+            }
+        }
+        .padding(10)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .glassCard(cornerRadius: 14)
+        .contentShape(Rectangle())
+        .onTapGesture { if !connected { connect() } }
+    }
+
+    /// Mode A: the workout is started from the Apple Watch. Compact single-row
+    /// prompt — the action is on the Watch, so the icon is an (animated) Watch
+    /// glyph (never a phone-style play button) and the status line tells the user
+    /// whether the Watch app is actually open.
     private var watchStartPrompt: some View {
         let ready = viewModel.canStartWorkout
         let watchOpen = viewModel.isWatchReachable
         let accent: Color = ready ? .green : .orange
 
-        return VStack(spacing: 14) {
-            // Live Watch-app status so the user can see whether the Watch app is
-            // actually open and talking to the phone. A static check/slash here —
-            // the animated element is the Watch glyph below.
-            HStack(spacing: 8) {
-                Image(systemName: watchOpen ? "checkmark.circle.fill" : "applewatch.slash")
-                    .foregroundColor(watchOpen ? .green : .orange)
-                Text(watchOpen ? "Watch app open" : "Watch app not open")
-                    .font(.subheadline.weight(.semibold))
-                    .foregroundColor(watchOpen ? .green : .orange)
-                Spacer()
-                Circle()
-                    .fill(watchOpen ? Color.green : Color.orange)
-                    .frame(width: 9, height: 9)
-            }
-
-            Divider()
-
-            // Primary instruction. The action is on the Watch, so the icon is an
-            // (animated) Watch glyph — never a phone-style play button — to avoid
-            // inviting a tap on the phone. The animation signals "waiting on you,
-            // over on the Watch."
-            if ready {
-                watchActionRow(
-                    icon: "applewatch.radiowaves.left.and.right", tint: .green, animated: true,
-                    title: "Press Start on your Watch",
-                    subtitle: "Start the workout on your Apple Watch — there's nothing to press here."
-                )
-            } else if viewModel.watchHRWaitingForApp {
-                watchActionRow(
-                    icon: "applewatch", tint: .orange, animated: true,
-                    title: "Open JustZone2 on your Watch",
-                    subtitle: "Launch the app on your Apple Watch to continue."
-                )
-            } else {
-                watchActionRow(
-                    icon: "exclamationmark.triangle.fill", tint: .orange, animated: false,
-                    title: viewModel.startButtonHelpText, subtitle: nil
-                )
-            }
+        let icon: String
+        let title: String
+        let status: String
+        if ready {
+            icon = "applewatch.radiowaves.left.and.right"
+            title = "Press Start on your Watch"
+            status = "Watch app open — nothing to press here"
+        } else if viewModel.watchHRWaitingForApp {
+            icon = "applewatch.slash"
+            title = "Open JustZone2 on your Watch"
+            status = "Then press Start on the Watch"
+        } else {
+            icon = "exclamationmark.triangle.fill"
+            title = viewModel.startButtonHelpText
+            status = ""
         }
-        .padding()
-        .frame(maxWidth: .infinity)
-        .background(accent.opacity(0.12))
-        .cornerRadius(14)
-        .overlay(
-            RoundedRectangle(cornerRadius: 14)
-                .stroke(accent.opacity(0.4), lineWidth: 1)
-        )
-    }
 
-    @ViewBuilder
-    private func watchActionRow(icon: String, tint: Color, animated: Bool, title: String, subtitle: String?) -> some View {
-        HStack(spacing: 12) {
+        return HStack(spacing: 12) {
             Image(systemName: icon)
-                .font(.system(size: 34))
-                .foregroundColor(tint)
-                .symbolEffect(.variableColor.iterative, options: .repeating, isActive: animated)
-                .frame(width: 40)
-            VStack(alignment: .leading, spacing: 3) {
+                .font(.system(size: 28))
+                .foregroundStyle(accent)
+                .symbolEffect(.variableColor.iterative, options: .repeating, isActive: ready)
+                .frame(width: 36)
+            VStack(alignment: .leading, spacing: 2) {
                 Text(title)
-                    .font(.headline)
+                    .font(.subheadline.weight(.semibold))
                     .fixedSize(horizontal: false, vertical: true)
-                if let subtitle {
-                    Text(subtitle)
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
+                if !status.isEmpty {
+                    Text(status)
+                        .font(.caption)
+                        .foregroundStyle(watchOpen ? .green : .secondary)
                         .fixedSize(horizontal: false, vertical: true)
                 }
             }
             Spacer(minLength: 0)
         }
+        .padding(12)
+        .frame(maxWidth: .infinity)
+        .background(
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                .fill(accent.opacity(0.12))
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                .stroke(accent.opacity(0.35), lineWidth: 1)
+        )
     }
 
     /// Build a fresh WorkoutViewModel from the current setup and navigate to the
@@ -735,4 +776,22 @@ struct SetupView: View {
         liveActivityManager: liveActivityManager,
         watchConnectivityService: watchConnectivityService
     ))
+}
+
+// MARK: - Design helpers
+
+private extension View {
+    /// Frosted "liquid glass" card surface with a hairline border, used for the
+    /// device + integration panels so they read as designed cards, not form rows.
+    func glassCard(cornerRadius: CGFloat = 18) -> some View {
+        self
+            .background(
+                RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
+                    .fill(.ultraThinMaterial)
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
+                    .stroke(Color.white.opacity(0.08), lineWidth: 1)
+            )
+    }
 }
