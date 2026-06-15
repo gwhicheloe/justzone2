@@ -101,14 +101,27 @@ class WorkoutViewModel: ObservableObject {
     private static let watchColdStartTimeout: TimeInterval = 45
 
     // MARK: - Watch start + HR watchdog
-    /// No fresh Watch HR for this long (mid-workout) ⇒ treat the stream as
-    /// stalled (the watchOS-26 mirroring bug) and begin a silent revive.
+    //
+    // All thresholds are measured since the last HR sample (or workout start if
+    // none yet). We're deliberately patient before the *first* HR — a freshly
+    // started Watch session plus the rider settling can take a while, and
+    // reviving too eagerly just fights the Watch and triggers the
+    // commandeering / background-start bug — then quicker to react to a
+    // mid-workout drop-out once HR has been flowing.
+    /// Mid-workout (HR was flowing): no fresh HR for this long ⇒ start reviving.
     private static let watchHRStaleThreshold: TimeInterval = 20
-    /// Still no Watch HR this long after a stall began ⇒ surface the alert.
+    /// Mid-workout: no HR this long ⇒ surface the manual Retry / Use-Strap alert.
     private static let watchHRDeadThreshold: TimeInterval = 60
-    /// Re-wake the Watch at most this often while reviving.
+    /// Before the first HR ever arrives: wait this long before reviving.
+    private static let watchFirstHRGrace: TimeInterval = 45
+    /// Before the first HR: no HR this long ⇒ surface the alert.
+    private static let watchFirstHRDead: TimeInterval = 90
+    /// Re-wake the Watch at most this often while reviving (hard throttle).
     private static let watchReviveInterval: TimeInterval = 20
     private var watchReviveTask: Task<Void, Never>?
+    /// Wall-clock of the last automatic revive, so we never re-wake the Watch
+    /// faster than `watchReviveInterval` no matter how the watchdog is poked.
+    private var lastWatchReviveAt: Date?
     /// Non-nil while the Watch HR stream is considered stalled; stamped when the
     /// stall was first detected so we can escalate to an alert after a while.
     private var watchStallSince: Date?
@@ -183,6 +196,13 @@ class WorkoutViewModel: ObservableObject {
             .sink { [weak self] message in
                 guard let self = self, self.useWatchHR else { return }
                 self.watchConnectivityService.watchStartError = nil
+                // Mid-workout the HR watchdog is the single authority on Watch
+                // recovery. A Watch session error here (e.g. a backgroundStart
+                // thrown by a revive's startWatchApp) is expected noise — swallow
+                // it; do NOT reset the watchdog or pop a competing alert. Resetting
+                // it is exactly what created the 1 Hz revive storm. The watchdog
+                // raises its own alert if HR truly never returns.
+                guard self.state != .running, self.state != .paused else { return }
                 self.watchLaunchTask?.cancel()
                 self.watchLaunchTask = nil
                 self.clearWatchStall()
@@ -342,30 +362,36 @@ class WorkoutViewModel: ObservableObject {
         let now = Date()
         // Baseline is the last HR arrival, or the workout start if none yet —
         // this catches both "HR was flowing then froze" and "HR never arrived".
+        let everHadHR = watchConnectivityService.lastHRAt != nil
         let baseline = watchConnectivityService.lastHRAt ?? workoutStartTime ?? now
         let sinceHR = now.timeIntervalSince(baseline)
 
-        if sinceHR < Self.watchHRStaleThreshold {
+        // Patient before the first HR; quicker once HR has been flowing.
+        let reviveAfter = everHadHR ? Self.watchHRStaleThreshold : Self.watchFirstHRGrace
+        let alertAfter  = everHadHR ? Self.watchHRDeadThreshold  : Self.watchFirstHRDead
+
+        if sinceHR < reviveAfter {
             if watchStallSince != nil {
                 dlog("[IPHONE-VM] WATCH_HR_RECOVERED — fresh HR after stall")
                 clearWatchStall()
+                // HR is back — dismiss the stale "HR stopped" alert if it's up.
+                // (Mid-workout only the watchdog sets hrSourceError, so this is safe.)
+                if hrSourceError != nil { hrSourceError = nil }
             }
             return
         }
 
-        // Stalled.
+        // Stalled — start the (throttled, idempotent) revive loop once.
         if watchStallSince == nil {
             watchStallSince = now
             isRevivingWatchHR = true
-            dlog("[IPHONE-VM] WATCH_HR_STALL — no Watch HR for \(Int(sinceHR))s, starting silent revive")
+            dlog("[IPHONE-VM] WATCH_HR_STALL — no Watch HR for \(Int(sinceHR))s (everHadHR=\(everHadHR)), starting silent revive")
             startWatchReviveLoop()
         }
 
         // Escalate to a user-facing alert if it stays dead too long.
-        if let since = watchStallSince,
-           now.timeIntervalSince(since) >= Self.watchHRDeadThreshold,
-           hrSourceError == nil {
-            dlog("[IPHONE-VM] WATCH_HR_DEAD — still no HR \(Int(now.timeIntervalSince(since)))s after stall, alerting")
+        if sinceHR >= alertAfter, hrSourceError == nil {
+            dlog("[IPHONE-VM] WATCH_HR_DEAD — still no HR \(Int(sinceHR))s after last sample, alerting")
             hrSourceError = "Apple Watch heart rate stopped and isn't recovering. Tap Retry, or switch to your HR strap."
         }
     }
@@ -374,8 +400,12 @@ class WorkoutViewModel: ObservableObject {
     /// (or the source changes). The act of re-foregrounding the Watch app
     /// restores WCSession reachability; the queued start backup restarts the
     /// Watch's session if iOS killed it.
+    ///
+    /// Idempotent: if a revive loop is already running we leave it alone.
+    /// Restarting it on every tick (which a reset watchdog used to do) is what
+    /// caused a 1 Hz startWatchApp storm that made the Watch thrash at the start.
     private func startWatchReviveLoop() {
-        watchReviveTask?.cancel()
+        guard watchReviveTask == nil else { return }
         watchReviveTask = Task {
             while !Task.isCancelled {
                 guard useWatchHR, state == .running, watchStallSince != nil else { return }
@@ -386,6 +416,15 @@ class WorkoutViewModel: ObservableObject {
     }
 
     private func reviveWatchHR(userInitiated: Bool) {
+        // Hard throttle automatic revives — never re-wake the Watch faster than
+        // watchReviveInterval, regardless of how the watchdog is poked. A
+        // user-tapped Retry bypasses the throttle.
+        let now = Date()
+        if !userInitiated, let last = lastWatchReviveAt,
+           now.timeIntervalSince(last) < Self.watchReviveInterval {
+            return
+        }
+        lastWatchReviveAt = now
         dlog("[IPHONE-VM] \(userInitiated ? "reviveWatchHR (user retry)" : "WATCH_HR_REVIVE") — re-waking Watch")
         if userInitiated { isRevivingWatchHR = true }
         Task { await tryStartWatch() }
@@ -394,6 +433,7 @@ class WorkoutViewModel: ObservableObject {
     private func clearWatchStall() {
         watchStallSince = nil
         isRevivingWatchHR = false
+        lastWatchReviveAt = nil
         watchReviveTask?.cancel()
         watchReviveTask = nil
     }

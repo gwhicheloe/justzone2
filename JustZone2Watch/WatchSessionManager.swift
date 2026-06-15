@@ -538,7 +538,12 @@ extension WatchSessionManager: WCSessionDelegate {
 
     nonisolated func session(_ session: WCSession, didReceiveMessage message: [String: Any]) {
         guard let type = message["type"] as? String else { return }
-        wlog("[WATCH] WCSession message received: \(type)")
+        // workoutUpdate is a 1 Hz firehose with its own periodic counter log.
+        // Logging every one floods the capped in-memory Watch buffer and evicts
+        // the start-phase entries we actually need to diagnose start problems.
+        if type != "workoutUpdate" {
+            wlog("[WATCH] WCSession message received: \(type)")
+        }
 
         Task { @MainActor in
             switch type {
