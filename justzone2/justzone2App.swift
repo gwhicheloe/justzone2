@@ -1,5 +1,6 @@
 import SwiftUI
 import UIKit
+import AVFoundation
 
 // MARK: - App Delegate (orientation control)
 
@@ -50,20 +51,19 @@ struct justzone2App: App {
                 }
 
                 if showSplash {
-                    SplashView()
-                        .transition(
-                            .asymmetric(
-                                insertion: .identity,
-                                removal: .opacity.combined(with: .scale(scale: 1.06))
-                            )
-                        )
-                        .zIndex(1)
+                    VideoSplashView {
+                        withAnimation(.easeInOut(duration: 0.6)) { showSplash = false }
+                    }
+                    .transition(.opacity)
+                    .zIndex(1)
                 }
             }
             .onAppear {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3.2) {
-                    withAnimation(.easeInOut(duration: 0.6)) {
-                        showSplash = false
+                // Fallback dismiss in case the clip can't load or its end
+                // notification is missed.
+                DispatchQueue.main.asyncAfter(deadline: .now() + 6.0) {
+                    if showSplash {
+                        withAnimation(.easeInOut(duration: 0.6)) { showSplash = false }
                     }
                 }
             }
@@ -234,6 +234,109 @@ struct SplashView: View {
                     ),
                     lineWidth: 1
                 )
+        }
+    }
+}
+
+// MARK: - Video Splash
+
+/// Full-screen launch video. Plays the bundled `splash.mp4` once on a black
+/// base. The clip's last ~0.7s ramps to black (so the bright final frame doesn't
+/// cut abruptly into the dark app), then `onFinished` lets the app remove it.
+struct VideoSplashView: View {
+    let onFinished: () -> Void
+    @State private var fadeToBlack = false
+
+    var body: some View {
+        ZStack {
+            Color.black.ignoresSafeArea()
+            if let url = Bundle.main.url(forResource: "splash", withExtension: "mp4") {
+                VideoSplashPlayer(
+                    url: url,
+                    onNearEnd: {
+                        withAnimation(.easeIn(duration: 0.7)) { fadeToBlack = true }
+                    },
+                    onFinished: onFinished
+                )
+                .ignoresSafeArea()
+            }
+            // Fades up over the final frames so the splash ends on black.
+            Color.black
+                .ignoresSafeArea()
+                .opacity(fadeToBlack ? 1 : 0)
+                .allowsHitTesting(false)
+        }
+        .environment(\.colorScheme, .dark)
+    }
+}
+
+private struct VideoSplashPlayer: UIViewRepresentable {
+    let url: URL
+    let onNearEnd: () -> Void
+    let onFinished: () -> Void
+
+    func makeUIView(context: Context) -> PlayerView {
+        let view = PlayerView()
+        view.play(url: url, onNearEnd: onNearEnd, onFinished: onFinished)
+        return view
+    }
+
+    func updateUIView(_ uiView: PlayerView, context: Context) {}
+
+    /// A UIView backed directly by an AVPlayerLayer so it sizes itself and needs
+    /// no manual layout. Plays once (no loop), muted, filling the screen. Fires
+    /// `onNearEnd` a beat before the clip finishes (to start the fade) and
+    /// `onFinished` when it ends.
+    final class PlayerView: UIView {
+        override class var layerClass: AnyClass { AVPlayerLayer.self }
+        private var playerLayer: AVPlayerLayer { layer as! AVPlayerLayer }
+        private var player: AVPlayer?
+        private var timeObserver: Any?
+        private var onNearEnd: (() -> Void)?
+        private var onFinished: (() -> Void)?
+        private var firedNearEnd = false
+
+        func play(url: URL, onNearEnd: @escaping () -> Void, onFinished: @escaping () -> Void) {
+            // Don't interrupt the user's music. AVPlayer otherwise activates the
+            // session as soloAmbient (which silences other audio); a silent splash
+            // should mix, not stop, whatever's already playing.
+            try? AVAudioSession.sharedInstance().setCategory(.ambient, options: .mixWithOthers)
+
+            self.onNearEnd = onNearEnd
+            self.onFinished = onFinished
+            let item = AVPlayerItem(url: url)
+            let player = AVPlayer(playerItem: item)
+            player.isMuted = true
+            player.actionAtItemEnd = .pause
+            self.player = player
+            playerLayer.player = player
+            playerLayer.videoGravity = .resizeAspectFill
+
+            // Start the fade-to-black ~0.7s before the clip ends.
+            let interval = CMTime(seconds: 0.05, preferredTimescale: 600)
+            timeObserver = player.addPeriodicTimeObserver(forInterval: interval, queue: .main) { [weak self] time in
+                guard let self, let item = self.player?.currentItem,
+                      item.duration.isNumeric, item.duration.seconds > 0 else { return }
+                if !self.firedNearEnd, item.duration.seconds - time.seconds <= 0.7 {
+                    self.firedNearEnd = true
+                    self.onNearEnd?()
+                }
+            }
+
+            NotificationCenter.default.addObserver(
+                self, selector: #selector(didReachEnd),
+                name: .AVPlayerItemDidPlayToEndTime, object: item
+            )
+            player.play()
+        }
+
+        @objc private func didReachEnd() {
+            DispatchQueue.main.async { [weak self] in self?.onFinished?() }
+        }
+
+        deinit {
+            if let timeObserver { player?.removeTimeObserver(timeObserver) }
+            NotificationCenter.default.removeObserver(self)
         }
     }
 }

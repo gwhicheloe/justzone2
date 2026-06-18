@@ -28,6 +28,7 @@
 		1100000000000012 /* FITEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000012 /* FITEncoder.swift */; };
 		1100000000000013 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000013 /* Constants.swift */; };
 		1100000000000014 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2200000000000014 /* Assets.xcassets */; };
+		1100000000000099 /* splash.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 2200000000000099 /* splash.mp4 */; };
 		1100000000000020 /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000020 /* HealthKitManager.swift */; };
 		1100000000000021 /* LiveActivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000021 /* LiveActivityManager.swift */; };
 		1100000000000022 /* WorkoutActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000022 /* WorkoutActivityAttributes.swift */; };
@@ -146,6 +147,7 @@
 		2200000000000012 /* FITEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FITEncoder.swift; sourceTree = "<group>"; };
 		2200000000000013 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		2200000000000014 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		2200000000000099 /* splash.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = splash.mp4; sourceTree = "<group>"; };
 		2200000000000015 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2200000000000020 /* HealthKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
 		2200000000000021 /* LiveActivityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveActivityManager.swift; sourceTree = "<group>"; };
@@ -365,6 +367,7 @@
 			children = (
 				2200000000000014 /* Assets.xcassets */,
 				2200000000000015 /* Info.plist */,
+				2200000000000099 /* splash.mp4 */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -519,6 +522,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1100000000000014 /* Assets.xcassets in Resources */,
+				1100000000000099 /* splash.mp4 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
