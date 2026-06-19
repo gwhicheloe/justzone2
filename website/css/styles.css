@@ -263,6 +263,10 @@ body>*{position:relative;z-index:1}
 .shot-col:nth-child(4):hover{transform:translateY(-20px) scale(1.02)}
 .shot-img{height:340px;width:auto;display:block;filter:drop-shadow(0 24px 48px rgba(0,0,0,.55))}
 .shot-cap{font-size:.7rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--t3)}
+/* Splash video tile — the launch animation playing in the same device bezel */
+.shot-video{position:relative;display:inline-block;line-height:0;filter:drop-shadow(0 24px 48px rgba(0,0,0,.55))}
+.shot-video .shot-bezel{display:block;height:340px;width:auto;position:relative;z-index:2}
+.shot-video .shot-video-media{position:absolute;left:6.62%;top:3.29%;width:86.68%;height:93.38%;object-fit:cover;background:#000;border-radius:12px;z-index:1}
 
 /* ── Zone targeting ── */
 .zt{background:rgba(10,10,20,.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-top:1px solid var(--glass-border);border-bottom:1px solid rgba(255,255,255,.05)}
