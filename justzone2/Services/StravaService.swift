@@ -32,6 +32,10 @@ class StravaService: NSObject, ObservableObject {
     @Published var uploadProgress: Double = 0
     @Published var uploadError: String?
     @Published var lastUploadedActivityId: Int?
+    /// Display name of the connected Strava athlete (e.g. "George Whicheloe"), so
+    /// the user can see *which* account is linked. Cached in UserDefaults so it
+    /// shows instantly on launch; refreshed from `/athlete` whenever connected.
+    @Published var athleteName: String?
 
     private var accessToken: String?
     private var refreshToken: String?
@@ -40,6 +44,12 @@ class StravaService: NSObject, ObservableObject {
     override init() {
         super.init()
         loadTokensFromKeychain()
+        athleteName = UserDefaults.standard.string(forKey: Constants.stravaAthleteNameKey)
+        // Refresh the linked account's name in the background so an already-
+        // connected user (e.g. after a different person logged in) sees who it is.
+        if isAuthenticated {
+            Task { try? await fetchAthlete() }
+        }
     }
 
     // MARK: - Authentication
@@ -62,7 +72,11 @@ class StravaService: NSObject, ObservableObject {
             }
 
             session.presentationContextProvider = self
-            session.prefersEphemeralWebBrowserSession = false
+            // Use a private session with no shared Safari cookies so Strava always
+            // shows its login page. Otherwise a Strava account already signed in
+            // in Safari is silently re-authorized — making it impossible to switch
+            // to a different account (e.g. after a family member logged in).
+            session.prefersEphemeralWebBrowserSession = true
 
             if !session.start() {
                 continuation.resume(throwing: StravaError.authenticationFailed)
@@ -76,6 +90,9 @@ class StravaService: NSObject, ObservableObject {
 
         // Exchange code for tokens
         try await exchangeCodeForTokens(code)
+
+        // Resolve who just connected so the UI can show the linked account.
+        try? await fetchAthlete()
     }
 
     func logout() {
@@ -83,7 +100,45 @@ class StravaService: NSObject, ObservableObject {
         refreshToken = nil
         tokenExpiry = nil
         isAuthenticated = false
+        athleteName = nil
+        UserDefaults.standard.removeObject(forKey: Constants.stravaAthleteNameKey)
         clearKeychainTokens()
+    }
+
+    // MARK: - Connected Athlete
+
+    /// Fetch the currently-authorized athlete (`GET /athlete`) and publish their
+    /// display name. Works for any already-connected account, so the user can
+    /// confirm which Strava login the app is linked to.
+    @discardableResult
+    func fetchAthlete() async throws -> String? {
+        guard isAuthenticated else { throw StravaError.notAuthenticated }
+
+        if let expiry = tokenExpiry, Date() >= expiry {
+            try await refreshAccessToken()
+        }
+        guard let token = accessToken else { throw StravaError.notAuthenticated }
+
+        var request = URLRequest(url: URL(string: "https://www.strava.com/api/v3/athlete")!)
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+
+        let (data, response) = try await URLSession.shared.data(for: request)
+        guard let http = response as? HTTPURLResponse, http.statusCode == 200 else {
+            throw StravaError.requestFailed
+        }
+
+        let athlete = try JSONDecoder().decode(StravaAthlete.self, from: data)
+        let name = [athlete.firstname, athlete.lastname]
+            .compactMap { $0?.trimmingCharacters(in: .whitespaces) }
+            .filter { !$0.isEmpty }
+            .joined(separator: " ")
+        let resolved = name.isEmpty ? athlete.username : name
+
+        athleteName = resolved
+        if let resolved {
+            UserDefaults.standard.set(resolved, forKey: Constants.stravaAthleteNameKey)
+        }
+        return resolved
     }
 
     // MARK: - Fetch Activities
@@ -571,6 +626,7 @@ enum StravaError: LocalizedError {
     case uploadFailed(String)
     case uploadTimeout
     case streamsNotAvailable
+    case requestFailed
 
     var errorDescription: String? {
         switch self {
@@ -590,8 +646,20 @@ enum StravaError: LocalizedError {
             return "Upload timed out"
         case .streamsNotAvailable:
             return "Stream data not available for this activity"
+        case .requestFailed:
+            return "Strava request failed"
         }
     }
+}
+
+// MARK: - Connected Athlete model
+
+/// Minimal subset of Strava's `/athlete` response — just enough to show the
+/// connected account's name.
+private struct StravaAthlete: Decodable {
+    let firstname: String?
+    let lastname: String?
+    let username: String?
 }
 
 // MARK: - Keychain Helper

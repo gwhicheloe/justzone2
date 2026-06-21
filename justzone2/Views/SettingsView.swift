@@ -15,8 +15,15 @@ struct SettingsView: View {
                     HStack {
                         Image(systemName: viewModel.isStravaConnected ? "checkmark.circle.fill" : "link.circle")
                             .foregroundColor(viewModel.isStravaConnected ? .green : .strava)
-                        Text(viewModel.isStravaConnected ? "Connected" : "Not connected")
-                            .foregroundColor(viewModel.isStravaConnected ? .primary : .secondary)
+                        VStack(alignment: .leading, spacing: 1) {
+                            Text(viewModel.isStravaConnected ? "Connected" : "Not connected")
+                                .foregroundColor(viewModel.isStravaConnected ? .primary : .secondary)
+                            if viewModel.isStravaConnected, let name = viewModel.stravaAthleteName, !name.isEmpty {
+                                Text(name)
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+                            }
+                        }
                         Spacer()
                         if viewModel.isStravaConnected {
                             Button("Disconnect") {

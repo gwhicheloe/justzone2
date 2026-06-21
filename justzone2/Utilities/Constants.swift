@@ -52,4 +52,9 @@ enum Constants {
     static let stravaAccessTokenKey = "strava_access_token"
     static let stravaRefreshTokenKey = "strava_refresh_token"
     static let stravaTokenExpiryKey = "strava_token_expiry"
+
+    // MARK: - UserDefaults Keys
+    /// Cached display name of the connected Strava athlete (non-sensitive) so the
+    /// linked account is shown instantly on launch.
+    static let stravaAthleteNameKey = "strava_athlete_name"
 }

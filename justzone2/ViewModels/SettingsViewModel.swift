@@ -4,6 +4,7 @@ import Combine
 @MainActor
 class SettingsViewModel: ObservableObject {
     @Published var isStravaConnected = false
+    @Published var stravaAthleteName: String?
     @Published var showClearConfirmation = false
 
     let stravaService: StravaService
@@ -14,6 +15,9 @@ class SettingsViewModel: ObservableObject {
 
         stravaService.$isAuthenticated
             .assign(to: &$isStravaConnected)
+
+        stravaService.$athleteName
+            .assign(to: &$stravaAthleteName)
     }
 
     func connectToStrava() async {
