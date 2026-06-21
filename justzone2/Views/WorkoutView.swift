@@ -195,116 +195,39 @@ struct WorkoutView: View {
 
             connectingBanner
 
-            ScrollView {
-                VStack(spacing: 20) {
-                    // Main Metrics
-                    HStack(spacing: 20) {
-                        CompactMetricView(
-                            icon: "heart.fill",
-                            iconColor: .red,
-                            value: viewModel.currentHeartRate > 0 ? "\(viewModel.currentHeartRate)" : "--",
-                            unit: "BPM"
-                        )
-
-                        // Power metric with manual ±5W buttons
-                        HStack(spacing: 8) {
-                            Button(action: { viewModel.decrementPower() }) {
-                                Image(systemName: "minus.circle.fill")
-                                    .font(.title2)
-                                    .foregroundColor(.blue.opacity(0.7))
-                            }
-                            .disabled(viewModel.state != .running)
-
-                            CompactMetricView(
-                                icon: "bolt.fill",
-                                iconColor: .blue,
-                                value: viewModel.currentPower > 0 ? "\(viewModel.currentPower)" : "--",
-                                unit: "W",
-                                targetValue: viewModel.adjustedPower,
-                                originalTarget: viewModel.zoneTargetingEnabled && viewModel.adjustedPower != viewModel.workout.targetPower
-                                    ? viewModel.workout.targetPower : nil
-                            )
-
-                            Button(action: { viewModel.incrementPower() }) {
-                                Image(systemName: "plus.circle.fill")
-                                    .font(.title2)
-                                    .foregroundColor(.blue.opacity(0.7))
-                            }
-                            .disabled(viewModel.state != .running)
-                        }
-                        .frame(maxWidth: .infinity)
-                    }
-                    .padding(.top, 12)
-
-                    // Time display
-                    VStack(spacing: 8) {
-                        if viewModel.isWarmingUp {
-                            // Warm-up countdown
-                            Text(viewModel.formatTime(viewModel.warmUpRemaining))
-                                .font(.system(size: 64, weight: .bold, design: .rounded))
-                                .monospacedDigit()
-                                .foregroundColor(.orange)
-
-                            HStack(spacing: 24) {
-                                VStack(spacing: 2) {
-                                    Text(viewModel.formatTime(viewModel.elapsedTime))
-                                        .font(.title3)
-                                        .monospacedDigit()
-                                    Text("elapsed")
-                                        .font(.caption)
-                                        .foregroundColor(.secondary)
-                                }
-                                VStack(spacing: 2) {
-                                    Text(viewModel.formatTime(viewModel.remainingTime))
-                                        .font(.title3)
-                                        .monospacedDigit()
-                                    Text("remaining")
-                                        .font(.caption)
-                                        .foregroundColor(.secondary)
-                                }
-                            }
-                        } else {
-                            // Normal chunk-based display
-                            Text("Chunk \(viewModel.currentChunk) of \(viewModel.totalChunks)")
-                                .font(.subheadline)
-                                .foregroundColor(.secondary)
-
-                            Text(viewModel.formatTime(viewModel.timeRemainingInChunk))
-                                .font(.system(size: 64, weight: .bold, design: .rounded))
-                                .monospacedDigit()
-                                .foregroundColor(.green)
-
-                            HStack(spacing: 24) {
-                                VStack(spacing: 2) {
-                                    Text(viewModel.formatTime(viewModel.elapsedTime))
-                                        .font(.title3)
-                                        .monospacedDigit()
-                                    Text("elapsed")
-                                        .font(.caption)
-                                        .foregroundColor(.secondary)
-                                }
-                                VStack(spacing: 2) {
-                                    Text(viewModel.formatTime(viewModel.remainingTime))
-                                        .font(.title3)
-                                        .monospacedDigit()
-                                    Text("remaining")
-                                        .font(.caption)
-                                        .foregroundColor(.secondary)
-                                }
-                            }
-                        }
-                    }
-
-                    // Chart
-                    if !viewModel.chartData.isEmpty {
-                        WorkoutChartView(
-                            chartData: viewModel.chartData,
-                            targetPower: viewModel.adjustedPower
-                        )
-                        .padding(.horizontal)
-                    }
+            // Hero — the "am I in Zone 2?" answer at a glance (or warm-up countdown).
+            Group {
+                if viewModel.isWarmingUp {
+                    warmUpHero
+                } else {
+                    zoneHero
                 }
-                .padding(.bottom, 20)
+            }
+            .padding(.top, 12)
+
+            // Power + time as glass stat tiles.
+            HStack(spacing: 12) {
+                powerTile
+                timeTile
+            }
+            .padding(.horizontal)
+            .padding(.top, 14)
+
+            // Live chart fills the remaining space.
+            if !viewModel.chartData.isEmpty {
+                WorkoutChartView(
+                    chartData: viewModel.chartData,
+                    targetPower: viewModel.adjustedPower
+                )
+                .frame(maxHeight: .infinity)
+                .padding(.horizontal)
+                .padding(.top, 10)
+            } else {
+                Spacer()
+                Text("Waiting for data…")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                Spacer()
             }
 
                 // Controls
@@ -357,6 +280,7 @@ struct WorkoutView: View {
                 }
                 .padding(.bottom, 40)
         }
+        .background(zoneTintedBackground)
         .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .principal) {
@@ -435,6 +359,185 @@ struct WorkoutView: View {
         } content: {
             HRStrapPickerSheet(viewModel: viewModel)
         }
+    }
+
+    // MARK: - Zone hero + stat tiles (redesigned workout display)
+
+    private var zoneMin: Int { viewModel.zone2MinValue }
+    private var zoneMax: Int { viewModel.zone2MaxValue }
+    private var hrRangeLo: Int { max(zoneMin - 20, 40) }
+    private var hrRangeHi: Int { zoneMax + 30 }
+
+    private func zoneFrac(_ value: Int) -> CGFloat {
+        let lo = hrRangeLo, hi = hrRangeHi
+        guard hi > lo else { return 0 }
+        return CGFloat(min(max(Double(value - lo) / Double(hi - lo), 0), 1))
+    }
+
+    /// Green in Zone 2, amber above, blue below, grey before any HR.
+    private var zoneColor: Color {
+        let hr = viewModel.currentHeartRate
+        if hr <= 0 { return .gray }
+        if hr < zoneMin { return Color(red: 0.35, green: 0.70, blue: 1.0) }
+        if hr > zoneMax { return Color(red: 1.0, green: 0.60, blue: 0.10) }
+        return Color(red: 0.20, green: 0.85, blue: 0.45)
+    }
+
+    private var zoneStatusLabel: String {
+        let hr = viewModel.currentHeartRate
+        if hr <= 0 { return "WAITING FOR HR" }
+        if hr < zoneMin { return "BELOW ZONE" }
+        if hr > zoneMax { return "ABOVE ZONE" }
+        return "IN ZONE 2"
+    }
+
+    /// Subtle top glow in the current zone colour — peripheral "are you in zone?"
+    /// feedback. Orange during warm-up.
+    private var zoneTintedBackground: some View {
+        ZStack {
+            Color(.systemGroupedBackground)
+            RadialGradient(
+                colors: [(viewModel.isWarmingUp ? Color.orange : zoneColor).opacity(0.18), .clear],
+                center: .top, startRadius: 0, endRadius: 460
+            )
+        }
+        .ignoresSafeArea()
+    }
+
+    private var zoneHero: some View {
+        VStack(spacing: 10) {
+            HStack(alignment: .firstTextBaseline, spacing: 6) {
+                Image(systemName: "heart.fill")
+                    .font(.system(size: 19))
+                    .foregroundStyle(zoneColor)
+                    .symbolEffect(.pulse, options: .repeating)
+                Text(viewModel.currentHeartRate > 0 ? "\(viewModel.currentHeartRate)" : "--")
+                    .font(.system(size: 84, weight: .bold, design: .rounded))
+                    .foregroundStyle(zoneColor)
+                    .contentTransition(.numericText())
+                Text("BPM")
+                    .font(.system(size: 18, weight: .semibold, design: .rounded))
+                    .foregroundStyle(.secondary)
+            }
+
+            Text(zoneStatusLabel)
+                .font(.system(size: 12, weight: .bold))
+                .tracking(1.5)
+                .foregroundStyle(zoneColor)
+                .padding(.horizontal, 12)
+                .padding(.vertical, 5)
+                .background(Capsule().fill(zoneColor.opacity(0.16)))
+
+            zoneBar
+                .frame(height: 16)
+                .padding(.horizontal, 34)
+        }
+    }
+
+    private var zoneBar: some View {
+        GeometryReader { geo in
+            let w = geo.size.width
+            ZStack(alignment: .leading) {
+                Capsule().fill(Color.white.opacity(0.08))
+                Capsule().fill(Color.green.opacity(0.55))
+                    .frame(width: w * (zoneFrac(zoneMax) - zoneFrac(zoneMin)))
+                    .offset(x: w * zoneFrac(zoneMin))
+                if viewModel.currentHeartRate > 0 {
+                    Circle().fill(zoneColor)
+                        .frame(width: 16, height: 16)
+                        .overlay(Circle().stroke(.white.opacity(0.9), lineWidth: 2))
+                        .shadow(color: zoneColor.opacity(0.7), radius: 6)
+                        .offset(x: w * zoneFrac(viewModel.currentHeartRate) - 8)
+                }
+            }
+        }
+    }
+
+    private var warmUpHero: some View {
+        VStack(spacing: 8) {
+            Text("WARM UP")
+                .font(.system(size: 12, weight: .bold))
+                .tracking(2)
+                .foregroundStyle(.orange)
+            Text(viewModel.formatTime(viewModel.warmUpRemaining))
+                .font(.system(size: 76, weight: .bold, design: .rounded))
+                .monospacedDigit()
+                .foregroundStyle(.orange)
+            HStack(spacing: 6) {
+                Image(systemName: "heart.fill").font(.subheadline).foregroundStyle(.red)
+                Text(viewModel.currentHeartRate > 0 ? "\(viewModel.currentHeartRate) BPM" : "-- BPM")
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+            }
+        }
+    }
+
+    private var powerTile: some View {
+        VStack(alignment: .leading, spacing: 6) {
+            HStack(spacing: 6) {
+                Image(systemName: "bolt.fill").font(.system(size: 12, weight: .bold)).foregroundStyle(.yellow)
+                Text("POWER").font(.system(size: 10, weight: .semibold)).tracking(0.8).foregroundStyle(.secondary)
+                Spacer()
+                Button { viewModel.decrementPower() } label: {
+                    Image(systemName: "minus.circle.fill").font(.title3).foregroundStyle(.secondary)
+                }
+                .buttonStyle(.plain)
+                .disabled(viewModel.state != .running)
+                Button { viewModel.incrementPower() } label: {
+                    Image(systemName: "plus.circle.fill").font(.title3).foregroundStyle(.secondary)
+                }
+                .buttonStyle(.plain)
+                .disabled(viewModel.state != .running)
+            }
+            HStack(alignment: .firstTextBaseline, spacing: 2) {
+                Text(viewModel.currentPower > 0 ? "\(viewModel.currentPower)" : "--")
+                    .font(.system(size: 28, weight: .bold, design: .rounded))
+                Text("W").font(.system(size: 14, weight: .semibold, design: .rounded)).foregroundStyle(.secondary)
+                Spacer()
+            }
+            Text(powerTargetSub).font(.caption2).foregroundStyle(.secondary).lineLimit(1).minimumScaleFactor(0.8)
+        }
+        .padding(12)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(RoundedRectangle(cornerRadius: 16, style: .continuous).fill(.ultraThinMaterial))
+        .overlay(RoundedRectangle(cornerRadius: 16, style: .continuous).stroke(.white.opacity(0.08), lineWidth: 1))
+    }
+
+    private var powerTargetSub: String {
+        if viewModel.zoneTargetingEnabled && viewModel.adjustedPower != viewModel.workout.targetPower {
+            return "target \(viewModel.adjustedPower) W (set \(viewModel.workout.targetPower))"
+        }
+        return "target \(viewModel.adjustedPower) W"
+    }
+
+    private var timeTile: some View {
+        VStack(alignment: .leading, spacing: 6) {
+            HStack(spacing: 6) {
+                Image(systemName: "timer").font(.system(size: 12, weight: .bold)).foregroundStyle(.green)
+                Text(viewModel.isWarmingUp ? "REMAINING" : "TIME LEFT")
+                    .font(.system(size: 10, weight: .semibold)).tracking(0.8).foregroundStyle(.secondary)
+                Spacer()
+                if viewModel.state == .paused {
+                    Text("PAUSED").font(.caption2.weight(.bold)).foregroundStyle(.orange)
+                }
+            }
+            HStack(alignment: .firstTextBaseline, spacing: 2) {
+                Text(viewModel.formatTime(viewModel.isWarmingUp ? viewModel.remainingTime : viewModel.timeRemainingInChunk))
+                    .font(.system(size: 28, weight: .bold, design: .rounded))
+                    .monospacedDigit()
+                Spacer()
+            }
+            Text(timeSub).font(.caption2).foregroundStyle(.secondary).lineLimit(1).minimumScaleFactor(0.8)
+        }
+        .padding(12)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(RoundedRectangle(cornerRadius: 16, style: .continuous).fill(.ultraThinMaterial))
+        .overlay(RoundedRectangle(cornerRadius: 16, style: .continuous).stroke(.white.opacity(0.08), lineWidth: 1))
+    }
+
+    private var timeSub: String {
+        if viewModel.isWarmingUp { return "warming up" }
+        return "Chunk \(viewModel.currentChunk) of \(viewModel.totalChunks) · \(viewModel.formatTime(viewModel.remainingTime)) total"
     }
 
     private var hrSourceIconColor: Color {
