@@ -73,6 +73,26 @@ final class HRZonesViewModel: ObservableObject {
 
     var fullRange: Int { max(1, maxHR - restingHR) }
 
+    /// Visual floor for the zone stack. Zone 1 spans resting HR → the Z1/Z2
+    /// divider, which is a very wide bpm range — drawn strictly to scale it
+    /// dominates the stack and scrunches the upper zones. Anchoring the bottom
+    /// of the axis near 50% of max HR compresses Zone 1 to a sensible size while
+    /// keeping zones 2–5 in proportion. Clamped so it never sits above the Z1/Z2
+    /// divider (always leaves a sliver of Zone 1 visible) nor below resting HR.
+    /// The zone labels still show each band's true bpm range.
+    var displayFloor: Int {
+        // Anchor the axis bottom around 56% of max HR so the very wide Zone 1
+        // (resting → Z2) reads as the smallest, compact recovery band rather than
+        // dominating the stack. The axis stays linear so all dividers remain
+        // smoothly draggable. Zone labels still show each band's true bpm range.
+        let floorAnchor = Int((Double(maxHR) * 0.56).rounded())
+        let z1z2 = dividers.first ?? maxHR
+        return max(restingHR, min(max(restingHR, floorAnchor), z1z2 - 5))
+    }
+
+    /// bpm span of the visible axis (display floor → max HR).
+    var displayRange: Int { max(1, maxHR - displayFloor) }
+
     // MARK: - Edit mode
 
     /// Zones can only be changed while editing — guards against accidental drags

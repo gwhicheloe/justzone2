@@ -82,8 +82,9 @@ struct HRZonesView: View {
 
     private func pickerBox(binding: Binding<Int>, range: [Int], label: String) -> some View {
         VStack(spacing: 4) {
-            Text(label)
-                .font(.caption).foregroundColor(.secondary)
+            Text(label.uppercased())
+                .font(.caption.weight(.semibold)).tracking(0.6)
+                .foregroundColor(.primary.opacity(0.85))
             Menu {
                 Picker("", selection: binding) {
                     ForEach(range, id: \.self) { Text("\($0)").tag($0) }
@@ -108,11 +109,15 @@ struct HRZonesView: View {
     // MARK: - Zone stack
 
     private func zoneStack(in size: CGSize) -> some View {
-        // Map a bpm value to a y-offset (top = maxHR, bottom = restingHR).
+        // Map a bpm value to a y-offset (top = maxHR, bottom = display floor).
+        // The axis bottom is the display floor (≈50% max HR) rather than resting
+        // HR, so the very wide Zone 1 doesn't dominate; values below the floor
+        // (Zone 1's lower edge, a low live HR) pin to the bottom.
         let h = size.height
-        let range = CGFloat(viewModel.fullRange)
+        let floor = viewModel.displayFloor
+        let range = CGFloat(viewModel.displayRange)
         func y(for bpm: Int) -> CGFloat {
-            let frac = CGFloat(bpm - viewModel.restingHR) / range
+            let frac = CGFloat(max(bpm, floor) - floor) / range
             return h - frac * h
         }
 
@@ -232,14 +237,15 @@ struct HRZonesView: View {
                 .fill(lineColor)
                 .frame(width: width, height: handleHeight)
 
-            // bpm pill on the right.
+            // bpm pill on the right, nudged down to sit just above the divider
+            // line (the frame is 44pt tall and the line sits at its centre, y=22).
             Text("\(bpm)")
                 .font(.system(size: 14, weight: .bold)).monospacedDigit()
                 .padding(.horizontal, 8).padding(.vertical, 3)
                 .background(Capsule().fill(Color(.systemBackground)))
                 .overlay(Capsule().strokeBorder(lineColor, lineWidth: 1.5))
                 .frame(width: pillWidth)
-                .position(x: width - pillWidth / 2, y: 0)
+                .position(x: width - pillWidth / 2, y: 7)
         }
         .frame(width: width, height: 44)         // generous touch target
         .contentShape(Rectangle())
@@ -252,13 +258,16 @@ struct HRZonesView: View {
     private func dragGesture(currentBpm: Int, onChange: @escaping (Int) -> Void) -> some Gesture {
         DragGesture(coordinateSpace: .named("stack"))
             .onChanged { value in
+                // Dividers are only adjustable while editing — outside edit mode a
+                // drag must do nothing (no value change, and crucially no haptic).
+                guard viewModel.isEditing else { return }
                 // Convert the drag's y position to bpm using the live geometry
                 // captured via the closure's reference frame.
                 let start = dragStartBpm ?? currentBpm
                 if dragStartBpm == nil { dragStartBpm = currentBpm }
                 // translation in points → bpm delta (computed against full range
                 // and the stack height held in lastStackHeight).
-                let bpmPerPoint = CGFloat(viewModel.fullRange) / max(1, lastStackHeight)
+                let bpmPerPoint = CGFloat(viewModel.displayRange) / max(1, lastStackHeight)
                 let delta = Int((-value.translation.height * bpmPerPoint).rounded())
                 let newBpm = start + delta
                 if newBpm != currentBpm {
