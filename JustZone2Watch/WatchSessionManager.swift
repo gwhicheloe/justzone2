@@ -31,6 +31,14 @@ class WatchSessionManager: NSObject, ObservableObject {
     /// stream; just foregrounding restores reachability, don't re-arm).
     private var workoutInProgress = false
 
+    /// True from when the user starts a workout until they (or the iPhone)
+    /// *intentionally* stop it. Unlike `workoutInProgress` — which a system kill
+    /// or revive teardown clears — this stays true across iOS commandeering the
+    /// Watch. It lets us tell a genuine end (show "Workout Complete") from a
+    /// system-killed session being revived (show a calm "Reconnecting…" instead
+    /// of flashing the end screen on every recovery).
+    private var hasActiveWorkoutIntent = false
+
     /// Counter for WCSession workoutUpdate messages — only log first and every 30th to reduce spam.
     private var wcUpdateCount = 0
 
@@ -133,7 +141,7 @@ class WatchSessionManager: NSObject, ObservableObject {
         }
 
         // Mode A.
-        if workoutInProgress {
+        if hasActiveWorkoutIntent {
             // Re-wake from the iPhone watchdog while a workout is active. Just
             // launching foregrounds us and restores WCSession reachability —
             // don't re-arm or restart (the startWorkout backup handles a dead
@@ -171,9 +179,15 @@ class WatchSessionManager: NSObject, ObservableObject {
         isStartingWorkout = true
         defer { isStartingWorkout = false }
 
+        // A revive is any start while the user still intends to be working out —
+        // i.e. iOS killed the session and the iPhone watchdog is restarting it.
+        // For those we show "Reconnecting…", never the "Workout Complete" screen.
+        let reviving = hasActiveWorkoutIntent
+        if reviving { self.workoutState = "reconnecting" }
+
         if workoutSession != nil {
             wlog("[WATCH] beginModeASession — stale session exists, ending it first")
-            endPrimaryWorkout()
+            endPrimaryWorkout(setState: false)   // quiet teardown — no end screen
             try? await Task.sleep(nanoseconds: 1_000_000_000)
         }
 
@@ -190,7 +204,7 @@ class WatchSessionManager: NSObject, ObservableObject {
                 session = try HKWorkoutSession(healthStore: healthStore, configuration: config)
             } catch {
                 wlog("[WATCH] beginModeASession — session creation FAILED: \(error.localizedDescription)")
-                self.workoutState = "ended"
+                self.workoutState = reviving ? "reconnecting" : "ended"
                 return
             }
         }
@@ -209,6 +223,7 @@ class WatchSessionManager: NSObject, ObservableObject {
         session.startActivity(with: Date())
         self.workoutState = "running"
         self.workoutInProgress = true
+        self.hasActiveWorkoutIntent = true
         notifyPhoneWatchStarted()
         wlog("[WATCH] beginModeASession — session started, beginning collection")
 
@@ -221,7 +236,7 @@ class WatchSessionManager: NSObject, ObservableObject {
                 self.workoutSession = nil
                 self.workoutBuilder = nil
                 self.workoutInProgress = false
-                self.workoutState = "ended"
+                self.workoutState = reviving ? "reconnecting" : "ended"
                 return
             }
 
@@ -278,10 +293,15 @@ class WatchSessionManager: NSObject, ObservableObject {
         }
     }
 
-    func endPrimaryWorkout() {
-        wlog("[WATCH] endPrimaryWorkout — session=\(workoutSession != nil), builder=\(workoutBuilder != nil), hrSent=\(hrSendSeq)")
+    /// Tear down the workout session.
+    /// - Parameter setState: when true (a real user/iPhone stop) the UI shows the
+    ///   "Workout Complete" end screen and the diagnostics log is flushed. When
+    ///   false (a quiet teardown before a revive restart) the UI state is left
+    ///   alone so we never flash the end screen during recovery.
+    func endPrimaryWorkout(setState: Bool = true) {
+        wlog("[WATCH] endPrimaryWorkout — session=\(workoutSession != nil), builder=\(workoutBuilder != nil), hrSent=\(hrSendSeq), setState=\(setState)")
         guard let session = workoutSession else {
-            workoutState = "ended"
+            if setState { workoutState = "ended" }
             return
         }
         let builder = workoutBuilder
@@ -311,9 +331,11 @@ class WatchSessionManager: NSObject, ObservableObject {
             }
             // Mode B (no builder): nothing was being recorded.
             session.end()
-            self.workoutState = "ended"
-            wlog("[WATCH] endPrimaryWorkout complete")
-            self.sendLogToPhone()
+            if setState {
+                self.workoutState = "ended"
+                self.sendLogToPhone()
+            }
+            wlog("[WATCH] endPrimaryWorkout complete (setState=\(setState))")
         }
     }
 
@@ -445,7 +467,10 @@ extension WatchSessionManager: HKWorkoutSessionDelegate {
             self.pendingSession = nil
             self.wcUpdateCount = 0
             self.hrSendSeq = 0
-            self.workoutState = "ended"
+            // If the user still intends to be working out, this is a recoverable
+            // failure (the iPhone watchdog will revive) — show "Reconnecting…",
+            // not the "Workout Complete" end screen.
+            self.workoutState = self.hasActiveWorkoutIntent ? "reconnecting" : "ended"
             self.stopHRObservation()
             self.wlog("[WATCH] session FAILED cleanup complete — ready for retry")
         }
@@ -552,7 +577,7 @@ extension WatchSessionManager: WCSessionDelegate {
                 // suspenders for when the mirroring handler didn't fire because
                 // the app was already foreground).
                 wlog("[WATCH] WCSession prepareWorkout — arming")
-                if self.workoutSession == nil && !self.workoutInProgress && !self.isStartingWorkout {
+                if self.workoutSession == nil && !self.hasActiveWorkoutIntent && !self.isStartingWorkout {
                     self.workoutState = "armed"
                 }
 
@@ -571,6 +596,7 @@ extension WatchSessionManager: WCSessionDelegate {
 
             case "stopWorkout":
                 wlog("[WATCH] WCSession stopWorkout")
+                self.hasActiveWorkoutIntent = false   // genuine end → show Complete
                 self.endPrimaryWorkout()
 
             case "pauseWorkout":
@@ -597,6 +623,7 @@ extension WatchSessionManager: WCSessionDelegate {
 
             case "workoutEnded":
                 wlog("[WATCH] WCSession workoutEnded")
+                self.hasActiveWorkoutIntent = false   // genuine end → show Complete
                 self.endPrimaryWorkout()
 
             default:
@@ -620,6 +647,7 @@ extension WatchSessionManager: WCSessionDelegate {
 
             case "stopWorkout", "workoutEnded":
                 wlog("[WATCH] userInfo stop/ended")
+                self.hasActiveWorkoutIntent = false   // genuine end → show Complete
                 self.endPrimaryWorkout()
 
             default:

@@ -10,6 +10,8 @@ struct WatchWorkoutView: View {
                 armedView
             case "running", "paused":
                 workoutActiveView
+            case "reconnecting":
+                reconnectingView
             case "ended":
                 workoutEndedView
             default:
@@ -57,6 +59,39 @@ struct WatchWorkoutView: View {
                 .foregroundColor(.secondary)
         }
         .padding(.horizontal, 4)
+    }
+
+    // MARK: - Reconnecting (system killed the session mid-workout, reviving)
+
+    /// Shown while the iPhone revives a workout session that iOS killed (the
+    /// watchOS-26 commandeering bug). The workout is still going — this is a
+    /// calm "hang on" indicator, deliberately NOT the "Workout Complete" screen.
+    private var reconnectingView: some View {
+        VStack(spacing: 10) {
+            ProgressView()
+                .scaleEffect(1.1)
+                .tint(.green)
+            Text("Reconnecting…")
+                .font(.system(size: 17, weight: .semibold, design: .rounded))
+                .foregroundColor(.green)
+            if sessionManager.heartRate > 0 {
+                HStack(spacing: 3) {
+                    Image(systemName: "heart.fill")
+                        .foregroundColor(.red)
+                        .font(.system(size: 11))
+                    Text("\(sessionManager.heartRate)")
+                        .font(.system(size: 20, weight: .bold, design: .rounded))
+                    Text("BPM")
+                        .font(.system(size: 10))
+                        .foregroundColor(.secondary)
+                }
+            }
+            Text("Keeping your workout going")
+                .font(.caption2)
+                .foregroundColor(.secondary)
+                .multilineTextAlignment(.center)
+        }
+        .padding(.horizontal, 6)
     }
 
     // MARK: - Waiting State
