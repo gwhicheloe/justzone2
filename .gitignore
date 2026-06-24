@@ -25,3 +25,6 @@ Podfile.lock
 
 # Wrangler cache (contains account token)
 .wrangler/
+
+# App Store Connect API credentials (TestFlight uploads)
+scripts/asc.env
