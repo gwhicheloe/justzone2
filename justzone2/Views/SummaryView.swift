@@ -10,149 +10,59 @@ struct SummaryView: View {
     @State private var showDiscardConfirm = false
 
     var body: some View {
-        ScrollView {
-            VStack(spacing: 24) {
-                // Success Icon
+        VStack(spacing: 12) {
+            // Header — compact
+            VStack(spacing: 4) {
                 Image(systemName: "checkmark.circle.fill")
-                    .font(.system(size: 80))
+                    .font(.system(size: 48))
                     .foregroundColor(.green)
-
                 Text("Workout Complete!")
-                    .font(.headlineLarge)
-
-                // Stats Grid
-                LazyVGrid(columns: [
-                    GridItem(.flexible()),
-                    GridItem(.flexible())
-                ], spacing: 16) {
-                    StatCard(
-                        title: "Duration",
-                        value: viewModel.formatDuration(viewModel.workout.actualDuration),
-                        icon: "clock.fill"
-                    )
-
-                    StatCard(
-                        title: "Avg Power",
-                        value: viewModel.workout.averagePower.map { "\($0)W" } ?? "--",
-                        icon: "bolt.fill"
-                    )
-
-                    StatCard(
-                        title: "Avg HR",
-                        value: viewModel.workout.averageHeartRate.map { "\($0)" } ?? "--",
-                        icon: "heart.fill"
-                    )
-
-                    StatCard(
-                        title: "Max HR",
-                        value: viewModel.workout.maxHeartRate.map { "\($0)" } ?? "--",
-                        icon: "heart.fill"
-                    )
-                }
-                .padding()
-                .background(Color(.systemBackground))
-                .cornerRadius(12)
-
-                // Workout Chart
-                if !viewModel.workout.samples.isEmpty {
-                    SummaryChartView(workout: viewModel.workout)
-                        .padding()
-                        .background(Color(.systemBackground))
-                        .cornerRadius(12)
-                }
-
-                // Strava Section
-                VStack(spacing: 16) {
-                    Text("Strava")
-                        .font(.headlineMedium)
-                        .foregroundColor(.strava)
-
-                    if !viewModel.isStravaConnected {
-                        Button(action: {
-                            Task {
-                                await viewModel.connectToStrava()
-                            }
-                        }) {
-                            Image("btn_strava_connect_orange")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(height: 48)
-                        }
-                    } else {
-                        // Upload button - changes appearance based on state
-                        VStack(spacing: 12) {
-                            UploadButton(state: uploadState) {
-                                // Immediate local feedback
-                                uploadState = .processing
-                                viewModel.upload()
-                            }
-
-                            // Show Strava link after successful upload
-                            if case .complete(let activityId) = uploadState {
-                                Link(destination: URL(string: "https://www.strava.com/activities/\(activityId)")!) {
-                                    HStack {
-                                        Text("View on Strava")
-                                        Image(systemName: "arrow.up.right.square")
-                                    }
-                                    .font(.bodyMedium)
-                                    .foregroundColor(.strava)
-                                }
-                            }
-
-                            if chartSaved {
-                                HStack {
-                                    Image(systemName: "photo.fill")
-                                        .foregroundColor(.blue)
-                                    Text("Chart saved to Photos")
-                                        .font(.labelMedium)
-                                }
-                                .foregroundColor(.secondary)
-                            }
-                        }
-                    }
-                }
-                .padding()
-                .background(Color(.systemBackground))
-                .cornerRadius(12)
-
-                // Action Buttons
-                VStack(spacing: 12) {
-                    Button(action: {
-                        onDismiss()
-                    }) {
-                        Text("Done")
-                            .font(.headlineSmall)
-                            .foregroundColor(.white)
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(Color.blue)
-                            .cornerRadius(12)
-                    }
-
-                    Button(role: .destructive) {
-                        showDiscardConfirm = true
-                    } label: {
-                        Text("Discard Workout")
-                            .font(.bodyMedium)
-                            .foregroundColor(.red)
-                    }
-                    .confirmationDialog(
-                        "Discard this workout?",
-                        isPresented: $showDiscardConfirm,
-                        titleVisibility: .visible
-                    ) {
-                        Button("Discard Workout", role: .destructive) {
-                            viewModel.discardWorkout()
-                            onDismiss()
-                        }
-                        Button("Cancel", role: .cancel) { }
-                    } message: {
-                        Text("Your samples and stats will be deleted. This can't be undone.")
-                    }
-                }
+                    .font(.title2.bold())
             }
-            .padding()
+            .padding(.top, 2)
+
+            // Stats Grid
+            LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 10) {
+                StatCard(
+                    title: "Duration",
+                    value: viewModel.formatDuration(viewModel.workout.actualDuration),
+                    icon: "clock.fill"
+                )
+                StatCard(
+                    title: "Avg Power",
+                    value: viewModel.workout.averagePower.map { "\($0)W" } ?? "--",
+                    icon: "bolt.fill"
+                )
+                StatCard(
+                    title: "Avg HR",
+                    value: viewModel.workout.averageHeartRate.map { "\($0)" } ?? "--",
+                    icon: "heart.fill"
+                )
+                StatCard(
+                    title: "Max HR",
+                    value: viewModel.workout.maxHeartRate.map { "\($0)" } ?? "--",
+                    icon: "heart.fill"
+                )
+            }
+
+            // Workout Chart — flexible, absorbs the remaining height
+            if !viewModel.workout.samples.isEmpty {
+                SummaryChartView(workout: viewModel.workout)
+                    .padding(12)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(Color(.systemBackground))
+                    .cornerRadius(16)
+            }
+
+            // Strava upload (with auto-upload countdown) / connect
+            stravaSection
+
+            // Actions
+            actionButtons
         }
+        .padding(.horizontal)
+        .padding(.bottom, 6)
+        .frame(maxHeight: .infinity)
         .background(Color(.systemGroupedBackground))
         .navigationBarBackButtonHidden(true)
         .navigationBarTitleDisplayMode(.inline)
@@ -163,10 +73,90 @@ struct SummaryView: View {
                     .foregroundColor(.green)
             }
         }
+        .onAppear { viewModel.startAutoUploadCountdown() }
         .onReceive(viewModel.$uploadState) { newState in
             uploadState = newState
             if case .complete = newState {
                 saveChartToPhotos()
+            }
+        }
+    }
+
+    @ViewBuilder
+    private var stravaSection: some View {
+        if !viewModel.isStravaConnected {
+            Button(action: { Task { await viewModel.connectToStrava() } }) {
+                Image("btn_strava_connect_orange")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(height: 44)
+            }
+        } else {
+            VStack(spacing: 6) {
+                UploadButton(state: uploadState, countdown: viewModel.autoCountdown) {
+                    uploadState = .processing
+                    viewModel.upload()
+                }
+
+                if case .complete(let activityId) = uploadState {
+                    Link(destination: URL(string: "https://www.strava.com/activities/\(activityId)")!) {
+                        HStack(spacing: 4) {
+                            Text("View on Strava")
+                            Image(systemName: "arrow.up.right.square")
+                        }
+                        .font(.subheadline.weight(.medium))
+                        .foregroundColor(.strava)
+                    }
+                    if chartSaved {
+                        Label("Chart saved to Photos", systemImage: "photo.fill")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                    }
+                } else if viewModel.autoCountdown != nil {
+                    Text("Auto-uploading — tap to upload now, or Discard to cancel")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                        .multilineTextAlignment(.center)
+                }
+            }
+        }
+    }
+
+    @ViewBuilder
+    private var actionButtons: some View {
+        VStack(spacing: 8) {
+            Button(action: {
+                viewModel.cancelCountdown()
+                onDismiss()
+            }) {
+                Text("Done")
+                    .font(.headline)
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 13)
+                    .background(Color.blue)
+                    .cornerRadius(12)
+            }
+
+            Button(role: .destructive) {
+                showDiscardConfirm = true
+            } label: {
+                Text("Discard Workout")
+                    .font(.subheadline)
+                    .foregroundColor(.red)
+            }
+            .confirmationDialog(
+                "Discard this workout?",
+                isPresented: $showDiscardConfirm,
+                titleVisibility: .visible
+            ) {
+                Button("Discard Workout", role: .destructive) {
+                    viewModel.discardWorkout()
+                    onDismiss()
+                }
+                Button("Cancel", role: .cancel) { }
+            } message: {
+                Text("Your samples and stats will be deleted. This can't be undone.")
             }
         }
     }
@@ -196,27 +186,34 @@ struct StatCard: View {
     let icon: String
 
     var body: some View {
-        VStack(spacing: 8) {
+        VStack(spacing: 4) {
             Image(systemName: icon)
+                .font(.footnote)
                 .foregroundColor(.secondary)
 
             Text(value)
-                .font(.headlineMedium)
+                .font(.title3.bold())
+                .minimumScaleFactor(0.7)
+                .lineLimit(1)
 
             Text(title)
-                .font(.labelMedium)
+                .font(.caption)
                 .foregroundColor(.secondary)
         }
         .frame(maxWidth: .infinity)
-        .padding()
+        .padding(.vertical, 12)
+        .padding(.horizontal, 8)
         .background(Color(.secondarySystemBackground))
-        .cornerRadius(8)
+        .cornerRadius(12)
     }
 }
 
 struct UploadButton: View {
     let state: UploadState
+    var countdown: Int? = nil
     let action: () -> Void
+
+    private static let autoUploadSeconds = 10
 
     private var buttonColor: Color {
         switch state {
@@ -229,11 +226,15 @@ struct UploadButton: View {
 
     var body: some View {
         Button(action: action) {
-            HStack {
+            HStack(spacing: 8) {
                 switch state {
                 case .ready:
                     Image(systemName: "arrow.up.circle.fill")
                     Text("Upload to Strava")
+                    if let countdown {
+                        Spacer(minLength: 6)
+                        countdownBadge(countdown)
+                    }
                 case .processing:
                     ProgressView()
                         .tint(.white)
@@ -246,15 +247,32 @@ struct UploadButton: View {
                     Text("Failed - Tap to Retry")
                 }
             }
-            .font(.headlineSmall)
+            .font(.headline)
             .foregroundColor(.white)
             .frame(maxWidth: .infinity)
-            .padding()
+            .padding(.vertical, 14)
+            .padding(.horizontal, 16)
             .background(buttonColor)
             .cornerRadius(12)
         }
         .buttonStyle(.plain)
         .disabled(!state.canTap)
+    }
+
+    /// The "uploading in N" countdown shown inside the button — a depleting ring
+    /// around the seconds remaining.
+    private func countdownBadge(_ n: Int) -> some View {
+        ZStack {
+            Circle().stroke(Color.white.opacity(0.3), lineWidth: 2)
+            Circle()
+                .trim(from: 0, to: CGFloat(n) / CGFloat(Self.autoUploadSeconds))
+                .stroke(Color.white, style: StrokeStyle(lineWidth: 2, lineCap: .round))
+                .rotationEffect(.degrees(-90))
+            Text("\(n)")
+                .font(.caption.bold().monospacedDigit())
+        }
+        .frame(width: 26, height: 26)
+        .animation(.linear(duration: 0.3), value: n)
     }
 }
 
@@ -273,12 +291,12 @@ struct SummaryChartView: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: 6) {
             Text("Workout Chart")
-                .font(.headlineSmall)
+                .font(.subheadline.weight(.semibold))
 
             MiniChartView(chartData: chartData, targetPower: workout.targetPower)
-                .frame(height: 150)
+                .frame(maxHeight: .infinity)
         }
     }
 }

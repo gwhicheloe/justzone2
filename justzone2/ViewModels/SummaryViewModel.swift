@@ -20,6 +20,13 @@ class SummaryViewModel: ObservableObject {
     @Published private(set) var uploadState: UploadState = .ready
     @Published var uploadProgress: Double = 0
     @Published var isStravaConnected: Bool = false
+    /// Seconds left on the auto-upload countdown (nil when not counting). When it
+    /// reaches zero the workout uploads to Strava automatically — so people don't
+    /// forget — while leaving a window to Discard or upload immediately.
+    @Published private(set) var autoCountdown: Int?
+
+    private var countdownTask: Task<Void, Never>?
+    private static let autoUploadSeconds = 10
 
     let workout: Workout
     let stravaService: StravaService
@@ -70,8 +77,37 @@ class SummaryViewModel: ObservableObject {
         }
     }
 
+    /// Begin the auto-upload countdown. Only for a fresh, connected, not-yet-
+    /// uploaded workout. Tapping Upload or Discard cancels it; reaching zero
+    /// uploads automatically.
+    func startAutoUploadCountdown() {
+        guard isStravaConnected, uploadState == .ready, countdownTask == nil else { return }
+        autoCountdown = Self.autoUploadSeconds
+        countdownTask = Task { @MainActor in
+            var remaining = Self.autoUploadSeconds
+            while remaining > 0 {
+                try? await Task.sleep(nanoseconds: 1_000_000_000)
+                if Task.isCancelled { return }
+                remaining -= 1
+                self.autoCountdown = remaining
+            }
+            self.autoCountdown = nil
+            self.countdownTask = nil
+            self.upload()   // time's up — upload automatically
+        }
+    }
+
+    func cancelCountdown() {
+        countdownTask?.cancel()
+        countdownTask = nil
+        autoCountdown = nil
+    }
+
     func upload() {
         guard uploadState.canTap else { return }
+
+        // A manual tap (or the timer firing) ends the countdown.
+        cancelCountdown()
 
         // Immediate state change - no delay
         uploadState = .processing
@@ -134,6 +170,7 @@ class SummaryViewModel: ObservableObject {
     }
 
     func discardWorkout() {
+        cancelCountdown()
         LocalWorkoutStore.shared.delete(id: workout.id)
     }
 }
