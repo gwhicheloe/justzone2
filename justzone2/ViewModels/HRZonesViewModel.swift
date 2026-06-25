@@ -177,6 +177,23 @@ final class HRZonesViewModel: ObservableObject {
         hasChanges = true
     }
 
+    /// Apply a max HR (e.g. from first-launch onboarding) and derive all five
+    /// zones from Strava's %-of-max boundaries, then persist immediately. Resting
+    /// HR keeps its current value. Unlike the editing setters this needs no edit
+    /// session — it's a one-shot setup.
+    func applyMaxHR(_ bpm: Int) {
+        maxHR = min(max(bpm, absoluteFloor + minGap * 5), absoluteCeiling)
+        let m = Double(maxHR)
+        dividers = [
+            Int((m * 0.59).rounded()),   // Z1 / Z2
+            Int((m * 0.78).rounded()),   // Z2 / Z3
+            Int((m * 0.87).rounded()),   // Z3 / Z4
+            Int((m * 0.97).rounded()),   // Z4 / Z5
+        ]
+        normalize()
+        persist()
+    }
+
     // MARK: - Persistence
 
     /// Enforce ordering + min gaps across all anchors.

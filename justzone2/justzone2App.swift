@@ -21,6 +21,8 @@ struct justzone2App: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @StateObject private var appState = AppState()
     @State private var showSplash = true
+    @AppStorage("hasOnboarded") private var hasOnboarded = false
+    @State private var showOnboarding = false
 
     var body: some Scene {
         WindowGroup {
@@ -52,20 +54,38 @@ struct justzone2App: App {
 
                 if showSplash {
                     VideoSplashView {
-                        withAnimation(.easeInOut(duration: 0.6)) { showSplash = false }
+                        dismissSplash()
                     }
                     .transition(.opacity)
                     .zIndex(1)
+                }
+            }
+            .fullScreenCover(isPresented: $showOnboarding) {
+                OnboardingView {
+                    hasOnboarded = true
+                    showOnboarding = false
                 }
             }
             .onAppear {
                 // Fallback dismiss in case the clip can't load or its end
                 // notification is missed.
                 DispatchQueue.main.asyncAfter(deadline: .now() + 6.0) {
-                    if showSplash {
-                        withAnimation(.easeInOut(duration: 0.6)) { showSplash = false }
-                    }
+                    if showSplash { dismissSplash() }
                 }
+            }
+        }
+    }
+
+    /// Fade out the splash, then — on a brand-new install — present the one-time
+    /// onboarding so the user sets their heart-rate zones before their first ride.
+    private func dismissSplash() {
+        guard showSplash else { return }
+        withAnimation(.easeInOut(duration: 0.6)) { showSplash = false }
+        // First launch (or after a delete + reinstall) → show the one-time
+        // onboarding. The flag persists across app updates so it never re-nags.
+        if !hasOnboarded {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                showOnboarding = true
             }
         }
     }
@@ -337,6 +357,138 @@ private struct VideoSplashPlayer: UIViewRepresentable {
         deinit {
             if let timeObserver { player?.removeTimeObserver(timeObserver) }
             NotificationCenter.default.removeObserver(self)
+        }
+    }
+}
+
+// MARK: - First-launch Onboarding
+
+/// One-time welcome shown on a fresh install. Asks the single thing the app
+/// can't sensibly default per person — the user's heart-rate zones — and derives
+/// all five from one input (age → estimated max HR, or a max HR entered directly).
+/// Everything else (trainer, Strava, Health) is prompted contextually elsewhere,
+/// and the whole screen is skippable so it never blocks getting to a ride.
+struct OnboardingView: View {
+    var onDone: () -> Void
+
+    private enum Mode { case age, maxHR }
+    @State private var mode: Mode = .age
+    @State private var age: Int = 35
+    @State private var maxHRDirect: Int = 185
+
+    /// Tanaka et al. — more accurate across ages than 220−age.
+    private var estimatedMaxHR: Int { Int((208.0 - 0.7 * Double(age)).rounded()) }
+    private var effectiveMaxHR: Int { mode == .age ? estimatedMaxHR : maxHRDirect }
+
+    // Zone 2 = 59–78% of max HR (Strava's cycling bands — same model the app uses).
+    private var zone2Lower: Int { Int((Double(effectiveMaxHR) * 0.59).rounded()) }
+    private var zone2Upper: Int { Int((Double(effectiveMaxHR) * 0.78).rounded()) }
+
+    var body: some View {
+        ZStack {
+            ZStack {
+                Color.black
+                RadialGradient(colors: [Color.green.opacity(0.22), .clear],
+                               center: .top, startRadius: 0, endRadius: 420)
+            }
+            .ignoresSafeArea()
+
+            VStack(spacing: 22) {
+                Spacer(minLength: 8)
+
+                VStack(spacing: 8) {
+                    Text("2")
+                        .font(.custom("ArialRoundedMTBold", size: 64))
+                        .foregroundStyle(
+                            LinearGradient(colors: [Color(red: 0.34, green: 0.84, blue: 0.55),
+                                                    Color(red: 0.03, green: 0.42, blue: 0.24)],
+                                           startPoint: .top, endPoint: .bottom)
+                        )
+                    Text("Welcome to Justzone2")
+                        .font(.title2.bold())
+                    Text("Let's set your heart-rate zones so the app can hold you in Zone 2.")
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 24)
+                }
+
+                // Input card
+                VStack(spacing: 14) {
+                    Picker("", selection: $mode) {
+                        Text("Use my age").tag(Mode.age)
+                        Text("Enter max HR").tag(Mode.maxHR)
+                    }
+                    .pickerStyle(.segmented)
+
+                    if mode == .age {
+                        Picker("Age", selection: $age) {
+                            ForEach(13...99, id: \.self) { Text("\($0)").tag($0) }
+                        }
+                        .pickerStyle(.wheel)
+                        .frame(height: 110)
+                    } else {
+                        Picker("Max HR", selection: $maxHRDirect) {
+                            ForEach(120...220, id: \.self) { Text("\($0) bpm").tag($0) }
+                        }
+                        .pickerStyle(.wheel)
+                        .frame(height: 110)
+                    }
+
+                    Divider().overlay(Color.white.opacity(0.1))
+
+                    // Live preview of what they'll get
+                    HStack {
+                        previewStat(label: mode == .age ? "Est. max HR" : "Max HR", value: "\(effectiveMaxHR)")
+                        Spacer()
+                        previewStat(label: "Your Zone 2", value: "\(zone2Lower)–\(zone2Upper)", tint: .green)
+                    }
+                }
+                .padding(16)
+                .background(RoundedRectangle(cornerRadius: 18, style: .continuous).fill(.ultraThinMaterial))
+                .overlay(RoundedRectangle(cornerRadius: 18, style: .continuous).stroke(Color.white.opacity(0.08), lineWidth: 1))
+                .padding(.horizontal, 20)
+
+                Spacer(minLength: 4)
+
+                VStack(spacing: 10) {
+                    Button {
+                        HRZonesViewModel().applyMaxHR(effectiveMaxHR)
+                        onDone()
+                    } label: {
+                        Text("Set my zones")
+                            .font(.headline)
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 14)
+                            .background(LinearGradient(colors: [.green, .green.opacity(0.8)],
+                                                       startPoint: .top, endPoint: .bottom))
+                            .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+                    }
+
+                    Button("I'll do it later", action: onDone)
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                }
+                .padding(.horizontal, 20)
+
+                Text("You can fine-tune your zones anytime in the Zones tab.")
+                    .font(.caption2)
+                    .foregroundStyle(.tertiary)
+                    .padding(.bottom, 12)
+            }
+        }
+        .environment(\.colorScheme, .dark)
+    }
+
+    private func previewStat(label: String, value: String, tint: Color = .primary) -> some View {
+        VStack(alignment: .leading, spacing: 2) {
+            Text(label.uppercased())
+                .font(.system(size: 10, weight: .semibold)).tracking(0.6)
+                .foregroundStyle(.secondary)
+            Text(value)
+                .font(.title3.weight(.bold).monospacedDigit())
+                .foregroundStyle(tint)
         }
     }
 }
