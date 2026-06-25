@@ -189,14 +189,7 @@ extension WatchConnectivityService: WCSessionDelegate {
     nonisolated func session(_ session: WCSession, didReceiveMessage message: [String: Any]) {
         guard let type = message["type"] as? String else { return }
         if type == "heartRateUpdate", let hr = message["heartRate"] as? Int {
-            let seq = message["seq"] as? Int ?? 0
-            dsignpost("Watch→iPhone HR=\(hr) seq=\(seq)")
-            Task { @MainActor in
-                self.lastHRAt = Date()
-                self.fallbackHeartRate = hr
-                if !self.hasReceivedHR { self.hasReceivedHR = true }
-                self.recordHRDelivery(seq: seq)
-            }
+            ingestHeartRate(hr, seq: message["seq"] as? Int ?? 0)
         } else if type == "watchDidStart" {
             dlog("[IPHONE-WC] watchDidStart received — user pressed Start on Watch")
             Task { @MainActor in self.watchStartedWorkout = true }
@@ -204,6 +197,18 @@ extension WatchConnectivityService: WCSessionDelegate {
             handleWatchError(kind: kind)
         } else {
             dlog("[IPHONE-WC] received message type=\(type)")
+        }
+    }
+
+    /// Ingest an HR sample from the Watch — from either the real-time sendMessage
+    /// channel (wrist up) or the guaranteed transferUserInfo queue (wrist down).
+    nonisolated private func ingestHeartRate(_ hr: Int, seq: Int) {
+        dsignpost("Watch→iPhone HR=\(hr) seq=\(seq)")
+        Task { @MainActor in
+            self.lastHRAt = Date()
+            self.fallbackHeartRate = hr
+            if !self.hasReceivedHR { self.hasReceivedHR = true }
+            self.recordHRDelivery(seq: seq)
         }
     }
 
@@ -249,7 +254,10 @@ extension WatchConnectivityService: WCSessionDelegate {
     /// Receives guaranteed-delivery messages from Watch (e.g. Watch-side diagnostic logs).
     nonisolated func session(_ session: WCSession, didReceiveUserInfo userInfo: [String: Any] = [:]) {
         guard let type = userInfo["type"] as? String else { return }
-        if type == "watchLog", let log = userInfo["log"] as? String {
+        if type == "heartRateUpdate", let hr = userInfo["heartRate"] as? Int {
+            // HR queued by the Watch while it was backgrounded (wrist down).
+            ingestHeartRate(hr, seq: userInfo["seq"] as? Int ?? 0)
+        } else if type == "watchLog", let log = userInfo["log"] as? String {
             let lineCount = log.components(separatedBy: "\n").filter { !$0.isEmpty }.count
             dlog("[IPHONE-WC] Watch log received (\(lineCount) lines)")
             DiagnosticsLogger.shared.appendWatchLog(log)

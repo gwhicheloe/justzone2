@@ -229,17 +229,14 @@ class WatchSessionManager: NSObject, ObservableObject {
 
         do {
             try await builder.beginCollection(at: Date())
-            wlog("[WATCH] beginModeASession beginCollection succeeded")
-
-            guard session.state == .running else {
-                wlog("[WATCH] beginModeASession — session died after beginCollection (state=\(hkStateName(session.state))), aborting")
-                self.workoutSession = nil
-                self.workoutBuilder = nil
-                self.workoutInProgress = false
-                self.workoutState = reviving ? "reconnecting" : "ended"
-                return
-            }
-
+            // NB: do NOT abort here if session.state isn't .running yet.
+            // startActivity → .running is asynchronous (the didChangeTo delegate
+            // fires ~300ms later); checking the state synchronously right after
+            // beginCollection races that transition and was killing perfectly
+            // good sessions (then thrashing through revives for ~70s at the
+            // start). A genuinely failed session fires didFailWithError, which
+            // tears down cleanly — so just start collecting.
+            wlog("[WATCH] beginModeASession beginCollection succeeded (state=\(hkStateName(session.state)))")
             self.startHRObservation()
         } catch {
             wlog("[WATCH] beginModeASession beginCollection FAILED: \(error.localizedDescription)")
@@ -523,18 +520,24 @@ extension WatchSessionManager: HKLiveWorkoutBuilderDelegate {
             wlog("[WATCH] HR send #\(seq) bpm=\(heartRate) — \(wcSnapshot(wc))")
         }
 
+        let payload: [String: Any] = ["type": "heartRateUpdate", "heartRate": heartRate, "seq": seq]
+
         guard wc.isReachable else {
-            // Don't spam — only log first drop and every 30th
+            // Not reachable = the Watch app is backgrounded (wrist down). sendMessage
+            // needs the foreground, so instead of DROPPING the sample, queue it via
+            // transferUserInfo — guaranteed, in-order, background delivery. This is
+            // what keeps HR flowing when the user isn't looking at the watch.
+            wc.transferUserInfo(payload)
             if seq == 1 || seq % 30 == 0 {
-                wlog("[WATCH] HR DROPPED — not reachable seq=\(seq) — \(wcSnapshot(wc))")
+                wlog("[WATCH] HR queued (transferUserInfo, not reachable) seq=\(seq) — \(wcSnapshot(wc))")
             }
             return
         }
-        wc.sendMessage(
-            ["type": "heartRateUpdate", "heartRate": heartRate, "seq": seq],
-            replyHandler: nil
-        ) { [weak self] error in
-            self?.wlog("[WATCH] HR sendMessage FAILED seq=\(seq): \(error.localizedDescription)")
+        wc.sendMessage(payload, replyHandler: nil) { [weak self] error in
+            // Live send failed — fall back to the guaranteed queue so it isn't lost.
+            guard let self else { return }
+            wc.transferUserInfo(payload)
+            self.wlog("[WATCH] HR sendMessage FAILED seq=\(seq), queued via transferUserInfo: \(error.localizedDescription)")
         }
         wsignpost("Watch→iPhone HR=\(heartRate) seq=\(seq)")
     }
