@@ -313,6 +313,10 @@ struct SetupView: View {
                 // button; all other modes start from this button.
                 if viewModel.useWatchHR {
                     watchStartPrompt
+                } else if viewModel.needsHealthConnection {
+                    // Apple Health is the only blocker — make it obvious and
+                    // actionable instead of leaving a dead grey Start button.
+                    healthConnectCTA
                 } else {
                     Button(action: { buildAndNavigateToWorkout() }) {
                         HStack(spacing: 8) {
@@ -700,6 +704,41 @@ struct SetupView: View {
             RoundedRectangle(cornerRadius: 16, style: .continuous)
                 .stroke(accent.opacity(0.35), lineWidth: 1)
         )
+    }
+
+    /// Prominent, tappable call-to-action shown when Apple Health is the only
+    /// thing blocking the start. Connecting Health is required (it provides the
+    /// background session that keeps recording when the screen locks), so make
+    /// the requirement obvious and one tap away rather than a dead grey button.
+    private var healthConnectCTA: some View {
+        VStack(spacing: 8) {
+            Button {
+                Task { await viewModel.requestHealthKitAuthorization() }
+            } label: {
+                HStack(spacing: 8) {
+                    Image(systemName: "heart.fill")
+                    Text("Connect Apple Health to Start")
+                }
+                .font(.headline)
+                .foregroundColor(.white)
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 14)
+                .background(
+                    LinearGradient(
+                        colors: [Color(red: 1.0, green: 0.27, blue: 0.36),
+                                 Color(red: 0.96, green: 0.15, blue: 0.42)],
+                        startPoint: .top, endPoint: .bottom
+                    )
+                )
+                .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+                .shadow(color: Color.pink.opacity(0.4), radius: 10, y: 4)
+            }
+
+            Text("Required so your workout keeps recording when your screen locks.")
+                .font(.caption)
+                .foregroundColor(.secondary)
+                .multilineTextAlignment(.center)
+        }
     }
 
     /// Build a fresh WorkoutViewModel from the current setup and navigate to the

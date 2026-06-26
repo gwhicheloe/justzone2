@@ -272,22 +272,29 @@ class SetupViewModel: ObservableObject {
         kickrConnected && isHealthKitAuthorized && !watchHRWaitingForApp
     }
 
+    /// Apple Health is the only thing blocking the start — the trainer's connected
+    /// and (for Watch HR) the app's open, but HealthKit isn't authorized.
+    /// HealthKit is required: it provides the background session that keeps the
+    /// workout recording when the screen locks. Drives a prominent, tappable
+    /// "Connect Apple Health" call-to-action so it's obvious what's needed.
+    var needsHealthConnection: Bool {
+        kickrConnected && !isHealthKitAuthorized && !watchHRWaitingForApp
+    }
+
     var startButtonHelpText: String {
-        if !kickrConnected && !isHealthKitAuthorized {
-            return "Connect trainer and enable Apple Health"
-        } else if !kickrConnected {
+        if !kickrConnected {
             return "Connect your smart trainer to start"
         } else if !isHealthKitAuthorized {
-            return "Enable Apple Health to track workouts"
+            return "Connect Apple Health to start"
         } else if watchHRWaitingForApp {
             return "Open JustZone2 on your Apple Watch to continue"
         }
         return ""
     }
 
-    // Power range: 120-300W in 5W increments
+    // Power range: 60-300W in 5W increments
     var powerOptions: [Int] {
-        stride(from: 120, through: 300, by: 5).map { $0 }
+        stride(from: 60, through: 300, by: 5).map { $0 }
     }
 
     // Duration range: 5min - 3hrs in 5min increments
