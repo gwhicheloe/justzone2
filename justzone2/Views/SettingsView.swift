@@ -119,7 +119,7 @@ struct SettingsView: View {
         Link(destination: URL(string: "https://www.justzone2.com")!) {
             SettingsCard {
                 HStack(spacing: 12) {
-                    iconChip("safari", tint: .blue)
+                    twoChip
                     VStack(alignment: .leading, spacing: 2) {
                         Text("Website")
                             .font(.subheadline.weight(.semibold))
@@ -150,15 +150,38 @@ struct SettingsView: View {
                         .foregroundStyle(.secondary)
                 }
                 Spacer()
-                Text("v\(appVersion)")
-                    .font(.caption.weight(.medium).monospacedDigit())
-                    .foregroundStyle(.secondary)
+                VStack(alignment: .trailing, spacing: 2) {
+                    Text("v\(appVersion) (\(appBuild))")
+                        .font(.caption.weight(.semibold).monospacedDigit())
+                        .foregroundStyle(.secondary)
+                    if !buildDate.isEmpty {
+                        Text(buildDate)
+                            .font(.system(size: 10).monospacedDigit())
+                            .foregroundStyle(.tertiary)
+                    }
+                }
             }
         }
     }
 
     private var appVersion: String {
         Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0"
+    }
+
+    /// Build number (CFBundleVersion) — increments every TestFlight upload.
+    private var appBuild: String {
+        Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "1"
+    }
+
+    /// When this build's binary was produced — a quick "which build am I on?"
+    /// stamp, read from the app executable's modification date.
+    private var buildDate: String {
+        guard let url = Bundle.main.executableURL,
+              let attrs = try? FileManager.default.attributesOfItem(atPath: url.path),
+              let date = attrs[.modificationDate] as? Date else { return "" }
+        let fmt = DateFormatter()
+        fmt.dateFormat = "d MMM yyyy, HH:mm"
+        return fmt.string(from: date)
     }
 
     // MARK: - Background
@@ -192,6 +215,16 @@ struct SettingsView: View {
             .foregroundStyle(tint)
             .frame(width: 34, height: 34)
             .background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill(tint.opacity(0.16)))
+    }
+
+    /// The brand "2" mark in a chip — used where a generic SF Symbol would feel
+    /// flat (e.g. the Website link).
+    private var twoChip: some View {
+        Text("2")
+            .font(.custom("ArialRoundedMTBold", size: 20))
+            .foregroundStyle(.green)
+            .frame(width: 34, height: 34)
+            .background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill(Color.green.opacity(0.16)))
     }
 }
 
