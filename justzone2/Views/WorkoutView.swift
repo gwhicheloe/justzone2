@@ -473,27 +473,25 @@ struct WorkoutView: View {
     }
 
     private var powerTile: some View {
-        VStack(alignment: .leading, spacing: 6) {
+        VStack(alignment: .leading, spacing: 8) {
             HStack(spacing: 6) {
                 Image(systemName: "bolt.fill").font(.system(size: 12, weight: .bold)).foregroundStyle(.yellow)
                 Text("POWER").font(.system(size: 10, weight: .semibold)).tracking(0.8).foregroundStyle(.secondary)
                 Spacer()
-                Button { viewModel.decrementPower() } label: {
-                    Image(systemName: "minus.circle.fill").font(.title3).foregroundStyle(.secondary)
-                }
-                .buttonStyle(.plain)
-                .disabled(viewModel.state != .running)
-                Button { viewModel.incrementPower() } label: {
-                    Image(systemName: "plus.circle.fill").font(.title3).foregroundStyle(.secondary)
-                }
-                .buttonStyle(.plain)
-                .disabled(viewModel.state != .running)
             }
-            HStack(alignment: .firstTextBaseline, spacing: 2) {
-                Text(viewModel.currentPower > 0 ? "\(viewModel.currentPower)" : "--")
-                    .font(.system(size: 28, weight: .bold, design: .rounded))
-                Text("W").font(.system(size: 14, weight: .semibold, design: .rounded)).foregroundStyle(.secondary)
-                Spacer()
+            // Big −/+ steppers flanking the value — large, easy tap targets for
+            // mid-ride adjustment with sweaty/gloved hands.
+            HStack(spacing: 4) {
+                powerStepper("minus.circle.fill", action: { viewModel.decrementPower() })
+                Spacer(minLength: 0)
+                HStack(alignment: .firstTextBaseline, spacing: 2) {
+                    Text(viewModel.currentPower > 0 ? "\(viewModel.currentPower)" : "--")
+                        .font(.system(size: 30, weight: .bold, design: .rounded))
+                        .lineLimit(1).minimumScaleFactor(0.6)
+                    Text("W").font(.system(size: 13, weight: .semibold, design: .rounded)).foregroundStyle(.secondary)
+                }
+                Spacer(minLength: 0)
+                powerStepper("plus.circle.fill", action: { viewModel.incrementPower() })
             }
             Text(powerTargetSub).font(.caption2).foregroundStyle(.secondary).lineLimit(1).minimumScaleFactor(0.8)
         }
@@ -501,6 +499,18 @@ struct WorkoutView: View {
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(RoundedRectangle(cornerRadius: 16, style: .continuous).fill(.ultraThinMaterial))
         .overlay(RoundedRectangle(cornerRadius: 16, style: .continuous).stroke(.white.opacity(0.08), lineWidth: 1))
+    }
+
+    private func powerStepper(_ icon: String, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            Image(systemName: icon)
+                .font(.system(size: 34, weight: .semibold))
+                .foregroundStyle(viewModel.state == .running ? Color.blue : Color.secondary.opacity(0.5))
+                .frame(width: 48, height: 48)          // generous touch target
+                .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+        .disabled(viewModel.state != .running)
     }
 
     private var powerTargetSub: String {
