@@ -365,8 +365,10 @@ struct WorkoutView: View {
 
     private var zoneMin: Int { viewModel.zone2MinValue }
     private var zoneMax: Int { viewModel.zone2MaxValue }
-    private var hrRangeLo: Int { max(zoneMin - 20, 40) }
-    private var hrRangeHi: Int { zoneMax + 30 }
+    // Equal margin either side of the Zone 2 band so the green band sits centred
+    // in the bar (you can see equally how far above/below zone you are).
+    private var hrRangeLo: Int { max(zoneMin - 25, 40) }
+    private var hrRangeHi: Int { zoneMax + 25 }
 
     private func zoneFrac(_ value: Int) -> CGFloat {
         let lo = hrRangeLo, hi = hrRangeHi
@@ -473,25 +475,25 @@ struct WorkoutView: View {
     }
 
     private var powerTile: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            HStack(spacing: 6) {
-                Image(systemName: "bolt.fill").font(.system(size: 12, weight: .bold)).foregroundStyle(.yellow)
-                Text("POWER").font(.system(size: 10, weight: .semibold)).tracking(0.8).foregroundStyle(.secondary)
-                Spacer()
-            }
-            // Big −/+ steppers flanking the value — large, easy tap targets for
-            // mid-ride adjustment with sweaty/gloved hands.
+        VStack(alignment: .leading, spacing: 6) {
             HStack(spacing: 4) {
+                // No bolt glyph here: the ±5W steppers already give the power
+                // header its visual weight, and dropping it frees the width the
+                // big steppers need so "POWER" never wraps on a narrow phone.
+                Text("POWER").font(.system(size: 10, weight: .semibold)).tracking(0.8)
+                    .foregroundStyle(.secondary).lineLimit(1).fixedSize()
+                Spacer(minLength: 2)
                 powerStepper("minus.circle.fill", action: { viewModel.decrementPower() })
-                Spacer(minLength: 0)
-                HStack(alignment: .firstTextBaseline, spacing: 2) {
-                    Text(viewModel.currentPower > 0 ? "\(viewModel.currentPower)" : "--")
-                        .font(.system(size: 30, weight: .bold, design: .rounded))
-                        .lineLimit(1).minimumScaleFactor(0.6)
-                    Text("W").font(.system(size: 13, weight: .semibold, design: .rounded)).foregroundStyle(.secondary)
-                }
-                Spacer(minLength: 0)
                 powerStepper("plus.circle.fill", action: { viewModel.incrementPower() })
+            }
+            .frame(height: 30)          // matches the time tile's header height so
+                                        // both grey boxes end up exactly the same size
+            HStack(alignment: .firstTextBaseline, spacing: 2) {
+                Text(viewModel.currentPower > 0 ? "\(viewModel.currentPower)" : "--")
+                    .font(.system(size: 34, weight: .bold, design: .rounded))
+                    .lineLimit(1).minimumScaleFactor(0.7)
+                Text("W").font(.system(size: 14, weight: .semibold, design: .rounded)).foregroundStyle(.secondary)
+                Spacer(minLength: 0)
             }
             Text(powerTargetSub).font(.caption2).foregroundStyle(.secondary).lineLimit(1).minimumScaleFactor(0.8)
         }
@@ -504,9 +506,9 @@ struct WorkoutView: View {
     private func powerStepper(_ icon: String, action: @escaping () -> Void) -> some View {
         Button(action: action) {
             Image(systemName: icon)
-                .font(.system(size: 34, weight: .semibold))
+                .font(.system(size: 25, weight: .semibold))
                 .foregroundStyle(viewModel.state == .running ? Color.blue : Color.secondary.opacity(0.5))
-                .frame(width: 48, height: 48)          // generous touch target
+                .frame(width: 40, height: 30)          // generous touch target
                 .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
@@ -531,10 +533,13 @@ struct WorkoutView: View {
                     Text("PAUSED").font(.caption2.weight(.bold)).foregroundStyle(.orange)
                 }
             }
+            .frame(height: 30)          // matches the power tile's header height
             HStack(alignment: .firstTextBaseline, spacing: 2) {
                 Text(viewModel.formatTime(viewModel.isWarmingUp ? viewModel.remainingTime : viewModel.timeRemainingInChunk))
-                    .font(.system(size: 28, weight: .bold, design: .rounded))
+                    .font(.system(size: 34, weight: .bold, design: .rounded))
                     .monospacedDigit()
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.7)
                 Spacer()
             }
             Text(timeSub).font(.caption2).foregroundStyle(.secondary).lineLimit(1).minimumScaleFactor(0.8)
