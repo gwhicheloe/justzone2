@@ -540,7 +540,30 @@ class AppState: ObservableObject {
             await history.clearAllData()
         }
 
+        // Demo Mode: a flip of the toggle simulates a connected trainer + HR
+        // strap; the rest of the app runs entirely as if the hardware were real.
+        self.settingsViewModel.onDemoModeChange = { [weak self] on in
+            self?.applyDemoMode(on)
+        }
+        if settingsViewModel.isDemoMode {
+            applyDemoMode(true)
+        }
+
         // End any Live Activity left over from a previous killed session.
         liveActivity.endOrphanedActivities()
+    }
+
+    /// Start or stop the simulated sensors that back Demo Mode. Everything else
+    /// in the app treats them as ordinary connected devices.
+    func applyDemoMode(_ on: Bool) {
+        if on {
+            kickrService.startSimulation()
+            heartRateService.startSimulation()
+            historyViewModel.loadDemoHistory()
+        } else {
+            kickrService.stopSimulation()
+            heartRateService.stopSimulation()
+            historyViewModel.clearDemoHistory()
+        }
     }
 }

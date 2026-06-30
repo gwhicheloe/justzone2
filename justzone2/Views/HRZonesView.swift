@@ -38,9 +38,12 @@ struct HRZonesView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .principal) {
-                    Text("Heart Rate Zones")
-                        .font(.headline)
-                        .foregroundColor(.green)
+                    HStack(spacing: 6) {
+                        Text("Heart Rate Zones")
+                            .font(.headline)
+                            .foregroundColor(.green)
+                        DemoTitleTag()
+                    }
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     if viewModel.isEditing {

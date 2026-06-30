@@ -19,7 +19,7 @@ struct HistoryView: View {
         NavigationStack {
             GeometryReader { geometry in
                 Group {
-                    if !viewModel.isStravaConnected && viewModel.localWorkouts.isEmpty {
+                    if !viewModel.isStravaConnected && viewModel.localWorkouts.isEmpty && viewModel.activities.isEmpty {
                         connectPrompt
                     } else if viewModel.isLoading && viewModel.activities.isEmpty {
                         loadingView
@@ -66,9 +66,12 @@ struct HistoryView: View {
             .toolbar {
                 if !isLandscape {
                     ToolbarItem(placement: .principal) {
-                        Text("History")
-                            .font(.custom("ArialRoundedMTBold", size: 28))
-                            .foregroundColor(.green)
+                        HStack(spacing: 6) {
+                            Text("History")
+                                .font(.custom("ArialRoundedMTBold", size: 28))
+                                .foregroundColor(.green)
+                            DemoTitleTag()
+                        }
                     }
                 }
             }

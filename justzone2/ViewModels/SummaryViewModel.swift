@@ -31,6 +31,10 @@ class SummaryViewModel: ObservableObject {
     let workout: Workout
     let stravaService: StravaService
 
+    /// A demo workout never touches Strava — no auto-upload, no manual upload.
+    /// The summary shows a clear note instead (see `SummaryView`).
+    let isDemo: Bool
+
     /// Workout parameters used to build the Strava activity description.
     let zoneTargetingEnabled: Bool
     let warmUpEnabled: Bool
@@ -47,7 +51,8 @@ class SummaryViewModel: ObservableObject {
         warmUpEnabled: Bool = false,
         hrSourceName: String = "HR Strap",
         zone2Min: Int = 120,
-        zone2Max: Int = 140
+        zone2Max: Int = 140,
+        isDemo: Bool = false
     ) {
         self.workout = workout
         self.stravaService = stravaService
@@ -56,6 +61,7 @@ class SummaryViewModel: ObservableObject {
         self.hrSourceName = hrSourceName
         self.zone2Min = zone2Min
         self.zone2Max = zone2Max
+        self.isDemo = isDemo
         self.isStravaConnected = stravaService.isAuthenticated
 
         setupBindings()
@@ -81,6 +87,7 @@ class SummaryViewModel: ObservableObject {
     /// uploaded workout. Tapping Upload or Discard cancels it; reaching zero
     /// uploads automatically.
     func startAutoUploadCountdown() {
+        guard !isDemo else { return }
         guard isStravaConnected, uploadState == .ready, countdownTask == nil else { return }
         autoCountdown = Self.autoUploadSeconds
         countdownTask = Task { @MainActor in
@@ -104,6 +111,7 @@ class SummaryViewModel: ObservableObject {
     }
 
     func upload() {
+        guard !isDemo else { return }
         guard uploadState.canTap else { return }
 
         // A manual tap (or the timer firing) ends the countdown.

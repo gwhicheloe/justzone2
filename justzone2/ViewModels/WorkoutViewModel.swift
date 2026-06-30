@@ -49,6 +49,12 @@ class WorkoutViewModel: ObservableObject {
     let liveActivityManager: LiveActivityManager
     let watchConnectivityService: WatchConnectivityService
 
+    /// A demo workout (simulated sensors) runs the real pipeline but must leave no
+    /// real trace: it isn't checkpointed to disk (so it never appears in History
+    /// or gets uploaded) and the summary never posts it to Strava. The live
+    /// recording itself is unchanged. See `saveCheckpoint` and `SummaryViewModel`.
+    let isDemo: Bool
+
     // MARK: - Warm Up & Cool Down
     let warmUpEnabled: Bool
     private let warmUpDuration: TimeInterval = 60
@@ -151,7 +157,8 @@ class WorkoutViewModel: ObservableObject {
         watchConnectivityService: WatchConnectivityService,
         hrSource: HRSource = .bleStrap,
         zoneTargetingEnabled: Bool = false,
-        warmUpEnabled: Bool = false
+        warmUpEnabled: Bool = false,
+        isDemo: Bool = false
     ) {
         self.workout = workout
         self.bluetoothManager = bluetoothManager
@@ -163,6 +170,7 @@ class WorkoutViewModel: ObservableObject {
         self.hrSource = hrSource
         self.zoneTargetingEnabled = zoneTargetingEnabled
         self.warmUpEnabled = warmUpEnabled
+        self.isDemo = isDemo
         self.adjustedPower = workout.targetPower
 
         let z2Min = UserDefaults.standard.integer(forKey: "zone2Min")
@@ -810,6 +818,10 @@ class WorkoutViewModel: ObservableObject {
     /// the workout is still recoverable (.inProgress) or awaiting Strava
     /// upload (.pendingUpload).
     private func saveCheckpoint(status: LocalWorkout.Status) {
+        // A demo workout is ephemeral — never persisted, so it can't surface in
+        // History or be uploaded to Strava from there.
+        guard !isDemo else { return }
+
         let local = LocalWorkout(
             workout: workout,
             useWatchHR: useWatchHR,

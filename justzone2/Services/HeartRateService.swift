@@ -81,6 +81,47 @@ class HeartRateService: NSObject, ObservableObject {
         cleanup()
     }
 
+    // MARK: - Demo Mode simulation
+    //
+    // A self-contained simulated HR strap for Demo Mode. It reports "connected"
+    // and streams a realistic in-zone heart rate via the same `@Published`
+    // outputs the BLE path uses, so nothing downstream knows the strap isn't
+    // real. Started/stopped only by `AppState.applyDemoMode`.
+    private var simTimer: AnyCancellable?
+    private var simHeartRate: Double = 0
+    private static let simulatedDeviceID = UUID(uuidString: "5111110A-DE70-4DE7-0000-000000000002")!
+
+    func startSimulation() {
+        guard simTimer == nil else { return }
+        connectionError = nil
+        connectedDeviceId = Self.simulatedDeviceID
+        batteryLevel = 100
+        simHeartRate = Double(max(zone2Bounds.min - 8, 70))   // a touch below zone, eases in
+        currentHeartRate = Int(simHeartRate)
+        isConnected = true
+        simTimer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+            .sink { [weak self] _ in self?.simulationTick() }
+    }
+
+    func stopSimulation() {
+        guard simTimer != nil else { return }
+        simTimer?.cancel(); simTimer = nil
+        cleanup()
+    }
+
+    private func simulationTick() {
+        let mid = Double(zone2Bounds.min + zone2Bounds.max) / 2.0
+        simHeartRate += (mid - simHeartRate) * 0.05 + Double.random(in: -0.8...0.8)
+        currentHeartRate = max(50, Int(simHeartRate.rounded()))
+    }
+
+    /// Saved Zone 2 bounds (falling back to 120–140) so simulated HR sits in-zone.
+    private var zone2Bounds: (min: Int, max: Int) {
+        let lo = UserDefaults.standard.integer(forKey: "zone2Min")
+        let hi = UserDefaults.standard.integer(forKey: "zone2Max")
+        return (lo > 0 ? lo : 120, hi > 0 ? hi : 140)
+    }
+
     private func cleanup() {
         isConnected = false
         connectedDeviceId = nil

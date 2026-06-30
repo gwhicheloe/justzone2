@@ -39,6 +39,28 @@ class HistoryViewModel: ObservableObject {
         localWorkouts = LocalWorkoutStore.shared.all()
     }
 
+    // MARK: - Demo Mode
+
+    /// True while Demo Mode is showing seeded sample rides instead of real data.
+    private(set) var demoHistoryActive = false
+
+    /// Populate History with a handful of believable Zone 2 rides so the tab
+    /// isn't empty in Demo Mode. Driven by `AppState.applyDemoMode`.
+    func loadDemoHistory() {
+        demoHistoryActive = true
+        error = nil
+        isLoading = false
+        localWorkouts = []
+        activities = DemoActivityProvider.activities
+    }
+
+    /// Leave Demo Mode — restore the real cached activities and pending list.
+    func clearDemoHistory() {
+        demoHistoryActive = false
+        loadFromCache()
+        loadLocalWorkouts()
+    }
+
     /// Upload a local workout to Strava. On success, removes the local
     /// file and triggers a refresh so the activity shows up under Strava.
     /// Returns the new Strava activity ID, or nil on failure.
@@ -94,6 +116,7 @@ class HistoryViewModel: ObservableObject {
 
     /// Initial full download — fetches year by year with progress
     func refreshActivities() async {
+        guard !demoHistoryActive else { return }
         guard isStravaConnected else { return }
 
         dataCleared = false
@@ -141,6 +164,7 @@ class HistoryViewModel: ObservableObject {
 
     /// Incremental refresh — only fetches activities since the most recent cached one
     func refreshActivitiesFromPullDown() async {
+        guard !demoHistoryActive else { return }
         guard isStravaConnected else { return }
         guard !isLoading else { return }
 
@@ -269,6 +293,11 @@ class HistoryViewModel: ObservableObject {
 
     /// Load streams for an activity - checks cache first, fetches from Strava if missing
     func loadStreams(for activity: StravaActivity) async -> ActivityStreams? {
+        // Demo rides have synthetic streams — never hit the cache or network.
+        if demoHistoryActive {
+            return DemoActivityProvider.streams(for: activity)
+        }
+
         // Check cache first
         if let cached = await streamsCache.loadStreams(for: activity.id) {
             return cached
@@ -292,5 +321,64 @@ class HistoryViewModel: ObservableObject {
             loadingStreamsFor = nil
             return nil
         }
+    }
+}
+
+// MARK: - Demo Mode sample data
+
+/// Seeds History with believable Zone 2 rides (and matching HR/power streams) so
+/// the tab — and the activity-detail charts — can be explored without hardware or
+/// a Strava account. The streams are deterministic per activity, so reopening a
+/// ride always shows the same chart.
+enum DemoActivityProvider {
+    static var activities: [StravaActivity] {
+        let now = Date()
+        let cal = Calendar.current
+        // (id, name, days ago, hour, minutes, avg watts, avg HR, max HR)
+        let specs: [(Int, String, Int, Int, Int, Double, Double, Double)] = [
+            (9_000_001, "Zone 2 Endurance",     2,  7, 60, 168, 134, 148),
+            (9_000_002, "Z2 Recovery Spin",     4, 18, 40, 142, 126, 138),
+            (9_000_003, "Zone 2 Base Builder",  7,  6, 75, 172, 138, 151),
+            (9_000_004, "Zone 2 Aerobic",      12, 19, 55, 160, 132, 145),
+            (9_000_005, "Z2 Long Ride",        17,  9, 90, 165, 136, 150),
+        ]
+        return specs.map { id, name, daysAgo, hour, minutes, avgW, avgHR, maxHR in
+            let secs = minutes * 60
+            let day = cal.date(byAdding: .day, value: -daysAgo, to: now) ?? now
+            let start = cal.date(bySettingHour: hour, minute: 0, second: 0, of: day) ?? day
+            return StravaActivity(
+                id: id,
+                name: name,
+                type: "VirtualRide",
+                startDate: start,
+                movingTime: secs,
+                distance: Double(secs) * 7.6,   // ~27 km/h average
+                averageWatts: avgW,
+                averageHeartrate: avgHR,
+                maxHeartrate: maxHR
+            )
+        }
+    }
+
+    static func streams(for activity: StravaActivity) -> ActivityStreams {
+        let dur = activity.movingTime
+        let avgHR = activity.averageHeartrate ?? 134
+        let avgW = activity.averageWatts ?? 165
+        let off = Double(activity.id % 7)
+        var time: [Int] = []
+        var hr: [Int] = []
+        var watts: [Int] = []
+        var t = 0
+        while t <= dur {
+            let td = Double(t)
+            let ramp = min(1.0, td / 180.0)   // ease up over the first 3 minutes
+            let h = avgHR * (0.86 + 0.14 * ramp) + 6 * sin(td / 120 + off) + 3 * sin(td / 37)
+            let w = avgW * (0.70 + 0.30 * ramp) + 12 * sin(td / 90 + off) + 5 * sin(td / 23)
+            time.append(t)
+            hr.append(Int(h.rounded()))
+            watts.append(Int(max(0, w).rounded()))
+            t += 10
+        }
+        return ActivityStreams(activityId: activity.id, fetchedAt: Date(), time: time, heartrate: hr, watts: watts)
     }
 }

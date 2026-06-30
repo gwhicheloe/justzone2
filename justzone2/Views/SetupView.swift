@@ -7,6 +7,7 @@ struct SetupView: View {
     @State private var showZoneTargetingInfo = false
     @State private var showWarmUpInfo = false
     @State private var pendingRecovery: LocalWorkout?
+    @AppStorage("demoMode") private var demoMode = false
 
     // Limit HR monitors to avoid crowded gyms filling the screen
     private var limitedHRMonitors: [DeviceInfo] {
@@ -368,9 +369,12 @@ struct SetupView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .principal) {
-                    Text("Justzone2")
-                        .font(.custom("ArialRoundedMTBold", size: 28))
-                        .foregroundColor(.green)
+                    HStack(spacing: 6) {
+                        Text("Justzone2")
+                            .font(.custom("ArialRoundedMTBold", size: 28))
+                            .foregroundColor(.green)
+                        DemoTitleTag()
+                    }
                 }
             }
             .navigationDestination(isPresented: $showWorkout) {
@@ -756,7 +760,8 @@ struct SetupView: View {
             watchConnectivityService: viewModel.watchConnectivityService,
             hrSource: viewModel.hrSource,
             zoneTargetingEnabled: viewModel.zoneTargetingEnabled,
-            warmUpEnabled: viewModel.warmUpEnabled
+            warmUpEnabled: viewModel.warmUpEnabled,
+            isDemo: demoMode
         )
         showWorkout = true
     }

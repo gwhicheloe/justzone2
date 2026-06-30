@@ -129,6 +129,40 @@ class KickrService: NSObject, ObservableObject {
         peripheral.writeValue(data, for: characteristic, type: .withResponse)
     }
 
+    // MARK: - Demo Mode simulation
+    //
+    // A self-contained simulated trainer for Demo Mode. It reports "connected"
+    // and eases its power toward whatever ERG target the app sets via
+    // `setTargetPower` — so manual ± and the zone-targeting PID drive it exactly
+    // as a real KICKR would. It feeds the same `@Published` outputs as the BLE
+    // path, so nothing downstream knows the trainer isn't real. Started/stopped
+    // only by `AppState.applyDemoMode`; never touched in normal operation.
+    private var simTimer: AnyCancellable?
+    private static let simulatedDeviceID = UUID(uuidString: "5111110A-DE70-4DE7-0000-000000000001")!
+
+    func startSimulation() {
+        guard simTimer == nil else { return }
+        connectionError = nil
+        connectedDeviceId = Self.simulatedDeviceID
+        currentPower = targetPower > 0 ? targetPower : 150
+        isConnected = true
+        simTimer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+            .sink { [weak self] _ in self?.simulationTick() }
+    }
+
+    func stopSimulation() {
+        guard simTimer != nil else { return }
+        simTimer?.cancel(); simTimer = nil
+        cleanup()
+    }
+
+    private func simulationTick() {
+        let target = targetPower > 0 ? targetPower : 150
+        let eased = Double(currentPower) + Double(target - currentPower) * 0.34
+        currentPower = max(0, Int(eased.rounded()) + Int.random(in: -2...2))
+        currentCadence = Int.random(in: 85...92)
+    }
+
     private func startERGMode() {
         guard let characteristic = controlPointCharacteristic else { return }
         guard let peripheral = peripheral else { return }

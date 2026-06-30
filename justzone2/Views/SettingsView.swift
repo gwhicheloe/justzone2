@@ -13,6 +13,7 @@ struct SettingsView: View {
                     diagnosticsSection
                     dataCard
                     websiteCard
+                    demoCard
                     aboutCard
                 }
                 .padding()
@@ -22,9 +23,12 @@ struct SettingsView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .principal) {
-                    Text("Settings")
-                        .font(.custom("ArialRoundedMTBold", size: 28))
-                        .foregroundColor(.green)
+                    HStack(spacing: 6) {
+                        Text("Settings")
+                            .font(.custom("ArialRoundedMTBold", size: 28))
+                            .foregroundColor(.green)
+                        DemoTitleTag()
+                    }
                 }
             }
         }
@@ -136,6 +140,25 @@ struct SettingsView: View {
             }
         }
         .buttonStyle(.plain)
+    }
+
+    private var demoCard: some View {
+        SettingsCard {
+            HStack(spacing: 12) {
+                iconChip("play.circle.fill", tint: .blue)
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("Demo Mode")
+                        .font(.subheadline.weight(.semibold))
+                    Text("Simulate a trainer & HR strap — try a full workout without hardware")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+                Spacer(minLength: 8)
+                Toggle("", isOn: $viewModel.isDemoMode)
+                    .labelsHidden()
+            }
+        }
     }
 
     private var aboutCard: some View {
@@ -325,6 +348,20 @@ struct ShareSheet: UIViewControllerRepresentable {
     }
 
     func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {}
+}
+
+/// A small blue "demo" tag for a screen's title bar while Demo Mode is on. It
+/// lives only in the title, so it never disturbs a screen's layout. Renders
+/// nothing in normal use.
+struct DemoTitleTag: View {
+    @AppStorage("demoMode") private var demoMode = false
+    var body: some View {
+        if demoMode {
+            Text("demo")
+                .font(.system(size: 15, weight: .heavy))
+                .foregroundColor(.blue)
+        }
+    }
 }
 
 #Preview {

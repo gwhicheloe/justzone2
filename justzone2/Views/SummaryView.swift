@@ -68,9 +68,12 @@ struct SummaryView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .principal) {
-                Text("Summary")
-                    .font(.custom("ArialRoundedMTBold", size: 28))
-                    .foregroundColor(.green)
+                HStack(spacing: 6) {
+                    Text("Summary")
+                        .font(.custom("ArialRoundedMTBold", size: 28))
+                        .foregroundColor(.green)
+                    DemoTitleTag()
+                }
             }
         }
         .onAppear { viewModel.startAutoUploadCountdown() }
@@ -84,7 +87,11 @@ struct SummaryView: View {
 
     @ViewBuilder
     private var stravaSection: some View {
-        if !viewModel.isStravaConnected {
+        if viewModel.isDemo {
+            // Demo workouts never upload — the blue "demo" title says so, and we
+            // add nothing here so the layout is unchanged.
+            EmptyView()
+        } else if !viewModel.isStravaConnected {
             Button(action: { Task { await viewModel.connectToStrava() } }) {
                 Image("btn_strava_connect_orange")
                     .resizable()
