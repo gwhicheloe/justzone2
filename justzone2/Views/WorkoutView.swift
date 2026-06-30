@@ -102,7 +102,8 @@ struct WorkoutView: View {
                         warmUpEnabled: viewModel.warmUpEnabled,
                         hrSourceName: viewModel.hrSource.displayName,
                         zone2Min: viewModel.zone2MinValue,
-                        zone2Max: viewModel.zone2MaxValue
+                        zone2Max: viewModel.zone2MaxValue,
+                        isDemo: viewModel.isDemo
                     )
                 }
                 showSummary = true
@@ -284,9 +285,14 @@ struct WorkoutView: View {
         .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .principal) {
-                Text(stateTitle)
-                    .font(.custom("ArialRoundedMTBold", size: 28))
-                    .foregroundColor(viewModel.isWarmingUp ? .orange : .green)
+                HStack(spacing: 6) {
+                    Text(stateTitle)
+                        .font(.custom("ArialRoundedMTBold", size: 28))
+                        .foregroundColor(viewModel.isWarmingUp ? .orange : .green)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.6)
+                    DemoTitleTag()
+                }
             }
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
@@ -708,6 +714,15 @@ struct WorkoutChartView: View {
     let chartData: [ChartDataPoint]
     let targetPower: Int
 
+    /// Wall-clock time the most recent sample arrived — lets the x-domain advance
+    /// smoothly between 1 Hz samples so the live chart scrolls continuously.
+    @State private var lastDataArrival = Date()
+
+    // Palette tuned to the redesigned workout screen (refined, not raw RGB).
+    private static let powerColor = Color(red: 0.27, green: 0.60, blue: 1.0)
+    private static let hrColor    = Color(red: 1.0, green: 0.34, blue: 0.34)
+    private static let zoneColor  = Color(red: 0.20, green: 0.85, blue: 0.45)
+
     // Zone 2 HR settings from UserDefaults
     private var zone2Min: Int {
         let value = UserDefaults.standard.integer(forKey: "zone2Min")
@@ -733,6 +748,25 @@ struct WorkoutChartView: View {
         }
     }
 
+    /// Centred rolling average — turns beat-to-beat / pedal-stroke jitter into a
+    /// clean trend line. Small window so it tracks changes without lag; the metric
+    /// tiles already show the instantaneous numbers.
+    private func smoothed(_ pts: [(time: Double, value: Int)], window: Int = 5) -> [(time: Double, value: Int)] {
+        guard pts.count > window else { return pts }
+        let half = window / 2
+        return pts.indices.map { i in
+            let lo = max(0, i - half), hi = min(pts.count - 1, i + half)
+            var sum = 0
+            for j in lo...hi { sum += pts[j].value }
+            return (time: pts[i].time, value: Int((Double(sum) / Double(hi - lo + 1)).rounded()))
+        }
+    }
+
+    private var smoothedPowerData: [(time: Double, value: Int)] { smoothed(powerData) }
+    // HR gets only a light 3-sample touch — straps already output a clean signal,
+    // so we keep the trace honest rather than flattening real changes.
+    private var smoothedHeartRateData: [(time: Double, value: Int)] { smoothed(heartRateData, window: 3) }
+
     /// Skip the first 2 minutes of warm-up ramp from both the drawn series and
     /// the axis bounds — otherwise the low ramp-up values squash steady-state
     /// Zone 2 detail into a thin band, and drawing the warm-up while scaling to
@@ -747,18 +781,31 @@ struct WorkoutChartView: View {
         return trimmed.count >= 5 ? trimmed : chartData
     }
 
+    /// Round a data span out to tidy bounds whose midpoint is also a round
+    /// number, so the three side-scale labels are always clean multiples of `step`.
+    private func niceBounds(min lo: Int, max hi: Int, step: Int) -> ClosedRange<Int> {
+        var low = (Int(floor(Double(lo) / Double(step)))) * step
+        var high = (Int(ceil(Double(hi) / Double(step)))) * step
+        if high <= low { high = low + step }
+        // Even number of steps ⇒ the midpoint lands exactly on a step.
+        if ((high - low) / step) % 2 != 0 { high += step }
+        return max(0, low)...high
+    }
+
     private var powerRange: ClosedRange<Int> {
         let powers = steadyStateData.compactMap { $0.power }
-        let minP = max(0, (powers.min() ?? 100) - 20)
-        let maxP = max(powers.max() ?? 200, targetPower) + 20
-        return minP...maxP
+        let minP = (powers.min() ?? 100) - 15
+        let maxP = max(powers.max() ?? 200, targetPower) + 15
+        return niceBounds(min: minP, max: maxP, step: 20)
     }
 
     private var hrRange: ClosedRange<Int> {
         let hrs = steadyStateData.compactMap { $0.heartRate }
-        let minHR = max(0, (hrs.min() ?? 60) - 10)
-        let maxHR = (hrs.max() ?? 180) + 10
-        return minHR...maxHR
+        // Always include the Zone 2 band so it can't be clipped early on when
+        // there's barely any HR data yet.
+        let minHR = min(hrs.min() ?? 999, zone2Min) - 8
+        let maxHR = max(hrs.max() ?? 0, zone2Max) + 8
+        return niceBounds(min: minHR, max: maxHR, step: 10)
     }
 
     private var minTime: Double {
@@ -769,119 +816,188 @@ struct WorkoutChartView: View {
         (steadyStateData.map { $0.time }.max() ?? 60) / 60
     }
 
-    /// X-axis domain shared by both overlaid charts. Anchored at the window
-    /// start so warm-up scrolls off once trimmed; always at least 1 min wide.
-    private var timeDomain: ClosedRange<Double> {
-        minTime...max(minTime + 1, maxTime)
+    /// X-axis domain shared by both overlaid charts, with its right edge advancing
+    /// smoothly from the last sample toward "now" (capped at one sample interval)
+    /// so the trace scrolls continuously instead of jumping each second. Both
+    /// charts and the leading dots project through this same domain, so the dots
+    /// stay exactly on the line tips.
+    private func scrollDomain(now: Date) -> ClosedRange<Double> {
+        let advance = min(max(now.timeIntervalSince(lastDataArrival), 0), Constants.sampleInterval) / 60.0
+        let lo = minTime
+        let hi = max(lo + 1, maxTime + advance)
+        return lo...hi
+    }
+
+    /// Whole-minute X tick positions, with the spacing widening as the workout
+    /// grows so labels stay round (1, 2, 5, 10 min) and never crowd.
+    private var xTicks: [Double] {
+        let span = max(maxTime - minTime, 0.1)
+        let step: Double = span < 3 ? 1 : (span < 8 ? 2 : (span < 20 ? 5 : 10))
+        let first = (minTime / step).rounded(.up) * step
+        return Array(stride(from: first, through: maxTime, by: step))
     }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            HStack(spacing: 0) {
-                // Left Y-axis labels (Power)
-                VStack {
-                    Text("\(powerRange.upperBound)")
-                    Spacer()
-                    Text("\(powerRange.lowerBound)")
-                }
-                .font(.tiny)
-                .foregroundColor(.blue)
-                .frame(width: 30)
+            HStack(spacing: 3) {
+                axisScale(top: powerRange.upperBound, bottom: powerRange.lowerBound, tint: Self.powerColor)
 
-                // Chart area with overlaid charts
-                ZStack {
-                    // Power chart (left axis)
-                    Chart {
-                        // Target power line
-                        RuleMark(y: .value("Target", targetPower))
-                            .foregroundStyle(.green.opacity(0.5))
-                            .lineStyle(StrokeStyle(lineWidth: 1, dash: [5, 5]))
-
-                        ForEach(Array(powerData.enumerated()), id: \.offset) { _, point in
-                            LineMark(
-                                x: .value("Time", point.time),
-                                y: .value("Power", point.value)
-                            )
-                            .foregroundStyle(Color.blue)
-                            .lineStyle(StrokeStyle(lineWidth: 2))
-                        }
+                // Re-projects every frame so the domain (and everything on it)
+                // scrolls smoothly rather than stepping once per sample.
+                TimelineView(.animation) { context in
+                    let domain = scrollDomain(now: context.date)
+                    ZStack {
+                        powerChart(domain: domain)
+                        heartRateChart(domain: domain)
                     }
-                    .chartYScale(domain: powerRange)
-                    .chartXScale(domain: timeDomain)
-                    .chartYAxis(.hidden)
-                    .chartXAxis {
-                        AxisMarks(position: .bottom)
-                    }
-
-                    // Heart rate chart (right axis)
-                    Chart {
-                        // Zone 2 HR band
-                        RectangleMark(
-                            xStart: .value("Start", timeDomain.lowerBound),
-                            xEnd: .value("End", timeDomain.upperBound),
-                            yStart: .value("Zone Min", zone2Min),
-                            yEnd: .value("Zone Max", zone2Max)
-                        )
-                        .foregroundStyle(.green.opacity(0.2))
-
-                        ForEach(Array(heartRateData.enumerated()), id: \.offset) { _, point in
-                            LineMark(
-                                x: .value("Time", point.time),
-                                y: .value("HR", point.value)
-                            )
-                            .foregroundStyle(Color.red)
-                            .lineStyle(StrokeStyle(lineWidth: 2))
-                        }
-                    }
-                    .chartYScale(domain: hrRange)
-                    .chartXScale(domain: timeDomain)
-                    .chartYAxis(.hidden)
-                    .chartXAxis(.hidden)
                 }
-                .frame(height: 120)
+                .frame(height: 150)
 
-                // Right Y-axis labels (Heart Rate)
-                VStack {
-                    Text("\(hrRange.upperBound)")
-                    Spacer()
-                    Text("\(hrRange.lowerBound)")
-                }
-                .font(.tiny)
-                .foregroundColor(.red)
-                .frame(width: 30)
+                axisScale(top: hrRange.upperBound, bottom: hrRange.lowerBound, tint: Self.hrColor)
             }
 
-            // Legend
-            HStack(spacing: 16) {
-                HStack(spacing: 4) {
-                    Circle().fill(Color.blue).frame(width: 8, height: 8)
-                    Text("Power (W)")
-                        .font(.labelSmall)
-                        .foregroundColor(.secondary)
+            legend
+        }
+        .padding(12)
+        .background(RoundedRectangle(cornerRadius: 16, style: .continuous).fill(.ultraThinMaterial))
+        .overlay(RoundedRectangle(cornerRadius: 16, style: .continuous).stroke(.white.opacity(0.08), lineWidth: 1))
+        .onChange(of: chartData.count) { _, _ in lastDataArrival = Date() }
+    }
+
+    /// Power: a smoothed gradient area under a rounded line, with the target as a
+    /// faint dashed rule (blue — it belongs to power, not the green HR zone) and
+    /// the live "now" dot drawn as an overlay (see `leadingDot`). The area is only
+    /// drawn once there are ≥2 points — a single point collapses the fill into a
+    /// thin vertical "dagger" down to the baseline.
+    private func powerChart(domain: ClosedRange<Double>) -> some View {
+        Chart {
+            RuleMark(y: .value("Target", targetPower))
+                .foregroundStyle(Self.powerColor.opacity(0.5))
+                .lineStyle(StrokeStyle(lineWidth: 1, dash: [4, 4]))
+
+            if smoothedPowerData.count >= 2 {
+                ForEach(Array(smoothedPowerData.enumerated()), id: \.offset) { _, point in
+                    AreaMark(x: .value("Time", point.time), y: .value("Power", point.value))
+                        .foregroundStyle(.linearGradient(
+                            colors: [Self.powerColor.opacity(0.32), Self.powerColor.opacity(0.02)],
+                            startPoint: .top, endPoint: .bottom))
+                        .interpolationMethod(.monotone)
                 }
-                HStack(spacing: 4) {
-                    Circle().fill(Color.red).frame(width: 8, height: 8)
-                    Text("HR (bpm)")
-                        .font(.labelSmall)
-                        .foregroundColor(.secondary)
-                }
-                HStack(spacing: 4) {
-                    Circle().fill(Color.green.opacity(0.5)).frame(width: 8, height: 8)
-                    Text("Target")
-                        .font(.labelSmall)
-                        .foregroundColor(.secondary)
-                }
-                HStack(spacing: 4) {
-                    RoundedRectangle(cornerRadius: 2).fill(Color.green.opacity(0.2)).frame(width: 12, height: 8)
-                    Text("Zone 2")
-                        .font(.labelSmall)
-                        .foregroundColor(.secondary)
-                }
+            }
+            ForEach(Array(smoothedPowerData.enumerated()), id: \.offset) { _, point in
+                LineMark(x: .value("Time", point.time), y: .value("Power", point.value))
+                    .foregroundStyle(Self.powerColor)
+                    .lineStyle(StrokeStyle(lineWidth: 2, lineCap: .round, lineJoin: .round))
+                    .interpolationMethod(.monotone)
             }
         }
-        .padding()
-        .background(Color(.secondarySystemBackground))
-        .cornerRadius(12)
+        .chartYScale(domain: powerRange)
+        .chartXScale(domain: domain)
+        .chartYAxis(.hidden)
+        .chartXAxis {
+            AxisMarks(position: .bottom, values: xTicks) { value in
+                AxisGridLine().foregroundStyle(.white.opacity(0.06))
+                AxisValueLabel {
+                    if let m = value.as(Double.self) { Text("\(Int(m))") }
+                }
+                .font(.system(size: 9)).foregroundStyle(.secondary)
+            }
+        }
+        .chartOverlay { proxy in
+            leadingDot(proxy: proxy, point: smoothedPowerData.last, color: Self.powerColor)
+        }
+    }
+
+    /// Heart rate: a clean smoothed line riding over the soft Zone 2 band. The
+    /// (clear) X axis here keeps this chart's plot inset identical to the power
+    /// chart's so the two overlaid series stay pixel-aligned.
+    private func heartRateChart(domain: ClosedRange<Double>) -> some View {
+        Chart {
+            RectangleMark(
+                xStart: .value("Start", domain.lowerBound),
+                xEnd: .value("End", domain.upperBound),
+                yStart: .value("Zone Min", zone2Min),
+                yEnd: .value("Zone Max", zone2Max)
+            )
+            .foregroundStyle(.linearGradient(
+                colors: [Self.zoneColor.opacity(0.28), Self.zoneColor.opacity(0.12)],
+                startPoint: .top, endPoint: .bottom))
+
+            ForEach(Array(smoothedHeartRateData.enumerated()), id: \.offset) { _, point in
+                LineMark(x: .value("Time", point.time), y: .value("HR", point.value))
+                    .foregroundStyle(Self.hrColor)
+                    .lineStyle(StrokeStyle(lineWidth: 2.5, lineCap: .round, lineJoin: .round))
+                    .interpolationMethod(.monotone)
+            }
+        }
+        .chartYScale(domain: hrRange)
+        .chartXScale(domain: domain)
+        .chartYAxis(.hidden)
+        .chartXAxis {
+            AxisMarks(position: .bottom, values: xTicks) { _ in
+                AxisValueLabel().font(.system(size: 9)).foregroundStyle(.clear)
+            }
+        }
+        .chartOverlay { proxy in
+            leadingDot(proxy: proxy, point: smoothedHeartRateData.last, color: Self.hrColor)
+        }
+    }
+
+    /// The live "now" dot — a soft halo + solid core anchored to the leading data
+    /// point through the chart's own scales. Because it projects through the same
+    /// per-frame `scrollDomain` as the line, it rides exactly on the line's tip as
+    /// the chart scrolls — no separate animation that could drift.
+    @ViewBuilder
+    private func leadingDot(proxy: ChartProxy, point: (time: Double, value: Int)?, color: Color) -> some View {
+        if let point, let anchor = proxy.plotFrame {
+            GeometryReader { geo in
+                let frame = geo[anchor]
+                let x = frame.minX + (proxy.position(forX: point.time) ?? 0)
+                let y = frame.minY + (proxy.position(forY: point.value) ?? 0)
+                ZStack {
+                    Circle().fill(color.opacity(0.22)).frame(width: 18, height: 18)
+                    Circle().fill(color).frame(width: 9, height: 9)
+                        .overlay(Circle().stroke(.white.opacity(0.9), lineWidth: 1.5))
+                }
+                .position(x: x, y: y)
+            }
+        }
+    }
+
+    /// Compact 3-value side scale (top / mid / bottom), tinted to its series.
+    private func axisScale(top: Int, bottom: Int, tint: Color) -> some View {
+        VStack(alignment: .leading) {
+            Text("\(top)")
+            Spacer()
+            Text("\((top + bottom) / 2)")
+            Spacer()
+            Text("\(bottom)")
+        }
+        .font(.system(size: 9, weight: .medium).monospacedDigit())
+        .foregroundStyle(tint.opacity(0.7))
+        .frame(width: 28)
+        .padding(.bottom, 12)   // align the bottom value with the plot floor (above the X labels)
+    }
+
+    private var legend: some View {
+        HStack(spacing: 14) {
+            legendItem(color: Self.powerColor, label: "Power")
+            legendItem(color: Self.hrColor, label: "HR")
+            HStack(spacing: 5) {
+                RoundedRectangle(cornerRadius: 2).fill(Self.zoneColor.opacity(0.5)).frame(width: 14, height: 8)
+                Text("Zone 2")
+            }
+            Spacer()
+        }
+        .font(.system(size: 10, weight: .medium))
+        .foregroundStyle(.secondary)
+    }
+
+    private func legendItem(color: Color, label: String) -> some View {
+        HStack(spacing: 5) {
+            Capsule().fill(color).frame(width: 14, height: 3)
+            Text(label)
+        }
     }
 }
 
