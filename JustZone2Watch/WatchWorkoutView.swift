@@ -216,6 +216,29 @@ struct WatchWorkoutView: View {
             Text("Workout Complete")
                 .font(.headline)
                 .foregroundColor(.green)
+
+            Text("Tap to dismiss")
+                .font(.caption2)
+                .foregroundColor(.secondary)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .contentShape(Rectangle())
+        .onTapGesture { dismissEndedIfShowing() }
+        .task {
+            // Never leave the end screen as a dead-end: after a few seconds return
+            // to the ready/idle state so the next workout can arm cleanly. The
+            // `.task` is cancelled automatically if the state changes first (e.g.
+            // the iPhone re-arms), so it can't clobber a fresh workout.
+            try? await Task.sleep(nanoseconds: 8 * 1_000_000_000)
+            dismissEndedIfShowing()
+        }
+    }
+
+    /// Return to the idle "waiting" state, but only if we're still showing the
+    /// end screen (so a re-arm that landed in the meantime is never overwritten).
+    private func dismissEndedIfShowing() {
+        if sessionManager.workoutState == "ended" {
+            sessionManager.workoutState = "idle"
         }
     }
 }

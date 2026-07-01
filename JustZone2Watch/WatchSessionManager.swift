@@ -297,6 +297,10 @@ class WatchSessionManager: NSObject, ObservableObject {
     ///   alone so we never flash the end screen during recovery.
     func endPrimaryWorkout(setState: Bool = true) {
         wlog("[WATCH] endPrimaryWorkout — session=\(workoutSession != nil), builder=\(workoutBuilder != nil), hrSent=\(hrSendSeq), setState=\(setState)")
+        // A genuine end clears the workout intent, so the next `prepareWorkout`
+        // arm isn't silently ignored (that left the Watch stuck on "Complete").
+        // A quiet teardown before a revive (setState=false) keeps the intent.
+        if setState { hasActiveWorkoutIntent = false }
         guard let session = workoutSession else {
             if setState { workoutState = "ended" }
             return
