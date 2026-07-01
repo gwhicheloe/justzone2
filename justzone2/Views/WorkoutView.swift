@@ -714,9 +714,18 @@ struct WorkoutChartView: View {
     let chartData: [ChartDataPoint]
     let targetPower: Int
 
-    /// Wall-clock time the most recent sample arrived — lets the x-domain advance
-    /// smoothly between 1 Hz samples so the live chart scrolls continuously.
+    /// Wall-clock time the most recent sample arrived — used to grow the leading
+    /// segment smoothly between 1 Hz samples so the trace flows instead of popping.
     @State private var lastDataArrival = Date()
+
+    /// The settle cutoff, captured once and then held, so the warm-up gets chopped
+    /// exactly once rather than the axes re-chopping as the detection drifts.
+    @State private var frozenSettleTime: Double?
+
+    /// When the chop began, so the `TimelineView` can ease the trim from 0 up to
+    /// `frozenSettleTime` frame-by-frame (no SwiftUI animation = no line morphing).
+    @State private var chopStartedAt: Date?
+    private let chopDuration: Double = 0.9
 
     // Palette tuned to the redesigned workout screen (refined, not raw RGB).
     private static let powerColor = Color(red: 0.27, green: 0.60, blue: 1.0)
@@ -734,23 +743,12 @@ struct WorkoutChartView: View {
         return value > 0 ? value : 140
     }
 
-    private var powerData: [(time: Double, value: Int)] {
-        steadyStateData.compactMap { point in
-            guard let power = point.power else { return nil }
-            return (time: point.time / 60, value: power)
-        }
-    }
-
-    private var heartRateData: [(time: Double, value: Int)] {
-        steadyStateData.compactMap { point in
-            guard let hr = point.heartRate else { return nil }
-            return (time: point.time / 60, value: hr)
-        }
-    }
+    // MARK: - Series & scales (everything derived from a per-frame trim `cutoff`,
+    // in seconds — so the chop can ease the cutoff up frame-by-frame and every
+    // scale follows it, with each frame a clean static render, no line morphing).
 
     /// Centred rolling average — turns beat-to-beat / pedal-stroke jitter into a
-    /// clean trend line. Small window so it tracks changes without lag; the metric
-    /// tiles already show the instantaneous numbers.
+    /// clean trend line.
     private func smoothed(_ pts: [(time: Double, value: Int)], window: Int = 5) -> [(time: Double, value: Int)] {
         guard pts.count > window else { return pts }
         let half = window / 2
@@ -762,98 +760,138 @@ struct WorkoutChartView: View {
         }
     }
 
-    private var smoothedPowerData: [(time: Double, value: Int)] { smoothed(powerData) }
-    // HR gets only a light 3-sample touch — straps already output a clean signal,
-    // so we keep the trace honest rather than flattening real changes.
-    private var smoothedHeartRateData: [(time: Double, value: Int)] { smoothed(heartRateData, window: 3) }
-
-    /// Skip the first 2 minutes of warm-up ramp from both the drawn series and
-    /// the axis bounds — otherwise the low ramp-up values squash steady-state
-    /// Zone 2 detail into a thin band, and drawing the warm-up while scaling to
-    /// steady state clips it to the axis floor (a misleading vertical cliff).
-    /// Once trimmed, the X-axis starts at the window so warm-up scrolls off
-    /// cleanly. Falls back to all data while the workout is too young to have a
-    /// meaningful steady-state.
-    private static let warmupSkipSeconds: Double = 120
-
-    private var steadyStateData: [ChartDataPoint] {
-        let trimmed = chartData.filter { $0.time >= Self.warmupSkipSeconds }
-        return trimmed.count >= 5 ? trimmed : chartData
+    /// Smoothed power series (minutes) for samples at/after `cutoff` (s).
+    private func powerSeries(cutoff: Double) -> [(time: Double, value: Int)] {
+        smoothed(chartData.compactMap { p -> (time: Double, value: Int)? in
+            guard p.time >= cutoff, let w = p.power else { return nil }
+            return (p.time / 60, w)
+        })
     }
 
-    /// Round a data span out to tidy bounds whose midpoint is also a round
-    /// number, so the three side-scale labels are always clean multiples of `step`.
-    private func niceBounds(min lo: Int, max hi: Int, step: Int) -> ClosedRange<Int> {
-        var low = (Int(floor(Double(lo) / Double(step)))) * step
-        var high = (Int(ceil(Double(hi) / Double(step)))) * step
-        if high <= low { high = low + step }
-        // Even number of steps ⇒ the midpoint lands exactly on a step.
-        if ((high - low) / step) % 2 != 0 { high += step }
-        return max(0, low)...high
+    /// HR gets only a light 3-sample touch — straps already output a clean signal.
+    private func hrSeries(cutoff: Double) -> [(time: Double, value: Int)] {
+        smoothed(chartData.compactMap { p -> (time: Double, value: Int)? in
+            guard p.time >= cutoff, let hr = p.heartRate else { return nil }
+            return (p.time / 60, hr)
+        }, window: 3)
     }
 
-    private var powerRange: ClosedRange<Int> {
-        let powers = steadyStateData.compactMap { $0.power }
-        let minP = (powers.min() ?? 100) - 15
-        let maxP = max(powers.max() ?? 200, targetPower) + 15
-        return niceBounds(min: minP, max: maxP, step: 20)
+    /// The drawn series for a given frame: the committed samples with the final
+    /// point replaced by a tip that eases from the previous sample toward the latest
+    /// over one sample interval, so the line, its marker and the domain's right edge
+    /// all advance smoothly rather than stepping once a second.
+    private func growingSeries(_ data: [(time: Double, value: Int)], now: Date) -> [(time: Double, value: Int)] {
+        guard data.count >= 2 else { return data }
+        let f = min(max(now.timeIntervalSince(lastDataArrival) / Constants.sampleInterval, 0), 1)
+        let prev = data[data.count - 2]
+        let latest = data[data.count - 1]
+        let tip = (time: prev.time + (latest.time - prev.time) * f,
+                   value: prev.value + Int((Double(latest.value - prev.value) * f).rounded()))
+        return Array(data[0..<(data.count - 1)]) + [tip]
     }
 
-    private var hrRange: ClosedRange<Int> {
-        let hrs = steadyStateData.compactMap { $0.heartRate }
-        // Always include the Zone 2 band so it can't be clipped early on when
-        // there's barely any HR data yet.
-        let minHR = min(hrs.min() ?? 999, zone2Min) - 8
-        let maxHR = max(hrs.max() ?? 0, zone2Max) + 8
-        return niceBounds(min: minHR, max: maxHR, step: 10)
+    /// Time (s) after which power has held near the target for a sustained run —
+    /// i.e. the warm-up / ramp is over and the ride has settled. A transient spike
+    /// on the way up doesn't count (it needs a run of in-band samples). nil until
+    /// detected, so the chart shows everything until then.
+    private var settleTime: Double? {
+        let samples = chartData.compactMap { p -> (time: Double, watts: Double)? in
+            p.power.map { (p.time, Double($0)) }
+        }
+        guard samples.count >= 12, targetPower > 0 else { return nil }
+        let band = Double(targetPower) * 0.85
+        let need = 5
+        var run = 0
+        for i in samples.indices {
+            if samples[i].watts >= band {
+                run += 1
+                if run >= need { return samples[i - need + 1].time }
+            } else {
+                run = 0
+            }
+        }
+        return nil
     }
 
-    private var minTime: Double {
-        (steadyStateData.map { $0.time }.min() ?? 0) / 60
+    /// The trim boundary (s) for the current frame — eases from 0 to the settle
+    /// cutoff over `chopDuration` once the chop starts, off the frame clock.
+    private func animatedCutoff(now: Date) -> Double {
+        guard let target = frozenSettleTime else { return 0 }
+        guard let start = chopStartedAt else { return target }
+        let t = now.timeIntervalSince(start)
+        guard t < chopDuration else { return target }
+        let f = t / chopDuration
+        let eased = f < 0.5 ? 2 * f * f : 1 - pow(-2 * f + 2, 2) / 2   // ease-in-out
+        return target * eased
     }
 
-    private var maxTime: Double {
-        (steadyStateData.map { $0.time }.max() ?? 60) / 60
+    /// Tidy axis bounds that keep the data filling most of the plot: guarantee a
+    /// minimum span (so a flat trace isn't over-zoomed into noise), pad lightly, and
+    /// snap outward to `step`. Much tighter than rounding a fixed pad to a big step.
+    private func axisBounds(_ dataLo: Int, _ dataHi: Int, minSpan: Int, step: Int) -> ClosedRange<Int> {
+        var lo = dataLo, hi = dataHi
+        if hi - lo < minSpan {                       // widen flat data around its centre
+            let c = (lo + hi) / 2
+            lo = c - minSpan / 2
+            hi = c + minSpan / 2
+        }
+        let pad = max((hi - lo) / 8, 2)
+        lo = Int(floor(Double(lo - pad) / Double(step))) * step
+        hi = Int(ceil(Double(hi + pad) / Double(step))) * step
+        return max(0, lo)...hi
     }
 
-    /// X-axis domain shared by both overlaid charts, with its right edge advancing
-    /// smoothly from the last sample toward "now" (capped at one sample interval)
-    /// so the trace scrolls continuously instead of jumping each second. Both
-    /// charts and the leading dots project through this same domain, so the dots
-    /// stay exactly on the line tips.
-    private func scrollDomain(now: Date) -> ClosedRange<Double> {
-        let advance = min(max(now.timeIntervalSince(lastDataArrival), 0), Constants.sampleInterval) / 60.0
-        let lo = minTime
-        let hi = max(lo + 1, maxTime + advance)
-        return lo...hi
+    private func powerRange(cutoff: Double) -> ClosedRange<Int> {
+        let powers = chartData.compactMap { $0.time >= cutoff ? $0.power : nil }
+        let lo = powers.min() ?? 90
+        let hi = max(powers.max() ?? 110, targetPower)
+        return axisBounds(lo, hi, minSpan: 20, step: 5)
     }
 
-    /// Whole-minute X tick positions, with the spacing widening as the workout
-    /// grows so labels stay round (1, 2, 5, 10 min) and never crowd.
-    private var xTicks: [Double] {
-        let span = max(maxTime - minTime, 0.1)
+    private func hrRange(cutoff: Double) -> ClosedRange<Int> {
+        // Always include the Zone 2 band so it can't be clipped when HR data is thin.
+        let hrs = chartData.compactMap { $0.time >= cutoff ? $0.heartRate : nil }
+        let lo = min(hrs.min() ?? 999, zone2Min)
+        let hi = max(hrs.max() ?? 0, zone2Max)
+        return axisBounds(lo, hi, minSpan: 20, step: 5)
+    }
+
+    /// Whole-minute X tick positions, spacing widening as the window grows so labels
+    /// stay round (1, 2, 5, 10 min) and never crowd.
+    private func xTicks(lo: Double, hi: Double) -> [Double] {
+        let span = max(hi - lo, 0.1)
         let step: Double = span < 3 ? 1 : (span < 8 ? 2 : (span < 20 ? 5 : 10))
-        let first = (minTime / step).rounded(.up) * step
-        return Array(stride(from: first, through: maxTime, by: step))
+        let first = (lo / step).rounded(.up) * step
+        return Array(stride(from: first, through: hi, by: step))
     }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            HStack(spacing: 3) {
-                axisScale(top: powerRange.upperBound, bottom: powerRange.lowerBound, tint: Self.powerColor)
+            // Everything derives from the per-frame `cutoff`, so the growing tip AND
+            // the warm-up chop both advance smoothly frame-by-frame, each frame a
+            // clean static render (no SwiftUI animation to morph the line).
+            TimelineView(.animation) { context in
+                let now = context.date
+                let cut = animatedCutoff(now: now)
+                let pRange = powerRange(cutoff: cut)
+                let hRange = hrRange(cutoff: cut)
+                let pSeries = growingSeries(powerSeries(cutoff: cut), now: now)
+                let hSeries = growingSeries(hrSeries(cutoff: cut), now: now)
+                let lo = cut / 60
+                let tip = max(pSeries.last?.time ?? lo, hSeries.last?.time ?? lo)
+                let hi = max(lo + 1, tip)
+                let domain = lo...(hi + max((hi - lo) * 0.03, 0.1))
+                let ticks = xTicks(lo: lo, hi: (chartData.map { $0.time }.max() ?? 60) / 60)
 
-                // Re-projects every frame so the domain (and everything on it)
-                // scrolls smoothly rather than stepping once per sample.
-                TimelineView(.animation) { context in
-                    let domain = scrollDomain(now: context.date)
+                HStack(spacing: 3) {
+                    axisScale(top: pRange.upperBound, bottom: pRange.lowerBound, tint: Self.powerColor)
                     ZStack {
-                        powerChart(domain: domain)
-                        heartRateChart(domain: domain)
+                        powerChart(data: pSeries, domain: domain, range: pRange, ticks: ticks)
+                        heartRateChart(data: hSeries, domain: domain, range: hRange, ticks: ticks)
                     }
+                    .frame(height: 150)
+                    axisScale(top: hRange.upperBound, bottom: hRange.lowerBound, tint: Self.hrColor)
                 }
-                .frame(height: 150)
-
-                axisScale(top: hrRange.upperBound, bottom: hrRange.lowerBound, tint: Self.hrColor)
             }
 
             legend
@@ -861,41 +899,32 @@ struct WorkoutChartView: View {
         .padding(12)
         .background(RoundedRectangle(cornerRadius: 16, style: .continuous).fill(.ultraThinMaterial))
         .overlay(RoundedRectangle(cornerRadius: 16, style: .continuous).stroke(.white.opacity(0.08), lineWidth: 1))
-        .onChange(of: chartData.count) { _, _ in lastDataArrival = Date() }
+        .onChange(of: chartData.count) { _, _ in
+            lastDataArrival = Date()
+            if frozenSettleTime == nil, let t = settleTime {
+                frozenSettleTime = t
+                chopStartedAt = Date()
+            }
+        }
     }
 
-    /// Power: a smoothed gradient area under a rounded line, with the target as a
-    /// faint dashed rule (blue — it belongs to power, not the green HR zone) and
-    /// the live "now" dot drawn as an overlay (see `leadingDot`). The area is only
-    /// drawn once there are ≥2 points — a single point collapses the fill into a
-    /// thin vertical "dagger" down to the baseline.
-    private func powerChart(domain: ClosedRange<Double>) -> some View {
+    /// Power: a smoothed rounded line with the live "now" marker drawn as an
+    /// overlay (see `leadingMarker`). No gradient area fill — its near-vertical
+    /// leading edge rendered as a stray "dagger" early in a ride.
+    private func powerChart(data: [(time: Double, value: Int)], domain: ClosedRange<Double>, range: ClosedRange<Int>, ticks: [Double]) -> some View {
         Chart {
-            RuleMark(y: .value("Target", targetPower))
-                .foregroundStyle(Self.powerColor.opacity(0.5))
-                .lineStyle(StrokeStyle(lineWidth: 1, dash: [4, 4]))
-
-            if smoothedPowerData.count >= 2 {
-                ForEach(Array(smoothedPowerData.enumerated()), id: \.offset) { _, point in
-                    AreaMark(x: .value("Time", point.time), y: .value("Power", point.value))
-                        .foregroundStyle(.linearGradient(
-                            colors: [Self.powerColor.opacity(0.32), Self.powerColor.opacity(0.02)],
-                            startPoint: .top, endPoint: .bottom))
-                        .interpolationMethod(.monotone)
-                }
-            }
-            ForEach(Array(smoothedPowerData.enumerated()), id: \.offset) { _, point in
+            ForEach(Array(data.enumerated()), id: \.offset) { _, point in
                 LineMark(x: .value("Time", point.time), y: .value("Power", point.value))
                     .foregroundStyle(Self.powerColor)
                     .lineStyle(StrokeStyle(lineWidth: 2, lineCap: .round, lineJoin: .round))
                     .interpolationMethod(.monotone)
             }
         }
-        .chartYScale(domain: powerRange)
+        .chartYScale(domain: range)
         .chartXScale(domain: domain)
         .chartYAxis(.hidden)
         .chartXAxis {
-            AxisMarks(position: .bottom, values: xTicks) { value in
+            AxisMarks(position: .bottom, values: ticks) { value in
                 AxisGridLine().foregroundStyle(.white.opacity(0.06))
                 AxisValueLabel {
                     if let m = value.as(Double.self) { Text("\(Int(m))") }
@@ -904,14 +933,14 @@ struct WorkoutChartView: View {
             }
         }
         .chartOverlay { proxy in
-            leadingDot(proxy: proxy, point: smoothedPowerData.last, color: Self.powerColor)
+            leadingMarker(proxy: proxy, point: data.last, color: Self.powerColor, symbol: "bolt.fill")
         }
     }
 
     /// Heart rate: a clean smoothed line riding over the soft Zone 2 band. The
     /// (clear) X axis here keeps this chart's plot inset identical to the power
     /// chart's so the two overlaid series stay pixel-aligned.
-    private func heartRateChart(domain: ClosedRange<Double>) -> some View {
+    private func heartRateChart(data: [(time: Double, value: Int)], domain: ClosedRange<Double>, range: ClosedRange<Int>, ticks: [Double]) -> some View {
         Chart {
             RectangleMark(
                 xStart: .value("Start", domain.lowerBound),
@@ -923,42 +952,58 @@ struct WorkoutChartView: View {
                 colors: [Self.zoneColor.opacity(0.28), Self.zoneColor.opacity(0.12)],
                 startPoint: .top, endPoint: .bottom))
 
-            ForEach(Array(smoothedHeartRateData.enumerated()), id: \.offset) { _, point in
+            RuleMark(y: .value("Zone Max", zone2Max))
+                .foregroundStyle(Self.zoneColor.opacity(0.45))
+                .lineStyle(StrokeStyle(lineWidth: 0.75, dash: [3, 3]))
+            RuleMark(y: .value("Zone Min", zone2Min))
+                .foregroundStyle(Self.zoneColor.opacity(0.45))
+                .lineStyle(StrokeStyle(lineWidth: 0.75, dash: [3, 3]))
+
+            ForEach(Array(data.enumerated()), id: \.offset) { _, point in
                 LineMark(x: .value("Time", point.time), y: .value("HR", point.value))
                     .foregroundStyle(Self.hrColor)
                     .lineStyle(StrokeStyle(lineWidth: 2.5, lineCap: .round, lineJoin: .round))
                     .interpolationMethod(.monotone)
             }
         }
-        .chartYScale(domain: hrRange)
+        .chartYScale(domain: range)
         .chartXScale(domain: domain)
         .chartYAxis(.hidden)
         .chartXAxis {
-            AxisMarks(position: .bottom, values: xTicks) { _ in
+            AxisMarks(position: .bottom, values: ticks) { _ in
                 AxisValueLabel().font(.system(size: 9)).foregroundStyle(.clear)
             }
         }
         .chartOverlay { proxy in
-            leadingDot(proxy: proxy, point: smoothedHeartRateData.last, color: Self.hrColor)
+            leadingMarker(proxy: proxy, point: data.last, color: Self.hrColor, symbol: "heart.fill")
         }
     }
 
-    /// The live "now" dot — a soft halo + solid core anchored to the leading data
-    /// point through the chart's own scales. Because it projects through the same
-    /// per-frame `scrollDomain` as the line, it rides exactly on the line's tip as
-    /// the chart scrolls — no separate animation that could drift.
+    /// The live "now" marker — a themed glyph (a heart for HR, a bolt for power)
+    /// anchored to the leading data point through the chart's own scales, so it
+    /// rides on the line's tip. The white outline is stamped as eight offset copies
+    /// in a ring behind the glyph, giving an even border all the way round whatever
+    /// the glyph's shape (a scaled copy thickens unevenly).
     @ViewBuilder
-    private func leadingDot(proxy: ChartProxy, point: (time: Double, value: Int)?, color: Color) -> some View {
+    private func leadingMarker(proxy: ChartProxy, point: (time: Double, value: Int)?, color: Color, symbol: String) -> some View {
         if let point, let anchor = proxy.plotFrame {
             GeometryReader { geo in
                 let frame = geo[anchor]
                 let x = frame.minX + (proxy.position(forX: point.time) ?? 0)
                 let y = frame.minY + (proxy.position(forY: point.value) ?? 0)
                 ZStack {
-                    Circle().fill(color.opacity(0.22)).frame(width: 18, height: 18)
-                    Circle().fill(color).frame(width: 9, height: 9)
-                        .overlay(Circle().stroke(.white.opacity(0.9), lineWidth: 1.5))
+                    ForEach(0..<8, id: \.self) { i in
+                        let a = Double(i) / 8.0 * 2 * .pi
+                        Image(systemName: symbol)
+                            .font(.system(size: 12, weight: .bold))
+                            .foregroundStyle(.white)
+                            .offset(x: CGFloat(cos(a) * 1.1), y: CGFloat(sin(a) * 1.1))
+                    }
+                    Image(systemName: symbol)
+                        .font(.system(size: 12, weight: .bold))
+                        .foregroundStyle(color)
                 }
+                .shadow(color: color.opacity(0.5), radius: 2.5)
                 .position(x: x, y: y)
             }
         }

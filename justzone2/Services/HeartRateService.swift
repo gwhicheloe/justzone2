@@ -88,25 +88,43 @@ class HeartRateService: NSObject, ObservableObject {
     // outputs the BLE path uses, so nothing downstream knows the strap isn't
     // real. Started/stopped only by `AppState.applyDemoMode`.
     private var simTimer: AnyCancellable?
+    private var isSimulated = false
     private var simHeartRate: Double = 0
     private static let simulatedDeviceID = UUID(uuidString: "5111110A-DE70-4DE7-0000-000000000002")!
 
     func startSimulation() {
-        guard simTimer == nil else { return }
+        guard !isSimulated else { return }
+        isSimulated = true
         connectionError = nil
         connectedDeviceId = Self.simulatedDeviceID
         batteryLevel = 100
         simHeartRate = Double(max(zone2Bounds.min - 8, 70))   // a touch below zone, eases in
         currentHeartRate = Int(simHeartRate)
         isConnected = true
-        simTimer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-            .sink { [weak self] _ in self?.simulationTick() }
+        startSimTimer()
     }
 
     func stopSimulation() {
-        guard simTimer != nil else { return }
+        guard isSimulated else { return }
+        isSimulated = false
         simTimer?.cancel(); simTimer = nil
         cleanup()
+    }
+
+    /// Freeze/unfreeze the simulated stream so a paused workout looks paused.
+    /// No-op for a real strap.
+    func setSimulationPaused(_ paused: Bool) {
+        guard isSimulated else { return }
+        if paused {
+            simTimer?.cancel(); simTimer = nil
+        } else if simTimer == nil {
+            startSimTimer()
+        }
+    }
+
+    private func startSimTimer() {
+        simTimer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+            .sink { [weak self] _ in self?.simulationTick() }
     }
 
     private func simulationTick() {

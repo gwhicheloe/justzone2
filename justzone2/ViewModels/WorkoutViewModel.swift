@@ -644,6 +644,10 @@ class WorkoutViewModel: ObservableObject {
         state = .paused
 
         kickrService.stopWorkout()
+        // Freeze the simulated sensors so a paused demo actually looks paused
+        // (no-op with real hardware).
+        kickrService.setSimulationPaused(true)
+        heartRateService.setSimulationPaused(true)
         healthKitManager.pauseWorkoutSession()
         watchConnectivityService.sendPauseWorkout()
         sendWatchDisplayUpdate(state: "paused")
@@ -660,6 +664,8 @@ class WorkoutViewModel: ObservableObject {
         guard state == .paused else { return }
 
         kickrService.startWorkout()
+        kickrService.setSimulationPaused(false)
+        heartRateService.setSimulationPaused(false)
         let resumePower = warmUpEnabled && !warmUpComplete ? workout.targetPower / 2 : adjustedPower
         kickrService.setTargetPower(resumePower)
         resetPID()

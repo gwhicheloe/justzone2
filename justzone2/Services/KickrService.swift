@@ -138,22 +138,40 @@ class KickrService: NSObject, ObservableObject {
     // path, so nothing downstream knows the trainer isn't real. Started/stopped
     // only by `AppState.applyDemoMode`; never touched in normal operation.
     private var simTimer: AnyCancellable?
+    private var isSimulated = false
     private static let simulatedDeviceID = UUID(uuidString: "5111110A-DE70-4DE7-0000-000000000001")!
 
     func startSimulation() {
-        guard simTimer == nil else { return }
+        guard !isSimulated else { return }
+        isSimulated = true
         connectionError = nil
         connectedDeviceId = Self.simulatedDeviceID
-        currentPower = targetPower > 0 ? targetPower : 150
+        currentPower = 0   // ramp up from rest toward the target, no opening spike
         isConnected = true
-        simTimer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-            .sink { [weak self] _ in self?.simulationTick() }
+        startSimTimer()
     }
 
     func stopSimulation() {
-        guard simTimer != nil else { return }
+        guard isSimulated else { return }
+        isSimulated = false
         simTimer?.cancel(); simTimer = nil
         cleanup()
+    }
+
+    /// Freeze/unfreeze the simulated stream so a paused workout looks paused.
+    /// No-op for a real trainer.
+    func setSimulationPaused(_ paused: Bool) {
+        guard isSimulated else { return }
+        if paused {
+            simTimer?.cancel(); simTimer = nil
+        } else if simTimer == nil {
+            startSimTimer()
+        }
+    }
+
+    private func startSimTimer() {
+        simTimer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+            .sink { [weak self] _ in self?.simulationTick() }
     }
 
     private func simulationTick() {
