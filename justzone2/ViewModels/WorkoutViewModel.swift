@@ -725,7 +725,8 @@ class WorkoutViewModel: ObservableObject {
         watchLaunchTask?.cancel(); watchLaunchTask = nil
         Task {
             do {
-                healthKitWorkout = try await healthKitManager.endWorkoutSession()
+                // Demo rides discard instead of save — no trace in Apple Health.
+                healthKitWorkout = try await healthKitManager.endWorkoutSession(discard: isDemo)
             } catch {
                 dlog("[IPHONE-VM] endWorkoutSession FAILED: \(error.localizedDescription)")
             }

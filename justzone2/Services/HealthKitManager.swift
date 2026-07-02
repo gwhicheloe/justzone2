@@ -206,7 +206,12 @@ class HealthKitManager: NSObject, ObservableObject {
         workoutSession?.resume()
     }
 
-    func endWorkoutSession() async throws -> HKWorkout? {
+    /// End the session and, normally, save the workout to Apple Health.
+    /// - Parameter discard: when true (Demo Mode) the builder's workout and its
+    ///   samples are discarded instead of saved, so a simulated ride leaves no
+    ///   trace in Health. The session lifecycle is identical either way — only
+    ///   the final commit differs.
+    func endWorkoutSession(discard: Bool = false) async throws -> HKWorkout? {
         guard let workoutSession = workoutSession,
               let workoutBuilder = workoutBuilder else {
             return nil
@@ -217,12 +222,19 @@ class HealthKitManager: NSObject, ObservableObject {
 
         do {
             try await workoutBuilder.endCollection(at: endDate)
-            let workout = try await workoutBuilder.finishWorkout()
+            let workout: HKWorkout?
+            if discard {
+                try await workoutBuilder.discardWorkout()
+                workout = nil
+                dlog("[IPHONE-HK] endWorkoutSession — demo, discarded (not saved to Health)")
+            } else {
+                workout = try await workoutBuilder.finishWorkout()
+                dlog("[IPHONE-HK] endWorkoutSession — saved to HealthKit")
+            }
 
             self.workoutSession = nil
             self.workoutBuilder = nil
             sessionState = .notStarted
-            dlog("[IPHONE-HK] endWorkoutSession — saved to HealthKit")
 
             return workout
         } catch {
