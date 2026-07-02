@@ -221,8 +221,8 @@ struct WorkoutView: View {
                     targetPower: viewModel.adjustedPower
                 )
                 .frame(maxHeight: .infinity)
-                .padding(.horizontal)
-                .padding(.top, 10)
+                .padding(.horizontal, 10)
+                .padding(.top, 8)
             } else {
                 Spacer()
                 Text("Waiting for data…")
@@ -232,7 +232,7 @@ struct WorkoutView: View {
             }
 
                 // Controls
-                VStack(spacing: 16) {
+                VStack(spacing: 12) {
                     HStack(spacing: 40) {
                         if viewModel.state == .running {
                             Button(action: { viewModel.pauseWorkout() }) {
@@ -279,7 +279,8 @@ struct WorkoutView: View {
                     }
                     .padding(.horizontal, 40)
                 }
-                .padding(.bottom, 40)
+                .padding(.top, 10)
+                .padding(.bottom, 20)
         }
         .background(zoneTintedBackground)
         .navigationBarBackButtonHidden(true)
@@ -835,9 +836,11 @@ struct WorkoutChartView: View {
             lo = c - minSpan / 2
             hi = c + minSpan / 2
         }
-        let pad = max((hi - lo) / 8, 2)
+        let pad = max((hi - lo) / 12, 1)
         lo = Int(floor(Double(lo - pad) / Double(step))) * step
         hi = Int(ceil(Double(hi + pad) / Double(step))) * step
+        // Even number of steps ⇒ the mid side-scale label is also a round number.
+        if ((hi - lo) / step) % 2 != 0 { hi += step }
         return max(0, lo)...hi
     }
 
@@ -845,7 +848,7 @@ struct WorkoutChartView: View {
         let powers = chartData.compactMap { $0.time >= cutoff ? $0.power : nil }
         let lo = powers.min() ?? 90
         let hi = max(powers.max() ?? 110, targetPower)
-        return axisBounds(lo, hi, minSpan: 20, step: 5)
+        return axisBounds(lo, hi, minSpan: 16, step: 5)
     }
 
     private func hrRange(cutoff: Double) -> ClosedRange<Int> {
@@ -853,7 +856,7 @@ struct WorkoutChartView: View {
         let hrs = chartData.compactMap { $0.time >= cutoff ? $0.heartRate : nil }
         let lo = min(hrs.min() ?? 999, zone2Min)
         let hi = max(hrs.max() ?? 0, zone2Max)
-        return axisBounds(lo, hi, minSpan: 20, step: 5)
+        return axisBounds(lo, hi, minSpan: 16, step: 5)
     }
 
     /// Whole-minute X tick positions, spacing widening as the window grows so labels
@@ -866,37 +869,36 @@ struct WorkoutChartView: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            // Everything derives from the per-frame `cutoff`, so the growing tip AND
-            // the warm-up chop both advance smoothly frame-by-frame, each frame a
-            // clean static render (no SwiftUI animation to morph the line).
-            TimelineView(.animation) { context in
-                let now = context.date
-                let cut = animatedCutoff(now: now)
-                let pRange = powerRange(cutoff: cut)
-                let hRange = hrRange(cutoff: cut)
-                let pSeries = growingSeries(powerSeries(cutoff: cut), now: now)
-                let hSeries = growingSeries(hrSeries(cutoff: cut), now: now)
-                let lo = cut / 60
-                let tip = max(pSeries.last?.time ?? lo, hSeries.last?.time ?? lo)
-                let hi = max(lo + 1, tip)
-                let domain = lo...(hi + max((hi - lo) * 0.03, 0.1))
-                let ticks = xTicks(lo: lo, hi: (chartData.map { $0.time }.max() ?? 60) / 60)
+        // Everything derives from the per-frame `cutoff`, so the growing tip AND
+        // the warm-up chop both advance smoothly frame-by-frame, each frame a
+        // clean static render (no SwiftUI animation to morph the line).
+        // No legend: the heart/bolt markers and colour-tinted side scales already
+        // identify each series, so every point of height goes to the plot.
+        TimelineView(.animation) { context in
+            let now = context.date
+            let cut = animatedCutoff(now: now)
+            let pRange = powerRange(cutoff: cut)
+            let hRange = hrRange(cutoff: cut)
+            let pSeries = growingSeries(powerSeries(cutoff: cut), now: now)
+            let hSeries = growingSeries(hrSeries(cutoff: cut), now: now)
+            let lo = cut / 60
+            let tip = max(pSeries.last?.time ?? lo, hSeries.last?.time ?? lo)
+            let hi = max(lo + 1, tip)
+            let domain = lo...(hi + max((hi - lo) * 0.03, 0.1))
+            let ticks = xTicks(lo: lo, hi: (chartData.map { $0.time }.max() ?? 60) / 60)
 
-                HStack(spacing: 3) {
-                    axisScale(top: pRange.upperBound, bottom: pRange.lowerBound, tint: Self.powerColor)
-                    ZStack {
-                        powerChart(data: pSeries, domain: domain, range: pRange, ticks: ticks)
-                        heartRateChart(data: hSeries, domain: domain, range: hRange, ticks: ticks)
-                    }
-                    .frame(height: 150)
-                    axisScale(top: hRange.upperBound, bottom: hRange.lowerBound, tint: Self.hrColor)
+            HStack(spacing: 2) {
+                axisScale(top: pRange.upperBound, bottom: pRange.lowerBound, tint: Self.powerColor)
+                ZStack {
+                    powerChart(data: pSeries, domain: domain, range: pRange, ticks: ticks)
+                    heartRateChart(data: hSeries, domain: domain, range: hRange, ticks: ticks)
                 }
+                .frame(minHeight: 150, maxHeight: .infinity)
+                axisScale(top: hRange.upperBound, bottom: hRange.lowerBound, tint: Self.hrColor)
             }
-
-            legend
         }
-        .padding(12)
+        .padding(.vertical, 10)
+        .padding(.horizontal, 8)
         .background(RoundedRectangle(cornerRadius: 16, style: .continuous).fill(.ultraThinMaterial))
         .overlay(RoundedRectangle(cornerRadius: 16, style: .continuous).stroke(.white.opacity(0.08), lineWidth: 1))
         .onChange(of: chartData.count) { _, _ in
@@ -975,7 +977,27 @@ struct WorkoutChartView: View {
             }
         }
         .chartOverlay { proxy in
-            leadingMarker(proxy: proxy, point: data.last, color: Self.hrColor, symbol: "heart.fill")
+            ZStack {
+                zoneBandLabel(proxy: proxy)
+                leadingMarker(proxy: proxy, point: data.last, color: Self.hrColor, symbol: "heart.fill")
+            }
+        }
+    }
+
+    /// Faint "Zone 2" pinned just inside the top-left of the band, so the band is
+    /// self-labelling. Anchored through the chart's Y scale, so it rides the band
+    /// whatever the axis range does.
+    @ViewBuilder
+    private func zoneBandLabel(proxy: ChartProxy) -> some View {
+        if let anchor = proxy.plotFrame {
+            GeometryReader { geo in
+                let frame = geo[anchor]
+                let bandTop = frame.minY + (proxy.position(forY: zone2Max) ?? 0)
+                Text("Zone 2")
+                    .font(.system(size: 12, weight: .heavy, design: .rounded))
+                    .foregroundStyle(Self.zoneColor.opacity(0.5))
+                    .position(x: frame.minX + 27, y: bandTop + 11)
+            }
         }
     }
 
@@ -1020,30 +1042,10 @@ struct WorkoutChartView: View {
         }
         .font(.system(size: 9, weight: .medium).monospacedDigit())
         .foregroundStyle(tint.opacity(0.7))
-        .frame(width: 28)
+        .frame(width: 19)       // just fits 3 digits at 9pt — fixed so the plot never shifts
         .padding(.bottom, 12)   // align the bottom value with the plot floor (above the X labels)
     }
 
-    private var legend: some View {
-        HStack(spacing: 14) {
-            legendItem(color: Self.powerColor, label: "Power")
-            legendItem(color: Self.hrColor, label: "HR")
-            HStack(spacing: 5) {
-                RoundedRectangle(cornerRadius: 2).fill(Self.zoneColor.opacity(0.5)).frame(width: 14, height: 8)
-                Text("Zone 2")
-            }
-            Spacer()
-        }
-        .font(.system(size: 10, weight: .medium))
-        .foregroundStyle(.secondary)
-    }
-
-    private func legendItem(color: Color, label: String) -> some View {
-        HStack(spacing: 5) {
-            Capsule().fill(color).frame(width: 14, height: 3)
-            Text(label)
-        }
-    }
 }
 
 struct HRStrapPickerSheet: View {
