@@ -68,6 +68,13 @@ struct SettingsView: View {
                         .minimumScaleFactor(0.8)
                     Spacer(minLength: 0)
                 }
+
+                // Strava's approved attribution wording — also makes the
+                // no-affiliation relationship explicit for App Review (4.1).
+                Text("Compatible with Strava. JustZone2 is not affiliated with or endorsed by Strava.")
+                    .font(.system(size: 10))
+                    .foregroundStyle(.tertiary)
+                    .fixedSize(horizontal: false, vertical: true)
             }
         }
     }
