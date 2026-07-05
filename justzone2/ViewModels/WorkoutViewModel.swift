@@ -182,6 +182,18 @@ class WorkoutViewModel: ObservableObject {
     }
 
     private func setupBindings() {
+        // If the workout ended while the phone was locked, the HK session was
+        // kept alive to keep the app running (see endIPhoneSessionAndNotifyWatch).
+        // Complete the deferred end now that the user is back.
+        NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)
+            .sink { [weak self] _ in
+                guard let self, let endDate = self.pendingSessionEnd else { return }
+                self.pendingSessionEnd = nil
+                dlog("[IPHONE-VM] foreground — completing deferred HK session end (workout ended \(Int(Date().timeIntervalSince(endDate)))s ago)")
+                self.finishHKSession(at: endDate)
+            }
+            .store(in: &cancellables)
+
         bindHRSource()
 
         kickrService.$currentPower
@@ -720,21 +732,44 @@ class WorkoutViewModel: ObservableObject {
 
     /// End the iPhone HealthKit session (saves the workout to Health) and tell
     /// the Watch to stop its session too. Same teardown for both modes.
+    /// Set when the workout ended while the app was backgrounded/locked: the
+    /// HealthKit session is deliberately kept running (it is the app's only
+    /// background-execution grant — ending it while locked got the app suspended
+    /// and then terminated before the user unlocked). Holds the workout's true
+    /// end time so the Health record is backdated correctly when the session is
+    /// finally ended on the next foreground.
+    private var pendingSessionEnd: Date?
+
     private func endIPhoneSessionAndNotifyWatch() {
         clearWatchStall()
         watchLaunchTask?.cancel(); watchLaunchTask = nil
-        Task {
-            do {
-                // Demo rides discard instead of save — no trace in Apple Health.
-                healthKitWorkout = try await healthKitManager.endWorkoutSession(discard: isDemo)
-            } catch {
-                dlog("[IPHONE-VM] endWorkoutSession FAILED: \(error.localizedDescription)")
-            }
+
+        if UIApplication.shared.applicationState == .active {
+            finishHKSession(at: Date())
+        } else {
+            // Locked / backgrounded: keep the HK session (and with it, the app)
+            // alive. finishHKSession runs on the next didBecomeActive.
+            pendingSessionEnd = Date()
+            dlog("[IPHONE-VM] workout ended in background — deferring HK session end until foreground")
         }
+
         if useWatchHR {
             watchConnectivityService.sendStopWorkout()
         } else {
             watchConnectivityService.sendWorkoutEnded()
+        }
+    }
+
+    /// End + save (or, for demo, discard) the HealthKit session, stamping the
+    /// workout's true end time.
+    private func finishHKSession(at endDate: Date) {
+        Task {
+            do {
+                // Demo rides discard instead of save — no trace in Apple Health.
+                healthKitWorkout = try await healthKitManager.endWorkoutSession(at: endDate, discard: isDemo)
+            } catch {
+                dlog("[IPHONE-VM] endWorkoutSession FAILED: \(error.localizedDescription)")
+            }
         }
     }
 

@@ -207,17 +207,21 @@ class HealthKitManager: NSObject, ObservableObject {
     }
 
     /// End the session and, normally, save the workout to Apple Health.
+    /// - Parameter endDate: the workout's true end time. When the end was
+    ///   deferred (auto-complete while the phone was locked — see
+    ///   `WorkoutViewModel.endIPhoneSessionAndNotifyWatch`), this is backdated
+    ///   to the moment the workout actually finished so the Health record's
+    ///   duration stays accurate.
     /// - Parameter discard: when true (Demo Mode) the builder's workout and its
     ///   samples are discarded instead of saved, so a simulated ride leaves no
     ///   trace in Health. The session lifecycle is identical either way — only
     ///   the final commit differs.
-    func endWorkoutSession(discard: Bool = false) async throws -> HKWorkout? {
+    func endWorkoutSession(at endDate: Date = Date(), discard: Bool = false) async throws -> HKWorkout? {
         guard let workoutSession = workoutSession,
               let workoutBuilder = workoutBuilder else {
             return nil
         }
 
-        let endDate = Date()
         workoutSession.end()
 
         do {
