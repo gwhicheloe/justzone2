@@ -60,6 +60,11 @@ struct justzone2App: App {
                     .zIndex(1)
                 }
             }
+            // The whole design is dark-native — green on near-black. Rendered in
+            // light mode it washes out to pale green on white, which is how an
+            // App Review tester saw it on a default-appearance iPad. Lock the
+            // app to dark so it looks the same everywhere.
+            .preferredColorScheme(.dark)
             .fullScreenCover(isPresented: $showOnboarding) {
                 OnboardingView {
                     hasOnboarded = true
@@ -410,6 +415,10 @@ struct OnboardingView: View {
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
                         .multilineTextAlignment(.center)
+                        // Without this the line gets truncated to "…so the app ca…"
+                        // in iPhone-compatibility mode on iPad — the first thing an
+                        // App Review tester on an iPad sees.
+                        .fixedSize(horizontal: false, vertical: true)
                         .padding(.horizontal, 24)
                 }
 
@@ -556,6 +565,7 @@ class AppState: ObservableObject {
     /// Start or stop the simulated sensors that back Demo Mode. Everything else
     /// in the app treats them as ordinary connected devices.
     func applyDemoMode(_ on: Bool) {
+        setupViewModel.isDemoMode = on
         if on {
             kickrService.startSimulation()
             heartRateService.startSimulation()

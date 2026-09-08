@@ -26,6 +26,10 @@ class SetupViewModel: ObservableObject {
     @Published var stravaError: String?
     @Published var isHealthKitAuthorized = false
     @Published var healthKitError: String?
+    /// Mirrors the Demo Mode toggle. Kept as @Published (rather than reading
+    /// UserDefaults inline) so SwiftUI recomputes `canStartWorkout` the moment
+    /// the toggle flips. Driven by `AppState.applyDemoMode`.
+    @Published var isDemoMode = UserDefaults.standard.bool(forKey: "demoMode")
     @Published var zoneTargetingEnabled: Bool {
         didSet { UserDefaults.standard.set(zoneTargetingEnabled, forKey: "zoneTargetingEnabled") }
     }
@@ -268,23 +272,28 @@ class SetupViewModel: ObservableObject {
         useWatchHR && !isWatchReachable
     }
 
+    /// Demo Mode simulates the sensors, so a demo workout writes nothing to
+    /// Apple Health and needs no background session. Requiring HealthKit here
+    /// would make Demo Mode unusable on devices where the user declines (or
+    /// cannot grant) Health access — which is exactly what blocked App Review.
     var canStartWorkout: Bool {
-        kickrConnected && isHealthKitAuthorized && !watchHRWaitingForApp
+        kickrConnected && (isHealthKitAuthorized || isDemoMode) && !watchHRWaitingForApp
     }
 
     /// Apple Health is the only thing blocking the start — the trainer's connected
     /// and (for Watch HR) the app's open, but HealthKit isn't authorized.
-    /// HealthKit is required: it provides the background session that keeps the
-    /// workout recording when the screen locks. Drives a prominent, tappable
-    /// "Connect Apple Health" call-to-action so it's obvious what's needed.
+    /// HealthKit is required for *real* workouts: it provides the background
+    /// session that keeps recording when the screen locks. Drives a prominent,
+    /// tappable "Connect Apple Health" call-to-action so it's obvious what's
+    /// needed. Never shown in Demo Mode, which doesn't touch Health at all.
     var needsHealthConnection: Bool {
-        kickrConnected && !isHealthKitAuthorized && !watchHRWaitingForApp
+        kickrConnected && !isHealthKitAuthorized && !isDemoMode && !watchHRWaitingForApp
     }
 
     var startButtonHelpText: String {
         if !kickrConnected {
             return "Connect your smart trainer to start"
-        } else if !isHealthKitAuthorized {
+        } else if !isHealthKitAuthorized && !isDemoMode {
             return "Connect Apple Health to start"
         } else if watchHRWaitingForApp {
             return "Open JustZone2 on your Apple Watch to continue"

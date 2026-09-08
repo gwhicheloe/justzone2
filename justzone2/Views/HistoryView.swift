@@ -110,28 +110,50 @@ struct HistoryView: View {
     }
 
 
+    /// Shown when there's nothing to display yet. Strava is strictly optional —
+    /// it only *imports* past rides. Workouts recorded in the app land here on
+    /// their own, so this must never read as a sign-in wall: an App Review
+    /// tester followed the Strava button off to a third-party signup page,
+    /// hit an error there, and reported the app as inaccessible.
     private var connectPrompt: some View {
         VStack(spacing: 20) {
             Spacer()
             Image(systemName: "figure.indoor.cycle")
                 .font(.system(size: 64))
                 .foregroundColor(.green)
-            Text("Track your Zone 2 progress")
+            Text("No workouts yet")
                 .font(.headlineSmall)
-            Text("Connect Strava to view your workout history, trends, and fitness data.")
+            Text("Rides you record in JustZone2 appear here automatically — no account needed.")
                 .font(.labelMedium)
                 .foregroundColor(.secondary)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 32)
-            Button(action: {
-                Task { await viewModel.connectToStrava() }
-            }) {
-                Image("btn_strava_connect_orange")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(height: 52)
+
+            Text("Want to try it without a trainer? Turn on Demo Mode in Settings.")
+                .font(.labelSmall)
+                .foregroundColor(.secondary.opacity(0.8))
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 32)
+                .padding(.top, 2)
+
+            VStack(spacing: 8) {
+                Text("Already ride with Strava?")
+                    .font(.labelSmall)
+                    .foregroundColor(.secondary)
+                Button(action: {
+                    Task { await viewModel.connectToStrava() }
+                }) {
+                    Image("btn_strava_connect_orange")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 52)
+                }
+                Text("Optional — imports your past Zone 2 rides.")
+                    .font(.labelSmall)
+                    .foregroundColor(.secondary.opacity(0.8))
             }
-            .padding(.top, 4)
+            .padding(.top, 20)
+
             Spacer()
         }
         .frame(maxWidth: .infinity)

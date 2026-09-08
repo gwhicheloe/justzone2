@@ -404,6 +404,20 @@ struct SetupView: View {
             .onChange(of: viewModel.canStartWorkout) { _, _ in
                 if !showWorkout { viewModel.armWatchStartIfReady() }
             }
+            // `healthKitError` was previously set but never rendered, so a failed
+            // Health authorization looked like a dead button. Surface it.
+            .alert("Apple Health",
+                   isPresented: Binding(
+                       get: { viewModel.healthKitError != nil },
+                       set: { if !$0 { viewModel.healthKitError = nil } }
+                   ),
+                   actions: {
+                       Button("OK", role: .cancel) { viewModel.healthKitError = nil }
+                   },
+                   message: {
+                       Text((viewModel.healthKitError ?? "")
+                            + "\n\nYou can still explore the whole app with Demo Mode, in Settings.")
+                   })
             .onChange(of: viewModel.useWatchHR) { _, _ in
                 if !showWorkout { viewModel.armWatchStartIfReady() }
             }
