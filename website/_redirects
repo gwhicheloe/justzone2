@@ -5,3 +5,8 @@
 # /* /index.html 200
 
 # Privacy policy now has its own page at privacy.html
+
+# Retired 2026-09-06: short-form Zone 2 post was briefly live and sitemapped,
+# then folded into the long-form review. Keep the URL alive as a redirect.
+/blog/is-zone-2-overrated       /blog/zone-2-evidence-review  301
+/blog/is-zone-2-overrated.html  /blog/zone-2-evidence-review  301
