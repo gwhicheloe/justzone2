@@ -157,6 +157,7 @@ struct HistoryView: View {
             Spacer()
         }
         .frame(maxWidth: .infinity)
+        .readableWidth()
     }
 
     private var loadingView: some View {
@@ -246,6 +247,7 @@ struct HistoryView: View {
             }
         }
         .listStyle(.plain)
+        .readableWidth()
         .refreshable {
             viewModel.loadLocalWorkouts()
             await viewModel.refreshActivitiesFromPullDown()
@@ -729,10 +731,14 @@ struct CompactActivityRowContent: View {
 
     var body: some View {
         HStack(spacing: 8) {
-            // Date and time
+            // Date and time. `minWidth` rather than a fixed 105pt: the fixed
+            // width was sized for a phone, so on a wider layout the date wrapped
+            // inside its little box while the row had spare space beside it.
             Text(viewModel.formatDateWithTime(activity.startDate))
                 .font(.labelMedium)
-                .frame(width: 105, alignment: .leading)
+                .lineLimit(1)
+                .fixedSize(horizontal: true, vertical: false)
+                .frame(minWidth: 105, alignment: .leading)
 
             // Stats - duration, power, HR
             HStack(spacing: 6) {

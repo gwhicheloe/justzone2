@@ -34,6 +34,7 @@ struct HRZonesView: View {
 
                 footer
             }
+            .readableWidth()
             .navigationTitle("Heart Rate Zones")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -126,7 +127,10 @@ struct HRZonesView: View {
 
         // The coloured bars occupy a narrow column on the left; zone text sits
         // to the right of the column, vertically centred on each band.
-        let barWidth = min(160, size.width * 0.55)
+        // The flat 160pt cap left a wide gap between the bars and their labels on
+        // iPad. Scale with the available width, but keep the iPhone result at
+        // exactly 160 (a phone column is ~342pt, so 0.38 × that floors to 160).
+        let barWidth = min(max(160, size.width * 0.38), 260)
 
         return ZStack(alignment: .topLeading) {
             // Zone bars (top zone first so it draws downward).
@@ -191,38 +195,67 @@ struct HRZonesView: View {
     private func bandLabel(_ band: HRZoneBand, top: CGFloat, height: CGFloat, barWidth: CGFloat, totalWidth: CGFloat) -> some View {
         let isZ2 = band.zone == .z2
         let textWidth = totalWidth - barWidth - 16
-        return HStack(alignment: .center, spacing: 8) {
-            VStack(alignment: .leading, spacing: 1) {
-                Text(band.zone.label)
-                    .font(.subheadline.bold())
-                    .foregroundColor(band.zone.color)
-                    .lineLimit(1)
-                    .fixedSize(horizontal: true, vertical: false)
-                Text(band.zone.name)
-                    .font(.caption2)
-                    .foregroundColor(.secondary)
-                    .lineLimit(1)
-            }
-            Spacer(minLength: 4)
-            VStack(alignment: .trailing, spacing: 1) {
-                HStack(spacing: 4) {
-                    if isZ2 {
-                        Image(systemName: "star.fill")
-                            .font(.system(size: 9))
+
+        // The full two-line label needs roughly 34pt of vertical space. Below
+        // that it used to overflow its own frame and collide with the zone
+        // above — the cause of overlapping text in short windows (landscape
+        // iPad, Split View, Stage Manager), where the narrow top zones squeeze
+        // into 20-30pt. Step down to one line, then hide, and clip either way
+        // so nothing can ever bleed into a neighbour again.
+        let fitsTwoLines = height >= 34
+        let fitsOneLine = height >= 18
+
+        return Group {
+            if fitsTwoLines {
+                HStack(alignment: .center, spacing: 8) {
+                    VStack(alignment: .leading, spacing: 1) {
+                        Text(band.zone.label)
+                            .font(.subheadline.bold())
                             .foregroundColor(band.zone.color)
+                            .lineLimit(1)
+                            .fixedSize(horizontal: true, vertical: false)
+                        Text(band.zone.name)
+                            .font(.caption2)
+                            .foregroundColor(.secondary)
+                            .lineLimit(1)
                     }
-                    Text("\(band.lower)–\(band.upper)")
-                        .font(.caption.monospacedDigit().bold())
+                    Spacer(minLength: 4)
+                    VStack(alignment: .trailing, spacing: 1) {
+                        HStack(spacing: 4) {
+                            if isZ2 {
+                                Image(systemName: "star.fill")
+                                    .font(.system(size: 9))
+                                    .foregroundColor(band.zone.color)
+                            }
+                            Text("\(band.lower)–\(band.upper)")
+                                .font(.caption.monospacedDigit().bold())
+                        }
+                        Text("\(pctOfMax(band.lower))–\(pctOfMax(band.upper))% max")
+                            .font(.system(size: 9))
+                            .foregroundColor(.secondary)
+                    }
+                    .fixedSize(horizontal: true, vertical: false)
                 }
-                Text("\(pctOfMax(band.lower))–\(pctOfMax(band.upper))% max")
-                    .font(.system(size: 9))
-                    .foregroundColor(.secondary)
+            } else {
+                // Compact single line: zone name and range only.
+                HStack(spacing: 6) {
+                    Text(band.zone.label)
+                        .font(.caption.bold())
+                        .foregroundColor(band.zone.color)
+                        .lineLimit(1)
+                        .fixedSize(horizontal: true, vertical: false)
+                    Spacer(minLength: 4)
+                    Text("\(band.lower)–\(band.upper)")
+                        .font(.caption2.monospacedDigit().bold())
+                        .lineLimit(1)
+                        .fixedSize(horizontal: true, vertical: false)
+                }
             }
-            .fixedSize(horizontal: true, vertical: false)
         }
-        .frame(width: textWidth, height: max(height, 16), alignment: .leading)
+        .frame(width: textWidth, height: max(height, 14), alignment: .leading)
+        .clipped()
         .offset(x: barWidth + 16, y: top)
-        .opacity(height > 22 ? 1 : 0)
+        .opacity(fitsOneLine ? 1 : 0)
     }
 
     // MARK: - Handles

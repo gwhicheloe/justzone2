@@ -354,6 +354,7 @@ struct SetupView: View {
                 }
             }
             .padding()
+            .readableWidth()
             }
             .scrollBounceBehavior(.basedOnSize)
             .background(

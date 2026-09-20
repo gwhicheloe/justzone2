@@ -2,17 +2,54 @@ import SwiftUI
 import UIKit
 import AVFoundation
 
+// MARK: - iPad content width
+
+/// Every screen in this app is a single column designed around a ~390pt phone.
+/// Left alone on a 13" iPad that column stretches the full width: rows become
+/// enormously wide, labels drift to opposite edges, and the Zones screen gets a
+/// dead strip down the middle. Capping the width and centring it makes the
+/// layout read as deliberate instead of stretched.
+///
+/// `maxWidth` is a *maximum*, so on iPhone (≈390pt) this is a no-op.
+private struct ReadableWidth: ViewModifier {
+    var maxWidth: CGFloat
+    func body(content: Content) -> some View {
+        content
+            .frame(maxWidth: maxWidth)
+            .frame(maxWidth: .infinity)
+    }
+}
+
+extension View {
+    /// Cap this view's width on large screens and centre it. No effect on iPhone.
+    ///
+    /// 600pt is deliberately narrower than it first appears necessary: an 11"
+    /// iPad is only ~820pt wide in portrait, so a larger cap barely constrains
+    /// anything. This keeps a single column of cards at a comfortable reading
+    /// measure on every iPad size and in every orientation.
+    func readableWidth(_ maxWidth: CGFloat = 600) -> some View {
+        modifier(ReadableWidth(maxWidth: maxWidth))
+    }
+}
+
 // MARK: - App Delegate (orientation control)
 
 class AppDelegate: NSObject, UIApplicationDelegate {
     /// Screens set this to unlock landscape; all others remain portrait-only.
+    /// This is an **iPhone** affordance — see below.
     static var orientationLock: UIInterfaceOrientationMask = .portrait
 
     func application(
         _ application: UIApplication,
         supportedInterfaceOrientationsFor window: UIWindow?
     ) -> UIInterfaceOrientationMask {
-        AppDelegate.orientationLock
+        // iPad rotates freely, always. Holding an iPad app to portrait means the
+        // system can still hand it a landscape-shaped window (rotation, Split
+        // View, Stage Manager) while the app lays out tall portrait content into
+        // it — which squashes rows together and overlaps text. Nobody props an
+        // iPad on a desk in portrait, either.
+        if UIDevice.current.userInterfaceIdiom == .pad { return .all }
+        return AppDelegate.orientationLock
     }
 }
 
@@ -486,6 +523,10 @@ struct OnboardingView: View {
                     .foregroundStyle(.tertiary)
                     .padding(.bottom, 12)
             }
+            // Onboarding is a fullScreenCover, so it sits outside the tab views
+            // and never picked up their width cap — leaving the age picker and
+            // zone preview stretched across the whole iPad.
+            .readableWidth()
         }
         .environment(\.colorScheme, .dark)
     }

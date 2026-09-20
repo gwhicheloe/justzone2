@@ -17,6 +17,7 @@ struct SettingsView: View {
                     aboutCard
                 }
                 .padding()
+                .readableWidth()
             }
             .scrollBounceBehavior(.basedOnSize)
             .background(tintedBackground)

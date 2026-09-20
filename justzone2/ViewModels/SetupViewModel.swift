@@ -159,7 +159,14 @@ class SetupViewModel: ObservableObject {
             .assign(to: &$isHealthKitAuthorized)
 
         // Forward Watch availability — show option when a Watch is paired
+        // An Apple Watch pairs with an iPhone, never an iPad — WCSession isn't
+        // even supported there, so both Watch HR modes are impossible. In
+        // practice `isWatchPaired` therefore stays false on iPad, but gate it
+        // explicitly so the Watch UI can never appear on a device where tapping
+        // it could only fail.
+        let hidesWatchFeatures = UIDevice.current.userInterfaceIdiom == .pad
         watchConnectivityService.$isWatchPaired
+            .map { hidesWatchFeatures ? false : $0 }
             .assign(to: &$isWatchAvailable)
 
         watchConnectivityService.$isWatchReachable
