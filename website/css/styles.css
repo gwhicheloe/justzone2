@@ -640,3 +640,9 @@ html,body{overflow-x:hidden;width:100%}
 .faq-item[open] summary::after{transform:rotate(45deg)}
 .faq-item p{padding:0 0 20px;color:var(--t1);line-height:1.7;font-size:.98rem;max-width:680px}
 .faq-item a{color:var(--g);text-decoration:none;border-bottom:1px solid var(--glass-g-border)}
+
+/* Official App Store badge — replaced the pre-launch "Get notified" pill at launch */
+.btn-appstore{display:inline-block;line-height:0;transition:transform .15s,filter .2s}
+.btn-appstore:hover{transform:translateY(-2px);filter:brightness(1.12)}
+.btn-appstore img{display:block;height:54px;width:auto}
+@media(max-width:600px){.btn-appstore img{height:48px}}
