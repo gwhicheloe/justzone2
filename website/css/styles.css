@@ -62,8 +62,6 @@ body>*{position:relative;z-index:1}
 .nav-links{display:flex;gap:24px}
 .nav-links a{font-size:.82rem;font-weight:600;color:var(--t2);transition:color .2s}
 .nav-links a:hover{color:var(--t0)}
-.nav-cta{display:inline-flex;align-items:center;gap:6px;background:var(--g);color:#000;font-weight:800;font-size:.82rem;padding:8px 16px;border-radius:var(--r-pill);transition:background .2s,transform .15s,box-shadow .2s;box-shadow:0 0 0 0 var(--g-glow)}
-.nav-cta:hover{background:var(--g-dark);transform:translateY(-1px);box-shadow:0 0 24px var(--g-glow)}
 .nav-toggle{display:none;width:36px;height:36px;position:relative;margin-right:8px;padding:0;background:transparent;border:none;cursor:pointer}
 .nav-toggle span{position:absolute;left:8px;right:8px;height:1.5px;background:var(--t0);border-radius:2px;transition:transform .25s,opacity .2s,top .25s}
 .nav-toggle span:nth-child(1){top:12px}
@@ -375,18 +373,31 @@ footer{
 .footer-links a:hover{color:var(--t1)}
 .footer-copy{font-size:.75rem;color:var(--t3);text-align:center;padding-top:20px;border-top:1px solid var(--ln)}
 
-/* ── Nav CTA enhanced glass ── */
+/* ── Nav CTA ──
+   White pill, matching the official App Store badge in the hero so the two
+   CTAs read as one system. No gradient, no inset gloss, no coloured glow —
+   that combination is what made the old green button look dated. */
 .nav-cta{
-  display:inline-flex;align-items:center;gap:6px;
-  background:linear-gradient(135deg,#34C759,#2BA84A);
-  color:#000;font-weight:800;font-size:.82rem;
-  padding:8px 16px;
+  display:inline-flex;align-items:center;gap:7px;
+  background:#fff;
+  color:#05050D;
+  font-weight:800;font-size:.8rem;letter-spacing:-.01em;
+  padding:8px 17px;
   border-radius:var(--r-pill);
-  transition:all .2s;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.4), inset 0 -1px 0 rgba(0,0,0,.2), 0 4px 14px rgba(52,199,89,.3);
-  border:1px solid rgba(52,199,89,.6);
+  border:none;
+  box-shadow:0 1px 2px rgba(0,0,0,.3);
+  transition:background .25s,transform .15s,box-shadow .25s;
 }
-.nav-cta:hover{transform:translateY(-1px);box-shadow:inset 0 1px 0 rgba(255,255,255,.4), inset 0 -1px 0 rgba(0,0,0,.2), 0 6px 24px rgba(52,199,89,.5);filter:brightness(1.08)}
+.nav-cta:hover{
+  background:rgba(255,255,255,.88);
+  transform:translateY(-1px);
+  box-shadow:0 4px 16px rgba(0,0,0,.4);
+}
+/* the @media shrink further up the file is defeated by the cascade (this block
+   comes later at equal specificity), so restate it here where it can win */
+@media(max-width:680px){
+  .nav-cta{padding:7px 13px;font-size:.78rem}
+}
 
 /* ── Feat pill glass ── */
 .feat-pill{
@@ -554,8 +565,6 @@ footer{
 .btn-notify svg{flex-shrink:0}
 .soon-note{margin-top:14px;font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--t2)}
 .soon-note .dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--g);margin-right:7px;vertical-align:middle}
-.nav-cta.soon{background:transparent;color:var(--g);border:1px solid var(--glass-g-border);box-shadow:none}
-.nav-cta.soon:hover{background:var(--glass-g-bg);box-shadow:0 0 18px var(--g-glow);transform:translateY(-1px)}
 
 
 /* ── Mobile hero hardening v2 (kill horizontal overflow + dead space) ── */
