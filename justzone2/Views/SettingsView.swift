@@ -5,10 +5,18 @@ struct SettingsView: View {
 
     private static let stravaOrange = Color(red: 0.99, green: 0.32, blue: 0)
 
+    // Zone 2 target. The zone bounds are written by the Zones tab; reading them
+    // through @AppStorage keeps the bpm readout live if the zones change.
+    @AppStorage(Zone2Target.key) private var targetFraction = Zone2Target.defaultFraction
+    @AppStorage("zone2Min") private var zone2Min = 120
+    @AppStorage("zone2Max") private var zone2Max = 140
+    @State private var showTargetInfo = false
+
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 14) {
+                    zone2TargetCard
                     stravaCard
                     diagnosticsSection
                     dataCard
@@ -21,6 +29,7 @@ struct SettingsView: View {
             }
             .scrollBounceBehavior(.basedOnSize)
             .background(tintedBackground)
+            .sheet(isPresented: $showTargetInfo) { zone2TargetInfo }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .principal) {
@@ -36,6 +45,106 @@ struct SettingsView: View {
     }
 
     // MARK: - Cards
+
+    private var targetBPM: Int {
+        Int(Zone2Target.bpm(zoneMin: zone2Min, zoneMax: zone2Max, fraction: targetFraction).rounded())
+    }
+
+    private var zone2TargetCard: some View {
+        SettingsCard {
+            VStack(alignment: .leading, spacing: 10) {
+                HStack(spacing: 12) {
+                    iconChip("target", tint: .green)
+                    VStack(alignment: .leading, spacing: 2) {
+                        HStack(spacing: 4) {
+                            Text("Zone 2 Target")
+                                .font(.subheadline.weight(.semibold))
+                            Button { showTargetInfo = true } label: {
+                                Image(systemName: "info.circle")
+                                    .font(.caption)
+                                    .foregroundStyle(.tertiary)
+                                    .padding(6)
+                                    .contentShape(Rectangle())
+                            }
+                            .buttonStyle(.plain)
+                            .accessibilityLabel("About Zone 2 Target")
+                        }
+                        Text("Where Zone Targeting holds your heart rate")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+                    Spacer(minLength: 8)
+                    VStack(alignment: .trailing, spacing: 0) {
+                        Text("\(targetBPM)")
+                            .font(.title2.weight(.bold).monospacedDigit())
+                            .foregroundStyle(.green)
+                            .contentTransition(.numericText())
+                        Text("BPM")
+                            .font(.system(size: 9, weight: .semibold))
+                            .tracking(0.8)
+                            .foregroundStyle(.secondary)
+                    }
+                }
+
+                Slider(value: $targetFraction, in: Zone2Target.range, step: 0.05) {
+                    Text("Zone 2 target")
+                } minimumValueLabel: {
+                    Text("Lower").font(.caption2).foregroundStyle(.secondary)
+                } maximumValueLabel: {
+                    Text("Upper").font(.caption2).foregroundStyle(.secondary)
+                }
+                .tint(.green)
+                .accessibilityValue("\(targetBPM) beats per minute")
+                .sensoryFeedback(.selection, trigger: targetFraction)
+
+                HStack {
+                    Text("Zone 2 is \(zone2Min)–\(zone2Max) bpm")
+                    Spacer()
+                    if abs(targetFraction - Zone2Target.defaultFraction) < 0.001 {
+                        Text("Default")
+                    } else {
+                        Button("Reset to default") {
+                            withAnimation { targetFraction = Zone2Target.defaultFraction }
+                        }
+                        .foregroundStyle(.green)
+                    }
+                }
+                .font(.caption)
+                .foregroundStyle(.secondary)
+            }
+        }
+    }
+
+    private var zone2TargetInfo: some View {
+        NavigationStack {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 16) {
+                    Text("Zone 2 is a range, not a single number. Zone Targeting holds your heart rate at one point inside it — this setting chooses which.")
+
+                    VStack(alignment: .leading, spacing: 10) {
+                        Label("Upper (the default) keeps you in the top part of Zone 2 — closer to your aerobic threshold, which is where steady Zone 2 rides are usually meant to sit", systemImage: "arrow.up.to.line")
+                        Label("It stops a few beats short of the top on purpose, so normal wobble and heart-rate drift over a long ride don't tip you into Zone 3", systemImage: "arrow.up.and.down")
+                        Label("Lower makes the ride easier — useful for recovery days, or when you're tired", systemImage: "arrow.down.to.line")
+                        Label("Your zones themselves don't change. The chart, the In Zone 2 indicator and your Strava zones all still use the full Zone 2 range", systemImage: "heart.text.square")
+                    }
+                    .font(.subheadline)
+
+                    Text("The target applies from your next ride, and only when Zone Targeting is switched on. On the workout screen it shows as a white tick on the heart-rate bar.")
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                }
+                .padding()
+            }
+            .navigationTitle("Zone 2 Target")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Done") { showTargetInfo = false }
+                }
+            }
+        }
+    }
 
     private var stravaCard: some View {
         SettingsCard {

@@ -93,3 +93,38 @@ enum HRZoneBoundaries {
         return HRZone(rawValue: idx + 1)
     }
 }
+
+/// Where inside Zone 2 the zone-targeting controller aims.
+///
+/// Zone 2 is a range, and a wide one by default (Strava's 59–78% of max). The
+/// controller used to hold the exact midpoint, which on default zones sits low
+/// in the zone — riders who wanted the upper end had to narrow Zone 2 itself to
+/// drag the midpoint up. The target is now a separate setting: a fraction of the
+/// way from the bottom of Zone 2 (0) to the top (1). The zone boundaries are
+/// untouched, so charts, the "In Zone 2" status and Strava zones don't change.
+enum Zone2Target {
+    static let key = "zone2TargetFraction"
+
+    /// Upper part of the zone by default, leaving a few bpm of headroom so
+    /// normal wobble and cardiac drift don't tip the rider into Zone 3.
+    static let defaultFraction = 0.75
+
+    /// Stops short of either edge: aiming exactly at the zone boundary would put
+    /// the rider outside Zone 2 half the time.
+    static let range: ClosedRange<Double> = 0.2...0.9
+
+    /// The stored fraction, or the default if the user has never set one.
+    static var fraction: Double {
+        let stored = UserDefaults.standard.object(forKey: key) as? Double
+        return clamp(stored ?? defaultFraction)
+    }
+
+    static func clamp(_ f: Double) -> Double {
+        min(max(f, range.lowerBound), range.upperBound)
+    }
+
+    /// Target heart rate for a Zone 2 of `min`–`max` bpm.
+    static func bpm(zoneMin: Int, zoneMax: Int, fraction: Double = Zone2Target.fraction) -> Double {
+        Double(zoneMin) + clamp(fraction) * Double(zoneMax - zoneMin)
+    }
+}

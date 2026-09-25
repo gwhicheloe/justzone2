@@ -445,10 +445,10 @@ struct SetupView: View {
                 NavigationStack {
                     ScrollView {
                         VStack(alignment: .leading, spacing: 16) {
-                            Text("Zone Targeting uses a PID controller to automatically adjust your trainer's power and keep your heart rate at the midpoint of your Zone 2 range.")
+                            Text("Zone Targeting uses a PID controller to automatically adjust your trainer's power and hold your heart rate at a target inside your Zone 2 range.")
 
                             VStack(alignment: .leading, spacing: 8) {
-                                Label("Targets the midpoint of your Zone 2 range using a PID controller", systemImage: "heart.text.square.fill")
+                                Label("Aims for the upper part of Zone 2 by default — you can move the target in Settings", systemImage: "heart.text.square.fill")
                                 Label("Uses a 45-second rolling average of your heart rate to avoid reacting to brief spikes", systemImage: "heart.fill")
                                 Label("Adjusts power smoothly and continuously, up to ±30W from your target", systemImage: "plusminus")
                                 Label("Ramps up slowly (5W/90s) and backs off faster (5W/45s) for safety", systemImage: "arrow.up.arrow.down")
@@ -456,7 +456,7 @@ struct SetupView: View {
                             }
                             .font(.subheadline)
 
-                            Text("Set your Zone 2 heart rate range in Settings.")
+                            Text("Set your zones on the Zones tab, and where you ride within Zone 2 in Settings.")
                                 .font(.subheadline)
                                 .foregroundColor(.secondary)
                         }

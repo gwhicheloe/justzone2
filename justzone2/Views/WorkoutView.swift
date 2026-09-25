@@ -451,6 +451,13 @@ struct WorkoutView: View {
                 Capsule().fill(Color.green.opacity(0.55))
                     .frame(width: w * (zoneFrac(zoneMax) - zoneFrac(zoneMin)))
                     .offset(x: w * zoneFrac(zoneMin))
+                // Where zone targeting is steering the rider within Zone 2.
+                if viewModel.zoneTargetingEnabled {
+                    Capsule().fill(Color.white.opacity(0.85))
+                        .frame(width: 2, height: 22)
+                        .offset(x: w * zoneFrac(viewModel.zone2TargetValue) - 1, y: 0)
+                        .frame(height: geo.size.height)
+                }
                 if viewModel.currentHeartRate > 0 {
                     Circle().fill(zoneColor)
                         .frame(width: 16, height: 16)

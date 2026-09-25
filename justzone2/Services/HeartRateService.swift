@@ -128,8 +128,11 @@ class HeartRateService: NSObject, ObservableObject {
     }
 
     private func simulationTick() {
-        let mid = Double(zone2Bounds.min + zone2Bounds.max) / 2.0
-        simHeartRate += (mid - simHeartRate) * 0.05 + Double.random(in: -0.8...0.8)
+        // Settle on the zone-targeting target, not the Zone 2 midpoint: the
+        // simulated HR ignores power, so if it rested below the target the
+        // controller would ramp power to its limit for the whole demo ride.
+        let target = Zone2Target.bpm(zoneMin: zone2Bounds.min, zoneMax: zone2Bounds.max)
+        simHeartRate += (target - simHeartRate) * 0.05 + Double.random(in: -0.8...0.8)
         currentHeartRate = max(50, Int(simHeartRate.rounded()))
     }
 

@@ -81,6 +81,10 @@ class WorkoutViewModel: ObservableObject {
     /// Strava description). The private versions drive the PID.
     var zone2MinValue: Int { zone2Min }
     var zone2MaxValue: Int { zone2Max }
+    /// Heart rate the PID holds — a point inside Zone 2 chosen in Settings
+    /// (see `Zone2Target`), fixed for the ride when the workout is created.
+    private let zone2Target: Double
+    var zone2TargetValue: Int { Int(zone2Target.rounded()) }
     private let maxDriftFromTarget = 30
     private let warmUpGracePeriod: TimeInterval = 180
 
@@ -177,6 +181,7 @@ class WorkoutViewModel: ObservableObject {
         self.zone2Min = z2Min > 0 ? z2Min : 120
         let z2Max = UserDefaults.standard.integer(forKey: "zone2Max")
         self.zone2Max = z2Max > 0 ? z2Max : 140
+        self.zone2Target = Zone2Target.bpm(zoneMin: self.zone2Min, zoneMax: self.zone2Max)
 
         setupBindings()
     }
@@ -972,7 +977,7 @@ class WorkoutViewModel: ObservableObject {
         guard hrBuffer.count >= hrBufferSize else { return }
 
         let smoothedHR = Double(hrBuffer.reduce(0, +)) / Double(hrBuffer.count)
-        let setpoint = Double(zone2Min + zone2Max) / 2.0
+        let setpoint = zone2Target
 
         // error > 0  → HR below zone → need more power
         // error < 0  → HR above zone → need less power
