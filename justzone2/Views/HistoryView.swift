@@ -729,6 +729,14 @@ struct CompactActivityRowContent: View {
     let activity: StravaActivity
     let viewModel: HistoryViewModel
 
+    // Column widths scale with Dynamic Type, like the text in them. They were
+    // fixed point widths sized for the default text size, so with a larger
+    // text setting (seen on an iPad mini) the numbers outgrew their boxes —
+    // durations truncated and heart rates wrapped onto two lines. At the
+    // default size these resolve to exactly the old widths.
+    @ScaledMetric(relativeTo: .body) private var durationWidth: CGFloat = 60
+    @ScaledMetric(relativeTo: .body) private var statWidth: CGFloat = 40
+
     var body: some View {
         HStack(spacing: 8) {
             // Date and time. `minWidth` rather than a fixed 105pt: the fixed
@@ -750,7 +758,7 @@ struct CompactActivityRowContent: View {
                         .font(.labelMedium)
                         .lineLimit(1)
                 }
-                .frame(width: 60, alignment: .leading)
+                .frame(width: durationWidth, alignment: .leading)
 
                 HStack(spacing: 2) {
                     Image(systemName: "bolt.fill")
@@ -758,8 +766,9 @@ struct CompactActivityRowContent: View {
                         .foregroundColor(.blue)
                     Text(activity.averageWatts.map { "\(Int($0))" } ?? "-")
                         .font(.labelMedium)
+                        .lineLimit(1)
                 }
-                .frame(width: 40, alignment: .leading)
+                .frame(width: statWidth, alignment: .leading)
 
                 HStack(spacing: 2) {
                     Image(systemName: "heart.fill")
@@ -767,8 +776,9 @@ struct CompactActivityRowContent: View {
                         .foregroundColor(.red)
                     Text(activity.averageHeartrate.map { "\(Int($0))" } ?? "-")
                         .font(.labelMedium)
+                        .lineLimit(1)
                 }
-                .frame(width: 40, alignment: .leading)
+                .frame(width: statWidth, alignment: .leading)
             }
 
             Spacer()
@@ -780,6 +790,15 @@ struct CompactActivityRowContent: View {
 struct LocalWorkoutRow: View {
     let local: LocalWorkout
     let viewModel: HistoryViewModel
+
+    // Column widths scale with Dynamic Type, like the text in them. They were
+    // fixed point widths sized for the default text size, so with a larger
+    // text setting (seen on an iPad mini) the numbers outgrew their boxes —
+    // durations truncated and heart rates wrapped onto two lines. At the
+    // default size these resolve to exactly the old widths.
+    @ScaledMetric(relativeTo: .body) private var durationWidth: CGFloat = 60
+    @ScaledMetric(relativeTo: .body) private var statWidth: CGFloat = 40
+    @ScaledMetric(relativeTo: .body) private var dateWidth: CGFloat = 130
 
     private var statusLabel: String {
         switch local.status {
@@ -811,11 +830,12 @@ struct LocalWorkoutRow: View {
             VStack(alignment: .leading, spacing: 2) {
                 Text(viewModel.formatDateWithTime(local.workout.startDate))
                     .font(.labelMedium)
+                    .lineLimit(1)
                 Text(statusLabel)
                     .font(.tiny)
                     .foregroundColor(statusColor)
             }
-            .frame(width: 130, alignment: .leading)
+            .frame(width: dateWidth, alignment: .leading)
 
             HStack(spacing: 6) {
                 HStack(spacing: 2) {
@@ -826,7 +846,7 @@ struct LocalWorkoutRow: View {
                         .font(.labelMedium)
                         .lineLimit(1)
                 }
-                .frame(width: 60, alignment: .leading)
+                .frame(width: durationWidth, alignment: .leading)
 
                 HStack(spacing: 2) {
                     Image(systemName: "bolt.fill")
@@ -834,8 +854,9 @@ struct LocalWorkoutRow: View {
                         .foregroundColor(.blue)
                     Text(local.workout.averagePower.map { "\($0)" } ?? "-")
                         .font(.labelMedium)
+                        .lineLimit(1)
                 }
-                .frame(width: 40, alignment: .leading)
+                .frame(width: statWidth, alignment: .leading)
 
                 HStack(spacing: 2) {
                     Image(systemName: "heart.fill")
@@ -843,8 +864,9 @@ struct LocalWorkoutRow: View {
                         .foregroundColor(.red)
                     Text(local.workout.averageHeartRate.map { "\($0)" } ?? "-")
                         .font(.labelMedium)
+                        .lineLimit(1)
                 }
-                .frame(width: 40, alignment: .leading)
+                .frame(width: statWidth, alignment: .leading)
             }
 
             Spacer()

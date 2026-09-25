@@ -118,8 +118,8 @@ struct HRZonesView: View {
         // HR, so the very wide Zone 1 doesn't dominate; values below the floor
         // (Zone 1's lower edge, a low live HR) pin to the bottom.
         let h = size.height
-        let floor = viewModel.displayFloor
-        let range = CGFloat(viewModel.displayRange)
+        let floor = viewModel.displayFloor(forHeight: h)
+        let range = CGFloat(viewModel.displayRange(forHeight: h))
         func y(for bpm: Int) -> CGFloat {
             let frac = CGFloat(max(bpm, floor) - floor) / range
             return h - frac * h
@@ -237,18 +237,12 @@ struct HRZonesView: View {
                     .fixedSize(horizontal: true, vertical: false)
                 }
             } else {
-                // Compact single line: zone name and range only.
-                HStack(spacing: 6) {
-                    Text(band.zone.label)
-                        .font(.caption.bold())
-                        .foregroundColor(band.zone.color)
-                        .lineLimit(1)
-                        .fixedSize(horizontal: true, vertical: false)
-                    Spacer(minLength: 4)
-                    Text("\(band.lower)–\(band.upper)")
-                        .font(.caption2.monospacedDigit().bold())
-                        .lineLimit(1)
-                        .fixedSize(horizontal: true, vertical: false)
+                // Compact single line. A short band has no room for the subtitle
+                // underneath, but usually has room beside it — so keep it inline
+                // ("Zone 5  VO₂ Max") and only drop it when the row is too narrow.
+                ViewThatFits(in: .horizontal) {
+                    compactLabel(band, showName: true)
+                    compactLabel(band, showName: false)
                 }
             }
         }
@@ -256,6 +250,28 @@ struct HRZonesView: View {
         .clipped()
         .offset(x: barWidth + 16, y: top)
         .opacity(fitsOneLine ? 1 : 0)
+    }
+
+    private func compactLabel(_ band: HRZoneBand, showName: Bool) -> some View {
+        HStack(spacing: 6) {
+            Text(band.zone.label)
+                .font(.caption.bold())
+                .foregroundColor(band.zone.color)
+                .lineLimit(1)
+                .fixedSize(horizontal: true, vertical: false)
+            if showName {
+                Text(band.zone.name)
+                    .font(.caption2)
+                    .foregroundColor(.secondary)
+                    .lineLimit(1)
+                    .fixedSize(horizontal: true, vertical: false)
+            }
+            Spacer(minLength: 4)
+            Text("\(band.lower)–\(band.upper)")
+                .font(.caption2.monospacedDigit().bold())
+                .lineLimit(1)
+                .fixedSize(horizontal: true, vertical: false)
+        }
     }
 
     // MARK: - Handles
@@ -303,7 +319,7 @@ struct HRZonesView: View {
                 if dragStartBpm == nil { dragStartBpm = currentBpm }
                 // translation in points → bpm delta (computed against full range
                 // and the stack height held in lastStackHeight).
-                let bpmPerPoint = CGFloat(viewModel.displayRange) / max(1, lastStackHeight)
+                let bpmPerPoint = CGFloat(viewModel.displayRange(forHeight: lastStackHeight)) / max(1, lastStackHeight)
                 let delta = Int((-value.translation.height * bpmPerPoint).rounded())
                 let newBpm = start + delta
                 if newBpm != currentBpm {

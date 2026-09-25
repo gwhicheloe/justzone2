@@ -90,8 +90,30 @@ final class HRZonesViewModel: ObservableObject {
         return max(restingHR, min(max(restingHR, floorAnchor), z1z2 - 5))
     }
 
-    /// bpm span of the visible axis (display floor → max HR).
-    var displayRange: Int { max(1, maxHR - displayFloor) }
+    /// Smallest on-screen height Zone 1 may be squeezed to — enough for its full
+    /// two-line label.
+    static let minZone1Height: CGFloat = 36
+
+    /// `displayFloor` for a stack `height` points tall. The preferred floor only
+    /// promises Zone 1 five bpm, which is fine in a tall stack but in a short one
+    /// (landscape iPad, Split View) left Zone 1 a thin sliver with its label
+    /// hidden. Lower the floor just enough to give Zone 1 `minZone1Height`, and
+    /// no further — where Zone 1 already has room this returns `displayFloor`.
+    func displayFloor(forHeight height: CGFloat) -> Int {
+        let preferred = displayFloor
+        guard height > 0, let z1z2 = dividers.first else { return preferred }
+        // Zone 1's share of the axis is (z1z2 − floor) / (maxHR − floor).
+        // Solve for the floor that makes that share equal k.
+        let k = Double(min(Self.minZone1Height / height, 0.5))
+        let needed = (Double(z1z2) - k * Double(maxHR)) / (1 - k)
+        return max(restingHR, min(preferred, Int(needed.rounded(.down))))
+    }
+
+    /// bpm span of the visible axis (display floor → max HR) for a stack
+    /// `height` points tall.
+    func displayRange(forHeight height: CGFloat) -> Int {
+        max(1, maxHR - displayFloor(forHeight: height))
+    }
 
     // MARK: - Edit mode
 
