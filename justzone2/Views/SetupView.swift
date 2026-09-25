@@ -1,4 +1,5 @@
 import SwiftUI
+import StoreKit
 
 struct SetupView: View {
     @ObservedObject var viewModel: SetupViewModel
@@ -8,6 +9,7 @@ struct SetupView: View {
     @State private var showWarmUpInfo = false
     @State private var pendingRecovery: LocalWorkout?
     @AppStorage("demoMode") private var demoMode = false
+    @Environment(\.requestReview) private var requestReview
 
     // Limit HR monitors to avoid crowded gyms filling the screen
     private var limitedHRMonitors: [DeviceInfo] {
@@ -408,6 +410,11 @@ struct SetupView: View {
                     // re-arm the Watch for the next ride.
                     viewModel.clearWatchStartedFlag()
                     viewModel.armWatchStartIfReady()
+                    // Back on Setup after a ride: the calm moment to ask for a
+                    // rating, once enough real rides are done (see ReviewPrompt).
+                    if ReviewPrompt.consumeShouldAsk() {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { requestReview() }
+                    }
                 }
             }
             // Mode A: when everything's ready, arm the already-open Watch app so

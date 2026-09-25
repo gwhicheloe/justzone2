@@ -86,6 +86,8 @@ struct WorkoutView: View {
         }
         .onChange(of: viewModel.state) { _, newState in
             if newState == .completed {
+                ReviewPrompt.recordCompletedRide(duration: viewModel.workout.actualDuration,
+                                                 isDemo: viewModel.isDemo)
                 // Force portrait so SummaryView (designed for portrait) renders
                 // correctly even if the user was in landscape when auto-complete
                 // fired.
