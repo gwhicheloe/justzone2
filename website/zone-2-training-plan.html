@@ -88,7 +88,8 @@
   @media(max-width:600px){.pl-stats{grid-template-columns:repeat(2,1fr)}}
 
   .pl-split{margin-top:22px}
-  .pl-split-title{font-size:.85rem;font-weight:800;color:var(--t0);margin-bottom:10px}
+  .pl-split-title{font-size:.85rem;font-weight:800;color:var(--t0)}
+  .pl-split-sub{font-size:.8rem;color:var(--t1);margin:3px 0 10px;line-height:1.5}
   .pl-bar{position:relative;display:flex;gap:2px;height:22px;border-radius:4px;overflow:visible}
   .pl-seg{height:100%;min-width:3px;transition:flex-grow .35s ease;cursor:default;position:relative}
   .pl-seg:first-child{border-radius:4px 0 0 4px}
@@ -133,6 +134,7 @@
     box-shadow:inset 0 1px 0 rgba(255,255,255,.25)}
   .pl-dur{font-size:1.5rem;font-weight:900;letter-spacing:-.03em;color:var(--t0);margin-top:10px;white-space:nowrap}
   .pl-dur small{font-size:.62em;font-weight:800;color:var(--t1);margin-left:1px}
+  .pl-work{font-size:.78rem;font-weight:700;color:var(--t1);margin-top:2px;white-space:nowrap}
   .pl-spec{font-size:.8rem;line-height:1.45;color:var(--t0);font-weight:700;margin-top:8px}
   .pl-spec span{font-weight:600;color:var(--t1)}
   .pl-pop{position:absolute;left:8px;right:8px;top:42px;background:#1c1c28;border:1px solid var(--glass-border);
@@ -143,6 +145,7 @@
     .pl-dhead{grid-row:1/span 3;flex-direction:column;align-items:flex-start;gap:10px;padding-top:2px}
     .pl-type,.pl-type-row{grid-column:2;margin-top:0}
     .pl-zone,.pl-spec{grid-column:2}
+    .pl-work{grid-column:3;grid-row:3;text-align:right;white-space:normal;max-width:78px;justify-self:end;line-height:1.3}
     .pl-dur{grid-column:3;grid-row:1/span 2;margin-top:0;font-size:1.3rem;text-align:right}
     .pl-pop{left:120px;right:10px;top:10px}
   }
@@ -221,7 +224,8 @@
       </div>
 
       <div class="pl-split">
-        <div class="pl-split-title">Where the time goes</div>
+        <div class="pl-split-title">Time at each intensity</div>
+        <p class="pl-split-sub">Only the intervals themselves count as hard. The warm-ups, recoveries and cool-downs in the hard sessions are easy riding, so they count as easy.</p>
         <div class="pl-bar" id="pl-bar" role="img" aria-label=""></div>
         <ul class="pl-legend" id="pl-legend"></ul>
       </div>
@@ -361,8 +365,8 @@
     // Time split: one bar, three segments, legend with values.
     var parts = [
       { key: "easy", label: "Zone 2 & easy", mins: m.easy, color: "var(--pl-z2)" },
-      { key: "thr",  label: "Threshold",     mins: m.threshold, color: "var(--pl-thr)" },
-      { key: "vo2",  label: "VO₂max",        mins: m.vo2, color: "var(--pl-vo2)" }
+      { key: "thr",  label: "Threshold intervals", mins: m.threshold, color: "var(--pl-thr)" },
+      { key: "vo2",  label: "VO₂max intervals", mins: m.vo2, color: "var(--pl-vo2)" }
     ];
     var bar = document.getElementById("pl-bar");
     bar.innerHTML = parts.map(function (p) {
@@ -399,6 +403,7 @@
           'aria-label="How to ride ' + d.day + '">i</button></div>' +
         title +
         '<div class="pl-dur">' + (d.hours ? dur(d.hours) : '—') + '</div>' +
+        (d.work ? '<div class="pl-work">' + d.work + ' min of intervals</div>' : '') +
         spec +
         '<div class="pl-pop" id="' + id + '" role="note" hidden>' + s.tip + '</div>' +
       '</article>';
