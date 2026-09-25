@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Free Zone 2 training plan builder for cyclists. Choose how many hours a week you can ride and get a week built on two hard sessions, a long ride and as much Zone 2 as your time allows.">
+<meta name="theme-color" content="#34C759">
+<title>Zone 2 Training Plan Builder for Cyclists — Justzone2</title>
+<link rel="canonical" href="https://www.justzone2.com/zone-2-training-plan">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Justzone2">
+<meta property="og:title" content="Build your Zone 2 training week">
+<meta property="og:description" content="Pick your hours. Get a week built on two hard sessions, a long ride, and as much Zone 2 as your time allows.">
+<meta property="og:url" content="https://www.justzone2.com/zone-2-training-plan">
+<meta property="og:image" content="https://www.justzone2.com/images/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Build your Zone 2 training week">
+<meta name="twitter:description" content="Pick your hours. Get a week built on two hard sessions and as much Zone 2 as your time allows.">
+<meta name="twitter:image" content="https://www.justzone2.com/images/og-image.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css?v=8">
+<link rel="icon" type="image/svg+xml" href="images/app-icon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="images/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="images/icons/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="images/icons/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "How many hours of Zone 2 should I do a week?",
+      "acceptedAnswer": { "@type": "Answer", "text": "As many as your week allows after two hard sessions. Zone 2 is what grows with training time: at four hours a week it fills the gaps between hard sessions, at ten or more it is most of your riding because a big week has to be mostly easy to be absorbable." } },
+    { "@type": "Question", "name": "Should I still do intervals if I only have a few hours a week?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. With little time, the two hard sessions give you the most per hour, so they come first. Zone 2 fills the rest and helps you recover between them." } },
+    { "@type": "Question", "name": "Why only two hard sessions a week?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Two or three hard sessions a week, with everything else genuinely easy, is the pattern most well-trained endurance athletes settle on. Two keeps the hard days hard while leaving room to recover." } },
+    { "@type": "Question", "name": "Do I need a long ride at the weekend?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Only if you are preparing for long events such as sportives or gran fondos. A long easy ride builds durability — the ability to keep producing power late in a long ride. If your goal is general fitness, you can spread the same hours across shorter Zone 2 rides." } }
+  ]
+}
+</script>
+
+<style>
+  /* ── Planner (scoped to this page) ────────────────────────────────────────
+     Session colours are a validated categorical set on this dark surface
+     (#05050D): lightness band and normal-vision separation pass. Red vs green
+     sits in the colour-blind 6–8 ΔE warning band, which is acceptable only with
+     secondary encoding — so every bar segment is labelled with its value, the
+     segments are separated by gaps, and every day names its session and zone.
+     Don't remove those labels without re-running the palette check. */
+  :root{--pl-z2:#0A7E3A;--pl-thr:#BE8700;--pl-vo2:#C8331A;--pl-rest:#2A2A36}
+
+  .pl-head{text-align:center;max-width:640px;margin:0 auto}
+  .pl-head .section-sub{margin:14px auto 0;max-width:560px}
+
+  .pl-controls{margin:40px auto 0;max-width:760px;background:var(--glass-bg);border:1px solid var(--glass-border);
+    border-radius:var(--r-lg);padding:26px 28px}
+  .pl-hours-row{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  .pl-label{font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--t2)}
+  .pl-hours{font-size:clamp(2.2rem,6vw,3rem);font-weight:900;letter-spacing:-.04em;color:var(--t0);line-height:1}
+  .pl-hours small{font-size:1rem;font-weight:700;color:var(--t1);letter-spacing:0;margin-left:6px}
+  .pl-range{width:100%;margin:18px 0 6px;accent-color:var(--g);height:28px;cursor:pointer}
+  .pl-range-ends{display:flex;justify-content:space-between;font-size:.75rem;color:var(--t2);font-weight:600}
+  .pl-toggle{display:flex;align-items:center;gap:12px;margin-top:20px;padding-top:18px;border-top:1px solid var(--ln);cursor:pointer;user-select:none}
+  .pl-toggle input{position:absolute;opacity:0;pointer-events:none}
+  .pl-switch{flex-shrink:0;width:46px;height:28px;border-radius:999px;background:rgba(255,255,255,.14);position:relative;transition:background .2s}
+  .pl-switch::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:transform .2s}
+  .pl-toggle input:checked + .pl-switch{background:var(--g)}
+  .pl-toggle input:checked + .pl-switch::after{transform:translateX(18px)}
+  .pl-toggle input:focus-visible + .pl-switch{outline:2px solid var(--g);outline-offset:3px}
+  .pl-toggle-text strong{display:block;font-size:.95rem;color:var(--t0);font-weight:800}
+  .pl-toggle-text span{font-size:.82rem;color:var(--t1)}
+
+  /* Summary: headline numbers + time split */
+  .pl-summary{margin:34px auto 0;max-width:760px}
+  .pl-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+  .pl-stat{background:var(--s2);border:1px solid var(--ln);border-radius:var(--r);padding:14px 16px}
+  .pl-stat b{display:block;font-size:1.5rem;font-weight:900;color:var(--t0);letter-spacing:-.03em;line-height:1.1}
+  .pl-stat span{font-size:.72rem;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.08em}
+  @media(max-width:600px){.pl-stats{grid-template-columns:repeat(2,1fr)}}
+
+  .pl-split{margin-top:22px}
+  .pl-split-title{font-size:.85rem;font-weight:800;color:var(--t0);margin-bottom:10px}
+  .pl-bar{position:relative;display:flex;gap:2px;height:22px;border-radius:4px;overflow:visible}
+  .pl-seg{height:100%;min-width:3px;transition:flex-grow .35s ease;cursor:default;position:relative}
+  .pl-seg:first-child{border-radius:4px 0 0 4px}
+  .pl-seg:last-child{border-radius:0 4px 4px 0}
+  .pl-seg:hover,.pl-seg:focus-visible{filter:brightness(1.18);outline:none}
+  .pl-tip{position:absolute;bottom:calc(100% + 10px);left:50%;transform:translateX(-50%);white-space:nowrap;
+    background:#1c1c28;border:1px solid var(--glass-border);border-radius:8px;padding:7px 10px;font-size:.78rem;
+    color:var(--t0);pointer-events:none;opacity:0;transition:opacity .12s;z-index:5;box-shadow:0 8px 24px rgba(0,0,0,.5)}
+  .pl-tip small{display:block;color:var(--t1);font-weight:600}
+  .pl-seg:hover .pl-tip,.pl-seg:focus-visible .pl-tip{opacity:1}
+  .pl-legend{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:12px;font-size:.84rem;color:var(--t1)}
+  .pl-legend li{display:flex;align-items:center;gap:8px;list-style:none}
+  .pl-legend i{width:12px;height:12px;border-radius:3px;display:inline-block}
+  .pl-legend b{color:var(--t0);font-weight:800}
+
+  .pl-notes{margin:22px auto 0;max-width:760px;display:grid;gap:10px}
+  .pl-note{font-size:.9rem;line-height:1.6;color:var(--t1);background:var(--g-10);border:1px solid var(--g-20);
+    border-radius:var(--r);padding:12px 16px}
+  .pl-note.warn{background:rgba(190,135,0,.1);border-color:rgba(190,135,0,.3)}
+
+  /* The week. The colour band is a straight strip: square top corners, so it
+     doesn't curve round the card like a stock dashboard tile. */
+  .pl-week{margin:40px 0 0;display:grid;grid-template-columns:repeat(7,1fr);gap:10px}
+  .pl-day{position:relative;background:var(--s2);border:1px solid var(--ln);border-top:4px solid var(--c,var(--pl-rest));
+    border-radius:0 0 var(--r) var(--r);padding:14px 14px 16px;display:flex;flex-direction:column;min-height:170px}
+  .pl-day.rest{background:transparent;border-style:dashed;border-top-style:solid}
+  .pl-day.open{z-index:6}
+  .pl-dhead{display:flex;align-items:center;justify-content:space-between;gap:8px}
+  .pl-dname{font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--t2)}
+  .pl-info{position:relative;flex-shrink:0;width:20px;height:20px;padding:0;border-radius:50%;border:1px solid var(--t3);
+    background:transparent;color:var(--t1);font:800 11px/18px 'Nunito',system-ui,sans-serif;cursor:pointer;transition:all .15s}
+  .pl-info::after{content:"";position:absolute;inset:-10px}            /* bigger tap target than the glyph */
+  .pl-info:hover,.pl-info[aria-expanded="true"]{color:var(--t0);border-color:var(--t1);background:rgba(255,255,255,.08)}
+  .pl-info:focus-visible{outline:2px solid var(--g);outline-offset:2px}
+  .pl-type{font-size:.98rem;font-weight:900;color:var(--t0);margin-top:8px;line-height:1.2}
+  .pl-zone{display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:.72rem;font-weight:700;color:var(--t1)}
+  .pl-zone i{width:8px;height:8px;border-radius:50%;background:var(--c)}
+  .pl-type-row{display:flex;align-items:center;gap:9px;margin-top:8px}
+  .pl-type-row .pl-type{margin-top:0}
+  .pl-z2mark{flex-shrink:0;width:26px;height:26px;border-radius:7px;background:var(--g);color:#fff;
+    font:900 19px/26px 'Nunito',system-ui,sans-serif;text-align:center;letter-spacing:0;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.25)}
+  .pl-dur{font-size:1.5rem;font-weight:900;letter-spacing:-.03em;color:var(--t0);margin-top:10px;white-space:nowrap}
+  .pl-dur small{font-size:.62em;font-weight:800;color:var(--t1);margin-left:1px}
+  .pl-spec{font-size:.8rem;line-height:1.45;color:var(--t0);font-weight:700;margin-top:8px}
+  .pl-spec span{font-weight:600;color:var(--t1)}
+  .pl-pop{position:absolute;left:8px;right:8px;top:42px;background:#1c1c28;border:1px solid var(--glass-border);
+    border-radius:8px;padding:10px 12px;font-size:.8rem;line-height:1.55;color:var(--t1);box-shadow:0 12px 30px rgba(0,0,0,.55)}
+  @media(max-width:980px){
+    .pl-week{grid-template-columns:1fr;gap:8px;max-width:760px;margin-left:auto;margin-right:auto}
+    .pl-day{display:grid;grid-template-columns:92px 1fr auto;column-gap:14px;align-items:start;min-height:0}
+    .pl-dhead{grid-row:1/span 3;flex-direction:column;align-items:flex-start;gap:10px;padding-top:2px}
+    .pl-type,.pl-type-row{grid-column:2;margin-top:0}
+    .pl-zone,.pl-spec{grid-column:2}
+    .pl-dur{grid-column:3;grid-row:1/span 2;margin-top:0;font-size:1.3rem;text-align:right}
+    .pl-pop{left:120px;right:10px;top:10px}
+  }
+
+  /* How it's built */
+  .pl-how{max-width:760px;margin:90px auto 0}
+  .pl-how h2{font-size:clamp(1.5rem,3vw,2rem);font-weight:900;letter-spacing:-.03em;color:var(--t0);margin-bottom:14px}
+  .pl-how p,.pl-how li{font-size:.95rem;line-height:1.75;color:var(--t1)}
+  .pl-how ul{padding-left:20px;margin:12px 0}
+  .pl-how li{margin:6px 0}
+  .pl-how strong{color:var(--t0)}
+  .pl-how a{color:var(--g)}
+  .pl-how .faq-list{margin-top:18px}
+  .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  .pl-small{font-size:.8rem!important;color:var(--t2)!important;margin-top:26px}
+  .pl-cta{margin-top:40px;text-align:center}
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="nav" id="nav">
+  <div class="wrap nav-row">
+    <a href="/" class="nav-logo">Justzone2</a>
+    <nav class="nav-links" id="nav-links">
+      <a href="index.html#features">Features</a>
+      <a href="index.html#how-it-works">How It Works</a>
+      <a href="index.html#why-zone2">Why Zone 2</a>
+      <a href="zone-2-training-plan" aria-current="page">Planner</a>
+      <a href="blog/index.html">Blog</a>
+    </nav>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <a href="https://apps.apple.com/app/id6758547732" class="nav-cta" target="_blank" rel="noopener">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.53 4.08zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
+      App Store
+    </a>
+  </div>
+</nav>
+
+<section class="section subpage">
+  <div class="wrap">
+
+    <div class="pl-head">
+      <div class="section-label">Training planner</div>
+      <h1 class="section-h2">Build your training week</h1>
+      <p class="section-sub">Tell us how many hours you can ride. You get a week built on two hard sessions, an optional long ride, and as much Zone 2 as your time allows.</p>
+    </div>
+
+    <form class="pl-controls" id="pl-form" onsubmit="return false">
+      <div class="pl-hours-row">
+        <label class="pl-label" for="pl-hours">Hours per week</label>
+        <output class="pl-hours" id="pl-hours-out" for="pl-hours">6<small>hours</small></output>
+      </div>
+      <input class="pl-range" type="range" id="pl-hours" min="3" max="15" step="0.5" value="6"
+             aria-describedby="pl-range-ends">
+      <div class="pl-range-ends" id="pl-range-ends"><span>3 hours</span><span>15 hours</span></div>
+
+      <label class="pl-toggle">
+        <input type="checkbox" id="pl-long" checked>
+        <span class="pl-switch" aria-hidden="true"></span>
+        <span class="pl-toggle-text">
+          <strong>Long ride at the weekend</strong>
+          <span>Worth it if you're training for long events — sportives, gran fondos, multi-hour races.</span>
+        </span>
+      </label>
+    </form>
+
+    <div class="pl-summary" aria-live="polite">
+      <div class="pl-stats">
+        <div class="pl-stat"><b id="pl-s-rides">5</b><span>Rides</span></div>
+        <div class="pl-stat"><b id="pl-s-hard">2</b><span>Hard sessions</span></div>
+        <div class="pl-stat"><b id="pl-s-z2">5 h</b><span>Zone 2 &amp; easy</span></div>
+        <div class="pl-stat"><b id="pl-s-rest">2</b><span>Rest days</span></div>
+      </div>
+
+      <div class="pl-split">
+        <div class="pl-split-title">Where the time goes</div>
+        <div class="pl-bar" id="pl-bar" role="img" aria-label=""></div>
+        <ul class="pl-legend" id="pl-legend"></ul>
+      </div>
+    </div>
+
+    <div class="pl-notes" id="pl-notes"></div>
+
+    <div class="pl-week" id="pl-week"></div>
+
+    <div class="pl-how">
+      <h2>How this week is built</h2>
+      <p>The rules come from our <a href="blog/zone-2-evidence-review">review of the Zone 2 research</a>. In short:</p>
+      <ul>
+        <li><strong>Two hard sessions, every week.</strong> One VO₂max session and one threshold session, on non-consecutive days. At low volume these give you the most per hour, so they're protected first.</li>
+        <li><strong>Everything else is genuinely easy.</strong> Extra hours go into Zone 2, not more intensity. That's why the easy share grows as your hours grow: a big week has to be mostly easy to be absorbable.</li>
+        <li><strong>The long ride is optional.</strong> It builds durability, the ability to keep producing power late in a long ride. That matters for long events and much less for general fitness. It only goes in once there's room for it alongside the two hard sessions.</li>
+        <li><strong>At least one full rest day.</strong> Two when your week is six hours or less.</li>
+        <li><strong>Avoid the grey zone.</strong> Easy riding done a bit too hard costs you tempo-level fatigue without tempo-level benefit. Zone 2 only works if it's actually Zone 2.</li>
+      </ul>
+
+      <h2 style="margin-top:44px">Common questions</h2>
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary>How many hours of Zone 2 should I do a week?</summary>
+          <p>As many as your week allows once the two hard sessions are in. At four hours, Zone 2 fills the gaps and helps you recover. At ten or more, it's most of your riding, because that much training only works if most of it is easy.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Should I still do intervals if I only have a few hours?</summary>
+          <p>Yes. With little time, the two hard sessions give you the most for each hour, so they come first. Zone 2 fills the rest.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Why only two hard sessions?</summary>
+          <p>Two or three hard sessions a week, with everything else genuinely easy, is the pattern most well-trained endurance athletes settle on. Two keeps the hard days hard and leaves room to recover.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Do I need the long ride?</summary>
+          <p>Only if you're preparing for long events. If your goal is general fitness, switch it off and the same hours are spread across shorter Zone 2 rides.</p>
+        </details>
+        <details class="faq-item">
+          <summary>I'm new to structured training. Where do I start?</summary>
+          <p>Start with fewer hours than you think you can manage, and consider riding Thursday as Zone 2 for the first few weeks so there's only one hard session. Add hours gradually, and take an easier week every three or four weeks.</p>
+        </details>
+      </div>
+
+      <div class="pl-cta">
+        <a href="https://apps.apple.com/app/id6758547732" class="btn-appstore" target="_blank" rel="noopener">
+          <img src="images/app-store-badge.svg" alt="Download Justzone2 on the App Store" width="180" height="60">
+        </a>
+        <p class="soon-note">Justzone2 holds your Zone 2 rides for you on any FTMS smart trainer</p>
+      </div>
+
+      <p class="pl-small">This is general guidance, not a personal coaching plan. Zone boundaries vary between people; if you have a medical condition or are returning after a long break, check with a doctor first.</p>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-row">
+      <div class="footer-brand">
+        <img src="images/figure.outdoor.cycle.svg" width="26" height="26" alt="Justzone2" onerror="this.style.display='none'">
+        Justzone2
+      </div>
+      <div class="footer-links">
+        <a href="/">Home</a>
+        <a href="zone-2-training-plan">Planner</a>
+        <a href="blog/index.html">Blog</a>
+        <a href="mailto:george.whicheloe@hotmail.com">Contact</a>
+        <a href="privacy.html">Privacy Policy</a>
+      </div>
+    </div>
+    <p class="footer-copy">&copy; 2026 Justzone2. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/planner.js"></script>
+<script>
+(function () {
+  var P = window.JZPlanner;
+  var hoursEl = document.getElementById("pl-hours");
+  var longEl = document.getElementById("pl-long");
+  var out = document.getElementById("pl-hours-out");
+
+  // Name + zone show on the card; the "how to ride it" advice sits behind the ⓘ.
+  var SESSIONS = {
+    vo2:       { name: "VO₂max intervals", zone: "Zone 5", color: "var(--pl-vo2)",
+                 tip: "Warm up easy for 15 minutes first and cool down after. The last minute of each rep should feel genuinely hard." },
+    threshold: { name: "Threshold intervals", zone: "Zone 4", color: "var(--pl-thr)",
+                 tip: "Warm up easy first. Hard but controlled: roughly the hardest effort you could hold for an hour." },
+    z2:        { name: "Zone 2 ride", zone: "Zone 2", color: "var(--pl-z2)",
+                 tip: "Steady and conversational. If you can't talk in full sentences, ease off. Justzone2 can hold the zone for you." },
+    long:      { name: "Long ride", zone: "Zone 2", color: "var(--pl-z2)",
+                 tip: "The same easy Zone 2 effort, for longer. This is the ride that builds durability. Eat and drink as you go." },
+    rest:      { name: "Rest", zone: "", color: "var(--pl-rest)",
+                 tip: "Off the bike. The fitness gains happen while you recover." }
+  };
+
+  function hm(mins) {
+    var h = Math.floor(mins / 60), m = Math.round(mins % 60);
+    return h ? (m ? h + " h " + m + " min" : h + " h") : m + " min";
+  }
+  // Compact rider-style duration for the day cards: "1h 15", "2h", "45 min".
+  function dur(hours) {
+    var mins = Math.round(hours * 60), h = Math.floor(mins / 60), m = mins % 60;
+    if (!h) return m + "<small>min</small>";
+    return h + "<small>h</small>" + (m ? " " + (m < 10 ? "0" : "") + m : "");
+  }
+  function durText(hours) { return hm(hours * 60); }
+
+  // Hours and toggle live in the URL so a plan can be shared or bookmarked.
+  function readUrl() {
+    var p = new URLSearchParams(location.search);
+    var h = parseFloat(p.get("hours"));
+    if (h >= P.MIN_HOURS && h <= P.MAX_HOURS) hoursEl.value = Math.round(h * 2) / 2;
+    if (p.get("long") === "0") longEl.checked = false;
+  }
+  function writeUrl() {
+    var p = new URLSearchParams({ hours: hoursEl.value });
+    if (!longEl.checked) p.set("long", "0");
+    try { history.replaceState(null, "", location.pathname + "?" + p.toString()); } catch (e) {}
+  }
+
+  function render() {
+    var H = parseFloat(hoursEl.value);
+    var w = P.buildWeek(H, longEl.checked);
+    out.innerHTML = (H % 1 ? H.toFixed(1) : H) + "<small>" + (H === 1 ? "hour" : "hours") + "</small>";
+    hoursEl.setAttribute("aria-valuetext", P.fmtH(H) + " per week");
+
+    var m = w.minutes;
+    document.getElementById("pl-s-rides").textContent = w.rideDays;
+    document.getElementById("pl-s-hard").textContent = 2;
+    document.getElementById("pl-s-z2").textContent = hm(m.easy);
+    document.getElementById("pl-s-rest").textContent = 7 - w.rideDays;
+
+    // Time split: one bar, three segments, legend with values.
+    var parts = [
+      { key: "easy", label: "Zone 2 & easy", mins: m.easy, color: "var(--pl-z2)" },
+      { key: "thr",  label: "Threshold",     mins: m.threshold, color: "var(--pl-thr)" },
+      { key: "vo2",  label: "VO₂max",        mins: m.vo2, color: "var(--pl-vo2)" }
+    ];
+    var bar = document.getElementById("pl-bar");
+    bar.innerHTML = parts.map(function (p) {
+      var pct = Math.round(100 * p.mins / m.total);
+      return '<div class="pl-seg" tabindex="0" style="flex-grow:' + p.mins + ';background:' + p.color + '">' +
+             '<span class="pl-tip">' + p.label + ': ' + hm(p.mins) + '<small>' + pct + '% of your week</small></span></div>';
+    }).join("");
+    bar.setAttribute("aria-label", parts.map(function (p) {
+      return p.label + " " + hm(p.mins) + " (" + Math.round(100 * p.mins / m.total) + "%)";
+    }).join(", "));
+    document.getElementById("pl-legend").innerHTML = parts.map(function (p) {
+      return '<li><i style="background:' + p.color + '"></i>' + p.label + ' <b>' + hm(p.mins) + '</b> · ' +
+             Math.round(100 * p.mins / m.total) + '%</li>';
+    }).join("");
+
+    document.getElementById("pl-notes").innerHTML = w.notes.map(function (n) {
+      return '<p class="pl-note' + (n.kind === "long" ? " warn" : "") + '">' + n.text + "</p>";
+    }).join("");
+
+    document.getElementById("pl-week").innerHTML = w.days.map(function (d, i) {
+      var s = SESSIONS[d.type], id = "pl-pop-" + i;
+      // The "2" mark is for the Zone 2 rides only; the long ride gets a zone dot like the rest.
+      var title = d.type === "z2"
+        ? '<div class="pl-type-row"><span class="pl-z2mark" aria-hidden="true">2</span>' +
+          '<div class="pl-type">' + s.name + '<span class="sr-only"> (Zone 2)</span></div></div>'
+        : '<div class="pl-type">' + s.name + '</div>' +
+          (s.zone ? '<div class="pl-zone"><i></i>' + s.zone + '</div>' : '');
+      var spec = d.spec
+        ? '<p class="pl-spec">' + d.spec + (d.easyAfter ? '<span> · then ' + durText(d.easyAfter) + ' easy</span>' : '') + '</p>'
+        : '';
+      return '<article class="pl-day' + (d.type === "rest" ? " rest" : "") + '" style="--c:' + s.color + '">' +
+        '<div class="pl-dhead"><div class="pl-dname">' + d.day + '</div>' +
+          '<button type="button" class="pl-info" aria-expanded="false" aria-controls="' + id + '" ' +
+          'aria-label="How to ride ' + d.day + '">i</button></div>' +
+        title +
+        '<div class="pl-dur">' + (d.hours ? dur(d.hours) : '—') + '</div>' +
+        spec +
+        '<div class="pl-pop" id="' + id + '" role="note" hidden>' + s.tip + '</div>' +
+      '</article>';
+    }).join("");
+  }
+
+  // ⓘ popovers: one open at a time; tap again, tap elsewhere or Esc to close.
+  function closeTips(except) {
+    document.querySelectorAll(".pl-info[aria-expanded='true']").forEach(function (b) {
+      if (b === except) return;
+      b.setAttribute("aria-expanded", "false");
+      document.getElementById(b.getAttribute("aria-controls")).hidden = true;
+      b.closest(".pl-day").classList.remove("open");
+    });
+  }
+  document.getElementById("pl-week").addEventListener("click", function (e) {
+    var b = e.target.closest(".pl-info");
+    if (!b) return;
+    e.stopPropagation();
+    closeTips(b);
+    var open = b.getAttribute("aria-expanded") !== "true";
+    b.setAttribute("aria-expanded", String(open));
+    document.getElementById(b.getAttribute("aria-controls")).hidden = !open;
+    b.closest(".pl-day").classList.toggle("open", open);
+  });
+  document.addEventListener("click", function (e) { if (!e.target.closest(".pl-pop")) closeTips(); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeTips(); });
+
+  readUrl();
+  render();
+  hoursEl.addEventListener("input", function () { render(); });
+  hoursEl.addEventListener("change", writeUrl);
+  longEl.addEventListener("change", function () { render(); writeUrl(); });
+})();
+</script>
+</body>
+</html>
