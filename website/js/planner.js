@@ -138,9 +138,8 @@
     var easyMin = total - vo2Min - thrMin;
 
     if (longDropped) notes.push({ kind: "long", text:
-      "A long ride needs about " + fmtH(LONG_MIN + 2 * hs.hours) +
-      " a week on top of your two hard sessions. At " + fmtH(H) +
-      ", the hard sessions come first — they do more for you per hour." });
+      "Not included at " + fmtH(H) + ": it needs about " + fmtH(LONG_MIN + 2 * hs.hours) +
+      " a week, and your two hard sessions come first." });
     if (H < 6) notes.push({ kind: "volume", text:
       "At " + fmtH(H) + " a week, your two hard sessions do most of the work, so protect them. " +
       "Zone 2 fills the gaps and helps you recover between them." });

@@ -56,17 +56,20 @@
      secondary encoding — so every bar segment is labelled with its value, the
      segments are separated by gaps, and every day names its session and zone.
      Don't remove those labels without re-running the palette check. */
-  :root{--pl-z2:#0A7E3A;--pl-thr:#BE8700;--pl-vo2:#C8331A;--pl-rest:#2A2A36}
+  :root{--pl-z2:#0A7E3A;--pl-thr:#BE8700;--pl-vo2:#C8331A;--pl-rest:#5C5C6B}
 
   .pl-head{text-align:center;max-width:640px;margin:0 auto}
   .pl-head .section-sub{margin:14px auto 0;max-width:560px}
 
   .pl-controls{margin:40px auto 0;max-width:760px;background:var(--glass-bg);border:1px solid var(--glass-border);
     border-radius:var(--r-lg);padding:26px 28px}
-  .pl-hours-row{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  .pl-hours-row{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
   .pl-label{font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--t2)}
-  .pl-hours{font-size:clamp(2.2rem,6vw,3rem);font-weight:900;letter-spacing:-.04em;color:var(--t0);line-height:1}
+  .pl-hours{font-size:clamp(1.9rem,8vw,3rem);font-weight:900;letter-spacing:-.04em;color:var(--t0);line-height:1;white-space:nowrap}
   .pl-hours small{font-size:1rem;font-weight:700;color:var(--t1);letter-spacing:0;margin-left:6px}
+  /* very narrow phones: the label wraps to two lines once the number has a
+     decimal, so reserve that height up front rather than jump */
+  @media(max-width:340px){.pl-hours-row{min-height:49px;align-items:center}}
   .pl-range{width:100%;margin:18px 0 6px;accent-color:var(--g);height:28px;cursor:pointer}
   .pl-range-ends{display:flex;justify-content:space-between;font-size:.75rem;color:var(--t2);font-weight:600}
   .pl-toggle{display:flex;align-items:center;gap:12px;margin-top:20px;padding-top:18px;border-top:1px solid var(--ln);cursor:pointer;user-select:none}
@@ -78,12 +81,19 @@
   .pl-toggle input:focus-visible + .pl-switch{outline:2px solid var(--g);outline-offset:3px}
   .pl-toggle-text strong{display:block;font-size:.95rem;color:var(--t0);font-weight:800}
   .pl-toggle-text span{font-size:.82rem;color:var(--t1)}
+  /* Texts that swap in and out share one grid cell, so the box is always as
+     tall as its longest version and nothing below it moves. */
+  .pl-stack{display:grid}
+  .pl-stack > *{grid-area:1/1}
+  .pl-stack > .off{visibility:hidden}
+  .pl-toggle-text .pl-why{color:#D9A62E}
 
   /* Summary: headline numbers + time split */
   .pl-summary{margin:34px auto 0;max-width:760px}
   .pl-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
   .pl-stat{background:var(--s2);border:1px solid var(--ln);border-radius:var(--r);padding:14px 16px}
-  .pl-stat b{display:block;font-size:1.5rem;font-weight:900;color:var(--t0);letter-spacing:-.03em;line-height:1.1}
+  /* one line at every setting, so values like "13 h 56 min" never wrap and push the page down */
+  .pl-stat b{display:block;font-size:clamp(1.05rem,4.6vw,1.5rem);font-weight:900;color:var(--t0);letter-spacing:-.03em;line-height:1.1;white-space:nowrap}
   .pl-stat span{font-size:.72rem;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.08em}
   @media(max-width:600px){.pl-stats{grid-template-columns:repeat(2,1fr)}}
 
@@ -112,10 +122,19 @@
 
   /* The week. The colour band is a straight strip: square top corners, so it
      doesn't curve round the card like a stock dashboard tile. */
-  .pl-week{margin:40px 0 0;display:grid;grid-template-columns:repeat(7,1fr);gap:10px}
+  /* One frame round the whole week, matching the controls panel, so the seven
+     days read as a single plan rather than loose tiles. */
+  .pl-plan{margin:40px 0 0;background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:var(--r-lg);padding:20px}
+  .pl-plan-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:0 2px 16px}
+  .pl-plan-head h2{font-size:1.1rem;font-weight:900;color:var(--t0);letter-spacing:-.02em}
+  .pl-plan-head span{font-size:.85rem;color:var(--t1);font-weight:600}
+  .pl-week{display:grid;grid-template-columns:repeat(7,1fr);gap:10px}
   .pl-day{position:relative;background:var(--s2);border:1px solid var(--ln);border-top:4px solid var(--c,var(--pl-rest));
     border-radius:0 0 var(--r) var(--r);padding:14px 14px 16px;display:flex;flex-direction:column;min-height:170px}
-  .pl-day.rest{background:transparent;border-style:dashed;border-top-style:solid}
+  /* Rest days are part of the plan, so they get a real card — same surface as
+     ride days, a neutral grey band, and quieter text so the rides still lead. */
+  .pl-day.rest .pl-type{color:var(--t1)}
+  .pl-day.rest .pl-dur{color:var(--t2)}
   .pl-day.open{z-index:6}
   .pl-dhead{display:flex;align-items:center;justify-content:space-between;gap:8px}
   .pl-dname{font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--t2)}
@@ -135,19 +154,40 @@
   .pl-dur{font-size:1.5rem;font-weight:900;letter-spacing:-.03em;color:var(--t0);margin-top:10px;white-space:nowrap}
   .pl-dur small{font-size:.62em;font-weight:800;color:var(--t1);margin-left:1px}
   .pl-work{font-size:.78rem;font-weight:700;color:var(--t1);margin-top:2px;white-space:nowrap}
-  .pl-spec{font-size:.8rem;line-height:1.45;color:var(--t0);font-weight:700;margin-top:8px}
+  .pl-spec{font-size:.8rem;line-height:1.45;color:var(--t0);font-weight:700;margin-top:8px;min-height:4.35em}
+  @media(max-width:1180px){.pl-spec{min-height:5.8em}}
   .pl-spec span{font-weight:600;color:var(--t1)}
+  /* Session-length bars. Desktop: a column at the foot of every card on a shared
+     baseline, so the week reads as one column chart. Scale = the week's longest
+     session. Hard days stack the intervals (session colour) on the easy riding
+     around them (green), with a 2px gap; data ends rounded, baseline square. */
+  .pl-bars{margin-top:auto;padding-top:16px;height:112px;display:flex;align-items:flex-end;justify-content:center;
+    border-bottom:1px solid var(--t3);position:relative}
+  .pl-col{display:flex;flex-direction:column-reverse;gap:2px;width:38px;height:var(--p);position:relative;cursor:default}
+  .pl-col i{display:block;min-height:3px}
+  .pl-col i:last-child{border-radius:4px 4px 0 0}
+  .pl-col:hover i,.pl-col:focus-visible i{filter:brightness(1.2)}
+  .pl-col .pl-tip{bottom:calc(100% + 8px)}
+  .pl-col:hover .pl-tip,.pl-col:focus-visible .pl-tip{opacity:1}
+  .pl-col:focus-visible{outline:none}
   .pl-pop{position:absolute;left:8px;right:8px;top:42px;background:#1c1c28;border:1px solid var(--glass-border);
     border-radius:8px;padding:10px 12px;font-size:.8rem;line-height:1.55;color:var(--t1);box-shadow:0 12px 30px rgba(0,0,0,.55)}
   @media(max-width:980px){
-    .pl-week{grid-template-columns:1fr;gap:8px;max-width:760px;margin-left:auto;margin-right:auto}
+    .pl-plan{max-width:760px;margin-left:auto;margin-right:auto;padding:14px}
+    .pl-week{grid-template-columns:1fr;gap:8px}
     .pl-day{display:grid;grid-template-columns:92px 1fr auto;column-gap:14px;align-items:start;min-height:0}
     .pl-dhead{grid-row:1/span 3;flex-direction:column;align-items:flex-start;gap:10px;padding-top:2px}
     .pl-type,.pl-type-row{grid-column:2;margin-top:0}
     .pl-zone,.pl-spec{grid-column:2}
+    .pl-spec{min-height:0}
     .pl-work{grid-column:3;grid-row:3;text-align:right;white-space:normal;max-width:78px;justify-self:end;line-height:1.3}
     .pl-dur{grid-column:3;grid-row:1/span 2;margin-top:0;font-size:1.3rem;text-align:right}
     .pl-pop{left:120px;right:10px;top:10px}
+    .pl-bars{grid-column:1/-1;height:8px;margin-top:12px;padding-top:0;border-bottom:0;display:block;
+      background:rgba(255,255,255,.05);border-radius:4px}
+    .pl-col{flex-direction:row;height:100%;width:var(--p)}
+    .pl-col i:last-child{border-radius:0 4px 4px 0}
+    .pl-col i{min-height:0;min-width:3px}
   }
 
   /* How it's built */
@@ -210,7 +250,10 @@
         <span class="pl-switch" aria-hidden="true"></span>
         <span class="pl-toggle-text">
           <strong>Long ride at the weekend</strong>
-          <span>Worth it if you're training for long events — sportives, gran fondos, multi-hour races.</span>
+          <span class="pl-stack">
+            <span id="pl-long-desc">Worth it if you're training for long events — sportives, gran fondos, multi-hour races.</span>
+            <span id="pl-long-why" class="pl-why off" aria-live="polite"></span>
+          </span>
         </span>
       </label>
     </form>
@@ -231,9 +274,15 @@
       </div>
     </div>
 
-    <div class="pl-notes" id="pl-notes"></div>
+    <div class="pl-notes pl-stack">
+      <p class="pl-note off" id="pl-note-sizer" aria-hidden="true"></p>
+      <p class="pl-note" id="pl-note"></p>
+    </div>
 
-    <div class="pl-week" id="pl-week"></div>
+    <section class="pl-plan" id="pl-plan" aria-labelledby="pl-plan-title">
+      <div class="pl-plan-head"><h2 id="pl-plan-title">Your week</h2><span id="pl-plan-total"></span></div>
+      <div class="pl-week" id="pl-week"></div>
+    </section>
 
     <div class="pl-how">
       <h2>How this week is built</h2>
@@ -382,10 +431,28 @@
              Math.round(100 * p.mins / m.total) + '%</li>';
     }).join("");
 
-    document.getElementById("pl-notes").innerHTML = w.notes.map(function (n) {
-      return '<p class="pl-note' + (n.kind === "long" ? " warn" : "") + '">' + n.text + "</p>";
-    }).join("");
+    // The volume note sits in a fixed-height box (sized by the hidden sizer); the
+    // long-ride reason replaces the switch's description instead of adding a box.
+    var vol = w.notes.filter(function (n) { return n.kind === "volume"; })[0];
+    var why = w.notes.filter(function (n) { return n.kind === "long"; })[0];
+    document.getElementById("pl-note").textContent = vol ? vol.text : "";
+    document.getElementById("pl-long-desc").classList.toggle("off", !!why);
+    var whyEl = document.getElementById("pl-long-why");
+    whyEl.textContent = why ? why.text : "";
+    whyEl.classList.toggle("off", !why);
 
+    document.getElementById("pl-plan-total").textContent = P.fmtH(w.hours) + " · " + w.rideDays + " rides";
+    var longest = Math.max.apply(null, w.days.map(function (d) { return d.hours; }));
+    function sessionBar(d) {
+      if (!d.hours) return '<div class="pl-bars" aria-hidden="true"></div>';
+      var total = Math.round(d.hours * 60), work = d.work || 0, easy = total - work;
+      var segs = '<i style="flex-grow:' + easy + ';background:var(--pl-z2)"></i>' +
+                 (work ? '<i style="flex-grow:' + work + ';background:' + SESSIONS[d.type].color + '"></i>' : '');
+      var tip = work ? hm(total) + '<small>' + work + ' min of intervals · ' + hm(easy) + ' easy</small>'
+                     : hm(total) + '<small>Zone 2</small>';
+      return '<div class="pl-bars" aria-hidden="true"><div class="pl-col" style="--p:' + (100 * d.hours / longest).toFixed(1) + '%">' +
+             segs + '<span class="pl-tip">' + tip + '</span></div></div>';
+    }
     document.getElementById("pl-week").innerHTML = w.days.map(function (d, i) {
       var s = SESSIONS[d.type], id = "pl-pop-" + i;
       // The "2" mark is for the Zone 2 rides only; the long ride gets a zone dot like the rest.
@@ -395,7 +462,7 @@
         : '<div class="pl-type">' + s.name + '</div>' +
           (s.zone ? '<div class="pl-zone"><i></i>' + s.zone + '</div>' : '');
       var spec = d.spec
-        ? '<p class="pl-spec">' + d.spec + (d.easyAfter ? '<span> · then ' + durText(d.easyAfter) + ' easy</span>' : '') + '</p>'
+        ? '<p class="pl-spec">' + d.spec + '</p>'
         : '';
       return '<article class="pl-day' + (d.type === "rest" ? " rest" : "") + '" style="--c:' + s.color + '">' +
         '<div class="pl-dhead"><div class="pl-dname">' + d.day + '</div>' +
@@ -405,7 +472,9 @@
         '<div class="pl-dur">' + (d.hours ? dur(d.hours) : '—') + '</div>' +
         (d.work ? '<div class="pl-work">' + d.work + ' min of intervals</div>' : '') +
         spec +
-        '<div class="pl-pop" id="' + id + '" role="note" hidden>' + s.tip + '</div>' +
+        sessionBar(d) +
+        '<div class="pl-pop" id="' + id + '" role="note" hidden>' + s.tip +
+          (d.easyAfter ? ' Finish with ' + durText(d.easyAfter) + ' of easy Zone 2 riding.' : '') + '</div>' +
       '</article>';
     }).join("");
   }
@@ -431,6 +500,16 @@
   });
   document.addEventListener("click", function (e) { if (!e.target.closest(".pl-pop")) closeTips(); });
   document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeTips(); });
+
+  document.getElementById("pl-note-sizer").textContent = [3, 5.5, 5.75, 8.75, 10.75, 14.75].map(function (h) {
+    return P.buildWeek(h, false).notes.filter(function (n) { return n.kind === "volume"; })[0].text;
+  }).sort(function (a, b) { return b.length - a.length; })[0];
+  // …and the switch description is sized against the longest "why" text too.
+  var longestWhy = P.buildWeek(3, true).notes.filter(function (n) { return n.kind === "long"; })[0];
+  if (longestWhy) {
+    var sz = document.createElement("span"); sz.className = "off"; sz.setAttribute("aria-hidden", "true");
+    sz.textContent = longestWhy.text; document.getElementById("pl-long-why").parentNode.appendChild(sz);
+  }
 
   readUrl();
   render();
