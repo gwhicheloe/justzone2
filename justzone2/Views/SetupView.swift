@@ -99,11 +99,23 @@ struct SetupView: View {
                     .padding(.horizontal, 4)
 
                     VStack(alignment: .leading, spacing: 0) {
-                            if !viewModel.isBluetoothEnabled {
+                            // Demo Mode needs no Bluetooth, so don't warn about it there.
+                            if !viewModel.isBluetoothEnabled && !demoMode {
                                 Label("Bluetooth disabled", systemImage: "exclamationmark.triangle.fill")
                                     .font(.caption)
                                     .foregroundColor(.orange)
                                     .padding(.vertical, 8)
+                            }
+
+                            // Demo Mode's simulated trainer and HR strap aren't
+                            // Bluetooth peripherals, so they never got a row —
+                            // Setup showed no trainer at all even though a workout
+                            // could start. List them as the connected devices they
+                            // stand in for. (The blue "demo" title tag marks the mode.)
+                            if demoMode {
+                                demoDeviceRow(icon: "bicycle", name: "Smart Trainer")
+                                Divider()
+                                demoDeviceRow(icon: "heart.fill", name: "Heart Rate Strap")
                             }
 
                             // Smart Trainers
@@ -125,7 +137,7 @@ struct SetupView: View {
                             }
 
                             // Heart Rate Monitors
-                            if !viewModel.useWatchHR || !viewModel.discoveredHRMonitors.isEmpty || viewModel.hrConnected {
+                            if !demoMode && (!viewModel.useWatchHR || !viewModel.discoveredHRMonitors.isEmpty || viewModel.hrConnected) {
                                 Divider()
 
                                 HStack {
@@ -573,6 +585,34 @@ struct SetupView: View {
 
     /// A compact half-width option tile (Zone Targeting / Warm Up) so the two sit
     /// side by side and keep the hero panel short.
+    /// A connected-device row for Demo Mode's simulated sensors, styled to
+    /// match `DeviceRow` (which needs a real Bluetooth peripheral).
+    private func demoDeviceRow(icon: String, name: String) -> some View {
+        HStack {
+            Image(systemName: icon)
+                .foregroundColor(.green)
+                .frame(width: 30)
+            Text(name)
+                .font(.subheadline)
+                .lineLimit(1)
+            Spacer()
+            HStack(spacing: 4) {
+                Image(systemName: "checkmark.circle.fill")
+                    .font(.labelMedium)
+                Text("Connected")
+                    .font(.bodyMedium)
+                    .lineLimit(1)
+                    .fixedSize()
+            }
+            .padding(.horizontal, 12)
+            .padding(.vertical, 6)
+            .background(Color.green.opacity(0.1))
+            .foregroundColor(.green)
+            .cornerRadius(8)
+        }
+        .padding(.vertical, 8)
+    }
+
     private func configToggleTile(
         icon: String, tint: Color, title: String,
         isOn: Binding<Bool>, info: @escaping () -> Void
