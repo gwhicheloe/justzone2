@@ -655,3 +655,12 @@ html,body{overflow-x:hidden;width:100%}
 .btn-appstore:hover{transform:translateY(-2px);filter:brightness(1.12)}
 .btn-appstore img{display:block;height:54px;width:auto}
 @media(max-width:600px){.btn-appstore img{height:48px}}
+
+/* ── Progress section (homepage) ── */
+.pg-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:40px;align-items:start}
+.pg-fig{margin:0}
+.pg-fig img{display:block;width:100%;height:auto;border-radius:14px;border:1px solid var(--ln);background:#000}
+.pg-fig figcaption{font-size:.85rem;color:var(--t1);line-height:1.6;margin-top:12px}
+.pg-fig figcaption b{color:var(--t0)}
+.pg-note{font-size:.78rem;color:var(--t2);line-height:1.6;margin-top:22px;max-width:760px}
+@media(max-width:860px){.pg-grid{grid-template-columns:1fr}}
