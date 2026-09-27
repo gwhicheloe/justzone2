@@ -288,9 +288,9 @@ struct HistoryView: View {
                 .chartYScale(domain: minHR...maxHR)
                 .chartXScale(domain: dateRange)
                 .chartXAxis {
-                    AxisMarks(values: .automatic(desiredCount: 5)) { value in
+                    AxisMarks(values: axisDates(for: dateRange)) { value in
                         AxisGridLine()
-                        AxisValueLabel(format: dateAxisFormat, anchor: .top)
+                        AxisValueLabel(format: dateAxis(for: dateRange).format, anchor: .top)
                     }
                 }
                 .chartYAxis {
@@ -405,15 +405,38 @@ struct HistoryView: View {
         }
     }
 
-    /// Date format for axis - shows year when viewing > 6 months of data
-    private var dateAxisFormat: Date.FormatStyle {
-        if zoomLevel < 2.0 {
-            // Zoomed out - show month and year
-            return .dateTime.month(.abbreviated).year(.twoDigits)
-        } else {
-            // Zoomed in - show day and month
-            return .dateTime.day().month(.abbreviated)
+    /// Date-axis ticks for the visible range. Labels are placed at a regular
+    /// stride and formatted to suit how much time is on screen. The old version
+    /// chose the format by zoom level alone and let the chart place ~5 labels
+    /// freely, so a 12-week history read "Jul 26, Jul 26, Aug 26, Aug 26…" —
+    /// repeated labels that also looked like "26 July" rather than July 2026.
+    private func dateAxis(for range: ClosedRange<Date>) -> (unit: Calendar.Component, count: Int, format: Date.FormatStyle) {
+        let days = range.upperBound.timeIntervalSince(range.lowerBound) / 86_400
+        switch days {
+        case ..<36:  return (.weekOfYear, 1, .dateTime.day().month(.abbreviated))    // "7 Jul"
+        case ..<75:  return (.weekOfYear, 2, .dateTime.day().month(.abbreviated))
+        case ..<155: return (.weekOfYear, 3, .dateTime.day().month(.abbreviated))
+        case ..<280: return (.month, 1, .dateTime.month(.abbreviated))               // "Jul"
+        case ..<550: return (.month, 2, .dateTime.month(.abbreviated))
+        default:     return (.month, 6, .dateTime.month(.abbreviated).year())       // "Jul 2026"
         }
+    }
+
+    /// The label dates for the visible range: one every `count` units, skipping
+    /// any too close to either edge — a label centred on the edge gets clipped
+    /// (a stray "2" of "21 Sep" at the right-hand end).
+    private func axisDates(for range: ClosedRange<Date>) -> [Date] {
+        let spec = dateAxis(for: range), cal = Calendar.current
+        let span = range.upperBound.timeIntervalSince(range.lowerBound), margin = span * 0.06
+        let startUnit: Calendar.Component = spec.unit == .weekOfYear ? .weekOfYear : .month
+        guard var d = cal.dateInterval(of: startUnit, for: range.lowerBound)?.start else { return [] }
+        var out: [Date] = []
+        while d <= range.upperBound {
+            if d >= range.lowerBound.addingTimeInterval(margin) && d <= range.upperBound.addingTimeInterval(-margin) { out.append(d) }
+            guard let next = cal.date(byAdding: spec.unit, value: spec.count, to: d) else { break }
+            d = next
+        }
+        return out
     }
 
     private func calculateDateRange(for chartData: [StravaActivity]) -> ClosedRange<Date> {
@@ -561,9 +584,9 @@ struct HistoryView: View {
                         .chartXScale(domain: dateRange)
                         .chartYAxis(.hidden)
                         .chartXAxis {
-                            AxisMarks(values: .automatic(desiredCount: 5)) { value in
+                            AxisMarks(values: axisDates(for: dateRange)) { value in
                                 AxisGridLine()
-                                AxisValueLabel(format: dateAxisFormat, anchor: .top)
+                                AxisValueLabel(format: dateAxis(for: dateRange).format, anchor: .top)
                             }
                         }
 
