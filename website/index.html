@@ -25,7 +25,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/styles.css?v=10">
+<link rel="stylesheet" href="css/styles.css?v=11">
 <link rel="icon" type="image/svg+xml" href="images/app-icon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="images/icons/favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="images/icons/favicon-16.png">
@@ -430,65 +430,9 @@
       <div class="zt-steps rv d2">
         <div class="zt-step-label">The feedback loop</div>
         <div class="zt-step"><div class="zt-n">1</div><div><div class="zt-step-h">Measure</div><p class="zt-step-p">HR sampled every second from your Apple Watch or BLE chest strap.</p></div></div>
-        <div class="zt-step"><div class="zt-n">2</div><div><div class="zt-step-h">Calculate</div><p class="zt-step-p">PID controller computes error from your Zone 2 midpoint using a 45-second rolling average.</p></div></div>
+        <div class="zt-step"><div class="zt-n">2</div><div><div class="zt-step-h">Calculate</div><p class="zt-step-p">PID controller measures how far you are from your Zone 2 target — the upper part of the zone by default — using a 45-second rolling average.</p></div></div>
         <div class="zt-step"><div class="zt-n">3</div><div><div class="zt-step-h">Adjust</div><p class="zt-step-p">Resistance nudged gradually — ramps up slowly, backs off faster. Always comfortable.</p></div></div>
         <div class="zt-step"><div class="zt-n">4</div><div><div class="zt-step-h">Repeat</div><p class="zt-step-p">Every second, for the entire session. You keep pedalling. The app keeps you optimal.</p></div></div>
-      </div>
-    </div>
-    <div class="zt-fitness">
-      <div class="rv">
-        <h3 class="zt-fitness-h">Your fitness tracker, not just a workout tracker</h3>
-        <p class="zt-fitness-p">As aerobic fitness improves, your body sustains more power at the same heart rate. Every session anchors to the same HR zone, making average power a direct, passive measure of progress.</p>
-        <ul class="check-list">
-          <li class="check-item"><span class="check-icon"><svg width="8" height="8" viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4" stroke="#34C759" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>No FTP test needed — just keep doing your sessions</li>
-          <li class="check-item"><span class="check-icon"><svg width="8" height="8" viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4" stroke="#34C759" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>No recovery cost — you're not exhausting yourself to measure</li>
-          <li class="check-item"><span class="check-icon"><svg width="8" height="8" viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4" stroke="#34C759" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Objective progress — watts don't lie, and trends don't either</li>
-        </ul>
-      </div>
-      <div class="rv d1">
-        <p class="zt-chart-cap" style="margin-bottom:10px">Average Zone 2 power over time</p>
-        <svg viewBox="0 0 440 180" width="100%" style="display:block;border-radius:14px" xmlns="http://www.w3.org/2000/svg">
-          <rect width="440" height="180" rx="12" fill="#0A0A14"/>
-          <line x1="52" y1="30" x2="410" y2="30" stroke="#141420" stroke-width="1"/>
-          <line x1="52" y1="65" x2="410" y2="65" stroke="#141420" stroke-width="1"/>
-          <line x1="52" y1="100" x2="410" y2="100" stroke="#141420" stroke-width="1"/>
-          <line x1="52" y1="135" x2="410" y2="135" stroke="#141420" stroke-width="1"/>
-          <text x="46" y="34" fill="#55556A" font-size="8.5" text-anchor="end" font-family="system-ui">185W</text>
-          <text x="46" y="69" fill="#55556A" font-size="8.5" text-anchor="end" font-family="system-ui">175W</text>
-          <text x="46" y="104" fill="#55556A" font-size="8.5" text-anchor="end" font-family="system-ui">165W</text>
-          <text x="46" y="139" fill="#55556A" font-size="8.5" text-anchor="end" font-family="system-ui">155W</text>
-          <text x="52" y="158" fill="#55556A" font-size="8.5" text-anchor="middle" font-family="system-ui">Sep</text>
-          <text x="143" y="158" fill="#55556A" font-size="8.5" text-anchor="middle" font-family="system-ui">Oct</text>
-          <text x="234" y="158" fill="#55556A" font-size="8.5" text-anchor="middle" font-family="system-ui">Nov</text>
-          <text x="325" y="158" fill="#55556A" font-size="8.5" text-anchor="middle" font-family="system-ui">Dec</text>
-          <text x="410" y="158" fill="#55556A" font-size="8.5" text-anchor="middle" font-family="system-ui">Jan</text>
-          <line x1="52" y1="135" x2="410" y2="38" stroke="#34C759" stroke-width="1.5" stroke-opacity=".22" stroke-dasharray="5,4"/>
-          <circle cx="58" cy="136" r="3.8" fill="#34C759" opacity=".8"/>
-          <circle cx="78" cy="131" r="3.8" fill="#34C759" opacity=".8"/>
-          <circle cx="98" cy="133" r="3.8" fill="#34C759" opacity=".8"/>
-          <circle cx="118" cy="127" r="3.8" fill="#34C759" opacity=".8"/>
-          <circle cx="148" cy="123" r="3.8" fill="#34C759" opacity=".85"/>
-          <circle cx="168" cy="117" r="3.8" fill="#34C759" opacity=".85"/>
-          <circle cx="188" cy="120" r="3.8" fill="#34C759" opacity=".85"/>
-          <circle cx="208" cy="113" r="3.8" fill="#34C759" opacity=".85"/>
-          <circle cx="238" cy="107" r="3.8" fill="#34C759" opacity=".9"/>
-          <circle cx="258" cy="111" r="3.8" fill="#34C759" opacity=".9"/>
-          <circle cx="278" cy="103" r="3.8" fill="#34C759" opacity=".9"/>
-          <circle cx="298" cy="98" r="3.8" fill="#34C759" opacity=".9"/>
-          <circle cx="325" cy="93" r="3.8" fill="#34C759"/>
-          <circle cx="345" cy="88" r="3.8" fill="#34C759"/>
-          <circle cx="365" cy="91" r="3.8" fill="#34C759"/>
-          <circle cx="385" cy="83" r="3.8" fill="#34C759"/>
-          <circle cx="393" cy="75" r="5" fill="#34C759"/>
-          <circle cx="403" cy="67" r="5" fill="#34C759"/>
-          <circle cx="403" cy="67" r="10" fill="none" stroke="#34C759" stroke-width="1" opacity=".2"/>
-          <line x1="410" y1="135" x2="410" y2="67" stroke="#34C759" stroke-width="1" stroke-opacity=".3"/>
-          <rect x="415" y="92" width="24" height="26" rx="4" fill="#141420"/>
-          <text x="427" y="106" fill="#34C759" font-size="8.5" font-family="system-ui" font-weight="700" text-anchor="middle">+23W</text>
-          <text x="427" y="115" fill="#55556A" font-size="7.5" font-family="system-ui" text-anchor="middle">4 mo</text>
-          <line x1="52" y1="18" x2="52" y2="145" stroke="#1C1C28" stroke-width="1"/>
-          <line x1="52" y1="145" x2="410" y2="145" stroke="#1C1C28" stroke-width="1"/>
-        </svg>
       </div>
     </div>
   </div>

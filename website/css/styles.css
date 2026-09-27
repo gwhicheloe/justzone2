@@ -297,10 +297,6 @@ body>*{position:relative;z-index:1}
 .zt-n{flex-shrink:0;width:24px;height:24px;border-radius:50%;border:1.5px solid rgba(52,199,89,.3);display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:800;color:var(--g);margin-top:1px}
 .zt-step-h{font-size:.85rem;font-weight:700;color:var(--t0);margin-bottom:3px}
 .zt-step-p{font-size:.78rem;color:var(--t2);line-height:1.55;margin:0}
-.zt-fitness{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;margin-top:80px;padding-top:64px;border-top:1px solid var(--ln)}
-@media(max-width:860px){.zt-fitness{grid-template-columns:1fr;gap:40px}}
-.zt-fitness-h{font-size:clamp(1.4rem,2.5vw,2rem);font-weight:900;letter-spacing:-.04em;margin-bottom:14px}
-.zt-fitness-p{font-size:.9rem;color:var(--t1);line-height:1.8;margin-bottom:24px}
 .check-list{list-style:none;display:flex;flex-direction:column;gap:10px}
 .check-item{display:flex;align-items:flex-start;gap:10px;font-size:.85rem;color:var(--t1)}
 .check-icon{flex-shrink:0;width:17px;height:17px;border-radius:50%;background:var(--g-10);border:1px solid rgba(52,199,89,.25);display:flex;align-items:center;justify-content:center;margin-top:2px}
@@ -459,7 +455,6 @@ footer{
   .cta-sub{font-size:.9rem;margin-bottom:28px}
   .cta-badge img{height:42px}
 
-  .zt-fitness{margin-top:56px;padding-top:40px}
 
   .section-h2{font-size:clamp(1.6rem,6vw,2rem)}
   .section-sub{font-size:.9rem}
