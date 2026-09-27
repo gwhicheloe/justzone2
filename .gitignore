@@ -28,3 +28,7 @@ Podfile.lock
 
 # App Store Connect API credentials (TestFlight uploads)
 scripts/asc.env
+
+# Python bytecode
+__pycache__/
+*.pyc

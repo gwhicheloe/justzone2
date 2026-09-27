@@ -39,9 +39,18 @@ it is doing different work — a contrast against Zwift having no household plan
 
 ---
 
-## Promotional text — LIVE as of 2026-09-23 (141/170)
+## Promotional text — LIVE (151/170), changed 2026-09-26
 
-> Most apps hold your power. JustZone2 holds your heart rate, adjusting trainer resistance every second to keep you in Zone 2. No subscription.
+> Most apps hold your power. JustZone2 holds your heart rate, so as you get fitter your Zone 2 power climbs. See your aerobic fitness grow, no FTP tests.
+
+Adds the progress argument: with heart rate held steady, power at that heart
+rate is a fitness measure, so ordinary Zone 2 rides replace FTP tests. The
+History trend chart (average power and HR per ride) is what backs it up.
+Deliberately no "unique"/"only app" claim: other apps have HR-controlled modes
+and power-vs-HR analysis exists elsewhere, so exclusivity would need proof
+(UK advertising rules, App Store guidelines). Previous text (2026-09-23 to
+09-26): "Most apps hold your power. JustZone2 holds your heart rate, adjusting
+trainer resistance every second to keep you in Zone 2. No subscription."
 
 ---
 

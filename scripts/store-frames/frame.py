@@ -62,3 +62,33 @@ def frame(shot_path, headline, subline, out, eyebrow=None, W=1284, H=2778, shot_
 
 if __name__ == "__main__":
     frame(*sys.argv[1:6]) if len(sys.argv) > 5 else frame(*sys.argv[1:5])
+
+
+def frame_cards(card_paths, headline, subline, out, eyebrow=None, W=1284, H=2778, card_w=0.86, gap=48):
+    """Like frame(), but instead of a phone it stacks app UI crops (e.g. the History
+    charts) as large rounded cards under the caption — for screens where the
+    interesting part is small on a full-phone capture."""
+    import os
+    tmp = out + ".blank.png"
+    Image.new("RGB", (10, 10), BG).save(tmp)
+    # draw the standard background + caption by framing a throwaway image, then paint over its slot
+    frame(tmp, headline, subline, out, eyebrow, W=W, H=H, shot_w=0.001)
+    os.remove(tmp)
+    canvas = Image.open(out).convert("RGB")
+    k = 1.0
+    header_bottom = int(130 * k) + int(80 * k) + 3 * int(112 * k) + int(16 * k) + 2 * int(62 * k)
+    cards = [Image.open(pth).convert("RGB") for pth in card_paths]
+    avail = H - header_bottom - int(70 * k) - int(60 * k) - gap * (len(cards) - 1)
+    cw = int(W * card_w)
+    scale = min(cw / cards[0].width, avail / sum(c.height for c in cards))
+    y = header_bottom + int(70 * k)
+    for c in cards:
+        c = c.resize((int(c.width * scale), int(c.height * scale)), Image.LANCZOS)
+        r = int(c.width * 0.035)
+        m = Image.new("L", c.size, 0); ImageDraw.Draw(m).rounded_rectangle((0, 0, c.width, c.height), r, fill=255)
+        x = (W - c.width) // 2
+        b = Image.new("RGB", (c.width + 4, c.height + 4), (60, 64, 70))
+        bm = Image.new("L", b.size, 0); ImageDraw.Draw(bm).rounded_rectangle((0, 0, b.width, b.height), r + 2, fill=255)
+        canvas.paste(b, (x - 2, y - 2), bm); canvas.paste(c, (x, y), m)
+        y += c.height + gap
+    canvas.save(out)
