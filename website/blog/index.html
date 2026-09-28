@@ -9,13 +9,21 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../css/styles.css?v=11">
+<link rel="stylesheet" href="../css/styles.css?v=12">
 <link rel="icon" type="image/svg+xml" href="../images/app-icon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="../images/icons/favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="../images/icons/favicon-16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="../images/icons/apple-touch-icon.png">
 <link rel="manifest" href="../site.webmanifest">
 <link rel="canonical" href="https://www.justzone2.com/blog/">
+<style>
+  .hub-banner{display:flex;align-items:center;gap:28px;justify-content:space-between;margin:0 auto 40px;padding:26px 30px;border-radius:var(--r-lg);border:1px solid rgba(52,199,89,.28);background:rgba(52,199,89,.06);color:inherit;text-decoration:none;transition:border-color .2s,background .2s}
+  .hub-banner:hover{border-color:rgba(52,199,89,.55);background:rgba(52,199,89,.1)}
+  .hub-banner h3{font-size:1.3rem;font-weight:800;letter-spacing:-.02em;color:var(--t0);margin-top:6px}
+  .hub-banner p{color:var(--t1);font-size:.95rem;line-height:1.6;margin-top:8px;max-width:640px}
+  .hub-go{display:inline-flex;align-items:center;gap:8px;font-weight:800;color:var(--g);white-space:nowrap}
+  @media(max-width:640px){.hub-banner{flex-direction:column;align-items:flex-start;gap:14px;padding:22px}}
+</style>
 </head>
 <body>
 
@@ -29,6 +37,7 @@
       <a href="../index.html#why-zone2">Why Zone 2</a>
       <a href="../index.html#resources">Resources</a>
       <a href="../zone-2-training-plan">Planner</a>
+      <a href="../science/">Science</a>
       <a href="index.html">Blog</a>
     </nav>
     <button class="nav-toggle" id="nav-toggle" aria-label="Menu" aria-expanded="false">
@@ -46,34 +55,21 @@
     <div class="blog-head rv">
       <div class="section-label">Blog</div>
       <h2 class="section-h2">Notes from the saddle.</h2>
-      <p>Training stories, the science behind Zone 2, and what happens when boring winter work meets a real mountain.</p>
+      <p>Training stories, notes from the podcasts, how the app works, and what happens when boring winter work meets a real mountain.</p>
     </div>
 
-    <div class="post-grid">
-      <a href="how-many-hard-sessions.html" class="post-card rv d1">
-        <svg class="post-card-img" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" role="img" aria-label="A week of seven days with two hard days, Tuesday and Thursday, and the rest easy">
-          <rect width="600" height="400" fill="#0A0A14"/>
-          <text x="300" y="104" font-family="Nunito,system-ui,sans-serif" font-weight="800" fill="rgba(255,255,255,.5)" font-size="12" text-anchor="middle" letter-spacing="1.5">ONE, TWO OR THREE? 26 STUDIES</text>
-          <g font-family="Nunito,system-ui,sans-serif" font-weight="800" font-size="12" fill="rgba(255,255,255,.55)" text-anchor="middle">
-            <text x="90" y="290">M</text><text x="160" y="290">T</text><text x="230" y="290">W</text><text x="300" y="290">T</text><text x="370" y="290">F</text><text x="440" y="290">S</text><text x="510" y="290">S</text>
-          </g>
-          <rect x="72" y="228" width="36" height="42" rx="6" fill="rgba(255,255,255,.08)"/>
-          <rect x="142" y="150" width="36" height="120" rx="6" fill="#C8331A"/>
-          <rect x="212" y="214" width="36" height="56" rx="6" fill="#0A7E3A"/>
-          <rect x="282" y="160" width="36" height="110" rx="6" fill="#BE8700"/>
-          <rect x="352" y="228" width="36" height="42" rx="6" fill="rgba(255,255,255,.08)"/>
-          <rect x="422" y="176" width="36" height="94" rx="6" fill="#0A7E3A"/>
-          <rect x="492" y="208" width="36" height="62" rx="6" fill="#0A7E3A"/>
-          <g font-family="Nunito,system-ui,sans-serif" font-weight="900" font-size="13" text-anchor="middle"><text x="160" y="140" fill="#fff">hard</text><text x="300" y="150" fill="#fff">hard</text></g>
-        </svg>
-        <div class="post-card-body">
-          <span class="post-tag">The Evidence · Long Read</span>
-          <h3>How Many Hard Sessions a Week?</h3>
-          <p>Two is the accepted wisdom. We tested it against the elite data, the frequency trials and the recovery physiology, and found when one or three is the better answer. 26 references.</p>
-          <div class="post-meta">27 September 2026 · <span>12 min read</span></div>
-        </div>
-      </a>
+    <a href="../science/" class="hub-banner rv">
+      <div>
+        <span class="post-tag">The Science Hub</span>
+        <h3>Looking for the research?</h3>
+        <p>Our evidence long reads, on what Zone 2 does, how to find yours and how many hard sessions you need, now live in the Science Hub. Every claim is referenced.</p>
+      </div>
+      <span class="hub-go">Explore
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </span>
+    </a>
 
+    <div class="post-grid">
       <a href="brownlee-slow-training.html" class="post-card rv d2">
         <svg class="post-card-img" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Bar chart: easy rides at about 200 watts against an FTP of about 400 watts">
           <rect width="600" height="400" fill="#0A0A14"/>
@@ -95,31 +91,6 @@
           <h3>The Olympic Champion Who Trained Slowly</h3>
           <p>Alistair Brownlee rode his easy days at about half his FTP. What his numbers on That Triathlon Show reveal, and what a six-hour-a-week rider should and shouldn't copy.</p>
           <div class="post-meta">27 September 2026 · <span>5 min read</span></div>
-        </div>
-      </a>
-
-      <a href="zone-2-evidence-review.html" class="post-card rv d3">
-        <svg class="post-card-img" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Bar chart of mitochondrial gains from endurance, interval and sprint training">
-          <rect width="600" height="400" fill="#0A0A14"/>
-          <g font-family="Nunito,system-ui,sans-serif" font-weight="800" fill="rgba(255,255,255,.5)" font-size="12" text-anchor="middle" letter-spacing="1.5">
-            <text x="300" y="96">MITOCHONDRIAL CONTENT · 353 STUDIES</text>
-          </g>
-          <line x1="110" y1="300" x2="490" y2="300" stroke="rgba(255,255,255,.18)"/>
-          <rect x="140" y="177" width="80" height="123" rx="8" fill="rgba(52,199,89,.28)" stroke="#34C759" stroke-width="2"/>
-          <rect x="260" y="156" width="80" height="144" rx="8" fill="rgba(255,159,10,.22)" stroke="#FF9F0A" stroke-width="2"/>
-          <rect x="380" y="156" width="80" height="144" rx="8" fill="rgba(255,69,58,.2)" stroke="#FF453A" stroke-width="2"/>
-          <g font-family="Nunito,system-ui,sans-serif" font-weight="900" font-size="20" text-anchor="middle">
-            <text x="180" y="165" fill="#34C759">+23%</text><text x="300" y="144" fill="#FF9F0A">+27%</text><text x="420" y="144" fill="#FF453A">+27%</text>
-          </g>
-          <g font-family="Nunito,system-ui,sans-serif" font-weight="700" font-size="13" fill="rgba(255,255,255,.55)" text-anchor="middle">
-            <text x="180" y="324">Zone 2</text><text x="300" y="324">HIIT</text><text x="420" y="324">Sprint</text>
-          </g>
-        </svg>
-        <div class="post-card-body">
-          <span class="post-tag">The Evidence · Long Read</span>
-          <h3>The Rise and Reassessment of Zone 2</h3>
-          <p>Where the 80/20 idea came from, how a cross-sectional study became a longevity prescription, what 353 studies say about mitochondria — and who it's actually for. 27 references.</p>
-          <div class="post-meta">6 September 2026 · <span>22 min read</span></div>
         </div>
       </a>
 

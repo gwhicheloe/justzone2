@@ -8,5 +8,13 @@
 
 # Retired 2026-09-06: short-form Zone 2 post was briefly live and sitemapped,
 # then folded into the long-form review. Keep the URL alive as a redirect.
-/blog/is-zone-2-overrated       /blog/zone-2-evidence-review  301
-/blog/is-zone-2-overrated.html  /blog/zone-2-evidence-review  301
+/blog/is-zone-2-overrated       /science/zone-2-evidence-review  301
+/blog/is-zone-2-overrated.html  /science/zone-2-evidence-review  301
+
+# Moved 2026-09-28: the evidence long reads now live in the Science Hub.
+/blog/zone-2-evidence-review  /science/zone-2-evidence-review  301
+/blog/zone-2-evidence-review.html  /science/zone-2-evidence-review  301
+/blog/how-many-hard-sessions  /science/how-many-hard-sessions  301
+/blog/how-many-hard-sessions.html  /science/how-many-hard-sessions  301
+/blog/how-to-find-your-zone-2  /science/how-to-find-your-zone-2  301
+/blog/how-to-find-your-zone-2.html  /science/how-to-find-your-zone-2  301

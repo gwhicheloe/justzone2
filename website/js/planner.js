@@ -2,7 +2,7 @@
  *
  * Turns "hours per week" (+ whether to include a weekend long ride) into a
  * seven-day plan. The rules follow the site's own evidence review
- * (/blog/zone-2-evidence-review):
+ * (/science/zone-2-evidence-review):
  *
  *  - Two hard sessions a week, always: one VO2max session and one threshold
  *    session. "Go hard two or three times a week" — and at low volume the
