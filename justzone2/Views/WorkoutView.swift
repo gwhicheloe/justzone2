@@ -117,6 +117,13 @@ struct WorkoutView: View {
     /// tiny chunk-status line at the top. Rotate back to portrait for controls.
     private var landscapeBody: some View {
         VStack(spacing: 4) {
+            if let session = viewModel.intervalSession {
+                IntervalProfileView(session: session, elapsed: viewModel.elapsedTime,
+                                    powerFor: viewModel.intervalPower(for:))
+                    .frame(height: 22)
+                    .padding(.horizontal, 12)
+                    .padding(.top, 4)
+            } else {
             // Progress bar with chunk dividers
             GeometryReader { geometry in
                 ZStack(alignment: .leading) {
@@ -133,17 +140,24 @@ struct WorkoutView: View {
                 }
             }
             .frame(height: 4)
+            }
 
             connectingBanner
 
             // Tiny status row
             HStack {
+                if viewModel.isIntervalWorkout {
+                    Text(intervalStatusLine)
+                        .fontWeight(.semibold)
+                        .foregroundColor(intervalColor)
+                } else {
                 Text("Chunk \(viewModel.currentChunk) of \(viewModel.totalChunks)")
                     .fontWeight(.semibold)
                 Text("·")
                     .foregroundColor(.secondary)
                 Text("\(viewModel.formatTime(viewModel.timeRemainingInChunk)) left")
                     .foregroundColor(.secondary)
+                }
                 Spacer()
                 if viewModel.state == .paused {
                     Text("PAUSED")
@@ -185,8 +199,8 @@ struct WorkoutView: View {
                         .fill(Color.green)
                         .frame(width: geometry.size.width * viewModel.progress)
 
-                    // Chunk dividers
-                    ForEach(1..<viewModel.totalChunks, id: \.self) { chunk in
+                    // Chunk dividers (Zone 2 rides; intervals show their profile instead)
+                    ForEach(1..<(viewModel.isIntervalWorkout ? 1 : viewModel.totalChunks), id: \.self) { chunk in
                         Rectangle()
                             .fill(Color.white.opacity(0.5))
                             .frame(width: 2)
@@ -200,7 +214,9 @@ struct WorkoutView: View {
 
             // Hero — the "am I in Zone 2?" answer at a glance (or warm-up countdown).
             Group {
-                if viewModel.isWarmingUp {
+                if viewModel.isIntervalWorkout {
+                    intervalHero
+                } else if viewModel.isWarmingUp {
                     warmUpHero
                 } else {
                     zoneHero
@@ -268,7 +284,8 @@ struct WorkoutView: View {
                         }
                     }
 
-                    // Zone Targeting toggle
+                    // Zone Targeting toggle (not for interval sessions, which hold ERG power)
+                    if !viewModel.isIntervalWorkout {
                     HStack(spacing: 8) {
                         Image(systemName: viewModel.zoneTargetingEnabled ? "heart.text.square.fill" : "heart.text.square")
                             .foregroundColor(viewModel.zoneTargetingEnabled ? .green : .secondary)
@@ -280,6 +297,7 @@ struct WorkoutView: View {
                             .tint(.green)
                     }
                     .padding(.horizontal, 40)
+                    }
                 }
                 .padding(.top, 10)
                 .padding(.bottom, 20)
@@ -291,7 +309,7 @@ struct WorkoutView: View {
                 HStack(spacing: 6) {
                     Text(stateTitle)
                         .font(.custom("ArialRoundedMTBold", size: 28))
-                        .foregroundColor(viewModel.isWarmingUp ? .orange : .green)
+                        .foregroundColor(viewModel.isIntervalWorkout ? intervalColor : (viewModel.isWarmingUp ? .orange : .green))
                         .lineLimit(1)
                         .minimumScaleFactor(0.6)
                     DemoTitleTag()
@@ -408,7 +426,7 @@ struct WorkoutView: View {
         ZStack {
             Color(.systemGroupedBackground)
             RadialGradient(
-                colors: [(viewModel.isWarmingUp ? Color.orange : zoneColor).opacity(0.18), .clear],
+                colors: [(viewModel.isIntervalWorkout ? intervalColor : (viewModel.isWarmingUp ? Color.orange : zoneColor)).opacity(0.18), .clear],
                 center: .top, startRadius: 0, endRadius: 460
             )
         }
@@ -467,6 +485,110 @@ struct WorkoutView: View {
                         .shadow(color: zoneColor.opacity(0.7), radius: 6)
                         .offset(x: w * zoneFrac(viewModel.currentHeartRate) - 8)
                 }
+            }
+        }
+    }
+
+    // MARK: - Interval session display
+
+    /// Work intervals in the Zone 4 amber, everything easy in Zone 1 blue.
+    private var intervalColor: Color {
+        guard let segment = viewModel.currentSegment else { return IntervalProfileView.easyColor }
+        return segment.isWork ? IntervalProfileView.workColor : IntervalProfileView.easyColor
+    }
+
+    private var intervalPhaseLabel: String {
+        guard let segment = viewModel.currentSegment, let session = viewModel.intervalSession else { return "INTERVALS" }
+        switch segment.kind {
+        case .warmUp:   return "WARM UP"
+        case .work:     return "INTERVAL \(segment.number) OF \(session.intervalCount)"
+        case .rest:     return "RECOVERY"
+        case .coolDown: return "COOL DOWN"
+        }
+    }
+
+    /// Landscape one-liner: "Interval 3 of 5 · 1:23 left" / "Interval 3 in 0:24".
+    private var intervalStatusLine: String {
+        if let next = viewModel.upcomingWork, let until = viewModel.timeUntilUpcomingWork {
+            return "Interval \(next.number) in \(viewModel.formatTime(until))"
+        }
+        guard let segment = viewModel.currentSegment else { return "" }
+        let left = viewModel.formatTime(viewModel.segmentRemaining)
+        switch segment.kind {
+        case .work:     return "Interval \(segment.number) of \(viewModel.intervalSession?.intervalCount ?? 0) · \(left) left"
+        case .coolDown: return "Cool down · \(left) left"
+        default:        return "\(left) left"
+        }
+    }
+
+    /// The interval hero: what phase you're in, a big countdown (to the next
+    /// interval while warming up or recovering, to the end of the interval
+    /// while working), heart rate, and the session profile with a "now" marker.
+    private var intervalHero: some View {
+        let upcoming = viewModel.upcomingWork
+        let until = viewModel.timeUntilUpcomingWork
+        let bigTime = until ?? viewModel.segmentRemaining
+        let imminent = (until ?? .infinity) <= 10
+        let final3 = (until ?? .infinity) <= 3
+        let caption: String = {
+            if let upcoming, let session = viewModel.intervalSession {
+                return "Interval \(upcoming.number) of \(session.intervalCount) starts in"
+            }
+            switch viewModel.currentSegment?.kind {
+            case .work: return "Interval ends in"
+            case .coolDown: return "Cool-down ends in"
+            default: return "Time left"
+            }
+        }()
+        let bigColor: Color = imminent ? IntervalProfileView.workColor : intervalColor
+
+        return VStack(spacing: 6) {
+            Text(intervalPhaseLabel)
+                .font(.system(size: 12, weight: .bold))
+                .tracking(1.5)
+                .foregroundStyle(intervalColor)
+                .padding(.horizontal, 12)
+                .padding(.vertical, 5)
+                .background(Capsule().fill(intervalColor.opacity(0.16)))
+
+            Text(caption)
+                .font(.subheadline.weight(.medium))
+                .foregroundStyle(.secondary)
+
+            Text(viewModel.formatTime(bigTime))
+                .font(.system(size: 72, weight: .bold, design: .rounded))
+                .monospacedDigit()
+                .foregroundStyle(bigColor)
+                // Animate only the "last 3 seconds" pulse — animating on every
+                // tick cross-fades the digits into a ghosted double image.
+                .scaleEffect(final3 ? 1.1 : 1)
+                .animation(.spring(response: 0.25, dampingFraction: 0.5), value: final3)
+                .lineLimit(1)
+                .minimumScaleFactor(0.6)
+
+            HStack(spacing: 14) {
+                HStack(spacing: 5) {
+                    Image(systemName: "heart.fill").foregroundStyle(.red)
+                    Text(viewModel.currentHeartRate > 0 ? "\(viewModel.currentHeartRate) bpm" : "-- bpm")
+                        .monospacedDigit()
+                }
+                if let upcoming {
+                    HStack(spacing: 5) {
+                        Image(systemName: "bolt.fill").foregroundStyle(IntervalProfileView.workColor)
+                        Text("next \(viewModel.intervalPower(for: upcoming)) W")
+                            .monospacedDigit()
+                    }
+                }
+            }
+            .font(.subheadline.weight(.semibold))
+            .foregroundStyle(.secondary)
+
+            if let session = viewModel.intervalSession {
+                IntervalProfileView(session: session, elapsed: viewModel.elapsedTime,
+                                    powerFor: viewModel.intervalPower(for:))
+                    .frame(height: 48)
+                    .padding(.horizontal, 24)
+                    .padding(.top, 6)
             }
         }
     }
@@ -551,7 +673,7 @@ struct WorkoutView: View {
             }
             .frame(height: 30)          // matches the power tile's header height
             HStack(alignment: .firstTextBaseline, spacing: 2) {
-                Text(viewModel.formatTime(viewModel.isWarmingUp ? viewModel.remainingTime : viewModel.timeRemainingInChunk))
+                Text(viewModel.formatTime(viewModel.isWarmingUp || viewModel.isIntervalWorkout ? viewModel.remainingTime : viewModel.timeRemainingInChunk))
                     .font(.system(size: 34, weight: .bold, design: .rounded))
                     .monospacedDigit()
                     .lineLimit(1)
@@ -568,6 +690,9 @@ struct WorkoutView: View {
 
     private var timeSub: String {
         if viewModel.isWarmingUp { return "warming up" }
+        if let session = viewModel.intervalSession {
+            return "\(session.intervalCount) × \(IntervalSession.formatDuration(session.workDuration)) · total"
+        }
         return "Chunk \(viewModel.currentChunk) of \(viewModel.totalChunks) · \(viewModel.formatTime(viewModel.remainingTime)) total"
     }
 
@@ -586,6 +711,7 @@ struct WorkoutView: View {
         case .idle:
             return "Starting..."
         case .running:
+            if viewModel.isIntervalWorkout { return "Intervals" }
             return viewModel.isWarmingUp ? "Warm Up" : "Zone 2 Workout"
         case .paused:
             return "Paused"

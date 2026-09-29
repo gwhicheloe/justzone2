@@ -347,8 +347,10 @@ struct ExportableChartView: View {
                 // Header
                 HStack {
                     VStack(alignment: .leading, spacing: 4) {
-                        Text("Zone 2 Workout")
+                        Text(workout.intervalSession.map { "Intervals: \($0.name)" } ?? "Zone 2 Workout")
                             .font(.custom("ArialRoundedMTBold", size: 28))
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.6)
                             .foregroundColor(.black)
                         Text(dateString)
                             .font(.custom("ArialRoundedMTBold", size: 15))

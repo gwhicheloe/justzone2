@@ -68,6 +68,16 @@ class WorkoutViewModel: ObservableObject {
         max(warmUpDuration - elapsedTime, 0)
     }
 
+    // MARK: - Intervals
+    var intervalSession: IntervalSession? { workout.intervalSession }
+    var isIntervalWorkout: Bool { workout.intervalSession != nil }
+    /// Rider's ±5 W nudges during an interval session. Work intervals and the
+    /// easy segments (warm-up, recovery, cool-down) keep separate offsets, so
+    /// "go 10 W harder on the efforts" sticks for the rest of the session.
+    private var workPowerOffset = 0
+    private var easyPowerOffset = 0
+    private var lastSegmentStart: TimeInterval?
+
     // MARK: - Zone Targeting
     @Published var zoneTargetingEnabled: Bool {
         didSet { if zoneTargetingEnabled { resetPID() } }
@@ -172,10 +182,13 @@ class WorkoutViewModel: ObservableObject {
         self.liveActivityManager = liveActivityManager
         self.watchConnectivityService = watchConnectivityService
         self.hrSource = hrSource
-        self.zoneTargetingEnabled = zoneTargetingEnabled
-        self.warmUpEnabled = warmUpEnabled
+        // An interval session has its own warm-up and holds ERG power per
+        // segment, so the Zone 2 controls don't apply.
+        let isIntervals = workout.intervalSession != nil
+        self.zoneTargetingEnabled = zoneTargetingEnabled && !isIntervals
+        self.warmUpEnabled = warmUpEnabled && !isIntervals
         self.isDemo = isDemo
-        self.adjustedPower = workout.targetPower
+        self.adjustedPower = workout.intervalSession?.segment(at: 0)?.power ?? workout.targetPower
 
         let z2Min = UserDefaults.standard.integer(forKey: "zone2Min")
         self.zone2Min = z2Min > 0 ? z2Min : 120
@@ -486,7 +499,14 @@ class WorkoutViewModel: ObservableObject {
     ///   session is already running); false when starting from the phone, in
     ///   which case we kick the Watch the legacy way and let the watchdog revive.
     private func beginWorkout(watchAlreadyStarted: Bool) {
-        let startPower = warmUpEnabled ? workout.targetPower / 2 : workout.targetPower
+        let startPower: Int
+        if let segment = intervalSession?.segment(at: 0) {
+            startPower = intervalPower(for: segment)
+            lastSegmentStart = segment.start
+        } else {
+            startPower = warmUpEnabled ? workout.targetPower / 2 : workout.targetPower
+        }
+        adjustedPower = startPower
         kickrService.setTargetPower(startPower)
         kickrService.startWorkout()
 
@@ -567,7 +587,12 @@ class WorkoutViewModel: ObservableObject {
             warmUpComplete = true
         }
 
-        let resumePower = warmUpEnabled && !warmUpComplete ? workout.targetPower / 2 : adjustedPower
+        var resumePower = warmUpEnabled && !warmUpComplete ? workout.targetPower / 2 : adjustedPower
+        if let segment = intervalSession?.segment(at: elapsedTime) {
+            resumePower = intervalPower(for: segment)
+            adjustedPower = resumePower
+            lastSegmentStart = segment.start
+        }
         kickrService.setTargetPower(resumePower)
         kickrService.startWorkout()
 
@@ -683,7 +708,11 @@ class WorkoutViewModel: ObservableObject {
         kickrService.startWorkout()
         kickrService.setSimulationPaused(false)
         heartRateService.setSimulationPaused(false)
-        let resumePower = warmUpEnabled && !warmUpComplete ? workout.targetPower / 2 : adjustedPower
+        var resumePower = warmUpEnabled && !warmUpComplete ? workout.targetPower / 2 : adjustedPower
+        if let segment = currentSegment {
+            resumePower = intervalPower(for: segment)
+            adjustedPower = resumePower
+        }
         kickrService.setTargetPower(resumePower)
         resetPID()
         state = .running
@@ -723,8 +752,14 @@ class WorkoutViewModel: ObservableObject {
 
         workout.finish()
 
-        // Leave KICKR running at half power so rider can cool down while viewing summary
-        kickrService.setTargetPower(workout.targetPower / 2)
+        // Leave KICKR running at an easy power so the rider can cool down while
+        // viewing the summary: half the target, or an interval session's
+        // recovery power (half of a hard interval power would be too much).
+        if let session = intervalSession {
+            kickrService.setTargetPower(max(50, session.restPower + easyPowerOffset))
+        } else {
+            kickrService.setTargetPower(workout.targetPower / 2)
+        }
 
         endIPhoneSessionAndNotifyWatch()
 
@@ -801,6 +836,8 @@ class WorkoutViewModel: ObservableObject {
         if let startTime = workoutStartTime {
             elapsedTime = now.timeIntervalSince(startTime)
         }
+
+        if isIntervalWorkout { advanceIntervalSegment() }
 
         // Warm-up → full power transition
         if warmUpEnabled && !warmUpComplete && elapsedTime >= warmUpDuration {
@@ -910,9 +947,10 @@ class WorkoutViewModel: ObservableObject {
             heartRate: currentHeartRate,
             power: currentPower,
             elapsedTime: elapsedTime,
-            chunkRemaining: timeRemainingInChunk,
-            currentChunk: currentChunk,
-            totalChunks: totalChunks,
+            // For intervals the Watch's countdown shows the current segment.
+            chunkRemaining: isIntervalWorkout ? segmentRemaining : timeRemainingInChunk,
+            currentChunk: isIntervalWorkout ? (currentSegment?.number ?? 0) : currentChunk,
+            totalChunks: isIntervalWorkout ? (intervalSession?.intervalCount ?? 0) : totalChunks,
             state: state
         )
     }
@@ -1015,6 +1053,7 @@ class WorkoutViewModel: ObservableObject {
     // MARK: - Manual Power Adjustment
 
     func incrementPower() {
+        if isIntervalWorkout { nudgeIntervalPower(by: 5); return }
         adjustedPower = min(adjustedPower + 5, workout.targetPower + maxDriftFromTarget)
         kickrService.setTargetPower(adjustedPower)
         // Sync PID so it doesn't immediately fight the manual change
@@ -1023,10 +1062,60 @@ class WorkoutViewModel: ObservableObject {
     }
 
     func decrementPower() {
+        if isIntervalWorkout { nudgeIntervalPower(by: -5); return }
         adjustedPower = max(adjustedPower - 5, max(workout.targetPower - maxDriftFromTarget, 50))
         kickrService.setTargetPower(adjustedPower)
         pidOutputWatts = Double(adjustedPower - workout.targetPower)
         pidIntegral = 0
+    }
+
+    // MARK: - Interval Sessions
+
+    /// The segment in progress now (nil for a Zone 2 ride).
+    var currentSegment: IntervalSegment? {
+        intervalSession?.segment(at: elapsedTime)
+    }
+
+    /// Seconds left in the current segment.
+    var segmentRemaining: TimeInterval {
+        guard let segment = currentSegment else { return 0 }
+        return max(segment.end - elapsedTime, 0)
+    }
+
+    /// The next work interval, if the rider is currently warming up or
+    /// recovering before it (nil during an interval and after the last one).
+    var upcomingWork: IntervalSegment? {
+        guard let segment = currentSegment, !segment.isWork else { return nil }
+        return intervalSession?.nextWork(after: elapsedTime)
+    }
+
+    /// Countdown to the next interval starting.
+    var timeUntilUpcomingWork: TimeInterval? {
+        upcomingWork.map { max($0.start - elapsedTime, 0) }
+    }
+
+    /// Target power for a segment, including the rider's nudges.
+    func intervalPower(for segment: IntervalSegment) -> Int {
+        let offset = segment.isWork ? workPowerOffset : easyPowerOffset
+        return min(max(segment.power + offset, 50), 1500)
+    }
+
+    /// Switch the trainer to the next segment's power when a boundary passes.
+    private func advanceIntervalSegment() {
+        guard let segment = currentSegment, segment.start != lastSegmentStart else { return }
+        lastSegmentStart = segment.start
+        adjustedPower = intervalPower(for: segment)
+        kickrService.setTargetPower(adjustedPower)
+        dlog("[IPHONE-VM] interval segment → \(segment.kind.rawValue) #\(segment.number) at \(adjustedPower) W (t=\(Int(elapsedTime))s)")
+        let haptic = UINotificationFeedbackGenerator()
+        haptic.notificationOccurred(segment.isWork ? .warning : .success)
+    }
+
+    private func nudgeIntervalPower(by watts: Int) {
+        guard let segment = currentSegment else { return }
+        if segment.isWork { workPowerOffset += watts } else { easyPowerOffset += watts }
+        adjustedPower = intervalPower(for: segment)
+        kickrService.setTargetPower(adjustedPower)
     }
 
     func formatTime(_ time: TimeInterval) -> String {

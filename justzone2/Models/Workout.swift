@@ -7,15 +7,22 @@ struct Workout: Codable, Identifiable {
     let targetPower: Int
     let targetDuration: TimeInterval
     var samples: [WorkoutSample]
+    /// Set when this is an Interval Builder session: the trainer follows the
+    /// session's power profile instead of a single target. Optional so
+    /// workouts saved before intervals existed still decode.
+    var intervalSession: IntervalSession?
 
-    init(targetPower: Int, targetDuration: TimeInterval) {
+    init(targetPower: Int, targetDuration: TimeInterval, intervalSession: IntervalSession? = nil) {
         self.id = UUID()
         self.startDate = Date()
         self.endDate = nil
         self.targetPower = targetPower
         self.targetDuration = targetDuration
         self.samples = []
+        self.intervalSession = intervalSession
     }
+
+    var isIntervalSession: Bool { intervalSession != nil }
 
     var actualDuration: TimeInterval {
         guard let endDate = endDate else {

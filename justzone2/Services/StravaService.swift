@@ -306,6 +306,16 @@ class StravaService: NSObject, ObservableObject {
         zone2Max: Int
     ) -> String {
         var lines: [String] = []
+        if let session = workout.intervalSession {
+            lines.append("Intervals: \(session.intervalCount) × \(IntervalSession.formatDuration(session.workDuration)) @ \(session.workPower) W")
+            lines.append("Recovery: \(session.recoverySummary)")
+            lines.append("Warm-up \(IntervalSession.formatDuration(session.warmUpDuration)), cool-down \(IntervalSession.formatDuration(session.coolDownDuration))")
+            lines.append("Duration: \(Int((workout.targetDuration / 60).rounded())) min")
+            lines.append("HR source: \(hrSourceName)")
+            lines.append("")
+            lines.append("Recorded with JustZone2")
+            return lines.joined(separator: "\n")
+        }
         lines.append("Target power: \(workout.targetPower) W")
         lines.append("Duration: \(Int((workout.targetDuration / 60).rounded())) min")
         if zoneTargetingEnabled {
@@ -323,6 +333,12 @@ class StravaService: NSObject, ObservableObject {
     /// Strava activity title based on the zone the workout predominantly sat in.
     /// Falls back to "Zone 2 Workout" when there's no HR data to classify.
     static func activityTitle(for workout: Workout) -> String {
+        // Interval sessions are titled by the session, never by an HR zone:
+        // History counts anything titled "Zone 2" towards the Zone 2 progress
+        // charts, and a hard session must not land there.
+        if let session = workout.intervalSession {
+            return "Intervals: \(session.name)"
+        }
         let hrs = workout.samples.compactMap { $0.heartRate }
         guard let zone = HRZoneBoundaries.dominantZone(heartRates: hrs) else {
             return "Zone 2 Workout"

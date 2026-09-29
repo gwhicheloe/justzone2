@@ -226,7 +226,10 @@ class HistoryViewModel: ObservableObject {
     }
 
     private func isZone2Activity(_ activity: StravaActivity) -> Bool {
-        activity.name.localizedCaseInsensitiveContains("Zone 2") ||
+        // Interval sessions are uploaded as "Intervals: <name>" — keep them off
+        // the Zone 2 charts even if the rider's own name mentions Zone 2.
+        if activity.name.hasPrefix("Intervals:") { return false }
+        return activity.name.localizedCaseInsensitiveContains("Zone 2") ||
         activity.name.localizedCaseInsensitiveContains("Zone2") ||
         activity.name.localizedCaseInsensitiveContains("Z2")
     }

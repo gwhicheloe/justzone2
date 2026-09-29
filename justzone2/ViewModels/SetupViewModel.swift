@@ -36,6 +36,28 @@ class SetupViewModel: ObservableObject {
     @Published var warmUpEnabled: Bool {
         didSet { UserDefaults.standard.set(warmUpEnabled, forKey: "warmUpEnabled") }
     }
+    // MARK: Interval Builder
+    enum WorkoutMode: String { case zone2, intervals }
+    /// Zone 2 ride or interval session. Only offered when the Interval Builder
+    /// is switched on in Settings; see `isIntervalMode`.
+    @Published var workoutMode: WorkoutMode {
+        didSet { UserDefaults.standard.set(workoutMode.rawValue, forKey: "workoutMode") }
+    }
+    @Published var selectedIntervalSessionId: UUID? {
+        didSet { UserDefaults.standard.set(selectedIntervalSessionId?.uuidString, forKey: "selectedIntervalSessionId") }
+    }
+    /// Mirrors the Settings toggle (UserDefaults) so Setup reacts immediately.
+    @Published private(set) var intervalBuilderEnabled = UserDefaults.standard.bool(forKey: IntervalSessionStore.enabledKey)
+
+    var isIntervalMode: Bool { intervalBuilderEnabled && workoutMode == .intervals }
+
+    /// The chosen session, falling back to the first saved one if the chosen
+    /// session was deleted (or none was ever chosen).
+    var selectedIntervalSession: IntervalSession? {
+        let store = IntervalSessionStore.shared
+        return store.session(id: selectedIntervalSessionId) ?? store.sessions.first
+    }
+
     @Published var hrSource: HRSource = .bleStrap
     /// Computed shorthand kept so read sites don't all need to migrate at once.
     var useWatchHR: Bool { hrSource == .appleWatch }
@@ -82,11 +104,24 @@ class SetupViewModel: ObservableObject {
 
         self.zoneTargetingEnabled = UserDefaults.standard.bool(forKey: "zoneTargetingEnabled")
         self.warmUpEnabled = UserDefaults.standard.bool(forKey: "warmUpEnabled")
+        self.workoutMode = WorkoutMode(rawValue: UserDefaults.standard.string(forKey: "workoutMode") ?? "") ?? .zone2
+        self.selectedIntervalSessionId = UserDefaults.standard.string(forKey: "selectedIntervalSessionId").flatMap(UUID.init)
 
         setupBindings()
     }
 
     private func setupBindings() {
+        NotificationCenter.default.publisher(for: UserDefaults.didChangeNotification)
+            .map { _ in UserDefaults.standard.bool(forKey: IntervalSessionStore.enabledKey) }
+            .removeDuplicates()
+            .receive(on: RunLoop.main)
+            .sink { [weak self] enabled in self?.intervalBuilderEnabled = enabled }
+            .store(in: &cancellables)
+        // Saved sessions changing can change whether Start is possible.
+        IntervalSessionStore.shared.objectWillChange
+            .sink { [weak self] _ in self?.objectWillChange.send() }
+            .store(in: &cancellables)
+
         // Forward Bluetooth state
         bluetoothManager.$isBluetoothEnabled
             .assign(to: &$isBluetoothEnabled)
@@ -269,7 +304,11 @@ class SetupViewModel: ObservableObject {
     }
 
     func createWorkout() -> Workout {
-        Workout(targetPower: targetPower, targetDuration: targetDuration)
+        if isIntervalMode, let session = selectedIntervalSession {
+            return Workout(targetPower: session.workPower, targetDuration: session.totalDuration,
+                           intervalSession: session)
+        }
+        return Workout(targetPower: targetPower, targetDuration: targetDuration)
     }
 
     /// True when Apple Watch is the chosen HR source but the Watch app
@@ -285,6 +324,7 @@ class SetupViewModel: ObservableObject {
     /// cannot grant) Health access — which is exactly what blocked App Review.
     var canStartWorkout: Bool {
         kickrConnected && (isHealthKitAuthorized || isDemoMode) && !watchHRWaitingForApp
+            && (!isIntervalMode || selectedIntervalSession != nil)
     }
 
     /// Apple Health is the only thing blocking the start — the trainer's connected
@@ -304,6 +344,8 @@ class SetupViewModel: ObservableObject {
             return "Connect Apple Health to start"
         } else if watchHRWaitingForApp {
             return "Open JustZone2 on your Apple Watch to continue"
+        } else if isIntervalMode && selectedIntervalSession == nil {
+            return "Build an interval session to start"
         }
         return ""
     }

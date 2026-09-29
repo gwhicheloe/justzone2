@@ -11,12 +11,15 @@ struct SettingsView: View {
     @AppStorage("zone2Min") private var zone2Min = 120
     @AppStorage("zone2Max") private var zone2Max = 140
     @State private var showTargetInfo = false
+    @AppStorage(IntervalSessionStore.enabledKey) private var intervalBuilderEnabled = false
+    @ObservedObject private var intervalStore = IntervalSessionStore.shared
 
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 14) {
                     zone2TargetCard
+                    intervalBuilderCard
                     stravaCard
                     diagnosticsSection
                     dataCard
@@ -257,6 +260,47 @@ struct SettingsView: View {
             }
         }
         .buttonStyle(.plain)
+    }
+
+    /// Opt-in: the Interval Builder stays invisible on Setup until this is on.
+    private var intervalBuilderCard: some View {
+        SettingsCard {
+            VStack(alignment: .leading, spacing: 12) {
+                HStack(spacing: 12) {
+                    iconChip("chart.bar.fill", tint: IntervalProfileView.workColor)
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("Interval Builder")
+                            .font(.subheadline.weight(.semibold))
+                        Text("Build and ride hard interval sessions in ERG mode, alongside your Zone 2 rides")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+                    Spacer(minLength: 8)
+                    Toggle("", isOn: $intervalBuilderEnabled)
+                        .labelsHidden()
+                }
+                if intervalBuilderEnabled {
+                    NavigationLink {
+                        IntervalSessionListView()
+                    } label: {
+                        HStack {
+                            Text("Manage sessions")
+                                .font(.subheadline.weight(.medium))
+                            Spacer()
+                            Text("\(intervalStore.sessions.count) saved")
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                            Image(systemName: "chevron.right")
+                                .font(.caption.weight(.semibold))
+                                .foregroundStyle(.tertiary)
+                        }
+                        .contentShape(Rectangle())
+                    }
+                    .buttonStyle(.plain)
+                }
+            }
+        }
     }
 
     private var demoCard: some View {

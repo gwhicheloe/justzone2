@@ -10,6 +10,9 @@ struct SetupView: View {
     @State private var pendingRecovery: LocalWorkout?
     @AppStorage("demoMode") private var demoMode = false
     @Environment(\.requestReview) private var requestReview
+    @ObservedObject private var intervalStore = IntervalSessionStore.shared
+    @State private var editingIntervalSession: IntervalSession?
+    @State private var showIntervalSessions = false
 
     // Limit HR monitors to avoid crowded gyms filling the screen
     private var limitedHRMonitors: [DeviceInfo] {
@@ -336,7 +339,7 @@ struct SetupView: View {
                     Button(action: { buildAndNavigateToWorkout() }) {
                         HStack(spacing: 8) {
                             Image(systemName: "play.fill")
-                            Text("Start Workout")
+                            Text(viewModel.isIntervalMode ? "Start Intervals" : "Start Workout")
                         }
                         .font(.headline)
                         .foregroundColor(.white)
@@ -546,6 +549,132 @@ struct SetupView: View {
     /// Zone Targeting / Warm Up options, all on a soft green-gradient panel.
     private var configCard: some View {
         VStack(spacing: 10) {
+            if viewModel.intervalBuilderEnabled {
+                Picker("Workout", selection: $viewModel.workoutMode) {
+                    Text("Zone 2").tag(SetupViewModel.WorkoutMode.zone2)
+                    Text("Intervals").tag(SetupViewModel.WorkoutMode.intervals)
+                }
+                .pickerStyle(.segmented)
+            }
+            if viewModel.isIntervalMode {
+                intervalConfig
+            } else {
+                zone2Config
+            }
+        }
+        .padding(12)
+        .background(
+            RoundedRectangle(cornerRadius: 24, style: .continuous)
+                .fill(
+                    LinearGradient(
+                        colors: [(viewModel.isIntervalMode ? IntervalProfileView.workColor : Color.green).opacity(0.28),
+                                 (viewModel.isIntervalMode ? IntervalProfileView.workColor : Color.green).opacity(0.06)],
+                        startPoint: .topLeading, endPoint: .bottomTrailing
+                    )
+                )
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 24, style: .continuous)
+                .stroke((viewModel.isIntervalMode ? IntervalProfileView.workColor : Color.green).opacity(0.30), lineWidth: 1)
+        )
+        .sheet(item: $editingIntervalSession) { session in
+            IntervalSessionEditor(session: session) { saved in
+                intervalStore.save(saved)
+                viewModel.selectedIntervalSessionId = saved.id
+            }
+        }
+        .sheet(isPresented: $showIntervalSessions) {
+            NavigationStack {
+                IntervalSessionListView()
+                    .toolbar {
+                        ToolbarItem(placement: .cancellationAction) {
+                            Button("Done") { showIntervalSessions = false }
+                        }
+                    }
+            }
+        }
+    }
+
+    /// Interval mode: pick a saved session and see its shape.
+    @ViewBuilder
+    private var intervalConfig: some View {
+        if let session = viewModel.selectedIntervalSession {
+            VStack(alignment: .leading, spacing: 10) {
+                Menu {
+                    ForEach(intervalStore.sessions) { s in
+                        Button {
+                            viewModel.selectedIntervalSessionId = s.id
+                        } label: {
+                            if s.id == session.id {
+                                Label(s.name, systemImage: "checkmark")
+                            } else {
+                                Text(s.name)
+                            }
+                        }
+                    }
+                    Divider()
+                    Button { editingIntervalSession = IntervalSession.example } label: {
+                        Label("New Session…", systemImage: "plus")
+                    }
+                    Button { editingIntervalSession = session } label: {
+                        Label("Edit This Session…", systemImage: "slider.horizontal.3")
+                    }
+                    Button { showIntervalSessions = true } label: {
+                        Label("Manage Sessions…", systemImage: "list.bullet")
+                    }
+                } label: {
+                    HStack(spacing: 10) {
+                        iconChip("chart.bar.fill", tint: IntervalProfileView.workColor)
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text(session.name)
+                                .font(.subheadline.weight(.semibold))
+                                .foregroundStyle(.primary)
+                                .lineLimit(1)
+                            Text("\(IntervalSession.formatDuration(session.totalDuration)) · \(session.recoverySummary)")
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                                .lineLimit(1)
+                                .minimumScaleFactor(0.8)
+                        }
+                        Spacer(minLength: 4)
+                        Image(systemName: "chevron.up.chevron.down")
+                            .font(.caption.weight(.semibold))
+                            .foregroundStyle(.secondary)
+                    }
+                    .contentShape(Rectangle())
+                }
+                .buttonStyle(.plain)
+
+                IntervalProfileView(session: session)
+                    .frame(height: 44)
+            }
+            .padding(12)
+            .background(RoundedRectangle(cornerRadius: 14, style: .continuous).fill(.ultraThinMaterial))
+            .overlay(RoundedRectangle(cornerRadius: 14, style: .continuous).stroke(Color.white.opacity(0.08), lineWidth: 1))
+        } else {
+            Button { editingIntervalSession = IntervalSession.example } label: {
+                VStack(spacing: 6) {
+                    Image(systemName: "plus.circle.fill")
+                        .font(.title2)
+                        .foregroundStyle(IntervalProfileView.workColor)
+                    Text("Build an interval session")
+                        .font(.subheadline.weight(.semibold))
+                    Text("Set the intervals, their length and power, and the recovery between them")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                        .multilineTextAlignment(.center)
+                }
+                .frame(maxWidth: .infinity)
+                .padding(16)
+                .background(RoundedRectangle(cornerRadius: 14, style: .continuous).fill(.ultraThinMaterial))
+            }
+            .buttonStyle(.plain)
+        }
+    }
+
+    /// The original Zone 2 configuration: power, duration and the two toggles.
+    private var zone2Config: some View {
+        VStack(spacing: 10) {
             HStack(spacing: 10) {
                 PowerPicker(
                     selectedPower: $viewModel.targetPower,
@@ -574,20 +703,6 @@ struct SetupView: View {
                 )
             }
         }
-        .padding(12)
-        .background(
-            RoundedRectangle(cornerRadius: 24, style: .continuous)
-                .fill(
-                    LinearGradient(
-                        colors: [Color.green.opacity(0.28), Color.green.opacity(0.06)],
-                        startPoint: .topLeading, endPoint: .bottomTrailing
-                    )
-                )
-        )
-        .overlay(
-            RoundedRectangle(cornerRadius: 24, style: .continuous)
-                .stroke(Color.green.opacity(0.30), lineWidth: 1)
-        )
     }
 
     /// A compact half-width option tile (Zone Targeting / Warm Up) so the two sit
