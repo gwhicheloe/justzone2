@@ -129,6 +129,11 @@ body>*{position:relative;z-index:1}
 @keyframes shimmer{from{background-position:0% center}to{background-position:200% center}}
 
 .hero-sub{font-size:1.05rem;color:var(--t1);max-width:420px;line-height:1.75;margin-bottom:36px}
+/* The cheeky asterisk: Zone 2.* — it does intervals too. */
+.h1-ast{display:inline-block;font-size:.42em;vertical-align:top;margin:.08em 0 0 .06em;color:var(--g);letter-spacing:0;transition:transform .2s}
+.h1-ast:hover{transform:rotate(72deg) scale(1.15)}
+.hero-footnote{font-size:.85rem;color:var(--t2);max-width:420px;line-height:1.6;margin:-22px 0 32px}
+.hero-footnote .ast{color:var(--g);font-weight:900;margin-right:3px}
 .hero-actions{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
 .btn-store img{height:46px;width:auto;transition:opacity .2s,transform .2s}
 .btn-store:hover img{opacity:.85;transform:translateY(-2px)}
