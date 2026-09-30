@@ -65,9 +65,14 @@ struct IntervalSessionRow: View {
             }
             IntervalProfileView(session: session)
                 .frame(height: 26)
-            Text(session.recoverySummary)
-                .font(.caption)
-                .foregroundStyle(.secondary)
+            HStack {
+                Text(session.recoverySummary)
+                Spacer()
+                Text("Weighted avg \(session.weightedAveragePower) W")
+                    .monospacedDigit()
+            }
+            .font(.caption)
+            .foregroundStyle(.secondary)
         }
         .padding(.vertical, 4)
         .contentShape(Rectangle())
@@ -110,6 +115,19 @@ struct IntervalSessionEditor: View {
                         }
                         .font(.caption.weight(.semibold))
                         .foregroundStyle(.secondary)
+                        // Recalculated live as the numbers change.
+                        HStack(alignment: .firstTextBaseline, spacing: 4) {
+                            Text("Weighted average power")
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                            Spacer()
+                            Text("\(session.weightedAveragePower)")
+                                .font(.title3.weight(.bold).monospacedDigit())
+                                .contentTransition(.numericText())
+                            Text("W")
+                                .font(.caption.weight(.semibold))
+                                .foregroundStyle(.secondary)
+                        }
                     }
                     .padding(.vertical, 6)
                 }

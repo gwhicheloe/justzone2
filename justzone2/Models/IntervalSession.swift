@@ -68,6 +68,35 @@ struct IntervalSession: Codable, Identifiable, Equatable, Hashable {
             + Double(max(intervalCount - 1, 0)) * restDuration
     }
 
+    /// Weighted average power for the planned session, in watts — a better
+    /// guide to how hard it feels than plain average power, because hard
+    /// efforts cost disproportionately more than easy riding.
+    ///
+    /// Standard method: a second-by-second power series, its 30-second
+    /// rolling average, each value raised to the 4th power, the mean of
+    /// those, then the 4th root. Computed from the target powers, so it's
+    /// exact for what the trainer will hold (O(n) in session seconds).
+    var weightedAveragePower: Int {
+        var watts: [Double] = []
+        watts.reserveCapacity(Int(totalDuration))
+        for segment in segments {
+            watts.append(contentsOf: repeatElement(Double(segment.power), count: max(Int(segment.duration.rounded()), 0)))
+        }
+        guard !watts.isEmpty else { return 0 }
+        let window = 30
+        guard watts.count >= window else {
+            return Int((watts.reduce(0, +) / Double(watts.count)).rounded())
+        }
+        var rolling = watts[0..<window].reduce(0, +)
+        var sumFourth = pow(rolling / Double(window), 4)
+        for i in window..<watts.count {
+            rolling += watts[i] - watts[i - window]
+            sumFourth += pow(rolling / Double(window), 4)
+        }
+        let count = Double(watts.count - window + 1)
+        return Int(pow(sumFourth / count, 0.25).rounded())
+    }
+
     /// The segment in progress at `elapsed` seconds (clamped to the last one).
     func segment(at elapsed: TimeInterval) -> IntervalSegment? {
         let all = segments

@@ -635,6 +635,10 @@ struct SetupView: View {
                                 .foregroundStyle(.secondary)
                                 .lineLimit(1)
                                 .minimumScaleFactor(0.8)
+                            Text("Weighted avg \(session.weightedAveragePower) W")
+                                .font(.caption.monospacedDigit())
+                                .foregroundStyle(.secondary)
+                                .lineLimit(1)
                         }
                         Spacer(minLength: 4)
                         Image(systemName: "chevron.up.chevron.down")
