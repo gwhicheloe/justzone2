@@ -613,7 +613,7 @@ struct SetupView: View {
                         }
                     }
                     Divider()
-                    Button { editingIntervalSession = IntervalSession.example } label: {
+                    Button { editingIntervalSession = IntervalSession.newTemplate } label: {
                         Label("New Session…", systemImage: "plus")
                     }
                     Button { editingIntervalSession = session } label: {
@@ -652,7 +652,7 @@ struct SetupView: View {
             .background(RoundedRectangle(cornerRadius: 14, style: .continuous).fill(.ultraThinMaterial))
             .overlay(RoundedRectangle(cornerRadius: 14, style: .continuous).stroke(Color.white.opacity(0.08), lineWidth: 1))
         } else {
-            Button { editingIntervalSession = IntervalSession.example } label: {
+            Button { editingIntervalSession = IntervalSession.newTemplate } label: {
                 VStack(spacing: 6) {
                     Image(systemName: "plus.circle.fill")
                         .font(.title2)

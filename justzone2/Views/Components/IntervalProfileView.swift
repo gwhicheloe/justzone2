@@ -64,8 +64,8 @@ struct IntervalProfileView: View {
 
 #Preview {
     VStack(spacing: 30) {
-        IntervalProfileView(session: .example).frame(height: 40)
-        IntervalProfileView(session: .example, elapsed: 16 * 60).frame(height: 56)
+        IntervalProfileView(session: .newTemplate).frame(height: 40)
+        IntervalProfileView(session: .newTemplate, elapsed: 16 * 60).frame(height: 56)
     }
     .padding()
     .preferredColorScheme(.dark)

@@ -16,11 +16,16 @@ struct IntervalSession: Codable, Identifiable, Equatable, Hashable {
     var warmUpDuration: TimeInterval
     var coolDownDuration: TimeInterval
 
-    static let example = IntervalSession(
-        intervalCount: 5, workDuration: 4 * 60, workPower: 220,
-        restDuration: 3 * 60, restPower: 120,
-        warmUpDuration: 10 * 60, coolDownDuration: 5 * 60
-    )
+    /// Starting point for "New Session". Computed, not a stored `static let`:
+    /// a stored template kept one UUID for the whole app run, so every new
+    /// session shared an id and saving one overwrote the last.
+    static var newTemplate: IntervalSession {
+        IntervalSession(
+            intervalCount: 5, workDuration: 4 * 60, workPower: 220,
+            restDuration: 3 * 60, restPower: 120,
+            warmUpDuration: 10 * 60, coolDownDuration: 5 * 60
+        )
+    }
 
     var name: String {
         if let custom = customName?.trimmingCharacters(in: .whitespacesAndNewlines), !custom.isEmpty {

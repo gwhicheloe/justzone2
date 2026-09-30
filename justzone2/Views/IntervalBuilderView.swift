@@ -36,7 +36,7 @@ struct IntervalSessionListView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
-                Button { editing = IntervalSession.example } label: {
+                Button { editing = IntervalSession.newTemplate } label: {
                     Label("New Session", systemImage: "plus")
                 }
             }
