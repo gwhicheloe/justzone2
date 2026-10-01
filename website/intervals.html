@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Free interval session builder for indoor cycling. Set the number of intervals, their length and power, and the recovery between them — see the session's shape and weighted average power, then ride it in ERG mode with Justzone2.">
+<meta name="theme-color" content="#34C759">
+<title>Interval Builder for Indoor Cycling — Justzone2</title>
+<link rel="canonical" href="https://www.justzone2.com/intervals">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Justzone2">
+<meta property="og:title" content="Build an interval session">
+<meta property="og:description" content="The Justzone2 Interval Builder, on the web. Design a session, see how hard it is, and ride it in ERG mode on your smart trainer.">
+<meta property="og:url" content="https://www.justzone2.com/intervals">
+<meta property="og:image" content="https://www.justzone2.com/images/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Build an interval session">
+<meta name="twitter:description" content="Design an interval session, see how hard it is, and ride it in ERG mode with Justzone2.">
+<meta name="twitter:image" content="https://www.justzone2.com/images/og-image.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css?v=14">
+<link rel="icon" type="image/svg+xml" href="images/app-icon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="images/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="images/icons/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="images/icons/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Justzone2 Interval Builder",
+  "url": "https://www.justzone2.com/intervals",
+  "applicationCategory": "HealthApplication",
+  "operatingSystem": "Any (web browser)",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "GBP" },
+  "description": "Build an indoor cycling interval session: number of intervals, interval length and power, recovery length and power, warm-up and cool-down. Shows the session profile, total time and weighted average power."
+}
+</script>
+
+<style>
+  /* ── Interval Builder (scoped to this page) ─────────────────────────────
+     Work and easy colours are the app's own Zone 4 / Zone 1 colours, so the
+     web builder looks like the one in the app. Colour is never the only cue:
+     the ride preview names every phase, and the editor labels every field. */
+  :root{--ib-work:#E08038;--ib-easy:#5CA8DB}
+  .ib-head{text-align:center;max-width:680px;margin:0 auto}
+  .ib-head .section-sub{margin:14px auto 0;max-width:600px}
+  .ib-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;margin-top:44px;align-items:start;scroll-margin-top:90px}
+  .ib-card{background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:var(--r-lg);padding:20px}
+  .ib-card-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+  .ib-card-head h2{font-size:1.05rem;font-weight:800;color:var(--t0);letter-spacing:-.01em}
+  .ib-link{background:none;border:0;color:var(--g);font:inherit;font-weight:800;font-size:.88rem;cursor:pointer;padding:4px 2px}
+  .ib-link:hover{text-decoration:underline}
+
+  /* Form groups, styled like the app's inset grouped list */
+  .ib-group{margin-top:18px}
+  .ib-group-title{font-size:.82rem;font-weight:700;color:var(--t2);margin:0 0 8px 4px}
+  .ib-rows{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:14px}
+  .ib-field{display:flex;align-items:center;gap:10px;min-height:52px;padding:6px 14px;border-top:1px solid rgba(255,255,255,.07)}
+  .ib-field:first-child{border-top:0}
+  .ib-field label,.ib-field .ib-lbl{flex:1;font-size:.95rem;color:var(--t0)}
+  .ib-val{font-size:.95rem;color:var(--t1);font-variant-numeric:tabular-nums;min-width:28px;text-align:right}
+  .ib-step{display:inline-flex;border-radius:999px;background:rgba(255,255,255,.1);overflow:hidden}
+  .ib-step button{width:44px;height:32px;border:0;background:none;color:var(--t0);font-size:1.2rem;font-weight:600;cursor:pointer;line-height:1}
+  .ib-step button+button{border-left:1px solid rgba(255,255,255,.15)}
+  .ib-step button:hover:not(:disabled){background:rgba(255,255,255,.08)}
+  .ib-step button:disabled{color:rgba(255,255,255,.25);cursor:default}
+  .ib-field select{appearance:none;-webkit-appearance:none;background:transparent;border:0;color:var(--t1);font:inherit;font-size:.95rem;
+    text-align:right;padding:6px 22px 6px 6px;cursor:pointer;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='14' viewBox='0 0 10 14'%3E%3Cpath d='M1 5l4-4 4 4M1 9l4 4 4-4' fill='none' stroke='%23999' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;background-position:right 2px center}
+  .ib-field select option{background:#14141f;color:#fff}
+  .ib-pow{width:64px;background:transparent;border:0;border-bottom:1px solid transparent;color:var(--t0);font:inherit;font-size:.95rem;text-align:right;
+    font-variant-numeric:tabular-nums;padding:4px 2px;-moz-appearance:textfield}
+  .ib-pow:focus{outline:none;border-bottom-color:var(--g)}
+  .ib-pow::-webkit-outer-spin-button,.ib-pow::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+  .ib-unit{color:var(--t2);font-size:.9rem;margin-right:2px}
+  .ib-name{width:100%;background:transparent;border:0;color:var(--t0);font:inherit;font-size:.95rem;padding:14px}
+  .ib-name::placeholder{color:var(--t2)}
+  .ib-name:focus{outline:none}
+  .ib-foot{font-size:.78rem;color:var(--t2);margin:7px 0 0 4px}
+  .ib-field select:focus-visible,.ib-step button:focus-visible,.ib-btn:focus-visible,.ib-link:focus-visible{outline:2px solid var(--g);outline-offset:2px}
+
+  /* Summary: profile + numbers */
+  .ib-profile{display:block;width:100%;height:64px}
+  .ib-meta{display:flex;justify-content:space-between;margin-top:10px;font-size:.82rem;font-weight:700;color:var(--t2)}
+  .ib-wap{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,.08)}
+  .ib-wap-label{font-size:.88rem;color:var(--t1)}
+  .ib-wap-label small{display:block;color:var(--t2);font-size:.78rem;margin-top:2px}
+  .ib-wap-num{font-size:2.2rem;font-weight:900;color:var(--t0);letter-spacing:-.03em;font-variant-numeric:tabular-nums;line-height:1}
+  .ib-wap-num small{font-size:.9rem;font-weight:700;color:var(--t2);margin-left:3px;letter-spacing:0}
+  .ib-actions{display:flex;gap:10px;margin-top:18px}
+  .ib-btn{flex:1;border:0;border-radius:14px;padding:13px 16px;font:inherit;font-weight:800;font-size:.95rem;cursor:pointer;transition:background .2s,transform .1s}
+  .ib-btn:active{transform:scale(.98)}
+  .ib-btn.primary{background:var(--g);color:#04130a}
+  .ib-btn.primary.done{background:#8DFFA0}
+  .ib-btn.ghost{background:rgba(255,255,255,.08);color:var(--t0)}
+  .ib-btn.ghost:hover{background:rgba(255,255,255,.13)}
+
+  /* Ride preview — the app's in-ride hero */
+  .ib-ride{position:relative;overflow:hidden;margin-top:24px;text-align:center;padding:22px 20px 20px}
+  .ib-ride::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at top,var(--tint,#5CA8DB) 0%,transparent 70%);opacity:.16;pointer-events:none;transition:background .4s}
+  .ib-ride>*{position:relative}
+  .ib-ride-label{font-size:.7rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--t2);margin-bottom:14px}
+  .ib-phase{display:inline-block;font-size:.72rem;font-weight:800;letter-spacing:.14em;padding:5px 12px;border-radius:999px}
+  .ib-caption{font-size:.92rem;color:var(--t1);margin-top:8px;min-height:1.4em}
+  .ib-big{font-size:clamp(3.2rem,9vw,4.6rem);font-weight:900;letter-spacing:-.03em;font-variant-numeric:tabular-nums;line-height:1.1;margin:2px 0 4px;transition:transform .2s cubic-bezier(.34,1.56,.64,1)}
+  .ib-big.pulse{transform:scale(1.1)}
+  .ib-next{font-size:.88rem;font-weight:700;color:var(--t2);min-height:1.3em}
+  .ib-watt{font-weight:900}
+  .ib-ride-profile{display:block;width:100%;height:52px;margin-top:16px;cursor:pointer}
+  .ib-ride-actions{display:flex;gap:10px;margin-top:16px}
+  .ib-ride-note{font-size:.78rem;color:var(--t2);margin-top:10px}
+
+  /* Saved sessions — the app's session list rows */
+  .ib-saved-card{margin-top:24px}
+  .ib-empty{font-size:.88rem;color:var(--t2);padding:4px 2px}
+  .ib-row{display:flex;align-items:stretch;border-top:1px solid rgba(255,255,255,.07)}
+  .ib-row:first-child{border-top:0}
+  .ib-row-main{flex:1;min-width:0;background:none;border:0;color:inherit;font:inherit;text-align:left;padding:12px 4px;cursor:pointer;border-radius:10px}
+  .ib-row-main:hover{background:rgba(255,255,255,.04)}
+  .ib-row.on .ib-row-main b{color:var(--g)}
+  .ib-row-top,.ib-row-foot{display:flex;justify-content:space-between;gap:10px}
+  .ib-row-top b{font-size:.95rem;color:var(--t0);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .ib-row-top span{font-size:.8rem;color:var(--t2);font-variant-numeric:tabular-nums;white-space:nowrap}
+  .ib-row-prof{display:block;width:100%;height:26px;margin:8px 0}
+  .ib-row-foot{font-size:.78rem;color:var(--t2);font-variant-numeric:tabular-nums}
+  .ib-row-del{background:none;border:0;color:var(--t2);font-size:1.3rem;width:40px;cursor:pointer;border-radius:10px}
+  .ib-row-del:hover{color:#ff6b5a;background:rgba(255,255,255,.04)}
+
+  /* Explainer sections */
+  .ib-how{max-width:760px;margin:90px auto 0}
+  .ib-how h2{font-size:clamp(1.5rem,3vw,2rem);font-weight:900;letter-spacing:-.03em;color:var(--t0);margin:56px 0 14px}
+  .ib-how h2:first-child{margin-top:0}
+  .ib-how p,.ib-how li{font-size:.95rem;line-height:1.75;color:var(--t1)}
+  .ib-how ul,.ib-how ol{padding-left:20px;margin:12px 0}
+  .ib-how li{margin:6px 0}
+  .ib-how strong{color:var(--t0)}
+  .ib-how a{color:var(--g)}
+  .ib-evidence{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:22px 0 8px}
+  .ib-ev{background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:var(--r-lg);padding:18px}
+  .ib-ev b{display:block;font-size:1.6rem;font-weight:900;color:var(--t0);letter-spacing:-.03em}
+  .ib-ev span{display:block;font-size:.85rem;color:var(--t1);line-height:1.55;margin-top:6px}
+  .ib-readmore{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-top:20px;padding:20px 22px;border-radius:var(--r-lg);
+    border:1px solid rgba(52,199,89,.28);background:rgba(52,199,89,.06);text-decoration:none!important}
+  .ib-readmore:hover{border-color:rgba(52,199,89,.55)}
+  .ib-readmore strong{display:block;font-size:1.05rem}
+  .ib-readmore span{display:block;font-size:.88rem;color:var(--t1);margin-top:4px}
+  .ib-readmore em{font-style:normal;font-weight:800;color:var(--g);white-space:nowrap}
+  .ib-cta{margin-top:48px;text-align:center}
+  .ib-small{font-size:.8rem!important;color:var(--t2)!important;margin-top:26px}
+
+  @media(max-width:860px){
+    .ib-grid{grid-template-columns:1fr;max-width:560px;margin-left:auto;margin-right:auto}
+    .ib-evidence{grid-template-columns:1fr}
+  }
+  @media(max-width:520px){
+    .ib-card{padding:16px}
+    .ib-field{padding:6px 10px;gap:8px}
+    .ib-step button{width:38px}
+    .ib-readmore{flex-direction:column;align-items:flex-start}
+  }
+  @media(prefers-reduced-motion:reduce){.ib-big{transition:none}.ib-big.pulse{transform:none}}
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="nav" id="nav">
+  <div class="wrap nav-row">
+    <a href="/" class="nav-logo">Justzone2</a>
+    <nav class="nav-links" id="nav-links">
+      <a href="index.html#features">Features</a>
+      <a href="index.html#how-it-works">How It Works</a>
+      <a href="index.html#why-zone2">Why Zone 2</a>
+      <a href="zone-2-training-plan">Planner</a>
+      <a href="research/">Research</a>
+      <a href="blog/index.html">Blog</a>
+    </nav>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <a href="https://apps.apple.com/app/id6758547732" class="nav-cta" target="_blank" rel="noopener">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.53 4.08zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
+      App Store
+    </a>
+  </div>
+</nav>
+
+<section class="section subpage">
+  <div class="wrap">
+
+    <div class="ib-head">
+      <div class="section-label">Interval Builder</div>
+      <h1 class="section-h2">Build an interval session</h1>
+      <p class="section-sub">JustZone2 isn't only for Zone 2. This is the app's Interval Builder, rebuilt for the web: set the intervals and the recovery between them, see the session's shape and how hard it is, then ride it in ERG mode on your smart trainer.</p>
+    </div>
+
+    <div class="ib-grid" id="ib-app">
+      <!-- Editor -->
+      <form class="ib-card" onsubmit="return false" aria-labelledby="ib-mode">
+        <div class="ib-card-head">
+          <h2 id="ib-mode">New Session</h2>
+          <button type="button" class="ib-link" id="ib-new">+ New</button>
+        </div>
+
+        <div class="ib-group">
+          <div class="ib-group-title">Intervals</div>
+          <div class="ib-rows">
+            <div class="ib-field">
+              <span class="ib-lbl" id="ib-count-lbl">Number</span>
+              <output class="ib-val" id="ib-count" aria-labelledby="ib-count-lbl">5</output>
+              <span class="ib-step"><button type="button" id="ib-count-dec" aria-label="Fewer intervals">−</button><button type="button" id="ib-count-inc" aria-label="More intervals">+</button></span>
+            </div>
+            <div class="ib-field">
+              <label for="ib-work-dur">Duration</label>
+              <select id="ib-work-dur"></select>
+            </div>
+            <div class="ib-field">
+              <label for="ib-work-pow">Power</label>
+              <input class="ib-pow" id="ib-work-pow" type="number" inputmode="numeric" min="30" max="1500" step="5">
+              <span class="ib-unit">W</span>
+              <span class="ib-step"><button type="button" id="ib-work-dec" aria-label="5 watts less">−</button><button type="button" id="ib-work-inc" aria-label="5 watts more">+</button></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="ib-group">
+          <div class="ib-group-title">Recovery between intervals</div>
+          <div class="ib-rows">
+            <div class="ib-field">
+              <label for="ib-rest-dur">Duration</label>
+              <select id="ib-rest-dur"></select>
+            </div>
+            <div class="ib-field">
+              <label for="ib-rest-pow">Power</label>
+              <input class="ib-pow" id="ib-rest-pow" type="number" inputmode="numeric" min="30" max="1500" step="5">
+              <span class="ib-unit">W</span>
+              <span class="ib-step"><button type="button" id="ib-rest-dec" aria-label="5 watts less">−</button><button type="button" id="ib-rest-inc" aria-label="5 watts more">+</button></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="ib-group">
+          <div class="ib-group-title">Warm-up &amp; cool-down</div>
+          <div class="ib-rows">
+            <div class="ib-field">
+              <label for="ib-warm">Warm-up</label>
+              <select id="ib-warm"></select>
+            </div>
+            <div class="ib-field">
+              <label for="ib-cool">Cool-down</label>
+              <select id="ib-cool"></select>
+            </div>
+          </div>
+          <p class="ib-foot">Ridden at the recovery power.</p>
+        </div>
+
+        <div class="ib-group">
+          <div class="ib-group-title"><label for="ib-name">Name</label></div>
+          <div class="ib-rows"><input class="ib-name" id="ib-name" type="text" maxlength="60" autocomplete="off"></div>
+          <p class="ib-foot" id="ib-name-foot"></p>
+        </div>
+      </form>
+
+      <div>
+        <!-- Session summary -->
+        <div class="ib-card">
+          <svg class="ib-profile" id="ib-profile" role="img" aria-label="Session profile: bar width is duration, height is power"></svg>
+          <div class="ib-meta"><span id="ib-total">47 min</span><span id="ib-intervals">5 intervals</span></div>
+          <div class="ib-wap" aria-live="polite">
+            <div class="ib-wap-label">Weighted average power<small>Plain average: <span id="ib-avg">163</span> W</small></div>
+            <div class="ib-wap-num"><span id="ib-wap">182</span><small>W</small></div>
+          </div>
+          <div class="ib-actions">
+            <button type="button" class="ib-btn primary" id="ib-save">Save session</button>
+          </div>
+        </div>
+
+        <!-- Ride preview -->
+        <div class="ib-card ib-ride" id="ib-ride">
+          <div class="ib-ride-label">Ride preview · 30× speed</div>
+          <span class="ib-phase" id="ib-phase">WARM UP</span>
+          <div class="ib-caption" id="ib-caption">Interval 1 of 5 starts in</div>
+          <div class="ib-big" id="ib-big" aria-live="off">10:00</div>
+          <div class="ib-next" id="ib-next"></div>
+          <svg class="ib-ride-profile" id="ib-ride-profile" role="img" aria-label="Session profile with your position; click to jump"></svg>
+          <div class="ib-ride-actions">
+            <button type="button" class="ib-btn primary" id="ib-play" aria-pressed="false">Ride preview</button>
+            <button type="button" class="ib-btn ghost" id="ib-restart">Restart</button>
+          </div>
+          <p class="ib-ride-note">What you'd see in the app, sped up. Tap the profile to jump ahead.</p>
+        </div>
+
+        <!-- Saved sessions -->
+        <div class="ib-card ib-saved-card">
+          <div class="ib-card-head"><h2>Saved sessions</h2></div>
+          <div id="ib-saved"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ib-how">
+      <h2>How hard, and how often?</h2>
+      <p>Intervals work, but more isn't better. We went through the research on how many hard sessions a week amateurs should do, and the answer is clearer than you might expect:</p>
+      <div class="ib-evidence">
+        <div class="ib-ev"><b>Two</b><span>hard sessions a week is the right default for getting fitter, on anything from about four to fifteen hours.</span></div>
+        <div class="ib-ev"><b>48 h+</b><span>between genuinely hard sessions. That's how long the heart's autonomic recovery takes after high-intensity work.</span></div>
+        <div class="ib-ev"><b>Easy</b><span>everything else. The days between need to be genuinely easy for the hard days to be hard.</span></div>
+      </div>
+      <p>One hard session a week is enough to start with, or to hold fitness through a busy patch. Three belongs in a short, planned block, not every week.</p>
+      <a class="ib-readmore" href="research/how-many-hard-sessions">
+        <div><strong>How Many Hard Sessions a Week?</strong><span>The elite data, the frequency trials and the recovery physiology. A long read with 26 references.</span></div>
+        <em>Read the research →</em>
+      </a>
+      <p style="margin-top:18px">Fitting it into a week? The <a href="zone-2-training-plan">training planner</a> places two hard sessions 48 hours apart and fills the rest with Zone 2. For why the easy riding matters as much as the intervals, see <a href="research/zone-2-evidence-review">The Rise and Reassessment of Zone 2</a>.</p>
+
+      <h2>What is weighted average power?</h2>
+      <p>Plain average power undersells interval sessions, because hard efforts cost disproportionately more than easy riding. Take the default session above (5 × 4 minutes at 220 W) and a session of ten 30-second efforts at 350 W, both with the same warm-up and cool-down. Their average powers are almost the same, 163 W and 167 W. Their weighted average powers are 182 W and 212 W, and the second one is the session that will hurt.</p>
+      <p>Weighted average power accounts for that. It takes the session second by second, smooths it with a 30-second rolling average, raises each value to the fourth power, averages those, and takes the fourth root. The result is closer to the steady power that would feel as hard. Compare two sessions by it to see which will hurt more.</p>
+
+      <h2>Ride it in JustZone2</h2>
+      <ol>
+        <li>In the app (version 1.0.2 or later), go to <strong>Settings</strong> and turn on <strong>Interval Builder</strong>.</li>
+        <li>On the Workout tab, switch to <strong>Intervals</strong> and build your session. The controls are the same as above.</li>
+        <li>Tap <strong>Start Intervals</strong>. Your trainer holds each interval's power in ERG mode, with a countdown to every interval and the session's shape on screen.</li>
+      </ol>
+      <p>Interval rides upload to Strava under their own name and are kept out of your Zone 2 progress charts, so a hard day never muddies your aerobic trend.</p>
+      <p class="ib-small">Sessions you save on this page stay in this browser. There's no account and nothing syncs, so build your favourites again in the app.</p>
+
+      <div class="ib-cta">
+        <a href="https://apps.apple.com/app/id6758547732" class="btn-appstore" target="_blank" rel="noopener">
+          <img src="images/app-store-badge.svg" alt="Download Justzone2 on the App Store" width="180" height="60">
+        </a>
+        <p class="soon-note">Zone 2 locked in. Intervals when you want them. On any FTMS smart trainer.</p>
+      </div>
+
+      <p class="ib-small">General guidance, not a personal coaching plan. If you have a medical condition, or are new to hard exercise, check with a doctor before doing high-intensity intervals.</p>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-row">
+      <div class="footer-brand">
+        <img src="images/figure.outdoor.cycle.svg" width="26" height="26" alt="Justzone2" onerror="this.style.display='none'">
+        Justzone2
+      </div>
+      <div class="footer-links">
+        <a href="/">Home</a>
+        <a href="zone-2-training-plan">Planner</a>
+        <a href="intervals">Intervals</a>
+        <a href="blog/index.html">Blog</a>
+        <a href="mailto:george.whicheloe@hotmail.com">Contact</a>
+        <a href="privacy.html">Privacy Policy</a>
+      </div>
+    </div>
+    <p class="footer-copy">&copy; 2026 Justzone2. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/intervals.js"></script>
+</body>
+</html>

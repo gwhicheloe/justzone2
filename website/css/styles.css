@@ -134,6 +134,7 @@ body>*{position:relative;z-index:1}
 .h1-ast:hover{transform:rotate(72deg) scale(1.15)}
 .hero-footnote{font-size:.85rem;color:var(--t2);max-width:420px;line-height:1.6;margin:-22px 0 32px}
 .hero-footnote .ast{color:var(--g);font-weight:900;margin-right:3px}
+.hero-footnote a{color:var(--g);text-decoration:underline;text-decoration-color:rgba(52,199,89,.45);text-underline-offset:2px}
 .hero-actions{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
 .btn-store img{height:46px;width:auto;transition:opacity .2s,transform .2s}
 .btn-store:hover img{opacity:.85;transform:translateY(-2px)}
