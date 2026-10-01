@@ -6,6 +6,8 @@
  * recovery power), same default name, same option lists and limits, and the
  * same weighted average power calculation. Keep the two in step.
  *
+ * The page is a simple demo: one session, nothing saved.
+ *
  * The model functions are pure (no DOM) so they can be tested on their own:
  *   node -e "const m=require('./js/intervals.js'); ..."
  */
@@ -141,64 +143,32 @@
   root.JZIntervals = model;
 
   // ── UI ─────────────────────────────────────────────────────────────────
+  // A simple demo of the app's builder: edit one session and watch its shape,
+  // total time and weighted average power update. Nothing is saved.
 
   var WORK = "#E08038";   // the app's Zone 4 colour — work intervals
   var EASY = "#5CA8DB";   // the app's Zone 1 colour — warm-up, recovery, cool-down
-  var STORE_KEY = "jz.intervalSessions";
-  var PREVIEW_SPEED = 30; // the ride preview runs 30× real time
 
   var $ = function (id) { return document.getElementById(id); };
   var session = newTemplate();
-  var saved = loadSaved();
-
-  function loadSaved() {
-    try { var raw = root.localStorage.getItem(STORE_KEY); return raw ? JSON.parse(raw) : []; }
-    catch (e) { return []; }
-  }
-  function persist() {
-    try { root.localStorage.setItem(STORE_KEY, JSON.stringify(saved)); } catch (e) {}
-  }
 
   /** Draw a session's shape into an <svg>: bar width = duration, height = power. */
-  function drawProfile(svg, x, elapsed) {
+  function drawProfile(svg, x) {
     var w = Math.max(svg.clientWidth || svg.parentNode.clientWidth || 300, 50);
     var h = Math.max(svg.clientHeight || 40, 10);
     var segs = segments(x), total = Math.max(totalDuration(x), 1);
     var maxP = Math.max.apply(null, segs.map(function (s) { return s.power; }).concat([1]));
     var gap = segs.length > 40 ? 0.5 : 1;
-    var parts = [];
-    segs.forEach(function (s) {
+    svg.setAttribute("viewBox", "0 0 " + w + " " + h);
+    svg.innerHTML = segs.map(function (s) {
       var sx = w * s.start / total, sw = Math.max(w * s.duration / total - gap, 1);
       // Keep easy segments visible even when the work power is far higher.
-      var sh = Math.max(h * s.power / maxP, h * 0.12), sy = h - sh;
-      var color = s.kind === "work" ? WORK : EASY;
-      var r = Math.min(2, sw / 2);
-      var path = function (px, pw, op) {
-        return '<path fill="' + color + '" fill-opacity="' + op + '" d="M' + px + ' ' + h + 'V' + (sy + r) +
-          'Q' + px + ' ' + sy + ' ' + (px + r) + ' ' + sy + 'H' + (px + pw - r) +
-          'Q' + (px + pw) + ' ' + sy + ' ' + (px + pw) + ' ' + (sy + r) + 'V' + h + 'Z"/>';
-      };
-      if (elapsed == null || elapsed >= s.end) {
-        parts.push(path(sx, sw, 0.95));
-      } else if (elapsed < s.start) {
-        parts.push(path(sx, sw, 0.35));
-      } else {
-        // Current segment: ridden part solid, the rest still to come.
-        parts.push(path(sx, sw, 0.35));
-        var doneW = sw * (elapsed - s.start) / s.duration;
-        if (doneW > 0.5) parts.push('<rect fill="' + color + '" fill-opacity=".95" x="' + sx + '" y="' + (sy + r) +
-          '" width="' + doneW + '" height="' + (sh - r) + '"/>');
-      }
-    });
-    if (elapsed != null) {
-      var mx = w * Math.min(elapsed / total, 1);
-      parts.push('<rect x="' + (mx - 1.5) + '" y="0" width="3" height="' + h + '" rx="1.5" fill="#fff"/>');
-    }
-    svg.setAttribute("viewBox", "0 0 " + w + " " + h);
-    svg.innerHTML = parts.join("");
+      var sh = Math.max(h * s.power / maxP, h * 0.12), sy = h - sh, r = Math.min(2, sw / 2);
+      return '<path fill="' + (s.kind === "work" ? WORK : EASY) + '" fill-opacity=".95" d="M' + sx + " " + h + "V" + (sy + r) +
+        "Q" + sx + " " + sy + " " + (sx + r) + " " + sy + "H" + (sx + sw - r) +
+        "Q" + (sx + sw) + " " + sy + " " + (sx + sw) + " " + (sy + r) + "V" + h + 'Z"/>';
+    }).join("");
   }
-
-  // ── Editor ──
 
   function fillSelect(sel, options, value) {
     var opts = options.indexOf(value) >= 0 ? options : options.concat([value]).sort(function (a, b) { return a - b; });
@@ -217,7 +187,6 @@
     fillSelect($("ib-cool"), EASY_DURATIONS, session.coolDownDuration);
     if (document.activeElement !== $("ib-work-pow")) $("ib-work-pow").value = session.workPower;
     if (document.activeElement !== $("ib-rest-pow")) $("ib-rest-pow").value = session.restPower;
-    $("ib-name").value = session.customName || "";
     render();
   }
 
@@ -225,19 +194,12 @@
     var dn = defaultName(session);
     $("ib-name").placeholder = dn;
     $("ib-name-foot").textContent = 'Leave blank to use "' + dn + '".';
+    $("ib-title").textContent = name(session);
     $("ib-total").textContent = formatDuration(totalDuration(session));
-    $("ib-intervals").textContent = session.intervalCount + " intervals";
+    $("ib-intervals").textContent = session.intervalCount + (session.intervalCount === 1 ? " interval" : " intervals");
     $("ib-wap").textContent = weightedAveragePower(session);
     $("ib-avg").textContent = averagePower(session);
-    updateSaveLabels();
-    drawProfile($("ib-profile"), session, null);
-    resetPreview();
-  }
-
-  function updateSaveLabels() {
-    var isSaved = saved.some(function (s) { return s.id === session.id; });
-    $("ib-mode").textContent = isSaved ? "Edit Session" : "New Session";
-    $("ib-save").textContent = isSaved ? "Save changes" : "Save session";
+    drawProfile($("ib-profile"), session);
   }
 
   function bindPower(input, key) {
@@ -254,80 +216,6 @@
     syncForm();
   }
 
-  // ── Saved sessions ──
-
-  function renderSaved() {
-    var list = $("ib-saved");
-    if (!saved.length) {
-      list.innerHTML = '<p class="ib-empty">No saved sessions yet. Saved sessions stay in this browser.</p>';
-      return;
-    }
-    list.innerHTML = saved.map(function (s, i) {
-      return '<div class="ib-row' + (s.id === session.id ? " on" : "") + '">' +
-        '<button type="button" class="ib-row-main" data-open="' + i + '">' +
-          '<span class="ib-row-top"><b>' + esc(name(s)) + '</b><span>' + formatDuration(totalDuration(s)) + "</span></span>" +
-          '<svg class="ib-row-prof" aria-hidden="true" data-prof="' + i + '"></svg>' +
-          '<span class="ib-row-foot"><span>' + recoverySummary(s) + "</span><span>Weighted avg " + weightedAveragePower(s) + " W</span></span>" +
-        "</button>" +
-        '<button type="button" class="ib-row-del" data-del="' + i + '" aria-label="Delete ' + esc(name(s)) + '">×</button>' +
-        "</div>";
-    }).join("");
-    saved.forEach(function (s, i) { drawProfile(list.querySelector('[data-prof="' + i + '"]'), s, null); });
-  }
-
-  function esc(t) { return String(t).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
-
-  // ── Ride preview: the app's in-ride display, sped up ──
-
-  var preview = { t: 0, playing: false, last: 0, raf: 0 };
-
-  function resetPreview() {
-    preview.t = 0; setPlaying(false); drawPreview();
-  }
-
-  function setPlaying(on) {
-    preview.playing = on;
-    $("ib-play").textContent = on ? "Pause" : (preview.t > 0 && preview.t < totalDuration(session) ? "Resume" : "Ride preview");
-    $("ib-play").setAttribute("aria-pressed", on ? "true" : "false");
-    if (on) { preview.last = performance.now(); preview.raf = requestAnimationFrame(tick); }
-    else cancelAnimationFrame(preview.raf);
-  }
-
-  function tick(now) {
-    if (!preview.playing) return;
-    preview.t += (now - preview.last) / 1000 * PREVIEW_SPEED;
-    preview.last = now;
-    var total = totalDuration(session);
-    if (preview.t >= total) { preview.t = total; drawPreview(); setPlaying(false); $("ib-play").textContent = "Ride again"; preview.t = 0; return; }
-    drawPreview();
-    preview.raf = requestAnimationFrame(tick);
-  }
-
-  function drawPreview() {
-    var t = preview.t, seg = segmentAt(session, t);
-    var phase = $("ib-phase"), caption = $("ib-caption"), big = $("ib-big"), next = $("ib-next");
-    if (!seg) return;
-    var color = seg.kind === "work" ? WORK : EASY;
-    var label = { warmUp: "WARM UP", work: "INTERVAL " + seg.number + " OF " + session.intervalCount, rest: "RECOVERY", coolDown: "COOL DOWN" }[seg.kind];
-    var upcoming = seg.kind !== "work" ? nextWork(session, t) : null;
-    var until = upcoming ? Math.max(upcoming.start - t, 0) : null;
-    var bigTime = until != null ? until : Math.max(seg.end - t, 0);
-    phase.textContent = label;
-    phase.style.color = color;
-    phase.style.background = color + "29";
-    caption.textContent = upcoming ? "Interval " + upcoming.number + " of " + session.intervalCount + " starts in"
-      : seg.kind === "work" ? "Interval ends in" : seg.kind === "coolDown" ? "Cool-down ends in" : "Time left";
-    big.textContent = formatTime(bigTime);
-    big.style.color = until != null && until <= 10 ? WORK : color;
-    big.classList.toggle("pulse", until != null && until <= 3 && preview.playing);
-    next.innerHTML = '<span class="ib-watt" style="color:' + color + '">' + seg.power + ' W</span> now' +
-      (upcoming ? ' · <span style="color:' + WORK + '">next ' + upcoming.power + " W</span>" : "");
-    $("ib-ride").style.setProperty("--tint", color);
-    drawProfile($("ib-ride-profile"), session, t);
-  }
-
-  // ── Wire up ──
-
   function init() {
     if (!$("ib-app")) return;
     $("ib-count-dec").addEventListener("click", function () { step("intervalCount", -1); });
@@ -340,50 +228,13 @@
       .forEach(function (p) { $(p[0]).addEventListener("change", function () { session[p[1]] = Number(this.value); syncForm(); }); });
     $("ib-name").addEventListener("input", function () { session.customName = this.value; render(); });
 
-    $("ib-save").addEventListener("click", function () {
-      var copy = JSON.parse(JSON.stringify(session));
-      copy.customName = (copy.customName || "").trim();
-      var i = saved.findIndex(function (s) { return s.id === copy.id; });
-      if (i >= 0) saved[i] = copy; else saved.push(copy);
-      persist(); renderSaved(); updateSaveLabels();
-      var b = $("ib-save"); b.classList.add("done"); b.textContent = "Saved ✓";
-      // Only restore the button — a full render() would reset a ride preview
-      // the rider started in the meantime.
-      setTimeout(function () { b.classList.remove("done"); updateSaveLabels(); }, 1200);
-    });
-    $("ib-new").addEventListener("click", function () { session = newTemplate(); syncForm(); renderSaved(); });
-
-    $("ib-saved").addEventListener("click", function (e) {
-      var open = e.target.closest("[data-open]"), del = e.target.closest("[data-del]");
-      if (del) {
-        var gone = saved.splice(Number(del.dataset.del), 1)[0];
-        persist();
-        if (gone && gone.id === session.id) session = newTemplate();
-        syncForm(); renderSaved();
-      } else if (open) {
-        session = JSON.parse(JSON.stringify(saved[Number(open.dataset.open)]));
-        syncForm(); renderSaved();
-        $("ib-app").scrollIntoView({ behavior: "smooth", block: "start" });
-      }
-    });
-
-    $("ib-play").addEventListener("click", function () { setPlaying(!preview.playing); });
-    $("ib-restart").addEventListener("click", function () { preview.t = 0; drawPreview(); if (!preview.playing) setPlaying(true); });
-    // Tap the ride profile to jump to that point in the session.
-    $("ib-ride-profile").addEventListener("click", function (e) {
-      var r = this.getBoundingClientRect();
-      preview.t = Math.max(0, Math.min(1, (e.clientX - r.left) / r.width)) * totalDuration(session);
-      drawPreview(); if (!preview.playing) $("ib-play").textContent = "Resume";
-    });
-
     var resizeTimer;
     root.addEventListener("resize", function () {
       clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(function () { drawProfile($("ib-profile"), session, null); renderSaved(); drawPreview(); }, 100);
+      resizeTimer = setTimeout(function () { drawProfile($("ib-profile"), session); }, 100);
     });
 
     syncForm();
-    renderSaved();
   }
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init); else init();

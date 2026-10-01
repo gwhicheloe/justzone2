@@ -54,13 +54,10 @@
   .ib-head .section-sub{margin:14px auto 0;max-width:600px}
   .ib-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;margin-top:44px;align-items:start;scroll-margin-top:90px}
   .ib-card{background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:var(--r-lg);padding:20px}
-  .ib-card-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
-  .ib-card-head h2{font-size:1.05rem;font-weight:800;color:var(--t0);letter-spacing:-.01em}
-  .ib-link{background:none;border:0;color:var(--g);font:inherit;font-weight:800;font-size:.88rem;cursor:pointer;padding:4px 2px}
-  .ib-link:hover{text-decoration:underline}
 
   /* Form groups, styled like the app's inset grouped list */
   .ib-group{margin-top:18px}
+  .ib-group:first-child{margin-top:0}
   .ib-group-title{font-size:.82rem;font-weight:700;color:var(--t2);margin:0 0 8px 4px}
   .ib-rows{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:14px}
   .ib-field{display:flex;align-items:center;gap:10px;min-height:52px;padding:6px 14px;border-top:1px solid rgba(255,255,255,.07)}
@@ -86,7 +83,7 @@
   .ib-name::placeholder{color:var(--t2)}
   .ib-name:focus{outline:none}
   .ib-foot{font-size:.78rem;color:var(--t2);margin:7px 0 0 4px}
-  .ib-field select:focus-visible,.ib-step button:focus-visible,.ib-btn:focus-visible,.ib-link:focus-visible{outline:2px solid var(--g);outline-offset:2px}
+  .ib-field select:focus-visible,.ib-step button:focus-visible{outline:2px solid var(--g);outline-offset:2px}
 
   /* Summary: profile + numbers */
   .ib-profile{display:block;width:100%;height:64px}
@@ -96,44 +93,9 @@
   .ib-wap-label small{display:block;color:var(--t2);font-size:.78rem;margin-top:2px}
   .ib-wap-num{font-size:2.2rem;font-weight:900;color:var(--t0);letter-spacing:-.03em;font-variant-numeric:tabular-nums;line-height:1}
   .ib-wap-num small{font-size:.9rem;font-weight:700;color:var(--t2);margin-left:3px;letter-spacing:0}
-  .ib-actions{display:flex;gap:10px;margin-top:18px}
-  .ib-btn{flex:1;border:0;border-radius:14px;padding:13px 16px;font:inherit;font-weight:800;font-size:.95rem;cursor:pointer;transition:background .2s,transform .1s}
-  .ib-btn:active{transform:scale(.98)}
-  .ib-btn.primary{background:var(--g);color:#04130a}
-  .ib-btn.primary.done{background:#8DFFA0}
-  .ib-btn.ghost{background:rgba(255,255,255,.08);color:var(--t0)}
-  .ib-btn.ghost:hover{background:rgba(255,255,255,.13)}
-
-  /* Ride preview — the app's in-ride hero */
-  .ib-ride{position:relative;overflow:hidden;margin-top:24px;text-align:center;padding:22px 20px 20px}
-  .ib-ride::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at top,var(--tint,#5CA8DB) 0%,transparent 70%);opacity:.16;pointer-events:none;transition:background .4s}
-  .ib-ride>*{position:relative}
-  .ib-ride-label{font-size:.7rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--t2);margin-bottom:14px}
-  .ib-phase{display:inline-block;font-size:.72rem;font-weight:800;letter-spacing:.14em;padding:5px 12px;border-radius:999px}
-  .ib-caption{font-size:.92rem;color:var(--t1);margin-top:8px;min-height:1.4em}
-  .ib-big{font-size:clamp(3.2rem,9vw,4.6rem);font-weight:900;letter-spacing:-.03em;font-variant-numeric:tabular-nums;line-height:1.1;margin:2px 0 4px;transition:transform .2s cubic-bezier(.34,1.56,.64,1)}
-  .ib-big.pulse{transform:scale(1.1)}
-  .ib-next{font-size:.88rem;font-weight:700;color:var(--t2);min-height:1.3em}
-  .ib-watt{font-weight:900}
-  .ib-ride-profile{display:block;width:100%;height:52px;margin-top:16px;cursor:pointer}
-  .ib-ride-actions{display:flex;gap:10px;margin-top:16px}
-  .ib-ride-note{font-size:.78rem;color:var(--t2);margin-top:10px}
-
-  /* Saved sessions — the app's session list rows */
-  .ib-saved-card{margin-top:24px}
-  .ib-empty{font-size:.88rem;color:var(--t2);padding:4px 2px}
-  .ib-row{display:flex;align-items:stretch;border-top:1px solid rgba(255,255,255,.07)}
-  .ib-row:first-child{border-top:0}
-  .ib-row-main{flex:1;min-width:0;background:none;border:0;color:inherit;font:inherit;text-align:left;padding:12px 4px;cursor:pointer;border-radius:10px}
-  .ib-row-main:hover{background:rgba(255,255,255,.04)}
-  .ib-row.on .ib-row-main b{color:var(--g)}
-  .ib-row-top,.ib-row-foot{display:flex;justify-content:space-between;gap:10px}
-  .ib-row-top b{font-size:.95rem;color:var(--t0);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .ib-row-top span{font-size:.8rem;color:var(--t2);font-variant-numeric:tabular-nums;white-space:nowrap}
-  .ib-row-prof{display:block;width:100%;height:26px;margin:8px 0}
-  .ib-row-foot{font-size:.78rem;color:var(--t2);font-variant-numeric:tabular-nums}
-  .ib-row-del{background:none;border:0;color:var(--t2);font-size:1.3rem;width:40px;cursor:pointer;border-radius:10px}
-  .ib-row-del:hover{color:#ff6b5a;background:rgba(255,255,255,.04)}
+  .ib-summary{position:sticky;top:90px}
+  .ib-sum-title{font-size:1.05rem;font-weight:800;color:var(--t0);margin-bottom:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .ib-sum-note{font-size:.82rem;color:var(--t2);line-height:1.55;margin-top:14px}
 
   /* Explainer sections */
   .ib-how{max-width:760px;margin:90px auto 0}
@@ -159,6 +121,7 @@
 
   @media(max-width:860px){
     .ib-grid{grid-template-columns:1fr;max-width:560px;margin-left:auto;margin-right:auto}
+    .ib-summary{position:static;order:-1}
     .ib-evidence{grid-template-columns:1fr}
   }
   @media(max-width:520px){
@@ -167,7 +130,6 @@
     .ib-step button{width:38px}
     .ib-readmore{flex-direction:column;align-items:flex-start}
   }
-  @media(prefers-reduced-motion:reduce){.ib-big{transition:none}.ib-big.pulse{transform:none}}
 </style>
 </head>
 <body>
@@ -205,11 +167,7 @@
 
     <div class="ib-grid" id="ib-app">
       <!-- Editor -->
-      <form class="ib-card" onsubmit="return false" aria-labelledby="ib-mode">
-        <div class="ib-card-head">
-          <h2 id="ib-mode">New Session</h2>
-          <button type="button" class="ib-link" id="ib-new">+ New</button>
-        </div>
+      <form class="ib-card" onsubmit="return false" aria-label="Interval session settings">
 
         <div class="ib-group">
           <div class="ib-group-title">Intervals</div>
@@ -270,40 +228,16 @@
         </div>
       </form>
 
-      <div>
-        <!-- Session summary -->
-        <div class="ib-card">
-          <svg class="ib-profile" id="ib-profile" role="img" aria-label="Session profile: bar width is duration, height is power"></svg>
-          <div class="ib-meta"><span id="ib-total">47 min</span><span id="ib-intervals">5 intervals</span></div>
-          <div class="ib-wap" aria-live="polite">
-            <div class="ib-wap-label">Weighted average power<small>Plain average: <span id="ib-avg">163</span> W</small></div>
-            <div class="ib-wap-num"><span id="ib-wap">182</span><small>W</small></div>
-          </div>
-          <div class="ib-actions">
-            <button type="button" class="ib-btn primary" id="ib-save">Save session</button>
-          </div>
+      <!-- Session summary -->
+      <div class="ib-card ib-summary">
+        <div class="ib-sum-title" id="ib-title">5 × 4 min @ 220 W</div>
+        <svg class="ib-profile" id="ib-profile" role="img" aria-label="Session profile: bar width is duration, height is power"></svg>
+        <div class="ib-meta"><span id="ib-total">47 min</span><span id="ib-intervals">5 intervals</span></div>
+        <div class="ib-wap" aria-live="polite">
+          <div class="ib-wap-label">Weighted average power<small>Plain average: <span id="ib-avg">163</span> W</small></div>
+          <div class="ib-wap-num"><span id="ib-wap">182</span><small>W</small></div>
         </div>
-
-        <!-- Ride preview -->
-        <div class="ib-card ib-ride" id="ib-ride">
-          <div class="ib-ride-label">Ride preview · 30× speed</div>
-          <span class="ib-phase" id="ib-phase">WARM UP</span>
-          <div class="ib-caption" id="ib-caption">Interval 1 of 5 starts in</div>
-          <div class="ib-big" id="ib-big" aria-live="off">10:00</div>
-          <div class="ib-next" id="ib-next"></div>
-          <svg class="ib-ride-profile" id="ib-ride-profile" role="img" aria-label="Session profile with your position; click to jump"></svg>
-          <div class="ib-ride-actions">
-            <button type="button" class="ib-btn primary" id="ib-play" aria-pressed="false">Ride preview</button>
-            <button type="button" class="ib-btn ghost" id="ib-restart">Restart</button>
-          </div>
-          <p class="ib-ride-note">What you'd see in the app, sped up. Tap the profile to jump ahead.</p>
-        </div>
-
-        <!-- Saved sessions -->
-        <div class="ib-card ib-saved-card">
-          <div class="ib-card-head"><h2>Saved sessions</h2></div>
-          <div id="ib-saved"></div>
-        </div>
+        <p class="ib-sum-note">Change any setting and the session updates as you go. In the app, you save it and ride it.</p>
       </div>
     </div>
 
@@ -333,7 +267,7 @@
         <li>Tap <strong>Start Intervals</strong>. Your trainer holds each interval's power in ERG mode, with a countdown to every interval and the session's shape on screen.</li>
       </ol>
       <p>Interval rides upload to Strava under their own name and are kept out of your Zone 2 progress charts, so a hard day never muddies your aerobic trend.</p>
-      <p class="ib-small">Sessions you save on this page stay in this browser. There's no account and nothing syncs, so build your favourites again in the app.</p>
+      <p class="ib-small">This page is a demo of the builder; nothing here is saved. Build and save your sessions in the app.</p>
 
       <div class="ib-cta">
         <a href="https://apps.apple.com/app/id6758547732" class="btn-appstore" target="_blank" rel="noopener">
