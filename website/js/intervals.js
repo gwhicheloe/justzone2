@@ -19,14 +19,17 @@
   var WORK_DURATIONS = [15, 20, 30, 40, 45, 60, 90, 120, 150, 180, 240, 300, 360, 420, 480, 600, 720, 900, 1200, 1500, 1800];
   var REST_DURATIONS = [10, 15, 20, 30, 45, 60, 90, 120, 150, 180, 240, 300, 360, 480, 600];
   var EASY_DURATIONS = [0, 180, 300, 420, 600, 720, 900, 1200, 1800];
-  var COUNT_MIN = 1, COUNT_MAX = 30, POWER_MIN = 30, POWER_MAX = 1500;
+  var SET_RECOVERY_DURATIONS = [60, 90, 120, 150, 180, 240, 300, 360, 480, 600];
+  var COUNT_MIN = 1, COUNT_MAX = 30, POWER_MIN = 30, POWER_MAX = 1500, SETS_MIN = 2, SETS_MAX = 10;
 
   function newTemplate() {
     return {
       id: uid(), customName: "",
       intervalCount: 5, workDuration: 4 * 60, workPower: 220,
       restDuration: 3 * 60, restPower: 120,
-      warmUpDuration: 10 * 60, coolDownDuration: 5 * 60
+      warmUpDuration: 10 * 60, coolDownDuration: 5 * 60,
+      // Sets: repeat the block of intervals, with a longer recovery between sets.
+      setsEnabled: false, setCount: 3, setRecoveryDuration: 3 * 60
     };
   }
 
@@ -50,8 +53,19 @@
     return h > 0 ? h + ":" + pad(m) + ":" + pad(sec) : pad(m) + ":" + pad(sec);
   }
 
+  /** Sets actually ridden (1 when sets are off). */
+  function sets(x) { return x.setsEnabled ? Math.max(x.setCount || 1, 1) : 1; }
+
+  function totalIntervals(x) { return x.intervalCount * sets(x); }
+
+  /** "5 × 4 min" or "3 × 13 × 30 s". */
+  function structure(x) {
+    var reps = x.intervalCount + " × " + formatDuration(x.workDuration);
+    return x.setsEnabled ? sets(x) + " × " + reps : reps;
+  }
+
   function defaultName(x) {
-    return x.intervalCount + " × " + formatDuration(x.workDuration) + " @ " + x.workPower + " W";
+    return structure(x) + " @ " + x.workPower + " W";
   }
 
   function name(x) {
@@ -65,25 +79,30 @@
 
   function segments(x) {
     var out = [], t = 0;
-    function add(kind, duration, power, number) {
+    function add(kind, duration, power, number, set) {
       if (!(duration > 0)) return;
-      out.push({ kind: kind, start: t, duration: duration, power: power, number: number, end: t + duration });
+      out.push({ kind: kind, start: t, duration: duration, power: power, number: number, set: set, end: t + duration });
       t += duration;
     }
-    add("warmUp", x.warmUpDuration, x.restPower, 0);
-    var n = Math.max(x.intervalCount, 1);
-    for (var i = 1; i <= n; i++) {
-      add("work", x.workDuration, x.workPower, i);
-      // No recovery after the last interval — the cool-down follows.
-      if (i < x.intervalCount) add("rest", x.restDuration, x.restPower, i);
+    add("warmUp", x.warmUpDuration, x.restPower, 0, 0);
+    var reps = Math.max(x.intervalCount, 1), n = sets(x);
+    for (var set = 1; set <= n; set++) {
+      for (var i = 1; i <= reps; i++) {
+        add("work", x.workDuration, x.workPower, i, set);
+        // No short recovery after a set's last interval: the set recovery
+        // (or, after the last set, the cool-down) follows.
+        if (i < reps) add("rest", x.restDuration, x.restPower, i, set);
+      }
+      if (set < n) add("setRest", x.setRecoveryDuration, x.restPower, 0, set);
     }
-    add("coolDown", x.coolDownDuration, x.restPower, 0);
+    add("coolDown", x.coolDownDuration, x.restPower, 0, 0);
     return out;
   }
 
   function totalDuration(x) {
-    return x.warmUpDuration + x.coolDownDuration +
-      x.intervalCount * x.workDuration + Math.max(x.intervalCount - 1, 0) * x.restDuration;
+    var perSet = x.intervalCount * x.workDuration + Math.max(x.intervalCount - 1, 0) * x.restDuration;
+    // Missing set fields mean "no sets", as in the app's decoder.
+    return x.warmUpDuration + x.coolDownDuration + sets(x) * perSet + (sets(x) - 1) * (x.setRecoveryDuration || 0);
   }
 
   /** Plain time-weighted average power. */
@@ -131,7 +150,9 @@
 
   var model = {
     WORK_DURATIONS: WORK_DURATIONS, REST_DURATIONS: REST_DURATIONS, EASY_DURATIONS: EASY_DURATIONS,
-    COUNT_MIN: COUNT_MIN, COUNT_MAX: COUNT_MAX, POWER_MIN: POWER_MIN, POWER_MAX: POWER_MAX,
+    SET_RECOVERY_DURATIONS: SET_RECOVERY_DURATIONS,
+    COUNT_MIN: COUNT_MIN, COUNT_MAX: COUNT_MAX, POWER_MIN: POWER_MIN, POWER_MAX: POWER_MAX, SETS_MIN: SETS_MIN, SETS_MAX: SETS_MAX,
+    sets: sets, totalIntervals: totalIntervals, structure: structure,
     newTemplate: newTemplate, formatDuration: formatDuration, formatTime: formatTime,
     defaultName: defaultName, name: name, recoverySummary: recoverySummary,
     segments: segments, totalDuration: totalDuration, averagePower: averagePower,
@@ -185,6 +206,13 @@
     fillSelect($("ib-rest-dur"), REST_DURATIONS, session.restDuration);
     fillSelect($("ib-warm"), EASY_DURATIONS, session.warmUpDuration);
     fillSelect($("ib-cool"), EASY_DURATIONS, session.coolDownDuration);
+    $("ib-sets-on").checked = !!session.setsEnabled;
+    $("ib-sets-rows").hidden = !session.setsEnabled;
+    $("ib-sets").textContent = session.setCount;
+    $("ib-sets-dec").disabled = session.setCount <= SETS_MIN;
+    $("ib-sets-inc").disabled = session.setCount >= SETS_MAX;
+    fillSelect($("ib-set-rest"), SET_RECOVERY_DURATIONS, session.setRecoveryDuration);
+    $("ib-count-lbl").textContent = session.setsEnabled ? "Number per set" : "Number";
     if (document.activeElement !== $("ib-work-pow")) $("ib-work-pow").value = session.workPower;
     if (document.activeElement !== $("ib-rest-pow")) $("ib-rest-pow").value = session.restPower;
     render();
@@ -196,7 +224,11 @@
     $("ib-name-foot").textContent = 'Leave blank to use "' + dn + '".';
     $("ib-title").textContent = name(session);
     $("ib-total").textContent = formatDuration(totalDuration(session));
-    $("ib-intervals").textContent = session.intervalCount + (session.intervalCount === 1 ? " interval" : " intervals");
+    var n = totalIntervals(session);
+    $("ib-intervals").textContent = (session.setsEnabled ? sets(session) + " sets · " : "") + n + (n === 1 ? " interval" : " intervals");
+    $("ib-sets-foot").textContent = session.setsEnabled
+      ? session.setCount + " sets of " + session.intervalCount + ", with a longer recovery between sets at the recovery power."
+      : "Repeat the intervals in sets with a longer recovery between them, like Rønnestad's 3 × 13 × 30/15s.";
     $("ib-wap").textContent = weightedAveragePower(session);
     $("ib-avg").textContent = averagePower(session);
     drawProfile($("ib-profile"), session);
@@ -212,6 +244,7 @@
 
   function step(key, delta) {
     if (key === "intervalCount") session.intervalCount = clampCount(session.intervalCount + delta);
+    else if (key === "setCount") session.setCount = Math.min(Math.max(session.setCount + delta, SETS_MIN), SETS_MAX);
     else session[key] = clampPower(session[key] + delta);
     syncForm();
   }
@@ -220,19 +253,22 @@
     if (!$("ib-app")) return;
     $("ib-count-dec").addEventListener("click", function () { step("intervalCount", -1); });
     $("ib-count-inc").addEventListener("click", function () { step("intervalCount", 1); });
+    $("ib-sets-dec").addEventListener("click", function () { step("setCount", -1); });
+    $("ib-sets-inc").addEventListener("click", function () { step("setCount", 1); });
+    $("ib-sets-on").addEventListener("change", function () { session.setsEnabled = this.checked; syncForm(); });
     [["ib-work-dec", "workPower", -5], ["ib-work-inc", "workPower", 5], ["ib-rest-dec", "restPower", -5], ["ib-rest-inc", "restPower", 5]]
       .forEach(function (b) { $(b[0]).addEventListener("click", function () { step(b[1], b[2]); }); });
     bindPower($("ib-work-pow"), "workPower");
     bindPower($("ib-rest-pow"), "restPower");
-    [["ib-work-dur", "workDuration"], ["ib-rest-dur", "restDuration"], ["ib-warm", "warmUpDuration"], ["ib-cool", "coolDownDuration"]]
+    [["ib-work-dur", "workDuration"], ["ib-rest-dur", "restDuration"], ["ib-warm", "warmUpDuration"], ["ib-cool", "coolDownDuration"], ["ib-set-rest", "setRecoveryDuration"]]
       .forEach(function (p) { $(p[0]).addEventListener("change", function () { session[p[1]] = Number(this.value); syncForm(); }); });
     $("ib-name").addEventListener("input", function () { session.customName = this.value; render(); });
 
-    // Presets. The 30/15 is one set of Rønnestad's session: the builder (like
-    // the app's) has no sets, so the research's 3 sets × 13 is noted on the page.
+    // Presets. The 30/15 is Rønnestad's full research session: 3 sets of 13.
     var presets = {
       "ib-preset-3015": { customName: "Rønnestad 30/15s", intervalCount: 13, workDuration: 30, workPower: 300,
-                           restDuration: 15, restPower: 150, warmUpDuration: 900, coolDownDuration: 600 },
+                           restDuration: 15, restPower: 150, warmUpDuration: 900, coolDownDuration: 600,
+                           setsEnabled: true, setCount: 3, setRecoveryDuration: 180 },
       "ib-preset-default": {}
     };
     var clearPresets = function () { Object.keys(presets).forEach(function (k) { $(k).classList.remove("on"); }); };

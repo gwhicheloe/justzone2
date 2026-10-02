@@ -88,6 +88,15 @@
   .ib-pow:focus{outline:none;border-bottom-color:var(--g)}
   .ib-pow::-webkit-outer-spin-button,.ib-pow::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
   .ib-unit{color:var(--t2);font-size:.9rem;margin-right:2px}
+  #ib-sets-rows .ib-field{border-top:1px solid rgba(255,255,255,.07)}
+  /* iOS-style switch, like the app's toggle */
+  .ib-switch{appearance:none;-webkit-appearance:none;width:51px;height:31px;border-radius:999px;background:rgba(255,255,255,.16);
+    position:relative;cursor:pointer;flex:none;transition:background .2s;margin:0}
+  .ib-switch::after{content:"";position:absolute;top:2px;left:2px;width:27px;height:27px;border-radius:50%;background:#fff;
+    box-shadow:0 2px 4px rgba(0,0,0,.3);transition:transform .2s}
+  .ib-switch:checked{background:var(--g)}
+  .ib-switch:checked::after{transform:translateX(20px)}
+  .ib-switch:focus-visible{outline:2px solid var(--g);outline-offset:2px}
   .ib-name{width:100%;background:transparent;border:0;color:var(--t0);font:inherit;font-size:.95rem;padding:14px}
   .ib-name::placeholder{color:var(--t2)}
   .ib-name:focus{outline:none}
@@ -180,7 +189,7 @@
       <button type="button" class="ib-preset" id="ib-preset-default">5 × 4 min</button>
       <a href="research/30-15-intervals" class="ib-preset-link">Why 30/15s? →</a>
     </div>
-    <p class="ib-preset-note" id="ib-preset-note" hidden>One set of 13 × 30 s hard / 15 s easy. Set the interval power to roughly your best 5-minute power, and the recovery to about half. The research session is three sets with 3 minutes between them.</p>
+    <p class="ib-preset-note" id="ib-preset-note" hidden>The research session: 3 sets of 13 × 30 s hard / 15 s easy, with 3 minutes between sets. Set the interval power to roughly your best 5-minute power, and the recovery to about half.</p>
 
     <div class="ib-grid" id="ib-app">
       <!-- Editor -->
@@ -221,6 +230,28 @@
               <span class="ib-step"><button type="button" id="ib-rest-dec" aria-label="5 watts less">−</button><button type="button" id="ib-rest-inc" aria-label="5 watts more">+</button></span>
             </div>
           </div>
+        </div>
+
+        <div class="ib-group">
+          <div class="ib-group-title">Sets</div>
+          <div class="ib-rows">
+            <div class="ib-field">
+              <label for="ib-sets-on">Ride in sets</label>
+              <input type="checkbox" class="ib-switch" id="ib-sets-on" role="switch">
+            </div>
+            <div id="ib-sets-rows" hidden>
+              <div class="ib-field">
+                <span class="ib-lbl" id="ib-sets-lbl">Number of sets</span>
+                <output class="ib-val" id="ib-sets" aria-labelledby="ib-sets-lbl">3</output>
+                <span class="ib-step"><button type="button" id="ib-sets-dec" aria-label="Fewer sets">−</button><button type="button" id="ib-sets-inc" aria-label="More sets">+</button></span>
+              </div>
+              <div class="ib-field">
+                <label for="ib-set-rest">Recovery between sets</label>
+                <select id="ib-set-rest"></select>
+              </div>
+            </div>
+          </div>
+          <p class="ib-foot" id="ib-sets-foot"></p>
         </div>
 
         <div class="ib-group">
