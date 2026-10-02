@@ -307,8 +307,11 @@ class StravaService: NSObject, ObservableObject {
     ) -> String {
         var lines: [String] = []
         if let session = workout.intervalSession {
-            lines.append("Intervals: \(session.intervalCount) × \(IntervalSession.formatDuration(session.workDuration)) @ \(session.workPower) W")
+            lines.append("Intervals: \(session.structure) @ \(session.workPower) W")
             lines.append("Recovery: \(session.recoverySummary)")
+            if session.setsEnabled {
+                lines.append("Between sets: \(IntervalSession.formatDuration(session.setRecoveryDuration)) @ \(session.restPower) W")
+            }
             lines.append("Warm-up \(IntervalSession.formatDuration(session.warmUpDuration)), cool-down \(IntervalSession.formatDuration(session.coolDownDuration))")
             lines.append("Duration: \(Int((workout.targetDuration / 60).rounded())) min")
             lines.append("HR source: \(hrSourceName)")

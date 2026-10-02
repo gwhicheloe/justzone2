@@ -98,6 +98,8 @@ struct IntervalSessionEditor: View {
         [15, 20, 30, 40, 45, 60, 90, 120, 150, 180, 240, 300, 360, 420, 480, 600, 720, 900, 1200, 1500, 1800]
     private static let restDurations: [TimeInterval] =
         [10, 15, 20, 30, 45, 60, 90, 120, 150, 180, 240, 300, 360, 480, 600]
+    private static let setRecoveryDurations: [TimeInterval] =
+        [60, 90, 120, 150, 180, 240, 300, 360, 480, 600]
     private static let easyDurations: [TimeInterval] =
         [0, 180, 300, 420, 600, 720, 900, 1200, 1800]
 
@@ -111,7 +113,7 @@ struct IntervalSessionEditor: View {
                         HStack {
                             Label(IntervalSession.formatDuration(session.totalDuration), systemImage: "timer")
                             Spacer()
-                            Label("\(session.intervalCount) intervals", systemImage: "bolt.fill")
+                            Label("\(session.totalIntervals) intervals", systemImage: "bolt.fill")
                         }
                         .font(.caption.weight(.semibold))
                         .foregroundStyle(.secondary)
@@ -134,7 +136,7 @@ struct IntervalSessionEditor: View {
 
                 Section("Intervals") {
                     Stepper(value: $session.intervalCount, in: 1...30) {
-                        LabeledContent("Number", value: "\(session.intervalCount)")
+                        LabeledContent(session.setsEnabled ? "Number per set" : "Number", value: "\(session.intervalCount)")
                     }
                     durationPicker("Duration", selection: $session.workDuration, options: Self.workDurations)
                     powerRow("Power", value: $session.workPower)
@@ -145,6 +147,22 @@ struct IntervalSessionEditor: View {
                     powerRow("Power", value: $session.restPower)
                 } header: {
                     Text("Recovery between intervals")
+                }
+
+                Section {
+                    Toggle("Ride in sets", isOn: $session.setsEnabled.animation())
+                    if session.setsEnabled {
+                        Stepper(value: $session.setCount, in: 2...10) {
+                            LabeledContent("Number of sets", value: "\(session.setCount)")
+                        }
+                        durationPicker("Recovery between sets", selection: $session.setRecoveryDuration, options: Self.setRecoveryDurations)
+                    }
+                } header: {
+                    Text("Sets")
+                } footer: {
+                    Text(session.setsEnabled
+                         ? "\(session.setCount) sets of \(session.intervalCount), with a longer recovery between sets at the recovery power."
+                         : "Repeat the intervals in sets with a longer recovery between them, like Rønnestad's 3 × 13 × 30/15s.")
                 }
 
                 Section {

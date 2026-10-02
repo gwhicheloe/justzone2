@@ -15,6 +15,12 @@ struct IntervalSession: Codable, Identifiable, Equatable, Hashable {
     /// Easy riding at `restPower` before the first interval and after the last.
     var warmUpDuration: TimeInterval
     var coolDownDuration: TimeInterval
+    /// Sets: repeat the block of `intervalCount` intervals `setCount` times,
+    /// with a longer recovery (at `restPower`) between sets — e.g. Rønnestad's
+    /// 3 × 13 × 30/15. Off by default; when off a session is a single set.
+    var setsEnabled = false
+    var setCount = 3
+    var setRecoveryDuration: TimeInterval = 180
 
     /// Starting point for "New Session". Computed, not a stored `static let`:
     /// a stored template kept one UUID for the whole app run, so every new
@@ -27,6 +33,25 @@ struct IntervalSession: Codable, Identifiable, Equatable, Hashable {
         )
     }
 
+    /// Number of sets actually ridden (1 when sets are off).
+    var sets: Int { setsEnabled ? max(setCount, 1) : 1 }
+
+    /// Work intervals in the whole session.
+    var totalIntervals: Int { intervalCount * sets }
+
+    /// The session's structure: "5 × 4 min" or "3 × 13 × 30 s".
+    var structure: String {
+        let reps = "\(intervalCount) × \(Self.formatDuration(workDuration))"
+        return setsEnabled ? "\(sets) × \(reps)" : reps
+    }
+
+    /// "Interval 3 of 13", or "Set 2 · interval 3 of 13" when sets are on.
+    func intervalLabel(_ segment: IntervalSegment) -> String {
+        setsEnabled
+            ? "Set \(segment.set) of \(sets) · interval \(segment.number) of \(intervalCount)"
+            : "Interval \(segment.number) of \(intervalCount)"
+    }
+
     var name: String {
         if let custom = customName?.trimmingCharacters(in: .whitespacesAndNewlines), !custom.isEmpty {
             return custom
@@ -36,7 +61,7 @@ struct IntervalSession: Codable, Identifiable, Equatable, Hashable {
 
     /// e.g. "5 × 4 min @ 220 W" — the whole session in one glance.
     var defaultName: String {
-        "\(intervalCount) × \(Self.formatDuration(workDuration)) @ \(workPower) W"
+        "\(structure) @ \(workPower) W"
     }
 
     /// One-line description of the recovery, for detail rows and Strava.
@@ -47,25 +72,31 @@ struct IntervalSession: Codable, Identifiable, Equatable, Hashable {
     var segments: [IntervalSegment] {
         var result: [IntervalSegment] = []
         var t: TimeInterval = 0
-        func add(_ kind: IntervalSegment.Kind, _ duration: TimeInterval, _ power: Int, _ number: Int) {
+        func add(_ kind: IntervalSegment.Kind, _ duration: TimeInterval, _ power: Int, _ number: Int, _ set: Int) {
             guard duration > 0 else { return }
-            result.append(IntervalSegment(kind: kind, start: t, duration: duration, power: power, number: number))
+            result.append(IntervalSegment(kind: kind, start: t, duration: duration, power: power, number: number, set: set))
             t += duration
         }
-        add(.warmUp, warmUpDuration, restPower, 0)
-        for i in 1...max(intervalCount, 1) {
-            add(.work, workDuration, workPower, i)
-            // No recovery after the last interval — the cool-down follows.
-            if i < intervalCount { add(.rest, restDuration, restPower, i) }
+        add(.warmUp, warmUpDuration, restPower, 0, 0)
+        let reps = max(intervalCount, 1)
+        for set in 1...sets {
+            for i in 1...reps {
+                add(.work, workDuration, workPower, i, set)
+                // No short recovery after a set's last interval: the set
+                // recovery (or, after the last set, the cool-down) follows.
+                if i < reps { add(.rest, restDuration, restPower, i, set) }
+            }
+            if set < sets { add(.setRest, setRecoveryDuration, restPower, 0, set) }
         }
-        add(.coolDown, coolDownDuration, restPower, 0)
+        add(.coolDown, coolDownDuration, restPower, 0, 0)
         return result
     }
 
     var totalDuration: TimeInterval {
-        warmUpDuration + coolDownDuration
-            + Double(intervalCount) * workDuration
-            + Double(max(intervalCount - 1, 0)) * restDuration
+        let perSet = Double(intervalCount) * workDuration + Double(max(intervalCount - 1, 0)) * restDuration
+        return warmUpDuration + coolDownDuration
+            + Double(sets) * perSet
+            + Double(sets - 1) * setRecoveryDuration
     }
 
     /// Weighted average power for the planned session, in watts — a better
@@ -118,14 +149,43 @@ struct IntervalSession: Codable, Identifiable, Equatable, Hashable {
     }
 }
 
+extension IntervalSession {
+    private enum CodingKeys: String, CodingKey {
+        case id, customName, intervalCount, workDuration, workPower, restDuration, restPower,
+             warmUpDuration, coolDownDuration, setsEnabled, setCount, setRecoveryDuration
+    }
+
+    /// Custom decoding so sessions saved before sets existed (and workouts
+    /// checkpointed with them) still load: missing set fields mean "no sets".
+    init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        id = try c.decode(UUID.self, forKey: .id)
+        customName = try c.decodeIfPresent(String.self, forKey: .customName)
+        intervalCount = try c.decode(Int.self, forKey: .intervalCount)
+        workDuration = try c.decode(TimeInterval.self, forKey: .workDuration)
+        workPower = try c.decode(Int.self, forKey: .workPower)
+        restDuration = try c.decode(TimeInterval.self, forKey: .restDuration)
+        restPower = try c.decode(Int.self, forKey: .restPower)
+        warmUpDuration = try c.decode(TimeInterval.self, forKey: .warmUpDuration)
+        coolDownDuration = try c.decode(TimeInterval.self, forKey: .coolDownDuration)
+        setsEnabled = try c.decodeIfPresent(Bool.self, forKey: .setsEnabled) ?? false
+        setCount = try c.decodeIfPresent(Int.self, forKey: .setCount) ?? 3
+        setRecoveryDuration = try c.decodeIfPresent(TimeInterval.self, forKey: .setRecoveryDuration) ?? 180
+    }
+}
+
 struct IntervalSegment: Equatable {
-    enum Kind: String { case warmUp, work, rest, coolDown }
+    /// `setRest` is the longer recovery between sets.
+    enum Kind: String { case warmUp, work, rest, setRest, coolDown }
     let kind: Kind
     let start: TimeInterval
     let duration: TimeInterval
     let power: Int
-    /// 1-based interval number for work and rest segments; 0 otherwise.
+    /// 1-based interval number within its set for work and rest segments; 0 otherwise.
     let number: Int
+    /// 1-based set for work, rest and set-recovery segments (the set just
+    /// finished, for `setRest`); 0 for warm-up and cool-down.
+    let set: Int
     var end: TimeInterval { start + duration }
     var isWork: Bool { kind == .work }
 }

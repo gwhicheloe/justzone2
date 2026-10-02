@@ -501,8 +501,9 @@ struct WorkoutView: View {
         guard let segment = viewModel.currentSegment, let session = viewModel.intervalSession else { return "INTERVALS" }
         switch segment.kind {
         case .warmUp:   return "WARM UP"
-        case .work:     return "INTERVAL \(segment.number) OF \(session.intervalCount)"
+        case .work:     return session.intervalLabel(segment).uppercased()
         case .rest:     return "RECOVERY"
+        case .setRest:  return "SET RECOVERY"
         case .coolDown: return "COOL DOWN"
         }
     }
@@ -510,12 +511,12 @@ struct WorkoutView: View {
     /// Landscape one-liner: "Interval 3 of 5 · 1:23 left" / "Interval 3 in 0:24".
     private var intervalStatusLine: String {
         if let next = viewModel.upcomingWork, let until = viewModel.timeUntilUpcomingWork {
-            return "Interval \(next.number) in \(viewModel.formatTime(until))"
+            return "\(viewModel.intervalSession?.intervalLabel(next) ?? "Interval \(next.number)") in \(viewModel.formatTime(until))"
         }
         guard let segment = viewModel.currentSegment else { return "" }
         let left = viewModel.formatTime(viewModel.segmentRemaining)
         switch segment.kind {
-        case .work:     return "Interval \(segment.number) of \(viewModel.intervalSession?.intervalCount ?? 0) · \(left) left"
+        case .work:     return "\(viewModel.intervalSession?.intervalLabel(segment) ?? "Interval") · \(left) left"
         case .coolDown: return "Cool down · \(left) left"
         default:        return "\(left) left"
         }
@@ -532,7 +533,7 @@ struct WorkoutView: View {
         let final3 = (until ?? .infinity) <= 3
         let caption: String = {
             if let upcoming, let session = viewModel.intervalSession {
-                return "Interval \(upcoming.number) of \(session.intervalCount) starts in"
+                return "\(session.intervalLabel(upcoming)) starts in"
             }
             switch viewModel.currentSegment?.kind {
             case .work: return "Interval ends in"
@@ -691,7 +692,7 @@ struct WorkoutView: View {
     private var timeSub: String {
         if viewModel.isWarmingUp { return "warming up" }
         if let session = viewModel.intervalSession {
-            return "\(session.intervalCount) × \(IntervalSession.formatDuration(session.workDuration)) · total"
+            return "\(session.structure) · total"
         }
         return "Chunk \(viewModel.currentChunk) of \(viewModel.totalChunks) · \(viewModel.formatTime(viewModel.remainingTime)) total"
     }
