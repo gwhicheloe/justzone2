@@ -52,7 +52,16 @@
   :root{--ib-work:#E08038;--ib-easy:#5CA8DB}
   .ib-head{text-align:center;max-width:680px;margin:0 auto}
   .ib-head .section-sub{margin:14px auto 0;max-width:600px}
-  .ib-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;margin-top:44px;align-items:start;scroll-margin-top:90px}
+  .ib-presets{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px;margin-top:34px;font-size:.88rem;color:var(--t2)}
+  .ib-preset{border:1px solid rgba(224,128,56,.45);background:rgba(224,128,56,.1);color:var(--t0);font:inherit;font-weight:700;font-size:.88rem;
+    padding:8px 14px;border-radius:999px;cursor:pointer;transition:background .2s,border-color .2s}
+  .ib-preset:hover{background:rgba(224,128,56,.2)}
+  .ib-preset.on{background:#E08038;border-color:#E08038;color:#1a0d03}
+  .ib-preset:focus-visible{outline:2px solid var(--g);outline-offset:2px}
+  .ib-preset-link{color:var(--g);font-weight:800;text-decoration:none}
+  .ib-preset-link:hover{text-decoration:underline}
+  .ib-preset-note{max-width:620px;margin:12px auto 0;text-align:center;font-size:.85rem;line-height:1.6;color:var(--t1)}
+  .ib-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;margin-top:28px;align-items:start;scroll-margin-top:90px}
   .ib-card{background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:var(--r-lg);padding:20px}
 
   /* Form groups, styled like the app's inset grouped list */
@@ -165,6 +174,14 @@
       <p class="section-sub">JustZone2 isn't only for Zone 2. This is the app's Interval Builder, rebuilt for the web: set the intervals and the recovery between them, see the session's shape and how hard it is, then ride it in ERG mode on your smart trainer.</p>
     </div>
 
+    <div class="ib-presets">
+      <span>Try a classic:</span>
+      <button type="button" class="ib-preset" id="ib-preset-3015">Rønnestad's 30/15s</button>
+      <button type="button" class="ib-preset" id="ib-preset-default">5 × 4 min</button>
+      <a href="research/30-15-intervals" class="ib-preset-link">Why 30/15s? →</a>
+    </div>
+    <p class="ib-preset-note" id="ib-preset-note" hidden>One set of 13 × 30 s hard / 15 s easy. Set the interval power to roughly your best 5-minute power, and the recovery to about half. The research session is three sets with 3 minutes between them.</p>
+
     <div class="ib-grid" id="ib-app">
       <!-- Editor -->
       <form class="ib-card" onsubmit="return false" aria-label="Interval session settings">
@@ -254,7 +271,7 @@
         <div><strong>How Many Hard Sessions a Week?</strong><span>The elite data, the frequency trials and the recovery physiology. A long read with 26 references.</span></div>
         <em>Read the research →</em>
       </a>
-      <p style="margin-top:18px">Fitting it into a week? The <a href="zone-2-training-plan">training planner</a> places two hard sessions 48 hours apart and fills the rest with Zone 2. For why the easy riding matters as much as the intervals, see <a href="research/zone-2-evidence-review">The Rise and Reassessment of Zone 2</a>.</p>
+      <p style="margin-top:18px">Fitting it into a week? The <a href="zone-2-training-plan">training planner</a> places two hard sessions 48 hours apart and fills the rest with Zone 2. For why the easy riding matters as much as the intervals, see <a href="research/zone-2-evidence-review">The Rise and Reassessment of Zone 2</a>. And for the session GCN called "magic", see <a href="research/30-15-intervals">What the Research Says About 30/15s</a>.</p>
 
       <h2>What is weighted average power?</h2>
       <p>Plain average power undersells interval sessions, because hard efforts cost disproportionately more than easy riding. Take the default session above (5 × 4 minutes at 220 W) and a session of ten 30-second efforts at 350 W, both with the same warm-up and cool-down. Their average powers are almost the same, 163 W and 167 W. Their weighted average powers are 182 W and 212 W, and the second one is the session that will hurt.</p>

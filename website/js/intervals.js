@@ -228,6 +228,28 @@
       .forEach(function (p) { $(p[0]).addEventListener("change", function () { session[p[1]] = Number(this.value); syncForm(); }); });
     $("ib-name").addEventListener("input", function () { session.customName = this.value; render(); });
 
+    // Presets. The 30/15 is one set of Rønnestad's session: the builder (like
+    // the app's) has no sets, so the research's 3 sets × 13 is noted on the page.
+    var presets = {
+      "ib-preset-3015": { customName: "Rønnestad 30/15s", intervalCount: 13, workDuration: 30, workPower: 300,
+                           restDuration: 15, restPower: 150, warmUpDuration: 900, coolDownDuration: 600 },
+      "ib-preset-default": {}
+    };
+    var clearPresets = function () { Object.keys(presets).forEach(function (k) { $(k).classList.remove("on"); }); };
+    Object.keys(presets).forEach(function (id) {
+      $(id).addEventListener("click", function () {
+        session = Object.assign(newTemplate(), presets[id]);
+        clearPresets(); $(id).classList.add("on");
+        $("ib-preset-note").hidden = id !== "ib-preset-3015";
+        syncForm();
+        $("ib-name").value = session.customName || "";
+      });
+    });
+    // Any edit means it's no longer exactly the preset.
+    $("ib-app").addEventListener("input", clearPresets);
+    $("ib-app").addEventListener("change", clearPresets);
+    $("ib-app").addEventListener("click", function (e) { if (e.target.closest(".ib-step")) clearPresets(); });
+
     var resizeTimer;
     root.addEventListener("resize", function () {
       clearTimeout(resizeTimer);
