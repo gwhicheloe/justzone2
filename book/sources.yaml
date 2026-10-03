@@ -1,0 +1,118 @@
+# Sources for "Just Zone 2?"
+#
+# status:  candidate  found, not yet read for the book
+#          abstract   abstract read; fine for what a paper is about, not for its numbers
+#          fulltext   results read; numbers in research.md come from here
+#
+# Cite in drafts as [@key]. tools/check.py warns on keys missing here or still "candidate".
+# chapters: folder names from plan.md (not numbers, which change).
+# Keep entries in alphabetical order of key.
+
+- key: jones2024
+  citation: "Jones AM. The fourth dimension: physiological resilience as an independent determinant of endurance exercise performance. J Physiol. 2024."
+  doi: 10.1113/jp284205
+  pmid: 37606604
+  status: abstract
+  chapters: [limits, durability]
+  notes: "Review arguing resilience/durability is a fourth determinant alongside VO2max, fractional utilisation and efficiency."
+
+- key: joneskirby2025
+  citation: "Jones AM, Kirby BS. Physiological resilience: what is it and how might it be trained? Scand J Med Sci Sports. 2025."
+  doi: 10.1111/sms.70032
+  pmid: 40024804
+  status: candidate
+  chapters: [durability]
+  notes: "Training implications. Central to the 'what trains it' section."
+
+- key: joynercoyle2008
+  citation: "Joyner MJ, Coyle EF. Endurance exercise performance: the physiology of champions. J Physiol. 2008."
+  status: candidate
+  chapters: [limits, durability]
+  notes: "The three-factor model the book's spine is built on. DOI to add when read."
+
+- key: leo2024
+  citation: "Leo P, Mateo-March M, Giorgi A, et al. The influence of high-intensity work on the record power profile of under-23, pro team, and World Tour cyclists. Int J Sports Physiol Perform. 2024."
+  doi: 10.1123/ijspp.2023-0451
+  pmid: 38531349
+  status: abstract
+  chapters: [durability]
+  notes: "Does the kind of work done earlier (high-intensity vs total) matter for the fade?"
+
+- key: mateomarch2022
+  citation: "Mateo-March M, Valenzuela PL, Muriel X, et al. The record power profile of male professional cyclists: fatigue matters. Int J Sports Physiol Perform. 2022."
+  doi: 10.1123/ijspp.2021-0403
+  pmid: 35240578
+  status: abstract
+  chapters: [durability]
+  notes: "Power profile fresh vs after accumulated kJ in pros. Candidate for a figure."
+
+- key: matomaki2023
+  citation: "Matomäki P, et al. Durability is improved by both low and high intensity endurance training. Front Physiol. 2023;14:1128111."
+  doi: 10.3389/fphys.2023.1128111
+  status: fulltext
+  chapters: [durability]
+  notes: "Cited in the website evidence review. One of few training studies on durability. Read in full."
+
+- key: maunder2021
+  citation: "Maunder E, Seiler S, Mildenhall MJ, Kilding AE, Plews DJ. The importance of 'durability' in the physiological profiling of endurance athletes. Sports Med. 2021;51:1619-1628."
+  doi: 10.1007/s40279-021-01459-0
+  pmid: 33886100
+  status: abstract
+  chapters: [limits, durability]
+  notes: "Coined/popularised 'durability' as a profiling concept. Cited in the website evidence review."
+
+- key: muriel2022
+  citation: "Muriel X, Mateo-March M, Valenzuela PL, et al. Durability and repeatability of professional cyclists during a Grand Tour. Eur J Sport Sci. 2022."
+  doi: 10.1080/17461391.2021.1987528
+  pmid: 34586952
+  status: abstract
+  chapters: [durability]
+  notes: "Does durability change across three weeks of racing?"
+
+- key: spragg2023a
+  citation: "Spragg J, Leo P, Swart J. The relationship between physiological characteristics and durability in male professional cyclists. Med Sci Sports Exerc. 2023."
+  doi: 10.1249/mss.0000000000003024
+  pmid: 35977108
+  status: abstract
+  chapters: [durability]
+  notes: "Is durability predicted by lab characteristics? Candidate for 'one study, up close'."
+
+- key: spragg2023b
+  citation: "Spragg J, Leo P, Swart J. The relationship between training characteristics and durability in professional cyclists across a competitive season. Eur J Sport Sci. 2023."
+  doi: 10.1080/17461391.2022.2049886
+  pmid: 35239466
+  status: abstract
+  chapters: [durability]
+  notes: "Training volume/intensity vs durability across a season (observational)."
+
+- key: zanini2025
+  citation: "Zanini M, Jones AM, Nybo L. Defining physiological resilience and durability in the context of endurance performance modeling. J Appl Physiol. 2025."
+  doi: 10.1152/japplphysiol.00671.2025
+  pmid: 41396096
+  status: candidate
+  chapters: [durability]
+  notes: "Definitions: resilience vs durability. Settles the terminology section."
+
+- key: clark2019a
+  citation: "Clark IE, Vanhatalo A, Thompson C, et al. Dynamics of the power-duration relationship during prolonged endurance exercise and influence of carbohydrate ingestion. J Appl Physiol. 2019;127:726-736."
+  doi: 10.1152/japplphysiol.00207.2019
+  pmid: 31295069
+  status: abstract
+  chapters: [durability]
+  notes: "Critical power unchanged at 40 and 80 min, 9% lower after 2 h; 60 g/h carbohydrate cancelled most of the drop."
+
+- key: clark2019b
+  citation: "Clark IE, Vanhatalo A, Thompson C, et al. Changes in the power-duration relationship following prolonged exercise: estimation using conventional and all-out protocols and relationship with muscle glycogen. Am J Physiol Regul Integr Comp Physiol. 2019;317:R59-R67."
+  doi: 10.1152/ajpregu.00031.2019
+  pmid: 30995104
+  status: abstract
+  chapters: [durability]
+  notes: "CP ~11% and W' ~20% lower after 2 h heavy exercise; change in glycogen not correlated with change in CP."
+
+- key: norte2026
+  citation: "Norte BR, Slinn MM, Johnson KO, et al. Graded carbohydrate ingestion up to 120 g/h attenuates the reduction in critical power following 3 h of moderate-intensity exercise in a dose-dependent manner. Scand J Med Sci Sports. 2026;36:e70326."
+  doi: 10.1111/sms.70326
+  pmid: 42322010
+  status: fulltext
+  chapters: [durability, special-cases]
+  notes: "Randomised crossover, 16 trained riders. CP 277 W fresh; after 3 h 236 (water), 257 (60 g/h), 266 W (120 g/h)."

@@ -32,3 +32,6 @@ scripts/asc.env
 # Python bytecode
 __pycache__/
 *.pyc
+
+# Book: publishers' PDFs stay local (copyright)
+book/papers/
