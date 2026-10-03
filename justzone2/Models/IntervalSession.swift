@@ -29,7 +29,7 @@ struct IntervalSession: Codable, Identifiable, Equatable, Hashable {
         IntervalSession(
             intervalCount: 5, workDuration: 4 * 60, workPower: 220,
             restDuration: 3 * 60, restPower: 120,
-            warmUpDuration: 10 * 60, coolDownDuration: 5 * 60
+            warmUpDuration: 5 * 60, coolDownDuration: 5 * 60
         )
     }
 

@@ -27,7 +27,7 @@
       id: uid(), customName: "",
       intervalCount: 5, workDuration: 4 * 60, workPower: 220,
       restDuration: 3 * 60, restPower: 120,
-      warmUpDuration: 10 * 60, coolDownDuration: 5 * 60,
+      warmUpDuration: 5 * 60, coolDownDuration: 5 * 60,
       // Sets: repeat the block of intervals, with a longer recovery between sets.
       setsEnabled: false, setCount: 3, setRecoveryDuration: 3 * 60
     };
