@@ -752,14 +752,11 @@ class WorkoutViewModel: ObservableObject {
 
         workout.finish()
 
-        // Leave KICKR running at an easy power so the rider can cool down while
-        // viewing the summary: half the target, or an interval session's
-        // recovery power (half of a hard interval power would be too much).
-        if let session = intervalSession {
-            kickrService.setTargetPower(max(50, session.restPower + easyPowerOffset))
-        } else {
-            kickrService.setTargetPower(workout.targetPower / 2)
-        }
+        // Leave KICKR running at half the final power target so the rider can
+        // cool down while viewing the summary. `adjustedPower` is the last ERG
+        // target actually being held: the Zone Targeting–adjusted power on a
+        // Zone 2 ride, or the last segment's power (incl. nudges) on intervals.
+        kickrService.setTargetPower(max(50, adjustedPower / 2))
 
         endIPhoneSessionAndNotifyWatch()
 
