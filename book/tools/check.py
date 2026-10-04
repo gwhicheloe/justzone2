@@ -164,7 +164,7 @@ def check(path, sources):
         ln = text.count("\n", 0, m.start()) + 1
         if k not in sources:
             flags.append((ln, "citation", f"@{k} not in sources.yaml"))
-        elif sources[k] == "candidate":
+        elif sources[k] == "candidate":  # 'exists', 'abstract' and 'fulltext' are fine to cite
             flags.append((ln, "citation", f"@{k} is only a candidate: read it before citing"))
 
     # Summary

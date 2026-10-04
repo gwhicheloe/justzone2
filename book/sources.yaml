@@ -1,6 +1,7 @@
 # Sources for "Just Zone 2?"
 #
-# status:  candidate  found, not yet read for the book
+# status:  exists     confirmed to exist (title, journal, year); cite only for its existence or title
+#          candidate  found, not yet read for the book
 #          abstract   abstract read; fine for what a paper is about, not for its numbers
 #          fulltext   results read; numbers in research.md come from here
 #
@@ -25,10 +26,12 @@
   notes: "Training implications. Central to the 'what trains it' section."
 
 - key: joynercoyle2008
-  citation: "Joyner MJ, Coyle EF. Endurance exercise performance: the physiology of champions. J Physiol. 2008."
-  status: candidate
+  citation: "Joyner MJ, Coyle EF. Endurance exercise performance: the physiology of champions. J Physiol. 2008;586:35-44."
+  doi: 10.1113/jphysiol.2007.143834
+  pmcid: PMC2375555
+  status: fulltext
   chapters: [limits, durability]
-  notes: "The three-factor model the book's spine is built on. DOI to add when read."
+  notes: "Read via the PMC web page (tool summary of sections) on 4 Oct 2026; re-check exact figures against the PDF before final. Model: performance VO2 = VO2max x fraction at LT; x efficiency = performance power. Elite VO2max 70-85, women ~10% lower; LT ~60% VO2max untrained vs 75-90% elite; cycling GE 18.5-23.5% at 300 W; efficiency varies 20-30% in cycling."
 
 - key: leo2024
   citation: "Leo P, Mateo-March M, Giorgi A, et al. The influence of high-intensity work on the record power profile of under-23, pro team, and World Tour cyclists. Int J Sports Physiol Perform. 2024."
@@ -116,3 +119,124 @@
   status: fulltext
   chapters: [durability, special-cases]
   notes: "Randomised crossover, 16 trained riders. CP 277 W fresh; after 3 h 236 (water), 257 (60 g/h), 266 W (120 g/h)."
+
+- key: bassetthowley2000
+  citation: "Bassett DR, Howley ET. Limiting factors for maximum oxygen uptake and determinants of endurance performance. Med Sci Sports Exerc. 2000;32:70-84."
+  doi: 10.1097/00005768-200001000-00012
+  pmid: 10647532
+  status: abstract
+  chapters: [limits, adaptation]
+  notes: "VO2max limited mainly by O2 delivery: three lines of evidence (altered delivery changes VO2max; training raises max cardiac output; small overperfused muscle mass consumes far more O2)."
+
+- key: burnleyjones2018
+  citation: "Burnley M, Jones AM. Power-duration relationship: physiology, fatigue, and the limits of human performance. Eur J Sport Sci. 2018;18:1-12."
+  doi: 10.1080/17461391.2016.1249524
+  pmid: 27806677
+  status: abstract
+  chapters: [limits, intensity]
+  notes: "Small range of sustainable power (below CP). Fatigue mostly central in moderate domain; central + peripheral (often glycogen) in heavy; peripheral, homeostasis lost, in severe."
+
+- key: coyle1992
+  citation: "Coyle EF, Sidossis LS, Horowitz JF, Beltz JD. Cycling efficiency is related to the percentage of type I muscle fibers. Med Sci Sports Exerc. 1992;24:782-788."
+  doi: 10.1249/00005768-199207000-00008
+  pmid: 1501563
+  status: abstract
+  chapters: [limits]
+  notes: "19 trained cyclists; % type I fibres 32-76%; delta efficiency 18.3-25.6%; r = 0.85 with DE, 0.75 with GE."
+
+- key: coyle2005
+  citation: "Coyle EF. Improved muscular efficiency displayed as Tour de France champion matures. J Appl Physiol. 2005;98:2191-2196."
+  doi: 10.1152/japplphysiol.00216.2005
+  pmid: 15774697
+  status: abstract
+  chapters: [limits]
+  notes: "Single-subject case study (Armstrong, unnamed in the paper), ages 21-28: reported 8% efficiency rise; VO2max ~6 L/min; LT 76-85% VO2max; 18% rise in steady-state W/kg at a given VO2 credited half to efficiency, half to weight loss."
+
+- key: gibala2006
+  citation: "Gibala MJ, Little JP, van Essen M, et al. Short-term sprint interval versus traditional endurance training: similar initial adaptations in human skeletal muscle and exercise performance. J Physiol. 2006;575:901-911."
+  doi: 10.1113/jphysiol.2006.112094
+  pmid: 16825308
+  status: abstract
+  chapters: [intro, easy-riding]
+  notes: "16 active young men, 6 sessions over 14 days: ~2.5 h sprint intervals vs ~10.5 h endurance; similar time-trial and muscle oxidative-capacity gains."
+
+- key: gore2008
+  citation: "Gore CJ, Ashenden MJ, Sharpe K, Martin DT. Delta efficiency calculation in Tour de France champion is wrong. J Appl Physiol. 2008;105:1020."
+  doi: 10.1152/japplphysiol.90459.2008
+  pmid: 18779269
+  status: exists
+  chapters: [limits]
+  notes: "Letter (no abstract); author reply p1021. Cite only for its existence and title."
+
+- key: hill1923
+  citation: "Hill AV, Lupton H. Muscular exercise, lactic acid, and the supply and utilization of oxygen. Q J Med. 1923;16:135-171."
+  status: exists
+  chapters: [limits]
+  notes: "First description of maximum oxygen intake (VO2max). Verified via QJM and IJSPP centenary pieces (2023)."
+
+- key: lucia2002
+  citation: "Lucía A, Hoyos J, Pérez M, Santalla A, Chicharro JL. Inverse relationship between VO2max and economy/efficiency in world-class cyclists. Med Sci Sports Exerc. 2002;34:2079-2084."
+  doi: 10.1249/01.mss.0000039306.92778.df
+  pmid: 12471319
+  status: abstract
+  chapters: [limits]
+  notes: "11 pro men, VO2max 72.0 mL/kg/min; 20 min at 80% VO2max (385 W); GE 24.5%; VO2max inversely correlated with GE (r = -0.64 to -0.72)."
+
+- key: martin2005
+  citation: "Martin DT, Quod MJ, Gore CJ, Coyle EF. Has Armstrong's cycle efficiency improved? J Appl Physiol. 2005;99:1628-1629."
+  doi: 10.1152/japplphysiol.00507.2005
+  pmid: 16160031
+  status: exists
+  chapters: [limits]
+  notes: "Published exchange questioning Coyle 2005 (pages to confirm). Cite only for its existence and title."
+
+- key: monod1965
+  citation: "Monod H, Scherrer J. The work capacity of a synergic muscular group. Ergonomics. 1965;8:329-338."
+  status: exists
+  chapters: [limits]
+  notes: "Origin of the critical power concept."
+
+- key: poole2016
+  citation: "Poole DC, Burnley M, Vanhatalo A, Rossiter HB, Jones AM. Critical power: an important fatigue threshold in exercise physiology. Med Sci Sports Exerc. 2016;48:2320-2334."
+  doi: 10.1249/mss.0000000000000939
+  pmid: 27031742
+  pmcid: PMC5070974
+  status: abstract
+  chapters: [limits, intensity]
+  notes: "Hyperbolic power-duration relationship; CP and W'; CP separates intensities where responses can stabilise (below) from those where they can't (above)."
+
+- key: tabata1996
+  citation: "Tabata I, Nishimura K, Kouzaki M, et al. Effects of moderate-intensity endurance and high-intensity intermittent training on anaerobic capacity and VO2max. Med Sci Sports Exerc. 1996;28:1327-1330."
+  doi: 10.1097/00005768-199610000-00018
+  pmid: 8897392
+  status: abstract
+  chapters: [intro]
+  notes: "6 wk, 5 d/wk: 7-8 x 20 s at ~170% VO2max / 10 s rest raised VO2max by 7 mL/kg/min and anaerobic capacity 28% (n = 7); 60 min at 70% raised VO2max 53 -> 58."
+
+- key: attia2019
+  citation: "Attia P. The Drive, episode 85: Iñigo San-Millán, Ph.D.: Zone 2 training and metabolic health. Podcast, 23 December 2019."
+  status: exists
+  chapters: [intro, easy-riding]
+  notes: "Cited in the website evidence review. A popular source of the Zone 2 wave; cite as a podcast, not evidence."
+
+- key: seiler2010
+  citation: "Seiler S. What is best practice for training intensity and duration distribution in endurance athletes? Int J Sports Physiol Perform. 2010;5:276-291."
+  doi: 10.1123/ijspp.5.3.276
+  status: abstract
+  chapters: [intro, elites, intensity]
+  notes: "Read for the website posts. Elite athletes' ~80/20 session distribution; the polarised model."
+
+- key: usada2012
+  citation: "United States Anti-Doping Agency. Reasoned decision of the United States Anti-Doping Agency on disqualification and ineligibility: Lance Armstrong. 10 October 2012."
+  status: exists
+  chapters: [limits]
+  notes: "Public record: Armstrong's Tour results from 1999 onwards disqualified. Cite only for that fact."
+
+- key: molmen2025
+  citation: "Mølmen KS, Almquist NW, Skattebo Ø. Effects of exercise training on mitochondrial and capillary growth in human skeletal muscle: a systematic review and meta-regression. Sports Med. 2025;55:115-144."
+  doi: 10.1007/s40279-024-02120-2
+  pmid: 39390310
+  pmcid: PMC11787188
+  status: abstract
+  chapters: [intro, adaptation, easy-riding]
+  notes: "Online Oct 2024. 353 studies, 5,973 participants (mitochondria). Mitochondrial content: continuous endurance training (low OR moderate intensity) +23%, HIT +27%, SIT +27%, no significant difference. Per hour: SIT ~3.9x and HIT ~1.7x as efficient as ET. Open access: read full text before the easy-riding chapter."

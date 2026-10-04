@@ -4,6 +4,8 @@ Working title: **Just Zone 2?**
 Subtitle (undecided): *The science of easy riding, hard intervals and getting fitter* is the current favourite.
 Author: George Whicheloe. Publishing: Amazon KDP, ebook and print-on-demand paperback.
 Outline review page: https://claude.ai/artifact/SBWhKnpVRAbQ2X69ZNoG9n
+Draft review page (Intro + Chapter 1): https://claude.ai/artifact/SyoahnZLDrP2RVLxXWRZ1E
+Render drafts for review: `python3 book/tools/render.py book/review/<name>.html book/chapters/<a>/draft.md ...`. Look up papers: `python3 book/tools/lookup.py` (search, list, pmid, oa, fulltext).
 
 ## What the book is
 
@@ -17,6 +19,25 @@ A research-led book for interested cyclists about how endurance actually improve
 Fashions usually spread on a plausible mechanism before the outcome evidence exists. A reader who can tell "plausible" from "shown to work" can cut through the noise without us.
 
 **Spine.** Joyner and Coyle's model of endurance performance (VO₂max × the fraction of it you can sustain × efficiency), plus durability as a fourth factor. Every training question in the book becomes: which of these does it change, and how good is the evidence?
+
+## Handover (4 October 2026)
+
+The book now has its own Claude session, separate from app work in the same repo.
+
+**Two-session rules**
+- Book sessions edit and commit **only `book/`**: stage with `git add book/...`, never `git add -A` or `git commit -a`. App work happens in another session at the same time.
+- Don't run git commands while the other session might be committing. If git reports an `index.lock`, wait a few seconds and retry.
+- Commit and push only when George says so.
+
+**Where things stand**
+- Introduction and Chapter 1 (What limits endurance): first drafts, published for review at https://claude.ai/artifact/SyoahnZLDrP2RVLxXWRZ1E (source `book/review/intro-ch1.html`; republish that same file path to update it, or pass the URL from a new session). Awaiting George's comments and three [GEORGE: ...] answers: (1) is he happy for the intro to correct his own May blog claim about mitochondria; (2) a short bio; (3) whether to state how the book was written.
+- Chapter 8 (Durability): brief approved; research in progress. Remaining work is listed at the end of `chapters/durability/research.md`. George has been asked to fetch five paywalled papers (`papers-wanted.md`); check `book/papers/` for any that have arrived.
+- Chapter 1 is about 3,400 words against a 5,500 target: expand after George's review, not before.
+
+**Suggested next steps, in order**
+1. Act on George's review of the Intro and Chapter 1 when it comes.
+2. Finish Durability research (free papers via `tools/lookup.py oa` and `fulltext`; race facts against official results), then draft it.
+3. Then follow the order of work in the status table.
 
 ## Start of every session
 
@@ -45,8 +66,8 @@ Stage values: — (not started), brief, research, draft, review, revise, done.
 
 | # | Chapter | Folder | Part | Words (target) | Existing material | Stage |
 |---|---|---|---|---|---|---|
-| Intro | Why ask the question | `intro` | — | 3,000 | — | — |
-| 1 | What limits endurance | `limits` | I The engine | 5,500 | — | — |
+| Intro | Why ask the question | `intro` | — | 3,000 | George's blog posts | **draft 1** (4 Oct; awaiting George's review; revisit at the end) |
+| 1 | What limits endurance | `limits` | I The engine | 5,500 | — | **draft 1** (4 Oct, ~3,400 words; awaiting George's review) |
 | 2 | How bodies adapt to training | `adaptation` | I | 6,000 | — | — (new, 3 Oct) |
 | 3 | How to read a training study | `reading-research` | I | 5,000 | — | — (new, 3 Oct) |
 | 4 | Intensity, properly defined | `intensity` | I | 5,000 | parts of the Zone 2 and find-your-zone posts | — |
