@@ -271,8 +271,6 @@ struct HistoryView: View {
                 let maxPower = chartData.compactMap { $0.averageWatts }.max() ?? 200
                 let minHR = (chartData.compactMap { $0.averageHeartrate }.min() ?? 100) - 5
                 let maxHR = (chartData.compactMap { $0.averageHeartrate }.max() ?? 160) + 5
-                let minDuration = Double(chartData.map { $0.movingTime }.min() ?? 1800)
-                let maxDuration = Double(chartData.map { $0.movingTime }.max() ?? 7200)
 
                 // Calculate visible date range based on zoom level
                 let dateRange = calculateDateRange(for: chartData)
@@ -283,7 +281,7 @@ struct HistoryView: View {
                         y: .value("Avg HR", activity.averageHeartrate ?? 0)
                     )
                     .foregroundStyle(powerColor(activity.averageWatts ?? 0, min: minPower, max: maxPower))
-                    .symbolSize(durationSize(activity.movingTime, min: minDuration, max: maxDuration))
+                    .symbolSize(Self.durationArea(activity.movingTime))
                 }
                 .chartYScale(domain: minHR...maxHR)
                 .chartXScale(domain: dateRange)
@@ -383,18 +381,13 @@ struct HistoryView: View {
                             .font(.tiny)
                             .foregroundColor(.secondary)
                     }
-                    HStack(spacing: 4) {
+                    HStack(spacing: 8) {
                         Text("Size = Duration:")
                             .font(.tiny)
                             .foregroundColor(.secondary)
-                        Circle().fill(.gray).frame(width: 6, height: 6)
-                        Text("Short")
-                            .font(.tiny)
-                            .foregroundColor(.secondary)
-                        Circle().fill(.gray).frame(width: 12, height: 12)
-                        Text("Long")
-                            .font(.tiny)
-                            .foregroundColor(.secondary)
+                        durationKey(30, "30 min")
+                        durationKey(60, "1 h")
+                        durationKey(120, "2 h")
                     }
                 }
                 .padding(.top, 4)
@@ -460,11 +453,27 @@ struct HistoryView: View {
         return visibleMinDate.addingTimeInterval(-padding)...maxDate.addingTimeInterval(padding)
     }
 
-    private func durationSize(_ duration: Int, min: Double, max: Double) -> CGFloat {
-        guard max > min else { return 100 }
-        let normalized = (Double(duration) - min) / (max - min)
-        // Size from 50 to 200
-        return 50 + normalized * 150
+    /// Bubble area (square points) for a ride of `seconds`. Area is
+    /// proportional to duration on a fixed scale (4 pt² per minute), so a
+    /// 2-hour ride has twice the area of a 1-hour ride whatever else is on
+    /// the chart. The old version scaled between the shortest and longest
+    /// ride shown, over a narrow 50–200 range: one long outdoor ride squashed
+    /// every normal session to almost the same size. Clamped so a very short
+    /// ride stays visible and a very long one doesn't swamp the chart.
+    static func durationArea(_ seconds: Int) -> CGFloat {
+        let minutes = Double(seconds) / 60
+        return CGFloat(min(max(minutes * 4, 40), 720))
+    }
+
+    /// Legend circle matching a bubble of the given duration.
+    private func durationKey(_ minutes: Int, _ label: String) -> some View {
+        HStack(spacing: 3) {
+            Circle().fill(.gray)
+                .frame(width: sqrt(Self.durationArea(minutes * 60)), height: sqrt(Self.durationArea(minutes * 60)))
+            Text(label)
+                .font(.tiny)
+                .foregroundColor(.secondary)
+        }
     }
 
     private func powerColor(_ power: Double, min: Double, max: Double) -> Color {
