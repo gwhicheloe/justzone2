@@ -454,7 +454,7 @@ struct HistoryView: View {
     }
 
     /// Bubble area (square points) for a ride of `seconds`. Area is
-    /// proportional to duration on a fixed scale (4 pt² per minute), so a
+    /// proportional to duration on a fixed scale (2.5 pt² per minute), so a
     /// 2-hour ride has twice the area of a 1-hour ride whatever else is on
     /// the chart. The old version scaled between the shortest and longest
     /// ride shown, over a narrow 50–200 range: one long outdoor ride squashed
@@ -462,7 +462,7 @@ struct HistoryView: View {
     /// ride stays visible and a very long one doesn't swamp the chart.
     static func durationArea(_ seconds: Int) -> CGFloat {
         let minutes = Double(seconds) / 60
-        return CGFloat(min(max(minutes * 4, 40), 720))
+        return CGFloat(min(max(minutes * 2.5, 25), 450))
     }
 
     /// Legend circle matching a bubble of the given duration.
