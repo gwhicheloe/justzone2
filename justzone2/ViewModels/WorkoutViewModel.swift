@@ -503,10 +503,14 @@ class WorkoutViewModel: ObservableObject {
         if let segment = intervalSession?.segment(at: 0) {
             startPower = intervalPower(for: segment)
             lastSegmentStart = segment.start
+            adjustedPower = startPower
         } else {
+            // Zone 2: the warm-up runs at half power, but `adjustedPower` must
+            // stay at the ride's target — the warm-up's end sends
+            // `adjustedPower` to the trainer. (Setting it to the warm-up power
+            // here left Zone 2 rides stuck at half power after the warm-up.)
             startPower = warmUpEnabled ? workout.targetPower / 2 : workout.targetPower
         }
-        adjustedPower = startPower
         kickrService.setTargetPower(startPower)
         kickrService.startWorkout()
 
