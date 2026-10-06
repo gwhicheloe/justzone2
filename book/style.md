@@ -52,6 +52,20 @@ Grade the claim, not the paper. A strong trial can support only a weak version o
 - No conclusion paragraphs that repeat the chapter. End on the most important or most useful point.
 - Headings name the content plainly. No puns, and no colon-subtitles on every heading.
 
+## Sentences the reader could have written
+
+Cut any sentence a reader could have supplied without opening the book. The usual form is a general truth placed in front of the real point: "A solo win depends on who is chasing, the course and the wind", "Everyone responds differently to training", "Many factors affect performance". They sound balanced and say nothing.
+
+Three tests:
+
+- **Could the reader have written it?** If an interested cyclist already knows it, it isn't doing any work.
+- **Is anything in it specific to this case?** A name, a number, an event, a finding. If the sentence would fit unchanged in any chapter of any cycling book, cut it.
+- **Does the paragraph lose anything without it?** Delete it and reread. Usually the specific sentence that followed makes the point on its own.
+
+Make the general point through the particular. Not "a solo win depends on the chase" but "his lead fell by two and a half minutes in the last 45 km, and nothing public says whether he was fading or the bunch was finally racing". The same goes for lists of generic factors ("depends on X, Y and Z"), for caveats that apply to all research ("more studies are needed", "results may vary"), and for sentences that only announce that something is complicated. If a caveat matters, say which study it applies to and what it changes.
+
+Real races told in detail are the model for the particular (George, 5 October 2026, on the van der Poel and Pogačar openings of Durability): where the attack went, how far out, the gap at a named point, the margin, what the rider said afterwards. Use them where a chapter has a natural one, with every detail checked against official results.
+
 ## Words and phrases to avoid
 
 The checker flags these. A few have legitimate uses (a "robust" statistical method, a "landscape" photo); keep those only when the plain meaning is intended.
@@ -68,6 +82,8 @@ The checker flags these. A few have legitimate uses (a "robust" statistical meth
 - **Lists of three** by reflex. Use the number of items the content has.
 - **Dashes as all-purpose punctuation.** Use commas, colons, brackets or a full stop. The checker flags more than about one em dash per 500 words.
 - **Stacked adjectives** ("a powerful, elegant, deeply influential study"). One accurate adjective, or a number.
+- **The mirrored pair.** Two short sentences built to the same pattern and set against each other, usually to close a paragraph: "The races illustrate what durability looks like. The claims rest on the studies." Also its one-sentence forms: "an individual without his numbers, numbers without individuals"; "It can tell you X. It can't tell you Y." The symmetry makes a line sound like a conclusion whether or not it says anything, and it is often a summary of what the paragraph already showed. Say the point once, in an ordinary sentence with the specifics in it, or cut it. A real contrast between two findings is fine; give each its numbers.
+- **The teaser.** Holding back what a sentence is about to make it sound intriguing: "one that tested something unexpected", "it comes with a complication", "the most interesting finding", "one detail matters". Name the thing: "one study of strength training". Call a result surprising only if it surprised the researchers or overturns something the reader was told earlier, and then say what was expected.
 - **Uplifting closers** ("…and that's what makes the journey worthwhile").
 - **Scare quotes** around ordinary terms.
 - **Synonym cycling** (study / paper / investigation / research in four consecutive sentences). Repeat the plain word.

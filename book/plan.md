@@ -29,14 +29,21 @@ The book now has its own Claude session, separate from app work in the same repo
 - Don't run git commands while the other session might be committing. If git reports an `index.lock`, wait a few seconds and retry.
 - Commit and push only when George says so.
 
-**Where things stand**
-- Introduction and Chapter 1 (What limits endurance): first drafts, published for review at https://claude.ai/artifact/SyoahnZLDrP2RVLxXWRZ1E (source `book/review/intro-ch1.html`; republish that same file path to update it, or pass the URL from a new session). Awaiting George's comments and three [GEORGE: ...] answers: (1) is he happy for the intro to correct his own May blog claim about mitochondria; (2) a short bio; (3) whether to state how the book was written.
-- Chapter 8 (Durability): brief approved; research in progress. Remaining work is listed at the end of `chapters/durability/research.md`. George has been asked to fetch five paywalled papers (`papers-wanted.md`); check `book/papers/` for any that have arrived.
+**Where things stand (updated 5 October 2026)**
+- Introduction and Chapter 1 (What limits endurance): first drafts, published for review at https://claude.ai/artifact/SyoahnZLDrP2RVLxXWRZ1E (source `book/review/intro-ch1.html`; republish that same file path to update it, or pass the URL from a new session). No comments on the page and nothing new in `george/notes.md` as of 5 October. Still awaiting George's review and three [GEORGE: ...] answers: (1) is he happy for the intro to correct his own May blog claim about mitochondria; (2) a short bio; (3) whether to state how the book was written.
+- Chapter 8 (Durability): **complete first draft** (5 October, about 6,000 words against 6,500), self-reviewed, with George for review at https://claude.ai/artifact/YJ8kpfAyhtabhBoEhMaaNj (source `book/review/durability.html`; publish with that URL to update). `check.py` leaves five flags, each justified: two rhythm notes, a worked kJ example, the figure placeholder and a paragraph of George's own reasoning. Open items are listed at the end of the "Added while drafting" section of `chapters/durability/research.md`: the figure (needs Mateo-March 2022), one [GEORGE: ...] placeholder on his own long rides, whether his golfer friend walks his rounds, race facts against official results, the direction of the Spragg 2023a correlations, researchers' names.
+- George decided on 5 October: "durability" is the book's term; One study, up close is Norte 2026; Pogačar examples are Strade Bianche 2024 and Zürich 2024.
+- In the draft for George to check: the Pyrenees passage says "In 2025" (his note said "last year"); the chapter refers to Chapters 1 and 2 by number, as Chapter 1's draft does.
 - Chapter 1 is about 3,400 words against a 5,500 target: expand after George's review, not before.
+
+- **Heat training (new chapter, requested by George 5 October):** brief, research notes and a complete first draft written in one session at his request (`chapters/heat-training/`). Covers the 2026 Tour heatwave, heat as a substitute for altitude, the five-week haemoglobin trials, the CORE sensor's validation studies, and cooling on the day (ice vests, slushies: added at George's request). George has no CORE sensor. Review page: https://claude.ai/artifact/MpeQgXCYb9UrKRwsWMYSue (source `book/review/heat-training.html`). Open: whether it stays a chapter or becomes a section of Special cases; one [GEORGE: ...] placeholder on the 2026 heatwave; news facts read through a summarising tool need checking on the pages; several papers are abstract only (list in research.md).
+- Style guide gained four rules from George on 5 October: sentences the reader could have written, race anecdotes in detail, the mirrored pair, the teaser. **The Intro and Chapter 1 drafts have not been checked against them.**
+
+- **Drugs (new chapter, requested by George 5 October):** brief, research notes and a complete first draft in `chapters/doping/`. Covers what EPO-era doping aimed at, the biology of EPO (George asked for this), how much it was worth (including the Leiden trial with the Mont Ventoux race), the risks and the "18 deaths" story, lessons from the era, why riders are faster now, and the moving edge of the rules (tramadol, carbon monoxide, ketones). **Libel rule in the chapter's brief: read it before editing.** No current rider is connected with doping; George's stated position ("I assume they are clean but perhaps pushing boundaries") is written as his. Firmed up later on 5 October: López 2011 read in full and the EPO-deaths passage rewritten from it; 1998 Tour, Pantani and EPO-approval facts checked and corrected (see "Firmed up" in research.md). Open: a legal read; remaining [Rep] facts to verify at primary sources (list in research.md); one [GEORGE: ...] placeholder. (Heuberger 2017 arrived from George on 6 October, was read in full and the Mont Ventoux box rewritten from it.) Not published as an artifact: George to say if he wants a review page. **6 October: George will not use a lawyer, so the chapter was rewritten to minimum risk** (rules and the list of named people are in the chapter's brief): the 2024 climbing comparison and every mention of Pogačar removed at his request ("he's my hero"), the only living person linked to doping is Armstrong, the French Senate retest list is not used.
 
 **Suggested next steps, in order**
 1. Act on George's review of the Intro and Chapter 1 when it comes.
-2. Finish Durability research (free papers via `tools/lookup.py oa` and `fulltext`; race facts against official results), then draft it.
+2. Durability: act on George's review; then the revise stage (figure, re-check every number, the open items above).
 3. Then follow the order of work in the status table.
 
 ## Start of every session
@@ -74,17 +81,19 @@ Stage values: — (not started), brief, research, draft, review, revise, done.
 | 5 | Finding your zones | `finding-zones` | I | 5,000 | `website/research/how-to-find-your-zone-2.html` | — |
 | 6 | What easy riding does to the body | `easy-riding` | II The easy part | 7,000 | `website/research/zone-2-evidence-review.html` | — |
 | 7 | Why elite athletes ride easy | `elites` | II | 6,000 | parts of the evidence review | — |
-| 8 | Durability | `durability` | II | 6,500 | — | **next: research, in progress** (see research.md: to-do list at the end) |
+| 8 | Durability | `durability` | II | 6,500 | — | **draft 1 complete** (5 Oct, ~6,000 words; awaiting George's review). Next chapter in the order of work: Finding your zones |
 | 9 | Beyond performance | `beyond-performance` | II | 5,000 | parts of the evidence review | — |
 | 10 | Time near VO₂max | `time-near-vo2max` | III The hard part | 5,000 | parts of the 30/15 post | — |
 | 11 | Designing intervals | `designing-intervals` | III | 7,000 | `website/research/30-15-intervals.html` | — |
 | 12 | How many hard sessions, and how often | `how-many` | III | 6,000 | `website/research/how-many-hard-sessions.html` | — |
 | 13 | The training week | `training-week` | IV Putting it together | 5,000 | planner logic (`website/js/planner.js`) | — |
+| new | Heat training | `heat-training` | IV (proposed, before Special cases; number to assign) | 5,000 | — | **draft 1 complete** (5 Oct, ~4,400 words; awaiting George's review; brief not separately approved) |
+| new | Drugs | `doping` | IV (proposed, after Heat training; number to assign) | 5,500 | — | **draft 1 complete** (5 Oct, ~4,100 words; awaiting George's review; **needs a legal read before publication**) |
 | 14 | Special cases | `special-cases` | IV | 7,000 | — | — |
 | 15 | Knowing it's working | `knowing` | IV | 6,000 | — | — |
 | 16 | The verdict | `verdict` | — | 3,000 | — | — |
 
-Total target: about 93,000 words. To get back nearer 80,000 if wanted: trim Beyond performance and fold The training week into The verdict.
+Total target: about 103,000 words with Heat training and Drugs (both added 5 October 2026). To get back nearer 80,000 if wanted: trim Beyond performance and fold The training week into The verdict.
 
 Chapter folders are named by topic, never by number, so the order can change without renaming anything. Refer to other chapters by name in briefs and notes.
 

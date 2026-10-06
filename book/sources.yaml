@@ -13,17 +13,18 @@
   citation: "Jones AM. The fourth dimension: physiological resilience as an independent determinant of endurance exercise performance. J Physiol. 2024."
   doi: 10.1113/jp284205
   pmid: 37606604
-  status: abstract
+  status: fulltext
   chapters: [limits, durability]
-  notes: "Review arguing resilience/durability is a fourth determinant alongside VO2max, fractional utilisation and efficiency."
+  notes: "Review arguing resilience/durability is a fourth determinant alongside VO2max, fractional utilisation and efficiency. Published PDF in papers/ (5 Oct 2026); sections on the fall in CP, its range (0.4-32% across the Clark studies, p4) and candidate mechanisms read. Read the rest before citing anything else from it."
 
 - key: joneskirby2025
   citation: "Jones AM, Kirby BS. Physiological resilience: what is it and how might it be trained? Scand J Med Sci Sports. 2025."
   doi: 10.1111/sms.70032
   pmid: 40024804
-  status: candidate
+  pmcid: PMC11872681
+  status: fulltext
   chapters: [durability]
-  notes: "Training implications. Central to the 'what trains it' section."
+  notes: "Narrative review, read in full 5 Oct 2026. Says data are scant and no longitudinal study has targeted resilience; suggests years of volume, long sessions, hard efforts within them, heavy strength training. Central to 'what trains it'."
 
 - key: joynercoyle2008
   citation: "Joyner MJ, Coyle EF. Endurance exercise performance: the physiology of champions. J Physiol. 2008;586:35-44."
@@ -94,23 +95,23 @@
   pmid: 41396096
   status: candidate
   chapters: [durability]
-  notes: "Definitions: resilience vs durability. Settles the terminology section."
+  notes: "Definitions: resilience vs durability. Two-page piece, no abstract. Free copy at Copenhagen blocks scripted download; on papers-wanted.md for George."
 
 - key: clark2019a
   citation: "Clark IE, Vanhatalo A, Thompson C, et al. Dynamics of the power-duration relationship during prolonged endurance exercise and influence of carbohydrate ingestion. J Appl Physiol. 2019;127:726-736."
   doi: 10.1152/japplphysiol.00207.2019
   pmid: 31295069
-  status: abstract
+  status: fulltext
   chapters: [durability]
-  notes: "Critical power unchanged at 40 and 80 min, 9% lower after 2 h; 60 g/h carbohydrate cancelled most of the drop."
+  notes: "Accepted manuscript (Figshare) in papers/, methods and results read 5 Oct 2026. 16 non-elite men. Critical power unchanged at 40 and 80 min, 9% lower after 2 h at only ~164 W; 60 g/h carbohydrate cancelled most of the drop without changing glycogen use."
 
 - key: clark2019b
   citation: "Clark IE, Vanhatalo A, Thompson C, et al. Changes in the power-duration relationship following prolonged exercise: estimation using conventional and all-out protocols and relationship with muscle glycogen. Am J Physiol Regul Integr Comp Physiol. 2019;317:R59-R67."
   doi: 10.1152/ajpregu.00031.2019
   pmid: 30995104
-  status: abstract
+  status: fulltext
   chapters: [durability]
-  notes: "CP ~11% and W' ~20% lower after 2 h heavy exercise; change in glycogen not correlated with change in CP."
+  notes: "Accepted manuscript (Figshare) in papers/, methods, results and limitations read 5 Oct 2026. 14 men. CP ~11% and W' 17-22% lower after 2 h heavy exercise; O2 cost 65 -> 72% VO2peak; change in glycogen not correlated with change in CP (authors: biopsy samples a small area, so glycogen not ruled out)."
 
 - key: norte2026
   citation: "Norte BR, Slinn MM, Johnson KO, et al. Graded carbohydrate ingestion up to 120 g/h attenuates the reduction in critical power following 3 h of moderate-intensity exercise in a dose-dependent manner. Scand J Med Sci Sports. 2026;36:e70326."
@@ -240,3 +241,491 @@
   status: abstract
   chapters: [intro, adaptation, easy-riding]
   notes: "Online Oct 2024. 353 studies, 5,973 participants (mitochondria). Mitochondrial content: continuous endurance training (low OR moderate intensity) +23%, HIT +27%, SIT +27%, no significant difference. Per hour: SIT ~3.9x and HIT ~1.7x as efficient as ET. Open access: read full text before the easy-riding chapter."
+
+- key: clark2018
+  citation: "Clark IE, Vanhatalo A, Bailey SJ, et al. Effects of two hours of heavy-intensity exercise on the power-duration relationship. Med Sci Sports Exerc. 2018;50:1658-1668."
+  doi: 10.1249/mss.0000000000001601
+  pmid: 29521722
+  status: abstract
+  chapters: [durability]
+  notes: "First of the Clark series. 9 cyclists: end-test power 306 -> 282 W (8%) and W' 18.3 -> 14.7 kJ (20%) after 2 h; test repeatable when fatigued (r = 0.99, n = 6)."
+
+- key: gallo2022
+  citation: "Gallo G, Mateo-March M, Leo P, et al. Power road-derived physical performance parameters in junior, under-23, and professional road cycling climbers. Int J Sports Physiol Perform. 2022;17:1094-1102."
+  doi: 10.1123/ijspp.2021-0554
+  pmid: 35483700
+  status: abstract
+  chapters: [durability]
+  notes: "53 male climbers. Decline in power after 20-50 kJ/kg was the only measure separating top professionals from top under-23s. Some p values up to 0.099."
+
+- key: ronnestad2011
+  citation: "Rønnestad BR, Hansen EA, Raastad T. Strength training improves 5-min all-out performance following 185 min of cycling. Scand J Med Sci Sports. 2011;21:250-259."
+  doi: 10.1111/j.1600-0838.2009.01035.x
+  pmid: 19903319
+  status: abstract
+  chapters: [durability, special-cases]
+  notes: "20 well-trained cyclists, 12 weeks. Strength group: 5-min power after 185 min easy riding 371 -> 400 W; controls unchanged. 'Assigned', randomisation not stated in abstract."
+
+- key: smyth2022
+  citation: "Smyth B, Maunder E, Meyler S, Hunter B, Muniz-Pumares D. Decoupling of internal and external workload during a marathon: an analysis of durability in 82,303 recreational runners. Sports Med. 2022;52:2283-2295."
+  doi: 10.1007/s40279-022-01680-5
+  pmid: 35511416
+  pmcid: PMC9388405
+  status: abstract
+  chapters: [durability, knowing]
+  notes: "Heart rate to speed decoupling 1.16 on average at 35-40 km vs 5-10 km, onset 25 km; low decouplers faster. Open access: read before the Knowing it's working chapter."
+
+- key: stevenson2022
+  citation: "Stevenson JD, Kilding AE, Plews DJ, Maunder E. Prolonged cycling reduces power output at the moderate-to-heavy intensity transition. Eur J Appl Physiol. 2022;122:2673-2682."
+  doi: 10.1007/s00421-022-05036-9
+  pmid: 36127418
+  pmcid: PMC9488873
+  status: fulltext
+  chapters: [durability, finding-zones, knowing]
+  notes: "14 trained riders, 2 h at 90% VT1: VT1 power 217 -> 196 W, heart rate at VT1 142 -> 151 bpm. The top of Zone 2 moves during a long ride. Full text read 5 Oct 2026: riders fasted, water only, 9 h/week training, no control trial; individual falls 9-44 W."
+
+- key: unhjem2024
+  citation: "Unhjem RJ. Changes in running economy and attainable maximal oxygen consumption in response to prolonged running: the impact of training status. Scand J Med Sci Sports. 2024;34:e14637."
+  doi: 10.1111/sms.14637
+  pmid: 38671555
+  status: abstract
+  chapters: [durability]
+  notes: "10 trained runners vs 10 active adults, 1 h at 70% VO2max: relative intensity drifted 2.6% vs 8.3%. Cross-sectional, running."
+
+- key: voet2024
+  citation: "Voet JG, Lamberts RP, Viribay A, de Koning JJ, van Erp T. Durability and underlying physiological factors: how do they change throughout a cycling season in semiprofessional cyclists? Int J Sports Physiol Perform. 2024;19:809-819."
+  doi: 10.1123/ijspp.2023-0543
+  pmid: 38871342
+  status: abstract
+  chapters: [durability]
+  notes: "16 semi-professionals, fresh vs after ~38 kJ/kg: 1-min power fell when fatigued, 10-min power did not; fatigued 1-min power improved more across the season."
+
+- key: skodatour2026
+  citation: "Škoda Tour de Luxembourg. Van der Poel wins solo, Piganzoli claims overall. Official race report, stage 5, September 2026. https://skodatour.lu/van-der-poel-wins-solo-piganzoli-claims-overall/"
+  status: exists
+  chapters: [durability]
+  notes: "Official race site, read 5 Oct 2026: Mersch to Luxembourg-Limpertsberg, 176.9 km; alone from the start; 3'30 with 45 km left; won by 1'04 from Honoré, 1'09 from Reinderink; 'wasn't the plan'. Race fact, not research. Confirm stage date against the results PDF."
+
+- key: tourmagazin2025
+  citation: "Tour Magazin. Epic victories: Pogačar's 10 longest solo victories. 6 October 2025. https://www.tour-magazin.de/en/professional-cycling/latest-news/epic-victories-top-10-pogacar-s-longest-solo-victories/"
+  status: exists
+  chapters: [durability]
+  notes: "News source for Pogačar's solos: Strade Bianche 2024 81.1 km (2:44 over Skujiņš per Cycling Weekly); Zürich Worlds 2024 51.7 km, 34 s over O'Connor. Replace with official results before final."
+
+- key: sanchezjimenez2026
+  citation: "Sánchez-Jiménez JL, Salas-Montoro JA, Mateo-March M, Priego-Quesada JI, Zabala M, Pérez-Díaz JJ. Is intensity the most important factor in determining the amount of prior work accumulated that affects cyclists' acute durability? A systematic review. Eur J Appl Physiol. 2026;126:163-179."
+  doi: 10.1007/s00421-025-05885-0
+  pmid: 40613880
+  pmcid: PMC12881052
+  status: abstract
+  chapters: [durability]
+  notes: "21 studies. High-intensity prior work reduces power more per kJ: declines of 10-20% after 2.5-15 kJ/kg of high-intensity work. kJ alone is a poor fatigue metric. Open access."
+
+- key: zanini2024
+  citation: "Zanini M, Folland JP, Blagrove RC. Durability of running economy: differences between quantification methods and performance status in male runners. Med Sci Sports Exerc. 2024;56:2230-2240."
+  doi: 10.1249/mss.0000000000003499
+  pmid: 38857519
+  status: abstract
+  chapters: [durability]
+  notes: "44 male runners, 90 min at LT1. Oxygen cost rose 2.4% in the faster subgroup vs 4.5% in the slower. The long-run-habit comparison (3.1 vs 6.0%) is reported by Jones & Kirby 2025, not in this abstract."
+
+# --- Heat training (added 5 Oct 2026) ---
+
+- key: cubel2024
+  citation: "Cubel C, Fischer M, Stampe D, et al. Time-course for onset and decay of physiological adaptations in endurance trained athletes undertaking prolonged heat acclimation training. Temperature (Austin). 2024;11:350-362."
+  doi: 10.1080/23328940.2024.2383505
+  pmid: 39583901
+  pmcid: PMC11583594
+  status: fulltext
+  chapters: [heat-training]
+  notes: "20 elite men, 6 x 1 h/week for 5 weeks. Hb mass +3% at 3 wk, +4% at 5 wk, baseline again 2 wk after stopping; peak power +12 W; VO2max ns. Results and discussion read; not the whole paper."
+
+- key: cubel2026
+  citation: "Cubel C, Klaris MB, Larsen JV, Faiss R, Nybo L, Lundby C. Haematological adaptations to high-altitude and heat acclimation training in elite male cyclists. Exp Physiol. 2026;111:820-833."
+  doi: 10.1113/ep092968
+  pmid: 40929090
+  pmcid: PMC12949114
+  status: abstract
+  chapters: [heat-training]
+  notes: "Altitude (21 d, 3000 m) +3.5% Hb mass, gone in 10 days, no performance gain; heat (5 wk) +5.4% in 7 of the same riders."
+
+- key: cyclingnews_core
+  citation: "Cyclingnews. Majority of WorldTour using temperature sensors as Core announces partnership with 10 teams."
+  status: exists
+  chapters: [heat-training]
+  notes: "Headline only (page would not load). Cite for the existence of the partnership announcement; find date and team list before final."
+
+- key: goods2023
+  citation: "Goods PSR, Maloney P, Miller J, et al. Concurrent validity of the CORE wearable sensor with BodyCap temperature pill to assess core body temperature during an elite women's field hockey heat training camp. Eur J Sport Sci. 2023;23:1509-1517."
+  doi: 10.1080/17461391.2023.2193953
+  pmid: 36939844
+  status: abstract
+  chapters: [heat-training]
+  notes: "19 players. CORE read low by 0.06-0.34 C, more as temperature rose; 41-60% of samples differed by >0.3 C."
+
+- key: januario2024
+  citation: "Januário WM, Lessa NF, Schittine AJO, et al. Validity and reproducibility of the CALERA Research Sensor to estimate core temperature at different intensities of a cycling exercise in the heat. J Therm Biol. 2024;123:103907."
+  doi: 10.1016/j.jtherbio.2024.103907
+  pmid: 38950497
+  status: abstract
+  chapters: [heat-training]
+  notes: "15 cyclists, 32 C. Bias 0.01 C, limits about +/-0.36 C vs pill; judged valid at +/-0.4 C. Relation of this sensor to CORE not verified."
+
+- key: jolicoeur2023
+  citation: "Jolicoeur Desroches A, Naulleau C, Deshayes TA, Pancrate T, Goulet EDB. CORE wearable sensor: comparison against gastrointestinal temperature during cold water ingestion and a 5 km running time-trial. J Therm Biol. 2023;115:103622."
+  doi: 10.1016/j.jtherbio.2023.103622
+  pmid: 37352596
+  status: abstract
+  chapters: [heat-training]
+  notes: "12 people, 5 km run at 30 C. Mean absolute difference 0.47 C vs pill; CORE underestimated rate of rise."
+
+- key: karlsen2015
+  citation: "Karlsen A, Racinais S, Jensen MV, Nørgaard SJ, Bonne T, Nybo L. Heat acclimatization does not improve VO2max or cycling performance in a cool climate in trained cyclists. Scand J Med Sci Sports. 2015;25 Suppl 1:269-276."
+  doi: 10.1111/sms.12409
+  pmid: 25943678
+  status: abstract
+  chapters: [heat-training]
+  notes: "18 cyclists, 2 weeks. TT in heat +16%; cool TT 300 -> 302 W, VO2max unchanged."
+
+- key: keiser2015
+  citation: "Keiser S, Flück D, Hüppin F, Stravs A, Hilty MP, Lundby C. Heat training increases exercise capacity in hot but not in temperate conditions: a mechanistic counter-balanced cross-over study. Am J Physiol Heart Circ Physiol. 2015;309:H750-H761."
+  doi: 10.1152/ajpheart.00138.2015
+  pmid: 26150574
+  status: abstract
+  chapters: [heat-training]
+  notes: "7 men, crossover, 10 days. In 38 C VO2max +9.6%, TT +10.4%; in 18 C unchanged. Plasma volume +6%."
+
+- key: lorenzo2010
+  citation: "Lorenzo S, Halliwill JR, Sawka MN, Minson CT. Heat acclimation improves exercise performance. J Appl Physiol. 2010;109:1140-1147."
+  doi: 10.1152/japplphysiol.00495.2010
+  pmid: 20724560
+  pmcid: PMC2963322
+  status: abstract
+  chapters: [heat-training]
+  notes: "12 cyclists + 8 controls, 10 days at 40 C. Cool: VO2max +5%, TT +6%, LT power +5%. Plasma volume +6.5%. Free on PMC: read the full text at revise."
+
+- key: lundby2023
+  citation: "Lundby C, Hamarsland H, Hansen J, et al. Hematological, skeletal muscle fiber, and exercise performance adaptations to heat training in elite female and male cyclists. J Appl Physiol. 2023;135:217-226."
+  doi: 10.1152/japplphysiol.00115.2023
+  pmid: 37262101
+  status: abstract
+  chapters: [heat-training]
+  notes: "20 women, 27 men, randomised, 5 x 50 min for 5 wk. Hb mass +4.0% / +3.5%; muscle unchanged; LT, VO2max, 15-min power enhanced (no figures in abstract)."
+
+- key: maunder2021heat
+  citation: "Maunder E, Plews DJ, Wallis GA, et al. Temperate performance and metabolic adaptations following endurance training performed under environmental heat stress. Physiol Rep. 2021;9:e14849."
+  doi: 10.14814/phy2.14849
+  pmid: 33977674
+  pmcid: PMC8114151
+  status: abstract
+  chapters: [heat-training]
+  notes: "17 men, 3 weeks at 33 vs 18 C, heart-rate matched. TT gain 30 vs 16 W (n = 7 vs 6, p = .04)."
+
+- key: mikkelsen2019
+  citation: "Mikkelsen CJ, Junge N, Piil JF, et al. Prolonged heat acclimation and aerobic performance in endurance trained athletes. Front Physiol. 2019;10:1372."
+  doi: 10.3389/fphys.2019.01372
+  pmid: 31749712
+  pmcid: PMC6843002
+  status: fulltext
+  chapters: [heat-training]
+  notes: "RCT, 21 sub-elite cyclists, 5.5 weeks. Cool TT 298 -> 315 W heat vs 294 -> 311 W control; VO2max unchanged. Methods, results table and discussion read."
+
+- key: minsoncotter2016
+  citation: "Minson CT, Cotter JD. CrossTalk proposal: Heat acclimatization does improve performance in a cool condition. J Physiol. 2016;594:241-243."
+  doi: 10.1113/jp270879
+  pmid: 26668072
+  status: abstract
+  chapters: [heat-training]
+  notes: "The case for. Concedes the benefit is unresolved and may be modest or absent."
+
+- key: nybolundby2016
+  citation: "Nybo L, Lundby C. CrossTalk opposing view: Heat acclimatization does not improve exercise performance in a cool condition. J Physiol. 2016;594:245-247."
+  doi: 10.1113/jp270880
+  pmid: 26667955
+  status: exists
+  chapters: [heat-training]
+  notes: "The case against. No abstract; cite for its existence and title only."
+
+- key: oberholzer2019
+  citation: "Oberholzer L, Siebenmann C, Mikkelsen CJ, et al. Hematological adaptations to prolonged heat acclimation in endurance-trained males. Front Physiol. 2019;10:1379."
+  doi: 10.3389/fphys.2019.01379
+  pmid: 31749713
+  pmcid: PMC6842970
+  status: abstract
+  chapters: [heat-training]
+  notes: "Same trial as Mikkelsen 2019. Hb mass +34 g heat vs +2 g control, interaction p = 0.061. Open access: read the full text at revise."
+
+- key: ronnestad2021
+  citation: "Rønnestad BR, Hamarsland H, Hansen J, et al. Five weeks of heat training increases haemoglobin mass in elite cyclists. Exp Physiol. 2021;106:316-327."
+  doi: 10.1113/ep088544
+  pmid: 32436633
+  status: abstract
+  chapters: [heat-training]
+  notes: "23 elite men. Hb mass 893 -> 935 g vs +6 g control. Performance measures favoured heat, not significantly."
+
+- key: ronnestad2022a
+  citation: "Rønnestad BR, Urianstad T, Hamarsland H, et al. Heat training efficiently increases and maintains hemoglobin mass and temperate endurance performance in elite cyclists. Med Sci Sports Exerc. 2022;54:1515-1526."
+  doi: 10.1249/mss.0000000000002928
+  pmid: 35394464
+  status: abstract
+  chapters: [heat-training]
+  notes: "Heat suit or chamber, 5 x 50 min, 5 wk: Hb mass +2.6% / +2.4% vs -0.7%. Pooled performance index 4.9% vs 1.7%. 3 sessions/wk maintained Hb mass."
+
+- key: ronnestad2022b
+  citation: "Rønnestad BR, Lid OM, Hansen J, et al. Heat suit training increases hemoglobin mass in elite cross-country skiers. Scand J Med Sci Sports. 2022;32:1089-1098."
+  doi: 10.1111/sms.14156
+  pmid: 35305278
+  pmcid: PMC9544462
+  status: abstract
+  chapters: [heat-training]
+  notes: "25 skiers. Hb mass 30 g above control; no differences in VO2max or performance."
+
+- key: tourmagazin2025b
+  citation: "Mustroph T. Tadej Pogačar: insiders provide insights into training. Tour Magazin, 24 January 2025. https://www.tour-magazin.de/en/professional-cycling/latest-news/tadej-pogacar-insiders-provide-insights-into-training/"
+  status: exists
+  chapters: [heat-training]
+  notes: "Interview with Jeroen Swart (UAE Team Emirates): heat sessions at 35 C, 90% humidity; 'plasma volume can be increased by up to 25 per cent'. English edition; read via a summarising tool, so check the wording on the page before final."
+
+- key: verdel2021
+  citation: "Verdel N, Podlogar T, Ciuha U, Holmberg HC, Debevec T, Supej M. Reliability and validity of the CORE sensor to assess core body temperature during cycling exercise. Sensors (Basel). 2021;21:5932."
+  doi: 10.3390/s21175932
+  pmid: 34502822
+  pmcid: PMC8434645
+  status: fulltext
+  chapters: [heat-training]
+  notes: "vs rectal probe. Repeatable (0.02 C between identical rides). 51% and 45% of readings within 0.3 C; limits of agreement -0.38 to +0.72 C (19 C) and -0.62 to +0.59 C (31 C)."
+
+- key: waldron2021
+  citation: "Waldron M, Fowler R, Heffernan S, Tallent J, Kilduff L, Jeffries O. Effects of heat acclimation and acclimatisation on maximal aerobic capacity compared to exercise alone in both thermoneutral and hot environments: a meta-analysis and meta-regression. Sports Med. 2021;51:1509-1525."
+  doi: 10.1007/s40279-021-01445-6
+  pmid: 33811616
+  pmcid: PMC8222027
+  status: abstract
+  chapters: [heat-training]
+  notes: "28 studies. Thermoneutral VO2max, heat vs control: g = 0.30 (0.06-0.54). A published comment disputes the analysis."
+
+- key: afp2026
+  citation: "Agence France-Presse. Heat a 'logistical nightmare' at Tour de France. Taipei Times, 8 July 2026. https://www.taipeitimes.com/News/sport/archives/2026/07/08/2003860405"
+  status: exists
+  chapters: [heat-training]
+  notes: "Wire report, read via a summarising tool: check wording on the page. Stage 3 Granollers to Les Angles in 36 C, won by Pogačar ('logistic nightmare'); up to 40 C forecast for stage 4 from Carcassonne; frozen vests, ice socks (banned during racing), Ineos forearm immersion, Alpecin frozen gels; wildfires near Perpignan."
+
+- key: bongers2015
+  citation: "Bongers CCWG, Thijssen DHJ, Veltmeijer MTW, Hopman MTE, Eijsvogels TMH. Precooling and percooling (cooling during exercise) both improve performance in the heat: a meta-analytical review. Br J Sports Med. 2015;49:377-384."
+  doi: 10.1136/bjsports-2013-092928
+  pmid: 24747298
+  status: abstract
+  chapters: [heat-training]
+  notes: "28 trials, men, >30 C. Precooling +5.7%, cooling during +9.9% (difference ns), overall +6.7%. Ice vest best during; combinations best before. No correlation between core temperature and performance."
+
+- key: burdon2013
+  citation: "Burdon CA, Hoon MW, Johnson NA, Chapman PG, O'Connor HT. The effect of ice slushy ingestion and mouthwash on thermoregulation and endurance performance in the heat. Int J Sport Nutr Exerc Metab. 2013;23:458-469."
+  doi: 10.1123/ijsnem.23.5.458
+  pmid: 23535809
+  status: abstract
+  chapters: [heat-training]
+  notes: "10 men, 90 min cycling at 32 C then time trial: slushy 18:28, warm drink 20:24, slushy mouthwash 19:45."
+
+- key: cyclinguptodate2026
+  citation: "CyclingUpToDate. Tour de France 2026 stage 9 slashed by 30 km as red heatwave alert forces emergency route change. July 2026."
+  status: exists
+  chapters: [heat-training]
+  notes: "News site, read via a summarising tool. Stage 9, 12 July 2026, Malemort to Ussel, 185.5 -> 155.5 km; Corrèze on red heatwave alert. Replace with the organisers' communiqué before final."
+
+- key: dolson2022
+  citation: "Dolson CM, Harlow ER, Phelan DM, et al. Wearable sensor technology to predict core body temperature: a systematic review. Sensors (Basel). 2022;22:7639."
+  doi: 10.3390/s22197639
+  pmid: 36236737
+  pmcid: PMC9572283
+  status: abstract
+  chapters: [heat-training]
+  notes: "Used only for the statement that heat illness is usually associated with core temperature above 40 C."
+
+- key: schmit2017
+  citation: "Schmit C, Le Meur Y, Duffield R, et al. Heat-acclimatization and pre-cooling: a further boost for endurance performance? Scand J Med Sci Sports. 2017;27:55-65."
+  doi: 10.1111/sms.12629
+  pmid: 26677824
+  status: abstract
+  chapters: [heat-training]
+  notes: "13 male triathletes, 20 km TT at 35 C before and after an 8-day heat camp, with and without ice vest. Vest +10 W before; camp +28 W; vest +4 W (unclear) after."
+
+- key: siegel2010
+  citation: "Siegel R, Maté J, Brearley MB, Watson G, Nosaka K, Laursen PB. Ice slurry ingestion increases core temperature capacity and running time in the heat. Med Sci Sports Exerc. 2010;42:717-725."
+  doi: 10.1249/mss.0b013e3181bf257a
+  pmid: 19952832
+  status: abstract
+  chapters: [heat-training]
+  notes: "10 men, slurry vs cold water before running at 34 C: 50.2 vs 40.7 min; rectal temperature -0.66 vs -0.25 C before; 39.36 vs 39.05 C at exhaustion."
+
+# --- Drugs (added 5 Oct 2026) ---
+
+- key: aderlass
+  citation: "Operation Aderlass. Wikipedia, read 5 October 2026. https://en.wikipedia.org/wiki/Operation_Aderlass"
+  status: exists
+  chapters: [doping]
+  notes: "Encyclopaedia summary only. Replace with court and federation sources before publication."
+
+- key: alberdi2025
+  citation: "Alberdi-Garciandia A, Santos-Concejero J. Recombinant human erythropoietin effects on well-trained athletes' endurance performance: a systematic review. Sports (Basel). 2025;13:78."
+  doi: 10.3390/sports13030078
+  pmid: 40137802
+  pmcid: PMC11945785
+  status: abstract
+  chapters: [doping]
+  notes: "10 studies. Haemoglobin and VO2max rise; submaximal performance unresolved."
+
+- key: ashenden2011
+  citation: "Ashenden M, Gough CE, Garnham A, Gore CJ, Sharpe K. Current markers of the Athlete Blood Passport do not flag microdose EPO doping. Eur J Appl Physiol. 2011;111:2307-2314."
+  doi: 10.1007/s00421-011-1867-6
+  pmid: 21336951
+  status: abstract
+  chapters: [doping]
+  notes: "10 subjects micro-dosed for up to 12 weeks: Hb mass +10%, none flagged by passport software."
+
+- key: bejder2019
+  citation: "Bejder J, Breenfeldt Andersen A, Solheim SA, et al. Time trial performance is sensitive to low-volume autologous blood transfusion. Med Sci Sports Exerc. 2019;51:692-700."
+  doi: 10.1249/mss.0000000000001837
+  pmid: 30407276
+  status: abstract
+  chapters: [doping]
+  notes: "135 mL of red cells: time-trial power 213 -> 223 W (~5%); sham no change."
+
+- key: ccm2024
+  citation: "Canadian Cycling Magazine. Tadej Pogačar on breaking climbing records: It's about the bike. 16 July 2024."
+  status: exists
+  chapters: []
+  notes: "NOT USED: removed from the Drugs chapter at George's request, 6 Oct 2026. Reports a L'Équipe interview. Read through a tool: check quotes against L'Équipe before final."
+
+- key: circ2015
+  citation: "Cycling Independent Reform Commission (Marty D, Nicholson P, Haas U). Report to the President of the Union Cycliste Internationale. Lausanne, February 2015."
+  status: fulltext
+  chapters: [doping]
+  notes: "PDF in papers/circ2015.pdf. Passages on EPO deaths, the 50% rule, prevalence estimates, performance gains, corticoids, tramadol and amateur doping read. Interviewee statements are hearsay and are presented as such."
+
+- key: cyclingnews2024beille
+  citation: "Cyclingnews. Pogačar smashes Marco Pantani's climbing record on Plateau de Beille by over three minutes. July 2024."
+  status: exists
+  chapters: []
+  notes: "NOT USED: removed from the Drugs chapter at George's request, 6 Oct 2026. Times vary by timer: Pogačar 39:41 to 39:50, Pantani 43:28 to 43:30. Unofficial timings."
+
+- key: dehon2015
+  citation: "de Hon O, Kuipers H, van Bottenburg M. Prevalence of doping use in elite sports: a review of numbers and methods. Sports Med. 2015;45:57-69."
+  doi: 10.1007/s40279-014-0247-x
+  pmid: 25169441
+  status: abstract
+  chapters: [doping]
+  notes: "Best estimates 14-39% of elite athletes vs 1-2% positive tests a year."
+
+- key: festina
+  citation: "Festina affair. Wikipedia, read 5 October 2026. https://en.wikipedia.org/wiki/Festina_affair"
+  status: exists
+  chapters: [doping]
+  notes: "Encyclopaedia summary only. Replace with court reports and contemporary press before publication."
+
+- key: heuberger2017
+  citation: "Heuberger JAAC, Rotmans JI, Gal P, et al. Effects of erythropoietin on cycling performance of well trained cyclists: a double-blind, randomised, placebo-controlled trial. Lancet Haematol. 2017;4:e374-e386."
+  doi: 10.1016/s2352-3026(17)30105-9
+  pmid: 28669689
+  status: fulltext
+  chapters: [doping]
+  notes: "48 amateurs, 8 weeks. VO2max and max power up; 45-min power and Mont Ventoux race time not different (0.3%, CI -8.3 to 9.6). Full text read 6 Oct 2026 (PDF from George in papers/): dose to haematocrit 50%; race 12 days after last dose in 85 km/h summit wind; 44 started, 40 finished; 9 of 23 on EPO guessed it."
+
+- key: holgado2018
+  citation: "Holgado D, Zandonai T, Zabala M, et al. Tramadol effects on physical performance and sustained attention during a 20-min indoor cycling time-trial: a randomised controlled trial. J Sci Med Sport. 2018;21:654-660."
+  doi: 10.1016/j.jsams.2017.10.032
+  pmid: 29128419
+  status: abstract
+  chapters: [doping]
+  notes: "220 vs 209 W in experiment 1; 234 vs 230 W (ns) in experiment 2."
+
+- key: jelkmann2011
+  citation: "Jelkmann W. Regulation of erythropoietin production. J Physiol. 2011;589:1251-1258."
+  doi: 10.1113/jphysiol.2010.195057
+  pmid: 21078592
+  status: abstract
+  chapters: [doping, adaptation]
+  notes: "EPO made in kidney cortex fibroblasts, switched on by hypoxia through HIF-2; promotes survival and maturation of red cell precursors."
+
+- key: lodewijkx2011
+  citation: "Lodewijkx HFM, Brouwer B. Some empirical notes on the epo epidemic in professional cycling. Res Q Exerc Sport. 2011;82:740-754."
+  doi: 10.1080/02701367.2011.10599811
+  pmid: 22276416
+  status: abstract
+  chapters: [doping]
+  notes: "181 Grand Tour winners' times 1947-2008; no sharp break in the EPO era."
+
+- key: lopez2011
+  citation: "López B. The invention of a 'drug of mass destruction': deconstructing the EPO myth. Sport in History. 2011;31(1):84-109."
+  doi: 10.1080/17460263.2011.555208
+  status: fulltext
+  chapters: [doping]
+  notes: "Read in full 5 Oct 2026 (publisher's HTML). 61 texts reviewed, two with any original source; 17 sudden deaths found for 1987-92; two plausibly EPO-related. Polemical in tone; concedes his count is not watertight."
+
+- key: lundby2007
+  citation: "Lundby C, Thomsen JJ, Boushel R, et al. Erythropoietin treatment elevates haemoglobin concentration by increasing red cell volume and depressing plasma volume. J Physiol. 2007;578:309-314."
+  doi: 10.1113/jphysiol.2006.122689
+  pmid: 17095558
+  status: abstract
+  chapters: [doping]
+  notes: "8 subjects. Red cell volume up ~270 mL, plasma down ~380 mL, total blood volume unchanged; 38-54% of the rise in oxygen content from the plasma fall."
+
+- key: perneger2010
+  citation: "Perneger TV. Speed trends of major cycling races: does slower mean cleaner? Int J Sports Med. 2010;31:261-264."
+  doi: 10.1055/s-0030-1247593
+  pmid: 20148370
+  status: abstract
+  chapters: [doping]
+  notes: "Fifth-place speeds in Grand Tours: +0.16 km/h a year 1990-2004, -0.22 after."
+
+- key: thomsen2007
+  citation: "Thomsen JJ, Rentsch RL, Robach P, et al. Prolonged administration of recombinant human erythropoietin increases submaximal performance more than maximal aerobic capacity. Eur J Appl Physiol. 2007;101:481-486."
+  doi: 10.1007/s00421-007-0522-8
+  pmid: 17668232
+  status: abstract
+  chapters: [doping]
+  notes: "8 non-athletes: VO2max +12.6%, time to exhaustion at 80% +54%."
+
+- key: uci2025co
+  citation: "Union Cycliste Internationale. The UCI bans repeated inhalation of carbon monoxide. Press release, 1 February 2025."
+  status: exists
+  chapters: [doping]
+  notes: "Read through a tool. Ban on possession of CO rebreathing systems outside a medical facility from 10 February 2025; one measurement allowed, a second after two weeks."
+
+- key: uci2025ketones
+  citation: "Union Cycliste Internationale. Statement on ketone supplements, 20 October 2025."
+  status: exists
+  chapters: [doping]
+  notes: "Known from news reports (Tour Magazin, road.cc): recommends against use, no ban. Find the statement itself."
+
+- key: zorzoli2010
+  citation: "Zorzoli M, Rossi F. Implementation of the biological passport: the experience of the International Cycling Union. Drug Test Anal. 2010;2:542-547."
+  doi: 10.1002/dta.173
+  pmid: 21204287
+  status: abstract
+  chapters: [doping]
+  notes: "Passport launched January 2008; >850 riders; almost 20,000 samples in 2008-09."
+
+- key: epogenlabel
+  citation: "Epogen (epoetin alfa) prescribing information. Amgen; US Food and Drug Administration. Initial U.S. approval: 1989."
+  status: exists
+  chapters: [doping]
+  notes: "Approval 1 June 1989 for anaemia of chronic renal failure (DailyMed label heading and trade press, via search results). Cite for the date only."
+
+- key: pantani
+  citation: "Marco Pantani. Wikipedia, read 5 October 2026. https://en.wikipedia.org/wiki/Marco_Pantani"
+  status: exists
+  chapters: [doping]
+  notes: "Encyclopaedia summary. 1999 Giro: haematocrit 52%, leading by 5:38, two-week stand-down; never sanctioned for doping. Replace with contemporary reports before publication."
+
+- key: tour1998
+  citation: "1998 Tour de France. Wikipedia, read 5 October 2026. https://en.wikipedia.org/wiki/1998_Tour_de_France"
+  status: exists
+  chapters: [doping]
+  notes: "Use for start date, starters, finishers and the Festina expulsion only. Its figure for the 2013 Senate retests conflicts with press reports and is NOT used. Start 11 July Dublin; 189 starters, 96 finishers; Festina expelled after stage 6; French Senate 2013: 44 of 60 retested samples positive for EPO. Replace with the Senate report and race records before publication."
+
+- key: festinaverdict
+  citation: "Le jugement du procès Festina. cyclisme-dopage.com (summary of the judgment of the Tribunal correctionnel de Lille, 22 December 2000, citing Libération, 23 December 2000). See also: Richard Virenque relaxé. swissinfo.ch, 22 December 2000."
+  status: exists
+  chapters: [doping]
+  notes: "Two press-level sources agreeing with Wikipedia on the sentences. Read through a tool. The judgment itself not seen; replace with Libération or Le Monde of 23 Dec 2000 if obtainable."
+

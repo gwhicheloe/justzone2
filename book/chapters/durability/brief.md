@@ -1,6 +1,6 @@
 # Durability (Chapter 8): brief
 
-Status: **argument approved by George, 3 October 2026.** Stage 2 (research) next.
+Status: **argument approved by George, 3 October 2026.** Full first draft written 5 October 2026 (`draft.md`). Decided by George on 5 October: the term is "durability"; One study, up close is Norte 2026; the Pogačar examples are Strade Bianche 2024 and Zürich 2024.
 Target: 6,500 words (raised from 6,000 on 3 October for the How it works section and the Reading the research box). Part II, *The easy part*.
 
 ## The question
