@@ -1,0 +1,6 @@
+# Fall in critical power after 3 hours at 169 W, by carbohydrate intake during the ride. Fresh critical power 277 W.
+# Source: Norte et al. 2026 (Scand J Med Sci Sports 36:e70326), full text, Results. 16 trained riders, crossover.
+condition,cp_w,fall_pct
+Water only,236,14.7
+60 g of carbohydrate an hour,257,7.4
+120 g of carbohydrate an hour,266,4.2

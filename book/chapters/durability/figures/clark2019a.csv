@@ -1,0 +1,8 @@
+# Critical power (end-test power) and W' (work above it) from a 3-minute all-out test, fresh and after 40, 80 and 120 minutes of riding at 164 W.
+# Source: Clark et al. 2019a (J Appl Physiol 127:726-736), accepted manuscript, Results, Experiment I. 16 men.
+# The chart shows each as a percentage of its fresh value (OUR ARITHMETIC) so both fit one axis.
+minutes,cp_w,wprime_kj
+0,260,17.9
+40,268,16.1
+80,260,14.7
+120,236,13.8

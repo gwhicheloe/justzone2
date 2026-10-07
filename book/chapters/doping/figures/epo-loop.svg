@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 430" width="680" height="430" role="img" aria-label="The feedback loop controlling red cell production, and where injected EPO enters it">
+<rect width="680" height="430" fill="#ffffff"/>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1a1a1a"/></marker><marker id="ahg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#555555"/></marker></defs>
+<rect x="60" y="60" width="200" height="84" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="160.0" y="84.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="600" >Kidney</text>
+<text x="160.0" y="104.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >senses how much oxygen</text>
+<text x="160.0" y="120.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >the blood is delivering</text>
+<rect x="420" y="60" width="200" height="84" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="520.0" y="84.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="600" >EPO in the blood</text>
+<text x="520.0" y="104.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >the hormone the kidney</text>
+<text x="520.0" y="120.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >releases when oxygen is low</text>
+<rect x="420" y="280" width="200" height="84" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="520.0" y="304.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="600" >Bone marrow</text>
+<text x="520.0" y="324.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >more red cell precursors</text>
+<text x="520.0" y="340.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >survive and mature</text>
+<rect x="60" y="280" width="200" height="84" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="160.0" y="304.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="600" >Red cells</text>
+<text x="160.0" y="324.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >more haemoglobin,</text>
+<text x="160.0" y="340.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >more oxygen carried</text>
+<line x1="266" y1="102.0" x2="412" y2="102.0" stroke="#1a1a1a" stroke-width="2" marker-end="url(#ah)" />
+<text x="340.0" y="92.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="400" >low oxygen: makes more</text>
+<line x1="520.0" y1="150" x2="520.0" y2="272" stroke="#1a1a1a" stroke-width="2" marker-end="url(#ah)" />
+<text x="532.0" y="216.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="400" >signal</text>
+<line x1="414" y1="322.0" x2="268" y2="322.0" stroke="#1a1a1a" stroke-width="2" marker-end="url(#ah)" />
+<text x="340.0" y="312.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="400" >over days to weeks</text>
+<line x1="160.0" y1="274" x2="160.0" y2="152" stroke="#1a1a1a" stroke-width="2" marker-end="url(#ah)" />
+<text x="172.0" y="208.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="400" >more oxygen reaches</text>
+<text x="172.0" y="224.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="400" >the kidney: makes less</text>
+<text x="160.0" y="22.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" font-style="italic">Altitude, blood loss, anaemia</text>
+<line x1="160.0" y1="30" x2="160.0" y2="52" stroke="#555555" stroke-width="2" marker-end="url(#ahg)" stroke-dasharray="5 4"/>
+<text x="520.0" y="22.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" font-style="italic">Injected EPO: bypasses the sensor</text>
+<line x1="520.0" y1="30" x2="520.0" y2="52" stroke="#555555" stroke-width="2" marker-end="url(#ahg)" stroke-dasharray="5 4"/>
+<text x="340.0" y="412.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >Solid arrows: the body's own loop. Dashed arrows: what can push it from outside.</text>
+</svg>

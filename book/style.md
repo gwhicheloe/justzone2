@@ -24,6 +24,9 @@ The book has two aims (see `plan.md`): explain the mechanism behind each trainin
 
 ## Evidence and numbers
 
+- **The Introduction is the exception** (George, 7 October 2026): keep it easy-going. Tell the story of each study and give at most the one or two figures that carry the point, such as how small or short it was. The detail belongs in the later chapters; a wall of numbers on the first pages puts readers off.
+
+
 - Name the study. "A 2015 Norwegian trial in 16 trained cyclists" beats "research shows". Never write "studies show", "research suggests" or "experts agree" without saying which.
 - Give the number, with its comparison. "VO₂max rose 8.7%, against 2.6% in the long-interval group" beats "a significant improvement".
 - Say how big the study was and how long it ran whenever a result carries weight.

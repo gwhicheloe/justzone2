@@ -9,6 +9,7 @@ italic, numbered and bulleted lists, blockquotes. Book conventions:
                           with a reference list built from sources.yaml
   {grade A|B|C}        -> a small evidence-grade badge
   [GEORGE: ...]        -> a highlighted note for George
+  ![caption](figures/x.svg) on its own paragraph -> the SVG inline, numbered, with the caption
 The output is an HTML fragment (title, style, content) that works both as an
 Artifact page and when opened directly in a browser.
 """
@@ -46,7 +47,7 @@ def inline(text, cite):
     return t
 
 
-def render_chapter(md, sources, idx):
+def render_chapter(md, sources, idx, base="."):
     order = []
 
     def cite(group):
@@ -68,7 +69,7 @@ def render_chapter(md, sources, idx):
         else:
             buf.append(line)
 
-    out, title, anchor = [], "", f"ch{idx}"
+    out, title, anchor, fig_n = [], "", f"ch{idx}", [0]
     for b in blocks:
         first = b[0]
         if first.startswith("# "):
@@ -78,6 +79,14 @@ def render_chapter(md, sources, idx):
             out.append(f"<h3>{inline(first[4:], cite)}</h3>")
         elif first.startswith("## "):
             out.append(f"<h2>{inline(first[3:], cite)}</h2>")
+        elif re.match(r"!\[(.*)\]\((\S+\.svg)\)\s*$", " ".join(b)):
+            m = re.match(r"!\[(.*)\]\((\S+\.svg)\)\s*$", " ".join(b))
+            fig_n[0] += 1
+            try:
+                art = open(os.path.join(base, m.group(2)), encoding="utf-8").read()
+            except OSError:
+                art = f'<p class="missing">Missing figure: {html.escape(m.group(2))}</p>'
+            out.append(f'<figure>{art}<figcaption><b>Figure {fig_n[0]}.</b> {inline(m.group(1), cite)}</figcaption></figure>')
         elif first.startswith(">"):
             text = " ".join(l.lstrip("> ").strip() for l in b)
             out.append(f'<blockquote class="saddle">{inline(text, cite)}</blockquote>')
@@ -137,6 +146,9 @@ STYLE = """
   .grade{font-family:var(--mono);font-size:11px;font-weight:500;border-radius:4px;padding:1px 5px;margin-left:3px;border:1px solid currentColor;vertical-align:2px}
   .gA{color:var(--gA)} .gB{color:var(--gB)} .gC{color:var(--gC)}
   mark.george{background:var(--mark);color:var(--mark-ink);font-family:var(--sans);font-size:15px;padding:2px 6px;border-radius:4px;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+  figure{margin:26px 0;padding:0} figure svg{display:block;width:100%;height:auto;border:1px solid var(--rule);border-radius:8px;background:#fff}
+  figcaption{font-family:var(--sans);font-size:14px;line-height:1.5;color:var(--muted);margin-top:8px}
+  figcaption b{color:var(--ink)}
   blockquote.saddle{margin:18px 0;padding:4px 0 4px 18px;border-left:3px solid var(--accent);font-style:italic}
   section.refs{margin-top:34px;padding-top:6px;border-top:1px solid var(--rule)}
   section.refs h2{font-family:var(--sans);font-size:15px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
@@ -155,7 +167,7 @@ def main():
         sys.exit(2)
     out_path, files = sys.argv[1], sys.argv[2:]
     sources = load_sources()
-    chapters = [render_chapter(open(f, encoding="utf-8").read(), sources, i) for i, f in enumerate(files, 1)]
+    chapters = [render_chapter(open(f, encoding="utf-8").read(), sources, i, os.path.dirname(os.path.abspath(f))) for i, f in enumerate(files, 1)]
     total = sum(c[2] for c in chapters)
     today = datetime.date.today().strftime("%-d %B %Y")
     toc = "".join(f'<a href="#{a}">{html.escape(t)}<span>{w:,} words</span></a>' for t, a, w, _ in chapters)

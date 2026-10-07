@@ -26,6 +26,8 @@ It is made mainly in the kidneys, by cells in the outer layer called the cortex 
 
 EPO then travels in the blood to the bone marrow, where red cells are made. The marrow constantly produces red cell precursors, many of which die before maturing. EPO is the signal that lets them live. More EPO means more precursors survive, multiply and mature into red cells, each packed with haemoglobin, the protein that carries oxygen [@jelkmann2011]. As the red cell count rises, more oxygen reaches the kidney, HIF is destroyed again, and EPO production falls back. It is a thermostat for the blood.
 
+![How the body controls its red cell count, and where the drug enters. The loop on solid arrows runs in everyone. Altitude pushes it from outside by lowering the oxygen the kidney senses. Injected EPO adds hormone that the kidney never asked for. Drawn for this book from the account in Jelkmann's review [@jelkmann2011].](figures/epo-loop.svg)
+
 Two things you have met elsewhere in this book work through the same thermostat. Altitude training lowers the oxygen in the blood, so the kidney makes more EPO for as long as you stay high. Heat training, on one theory, dilutes the blood until the kidney reads it as short of red cells. Both are slow and both stop when the stimulus stops.
 
 People whose kidneys fail lose the ability to make EPO and become severely anaemic. In the 1980s the human gene was inserted into cultured cells to manufacture the hormone, and recombinant EPO was approved in the United States as a treatment for the anaemia of kidney failure in June 1989 [@epogenlabel]. For those patients it replaced regular blood transfusions, and it remains one of the most useful drugs biotechnology has produced.
@@ -69,6 +71,8 @@ In their planning, the authors worked out the size of effect that would matter: 
 The paper itself explains why the race was so imprecise. The wind at the summit that afternoon was blowing at 85 km/h and the temperature there was 5 °C. Four riders gave up from exhaustion. Each rider did the climb once, at the end of a long day [@heuberger2017].
 
 The 45-minute laboratory test was far better controlled, and it is the stronger evidence. Its result was a difference of 5.9 W in favour of EPO, with an interval from 0.9 W the wrong way to 12.7 W the right way. As a percentage, that runs from about zero to about 4.5%. The best estimate is a gain of 2%. The commission was told that micro-dosing was worth 3% to 5%. The trial's own laboratory time trial does not rule that out [@heuberger2017; @circ2015].
+
+![EPO against placebo in the Leiden trial. Each dot is the best estimate of the EPO group's advantage and each line is its 95% confidence interval. The two ramp-test results sit clear of zero. The 45-minute test reaches from zero into the shaded band. The two race results are so wide that they include both a large gain and a large loss. Drawn from the results of Heuberger and colleagues [@heuberger2017]; the three laboratory percentages are my calculation from the paper's absolute differences.](figures/ventoux.svg)
 
 Who was studied matters too. These riders trained five to six hours a week, which the authors acknowledge is far below a professional's load. For an amateur, a 2% change in sustained power is lost among everything else that varies from one rider to the next on the day. For a professional racing against riders who have all spent years removing those other differences, the same 2% is a decisive margin.
 

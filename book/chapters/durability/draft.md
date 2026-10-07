@@ -28,6 +28,8 @@ The idea is easier to hold once you see how it is measured. There are three main
 
 The first is to test a rider fresh, tire them, and test them again. The clearest examples come from Jones's own lab. In one study, 16 men did a three-minute all-out test fresh, and again after 40 minutes, 80 minutes and two hours of steady riding [@clark2019a]. The test estimates critical power, the boundary described in Chapter 1 above which effort can't be sustained, and W′, the small reserve of work available above it. Critical power was 260 W fresh, 268 W after 40 minutes and 260 W after 80 minutes. After two hours it was 236 W, a fall of 9%. W′ went sooner: it was down 18% by 80 minutes and 23% by two hours. So the reserve you draw on for attacks and short climbs drains first, and the power you can hold for an hour stays put for a surprisingly long time and then drops.
 
+![Critical power and W′ in 16 riders, tested fresh and after 40, 80 and 120 minutes of steady riding. Each is shown as a percentage of its fresh value. Drawn from the results of Clark and colleagues [@clark2019a].](figures/cp-decline.svg)
+
 Two details of that study deserve more attention than they usually get. The riders were competitive amateurs with an average VO₂peak of 52.5 mL/kg/min, much like the readers of this book and nothing like van der Poel. And the two-hour ride that cost them 9% of their critical power averaged 164 W, which began at about 64% of their VO₂peak [@clark2019a]. That is a steady endurance ride just above the top of Zone 2. Nobody was being broken.
 
 Riders differed far more than the average suggests. Across three studies from the same lab, the fall in critical power after two hours averaged about 10%, but individual riders ranged from under 1% to about a third [@jones2024]. {grade B} On a fresh critical power of 260 W, that is the difference between losing a watt or two and losing more than 80.
@@ -143,6 +145,8 @@ Each rider's critical power was measured fresh with a three-minute all-out test.
 The riders were well fed going in. For 24 hours before each ride they ate a supplied diet containing 8 grams of carbohydrate per kilogram of body weight, and they had a set breakfast [@norte2026]. Nobody started short of glycogen.
 
 Fresh, critical power averaged 277 W. After three hours on water it was 236 W, a fall of about 15%. With 60 grams an hour it was 257 W, a fall of about 7%. With 120 grams an hour it was 266 W, a fall of about 4%. Each step was statistically significant. W′, the reserve above critical power, dropped by a similar amount whatever the riders drank [@norte2026].
+
+![How much critical power 16 trained riders had lost after three hours at 169 W, by what they drank. Drawn from the results of Norte and colleagues [@norte2026].](figures/carb-dose.svg)
 
 Three things in the details matter. The first step did most of the work: going from nothing to 60 grams an hour saved 20 W, and doubling it saved 9 W more. Stomach complaints were mild at every dose, though fullness and cramping scored higher at 120 grams than on water. And during the three-hour rides themselves, oxygen cost and efficiency did not differ between the drinks, so the carbohydrate was not working by making each watt cheaper. The riders on the highest dose could simply get closer to their VO₂max in the final test [@norte2026].
 

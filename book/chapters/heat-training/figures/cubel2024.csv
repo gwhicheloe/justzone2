@@ -1,0 +1,8 @@
+# Change in total haemoglobin mass in the heat-training group, per cent of the starting value.
+# Source: Cubel et al. 2024 (Temperature 11:350-362), full text, Results. 10 elite male cyclists, six 1-hour heat sessions a week for 5 weeks.
+# Week 7 is the test two weeks after the sessions stopped ("returned to pre-HA levels"): plotted as 0.
+week,change_pct
+0,0
+3,3
+5,4
+7,0

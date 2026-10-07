@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 360" width="680" height="360" role="img" aria-label="Critical power and W prime as a percentage of their fresh values over two hours of riding">
+<rect width="680" height="360" fill="#ffffff"/>
+<line x1="70" y1="290.0" x2="500" y2="290.0" stroke="#bdbdbd" stroke-width="1"/>
+<text x="60.0" y="294.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="end" font-weight="400" >70%</text>
+<line x1="70" y1="227.5" x2="500" y2="227.5" stroke="#bdbdbd" stroke-width="1"/>
+<text x="60.0" y="231.5" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="end" font-weight="400" >80%</text>
+<line x1="70" y1="165.0" x2="500" y2="165.0" stroke="#bdbdbd" stroke-width="1"/>
+<text x="60.0" y="169.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="end" font-weight="400" >90%</text>
+<line x1="70" y1="102.5" x2="500" y2="102.5" stroke="#1a1a1a" stroke-width="1"/>
+<text x="60.0" y="106.5" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="end" font-weight="400" >100%</text>
+<line x1="70" y1="40.0" x2="500" y2="40.0" stroke="#bdbdbd" stroke-width="1"/>
+<text x="60.0" y="44.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="end" font-weight="400" >110%</text>
+<text x="70.0" y="310.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >fresh</text>
+<text x="213.3" y="310.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >40 min</text>
+<text x="356.7" y="310.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >80 min</text>
+<text x="500.0" y="310.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >120 min</text>
+<text x="285.0" y="334.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >Time ridden at 164 W before the test</text>
+<text x="18.0" y="26.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="start" font-weight="400" >Per cent of the fresh value</text>
+<polyline points="70.0,102.5 213.3,165.3 356.7,214.2 500.0,245.7" fill="none" stroke="#555555" stroke-width="2" stroke-dasharray="6 4" stroke-linejoin="round"/>
+<polyline points="70.0,102.5 213.3,83.3 356.7,102.5 500.0,160.2" fill="none" stroke="#1a1a1a" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="70.0" cy="102.5" r="4.5" fill="#ffffff" stroke="#555555" stroke-width="2"/>
+<circle cx="213.3" cy="165.3" r="4.5" fill="#ffffff" stroke="#555555" stroke-width="2"/>
+<circle cx="356.7" cy="214.2" r="4.5" fill="#ffffff" stroke="#555555" stroke-width="2"/>
+<circle cx="500.0" cy="245.7" r="4.5" fill="#ffffff" stroke="#555555" stroke-width="2"/>
+<circle cx="70.0" cy="102.5" r="5" fill="#1a1a1a" stroke="#ffffff" stroke-width="2"/>
+<circle cx="213.3" cy="83.3" r="5" fill="#1a1a1a" stroke="#ffffff" stroke-width="2"/>
+<circle cx="356.7" cy="102.5" r="5" fill="#1a1a1a" stroke="#ffffff" stroke-width="2"/>
+<circle cx="500.0" cy="160.2" r="5" fill="#1a1a1a" stroke="#ffffff" stroke-width="2"/>
+<text x="514.0" y="158.2" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="600" >Critical power</text>
+<text x="514.0" y="174.2" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="start" font-weight="400" >236 W, down 9%</text>
+<text x="514.0" y="243.7" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="600" >W′, the reserve above it</text>
+<text x="514.0" y="259.7" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="start" font-weight="400" >13.8 kJ, down 23%</text>
+</svg>

@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 270" width="680" height="270" role="img" aria-label="Oxygen's route from the air to the muscle, and the factors that limit endurance">
+<rect width="680" height="270" fill="#ffffff"/>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1a1a1a"/></marker></defs>
+<rect x="14" y="58" width="108" height="76" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="68.0" y="82.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="600" >Lungs</text>
+<text x="68.0" y="102.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >oxygen crosses</text>
+<text x="68.0" y="117.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >into the blood</text>
+<line x1="125" y1="96.0" x2="146" y2="96.0" stroke="#1a1a1a" stroke-width="2" marker-end="url(#ah)"/>
+<rect x="150" y="58" width="108" height="76" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="204.0" y="82.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="600" >Blood</text>
+<text x="204.0" y="102.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >carried by</text>
+<text x="204.0" y="117.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >haemoglobin</text>
+<line x1="261" y1="96.0" x2="282" y2="96.0" stroke="#1a1a1a" stroke-width="2" marker-end="url(#ah)"/>
+<rect x="286" y="58" width="108" height="76" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="340.0" y="82.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="600" >Heart</text>
+<text x="340.0" y="102.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >pumps it out:</text>
+<text x="340.0" y="117.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >cardiac output</text>
+<line x1="397" y1="96.0" x2="418" y2="96.0" stroke="#1a1a1a" stroke-width="2" marker-end="url(#ah)"/>
+<rect x="422" y="58" width="108" height="76" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="476.0" y="82.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="600" >Capillaries</text>
+<text x="476.0" y="102.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >deliver it to</text>
+<text x="476.0" y="117.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >each fibre</text>
+<line x1="533" y1="96.0" x2="554" y2="96.0" stroke="#1a1a1a" stroke-width="2" marker-end="url(#ah)"/>
+<rect x="558" y="58" width="108" height="76" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="612.0" y="82.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="middle" font-weight="600" >Mitochondria</text>
+<text x="612.0" y="102.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >use it to</text>
+<text x="612.0" y="117.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >make ATP</text>
+<text x="14.0" y="30.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#555555" text-anchor="start" font-weight="400" font-style="italic">Air</text>
+<line x1="44" y1="26" x2="68.0" y2="50" stroke="#555555" stroke-width="1.5" marker-end="url(#ah)"/>
+<path d="M14,148 v8 H394 v-8" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="204.0" y="176.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="600" >Delivery: mostly sets VO₂max</text>
+<text x="204.0" y="193.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >how much oxygen reaches</text>
+<text x="204.0" y="208.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >the muscle each minute</text>
+<path d="M422,148 v8 H666 v-8" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="544.0" y="176.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="600" >The muscle</text>
+<text x="544.0" y="193.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >mostly sets the fraction</text>
+<text x="544.0" y="208.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >of VO₂max you can sustain</text>
+<text x="340.0" y="254.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >Efficiency is the third factor: how much of the energy released ends up as power at the pedals.</text>
+</svg>

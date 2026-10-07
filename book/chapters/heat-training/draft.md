@@ -62,6 +62,8 @@ The riders were nearly all elite, and the men among them had VO₂max values in 
 
 And the gain does not last. In the 2024 trial, haemoglobin mass was back to its starting value two weeks after the heat sessions stopped [@cubel2024]. Rønnestad's group found that three sessions a week were enough to hold it [@ronnestad2022a]. Heat training is therefore something you keep doing or time carefully, like a taper.
 
+![Total haemoglobin mass in 10 elite cyclists during five weeks of heat training and two weeks after it stopped. Only the four measured points are data; the lines between them are there to guide the eye. Drawn from the results of Cubel and colleagues [@cubel2024].](figures/hb-timeline.svg)
+
 ### One study, up close: the Copenhagen amateurs
 
 In 2019 Nybo and Lundby's group published the first trial long enough to test the haemoglobin idea, and it remains the only one in riders who resemble the readers of this book [@mikkelsen2019; @oberholzer2019].

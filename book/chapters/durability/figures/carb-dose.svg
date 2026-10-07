@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 252" width="680" height="252" role="img" aria-label="Fall in critical power after three hours of riding, by carbohydrate intake">
+<rect width="680" height="252" fill="#ffffff"/>
+<line x1="240.0" y1="38" x2="240.0" y2="196" stroke="#1a1a1a" stroke-width="1"/>
+<text x="240.0" y="214.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >0%</text>
+<line x1="310.0" y1="38" x2="310.0" y2="196" stroke="#bdbdbd" stroke-width="1"/>
+<text x="310.0" y="214.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >4%</text>
+<line x1="380.0" y1="38" x2="380.0" y2="196" stroke="#bdbdbd" stroke-width="1"/>
+<text x="380.0" y="214.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >8%</text>
+<line x1="450.0" y1="38" x2="450.0" y2="196" stroke="#bdbdbd" stroke-width="1"/>
+<text x="450.0" y="214.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >12%</text>
+<line x1="520.0" y1="38" x2="520.0" y2="196" stroke="#bdbdbd" stroke-width="1"/>
+<text x="520.0" y="214.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >16%</text>
+<text x="380.0" y="238.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >Fall in critical power after three hours (fresh: 277 W)</text>
+<text x="226.0" y="70.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end" font-weight="400" >Water only</text>
+<path d="M240.0,54 H493.2 a4,4 0 0 1 4,4 v14 a4,4 0 0 1 -4,4 H240.0 z" fill="#555555"/>
+<text x="507.2" y="66.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="600" >14.7%</text>
+<text x="507.2" y="81.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="start" font-weight="400" >236 W left</text>
+<text x="226.0" y="120.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end" font-weight="400" >60 g of carbohydrate an hour</text>
+<path d="M240.0,104 H365.5 a4,4 0 0 1 4,4 v14 a4,4 0 0 1 -4,4 H240.0 z" fill="#555555"/>
+<text x="379.5" y="116.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="600" >7.4%</text>
+<text x="379.5" y="131.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="start" font-weight="400" >257 W left</text>
+<text x="226.0" y="170.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end" font-weight="400" >120 g of carbohydrate an hour</text>
+<path d="M240.0,154 H309.5 a4,4 0 0 1 4,4 v14 a4,4 0 0 1 -4,4 H240.0 z" fill="#555555"/>
+<text x="323.5" y="166.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="600" >4.2%</text>
+<text x="323.5" y="181.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="start" font-weight="400" >266 W left</text>
+</svg>
