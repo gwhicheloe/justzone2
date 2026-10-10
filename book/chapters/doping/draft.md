@@ -16,7 +16,7 @@ The commission that investigated cycling's doping history in 2015 summarised dec
 
 The second aim covers testosterone, growth hormone and the corticosteroids, which riders told the commission were used both to dull pain and to strip weight. The first is the one that defined the era, and it maps directly onto the model in Chapter 1. Among well-trained riders, VO₂max is limited mainly by how much oxygen the heart and blood can deliver to the muscles. Training raises delivery slowly, over years, and by amounts that shrink as a rider approaches their ceiling. A drug that raises it by a tenth in a month is acting on the one link in the chain that an elite athlete can no longer improve much by working harder.
 
-There were two ways to do it. One was to transfuse blood: a rider had a bag or two of their own blood taken out and stored, waited some weeks for the body to replace it, and had the red cells put back before a race. The other, from about 1990, was a drug that made the body produce the extra red cells itself.
+One way to do it was to transfuse blood: a rider had a bag or two of their own blood taken out and stored, waited some weeks for the body to replace it, and had the red cells put back before a race. The other, from about 1990, was a drug that made the body produce the extra red cells itself.
 
 ## How it works: the biology of EPO
 
@@ -28,13 +28,13 @@ EPO then travels in the blood to the bone marrow, where red cells are made. The 
 
 ![How the body controls its red cell count, and where the drug enters. The loop on solid arrows runs in everyone. Altitude pushes it from outside by lowering the oxygen the kidney senses. Injected EPO adds hormone that the kidney never asked for. Drawn for this book from the account in Jelkmann's review [@jelkmann2011].](figures/epo-loop.svg)
 
-Two things you have met elsewhere in this book work through the same thermostat. Altitude training lowers the oxygen in the blood, so the kidney makes more EPO for as long as you stay high. Heat training, on one theory, dilutes the blood until the kidney reads it as short of red cells. Both are slow and both stop when the stimulus stops.
+Altitude and heat, covered elsewhere in this book, work through the same thermostat. Altitude training lowers the oxygen in the blood, so the kidney makes more EPO for as long as you stay high. Heat training, on one theory, dilutes the blood until the kidney reads it as short of red cells. Both are slow and both stop when the stimulus stops.
 
 People whose kidneys fail lose the ability to make EPO and become severely anaemic. In the 1980s the human gene was inserted into cultured cells to manufacture the hormone, and recombinant EPO was approved in the United States as a treatment for the anaemia of kidney failure in June 1989 [@epogenlabel]. For those patients it replaced regular blood transfusions, and it remains one of the most useful drugs biotechnology has produced.
 
 Injected into a healthy person, the same drug overrides the thermostat. The marrow receives a signal to make red cells that the body doesn't need. What happens next was measured in 2007 by Carsten Lundby, who appears in the heat training chapter, in eight healthy volunteers given EPO for 15 weeks [@lundby2007]. Their red cell volume rose from 2,933 mL to about 3,200 mL. Their plasma volume fell, from 3,645 mL to about 3,270 mL. Total blood volume barely changed. The body, in other words, made room for the new red cells by removing liquid, and between 38% and 54% of the rise in the blood's oxygen content came from that concentration, not from the extra cells.
 
-That finding explains two features of the era. It is the reverse of what heat does, which is why a team scientist in the heat training chapter describes altitude and heat as opposites. And it is why the measure everyone talked about was haematocrit, the percentage of the blood's volume taken up by red cells. Riders told the 2015 commission that their natural levels were in the low to middle 40s [@circ2015]. EPO pushed the number up from both directions at once, by adding cells and by taking away plasma, and blood with that many cells in it is thicker and harder to pump.
+That is the reverse of what heat does, which is why a team scientist in the heat training chapter describes altitude and heat as opposites. It is also why the measure everyone talked about was haematocrit, the percentage of the blood's volume taken up by red cells. Riders told the 2015 commission that their natural levels were in the low to middle 40s [@circ2015]. EPO pushed the number up from both directions at once, by adding cells and by taking away plasma, and blood with that many cells in it is thicker and harder to pump.
 
 ## How much it was worth
 

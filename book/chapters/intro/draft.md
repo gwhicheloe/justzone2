@@ -6,7 +6,7 @@ I knew why, or thought I did. I had spent the winter in my garage on a smart tra
 
 That winter was Zone 2 training, and I wrote about it with the enthusiasm of a convert. I told readers of my website that easy riding was the single most effective way to build mitochondria, the structures in muscle cells that use oxygen to make energy. I believed it. I had heard it from people who sounded as if they knew.
 
-A few months later I sat down to read the research properly, and that sentence didn't survive. The largest summary of the evidence, a review of 353 training studies published in 2024, found that mitochondrial content rose by similar amounts whether people did steady continuous training (about 23%), high-intensity intervals (27%) or all-out sprint intervals (27%). Per hour of training, the sprints did almost four times as much [@molmen2025]. Zone 2 had done something real for me. It just hadn't done it for the reason I had been told, or not only for that reason.
+A few months later I sat down to read the research properly, and that sentence didn't survive. The largest summary of the evidence, a review of 353 training studies published in 2024, found that mitochondrial content rose by similar amounts whether people did steady continuous training (about 23%) or either kind of interval training, high-intensity or all-out sprints (27%). Per hour of training, the sprints did almost four times as much [@molmen2025]. In 2025 four Canadian researchers made the same point at length, in a review they called "Much Ado About Zone 2" [@storoschuk2025]. Zone 2 had done something real for me. It just hadn't done it for the reason I had been told, or not only for that reason.
 
 This book grew out of that gap: between what people confidently say about endurance training and what the studies actually show.
 
@@ -22,15 +22,13 @@ Around the same time, the Norway-based physiologist Stephen Seiler was describin
 
 Then came Zone 2. Its rise owed a lot to podcasts, in particular a 2019 conversation between the physician Peter Attia and the physiologist Iñigo San-Millán, who worked with professional cycling teams [@attia2019]. San-Millán's research on how well athletes and patients burn fat and clear lactate was real and interesting. Repeated across thousands of episodes and social media posts, it became something larger: a training intensity with special powers over mitochondria, metabolism and even lifespan.
 
-None of these fashions was simply wrong. High-intensity intervals do work, elite athletes do mostly train easy, and easy riding does build an aerobic base. What each fashion got wrong was its confidence, and its silence about who was studied, for how long, and what was actually measured.
+None of these fashions was simply wrong. High-intensity intervals do work, elite athletes do mostly train easy, and easy riding does improve aerobic fitness. What each fashion got wrong was its confidence, and its silence about who was studied, for how long, and what was actually measured.
 
 ## What this book tries to do
 
-There is no shortage of training advice. What's in short supply is a way of judging it. So this book has two aims, and every chapter works towards both.
+The first thing this book tries to do is explain the mechanism. For each training claim, I want you to understand the biology underneath it: what happens in a muscle, a heart or a bloodstream when you ride easy or ride hard, and why that might make you faster. Mechanisms matter because they tell you *why* something should work. They are also where fashions start, because a plausible mechanism is far easier to find than evidence that the training actually improves performance. "Easy riding burns the most fat, so it must build the most mitochondria" is a mechanism argument. Whether it's true is a different question, and the answer turned out to be no.
 
-The first is to explain the mechanism. For each training claim, I want you to understand the biology underneath it: what happens in a muscle, a heart or a bloodstream when you ride easy or ride hard, and why that might make you faster. Mechanisms matter because they tell you *why* something should work. They are also where fashions start, because a plausible mechanism is far easier to find than evidence that the training actually improves performance. "Easy riding burns the most fat, so it must build the most mitochondria" is a mechanism argument. Whether it's true is a different question, and the answer turned out to be no.
-
-The second aim is to help you judge research yourself. Each chapter includes a short section called *Reading the research*, which takes one study from that chapter and uses it to practise a single skill: telling correlation from cause, spotting a sample too small to trust, noticing when "a trend" means "not significant", or asking who was actually studied. By the end of the book you should be able to read a training study, or a confident claim about one, and decide for yourself how much weight it can bear. The next fashion is already on its way, and this book won't be there when it arrives.
+The second is to help you judge research yourself. Each chapter includes a short section called *Reading the research*, which takes one study from that chapter and uses it to practise a single skill: telling correlation from cause, spotting a sample too small to trust, noticing when "a trend" means "not significant", or asking who was actually studied. By the end of the book you should be able to read a training study, or a confident claim about one, and decide for yourself how much weight it can bear. The next fashion is already on its way, and this book won't be there when it arrives.
 
 To keep the book honest about its own claims, the important ones carry a grade:
 
@@ -58,10 +56,10 @@ This is not a training plan, and it isn't medical advice. If you have a heart co
 
 ## About me, and a disclosure
 
-[GEORGE: two or three sentences about who you are: your riding background, your day job, and why you, not a sports scientist, are writing this. The angle that works best is the one from your blog: a busy rider with a job and two kids who went looking for training that fitted a real life.]
+I am not a sports scientist. I am a quantitative researcher in finance, where I use behavioural analytics to help portfolio managers improve the way they invest, and I read a lot of finance research as part of the job. Before that I studied maths and worked at the European Space Agency and in banking. So I come to training studies as someone who judges quantitative claims for a living, in a field where a persuasive story with weak evidence behind it costs money.
+
+I am also a rider short of time. I raced mountain bikes in my teens with my two older brothers. These days I have two children and a busy life, I ride about three sportives a year, and I go on a couple of cycling holidays with other dads from my children's school. I wanted to know what training would do the most for someone like that.
 
 I should also be clear about an interest. I built an app, JustZone2, that controls a smart trainer to hold your heart rate in a target zone. I built it for my own winter training and other riders now use it. It gets one mention at the end of the book and none in between, and it has no bearing on what the evidence says. If anything, writing this book has made me more cautious about some of the claims I used to make for easy riding. Where the research says Zone 2 is overrated, this book says so.
-
-[GEORGE: decide whether to say how the book was written. If an AI tool drafted much of the text, a short, plain note here (or in the acknowledgements) is honest and pre-empts the question. Amazon also asks about it at upload.]
 
 The title asks whether it's just Zone 2. It isn't, quite, and to see why, we need to start with what limits endurance in the first place.

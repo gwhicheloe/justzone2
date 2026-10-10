@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 410" width="680" height="410" role="img" aria-label="ATP is spent to ADP and rebuilt; when ADP builds up, AMP rises and AMPK switches on">
+<rect width="680" height="410" fill="#ffffff"/>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1a1a1a"/></marker><marker id="ahg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#555555"/></marker></defs>
+<rect x="40" y="60" width="180" height="96" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="130.0" y="86.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="600" >ATP</text>
+<text x="130.0" y="106.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >three phosphates</text>
+<text x="130.0" y="122.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >carries the energy</text>
+<rect x="460" y="60" width="180" height="96" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="550.0" y="86.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="600" >ADP</text>
+<text x="550.0" y="106.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >two phosphates</text>
+<text x="550.0" y="122.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >what is left when ATP is spent</text>
+<rect x="460" y="270" width="180" height="96" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="550.0" y="296.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="600" >AMP</text>
+<text x="550.0" y="316.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >one phosphate</text>
+<text x="550.0" y="332.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >rises when ADP builds up</text>
+<rect x="40" y="270" width="180" height="96" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="130.0" y="296.0" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="600" >AMPK</text>
+<text x="130.0" y="316.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >the sensor: switches on when</text>
+<text x="130.0" y="332.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >AMP rises against ATP</text>
+<line x1="226" y1="88" x2="452" y2="88" stroke="#1a1a1a" stroke-width="2" marker-end="url(#ah)" />
+<text x="340.0" y="64.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="400" >Contraction splits off a phosphate</text>
+<text x="340.0" y="80.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="400" >and releases the energy</text>
+<line x1="454" y1="128" x2="228" y2="128" stroke="#1a1a1a" stroke-width="2" marker-end="url(#ah)" />
+<text x="340.0" y="148.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="400" >Mitochondria rebuild it,</text>
+<text x="340.0" y="164.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="400" >using oxygen and fuel</text>
+<line x1="550.0" y1="162" x2="550.0" y2="262" stroke="#555555" stroke-width="2" marker-end="url(#ahg)" stroke-dasharray="5 4"/>
+<text x="538.0" y="209.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="end" font-weight="400" >when demand</text>
+<text x="538.0" y="225.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="end" font-weight="400" >outruns supply</text>
+<line x1="454" y1="318.0" x2="228" y2="318.0" stroke="#555555" stroke-width="2" marker-end="url(#ahg)" stroke-dasharray="5 4"/>
+<text x="340.0" y="308.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >read as a fuel gauge</text>
+<text x="340.0" y="396.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >Solid arrows: the cycle that runs all the time. Dashed arrows: what happens when it falls behind.</text>
+</svg>

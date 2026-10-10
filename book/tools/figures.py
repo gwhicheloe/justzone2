@@ -241,8 +241,131 @@ def heat_timeline():
     return _save("heat-training", "hb-timeline.svg", W, H, b, "Haemoglobin mass during five weeks of heat training and two weeks after stopping")
 
 
+def detraining():
+    """Line chart: VO2max after stopping training (Coyle 1984)."""
+    rows = _rows("adaptation", "coyle1984.csv")
+    W, H, left, right, top, base = 680, 330, 70, 540, 40, 250
+    X = lambda d: left + d / 84 * (right - left)
+    Y = lambda p: top + (-p) / 20 * (base - top)
+    b = []
+    for p in (0, -5, -10, -15, -20):
+        b.append(f'<line x1="{left}" y1="{Y(p):.1f}" x2="{right}" y2="{Y(p):.1f}" stroke="{INK if p == 0 else FAINT}" stroke-width="1"/>')
+        b.append(text(left - 10, Y(p) + 4, f"−{-p}%" if p else "0", 12, MID, "end"))
+    for d in (0, 21, 56, 84):
+        b.append(text(X(d), base + 20, "last session" if d == 0 else f"day {d}", 12, MID, "middle"))
+    b.append(text((left + right) / 2, base + 46, "Change in VO₂max after training stopped", 12, MID, "middle"))
+    s = [(float(r["day"]), float(r["change_pct"])) for r in rows]
+    b.append(f'<polyline points="{" ".join(f"{X(a):.1f},{Y(c):.1f}" for a, c in s)}" fill="none" stroke="{INK}" stroke-width="2" stroke-linejoin="round"/>')
+    for a, c in s:
+        b.append(f'<circle cx="{X(a):.1f}" cy="{Y(c):.1f}" r="5" fill="{INK}" stroke="#ffffff" stroke-width="2"/>')
+    b.append(text(X(21) + 12, Y(-7) - 8, "−7%", 13, INK, "start", "600"))
+    b.append(text(X(56), Y(-16) + 24, "−16%", 13, INK, "middle", "600"))
+    b.append(text(X(84) + 12, Y(-16) - 4, "still above", 12, MID, "start"))
+    b.append(text(X(84) + 12, Y(-16) + 12, "people who had", 12, MID, "start"))
+    b.append(text(X(84) + 12, Y(-16) + 28, "never trained", 12, MID, "start"))
+    return _save("adaptation", "detraining.svg", W, H, b, "VO2max over 84 days after stopping endurance training")
+
+
+def atp_cycle():
+    """Diagram: ATP spent and rebuilt, and the AMP side branch that AMPK reads."""
+    W, H = 680, 410
+    b = ['<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">'
+         f'<path d="M0,0 L10,5 L0,10 z" fill="{INK}"/></marker>'
+         '<marker id="ahg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">'
+         f'<path d="M0,0 L10,5 L0,10 z" fill="{MID}"/></marker></defs>']
+
+    def box(x, y, w, h, title, lines):
+        o = [f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="8" fill="#ffffff" stroke="{INK}" stroke-width="1.5"/>',
+             text(x + w / 2, y + 26, title, 15, INK, "middle", "600")]
+        for i, l in enumerate(lines):
+            o.append(text(x + w / 2, y + 46 + 16 * i, l, 12, MID, "middle"))
+        return o
+
+    def arrow(x1, y1, x2, y2, col=INK, mk="ah", dash=""):
+        return f'<line x1="{x1}" y1="{y1}" x2="{x2}" y2="{y2}" stroke="{col}" stroke-width="2" marker-end="url(#{mk})" {dash}/>'
+
+    bw, bh = 180, 96
+    ax, ay = 40, 60          # ATP, top left
+    dx, dy = 460, 60         # ADP, top right
+    mx, my = 460, 270        # AMP, bottom right
+    kx, ky = 40, 270         # AMPK, bottom left
+    b += box(ax, ay, bw, bh, "ATP", ["three phosphates", "carries the energy"])
+    b += box(dx, dy, bw, bh, "ADP", ["two phosphates", "what is left when ATP is spent"])
+    b += box(mx, my, bw, bh, "AMP", ["one phosphate", "rises when ADP builds up"])
+    b += box(kx, ky, bw, bh, "AMPK", ["the sensor: switches on when", "AMP rises against ATP"])
+    mid = (ax + bw + dx) / 2
+    b.append(arrow(ax + bw + 6, ay + 28, dx - 8, ay + 28))
+    b.append(text(mid, ay + 4, "Contraction splits off a phosphate", 12, INK, "middle"))
+    b.append(text(mid, ay + 20, "and releases the energy", 12, INK, "middle"))
+    b.append(arrow(dx - 6, ay + 68, ax + bw + 8, ay + 68))
+    b.append(text(mid, ay + 88, "Mitochondria rebuild it,", 12, INK, "middle"))
+    b.append(text(mid, ay + 104, "using oxygen and fuel", 12, INK, "middle"))
+    dash = 'stroke-dasharray="5 4"'
+    b.append(arrow(dx + bw / 2, dy + bh + 6, mx + bw / 2, my - 8, MID, "ahg", dash))
+    b.append(text(dx + bw / 2 - 12, (dy + bh + my) / 2 - 4, "when demand", 12, MID, "end"))
+    b.append(text(dx + bw / 2 - 12, (dy + bh + my) / 2 + 12, "outruns supply", 12, MID, "end"))
+    b.append(arrow(mx - 6, my + bh / 2, kx + bw + 8, ky + bh / 2, MID, "ahg", dash))
+    b.append(text(mid, my + bh / 2 - 10, "read as a fuel gauge", 12, MID, "middle"))
+    b.append(text(W / 2, H - 14, "Solid arrows: the cycle that runs all the time. Dashed arrows: what happens when it falls behind.", 12, MID, "middle"))
+    return _save("adaptation", "atp-cycle.svg", W, H, b, "ATP is spent to ADP and rebuilt; when ADP builds up, AMP rises and AMPK switches on")
+
+
+def sawtooth():
+    """Two-panel time series: PGC-1a mRNA bursts and protein build-up over seven sessions (Perry 2010)."""
+    W, H, left, right = 680, 520, 96, 640
+    step = (right - left - 30) / 6.6
+    xs = lambda i: left + 14 + (i - 1) * step          # start of session i
+    b = []
+    # ---- panel A: mRNA, fold of the starting level
+    at, ab = 64, 204
+    YA = lambda f: ab - (f - 1) / 10 * (ab - at)
+    b.append(text(left, at - 34, "PGC-1α messenger RNA", 14, INK, "start", "600"))
+    b.append(text(left, at - 17, "a burst after every session, gone within a day", 12, MID, "start"))
+    for f in (1, 5, 10):
+        b.append(f'<line x1="{left}" y1="{YA(f):.1f}" x2="{right}" y2="{YA(f):.1f}" stroke="{INK if f == 1 else FAINT}" stroke-width="1"/>')
+        b.append(text(left - 10, YA(f) + 4, "start" if f == 1 else f"{f}×", 12, MID, "end"))
+    peaks = {1: 10.8, 2: 9.3, 3: 8.1, 4: 7.1, 5: 6.2, 6: 5.5, 7: 4.9}   # only the first is a reported value
+    for i, pk in peaks.items():
+        meas = i in (1, 3, 5, 7)
+        col, dash = (INK, "") if meas else (FAINT, 'stroke-dasharray="4 3"')
+        x0 = xs(i)
+        b.append(f'<polyline points="{x0:.1f},{YA(1):.1f} {x0 + step * 0.16:.1f},{YA(pk):.1f} {x0 + step * 0.55:.1f},{YA(1):.1f}" '
+                 f'fill="none" stroke="{col}" stroke-width="2" stroke-linejoin="round" {dash}/>')
+    b.append(text(xs(1) + step * 0.16 + 14, YA(10.8) + 5, "more than 10×, four hours after session 1", 12, INK, "start", "600"))
+    b.append(text(xs(5) + step * 0.3, YA(8.6), "smaller each time", 12, MID, "start"))
+    # ---- panel B: protein, per cent above the start
+    bt, bb = 300, 420
+    YB = lambda p: bb - p / 50 * (bb - bt)
+    b.append(text(left, bt - 34, "PGC-1α protein", 14, INK, "start", "600"))
+    b.append(text(left, bt - 17, "rises after the first session and does not fall back", 12, MID, "start"))
+    for p in (0, 25, 50):
+        b.append(f'<line x1="{left}" y1="{YB(p):.1f}" x2="{right}" y2="{YB(p):.1f}" stroke="{INK if p == 0 else FAINT}" stroke-width="1"/>')
+        b.append(text(left - 10, YB(p) + 4, "start" if p == 0 else f"+{p}%", 12, MID, "end"))
+    pts = [(left, 0), (xs(1) + step * 0.55, 23), (xs(5) + step * 0.55, 42), (xs(7) + step * 0.55, 42)]
+    b.append(f'<polyline points="{" ".join(f"{x:.1f},{YB(v):.1f}" for x, v in pts)}" fill="none" stroke="{INK}" stroke-width="2" stroke-linejoin="round" stroke-dasharray="6 4"/>')
+    for x, v in pts[1:]:
+        b.append(f'<circle cx="{x:.1f}" cy="{YB(v):.1f}" r="5" fill="{INK}" stroke="#ffffff" stroke-width="2"/>')
+    b.append(text(pts[1][0] + 10, YB(23) + 16, "+23%", 13, INK, "start", "600"))
+    b.append(text(pts[2][0], YB(42) - 12, "+42%", 13, INK, "middle", "600"))
+    b.append(text(pts[3][0], YB(42) - 12, "+42%", 13, INK, "middle", "600"))
+    # ---- shared session axis and the later arrivals
+    for i in range(1, 8):
+        for y in (ab, bb):
+            b.append(f'<line x1="{xs(i):.1f}" y1="{y}" x2="{xs(i):.1f}" y2="{y + 5}" stroke="{MID}" stroke-width="1"/>')
+        b.append(text(xs(i), ab + 20, str(i), 12, MID, "middle"))
+        b.append(text(xs(i), bb + 20, str(i), 12, MID, "middle"))
+    b.append(text(left - 10, ab + 20, "session", 12, MID, "end"))
+    b.append(text(left - 10, bb + 20, "session", 12, MID, "end"))
+    for i, l1, l2 in ((3, "citrate synthase", "activity first up: +17%"), (5, "COX-IV protein", "first up: +20%")):
+        x = xs(i) + step * 0.3
+        b.append(f'<path d="M{x:.1f},{bb + 30} l-5,9 h10 z" fill="{INK}"/>')
+        b.append(text(x, bb + 56, l1, 12, INK, "middle"))
+        b.append(text(x, bb + 72, l2, 12, INK, "middle"))
+    return _save("adaptation", "sawtooth.svg", W, H, b, "PGC-1 alpha messenger RNA bursts and protein build-up across seven training sessions")
+
+
 FIGURES = {"ventoux": ventoux, "epo-loop": epo_loop, "oxygen-route": oxygen_route, "cp-decline": cp_decline,
-           "carb-dose": carb_dose, "hb-timeline": heat_timeline}
+           "carb-dose": carb_dose, "hb-timeline": heat_timeline, "detraining": detraining, "atp-cycle": atp_cycle, "sawtooth": sawtooth}
 
 if __name__ == "__main__":
     want = sys.argv[1] if len(sys.argv) > 1 else ""

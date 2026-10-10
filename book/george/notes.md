@@ -22,3 +22,7 @@ Answers to the questions at the end of each chapter brief can go here too.
 
 I had a general think about the purpose of the book and the kind of book I'd like to read. There's lots of training advice out there and it goes through fashions, Zone 2 being a recent hot topic. I want to help readers cut through the noise and be able to critically assess research themselves. So where appropriate, talk about the underlying theory, i.e. the actual biology and physiology the research is grounded in.
 
+## 7 October 2026 — about me (left as a comment on the review page; for the Introduction)
+
+I'm a quantitative researcher in a hedge fund using quantitative techniques to help portfolio managers improve their investment process with behavioural analytics. I read a lot of finance research. Prior to that I studied maths and computation at Oxford University and also worked at the European Space Agency and several investment banks. Busy life with 2 kids and time crunched. Used to race mountain bikes in my teens with my two older brothers and now do multiple sportives a year and a couple of cycling holidays with dads from the kids' school.
+

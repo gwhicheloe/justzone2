@@ -34,3 +34,12 @@ Priorities 1 and 2 matter most. The chapter can be written without 3 to 5 and 7,
 Done (5 October 2026): Jones 2024 (Figshare, published version), Clark et al. 2019a and 2019b (Figshare, accepted manuscripts), Jones & Kirby 2025 (PubMed Central), Joyner & Coyle 2008 (PubMed Central). Still to read, free on PubMed Central: Stevenson et al. 2022, Smyth et al. 2022.
 
 This list grows as later chapters are researched.
+
+## How bodies adapt to training
+
+| ✓ | Priority | Paper | Save as | Why I need the full text |
+|---|---|---|---|---|
+| ☐ | **1** | Holloszy JO. Biochemical adaptations in muscle. Effects of exercise on mitochondrial oxygen uptake and respiratory enzyme activity in skeletal muscle. *J Biol Chem.* 1967;242:2278–2282. [doi:10.1016/S0021-9258(18)96046-1](https://doi.org/10.1016/S0021-9258(18)96046-1) | `holloszy1967.pdf` | **Free, no login needed**, but the journal's site would not load for me. The chapter says the rats' mitochondrial capacity "roughly doubled"; that is from memory and has to be checked, along with how long and how hard they ran. |
+| ☐ | 2 | Saltin B, Blomqvist G, Mitchell JH, et al. Response to exercise after bed rest and after training. *Circulation.* 1968;38(5 Suppl):VII1–78. | `saltin1968.pdf` | The original Dallas study. The chapter opens on it using only the 30-year follow-up's abstract. The size of the fall in VO₂max after bed rest, and what the training programme was, would make the opening specific. |
+
+The other papers for this chapter that I have only as abstracts (Egan 2010, Montero 2015, Montero & Lundby 2017, Granata 2018, Egan & Zierath 2013, Andersen & Henriksson 1977) are free to read online and I can go through them at the revise stage.

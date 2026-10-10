@@ -2,7 +2,7 @@
 
 In 1923 the physiologist Archibald Hill and his colleague Hartley Lupton described something that every endurance athlete now takes for granted. As exercise gets harder, the body takes up more oxygen, until it reaches a ceiling. Beyond that point the work can continue for a while, but the extra energy has to come from somewhere other than oxygen, and it can't come from there for long [@hill1923]. That ceiling became known as maximal oxygen uptake, or VO₂max, and for most of the following century it was the number physiologists reached for first when they wanted to explain why one athlete was faster than another.
 
-It explains less than you might think. Two riders can have the same VO₂max and finish an hour-long time trial minutes apart. A rider with a modest VO₂max can beat one with a much bigger engine. To see why, you need the rest of the model, and that model is what this chapter is about. It is also the framework for the whole book. Every training claim in later chapters comes down to a simple question: which part of this model does it change?
+It explains less than you might think. Two riders can have the same VO₂max and finish an hour-long time trial minutes apart. A rider with a modest VO₂max can beat one with a much higher one. To see why, you need the rest of the model, and that model is what this chapter is about. Cyclists talk about a rider's engine without saying what they mean by it. In this book the engine is the whole aerobic system that the model describes, and VO₂max is one part of it. The model is also the framework for the whole book. Every training claim in later chapters comes down to a simple question: which part of this model does it change?
 
 ## The question
 
@@ -46,7 +46,7 @@ Nobody can ride at 100% of their VO₂max for long. The question is how close th
 
 At low intensities, blood lactate stays close to its resting level. As intensity rises, it reaches a point where lactate starts to accumulate, and above a second, higher point it keeps rising until the effort has to stop. The first of these points is the lactate threshold that Chapter 4 explores in detail. For now, the useful fact is where it sits. In untrained people, lactate begins to rise noticeably at around 60% of VO₂max. In elite endurance athletes it can sit at 75 to 90% [@joynercoyle2008]. {grade A}
 
-That shift is one of the largest effects of endurance training, and it has little to do with the heart. It comes mainly from changes in the muscle: more mitochondria, more of the enzymes that use oxygen, better capacity to burn fat, and so less reliance on producing lactate at a given rate of work [@bassetthowley2000]. Bassett and Howley argue that the lactate threshold is the best single physiological predictor of endurance performance, because it combines all three factors in one number: how big the engine is, how much of it you can use, and how economically you use it.
+That shift is one of the largest effects of endurance training, and it has little to do with the heart. It comes mainly from changes in the muscle: more mitochondria, more of the enzymes that use oxygen, better capacity to burn fat, and so less reliance on producing lactate at a given rate of work [@bassetthowley2000]. Bassett and Howley argue that the lactate threshold is the best single physiological predictor of endurance performance, because it combines all three factors in one number: how high your VO₂max is, how much of it you can use, and how economically you use it.
 
 This is where the case for large volumes of easy riding begins. If easy training builds mitochondria and capillaries, it should raise the fraction of VO₂max you can sustain, even if it does relatively little for VO₂max itself. That's a mechanism argument. Whether the training studies bear it out is a question for Part II.
 
@@ -70,7 +70,7 @@ The specific dispute about the calculation is technical. The general lesson isn'
 
 When you see a training claim resting on one athlete, however famous, treat it as grade C at best. Efficiency may well improve over years of training. This paper can't show it.
 
-### One study, up close: when efficiency makes up for a smaller engine
+### One study, up close: when efficiency makes up for a lower VO₂max
 
 In 2002 Alejandro Lucía and colleagues in Madrid tested 11 world-class professional road cyclists [@lucia2002]. Their average VO₂max was 72 mL/kg/min, firmly in the elite range. Each rode a ramp test to find their VO₂max, then 20 minutes at a steady power equal to 80% of it, which averaged 385 watts. From the second test, the researchers calculated each rider's efficiency, which averaged 24.5%.
 

@@ -47,6 +47,8 @@ PATTERNS = [
     (r"\b(?:isn'?t|wasn'?t|aren'?t)\b[^.?!]{1,50}?[,;—–]\s*(?:it'?s|they'?re|it was)\b", "'isn't X; it's Y'"),
     (r"(?:^|[.!]\s+)(?:The|Here'?s the|And the)\s+(?:answer|truth|catch|kicker|twist|result|secret|problem)\?", "colon/question reveal"),
     (r"\?\s+(?:Yes|No|Not quite|Absolutely|Exactly)[.!,]", "rhetorical question answered"),
+    (r"\b(?:[Tt]here (?:are|were)|[Tt]his (?:book|chapter|section) has|[Hh]ere are) (?:two|three|four|five|six|several|a few|a number of) (?:main |key |more )?\w+", "announcement: counts the points instead of making the first one"),
+    (r"(?:^|[.!?]\s+)(?:Two|Three|Four|Five|Six|Several) (?:things|points|details|caveats|lessons|reasons|ways|aims) [^.?!]{0,60}[.:]", "announcement: counts the points instead of making the first one"),
 ]
 
 UNIT_NUM = re.compile(
