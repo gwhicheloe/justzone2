@@ -41,6 +41,9 @@ def inline(text, cite):
     t = html.escape(text, quote=False)
     t = re.sub(r"\[GEORGE:(.*?)\]", lambda m: f'<mark class="george">George: {m.group(1).strip()}</mark>', t, flags=re.S)
     t = re.sub(r"\{grade ([ABC])\}", lambda m: f'<span class="grade g{m.group(1)}" title="Evidence grade {m.group(1)}">{m.group(1)}</span>', t)
+    # qualified grades, e.g. {grade A for the shape; grade B for the details}: a badge for each grade, the words kept
+    badge = lambda m: f'<span class="grade g{m.group(1)}" title="Evidence grade {m.group(1)}">{m.group(1)}</span>'
+    t = re.sub(r"\{(grade [ABC][^{}]*)\}", lambda m: '<span class="gradenote">' + re.sub(r"grade ([ABC])", badge, m.group(1)) + "</span>", t)
     t = re.sub(r"\[(@[^\]]+)\]", lambda m: cite(m.group(1)), t)
     t = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", t)
     t = re.sub(r"(?<![\w*])\*(?!\s)(.+?)(?<!\s)\*(?![\w*])", r"<em>\1</em>", t)
@@ -143,6 +146,7 @@ STYLE = """
   strong{font-weight:600}
   sup.cite{font-family:var(--sans);font-size:11px;line-height:0;margin-left:1px}
   sup.cite a{color:var(--accent);text-decoration:none}
+  .gradenote{font-size:.88em;color:var(--muted,#666)}
   .grade{font-family:var(--mono);font-size:11px;font-weight:500;border-radius:4px;padding:1px 5px;margin-left:3px;border:1px solid currentColor;vertical-align:2px}
   .gA{color:var(--gA)} .gB{color:var(--gB)} .gC{color:var(--gC)}
   mark.george{background:var(--mark);color:var(--mark-ink);font-family:var(--sans);font-size:15px;padding:2px 6px;border-radius:4px;-webkit-box-decoration-break:clone;box-decoration-break:clone}

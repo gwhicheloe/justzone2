@@ -1,0 +1,8 @@
+# Change in muscle mitochondrial content after a training programme, by kind of training, and the same change per hour of training relative to continuous training.
+# Source: Mølmen, Almquist & Skattebo 2025 (Sports Med 55:115-144), full text. Estimated marginal means after adjustment (model 3): ET 22.7, HIT 27.0, SIT 27.0 %.
+# Efficiency per hour (model 6): HIT about 1.7 times ET, SIT about 3.9 times ET.
+# "Continuous" is the paper's ET category: low- or moderate-intensity continuous training below the second threshold.
+label,note,change,efficiency
+Continuous riding,below the second threshold,22.7,1.0
+High-intensity intervals,above the second threshold,27.0,1.7
+Sprint intervals,all-out efforts of 4 to 90 s,27.0,3.9

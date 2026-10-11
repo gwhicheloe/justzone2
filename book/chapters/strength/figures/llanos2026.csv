@@ -1,0 +1,11 @@
+# Pooled effect of adding heavy strength training to cyclists' endurance training, against endurance training alone.
+# Standardised effect sizes with 95% confidence intervals. Source: Llanos-Lagos et al. 2026 (Eur J Appl Physiol 126:193-222), full text, Main effects.
+# The paper prints the efficiency interval with reversed signs (-0.619 to -0.088) beside a positive estimate of 0.353; plotted here as 0.088 to 0.619.
+# Anaerobic capacity (0.235, -0.230 to 0.700) is left out to keep the figure to six rows.
+measure,setting,estimate,low,high
+VO₂max,12 studies,-0.041,-0.345,0.263
+Threshold power,8 studies,0.069,-0.323,0.460
+Power at VO₂max,10 studies,0.164,-0.176,0.505
+Efficiency,10 studies,0.353,0.088,0.619
+Performance,9 studies,0.463,0.109,0.817
+Sprint power,8 studies,0.560,0.097,1.023

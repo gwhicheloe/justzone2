@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 440" width="680" height="440" role="img" aria-label="Sketch of a lactate curve with two thresholds, and the three-zone and five-zone models beneath it">
+<rect width="680" height="440" fill="#ffffff"/>
+<text x="30.0" y="28.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="600" >Zone 2 is the middle of one map and the easy end of another</text>
+<text x="30.0" y="47.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="start" font-weight="400" >Blood lactate in a test of rising power (a sketch, not data), the two thresholds,</text>
+<text x="30.0" y="63.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="start" font-weight="400" >and three ways of dividing the range. Both cells called Zone 2 are shaded.</text>
+<line x1="60" y1="250" x2="640" y2="250" stroke="#555555" stroke-width="1"/>
+<line x1="60" y1="96" x2="60" y2="250" stroke="#555555" stroke-width="1"/>
+<text x="48.0" y="173.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" transform="rotate(-90 48 173.0)">Blood lactate</text>
+<text x="640.0" y="268.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="end" font-weight="400" >Power →</text>
+<text x="60.0" y="268.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="start" font-weight="400" >Easy</text>
+<path d="M60,228 L281.0,228 Q321.0,228 361.0,216 C437.6,194 497.6,168 537.6,123 L557.6,100" fill="none" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round"/>
+<line x1="321.0" y1="110" x2="321.0" y2="250" stroke="#555555" stroke-width="1" stroke-dasharray="4 4"/>
+<text x="321.0" y="102.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="600" >First threshold</text>
+<line x1="477.6" y1="110" x2="477.6" y2="250" stroke="#555555" stroke-width="1" stroke-dasharray="4 4"/>
+<text x="477.6" y="102.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="600" >Second threshold</text>
+<text x="60.0" y="294.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="start" font-weight="400" >What the body does: intensity domains</text>
+<rect x="61.0" y="301" width="259.0" height="26" fill="#ffffff" stroke="#bdbdbd" stroke-width="1"/>
+<text x="190.5" y="319.0" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >Moderate</text>
+<rect x="322.0" y="301" width="154.6" height="26" fill="#ffffff" stroke="#bdbdbd" stroke-width="1"/>
+<text x="399.3" y="319.0" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >Heavy</text>
+<rect x="478.6" y="301" width="160.4" height="26" fill="#ffffff" stroke="#bdbdbd" stroke-width="1"/>
+<text x="558.8" y="319.0" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >Severe</text>
+<text x="60.0" y="350.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="start" font-weight="400" >Three-zone model, used in most research</text>
+<rect x="61.0" y="357" width="259.0" height="26" fill="#ffffff" stroke="#bdbdbd" stroke-width="1"/>
+<text x="190.5" y="375.0" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >Zone 1</text>
+<rect x="322.0" y="357" width="154.6" height="26" fill="#e6e6e6" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="399.3" y="375.0" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#1a1a1a" text-anchor="middle" font-weight="600" >Zone 2</text>
+<rect x="478.6" y="357" width="160.4" height="26" fill="#ffffff" stroke="#bdbdbd" stroke-width="1"/>
+<text x="558.8" y="375.0" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >Zone 3</text>
+<text x="60.0" y="406.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="start" font-weight="400" >Five-zone model, used by the Norwegian federation and most apps</text>
+<rect x="61.0" y="413" width="128.5" height="26" fill="#ffffff" stroke="#bdbdbd" stroke-width="1"/>
+<text x="125.2" y="431.0" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >Zone 1</text>
+<rect x="191.5" y="413" width="128.5" height="26" fill="#e6e6e6" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="255.8" y="431.0" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#1a1a1a" text-anchor="middle" font-weight="600" >Zone 2</text>
+<rect x="322.0" y="413" width="154.6" height="26" fill="#ffffff" stroke="#bdbdbd" stroke-width="1"/>
+<text x="399.3" y="431.0" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >Zone 3</text>
+<rect x="478.6" y="413" width="79.2" height="26" fill="#ffffff" stroke="#bdbdbd" stroke-width="1"/>
+<text x="518.2" y="431.0" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >Zone 4</text>
+<rect x="559.8" y="413" width="79.2" height="26" fill="#ffffff" stroke="#bdbdbd" stroke-width="1"/>
+<text x="599.4" y="431.0" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >Zone 5</text>
+</svg>

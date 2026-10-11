@@ -108,7 +108,7 @@ Then look at who was studied. The men were sedentary. For someone untrained, 40%
 
 And look at what was held equal. To match the energy burned, the easy ride lasted 70 minutes and the hard one 36. A cyclist's weekly long ride is not 70 minutes. The comparison a rider cares about, four hours easy against one hour hard, is not the one the study made [@egan2010].
 
-Bishop's group, reviewing this whole field, concluded that the changes seen after single sessions are "not necessarily predictive" of the adaptations seen after training [@granata2018]. The same caution cuts in both directions. Signalling studies are quoted for Zone 2 as readily as for intervals, and in both cases they are evidence about mechanism: they show that a pathway exists and that a session activates it. Whether one way of training makes riders faster than another is a question only a training study can answer, by training people and measuring them. Chapter 3 is about how to read those.
+Bishop's group, reviewing this whole field, concluded that the changes seen after single sessions are "not necessarily predictive" of the adaptations seen after training [@granata2018]. The same caution cuts in both directions. Signalling studies are quoted for Zone 2 as readily as for intervals, and in both cases they are evidence about mechanism: they show that a pathway exists and that a session activates it. Whether one way of training makes riders faster than another is a question only a training study can answer, by training people and measuring them. Chapter 4 is about how to read those.
 
 ## How fast it comes, how fast it goes
 
@@ -124,7 +124,7 @@ The muscle lost its gains more slowly and only in part. The activity of mitochon
 
 For a rider, the useful reading is that the adaptations lost fastest are also the ones regained fastest. Two weeks off the bike costs mainly plasma volume and some mitochondrial enzyme, which the studies above suggest return within a few weeks of riding again. What took years to build, the capillary network and probably the heart's structure, is much more durable. That second sentence is my inference from putting Coyle's findings next to the training studies. No study in this chapter measured the return directly.
 
-> **From the saddle.** [GEORGE: Have you had a long break from riding, through illness, injury, a holiday or a new baby? How long was it, what did your first rides back feel like, and how long before your numbers were normal again?]
+> **From the saddle.** When I've been off the bike with an illness, two weeks at most, the first ride back always feels terrible. But I'm always surprised how quickly it comes back, within maybe two or three rides. Sometimes I think the forced rest helps.
 
 ## Why the same training gives different results
 

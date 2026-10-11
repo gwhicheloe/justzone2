@@ -1,0 +1,10 @@
+# Improvement in 20 km time-trial performance over placebo, by carbohydrate dose during the preceding 2 h ride.
+# Source: Smith et al. 2013 (Med Sci Sports Exerc 45:336-341), abstract. 51 cyclists and triathletes, double-blind, 12 doses from 10 to 120 g/h.
+# The abstract gives modelled improvements of 1.0, 2.0, 3.0, 4.0 and 4.7% at 9, 19, 31, 48 and 78 g/h, "with diminishing performance enhancement" above 78 g/h. Values above 78 g/h are not in the abstract and are not plotted.
+dose_g_h,gain_pct
+0,0
+9,1.0
+19,2.0
+31,3.0
+48,4.0
+78,4.7

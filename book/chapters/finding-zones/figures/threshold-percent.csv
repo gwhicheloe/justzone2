@@ -1,0 +1,11 @@
+# Where two rules put Zone 2, and where the first lactate threshold (the top of Zone 2) was measured, as a percentage of each person's own maximum heart rate.
+# Every row is a range, lo to hi.
+# Sources: common rule, general knowledge with no source (see research.md); Norwegian scale, Meixner et al. 2025, full text;
+# the 50 cyclists, Meixner et al. 2025, full text, Table 2: baseline + 0.5 mmol/L at 81.2 +/- 3.0% of HRmax, so 78.2 to 84.2 is one SD either side of the average;
+# the 100 adults, Iannetta et al. 2020, abstract: lactate threshold at 60 to 90% of HRmax, lowest to highest.
+# kind: rule = a band set by formula; measured = where the threshold fell in people.
+label,note,kind,lo,hi
+The 60–70% rule,in wide use,rule,60,70
+Norwegian five-zone scale,its Zone 2,rule,72,82
+50 trained cyclists,about two in three of them,measured,78.2,84.2
+100 adults,lowest to highest,measured,60,90

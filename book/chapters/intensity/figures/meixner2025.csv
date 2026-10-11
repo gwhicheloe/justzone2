@@ -1,0 +1,14 @@
+# Mean power output at nine markers used to define Zone 2, in the same 50 trained cyclists (30 men, 20 women).
+# Source: Meixner et al. 2025 (Transl Sports Med 2025:2008291), full text, Table 2. Step test, 25 W every 3 minutes.
+# Maximal fat oxidation is the median (the paper reports median and absolute deviation for it). Lactate 1.5 mmol/L is from 41 riders: nine never went that low.
+# hr is the mean heart rate at the marker as a percentage of maximum, from the same table.
+marker,note,power,hr
+Peak fat burning,median,125,72
+72% of maximum heart rate,bottom of the Norwegian Zone 2,148,72
+65% of VO₂peak,,183,78
+Lactate 1.5 mmol/L,41 riders; bottom of Norwegian Zone 2,194,78
+Lactate 0.5 mmol/L above baseline,a first lactate threshold,199,81
+First ventilatory threshold,,200,81
+82% of maximum heart rate,top of the Norwegian Zone 2,202,82
+Lactate 2.0 mmol/L,,211,83
+Lactate 2.5 mmol/L,top of the Norwegian Zone 2,224,86

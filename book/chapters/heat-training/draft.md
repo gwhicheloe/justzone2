@@ -1,6 +1,6 @@
-# Heat training
+# Chapter 16: Heat training
 
-<!-- Draft 1, complete (5 October 2026). Chapter number and position to be confirmed by George: proposed for Part IV, before Special cases. -->
+<!-- Draft 1, complete (5 October 2026). Chapter 16, in Part IV (Everything else), agreed with George 11 October 2026. -->
 
 ## Ice vests on the start line
 
@@ -84,7 +84,7 @@ The heat trials show the gap clearly. The marker rose in all six, though in one 
 
 When a study reports a marker, look for the performance measure in the same paper. If it is missing, the study has shown that a mechanism was engaged. If it is present and didn't move, that is the finding, whatever the title says.
 
-A second habit is worth watching for in the same literature. In the trial where the heat-suit group improved and the chamber group did not, the positive result came from combining the two groups and merging three tests into a single index [@ronnestad2022a]. There can be good reasons to do that. But each choice of that kind, made after the data are in, raises the odds of finding something, and a result that appears only after pooling deserves less weight than one that was there in the first comparison. Chapter 3 returns to why analyses should be decided in advance.
+A second habit is worth watching for in the same literature. In the trial where the heat-suit group improved and the chamber group did not, the positive result came from combining the two groups and merging three tests into a single index [@ronnestad2022a]. There can be good reasons to do that. But each choice of that kind, made after the data are in, raises the odds of finding something, and a result that appears only after pooling deserves less weight than one that was there in the first comparison. Chapter 4 returns to why analyses should be decided in advance.
 
 ## The sensor
 

@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 374" width="680" height="374" role="img" aria-label="Peak fat burning at 63, 60, 52 and 56 percent of VO2max in four feeding conditions, with the first lactate rise at 61 percent in the first and 69 percent in the last">
+<rect width="680" height="374" fill="#ffffff"/>
+<text x="30.0" y="28.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="600" >After carbohydrate, peak fat burning falls below the first threshold</text>
+<text x="30.0" y="47.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="start" font-weight="400" >The intensity at which fat burning peaked in four feeding conditions, and the intensity of the</text>
+<text x="30.0" y="63.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="start" font-weight="400" >first rise in blood lactate in the two studies that measured it. Both as a percentage of VO₂max.</text>
+<circle cx="256" cy="92" r="5.5" fill="#1a1a1a"/>
+<text x="268.0" y="96.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="600" >Peak fat burning</text>
+<rect x="392" y="86.5" width="11" height="11" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+<text x="411.0" y="96.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="600" >First rise in blood lactate</text>
+<line x1="250.0" y1="124" x2="250.0" y2="316" stroke="#e6e6e6" stroke-width="1"/>
+<line x1="308.3" y1="124" x2="308.3" y2="316" stroke="#e6e6e6" stroke-width="1"/>
+<line x1="366.7" y1="124" x2="366.7" y2="316" stroke="#e6e6e6" stroke-width="1"/>
+<line x1="425.0" y1="124" x2="425.0" y2="316" stroke="#e6e6e6" stroke-width="1"/>
+<line x1="483.3" y1="124" x2="483.3" y2="316" stroke="#e6e6e6" stroke-width="1"/>
+<line x1="541.7" y1="124" x2="541.7" y2="316" stroke="#e6e6e6" stroke-width="1"/>
+<line x1="600.0" y1="124" x2="600.0" y2="316" stroke="#e6e6e6" stroke-width="1"/>
+<line x1="250.0" y1="316" x2="600.0" y2="316" stroke="#555555" stroke-width="1"/>
+<line x1="250.0" y1="316" x2="250.0" y2="321" stroke="#555555" stroke-width="1"/>
+<text x="250.0" y="336.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >45%</text>
+<line x1="308.3" y1="316" x2="308.3" y2="321" stroke="#555555" stroke-width="1"/>
+<text x="308.3" y="336.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >50%</text>
+<line x1="366.7" y1="316" x2="366.7" y2="321" stroke="#555555" stroke-width="1"/>
+<text x="366.7" y="336.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >55%</text>
+<line x1="425.0" y1="316" x2="425.0" y2="321" stroke="#555555" stroke-width="1"/>
+<text x="425.0" y="336.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >60%</text>
+<line x1="483.3" y1="316" x2="483.3" y2="321" stroke="#555555" stroke-width="1"/>
+<text x="483.3" y="336.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >65%</text>
+<line x1="541.7" y1="316" x2="541.7" y2="321" stroke="#555555" stroke-width="1"/>
+<text x="541.7" y="336.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >70%</text>
+<line x1="600.0" y1="316" x2="600.0" y2="321" stroke="#555555" stroke-width="1"/>
+<text x="600.0" y="336.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >75%</text>
+<text x="425.0" y="356.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >Percentage of VO₂max</text>
+<text x="230.0" y="151.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end" font-weight="600" >Feeding not stated</text>
+<text x="230.0" y="166.0" font-family="Helvetica, Arial, sans-serif" font-size="11.5" fill="#555555" text-anchor="end" font-weight="400" >33 trained athletes</text>
+<line x1="436.7" y1="153.0" x2="460.0" y2="153.0" stroke="#bdbdbd" stroke-width="1.5"/>
+<rect x="431.2" y="147.5" width="11" height="11" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+<text x="424.7" y="157.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="400" paint-order="stroke" stroke="#ffffff" stroke-width="4">61%</text>
+<circle cx="460.0" cy="153.0" r="5.5" fill="#1a1a1a" stroke="#ffffff" stroke-width="2"/>
+<text x="472.0" y="157.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="600" paint-order="stroke" stroke="#ffffff" stroke-width="4">63%</text>
+<text x="230.0" y="197.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end" font-weight="600" >After an overnight fast</text>
+<text x="230.0" y="212.0" font-family="Helvetica, Arial, sans-serif" font-size="11.5" fill="#555555" text-anchor="end" font-weight="400" >11 trained people</text>
+<circle cx="426.2" cy="199.0" r="5.5" fill="#1a1a1a" stroke="#ffffff" stroke-width="2"/>
+<text x="438.2" y="203.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="600" paint-order="stroke" stroke="#ffffff" stroke-width="4">60%</text>
+<text x="230.0" y="243.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end" font-weight="600" >45 min after 75 g of glucose</text>
+<text x="230.0" y="258.0" font-family="Helvetica, Arial, sans-serif" font-size="11.5" fill="#555555" text-anchor="end" font-weight="400" >the same 11 people</text>
+<circle cx="331.7" cy="245.0" r="5.5" fill="#1a1a1a" stroke="#ffffff" stroke-width="2"/>
+<text x="343.7" y="249.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="600" paint-order="stroke" stroke="#ffffff" stroke-width="4">52%</text>
+<text x="230.0" y="289.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end" font-weight="600" >3 h after a carbohydrate meal</text>
+<text x="230.0" y="304.0" font-family="Helvetica, Arial, sans-serif" font-size="11.5" fill="#555555" text-anchor="end" font-weight="400" >50 trained cyclists</text>
+<line x1="378.3" y1="291.0" x2="534.7" y2="291.0" stroke="#bdbdbd" stroke-width="1.5"/>
+<rect x="529.2" y="285.5" width="11" height="11" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+<text x="546.7" y="295.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="400" paint-order="stroke" stroke="#ffffff" stroke-width="4">69%</text>
+<circle cx="378.3" cy="291.0" r="5.5" fill="#1a1a1a" stroke="#ffffff" stroke-width="2"/>
+<text x="366.3" y="295.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="600" paint-order="stroke" stroke="#ffffff" stroke-width="4">56%</text>
+</svg>

@@ -1,0 +1,8 @@
+# Change after six weeks of training, per cent of the pre-training value, by group.
+# Source: O'Leary et al. 2017 (Eur J Appl Physiol 117:2201-2210), abstract. 20 adults, 10 per group, 18 sessions.
+# "Time to exhaustion" is at the same absolute power as before training.
+measure,group,change_pct
+Pain tolerance,Hard intervals,41
+Pain tolerance,Steady riding,-3
+Time to exhaustion,Hard intervals,148
+Time to exhaustion,Steady riding,38

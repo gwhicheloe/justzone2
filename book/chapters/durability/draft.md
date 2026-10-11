@@ -1,4 +1,4 @@
-# Chapter 8: Durability
+# Chapter 9: Durability
 
 <!-- Draft 1, complete (5 October 2026). Figure in "What the professionals show" waits on the Mateo-March 2022 full text. -->
 
@@ -158,7 +158,7 @@ Spragg's season-long study found that riders who spent more time below the first
 
 Spragg's lab study found correlations as high as 0.89 between riders' lab measures and the change in their critical power [@spragg2023a]. That looks close to proof. It came from 10 riders. With a sample that small, the true value could plausibly lie anywhere from about 0.6 to 0.97, by the standard calculation of a 95% confidence interval. For the weakest of the reported correlations, 0.74, the plausible range runs from about 0.2 to 0.93. The same arithmetic applies in the other direction to the glycogen result earlier in the chapter. A correlation of 0.19 from 14 riders is compatible with a true value anywhere between about −0.4 and 0.65, which covers everything from a moderate negative relationship to a strong positive one [@clark2019b]. With 10 or 14 people, chance alone can produce a large correlation or hide a real one.
 
-When a paper reports a correlation, look for the number of people before the size of r. Below about 30, treat a striking correlation as a reason to run a bigger study. Chapter 3 goes through the reasoning in full.
+When a paper reports a correlation, look for the number of people before the size of r. Below about 30, treat a striking correlation as a reason to run a bigger study. Chapter 4 goes through the reasoning in full.
 
 ## What to do with it
 

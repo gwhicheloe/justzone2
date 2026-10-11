@@ -13,6 +13,18 @@ The book has two aims (see `plan.md`): explain the mechanism behind each trainin
 - **Show the reasoning, not just the verdict.** When the book grades a claim, the reader should be able to see how they'd have reached the grade themselves.
 - **Name the fashion when there is one.** If a claim is popular, say where it came from and what it rested on at the time.
 
+## Choosing what to cover
+
+(George, 11 October 2026.) The well-known papers on a topic are the ones every article and podcast already uses. A book built only from them reads like the average of everything else written on the subject.
+
+- **Cover the big papers.** A reader who has heard of Seiler, Coggan or San Millán expects them to be dealt with, and the argument usually needs them.
+- **Then go off the main road.** If something adjacent to the topic looks interesting, follow it and put it in: an odd study design, an old or forgotten paper, work from another sport or another field, a result that cuts against the consensus, a strange episode in the history of an idea. It does not have to be essential to the argument. It has to be interesting and accurately described.
+- **Prefer the less-used example** when two would make the same point.
+- **The evidence rules still apply.** A side road gets the same checking, the same numbers in `research.md` and the same grade as anything else. An odd study is often a small one: say so.
+- **Side roads support a chapter and do not lead it.** George's comment on the first draft of Finding your zones (11 October 2026) was that it spent too long on maximum heart rate and the bad ways of finding it, when the chapter's subject was the lactate threshold. Lead with what the chapter is about: what it is, the biology, and why the reader should care. The less-used material comes after, in proportion. (The wording of this rule is Claude's reading of his comment.)
+- **Where the field offers several definitions, the book picks one and says why** (same comment). Say what the choice costs and how strong the case for it is, then hold to it.
+- **Look for them on purpose.** At the research stage, list candidate side roads in the chapter's `research.md` under "Side roads", including those not used, so George can pick.
+
 ## Voice
 
 - First person singular for George's experience and opinions ("I rode…", "I'm not convinced…"). The book can say "we" only when it means the reader and author together working through an argument, and sparingly.
@@ -104,11 +116,23 @@ The checker flags these. A few have legitimate uses (a "robust" statistical meth
 
 ## Special elements
 
-- **From the saddle.** George's experience, in a blockquote headed `> **From the saddle.**`. His words, lightly edited. Never invented: if George hasn't supplied it, the draft leaves a placeholder `> **From the saddle.** [GEORGE: …question…]`.
-- **One study, up close.** One per chapter, headed `### One study, up close: <name>`. Who was studied, the design, what was measured, the result with numbers, and what the study can't tell us.
-- **How it works.** The mechanism, before the evidence. Plain explanations, analogies only where they're accurate, and a diagram where it helps. Mark speculation as speculation.
-- **Reading the research.** One skill per chapter, practised on a real study from that chapter: e.g. correlation and causation, small samples and unstable correlations, "a trend that didn't reach significance", responders and non-responders, lab markers against performance, who was studied. Short: 300 to 500 words.
+(Loosened by George, 11 October 2026.) The three recurring elements below are a toolkit. A chapter uses the ones that help it and leaves out the rest, so that 21 chapters do not all run in the same order with the same boxes.
+
+- **None is compulsory.** A chapter with no single study worth a close look has no close-up. A chapter that is mostly mechanism does not need a separate How it works section. A chapter can have two close-ups if two studies deserve it.
+- **Order follows the argument.** Mechanism does not have to come before evidence. A close-up can open the chapter or close it. Reading the research goes where the skill is needed.
+- **Vary the form.** A close-up can be a study, a dataset, a single race, a historical episode or a dispute between two papers. Reading the research can be a box, or a few paragraphs worked into the text with no heading.
+- **Keep the heading when it is a box**, so readers recognise the feature: `### One study, up close: <name>` and `### Reading the research: <skill>`.
+- **Across the book**, most chapters should still explain the mechanism somewhere, and each skill from How to read a training study should be practised at least once. Check this over the whole book, not chapter by chapter.
+- **Openings vary.** Not every chapter starts on a study. A race, a piece of kit, a common piece of advice, a number or George's own experience can open one.
+
+What each element is, when used:
+
+- **One study, up close.** Who was studied, the design, what was measured, the result with numbers, and what the study can't tell us.
+- **How it works.** The mechanism. Plain explanations, analogies only where they're accurate, and a diagram where it helps. Mark speculation as speculation.
+- **Reading the research.** One skill, practised on a real study from that chapter: e.g. correlation and causation, small samples and unstable correlations, "a trend that didn't reach significance", responders and non-responders, lab markers against performance, who was studied. Short: 300 to 500 words.
+- **From the saddle.** George's experience, in a blockquote headed `> **From the saddle.**`. His words, lightly edited. Never invented: if George hasn't supplied it, the draft leaves a placeholder `> **From the saddle.** [GEORGE: …question…]`. This one is wanted in every chapter where he has something to say, and can sit anywhere, more than once.
 - **Figures.** Redrawn from published data, with the source in the caption. No copied figures.
+- **Chart titles state the point** (George, 11 October 2026): a chart's title is the main thing it is meant to show, written as a claim ("Small trials that reach significance overstate the effect"), not a description of what was plotted. What was plotted goes in the line under the title or in the caption.
 
 ## Quotations
 

@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 380" width="680" height="380" role="img" aria-label="Bar charts of the change in mitochondrial content after continuous, interval and sprint training, per programme and per hour">
+<rect width="680" height="380" fill="#ffffff"/>
+<text x="30.0" y="28.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="600" >Continuous riding adds as much mitochondrial content as intervals, in more hours</text>
+<text x="30.0" y="47.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="start" font-weight="400" >Change in the muscle’s mitochondrial content after a training programme, and the same change</text>
+<text x="30.0" y="63.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="start" font-weight="400" >per hour of training relative to continuous riding. Pooled from 353 studies.</text>
+<text x="70.0" y="88.0" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >After a whole programme</text>
+<line x1="70" y1="290" x2="304" y2="290" stroke="#555555" stroke-width="1"/>
+<rect x="70" y="153.8" width="62" height="136.2" fill="#1a1a1a"/>
+<text x="101.0" y="145.8" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="600" >+23%</text>
+<text x="101.0" y="308.0" font-family="Helvetica, Arial, sans-serif" font-size="11.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >Continuous</text>
+<text x="101.0" y="323.0" font-family="Helvetica, Arial, sans-serif" font-size="11.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >riding</text>
+<rect x="156" y="128.0" width="62" height="162.0" fill="#bdbdbd"/>
+<text x="187.0" y="120.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="600" >+27%</text>
+<text x="187.0" y="308.0" font-family="Helvetica, Arial, sans-serif" font-size="11.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >High-intensity</text>
+<text x="187.0" y="323.0" font-family="Helvetica, Arial, sans-serif" font-size="11.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >intervals</text>
+<rect x="242" y="128.0" width="62" height="162.0" fill="#bdbdbd"/>
+<text x="273.0" y="120.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="600" >+27%</text>
+<text x="273.0" y="308.0" font-family="Helvetica, Arial, sans-serif" font-size="11.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >Sprint</text>
+<text x="273.0" y="323.0" font-family="Helvetica, Arial, sans-serif" font-size="11.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >intervals</text>
+<text x="390.0" y="88.0" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >Per hour of training</text>
+<line x1="390" y1="290" x2="624" y2="290" stroke="#555555" stroke-width="1"/>
+<rect x="390" y="247.1" width="62" height="42.9" fill="#1a1a1a"/>
+<text x="421.0" y="239.1" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="600" >1.0×</text>
+<text x="421.0" y="308.0" font-family="Helvetica, Arial, sans-serif" font-size="11.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >Continuous</text>
+<text x="421.0" y="323.0" font-family="Helvetica, Arial, sans-serif" font-size="11.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >riding</text>
+<rect x="476" y="217.1" width="62" height="72.9" fill="#bdbdbd"/>
+<text x="507.0" y="209.1" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="600" >1.7×</text>
+<text x="507.0" y="308.0" font-family="Helvetica, Arial, sans-serif" font-size="11.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >High-intensity</text>
+<text x="507.0" y="323.0" font-family="Helvetica, Arial, sans-serif" font-size="11.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >intervals</text>
+<rect x="562" y="122.9" width="62" height="167.1" fill="#bdbdbd"/>
+<text x="593.0" y="114.9" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="middle" font-weight="600" >3.9×</text>
+<text x="593.0" y="308.0" font-family="Helvetica, Arial, sans-serif" font-size="11.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >Sprint</text>
+<text x="593.0" y="323.0" font-family="Helvetica, Arial, sans-serif" font-size="11.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >intervals</text>
+<text x="70.0" y="352.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="start" font-weight="400" >Continuous riding here means everything below the second threshold, easy and moderate together.</text>
+</svg>
