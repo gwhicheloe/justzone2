@@ -66,13 +66,25 @@ And the gain does not last. In the 2024 trial, haemoglobin mass was back to its 
 
 In 2019 Nybo and Lundby's group published the first trial long enough to test the haemoglobin idea, and it remains the only one in riders who resemble the readers of this book [@mikkelsen2019; @oberholzer2019].
 
-They recruited 24 male cyclists with at least three years of riding behind them, an average age of 38 and an average VO₂max of about 58 mL/kg/min. These were good club riders [@mikkelsen2019]. Twenty-one finished: 12 randomly allocated to heat and nine to control. For five and a half weeks the heat group replaced part of their normal training with an hour at 60% of VO₂max in a chamber at 40 °C, five days a week. The control group did all their riding below 15 °C. Total training time was similar in the two groups, about eight and a half hours a week in the heat group and nine and a half in the controls.
+::: trial
+Hypothesis: Training in the heat would raise VO₂max, peak power and performance in a 15 km time trial, all tested in the cool.
+Design: Randomised controlled trial lasting five and a half weeks. 24 male cyclists recruited, with at least three years of riding behind them, an average age of 38 and an average VO₂max of about 58 mL/kg/min: good club riders. Everyone was tested before and after at 14 °C [@mikkelsen2019].
+| | Heat | Control
+| Riders who finished | 12 | 9
+| Training | Part of normal training replaced by an hour at 60% of VO₂max in a chamber at 40 °C, five days a week | All riding below 15 °C
+| Training time | About 8½ hours a week | About 9½ hours a week
+-- After five and a half weeks
+| 15 km time trial at 14 °C, average power | 298 W to 315 W | 294 W to 311 W
+| VO₂max | 60.0 to 59.8 mL/kg/min | 57.9 to 59.4 mL/kg/min
+| Peak power, ramp test | 409 W to 422 W | 408 W to 411 W
+~ Neither changed significantly in either group.
+| Haemoglobin mass [@oberholzer2019] | Up 34 g | Up 2 g
+Authors' conclusion: Training in the heat was no better than normal training for aerobic power or time-trial performance in cool conditions. Replacing a large part of the riders' training with heat sessions did not reduce what they gained from training either.
+:::
 
-These sessions were harder than "an hour at 60%" sounds. Rectal temperature at the end of every one was above 39 °C: 39.9 °C in the first session, falling to 39.4 °C by the last as the riders adapted [@mikkelsen2019]. The riders were also fully acclimated by every standard test. Their sweat became more dilute, their heart rate in the heat fell, and they lasted longer in a hot endurance test.
+The heat sessions were harder than "an hour at 60%" sounds. Rectal temperature at the end of every one was above 39 °C, 39.9 °C in the first and 39.4 °C in the last, and by every standard test the riders acclimated: their sweat became more dilute, their heart rate in the heat fell, and they lasted longer in a hot endurance test [@mikkelsen2019].
 
-Before and after, everyone did a 15 km time trial at 14 °C. The heat group's average power went from 298 W to 315 W. The control group's went from 294 W to 311 W. Both improved by 17 W. VO₂max in the heat group was 60.0 before and 59.8 after [@mikkelsen2019].
-
-Haemoglobin mass rose by 34 g in the heat group and 2 g in the controls. The difference between groups fell just short of statistical significance, at p = 0.061 [@oberholzer2019]. That is a similar gain to the one the elite trials later found, and here it bought nothing.
+They were no faster in the cool for it. Both groups gained 17 W in the time trial. The difference in haemoglobin mass between the groups fell just short of statistical significance, at p = 0.061 [@oberholzer2019]. That is a similar gain to the one the elite trials later found, and here it bought nothing.
 
 The study has limits. Twenty-one riders is few, and a real performance difference of a few watts could be hidden in a group that size. The controls improved by 17 W over five weeks, which suggests the whole group was coming into form after winter, and a rising tide of that kind can swamp a small effect [@mikkelsen2019]. Only men took part. But the central result is hard to argue with for an amateur weighing this up. Riders much like you gave five of their eight and a half weekly hours to sitting in a 40 °C chamber, and were no faster than the riders who trained normally. {grade C} for the claim that heat training improves cool-weather performance in amateurs.
 

@@ -50,17 +50,29 @@ One randomised trial has tested EPO on the road.
 
 ### One study, up close: EPO up Mont Ventoux
 
-In the spring of 2016 a clinical research unit in Leiden recruited 48 male amateur cyclists aged 18 to 50 [@heuberger2017]. To qualify they had to produce more than 4 W/kg in a ramp test and not hold a licence that made them subject to anti-doping rules. They trained five to six hours a week and had an average VO₂max of 55.6 mL/kg/min. Half were randomly assigned to a weekly injection of EPO for eight weeks and half to an injection of salt water that looked identical. Neither the riders nor the staff testing them knew who was getting which.
+In the spring of 2016 a clinical research unit in Leiden tested EPO on amateur cyclists the way a new medicine is tested, and ended the trial with a race up Mont Ventoux [@heuberger2017].
 
-The dose was adjusted rider by rider to raise haemoglobin by 10% to 15%, and held back for a week if haematocrit reached 52%. It averaged 6,000 units a week, which the authors describe as consistent with known practice in professional cycling. Haemoglobin rose by 12% and the EPO group's haematocrit reached an average of 50%, the old racing limit [@heuberger2017].
+::: trial
+Aim: To measure what EPO does to well-trained cyclists' maximal, submaximal and race performance, and to their safety.
+Design: Randomised, double-blind and placebo-controlled. 48 male amateur cyclists aged 18 to 50, all above 4 W/kg in a ramp test, with an average VO₂max of 55.6 mL/kg/min. None held a licence that made them subject to anti-doping rules. Eight weeks of weekly injections, and neither the riders nor the staff testing them knew who was getting which [@heuberger2017].
+| | EPO | Placebo *(the control)*
+| Riders | 24 | 24
+| Each week | An injection of EPO, the dose set rider by rider to raise haemoglobin by 10% to 15% and held back if haematocrit reached 52%. On average 6,000 units, which the authors call consistent with known practice in professional cycling | An injection of salt water that looked identical
+| Haematocrit | 47.6% on average over the eight weeks, reaching 50%, the old racing limit | 44.3% on average
+| Training | 4.9 hours a week | 5.9 hours a week
+-- In the laboratory
+| VO₂max | 60.1 mL/kg/min | 57.4 mL/kg/min
+| Peak power, ramp test | 352 W | 341 W
+| Average power, 45-minute test | 283 W | 277 W
+~ The difference was not statistically significant.
+-- Mont Ventoux, 19 June 2016: 110 km as a group, then the 21.5 km climb from Bédoin
+| Time on the climb | 1 h 40 min 32 s | 1 h 40 min 15 s
+| Average power on the climb | 3.03 W/kg | 3.09 W/kg
+| Thought they had been given EPO | 9 of 23 | 6 of 24
+Authors' conclusion: EPO improved the maximal test in the laboratory. It did not improve the 45-minute test or the race.
+:::
 
-In the laboratory the drug did what it was expected to. Compared with placebo, VO₂max was about 5% higher and peak power in a ramp test about 4% higher, 352 W against 341 W. The riders also did a 45-minute test at the highest power they could hold, designed to resemble a time trial. The EPO group averaged 283 W and the placebo group 277 W, and that difference was not statistically significant [@heuberger2017].
-
-Then, on 19 June 2016, about 12 days after the last injection and with haemoglobin still raised, the riders rode 110 km through Provence as a group and raced the 21.5 km from Bédoin to the summit of Mont Ventoux. Forty-four started and 40 finished. The EPO group's average time was 1 hour 40 minutes 32 seconds and the placebo group's 1 hour 40 minutes 15 seconds. Average power on the climb was 3.03 W/kg against 3.09 [@heuberger2017].
-
-Afterwards the riders were asked which treatment they thought they had been given. Of the 23 who had completed the course of EPO, nine thought so. Six of the 24 on placebo thought they had been on the drug [@heuberger2017].
-
-The authors concluded that EPO improved a maximal laboratory test and did not improve the submaximal test or the road race. That is easily shortened to "EPO doesn't work", and the trial does not show that.
+The race came about 12 days after the last injection, with haemoglobin still 12% above where it started, and 40 of the 44 riders who started it finished [@heuberger2017]. The authors' conclusion is easily shortened to "EPO doesn't work", and the trial does not show that.
 
 ### Reading the research: when a trial finds nothing
 

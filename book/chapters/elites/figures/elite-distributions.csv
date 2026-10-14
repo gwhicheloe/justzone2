@@ -1,0 +1,15 @@
+# Share of endurance training time below the first threshold (easy), between the thresholds (middle)
+# and above the second (hard). Sources and how each was counted are in chapters/elites/research.md.
+# guellich2009: abstract. Team pursuit (schumacher2002), under-23 winter (zapico2007) and professionals
+# in season (lucia2000jjp): as tabulated in the review stoggl2015, read in full. solli2017, tonnessen2014: full text.
+# lucia1999: abstract. leo2020: full text; hours summed over four periods from its Table 2 and
+# expressed as a share of the hours assigned to a zone (139.6 / 430.8 / 66.6 h of 637.0), my calculation.
+label,note,easy,middle,hard
+Junior world-class rowers,36 rowers · diary,95,2,3
+"Team pursuit squad, 2000",7 riders · lactate,94,4,2
+"Champion skier, best five years",1 skier · diary,92.3,2.9,4.8
+Champion skiers and biathletes,11 athletes · diary,91.3,3.3,5.4
+"Under-23 cyclists, winter",14 riders · heart rate,78,20,2
+"Professional cyclists, in season",13 riders · heart rate,77,15,8
+"Professionals, Tour de France",8 riders · heart rate in the race,70,23,7
+"Under-23 professionals, season",30 riders · heart rate,21.9,67.6,10.5

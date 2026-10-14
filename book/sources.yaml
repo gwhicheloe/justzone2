@@ -55,6 +55,14 @@
   chapters: [doping]
   notes: "Encyclopaedia summary only. Replace with court and federation sources before publication."
 
+- key: aengevaeren2017
+  citation: "Aengevaeren VL, Mosterd A, Braber TL, Prakken NHJ, Doevendans PA, Grobbee DE, Thompson PD, Eijsvogels TMH, Velthuis BK. Relationship between lifelong exercise volume and coronary atherosclerosis in athletes. Circulation. 2017;136:138-148."
+  doi: 10.1161/circulationaha.117.027834
+  pmid: 28450347
+  status: abstract
+  chapters: [beyond-performance]
+  notes: "284 men aged about 55; coronary calcium 68% with >2,000 MET-min/wk vs 43% with <1,000; but more purely calcified and fewer mixed plaques in the most active. Men only."
+
 - key: afp2026
   citation: "Agence France-Presse. Heat a 'logistical nightmare' at Tour de France. Taipei Times, 8 July 2026. https://www.taipeitimes.com/News/sport/archives/2026/07/08/2003860405"
   status: exists
@@ -108,6 +116,14 @@
   chapters: [adaptation]
   notes: "5 subjects, 8 weeks cycling 40 min x 4/week at 80% VO2max: VO2max +16%, capillary density +20%, SDH and cytochrome oxidase about +40%. Free in PMC (PMC1353538) but not read in full."
 
+- key: andersen2013
+  citation: "Andersen K, Farahmand B, Ahlbom A, Held C, Ljunghall S, Michaëlsson K, Sundström J. Risk of arrhythmias in 52 755 long-distance cross-country skiers: a cohort study. Eur Heart J. 2013;34:3624-3631."
+  doi: 10.1093/eurheartj/eht188
+  pmid: 23756332
+  status: abstract
+  chapters: [beyond-performance]
+  notes: "Vasaloppet finishers 1989-98; ≥5 races vs 1: atrial fibrillation HR 1.29, bradyarrhythmia 2.10; no link with ventricular arrhythmia or cardiac arrest. Conclusion stated for men."
+
 - key: arbabzadeh2014
   citation: "Arbab-Zadeh A, Perhonen M, Howden E, et al. Cardiac remodeling in response to 1 year of intensive endurance training. Circulation. 2014;130:2152-2161."
   doi: 10.1161/circulationaha.114.010775
@@ -116,6 +132,14 @@
   status: fulltext
   chapters: [adaptation]
   notes: "12 sedentary adults trained for a year towards a marathon. Abstract, Methods (subjects, training), first Results paragraphs and Limitations read 10 Oct 2026 from PMC text; figures not seen. No control group (authors' own limitation)."
+
+- key: arem2015
+  citation: "Arem H, Moore SC, Patel A, Hartge P, Berrington de Gonzalez A, Visvanathan K, et al. Leisure time physical activity and mortality: a detailed pooled analysis of the dose-response relationship. JAMA Intern Med. 2015;175:959-967."
+  doi: 10.1001/jamainternmed.2015.0533
+  pmid: 25844730
+  status: abstract
+  chapters: [beyond-performance]
+  notes: "661,137 adults, six cohorts, self-reported activity. HR by multiples of the 7.5 MET-h/wk minimum: 0.80, 0.69, 0.63, 0.61, 0.61 (5-10x, from the PMC author manuscript results text), 0.69 (10x+; the manuscript says 0.68). Data for dose-response.svg. Europe PMC full-text service returned an error; results section read on the PMC page 14 Oct 2026."
 
 - key: ashenden2011
   citation: "Ashenden M, Gough CE, Garnham A, Gore CJ, Sharpe K. Current markers of the Athlete Blood Passport do not flag microdose EPO doping. Eur J Appl Physiol. 2011;111:2307-2314."
@@ -146,6 +170,12 @@
   status: exists
   chapters: [intro, easy-riding]
   notes: "Cited in the website evidence review. A popular source of the Zone 2 wave; cite as a podcast, not evidence."
+
+- key: attia2024
+  citation: "Attia P. The Drive, episode 318: Cycling phenom and Tour de France champion Tadej Pogačar reveals his training strategies, on-bike nutrition, and future aspirations. Podcast, 23 September 2024."
+  status: abstract
+  chapters: [elites]
+  notes: "Episode page (peterattiamd.com/tadejpogacar) read through a summarising tool on 11 Oct 2026; the audio has NOT been heard and no transcript read. From the show notes: he judges his zone from speed, heart rate, power and feel together; weight 64.5 to 65.5 kg at the 2024 Tour. The watt figures are NOT on the page: they come from hansen2024 and idlprocycling2025. Check against the audio (about 18 minutes in) before print. The host is named in the book's text only in the Introduction."
 
 - key: bassetthowley2000
   citation: "Bassett DR, Howley ET. Limiting factors for maximum oxygen uptake and determinants of endurance performance. Med Sci Sports Exerc. 2000;32:70-84."
@@ -293,6 +323,14 @@
   chapters: [heat-training]
   notes: "10 men, 90 min cycling at 32 C then time trial: slushy 18:28, warm drink 20:24, slushy mouthwash 19:45."
 
+- key: burnley2022
+  citation: "Burnley M, Bearden SE, Jones AM. Polarized training is not optimal for endurance athletes. Med Sci Sports Exerc. 2022;54:1032-1034."
+  doi: 10.1249/mss.0000000000002869
+  pmid: 35135998
+  status: exists
+  chapters: [elites]
+  notes: "Not read (no abstract; the repository copy blocked my download). Cited for its title and authors only. Wanted."
+
 - key: burnleyjones2018
   citation: "Burnley M, Jones AM. Power-duration relationship: physiology, fatigue, and the limits of human performance. Eur J Sport Sci. 2018;18:1-12."
   doi: 10.1080/17461391.2016.1249524
@@ -317,6 +355,14 @@
   chapters: [reading-research]
   notes: "Low power reduces the chance that a significant result is true, and produces overestimates of effect size and low reproducibility. About neuroscience; cited for the general argument."
 
+- key: campbell2018
+  citation: "Campbell JP, Turner JE. Debunking the myth of exercise-induced immune suppression: redefining the impact of exercise on immunological health across the lifespan. Front Immunol. 2018;9:648."
+  doi: 10.3389/fimmu.2018.00648
+  pmid: 29713319
+  status: fulltext
+  chapters: [beyond-performance]
+  notes: "Full text in papers/ (section on the marathon studies and the open window read). One side of a live dispute: see simpson2020. Reports Spence 2007: 11 of 37 reported respiratory episodes in elite athletes were laboratory-confirmed."
+
 - key: carter2004
   citation: "Carter JM, Jeukendrup AE, Jones DA. The effect of carbohydrate mouth rinse on 1-h cycle time trial performance. Med Sci Sports Exerc. 2004;36:2107-2111."
   doi: 10.1249/01.mss.0000147585.65709.6f
@@ -325,11 +371,28 @@
   chapters: [fuelling]
   notes: "9 cyclists; rinsing 6.4% maltodextrin without swallowing: 59.57 vs 61.37 min, 259 vs 252 W."
 
+- key: casado2023
+  citation: "Casado A, Foster C, Bakken M, Tjelta LI. Does lactate-guided threshold interval training within a high-volume low-intensity approach represent the 'next step' in the evolution of distance running training? Int J Environ Res Public Health. 2023;20:3782."
+  doi: 10.3390/ijerph20053782
+  pmid: 36900796
+  pmcid: PMC10000870
+  status: fulltext
+  chapters: [elites]
+  notes: "Review; text in papers/, history section and the description of the model read. Source for the history of running training (Zátopek, Lydiard, Bowerman) and the Norwegian threshold model: 3-4 lactate-guided threshold sessions and one VO2max session a week in 150-180 km. Bakken is a co-author describing his own method. Names the Ingebrigtsens; the book does not."
+
 - key: ccm2024
   citation: "Canadian Cycling Magazine. Tadej Pogačar on breaking climbing records: It's about the bike. 16 July 2024."
   status: exists
   chapters: []
   notes: "NOT USED: removed from the Drugs chapter at George's request, 6 Oct 2026. Reports a L'Équipe interview. Read through a tool: check quotes against L'Équipe before final."
+
+- key: celismorales2017
+  citation: "Celis-Morales CA, Lyall DM, Welsh P, Anderson J, Steell L, Guo Y, et al. Association between active commuting and incident cardiovascular disease, cancer, and mortality: prospective cohort study. BMJ. 2017;357:j1456."
+  doi: 10.1136/bmj.j1456
+  pmid: 28424154
+  status: abstract
+  chapters: [beyond-performance]
+  notes: "UK Biobank, 263,450 people, 5 years. Cycle commuting: all-cause mortality HR 0.59; walking: lower CVD, no significant all-cause association."
 
 - key: chavezguevara2020
   citation: "Chavez-Guevara IA, Urquidez-Romero R, Perez-Leon JA, et al. Chronic effect of Fatmax training on body weight, fat mass, and cardiorespiratory fitness in obese subjects: a meta-analysis of randomized clinical trials. Int J Environ Res Public Health. 2020;17:7888."
@@ -386,6 +449,14 @@
   chapters: [adaptation, heat-training]
   notes: "Review: plasma accounts for nearly all blood volume expansion up to 2-4 weeks; later split between plasma and red cells. Larger volume gives greater filling and stroke volume."
 
+- key: cornelissen2013
+  citation: "Cornelissen VA, Smart NA. Exercise training for blood pressure: a systematic review and meta-analysis. J Am Heart Assoc. 2013;2:e004473."
+  doi: 10.1161/jaha.112.004473
+  pmid: 23525435
+  status: abstract
+  chapters: [beyond-performance]
+  notes: "93 RCTs, 5,223 adults. Endurance training -3.5/-2.5 mmHg; hypertensive -8.3/-5.2; normal BP -0.75 (not significant) systolic."
+
 - key: costa2017
   citation: "Costa RJS, Miall A, Khoo A, et al. Gut-training: the impact of two weeks repetitive gut-challenge during exercise on gastrointestinal status, glucose availability, fuel kinetics, and running performance. Appl Physiol Nutr Metab. 2017;42:547-557."
   doi: 10.1139/apnm-2016-0453
@@ -401,6 +472,14 @@
   status: abstract
   chapters: [easy-riding]
   notes: "Calf muscle biopsies from 17 female and 23 male track athletes and 21 untrained people, stained for myosin ATPase and oxidative enzymes. Sprint- and endurance-trained athletes 'are characterized by distinct fiber compositions and enzyme activities'. The abstract gives no percentages."
+
+- key: cove2025
+  citation: "Cove B, Chalmers S, Nelson MJ, Anderson M, Bennett H. The effect of training distribution, duration, and volume on VO2max and performance in trained cyclists: a systematic review, multilevel meta-analysis, and multivariate meta-regression. J Sci Med Sport. 2025;28:423-434."
+  doi: 10.1016/j.jsams.2024.12.005
+  pmid: 39788807
+  status: abstract
+  chapters: [elites]
+  notes: "ABSTRACT ONLY (wanted). 41 studies, 81 groups, 797 trained cyclists: no difference between polarised and non-polarised; longer programmes better; no association of weekly or total volume with gains."
 
 - key: cox2010
   citation: "Cox GR, Clark SA, Cox AJ, et al. Daily training with high carbohydrate availability increases exogenous carbohydrate oxidation during endurance cycling. J Appl Physiol. 2010;109:126-134."
@@ -537,6 +616,14 @@
   chapters: [heat-training]
   notes: "Used only for the statement that heat illness is usually associated with core temperature above 40 C."
 
+- key: donnelly2013
+  citation: "Donnelly JE, Honas JJ, Smith BK, Mayo MS, Gibson CA, Sullivan DK, et al. Aerobic exercise alone results in clinically significant weight loss for men and women: Midwest Exercise Trial 2. Obesity (Silver Spring). 2013;21:E219-228."
+  doi: 10.1002/oby.20145
+  pmid: 23592678
+  status: abstract
+  chapters: [beyond-performance]
+  notes: "141 overweight young adults, 10 months, 5 days/wk at 400 or 600 kcal/session, no diet: -3.9 and -5.2 kg vs +0.5 kg in controls (per protocol)."
+
 - key: doust1981
   citation: "Doust JH, Patrick JM. The limitation of exercise ventilation during speech. Respir Physiol. 1981;46:137-147."
   doi: 10.1016/0034-5687(81)90096-7
@@ -583,6 +670,14 @@
   chapters: [adaptation]
   notes: "The standard review of signalling from exercise to adaptation. Cited for the general picture only. Free at cell.com; worth reading in full at the revise stage."
 
+- key: ekelund2019
+  citation: "Ekelund U, Tarp J, Steene-Johannessen J, Hansen BH, Jefferis B, Fagerland MW, et al. Dose-response associations between accelerometry measured physical activity and sedentary time and all cause mortality: systematic review and harmonised meta-analysis. BMJ. 2019;366:l4570."
+  doi: 10.1136/bmj.l4570
+  pmid: 31434697
+  status: abstract
+  chapters: [beyond-performance]
+  notes: "8 cohorts, 36,383 people with accelerometers. Total activity quarters HR 1.00/0.48/0.34/0.27; light activity 1.00/0.60/0.44/0.38; sedentary time up to 2.63."
+
 - key: ekkekakis2008
   citation: "Ekkekakis P, Hall EE, Petruzzello SJ. The relationship between exercise intensity and affective responses demystified: to crack the 40-year-old nut, replace the 40-year-old nutcracker! Ann Behav Med. 2008;35:136-149."
   doi: 10.1007/s12160-008-9025-z
@@ -596,6 +691,14 @@
   status: exists
   chapters: [doping]
   notes: "Approval 1 June 1989 for anaemia of chronic renal failure (DailyMed label heading and trade press, via search results). Cite for the date only."
+
+- key: estevelanao2007
+  citation: "Esteve-Lanao J, Foster C, Seiler S, Lucia A. Impact of training intensity distribution on performance in endurance athletes. J Strength Cond Res. 2007;21:943-949."
+  doi: 10.1519/r-19725.1
+  pmid: 17685689
+  status: abstract
+  chapters: [elites]
+  notes: "12 sub-elite runners, 5 months: 80.5/11.8/8.3 against 66.8/24.7/8.5; 10.4 km -157 s against -121.5 s (p = 0.03)."
 
 - key: evertsen1999
   citation: "Evertsen F, Medbo JI, Jebens E, Gjovaag TF. Effect of training on the activity of five muscle enzymes studied on elite cross-country skiers. Acta Physiol Scand. 1999;167:247-257."
@@ -621,6 +724,15 @@
   chapters: [intensity, finding-zones]
   notes: "25 lactate threshold concepts in three categories (fixed concentrations, first rise above baseline, MLSS or rapid change). Most correlate strongly with endurance performance; individual differences between thresholds and MLSS rarely reported."
 
+- key: festa2019
+  citation: "Festa L, Tarperi C, Skroce K, La Torre A, Schena F. Effects of different training intensity distribution in recreational runners. Front Sports Act Living. 2020;1:70."
+  doi: 10.3389/fspor.2019.00070
+  pmid: 33344993
+  pmcid: PMC7739641
+  status: abstract
+  chapters: [elites]
+  notes: "Open access (text in papers/, only the dropout paragraph read beyond the abstract). 38 recreational runners, 8 weeks, matched load: 77/3/20 against 40/50/10; similar gains; 29.9 against 24.8 h."
+
 - key: festina
   citation: "Festina affair. Wikipedia, read 5 October 2026. https://en.wikipedia.org/wiki/Festina_affair"
   status: exists
@@ -633,6 +745,23 @@
   chapters: [doping]
   notes: "Two press-level sources agreeing with Wikipedia on the sentences. Read through a tool. The judgment itself not seen; replace with Libération or Le Monde of 23 Dec 2000 if obtainable."
 
+- key: filipas2022
+  citation: "Filipas L, Bonato M, Gallo G, Codella R. Effects of 16 weeks of pyramidal and polarized training intensity distributions in well-trained endurance runners. Scand J Med Sci Sports. 2022;32:498-511."
+  doi: 10.1111/sms.14101
+  pmid: 34792817
+  pmcid: PMC9299127
+  status: fulltext
+  chapters: [elites]
+  notes: "Text in papers/; methods, dropout and discussion paragraphs read. 60 runners analysed, 16 weeks, matched load, ~6.5 h a week. 5 km gains 0.6-1.7% in all four groups; pyramidal-then-polarised ~0.5% better, below the smallest detectable change (3.2%)."
+
+- key: fiskerstrand2004
+  citation: "Fiskerstrand A, Seiler KS. Training and performance characteristics among Norwegian international rowers 1970-2001. Scand J Med Sci Sports. 2004;14:303-310."
+  doi: 10.1046/j.1600-0838.2003.370.x
+  pmid: 15387804
+  status: abstract
+  chapters: [elites]
+  notes: "28 medal-winning rowers, 21 of 27 living answered. 1970s to 1990s: low-lactate training 30 to 50 h a month, race pace and above 23 to ~7; volume 924 to 1,128 h a year; VO2max 5.8 to 6.5 L/min; 6-min ergometer almost +10%; altitude camps."
+
 - key: foster2008
   citation: "Foster C, Porcari JP, Anderson J, et al. The talk test as a marker of exercise training intensity. J Cardiopulm Rehabil Prev. 2008;28:24-30."
   doi: 10.1097/01.hcr.0000311504.41775.78
@@ -640,6 +769,14 @@
   status: abstract
   chapters: [finding-zones]
   notes: "Blood donation (lowers VT) and training (raises it): last positive talk-test stage moved to match. Errors biased towards passing when above VT; speech took more than 2 min on average to become uncomfortable above VT. No subject numbers or effect sizes in the abstract. Wanted in full."
+
+- key: foster2022
+  citation: "Foster C, Casado A, Esteve-Lanao J, Haugen T, Seiler S. Polarized training is optimal for endurance athletes. Med Sci Sports Exerc. 2022;54:1028-1031."
+  doi: 10.1249/mss.0000000000002871
+  pmid: 35136001
+  status: exists
+  chapters: [elites]
+  notes: "Not read (no abstract; paywalled). Cited for its title and authors only. Wanted."
 
 - key: fox1971
   citation: "Fox SM 3rd, Naughton JP, Haskell WL. Physical activity and the prevention of coronary heart disease. Ann Clin Res. 1971;3:404-432."
@@ -701,7 +838,7 @@
   doi: 10.1113/jphysiol.1974.sp010639
   pmid: 4278539
   status: abstract
-  chapters: [easy-riding]
+  chapters: [easy-riding, elites]
   notes: "Glycogen staining after cycling at 30-150% VO2max. Slow fibres deplete first at all submaximal loads; fast fibres as work continues; after 3 h at low intensity the remaining glycogen was almost all in fast fibres. Glycogen use 2.7x and 7.4x greater at 64% and 84% than at 31% VO2max."
 
 - key: gomezcabrera2008
@@ -760,6 +897,22 @@
   chapters: [adaptation, easy-riding]
   notes: "Review: volume for content, relative intensity for respiratory function; exercise-induced (single-session) changes are not necessarily predictive of training-induced adaptations. Free copy at vuir.vu.edu.au/37369, not yet read."
 
+- key: guellich2009
+  citation: "Guellich A, Seiler S, Emrich E. Training methods and intensity distribution of young world-class rowers. Int J Sports Physiol Perform. 2009;4:448-460."
+  doi: 10.1123/ijspp.4.4.448
+  pmid: 20029096
+  status: abstract
+  chapters: [elites]
+  notes: "36 German junior rowers (31 international, 5 national junior finalists), 37 weeks, diary: 95/2/3 of rowing by lactate zone."
+
+- key: guellich2010
+  citation: "Guellich A, Seiler S. Lactate profile changes in relation to training characteristics in junior elite cyclists. Int J Sports Physiol Perform. 2010;5:316-327."
+  doi: 10.1123/ijspp.5.3.316
+  pmid: 20861522
+  status: abstract
+  chapters: [elites]
+  notes: "51 German junior track cyclists, 15 weeks. 17 improved power at 4 mmol/L by 11%, 17 lost 7%; same distance; improvers more below 2 mmol/L, decliners more at 3-6. Observational."
+
 - key: halperin2015
   citation: "Halperin I, Pyne DB, Martin DT. Threats to internal validity in exercise science: a review of overlooked confounding variables. Int J Sports Physiol Perform. 2015;10:823-829."
   doi: 10.1123/ijspp.2014-0566
@@ -767,6 +920,29 @@
   status: abstract
   chapters: [reading-research]
   notes: "Overlooked influences on test results: instructions, verbal encouragement, knowledge of the endpoint, number and gender of observers, music, mental fatigue."
+
+- key: hansen2024
+  citation: "Hansen M. Pogačar's Zone 2 is every bit as ridiculous as you'd think. Canadian Cycling Magazine. 24 September 2024."
+  status: abstract
+  chapters: [elites]
+  notes: "News report of attia2024, read through a summarising tool. Zone 2 power 320-340 W; five continuous hours in Zone 2 on flat roads (Slovenia, Calpe); on climbs around Monaco, 20-40 min in high Zone 2; judges by heart rate and compares it with power."
+
+- key: haugen2022
+  citation: "Haugen T, Sandbakk Ø, Seiler S, Tønnessen E. The training characteristics of world-class distance runners: an integration of scientific literature and results-proven practice. Sports Med Open. 2022;8:46."
+  doi: 10.1186/s40798-022-00438-7
+  pmid: 35362850
+  pmcid: PMC8975965
+  status: fulltext
+  chapters: [elites]
+  notes: "Review; text in papers/, parts read. At least 80% of distance at low intensity; most of it in zone 1 of seven; easy runs 3-5 km/h slower than marathon pace; 11-14 sessions a week."
+
+- key: heady1956
+  citation: "Heady JA, Morris JN, Raffle PAB. Physique of London busmen: epidemiology of uniforms. Lancet. 1956;271:569-570."
+  doi: 10.1016/s0140-6736(56)92049-9
+  pmid: 13368467
+  status: exists
+  chapters: [beyond-performance]
+  notes: "No abstract; not read. Cited only for its subject (busmen's physique studied from uniform sizes). Its finding is not stated in the draft."
 
 - key: helgerud2007
   citation: "Helgerud J, Hoydal K, Wang E, et al. Aerobic high-intensity intervals improve VO2max more than moderate training. Med Sci Sports Exerc. 2007;39:665-671."
@@ -870,6 +1046,12 @@
   chapters: [intensity, finding-zones]
   notes: "100 people (46 women, 54 men). LT at 45-74% VO2max, 23-57% peak ramp power, 60-90% HRmax; MLSS at 69-96%, 44-71%, 75-97%. Fixed percentages do not adequately control the metabolic stimulus."
 
+- key: idlprocycling2025
+  citation: "van der Poel B. Tadej Pogačar laughingly reveals the crazy power metrics he hits on a relaxing day in zone 2. IDL Pro Cycling. 4 February 2025."
+  status: abstract
+  chapters: [elites]
+  notes: "News report of attia2024, read through a summarising tool. 320-340 W in Zone 2 for five-hour rides on flat roads; power falls to about 300 W in Zone 2 by the end; Zone 2 heart rate 140-150 bpm. A Velo report (behind a login, not read) is summarised by a search engine as giving 290-300 W for flat rides, which does not match; that figure is not used."
+
 - key: impey2018
   citation: "Impey SG, Hearris MA, Hammond KM, et al. Fuel for the work required: a theoretical framework for carbohydrate periodization and the glycogen threshold hypothesis. Sports Med. 2018;48:1031-1048."
   doi: 10.1007/s40279-018-0867-7
@@ -878,6 +1060,14 @@
   status: abstract
   chapters: [fuelling]
   notes: "Train low: signalling up in 73% of 11 studies, oxidative enzymes in 78% of 9; performance improved in 37% of 11, unchanged in 63%. Open access, full text not yet read."
+
+- key: ingham2008
+  citation: "Ingham SA, Carter H, Whyte GP, Doust JH. Physiological and performance effects of low- versus mixed-intensity rowing training. Med Sci Sports Exerc. 2008;40:579-584."
+  doi: 10.1249/mss.0b013e31815ecc6a
+  pmid: 18379224
+  status: abstract
+  chapters: [elites]
+  notes: "18 experienced rowers, 12 weeks, 100% at or below LT against 70/30: 2,000 m and VO2peak improved equally; power at LT improved more in the all-easy group."
 
 - key: inglis2020
   citation: "Inglis EC, Iannetta D, Passfield L, Murias JM. Maximal lactate steady state versus the 20-minute functional threshold power test in well-trained individuals: 'Watts' the big deal? Int J Sports Physiol Perform. 2020;15:541-547."
@@ -928,6 +1118,14 @@
   status: abstract
   chapters: [doping, adaptation]
   notes: "EPO made in kidney cortex fibroblasts, switched on by hypoxia through HIF-2; promotes survival and maturation of red cell precursors."
+
+- key: jelleyman2015
+  citation: "Jelleyman C, Yates T, O'Donovan G, Gray LJ, King JA, Khunti K, Davies MJ. The effects of high-intensity interval training on glucose regulation and insulin resistance: a meta-analysis. Obes Rev. 2015;16:942-961."
+  doi: 10.1111/obr.12317
+  pmid: 26481101
+  status: abstract
+  chapters: [beyond-performance]
+  notes: "50 studies. Insulin resistance SMD -0.49 vs control, -0.35 vs continuous training; HbA1c -0.19%; weight -1.3 kg vs control."
 
 - key: jentjens2004
   citation: "Jentjens RL, Moseley L, Waring RH, Harding LK, Jeukendrup AE. Oxidation of combined ingestion of glucose and fructose during exercise. J Appl Physiol. 2004;96:1277-1284."
@@ -1028,6 +1226,14 @@
   chapters: [finding-zones]
   notes: "Field critical power against laboratory. 12, 7 and 3 min efforts in one session: SEE 4.5%, limits of agreement -26 to 29 W. Best 3, 7, 12 min powers from training and race files: SEE 5.2%, -34 to 44 W. Number of cyclists not in the abstract."
 
+- key: karvinen2015
+  citation: "Karvinen S, Waller K, Silvennoinen M, Koch LG, Britton SL, Kaprio J, Kainulainen H, Kujala UM. Physical activity in adulthood: genes and mortality. Sci Rep. 2015;5:18259."
+  doi: 10.1038/srep18259
+  pmid: 26666586
+  status: fulltext
+  chapters: [beyond-performance]
+  notes: "Full text in papers/. Finnish Twin Cohort: individuals HR 0.55 (0.73 adjusted); discordant DZ pairs 0.58; discordant MZ pairs (34) 1.00 (0.52-1.94). Heritability of activity 53%. Rat results not used."
+
 - key: keating2017
   citation: "Keating SE, Johnson NA, Mielke GI, Coombes JS. A systematic review and meta-analysis of interval training versus moderate-intensity continuous training on body adiposity. Obes Rev. 2017;18:943-964."
   doi: 10.1111/obr.12536
@@ -1068,6 +1274,14 @@
   chapters: [fuelling]
   notes: "Nine club-level cyclists, 0.5 L beetroot juice vs nitrate-depleted juice 2.5 h before. 4 km +2.8%, 16.1 km +2.7% (233 to 247 W)."
 
+- key: laursen2010
+  citation: "Laursen PB. Training for intense exercise performance: high-intensity or high-volume training? Scand J Med Sci Sports. 2010;20 Suppl 2:1-10."
+  doi: 10.1111/j.1600-0838.2010.01184.x
+  pmid: 20840557
+  status: abstract
+  chapters: [elites]
+  notes: "Adaptations to high-volume and high-intensity training overlap, but the molecular signals 'may be different'; ~75% low and 10-15% very high suggested as optimal. A suggestion, not a test."
+
 - key: leckey2017
   citation: "Leckey JJ, Ross ML, Quod M, Hawley JA, Burke LM. Ketone diester ingestion impairs time-trial performance in professional cyclists. Front Physiol. 2017;8:806."
   doi: 10.3389/fphys.2017.00806
@@ -1076,6 +1290,15 @@
   status: abstract
   chapters: [fuelling]
   notes: "10 professional cyclists, simulated 31 km time trial: 2% slower on the ketone diester, with gut discomfort. A published commentary (Stubbs 2018) disputes its relevance to the monoester. Open access, full text not yet read."
+
+- key: leo2020
+  citation: "Leo P, Spragg J, Simon D, Lawley JS, Mujika I. Training characteristics and power profile of professional U23 cyclists throughout a competitive season. Sports (Basel). 2020;8:167."
+  doi: 10.3390/sports8120167
+  pmid: 33348618
+  pmcid: PMC7766290
+  status: fulltext
+  chapters: [elites]
+  notes: "Text in papers/; methods, Table 2 and discussion read. 30 under-23 professionals: 17.4-19.4% of time below VT1, 50.8-62.5% between, 8.0-9.3% above, by heart rate; authors suggest coaching intent, poor zone discipline or badly anchored zones."
 
 - key: leo2024
   citation: "Leo P, Mateo-March M, Giorgi A, et al. The influence of high-intensity work on the record power profile of under-23, pro team, and World Tour cyclists. Int J Sports Physiol Perform. 2024."
@@ -1142,6 +1365,14 @@
   chapters: [heat-training]
   notes: "12 cyclists + 8 controls, 10 days at 40 C. Cool: VO2max +5%, TT +6%, LT power +5%. Plasma volume +6.5%. Free on PMC: read the full text at revise."
 
+- key: lucia1999
+  citation: "Lucía A, Hoyos J, Carvajal A, Chicharro JL. Heart rate response to professional road cycling: the Tour de France. Int J Sports Med. 1999;20:167-172."
+  doi: 10.1055/s-1999-970284
+  pmid: 10333093
+  status: abstract
+  chapters: [elites]
+  notes: "8 professionals, 22 stages, heart rate against ventilatory thresholds: 70/23/7; about 71, 23 and 8 h."
+
 - key: lucia2000
   citation: "Lucia A, Hoyos J, Perez M, Chicharro JL. Heart rate and performance parameters in elite cyclists: a longitudinal study. Med Sci Sports Exerc. 2000;32:1777-1782."
   doi: 10.1097/00005768-200010000-00018
@@ -1149,6 +1380,14 @@
   status: abstract
   chapters: [finding-zones]
   notes: "13 professional road cyclists tested in November, January and May. Power at thresholds rose; heart rate did not (VT1: 155, 156, 159 bpm; VT2: 178, 173, 176; LT: 154, 152, 154)."
+
+- key: lucia2000jjp
+  citation: "Lucía A, Hoyos J, Pardo J, Chicharro JL. Metabolic and neuromuscular adaptations to endurance training in professional cyclists: a longitudinal study. Jpn J Physiol. 2000;50:381-388."
+  doi: 10.2170/jjphysiol.50.381
+  pmid: 11016988
+  status: abstract
+  chapters: [elites]
+  notes: "13 professional cyclists across a season. The abstract has no training distribution: 88/11/2, 78/17/5 and 77/15/8 are from the table in Stöggl & Sperlich 2015. Not the same paper as lucia2000."
 
 - key: lucia2002
   citation: "Lucía A, Hoyos J, Pérez M, Santalla A, Chicharro JL. Inverse relationship between VO2max and economy/efficiency in world-class cyclists. Med Sci Sports Exerc. 2002;34:2079-2084."
@@ -1188,6 +1427,14 @@
   chapters: [finding-zones]
   notes: "Read through a summarising tool: check wording on the page. 180 minus age; minus 10, minus 5, no change, or plus 5 by health and training history. Cites no study against measured thresholds."
 
+- key: mandsager2018
+  citation: "Mandsager K, Harb S, Cremer P, Phelan D, Nissen SE, Jaber W. Association of cardiorespiratory fitness with long-term mortality among adults undergoing exercise treadmill testing. JAMA Netw Open. 2018;1:e183605."
+  doi: 10.1001/jamanetworkopen.2018.3605
+  pmid: 30646252
+  status: fulltext
+  chapters: [beyond-performance]
+  notes: "Full text in papers/. 122,007 Cleveland Clinic patients referred for treadmill tests; fitness estimated from treadmill speed and grade; deaths 23.7% in the low group vs 2.6% in the elite; low vs elite HR 5.04. Authors state they cannot tell preselection from cause."
+
 - key: marcora2009
   citation: "Marcora SM, Staiano W, Manning V. Mental fatigue impairs physical performance in humans. J Appl Physiol. 2009;106:857-864."
   doi: 10.1152/japplphysiol.91324.2008
@@ -1203,6 +1450,14 @@
   status: abstract
   chapters: [effort-and-pain]
   notes: "10 fit men rode to exhaustion at 242 W (10.5 min) and immediately produced 731 W in a maximal effort (1,075 W fresh). The length of the maximal effort is not in the abstract."
+
+- key: marijon2013
+  citation: "Marijon E, Tafflet M, Antero-Jacquemin J, El Helou N, Berthelot G, Celermajer DS, et al. Mortality of French participants in the Tour de France (1947-2012). Eur Heart J. 2013;34:3145-3150."
+  doi: 10.1093/eurheartj/eht347
+  pmid: 24001718
+  status: abstract
+  chapters: [beyond-performance]
+  notes: "786 French riders; 208 dead by 2012; SMR 0.59 against French men. Authors cannot separate selection from effect, or weigh doping. No rider named in the book."
 
 - key: martin2005
   citation: "Martin DT, Quod MJ, Gore CJ, Coyle EF. Has Armstrong's cycle efficiency improved? J Appl Physiol. 2005;99:1628-1629."
@@ -1237,6 +1492,14 @@
   status: abstract
   chapters: [durability]
   notes: "Power profile fresh vs after accumulated kJ in pros. Candidate for a figure."
+
+- key: mateomarch2025
+  citation: "Mateo-March M, Peña-González I, Moya-Ramón M, Javaloyes A. Training strategies of World Tour cyclists: periodization and load distribution across a competitive season. Scand J Med Sci Sports. 2025;35:e70153."
+  doi: 10.1111/sms.70153
+  pmid: 41126460
+  status: abstract
+  chapters: [elites]
+  notes: "28 male World Tour riders: pyramidal in every phase, more hard riding towards competition; power- and heart-rate-based distributions differ. No percentages in the abstract."
 
 - key: matomaki2023
   citation: "Matomäki P, et al. Durability is improved by both low and high intensity endurance training. Front Physiol. 2023;14:1128111."
@@ -1327,7 +1590,7 @@
   pmcid: PMC6843002
   status: fulltext
   chapters: [heat-training]
-  notes: "RCT, 21 sub-elite cyclists, 5.5 weeks. Cool TT 298 -> 315 W heat vs 294 -> 311 W control; VO2max unchanged. Methods, results table and discussion read."
+  notes: "RCT, 21 sub-elite cyclists, 5.5 weeks. Cool TT 298 -> 315 W heat vs 294 -> 311 W control; VO2max unchanged. Methods, results table and discussion read. Full text saved 14 Oct 2026 in papers/mikkelsen2019.txt (from the publisher's open-access PDF); hypothesis, both groups' VO2max and peak power taken from it for the trial table."
 
 - key: minsoncotter2016
   citation: "Minson CT, Cotter JD. CrossTalk proposal: Heat acclimatization does improve performance in a cool condition. J Physiol. 2016;594:241-243."
@@ -1343,7 +1606,7 @@
   pmid: 39390310
   pmcid: PMC11787188
   status: fulltext
-  chapters: [intro, adaptation, easy-riding]
+  chapters: [intro, adaptation, easy-riding, elites]
   notes: "Online Oct 2024. 353 studies, 5,973 participants (mitochondria). Mitochondrial content: continuous endurance training (low OR moderate intensity) +23%, HIT +27%, SIT +27%, no significant difference. Per hour: SIT ~3.9x and HIT ~1.7x as efficient as ET. READ IN FULL 11 Oct 2026 (text in papers/): ET = everything continuous below the second threshold; average ET programme about 36 h in total; only 14 ET groups (104 people) were well trained, and they showed no gain per hour; capillaries per fibre +15/13/10%; publication bias not assessed. Details in chapters/easy-riding/research.md."
 
 - key: monod1965
@@ -1392,6 +1655,22 @@
   chapters: [fuelling]
   notes: "REDs: health and performance consequences of low energy availability in female and male athletes."
 
+- key: munoz2014
+  citation: "Muñoz I, Seiler S, Bautista J, España J, Larumbe E, Esteve-Lanao J. Does polarized training improve performance in recreational runners? Int J Sports Physiol Perform. 2014;9:265-272."
+  doi: 10.1123/ijspp.2012-0350
+  pmid: 23752040
+  status: abstract
+  chapters: [elites]
+  notes: "30 recreational runners, 10 weeks, ~77/3/20 against 46/35/19: 10 km +5.0% against +3.6%, not significant. The subset analysis in the abstract has inconsistent numbers and is not used."
+
+- key: muriel2021
+  citation: "Muriel X, Courel-Ibáñez J, Cerezuela-Espejo V, Pallarés JG. Training load and performance impairments in professional cyclists during COVID-19 lockdown. Int J Sports Physiol Perform. 2021;16:735-738."
+  doi: 10.1123/ijspp.2020-0501
+  pmid: 32820136
+  status: abstract
+  chapters: [elites]
+  notes: "18 male professionals, 7 weeks indoors: volume -33.9%, about 12 h a week with 2 h at high intensity; best 5- and 20-min power fell 1-19% in all. Confounded by everything else about a lockdown."
+
 - key: muriel2022
   citation: "Muriel X, Mateo-March M, Valenzuela PL, et al. Durability and repeatability of professional cyclists during a Grand Tour. Eur J Sport Sci. 2022."
   doi: 10.1080/17461391.2021.1987528
@@ -1416,6 +1695,14 @@
   chapters: [reading-research]
   notes: "25 replications of studies from quartile 1 sports science journals, 2016-2021. 56% significant; 36% compatible effect sizes; 28% (7) successful on all criteria; 88% of effects smaller; median decrease 75%. Authors: not representative, replications underpowered. Read in full on Europe PMC (PMC12513899) 11 Oct 2026. End page not confirmed."
 
+- key: neal2013
+  citation: "Neal CM, Hunter AM, Brennan L, et al. Six weeks of a polarized training-intensity distribution leads to greater physiological and performance adaptations than a threshold model in trained cyclists. J Appl Physiol. 2013;114:461-471."
+  doi: 10.1152/japplphysiol.00652.2012
+  pmid: 23264537
+  status: abstract
+  chapters: [elites]
+  notes: "12 male cyclists, crossover, 6 weeks each: polarised 6.4 h/wk at 80/0/20, threshold 7.5 h/wk at 57/43/0. 40 km TT improved in both; peak power +8 v +3%, LT +9 v +2%, capacity at 95% +85 v +37%."
+
 - key: nes2013
   citation: "Nes BM, Janszky I, Wisloff U, Stoylen A, Karlsen T. Age-predicted maximal heart rate in healthy subjects: the HUNT fitness study. Scand J Med Sci Sports. 2013;23:697-704."
   doi: 10.1111/j.1600-0838.2012.01445.x
@@ -1431,6 +1718,21 @@
   status: abstract
   chapters: [strength]
   notes: "27 master cyclists (51 y, 20 y of racing) vs 24 matched non-athletes and 16 young cyclists. Lower spine and hip BMD; 4 (15%) with T-scores below -2.5."
+
+- key: nieman1990
+  citation: "Nieman DC, Johanssen LM, Lee JW, Arabatzis K. Infectious episodes in runners before and after the Los Angeles Marathon. J Sports Med Phys Fitness. 1990;30:316-328."
+  pmid: 2266764
+  status: abstract
+  chapters: [beyond-performance]
+  notes: "1987 LA Marathon; 12.9% of finishers vs 2.2% of non-starters reported an infection in the week after (OR 5.9); ≥97 vs <32 km/wk OR 2.0 before the race. Self-reported."
+
+- key: nieman2011
+  citation: "Nieman DC, Henson DA, Austin MD, Sha W. Upper respiratory tract infection is reduced in physically fit and active adults. Br J Sports Med. 2011;45:987-992."
+  doi: 10.1136/bjsm.2010.077875
+  pmid: 21041243
+  status: abstract
+  chapters: [beyond-performance]
+  notes: "1,002 adults, 12 weeks autumn/winter: 43% fewer days with symptoms at ≥5 days/wk aerobic exercise vs ≤1; 46% fewer in the fittest third (self-rated)."
 
 - key: niinimaa1980
   citation: "Niinimaa V, Cole P, Mintz S, Shephard RJ. The switching point from nasal to oronasal breathing. Respir Physiol. 1980;42:61-71."
@@ -1508,6 +1810,14 @@
   chapters: [strength]
   notes: "31 studies. Adult road cyclists have low BMD in key regions (lumbar spine); road cycling confers no significant osteogenic benefit; mountain biking or other sports reduce the effect. Open access, full text not yet read."
 
+- key: orie2014
+  citation: "Orie J, Hofman N, de Koning JJ, Foster C. Thirty-eight years of training distribution in Olympic speed skaters. Int J Sports Physiol Perform. 2014;9:93-99."
+  doi: 10.1123/ijspp.2013-0427
+  pmid: 24408352
+  status: abstract
+  chapters: [elites]
+  notes: "Medal-winning Dutch speed skaters over 10 Olympiads, from interviews: zone 1 share rose, zones 2 and 3 fell, no trend in total hours. The 40/40/20 and ~80/12/8 figures are from Stöggl & Sperlich 2015."
+
 - key: osc2015
   citation: "Open Science Collaboration. Estimating the reproducibility of psychological science. Science. 2015;349:aac4716."
   doi: 10.1126/science.aac4716
@@ -1515,6 +1825,14 @@
   status: abstract
   chapters: [reading-research]
   notes: "100 replications from three psychology journals. 97% of originals significant, 36% of replications; replication effects half the size. Disputed by Gilbert 2016."
+
+- key: paffenbarger2001
+  citation: "Paffenbarger RS Jr, Blair SN, Lee IM. A history of physical activity, cardiovascular health and longevity: the scientific contributions of Jeremy N Morris, DSc, DPH, FRCP. Int J Epidemiol. 2001;30:1184-1192."
+  doi: 10.1093/ije/30.5.1184
+  pmid: 11689543
+  status: abstract
+  chapters: [beyond-performance]
+  notes: "Source for the London busmen (conductors vs drivers) and postmen findings as described in the draft."
 
 - key: pallares2016
   citation: "Pallarés JG, Morán-Navarro R, Ortega JF, Fernández-Elías VE, Mora-Rodriguez R. Validity and reliability of ventilatory and blood lactate thresholds in well-trained cyclists. PLoS One. 2016;11:e0163389."
@@ -1728,6 +2046,22 @@
   chapters: [heat-training]
   notes: "25 skiers. Hb mass 30 g above control; no differences in VO2max or performance."
 
+- key: rosenblat2019
+  citation: "Rosenblat MA, Perrotta AS, Vicenzino B. Polarized vs. threshold training intensity distribution on endurance sport performance: a systematic review and meta-analysis of randomized controlled trials. J Strength Cond Res. 2019;33:3491-3500."
+  doi: 10.1519/jsc.0000000000002618
+  pmid: 29863593
+  status: abstract
+  chapters: [elites]
+  notes: "Four trials, three pooled for time trial: ES -0.66 (-1.17 to -0.15) favouring polarised. 112 participants (per Silva Oliveira 2024)."
+
+- key: rosenblat2025
+  citation: "Rosenblat MA, Watt JA, Arnold JI, et al. Which training intensity distribution intervention will produce the greatest improvements in maximal oxygen uptake and time-trial performance in endurance athletes? A systematic review and network meta-analysis of individual participant data. Sports Med. 2025;55:655-673."
+  doi: 10.1007/s40279-024-02149-3
+  pmid: 39888556
+  status: abstract
+  chapters: [elites]
+  notes: "ABSTRACT ONLY (paywalled; wanted). 13 studies, 348 athletes. Polarised v pyramidal: VO2max SMD -0.06 (p = 0.68), time trial -0.05 (p = 0.34); no significant difference against any distribution. Subgroup: competitive athletes may gain more VO2max with polarised, recreational with pyramidal (SMD -0.63, p < 0.05). 17 authors incl. many of the trialists; Seiler last (Crossref)."
+
 - key: sainani2018
   citation: "Sainani KL. The problem with 'magnitude-based inference'. Med Sci Sports Exerc. 2018;50:2166-2176."
   doi: 10.1249/mss.0000000000001645
@@ -1745,12 +2079,28 @@
   chapters: [durability]
   notes: "21 studies. High-intensity prior work reduces power more per kJ: declines of 10-20% after 2.5-15 kJ/kg of high-intensity work. kJ alone is a poor fatigue metric. Open access."
 
+- key: sandbakk2011
+  citation: "Sandbakk Ø, Holmberg HC, Leirdal S, Ettema G. The physiology of world-class sprint skiers. Scand J Med Sci Sports. 2011;21:e9-e16."
+  doi: 10.1111/j.1600-0838.2010.01117.x
+  pmid: 20500558
+  status: abstract
+  chapters: [elites]
+  notes: "8 world-class against 8 national-class Norwegian sprint skiers: the world-class did more low- and moderate-intensity endurance training and speed training."
+
+- key: sanders2017
+  citation: "Sanders D, Myers T, Akubat I. Training-intensity distribution in road cyclists: objective versus subjective measures. Int J Sports Physiol Perform. 2017;12:1232-1237."
+  doi: 10.1123/ijspp.2016-0523
+  pmid: 28253026
+  status: abstract
+  chapters: [elites]
+  notes: "15 road cyclists, 10 weeks: by RPE 44.9/29.9/25.2, by heart rate 86.8/8.8/4.4, by power 79.5/9.0/11.5."
+
 - key: sanmillan2018
   citation: "San-Millan I, Brooks GA. Assessment of metabolic flexibility by means of measuring blood lactate, fat, and carbohydrate oxidation responses to exercise in professional endurance athletes and less-fit individuals. Sports Med. 2018;48:467-479."
   doi: 10.1007/s40279-017-0751-x
   pmid: 28623613
   status: abstract
-  chapters: [finding-zones, easy-riding]
+  chapters: [finding-zones, easy-riding, beyond-performance]
   notes: "Professional endurance athletes, moderately active people and metabolic syndrome patients. Fat oxidation higher and lactate lower in professionals; the two inversely correlated within groups (r = -0.97, -0.98, -0.92), -0.76 overall. Proposes lactate as an indirect measure of oxidative capacity. Group sizes not in the abstract. Cross-sectional. Central to What easy riding does."
 
 - key: saris1989
@@ -1801,6 +2151,14 @@
   chapters: [heat-training]
   notes: "13 male triathletes, 20 km TT at 35 C before and after an 8-day heat camp, with and without ice vest. Vest +10 W before; camp +28 W; vest +4 W (unclear) after."
 
+- key: schumacher2002
+  citation: "Schumacher YO, Mueller P. The 4000-m team pursuit cycling world record: theoretical and practical aspects. Med Sci Sports Exerc. 2002;34:1029-1036."
+  doi: 10.1097/00005768-200206000-00020
+  pmid: 12048333
+  status: abstract
+  chapters: [elites]
+  notes: "German team pursuit squad, world record 2000: 29,000-35,000 km a year with workload peaks in road stage races. 94/4/2 is from Stöggl & Sperlich 2015."
+
 - key: schwellnus2011
   citation: "Schwellnus MP, Drew N, Collins M. Increased running speed and previous cramps rather than dehydration or serum sodium changes predict exercise-associated muscle cramping: a prospective cohort study in 210 Ironman triathletes. Br J Sports Med. 2011;45:650-656."
   doi: 10.1136/bjsm.2010.078535
@@ -1814,7 +2172,7 @@
   doi: 10.1249/mss.0b013e318060f17d
   pmid: 17762370
   status: abstract
-  chapters: [finding-zones, easy-riding]
+  chapters: [finding-zones, easy-riding, elites]
   notes: "Nine highly trained runners: 60 or 120 min below VT1, HRV back to baseline in 5-10 min; threshold session (2.7 mmol/L) or intervals above VT2: about 30 min, identical. Eight trained subjects after intervals: 90 min or more. VT1 as a 'binary' threshold for autonomic recovery. Boundary set by breathing."
 
 - key: seiler2010
@@ -1822,7 +2180,7 @@
   doi: 10.1123/ijspp.5.3.276
   status: abstract
   chapters: [intro, elites, intensity]
-  notes: "Read for the website posts. Elite athletes' ~80/20 session distribution; the polarised model."
+  notes: "Abstract re-read 11 Oct 2026: athletes training 10-13 times a week converge on ~80% of SESSIONS at low intensity and ~20% dominated by hard work; they 'self-organize' towards high volume; intensification studies in well-trained athletes give no convincing evidence of long-term gains. Source for the Norwegian five-zone scale in Intensity."
 
 - key: seilerkjerland2006
   citation: "Seiler KS, Kjerland GØ. Quantifying training intensity distribution in elite endurance athletes: is there evidence for an 'optimal' distribution? Scand J Med Sci Sports. 2006;16:49-56."
@@ -1851,6 +2209,15 @@
 
 # --- Drugs (added 5 Oct 2026) ---
 
+- key: silvaoliveira2024
+  citation: "Silva Oliveira P, Boppre G, Fonseca H. Comparison of polarized versus other types of endurance training intensity distribution on athletes' endurance performance: a systematic review with meta-analysis. Sports Med. 2024;54:2071-2095."
+  doi: 10.1007/s40279-024-02034-z
+  pmid: 38717713
+  pmcid: PMC11329428
+  status: fulltext
+  chapters: [elites]
+  notes: "Text in papers/; results and discussion read. 17 studies, 437 people, median 10 weeks. VO2peak SMD 0.24 (0.01-0.48) for polarised; time trial -0.01 (-0.28 to 0.25). VO2peak advantage only under 12 weeks and in highly trained, which the authors say cannot be separated. All RCTs 'some concerns' for bias, yet certainty rated high."
+
 - key: simmons2011
   citation: "Simmons JP, Nelson LD, Simonsohn U. False-positive psychology: undisclosed flexibility in data collection and analysis allows presenting anything as significant. Psychol Sci. 2011;22:1359-1366."
   doi: 10.1177/0956797611417632
@@ -1866,6 +2233,13 @@
   status: abstract
   chapters: [easy-riding]
   notes: "About 25% of North American Caucasian men and women have less than 35% or more than 65% type I fibres in vastus lateralis. Variance in % type I: about 15% sampling and technical error, about 40% environmental, about 45% inherited."
+
+- key: simpson2020
+  citation: "Simpson RJ, Campbell JP, Gleeson M, Krüger K, Nieman DC, Pyne DB, Turner JE, Walsh NP. Can exercise affect immune function to increase susceptibility to infection? Exerc Immunol Rev. 2020;26:8-22."
+  pmid: 32139352
+  status: abstract
+  chapters: [beyond-performance]
+  notes: "Debate article with authors on both sides. Agreed: moderate exercise up to ~45 min helps immune defence; infection in athletes is multifactorial. Unresolved: whether arduous exercise itself raises risk."
 
 - key: sitko2025
   citation: "Sitko S, Artetxe X, Bonnevie-Svendsen M, et al. What is 'Zone 2 training'?: experts' viewpoint on definition, training methods, and expected adaptations. Int J Sports Physiol Perform. 2025;20:1614-1617."
@@ -1906,6 +2280,15 @@
   chapters: [durability, knowing]
   notes: "Heart rate to speed decoupling 1.16 on average at 35-40 km vs 5-10 km, onset 25 km; low decouplers faster. Open access: read before the Knowing it's working chapter."
 
+- key: solli2017
+  citation: "Solli GS, Tønnessen E, Sandbakk Ø. The training characteristics of the world's most successful female cross-country skier. Front Physiol. 2017;8:1069."
+  doi: 10.3389/fphys.2017.01069
+  pmid: 29326603
+  pmcid: PMC5741652
+  status: fulltext
+  chapters: [elites]
+  notes: "READ IN FULL 11 Oct 2026 (text in papers/). 17 years, 8,105 sessions; 522 to 940 h a year from age 20 to 35; best five years 937 h, endurance time 92.3/2.9/4.8 (intervals counted with recoveries), sessions 76/7/17. Early career ~88/2/10 with blocks of intervals, then stagnation; later ~92/3/5. Easy 76 to 55 h a month, above LT1 5.6/5.4/5.7 h a month. The athlete is named only in the acknowledgements (Marit Bjørgen); the book does not name her."
+
 - key: southward2018
   citation: "Southward K, Rutherfurd-Markwick KJ, Ali A. The effect of acute caffeine ingestion on endurance performance: a systematic review and meta-analysis. Sports Med. 2018;48:1913-1928."
   doi: 10.1007/s40279-018-0939-8
@@ -1930,14 +2313,40 @@
   chapters: [durability]
   notes: "Training volume/intensity vs durability across a season (observational)."
 
+- key: stensvold2020
+  citation: "Stensvold D, Viken H, Steinshamn SL, Dalen H, Støylen A, Loennechen JP, et al. Effect of exercise training for five years on all cause mortality in older adults - the Generation 100 study: randomised controlled trial. BMJ. 2020;371:m3485."
+  doi: 10.1136/bmj.m3485
+  pmid: 33028588
+  status: fulltext
+  chapters: [beyond-performance]
+  notes: "Full text in papers/. 1,567 Trondheim residents aged 70-77; control 780, MICT 387, HIIT 400; deaths 4.7%, 5.9%, 3.0%; HRs vs control 0.63 (HIIT) and 1.24 (MICT), not significant. Controls very active; ~half adhered. The close-up in Beyond performance, laid out as a trial table."
+
 - key: stevenson2022
   citation: "Stevenson JD, Kilding AE, Plews DJ, Maunder E. Prolonged cycling reduces power output at the moderate-to-heavy intensity transition. Eur J Appl Physiol. 2022;122:2673-2682."
   doi: 10.1007/s00421-022-05036-9
   pmid: 36127418
   pmcid: PMC9488873
   status: fulltext
-  chapters: [durability, finding-zones, knowing, intensity, easy-riding]
+  chapters: [durability, finding-zones, knowing, intensity, easy-riding, elites]
   notes: "14 trained riders, 2 h at 90% VT1: VT1 power 217 -> 196 W, heart rate at VT1 142 -> 151 bpm. The top of Zone 2 moves during a long ride. Full text read 5 Oct 2026: riders fasted, water only, 9 h/week training, no control trial; individual falls 9-44 W."
+
+- key: stoggl2014
+  citation: "Stöggl T, Sperlich B. Polarized training has greater impact on key endurance variables than threshold, high intensity, or high volume training. Front Physiol. 2014;5:33."
+  doi: 10.3389/fphys.2014.00033
+  pmid: 24550842
+  pmcid: PMC3912323
+  status: fulltext
+  chapters: [elites]
+  notes: "READ IN FULL 11 Oct 2026 (text in papers/). The chapter's close-up. 48 athletes randomised to four programmes for 9 weeks, 41 finished (4 dropouts from threshold). Distributions are SESSION counts (polarised 37/3/14 of 54). Hours 104/66/84/102. VO2peak +11.7% polarised, +4.8% intervals; time to exhaustion not different between groups; no time trial; all athletes had trained high-volume without intervals beforehand. Threshold group VO2peak changes -20 to +4%."
+
+- key: stoggl2015
+  citation: "Stöggl TL, Sperlich B. The training intensity distribution among well-trained and elite endurance athletes. Front Physiol. 2015;6:295."
+  doi: 10.3389/fphys.2015.00295
+  pmid: 26578968
+  pmcid: PMC4621419
+  status: fulltext
+  chapters: [elites]
+  notes: "Review; text in papers/, tables and summary read. Most retrospective studies pyramidal; polarised in three studies of XC skiers and one of marathon runners. Source for the tabulated distributions of Lucía 2000 (88/11/2, 78/17/5, 77/15/8), Schumacher & Mueller 2002 (94/4/2), Zapico 2007 (78/20/2, 70/22/8) and Orie 2014 (40/40/20 to ~80/12/8). Lists Stöggl 2014 as a session-goal count."
 
 - key: stone2012
   citation: "Stone MR, Thomas K, Wilkinson M, Jones AM, St Clair Gibson A, Thompson KG. Effects of deception on exercise performance: implications for determinants of fatigue in humans. Med Sci Sports Exerc. 2012;44:534-541."
@@ -1954,6 +2363,15 @@
   status: fulltext
   chapters: [intro, easy-riding, beyond-performance, intensity, finding-zones]
   notes: "Read in full 8 Oct 2026 (PDF from George in papers/). Narrative, non-systematic review; scope is the general population at ~150 min/week, not athletes. Concludes Zone 2 is not shown to be optimal for mitochondria or fat oxidation. Gibala declares an interest in an exercise-related company. Notes in chapters/easy-riding/research.md."
+
+- key: sun2025
+  citation: "Sun Q, Yu Y, Cui J, Lin S, Wang X, Zhou T. Recent advances in training intensity distribution theory for cyclic endurance sports: theoretical foundations, model comparisons, and periodization characteristics. Front Physiol. 2025;16:1657892."
+  doi: 10.3389/fphys.2025.1657892
+  pmid: 41169886
+  pmcid: PMC12568352
+  status: abstract
+  chapters: [elites]
+  notes: "Narrative review; text in papers/, one paragraph read: 'Seiler posits' that ~350 h a year goes with threshold-like distributions and >750 h with polarised or pyramidal. Second-hand, no data. A correction to the article was published in 2026 (not read)."
 
 - key: sylta2014
   citation: "Sylta Ø, Tønnessen E, Seiler S. From heart-rate data to training quantification: a comparison of 3 methods of training-intensity analysis. Int J Sports Physiol Perform. 2014;9:100-107."
@@ -2012,6 +2430,15 @@
   chapters: [doping]
   notes: "8 non-athletes: VO2max +12.6%, time to exhaustion at 80% +54%."
 
+- key: tonnessen2014
+  citation: "Tønnessen E, Sylta Ø, Haugen TA, Hem E, Svendsen IS, Seiler S. The road to gold: training and peaking characteristics in the year prior to a gold medal endurance performance. PLoS One. 2014;9:e101796."
+  doi: 10.1371/journal.pone.0101796
+  pmid: 25019608
+  pmcid: PMC4096917
+  status: fulltext
+  chapters: [elites, easy-riding]
+  notes: "READ IN FULL 11 Oct 2026 (text in papers/). 11 Norwegian XC skiers and biathletes with individual Olympic or World gold; diaries of the year before their best result. 770 h, 470 sessions. Endurance time 91% below LT1; five zones 86.0/5.3/3.3/3.3/2.1%; sessions 77/23. Zone 1 up to 73% HRmax, zone 2 74-83%. Time above LT1 1.3 h a week in every phase; easy hours 15.2, 14.4, 9.8 a week (Table 4). Details in chapters/elites/research.md."
+
 - key: tour1998
   citation: "1998 Tour de France. Wikipedia, read 5 October 2026. https://en.wikipedia.org/wiki/1998_Tour_de_France"
   status: exists
@@ -2030,6 +2457,15 @@
   chapters: [heat-training]
   notes: "Interview with Jeroen Swart (UAE Team Emirates): heat sessions at 35 C, 90% humidity; 'plasma volume can be increased by up to 25 per cent'. English edition; read via a summarising tool, so check the wording on the page before final."
 
+- key: treff2017
+  citation: "Treff G, Winkert K, Sareban M, Steinacker JM, Becker M, Sperlich B. Eleven-week preparation involving polarized intensity distribution is not superior to pyramidal distribution in national elite rowers. Front Physiol. 2017;8:515."
+  doi: 10.3389/fphys.2017.00515
+  pmid: 28824440
+  pmcid: PMC5539230
+  status: fulltext
+  chapters: [elites]
+  notes: "Text in papers/; abstract, design and limitations read. 14 rowers, 11 weeks, not randomised: 94/1/6 against 93/3/2; 2,000 m power +1.5% in both, neither significant."
+
 - key: uci2025co
   citation: "Union Cycliste Internationale. The UCI bans repeated inhalation of carbon monoxide. Press release, 1 February 2025."
   status: exists
@@ -2041,6 +2477,14 @@
   status: exists
   chapters: [doping]
   notes: "Known from news reports (Tour Magazin, road.cc): recommends against use, no ban. Find the statement itself."
+
+- key: umpierre2011
+  citation: "Umpierre D, Ribeiro PA, Kramer CK, Leitão CB, Zucatti AT, Azevedo MJ, et al. Physical activity advice only or structured exercise training and association with HbA1c levels in type 2 diabetes: a systematic review and meta-analysis. JAMA. 2011;305:1790-1799."
+  doi: 10.1001/jama.2011.576
+  pmid: 21540423
+  status: abstract
+  chapters: [beyond-performance]
+  notes: "47 RCTs, 8,538 patients. Structured exercise HbA1c -0.67; >150 min/wk -0.89 vs ≤150 -0.36; advice alone no change without diet."
 
 - key: unhjem2024
   citation: "Unhjem RJ. Changes in running economy and attainable maximal oxygen consumption in response to prolonged running: the impact of training status. Scand J Med Sci Sports. 2024;34:e14637."
@@ -2063,6 +2507,14 @@
   status: abstract
   chapters: [fuelling]
   notes: "13 trials; no effect on performance (g = -0.05, -0.30 to 0.20); none for esters or salts separately."
+
+- key: vanerp2020
+  citation: "van Erp T, Sanders D, de Koning JJ. Training characteristics of male and female professional road cyclists: a 4-year retrospective analysis. Int J Sports Physiol Perform. 2020;15:534-540."
+  doi: 10.1123/ijspp.2019-0320
+  pmid: 31722298
+  status: abstract
+  chapters: [elites]
+  notes: "20 men and 10 women, four years: men more volume and more time in low zones; training load similar; women compensate lower volume with higher intensity."
 
 - key: venables2005
   citation: "Venables MC, Achten J, Jeukendrup AE. Determinants of fat oxidation during exercise in healthy men and women: a cross-sectional study. J Appl Physiol. 2005;98:160-167."
@@ -2131,6 +2583,14 @@
   chapters: [fuelling]
   notes: "10 cyclists, blinded by saline infusion to 0, -2 or -3% hydration; 25 km time trial at 33 C with 32 km/h wind; no performance difference; rectal temperature slightly higher at -3%."
 
+- key: waller2010
+  citation: "Waller K, Kujala UM, Rantanen T, Kauppinen M, Silventoinen K, Koskenvuo M, Kaprio J. Physical activity, morbidity and mortality in twins: a 24-year prospective follow-up. Eur J Epidemiol. 2010;25:731-739."
+  doi: 10.1007/s10654-010-9493-x
+  pmid: 20680407
+  status: abstract
+  chapters: [beyond-performance]
+  notes: "146 discordant twin pairs (29 MZ); inactive vs active HR 2.08; DZ 2.67; no difference in MZ pairs."
+
 - key: wasserman1964
   citation: "Wasserman K, McIlroy MB. Detecting the threshold of anaerobic metabolism in cardiac patients during exercise. Am J Cardiol. 1964;14:844-852."
   doi: 10.1016/0002-9149(64)90012-8
@@ -2138,6 +2598,14 @@
   status: exists
   chapters: [intensity]
   notes: "Not read (no abstract). Cited for its existence and title; what it argued is taken from Poole 2021."
+
+- key: weston2014
+  citation: "Weston KS, Wisløff U, Coombes JS. High-intensity interval training in patients with lifestyle-induced cardiometabolic disease: a systematic review and meta-analysis. Br J Sports Med. 2014;48:1227-1234."
+  doi: 10.1136/bjsports-2013-092576
+  pmid: 24144531
+  status: abstract
+  chapters: [beyond-performance]
+  notes: "10 studies, 273 patients; HIIT raised VO2peak 3.03 mL/kg/min more than MICT (about 9.1%), 'almost double'."
 
 - key: woltmann2015
   citation: "Woltmann ML, Foster C, Porcari JP, et al. Evidence that the talk test can be used to regulate exercise intensity. J Strength Cond Res. 2015;29:1248-1254."
@@ -2180,6 +2648,13 @@
   status: candidate
   chapters: [durability]
   notes: "Definitions: resilience vs durability. Two-page piece, no abstract. Free copy at Copenhagen blocks scripted download; on papers-wanted.md for George."
+
+- key: zapico2007
+  citation: "Zapico AG, Calderón FJ, Benito PJ, et al. Evolution of physiological and haematological parameters with training load in elite male road cyclists: a longitudinal study. J Sports Med Phys Fitness. 2007;47:191-196."
+  pmid: 17557057
+  status: abstract
+  chapters: [elites]
+  notes: "Elite under-23 cyclists; 77% of winter training under VT1. 14 riders, 78/20/2 winter and 70/22/8 spring are from Stöggl & Sperlich 2015."
 
 - key: zavorsky2000
   citation: "Zavorsky GS. Evidence and possible mechanisms of altered maximum heart rate with endurance training and tapering. Sports Med. 2000;29:13-26."

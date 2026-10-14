@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 630.3" width="680" height="630.3" role="img" aria-label="Stacked bars of training time below the first threshold, between the thresholds and above the second in eight groups of elite athletes, from 95, 2 and 3 percent in junior rowers to 22, 68 and 10 percent in under-23 professional cyclists">
+<rect width="680" height="630.3" fill="#ffffff"/>
+<text x="30.0" y="30.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="start" font-weight="600" >Elite training is mostly easy, and road cycling is the untidy case</text>
+<text x="30.0" y="53.5" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >Share of endurance training time in eight groups of elite athletes, most easy at the</text>
+<text x="30.0" y="72.9" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >top. The studies counted in different ways, noted under each name.</text>
+<rect x="30" y="112.3" width="12" height="12" fill="#e6e6e6" stroke="#555555" stroke-width="0.75"/>
+<text x="50.0" y="123.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >Below the first threshold</text>
+<rect x="330" y="112.3" width="12" height="12" fill="#555555" stroke="#555555" stroke-width="0.75"/>
+<text x="350.0" y="123.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >Between the thresholds</text>
+<rect x="30" y="136.3" width="12" height="12" fill="#1a1a1a" stroke="#555555" stroke-width="0.75"/>
+<text x="50.0" y="147.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >Above the second threshold</text>
+<line x1="330.0" y1="176.3" x2="330.0" y2="566.3" stroke="#e6e6e6" stroke-width="1"/>
+<text x="330.0" y="588.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >0%</text>
+<line x1="385.0" y1="176.3" x2="385.0" y2="566.3" stroke="#e6e6e6" stroke-width="1"/>
+<text x="385.0" y="588.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >25%</text>
+<line x1="440.0" y1="176.3" x2="440.0" y2="566.3" stroke="#e6e6e6" stroke-width="1"/>
+<text x="440.0" y="588.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >50%</text>
+<line x1="495.0" y1="176.3" x2="495.0" y2="566.3" stroke="#e6e6e6" stroke-width="1"/>
+<text x="495.0" y="588.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >75%</text>
+<line x1="550.0" y1="176.3" x2="550.0" y2="566.3" stroke="#e6e6e6" stroke-width="1"/>
+<text x="550.0" y="588.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >100%</text>
+<text x="440.0" y="614.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >Share of endurance training time</text>
+<text x="316.0" y="200.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="end" font-weight="600" >Junior world-class rowers</text>
+<text x="316.0" y="219.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#555555" text-anchor="end" font-weight="400" >36 rowers · diary</text>
+<rect x="330.0" y="194.3" width="207.0" height="20" fill="#e6e6e6"/>
+<rect x="539.0" y="194.3" width="2.4" height="20" fill="#555555"/>
+<rect x="543.4" y="194.3" width="4.6" height="20" fill="#1a1a1a"/>
+<text x="562.0" y="209.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >95 / 2 / 3</text>
+<text x="316.0" y="248.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="end" font-weight="600" >Team pursuit squad, 2000</text>
+<text x="316.0" y="267.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#555555" text-anchor="end" font-weight="400" >7 riders · lactate</text>
+<rect x="330.0" y="242.3" width="204.8" height="20" fill="#e6e6e6"/>
+<rect x="536.8" y="242.3" width="6.8" height="20" fill="#555555"/>
+<rect x="545.6" y="242.3" width="2.4" height="20" fill="#1a1a1a"/>
+<text x="562.0" y="257.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >94 / 4 / 2</text>
+<text x="316.0" y="296.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="end" font-weight="600" >Champion skier, best five years</text>
+<text x="316.0" y="315.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#555555" text-anchor="end" font-weight="400" >1 skier · diary</text>
+<rect x="330.0" y="290.3" width="201.1" height="20" fill="#e6e6e6"/>
+<rect x="533.1" y="290.3" width="4.4" height="20" fill="#555555"/>
+<rect x="539.4" y="290.3" width="8.6" height="20" fill="#1a1a1a"/>
+<text x="562.0" y="305.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >92 / 3 / 5</text>
+<text x="316.0" y="344.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="end" font-weight="600" >Champion skiers and biathletes</text>
+<text x="316.0" y="363.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#555555" text-anchor="end" font-weight="400" >11 athletes · diary</text>
+<rect x="330.0" y="338.3" width="198.9" height="20" fill="#e6e6e6"/>
+<rect x="530.9" y="338.3" width="5.3" height="20" fill="#555555"/>
+<rect x="538.1" y="338.3" width="9.9" height="20" fill="#1a1a1a"/>
+<text x="562.0" y="353.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >91 / 3 / 5</text>
+<text x="316.0" y="392.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="end" font-weight="600" >Under-23 cyclists, winter</text>
+<text x="316.0" y="411.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#555555" text-anchor="end" font-weight="400" >14 riders · heart rate</text>
+<rect x="330.0" y="386.3" width="169.6" height="20" fill="#e6e6e6"/>
+<rect x="501.6" y="386.3" width="42.0" height="20" fill="#555555"/>
+<rect x="545.6" y="386.3" width="2.4" height="20" fill="#1a1a1a"/>
+<text x="562.0" y="401.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >78 / 20 / 2</text>
+<text x="316.0" y="440.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="end" font-weight="600" >Professional cyclists, in season</text>
+<text x="316.0" y="459.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#555555" text-anchor="end" font-weight="400" >13 riders · heart rate</text>
+<rect x="330.0" y="434.3" width="167.4" height="20" fill="#e6e6e6"/>
+<rect x="499.4" y="434.3" width="31.0" height="20" fill="#555555"/>
+<rect x="532.4" y="434.3" width="15.6" height="20" fill="#1a1a1a"/>
+<text x="562.0" y="449.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >77 / 15 / 8</text>
+<text x="316.0" y="488.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="end" font-weight="600" >Professionals, Tour de France</text>
+<text x="316.0" y="507.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#555555" text-anchor="end" font-weight="400" >8 riders · heart rate in the race</text>
+<rect x="330.0" y="482.3" width="152.0" height="20" fill="#e6e6e6"/>
+<rect x="484.0" y="482.3" width="48.6" height="20" fill="#555555"/>
+<rect x="534.6" y="482.3" width="13.4" height="20" fill="#1a1a1a"/>
+<text x="562.0" y="497.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >70 / 23 / 7</text>
+<text x="316.0" y="536.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="end" font-weight="600" >Under-23 professionals, season</text>
+<text x="316.0" y="555.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#555555" text-anchor="end" font-weight="400" >30 riders · heart rate</text>
+<rect x="330.0" y="530.3" width="46.2" height="20" fill="#e6e6e6"/>
+<rect x="378.2" y="530.3" width="146.7" height="20" fill="#555555"/>
+<rect x="526.9" y="530.3" width="21.1" height="20" fill="#1a1a1a"/>
+<text x="562.0" y="545.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >22 / 68 / 10</text>
+</svg>

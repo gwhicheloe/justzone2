@@ -190,3 +190,12 @@ George, on the paragraph that introduces slow and fast fibres: "Can we have a bi
 
 George: "why sometimes a circle at the end of the line, sometimes a box?" Circles were peak fat burning and squares the first lactate rise, but the key was only in the subtitle's words, and the middle row had two circles on one line. Redrawn with one row per feeding condition (four rows from three studies), a drawn key above the plot, one circle in every row, a square only in the two rows where lactate was measured, and a number beside every mark. No data changed.
 
+# George's winter, in his own figures (11 October 2026)
+
+From three comments on the draft page (verbatim in `george/notes.md`): before the winter, mainly high-intensity riding (Zwift races, hard weekend rides), inconsistent, "maybe 3 or 4 hours a week"; during it, "about 6 or seven" hours a week; he "generally felt better and fell ill less often with coughs and colds".
+
+- [Own] Hours roughly doubled; regularity rose; intensity fell. A single before-and-after time on one climb cannot separate these, nor rule out weight, conditions or pacing. George has asked that his weight be left out of it (11 October), so the draft neither asks nor says anything about his weight that winter; the limit on the inference stands and is covered by "one rider and one climb".
+- [Own] "The extra hours and the regularity are likelier causes than the lower intensity" rests on this chapter's per-hour evidence (Mølmen 2025) and on nothing measured in George.
+- The Introduction's description of the winter (four or five rides of 45 to 60 minutes) comes to three to five hours, which does not match six or seven. Unresolved.
+- **Side road, not researched:** illness. Whether hard training raises the risk of colds and easy training lowers it is an old claim in exercise immunology and a disputed one [GK]. Nothing has been read for the book. It belongs to Beyond performance (Chapter 10) if anywhere. The draft makes no claim.
+
