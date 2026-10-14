@@ -1,0 +1,11 @@
+# Arem et al. 2015, JAMA Intern Med: leisure-time activity and all-cause mortality in 661,137 adults (six cohorts).
+# Hazard ratio against no leisure activity, as per cent lower risk. Abstract, except 5-10x from the PMC author manuscript.
+# The 10x-plus value is the published abstract's 0.69 (the manuscript says 0.68).
+category,multiple,hr,lower_pct,rider
+none,0,1.00,0,0
+under 1,0.1-<1,0.80,20,0
+1 to 2,1-<2,0.69,31,0
+2 to 3,2-<3,0.63,37,0
+3 to 5,3-<5,0.61,39,0
+5 to 10,5-<10,0.61,39,1
+10 or more,10+,0.69,31,1

@@ -64,3 +64,69 @@ Not yet used. A strong *From the saddle* candidate and a reader's question the b
 Added to the *From the saddle* passage after "Measuring it" in Finding your zones, lightly edited ("I set my own Zone 2 from a percentage of maximum heart rate, taken from the zones Strava suggested from my highest recorded heart rate."). The chapter calls a percentage of maximum the commonest stand-in and the weakest, so the author uses the method the chapter rates lowest: worth his saying so in his own words. Still to ask: was the maximum from an all-out effort or just the highest figure recorded; is the Introduction's 142 bpm where Strava's Zone 2 put him.
 
 Same day, two comments on that chapter's figures: "how come lactate goes down from stage 1 to stage 2?" (the step-test sketch; led to the baseline correction) and "I don't really understand this chart- there's bars, ranges, points, then an unlabelled range" (the percent-of-maximum chart; redrawn as four range bars).
+
+## 11 October 2026: what he did before the Zone 2 winter (comment on the draft page, for What easy riding does)
+
+> Previously I'd been doing mainly high intensity sessions, mainly zwift racing. Rather inconsistently, and riding with friends at the weekends that were generally high intensity
+
+Used as the *From the saddle* passage in "How easy, and how long" in What easy riding does, lightly edited ("Before that winter I'd been doing mainly high-intensity sessions, mostly racing online on Zwift, and rather inconsistently. At the weekends I rode with friends, and those rides were generally high intensity too."). "Racing online on Zwift" is Claude's edit of "zwift racing" so that a reader who does not know Zwift can follow: George to confirm.
+
+It matters to the whole book. The Introduction's winter replaced irregular hard riding with four or five regular easy rides a week, so regularity changed with intensity, and perhaps total hours too. The paragraph after the passage now says so and calls the regularity the likelier cause (Claude's inference, flagged as one). Still to ask: hours a week before and during; whether the winter itself had any hard sessions. Worth carrying into the Introduction at its revise pass (it already says "I knew why, or thought I did") and into the Verdict.
+
+Later the same day, on the *From the saddle* passage built from the comment above:
+
+> Maybe 3 or 4 hours a week
+
+Read by Claude as his riding before the Zone 2 winter (the passage he commented on begins "Before that winter"); **not confirmed**. Added to the passage as "It came to maybe three or four hours a week." The winter itself, from the Introduction's figures, comes to three to five hours a week (four or five rides of 45 to 60 minutes: Claude's arithmetic), so the paragraph after the passage now says the hours barely moved. That leaves regularity and intensity as what changed. Still to ask: whether the winter included hard sessions or weekend rides on top of the trainer rides, and whether his weight changed (a lighter rider climbs faster at the same power, and he has said weight is a goal).
+
+And a minute later, on the placeholder that asked whether his weekly hours had gone up:
+
+> Hours per week went up to about 6 or seven, one thing to note is that I generally felt better and fell ill less often with coughs and colds
+
+So: about 3 or 4 hours a week before the winter (this comment supports that reading of the one above), about 6 or 7 during it. **Claude's arithmetic from the Introduction (three to five hours) was wrong as a figure for his winter and has been removed from the draft**; for a few minutes the published page said "The hours barely moved". Both remarks are now in the *From the saddle* passage ("That winter my hours went up to about six or seven a week. I generally felt better, and I fell ill less often with coughs and colds."), and the paragraph after it says the hours roughly doubled.
+
+**Inconsistency to settle:** the Introduction describes four or five trainer rides of 45 to 60 minutes, which is three to five hours, not six or seven. Either the winter included other riding (weekend rides?) or the Introduction understates it. Ask, and correct the Introduction at its revise pass.
+
+The coughs and colds remark is his experience, not evidence. Whether easy and hard training differ in their effect on infections is a question for Beyond performance (Chapter 10); nothing on it has been researched yet.
+
+In chat, after Claude asked whether his weight had changed over that winter:
+
+> ok lets leave my weight out of it!
+
+The weight question is removed from the placeholder and is not to be asked again. Read by Claude as covering the winter question only. The earlier passage in the fat-max section, where he says managing his weight is a goal, is his own words and was left in; **he has not confirmed he wants it kept** (brief, question 5).
+
+## 11 October 2026: Why elite athletes ride easy (in chat)
+
+On the conflict between Chapter 7 (the top of Zone 2 beats the bottom) and Chapter 8 (champions train below Zone 2):
+
+> how shall we resolve the conflict- it's important the book is consistent- maybe we take an opinion here and stick to it
+
+Claude proposed one rule and wrote it into both chapters: an easy ride should carry as much work as it can without taking anything from the hard sessions; Zone 2 on six to ten hours, lower on a professional's hours. **Not yet confirmed by George.** Recorded under "Decisions so far" in plan.md.
+
+While that was being done:
+
+> can we also mention, to liven it up, pogacar, famously training at low intensity, also mentioning in an interview his zone 2 is 300watts
+
+Done in Chapter 8. The interview is a September 2024 podcast; two news reports give his Zone 2 as 320 to 340 W, falling to about 300 W by the end of a five-hour ride, so his 300 is the late-ride figure. "Famously training at low intensity" has no source and is not in the text. This is George's approval to name Pogačar in Chapter 8.
+
+## 14 October 2026: trial tables (in chat)
+
+> sometimes the descriptions of the trials can be wordy- can we experiment with laying out some of the trials from the papers in a table format. e.g hypothesis at top, two columns one side the control the other the treatment, then conclusion at the bottom. might make reading the experiments easier to digest
+
+Done as an experiment in three close-ups (Drugs, Heat training, Why elite athletes ride easy). The treatment is in the left column and the control on the right. Where a paper states no hypothesis, the top row says "Aim" and gives the paper's stated aim. The bottom row is the authors' conclusion, labelled as theirs.
+
+His reply, the same day:
+
+> ok I like the tables, they're ok - maybe the font should be smaller to make them a bit neater - the artifact has quite a narrow page width which doesn't help - how do we get it closer to what the likely print will be?
+
+Table type made smaller on the review page (Version 62), and a 6 × 9 in print proof built (`review/proof-6x9.pdf`; see plan.md).
+
+Then, on the trim size:
+
+> what are the options on size- 6x9 sounds good
+
+## 14 October 2026: trim size, figures, tables, next chapter (in chat)
+
+> go with 6x9. yes please redraw the images. and please make sure tables don’t split across pages. then do the next chapter. commit and push, unreviewed as i have to sleep now- thank you
+
+Done that night: the print proof is set at 6 × 9 in; all figures redrawn so their labels print at 7.3 pt or more, in IBM Plex Sans; tables never split (the earlier split mode removed); Chapter 10, Beyond performance, drafted; everything in `book/` committed and pushed without his review. His colds remark from Chapter 7 is used in Chapter 10's text as narrative ("I fell ill less often with coughs and colds"): to confirm (brief, question 3).

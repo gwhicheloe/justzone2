@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 479.7" width="680" height="479.7" role="img" aria-label="Bar chart of lower risk of death by amount of leisure activity: 20, 31, 37, 39 and 39 percent from under the guideline minimum to 5 to 10 times it, and 31 percent at 10 times or more">
+<rect width="680" height="479.7" fill="#ffffff"/>
+<text x="30.0" y="30.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="start" font-weight="600" >Most of the lower risk comes with the first few hours a week</text>
+<text x="30.0" y="53.5" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >Risk of death against people who reported no leisure activity, by multiples of the</text>
+<text x="30.0" y="72.9" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >guideline minimum of 150 minutes of moderate or 75 of vigorous activity a week.</text>
+<text x="30.0" y="92.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >661,137 adults in six cohorts.</text>
+<rect x="500.0" y="163.7" width="160.0" height="240.0" fill="#f3f3f3"/>
+<text x="660.0" y="133.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="end" font-weight="600" >A trained rider on 6 to 10 hours</text>
+<text x="660.0" y="152.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="end" font-weight="400" >a week, roughly (my estimate)</text>
+<line x1="76" y1="403.7" x2="664" y2="403.7" stroke="#1a1a1a" stroke-width="1"/>
+<text x="66.0" y="408.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="end" font-weight="400" >0%</text>
+<line x1="76" y1="348.7" x2="664" y2="348.7" stroke="#bdbdbd" stroke-width="1"/>
+<text x="66.0" y="353.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="end" font-weight="400" >10%</text>
+<line x1="76" y1="293.7" x2="664" y2="293.7" stroke="#bdbdbd" stroke-width="1"/>
+<text x="66.0" y="298.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="end" font-weight="400" >20%</text>
+<line x1="76" y1="238.7" x2="664" y2="238.7" stroke="#bdbdbd" stroke-width="1"/>
+<text x="66.0" y="243.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="end" font-weight="400" >30%</text>
+<line x1="76" y1="183.7" x2="664" y2="183.7" stroke="#bdbdbd" stroke-width="1"/>
+<text x="66.0" y="188.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="end" font-weight="400" >40%</text>
+<text x="14.0" y="161.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >Lower risk of death</text>
+<text x="118.0" y="427.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >none</text>
+<path d="M173.0,403.7 V297.7 a4,4 0 0 1 4,-4 H227.0 a4,4 0 0 1 4,4 V403.7 z" fill="#1a1a1a"/>
+<text x="202.0" y="284.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="middle" font-weight="600" >20%</text>
+<text x="202.0" y="427.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >under 1</text>
+<path d="M257.0,403.7 V237.2 a4,4 0 0 1 4,-4 H311.0 a4,4 0 0 1 4,4 V403.7 z" fill="#1a1a1a"/>
+<text x="286.0" y="224.2" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="middle" font-weight="600" >31%</text>
+<text x="286.0" y="427.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >1 to 2</text>
+<path d="M341.0,403.7 V204.2 a4,4 0 0 1 4,-4 H395.0 a4,4 0 0 1 4,4 V403.7 z" fill="#1a1a1a"/>
+<text x="370.0" y="191.2" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="middle" font-weight="600" >37%</text>
+<text x="370.0" y="427.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >2 to 3</text>
+<path d="M425.0,403.7 V193.2 a4,4 0 0 1 4,-4 H479.0 a4,4 0 0 1 4,4 V403.7 z" fill="#1a1a1a"/>
+<text x="454.0" y="180.2" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="middle" font-weight="600" >39%</text>
+<text x="454.0" y="427.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >3 to 5</text>
+<path d="M509.0,403.7 V193.2 a4,4 0 0 1 4,-4 H563.0 a4,4 0 0 1 4,4 V403.7 z" fill="#555555"/>
+<text x="538.0" y="180.2" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="middle" font-weight="600" >39%</text>
+<text x="538.0" y="427.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >5 to 10</text>
+<path d="M593.0,403.7 V237.2 a4,4 0 0 1 4,-4 H647.0 a4,4 0 0 1 4,4 V403.7 z" fill="#555555"/>
+<text x="622.0" y="224.2" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="middle" font-weight="600" >31%</text>
+<text x="622.0" y="427.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >10 or more</text>
+<text x="370.0" y="457.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >Leisure activity, in multiples of the guideline minimum</text>
+</svg>
