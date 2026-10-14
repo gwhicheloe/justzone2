@@ -94,6 +94,7 @@ def paragraphs(text):
                 kind = ("heading" if first.startswith("#") else
                         "quote" if first.startswith(">") else
                         "table" if first.startswith("|") else
+                        "trial" if first.startswith(":::") else
                         "list" if re.match(r"([-*+]|\d+\.)\s", first) else "para")
                 yield start, kind, "\n".join(block)
             block = []
@@ -140,6 +141,13 @@ def check(path, sources):
                 flags.append((line_of(block, m.start(), start), "pattern", label))
         if kind == "list":
             flags.append((start, "structure", "bullet/numbered list: only for real lists (sessions, steps, tables)"))
+        if kind == "trial":
+            # A trial laid out as a table: no rhythm check, but its numbers still need a citation inside it.
+            if not CITE.search(block):
+                flags.append((start, "source", "trial table with no citation"))
+            if not block.rstrip().endswith(":::") or "\n" not in block:
+                flags.append((start, "structure", "trial table not closed with ::: (no blank lines allowed inside)"))
+            continue
         if kind == "para":
             sents = sentences(block)
             lens = [len(s.split()) for s in sents]

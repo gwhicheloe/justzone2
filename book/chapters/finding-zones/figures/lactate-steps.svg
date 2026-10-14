@@ -1,57 +1,58 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 447" width="680" height="447" role="img" aria-label="Sketch of a seven-stage step test: lactate flat for five stages then rising, with talk-test answers of yes, not sure and no">
-<rect width="680" height="447" fill="#ffffff"/>
-<text x="30.0" y="28.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="600" >Zone 2 ends at the last stage before lactate rises</text>
-<text x="30.0" y="47.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="start" font-weight="400" >A step test of four-minute stages, about 15 W apart, with made-up values: blood lactate</text>
-<text x="30.0" y="63.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="start" font-weight="400" >at the end of each stage, and the answer to “Could I speak comfortably?”</text>
-<rect x="394.1" y="98" width="70.3" height="258" fill="#e6e6e6"/>
-<line x1="86" y1="300" x2="620" y2="300" stroke="#555555" stroke-width="1"/>
-<line x1="86" y1="104" x2="86" y2="300" stroke="#555555" stroke-width="1"/>
-<line x1="81" y1="300.0" x2="86" y2="300.0" stroke="#555555" stroke-width="1"/>
-<text x="76.0" y="304.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="end" font-weight="400" >0</text>
-<line x1="81" y1="238.8" x2="86" y2="238.8" stroke="#555555" stroke-width="1"/>
-<text x="76.0" y="242.8" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="end" font-weight="400" >1</text>
-<line x1="81" y1="177.5" x2="86" y2="177.5" stroke="#555555" stroke-width="1"/>
-<text x="76.0" y="181.5" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="end" font-weight="400" >2</text>
-<line x1="81" y1="116.2" x2="86" y2="116.2" stroke="#555555" stroke-width="1"/>
-<text x="76.0" y="120.2" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="end" font-weight="400" >3</text>
-<text x="42.0" y="202.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" transform="rotate(-90 42 202.0)">Blood lactate (mmol/L)</text>
-<line x1="86" y1="232.6" x2="620" y2="232.6" stroke="#555555" stroke-width="1" stroke-dasharray="4 4"/>
-<text x="616.0" y="246.6" font-family="Helvetica, Arial, sans-serif" font-size="11.5" fill="#555555" text-anchor="end" font-weight="400" >baseline</text>
-<line x1="86" y1="202.0" x2="620" y2="202.0" stroke="#555555" stroke-width="1" stroke-dasharray="4 4"/>
-<text x="616.0" y="216.0" font-family="Helvetica, Arial, sans-serif" font-size="11.5" fill="#555555" text-anchor="end" font-weight="400" >baseline + 0.5</text>
-<polyline points="124.1,232.6 200.4,238.8 276.7,232.6 353.0,226.5 429.3,220.4 505.6,183.6 581.9,128.5" fill="none" stroke="#1a1a1a" stroke-width="2"/>
-<circle cx="124.1" cy="232.6" r="5.5" fill="#1a1a1a" stroke="#ffffff" stroke-width="2"/>
-<text x="124.1" y="220.6" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="600" >1.1</text>
-<text x="124.1" y="320.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >stage 1</text>
-<text x="124.1" y="346.0" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >yes</text>
-<circle cx="200.4" cy="238.8" r="5.5" fill="#1a1a1a" stroke="#ffffff" stroke-width="2"/>
-<text x="200.4" y="226.8" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="600" >1.0</text>
-<text x="200.4" y="320.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >stage 2</text>
-<text x="200.4" y="346.0" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >yes</text>
-<circle cx="276.7" cy="232.6" r="5.5" fill="#1a1a1a" stroke="#ffffff" stroke-width="2"/>
-<text x="276.7" y="220.6" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="600" >1.1</text>
-<text x="276.7" y="320.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >stage 3</text>
-<text x="276.7" y="346.0" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >yes</text>
-<circle cx="353.0" cy="226.5" r="5.5" fill="#1a1a1a" stroke="#ffffff" stroke-width="2"/>
-<text x="353.0" y="214.5" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="600" >1.2</text>
-<text x="353.0" y="320.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >stage 4</text>
-<text x="353.0" y="346.0" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >yes</text>
-<circle cx="429.3" cy="220.4" r="5.5" fill="#1a1a1a" stroke="#ffffff" stroke-width="2"/>
-<text x="429.3" y="241.4" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="600" paint-order="stroke" stroke="#e6e6e6" stroke-width="5">1.3</text>
-<text x="429.3" y="320.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >stage 5</text>
-<text x="429.3" y="346.0" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#1a1a1a" text-anchor="middle" font-weight="600" >yes</text>
-<circle cx="505.6" cy="183.6" r="5.5" fill="#1a1a1a" stroke="#ffffff" stroke-width="2"/>
-<text x="491.6" y="177.6" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="600" >1.9</text>
-<text x="505.6" y="320.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >stage 6</text>
-<text x="505.6" y="346.0" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#1a1a1a" text-anchor="middle" font-weight="600" >not sure</text>
-<circle cx="581.9" cy="128.5" r="5.5" fill="#1a1a1a" stroke="#ffffff" stroke-width="2"/>
-<text x="567.9" y="122.5" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="600" >2.8</text>
-<text x="581.9" y="320.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >stage 7</text>
-<text x="581.9" y="346.0" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#1a1a1a" text-anchor="middle" font-weight="600" >no</text>
-<text x="76.0" y="346.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="end" font-weight="400" >speak?</text>
-<text x="429.3" y="114.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="400" >top of</text>
-<text x="429.3" y="130.0" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#1a1a1a" text-anchor="middle" font-weight="600" >Zone 2</text>
-<text x="86.0" y="384.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="start" font-weight="400" >The first four readings differ by a tenth or two, as a meter’s will. Their average, 1.1, is the baseline.</text>
-<text x="86.0" y="401.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="start" font-weight="400" >Stage 6 is the first to read 0.5 mmol/L above it, and stage 7 confirms it by reading higher still.</text>
-<text x="86.0" y="418.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="start" font-weight="400" >The top of Zone 2 is the power and heart rate of stage 5.</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 492" width="680" height="492" role="img" aria-label="Sketch of a seven-stage step test: lactate flat for five stages then rising, with talk-test answers of yes, not sure and no">
+<rect width="680" height="492" fill="#ffffff"/>
+<text x="30.0" y="30.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="start" font-weight="600" >Zone 2 ends at the last stage before lactate rises</text>
+<text x="30.0" y="53.5" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >A step test of four-minute stages, about 15 W apart, with made-up values: blood</text>
+<text x="30.0" y="72.9" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >lactate at the end of each stage, and the answer to “Could I speak comfortably?”</text>
+<rect x="415.6" y="122.30000000000001" width="73.1" height="266.0" fill="#e6e6e6"/>
+<line x1="96" y1="324.3" x2="650" y2="324.3" stroke="#555555" stroke-width="1"/>
+<line x1="96" y1="128.3" x2="96" y2="324.3" stroke="#555555" stroke-width="1"/>
+<line x1="91" y1="324.3" x2="96" y2="324.3" stroke="#555555" stroke-width="1"/>
+<text x="86.0" y="329.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="end" font-weight="400" >0</text>
+<line x1="91" y1="263.1" x2="96" y2="263.1" stroke="#555555" stroke-width="1"/>
+<text x="86.0" y="268.1" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="end" font-weight="400" >1</text>
+<line x1="91" y1="201.8" x2="96" y2="201.8" stroke="#555555" stroke-width="1"/>
+<text x="86.0" y="206.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="end" font-weight="400" >2</text>
+<line x1="91" y1="140.6" x2="96" y2="140.6" stroke="#555555" stroke-width="1"/>
+<text x="86.0" y="145.6" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="end" font-weight="400" >3</text>
+<text x="52.0" y="226.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" transform="rotate(-90 52 226.3)">Blood lactate (mmol/L)</text>
+<line x1="96" y1="256.9" x2="650" y2="256.9" stroke="#555555" stroke-width="1" stroke-dasharray="4 4"/>
+<text x="646.0" y="273.9" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#555555" text-anchor="end" font-weight="400" >baseline</text>
+<line x1="96" y1="226.3" x2="650" y2="226.3" stroke="#555555" stroke-width="1" stroke-dasharray="4 4"/>
+<text x="646.0" y="243.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#555555" text-anchor="end" font-weight="400" >baseline + 0.5</text>
+<polyline points="135.6,256.9 214.7,263.1 293.9,256.9 373.0,250.8 452.1,244.7 531.3,207.9 610.4,152.8" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+<circle cx="135.6" cy="256.9" r="5.5" fill="#1a1a1a" stroke="#ffffff" stroke-width="2"/>
+<text x="135.6" y="243.9" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="middle" font-weight="600" >1.1</text>
+<text x="135.6" y="348.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#555555" text-anchor="middle" font-weight="400" >stage 1</text>
+<text x="135.6" y="378.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >yes</text>
+<circle cx="214.7" cy="263.1" r="5.5" fill="#1a1a1a" stroke="#ffffff" stroke-width="2"/>
+<text x="214.7" y="250.1" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="middle" font-weight="600" >1.0</text>
+<text x="214.7" y="348.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#555555" text-anchor="middle" font-weight="400" >stage 2</text>
+<text x="214.7" y="378.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >yes</text>
+<circle cx="293.9" cy="256.9" r="5.5" fill="#1a1a1a" stroke="#ffffff" stroke-width="2"/>
+<text x="293.9" y="243.9" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="middle" font-weight="600" >1.1</text>
+<text x="293.9" y="348.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#555555" text-anchor="middle" font-weight="400" >stage 3</text>
+<text x="293.9" y="378.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >yes</text>
+<circle cx="373.0" cy="250.8" r="5.5" fill="#1a1a1a" stroke="#ffffff" stroke-width="2"/>
+<text x="373.0" y="237.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="middle" font-weight="600" >1.2</text>
+<text x="373.0" y="348.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#555555" text-anchor="middle" font-weight="400" >stage 4</text>
+<text x="373.0" y="378.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >yes</text>
+<circle cx="452.1" cy="244.7" r="5.5" fill="#1a1a1a" stroke="#ffffff" stroke-width="2"/>
+<text x="452.1" y="269.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="middle" font-weight="600" paint-order="stroke" stroke="#e6e6e6" stroke-width="5">1.3</text>
+<text x="452.1" y="348.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#555555" text-anchor="middle" font-weight="400" >stage 5</text>
+<text x="452.1" y="378.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="middle" font-weight="600" >yes</text>
+<circle cx="531.3" cy="207.9" r="5.5" fill="#1a1a1a" stroke="#ffffff" stroke-width="2"/>
+<text x="517.3" y="200.9" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="end" font-weight="600" >1.9</text>
+<text x="531.3" y="348.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#555555" text-anchor="middle" font-weight="400" >stage 6</text>
+<text x="531.3" y="378.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="middle" font-weight="600" >not sure</text>
+<circle cx="610.4" cy="152.8" r="5.5" fill="#1a1a1a" stroke="#ffffff" stroke-width="2"/>
+<text x="596.4" y="145.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="end" font-weight="600" >2.8</text>
+<text x="610.4" y="348.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#555555" text-anchor="middle" font-weight="400" >stage 7</text>
+<text x="610.4" y="378.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="middle" font-weight="600" >no</text>
+<text x="86.0" y="378.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="end" font-weight="400" >speak?</text>
+<text x="452.1" y="140.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >top of</text>
+<text x="452.1" y="159.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="middle" font-weight="600" >Zone 2</text>
+<text x="30.0" y="420.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >The first four readings differ by a tenth or two, as a meter’s will. Their average,</text>
+<text x="30.0" y="439.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >1.1, is the baseline. Stage 6 is the first to read 0.5 mmol/L above it, and stage 7</text>
+<text x="30.0" y="459.1" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >confirms it by reading higher still. The top of Zone 2 is the power and heart rate of</text>
+<text x="30.0" y="478.5" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >stage 5.</text>
 </svg>

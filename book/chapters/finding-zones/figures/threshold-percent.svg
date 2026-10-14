@@ -1,46 +1,47 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 426" width="680" height="426" role="img" aria-label="Four range bars on a scale of percentage of maximum heart rate: two rules for Zone 2, at 60 to 70 and 72 to 82 percent, and the measured first lactate threshold, at 78 to 84 percent in two thirds of 50 trained cyclists and from 60 to 90 percent across 100 adults">
-<rect width="680" height="426" fill="#ffffff"/>
-<text x="30.0" y="28.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="600" >No fixed percentage of maximum heart rate finds the first threshold</text>
-<text x="30.0" y="47.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="start" font-weight="400" >Every bar is a range of heart rates, as a percentage of the person’s own maximum.</text>
-<text x="30.0" y="63.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="start" font-weight="400" >The first threshold is the top of Zone 2.</text>
-<line x1="250.0" y1="92" x2="250.0" y2="350" stroke="#e6e6e6" stroke-width="1"/>
-<line x1="334.4" y1="92" x2="334.4" y2="350" stroke="#e6e6e6" stroke-width="1"/>
-<line x1="418.9" y1="92" x2="418.9" y2="350" stroke="#e6e6e6" stroke-width="1"/>
-<line x1="503.3" y1="92" x2="503.3" y2="350" stroke="#e6e6e6" stroke-width="1"/>
-<line x1="587.8" y1="92" x2="587.8" y2="350" stroke="#e6e6e6" stroke-width="1"/>
-<line x1="250.0" y1="350" x2="630.0" y2="350" stroke="#555555" stroke-width="1"/>
-<line x1="250.0" y1="350" x2="250.0" y2="355" stroke="#555555" stroke-width="1"/>
-<text x="250.0" y="370.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >50%</text>
-<line x1="334.4" y1="350" x2="334.4" y2="355" stroke="#555555" stroke-width="1"/>
-<text x="334.4" y="370.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >60%</text>
-<line x1="418.9" y1="350" x2="418.9" y2="355" stroke="#555555" stroke-width="1"/>
-<text x="418.9" y="370.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >70%</text>
-<line x1="503.3" y1="350" x2="503.3" y2="355" stroke="#555555" stroke-width="1"/>
-<text x="503.3" y="370.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >80%</text>
-<line x1="587.8" y1="350" x2="587.8" y2="355" stroke="#555555" stroke-width="1"/>
-<text x="587.8" y="370.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >90%</text>
-<text x="440.0" y="390.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >Percentage of maximum heart rate</text>
-<text x="30.0" y="110.0" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#555555" text-anchor="start" font-weight="600" paint-order="stroke" stroke="#ffffff" stroke-width="6">Where two rules put Zone 2</text>
-<text x="206.0" y="142.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end" font-weight="600" >The 60–70% rule</text>
-<text x="206.0" y="157.0" font-family="Helvetica, Arial, sans-serif" font-size="11.5" fill="#555555" text-anchor="end" font-weight="400" >in wide use</text>
-<rect x="334.4" y="136.0" width="84.4" height="16" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
-<text x="327.4" y="148.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="600" paint-order="stroke" stroke="#ffffff" stroke-width="4">60%</text>
-<text x="425.9" y="148.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="600" paint-order="stroke" stroke="#ffffff" stroke-width="4">70%</text>
-<text x="206.0" y="186.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end" font-weight="600" >Norwegian five-zone scale</text>
-<text x="206.0" y="201.0" font-family="Helvetica, Arial, sans-serif" font-size="11.5" fill="#555555" text-anchor="end" font-weight="400" >its Zone 2</text>
-<rect x="435.8" y="180.0" width="84.4" height="16" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
-<text x="428.8" y="192.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="600" paint-order="stroke" stroke="#ffffff" stroke-width="4">72%</text>
-<text x="527.2" y="192.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="600" paint-order="stroke" stroke="#ffffff" stroke-width="4">82%</text>
-<text x="30.0" y="244.0" font-family="Helvetica, Arial, sans-serif" font-size="12.5" fill="#555555" text-anchor="start" font-weight="600" paint-order="stroke" stroke="#ffffff" stroke-width="6">Where the first lactate threshold was measured</text>
-<text x="206.0" y="276.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end" font-weight="600" >50 trained cyclists</text>
-<text x="206.0" y="291.0" font-family="Helvetica, Arial, sans-serif" font-size="11.5" fill="#555555" text-anchor="end" font-weight="400" >about two in three of them</text>
-<rect x="488.1" y="270.0" width="50.7" height="16" fill="#1a1a1a"/>
-<text x="481.1" y="282.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="600" paint-order="stroke" stroke="#ffffff" stroke-width="4">78%</text>
-<text x="545.8" y="282.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="600" paint-order="stroke" stroke="#ffffff" stroke-width="4">84%</text>
-<text x="206.0" y="320.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end" font-weight="600" >100 adults</text>
-<text x="206.0" y="335.0" font-family="Helvetica, Arial, sans-serif" font-size="11.5" fill="#555555" text-anchor="end" font-weight="400" >lowest to highest</text>
-<rect x="334.4" y="314.0" width="253.3" height="16" fill="#1a1a1a"/>
-<text x="327.4" y="326.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="600" paint-order="stroke" stroke="#ffffff" stroke-width="4">60%</text>
-<text x="594.8" y="326.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="start" font-weight="600" paint-order="stroke" stroke="#ffffff" stroke-width="4">90%</text>
-<text x="30.0" y="414.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="start" font-weight="400" >A rule fits a rider only if its upper end, 70% or 82%, is where that rider’s threshold falls.</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 519" width="680" height="519" role="img" aria-label="Four range bars on a scale of percentage of maximum heart rate: two rules for Zone 2, at 60 to 70 and 72 to 82 percent, and the measured first lactate threshold, at 78 to 84 percent in two thirds of 50 trained cyclists and from 60 to 90 percent across 100 adults">
+<rect width="680" height="519" fill="#ffffff"/>
+<text x="30.0" y="30.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="start" font-weight="600" >No fixed percentage of maximum heart rate finds the first threshold</text>
+<text x="30.0" y="53.5" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >Every bar is a range of heart rates, as a percentage of the person’s own maximum. The</text>
+<text x="30.0" y="72.9" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >first threshold is the top of Zone 2.</text>
+<line x1="300.0" y1="116.30000000000001" x2="300.0" y2="402.3" stroke="#e6e6e6" stroke-width="1"/>
+<line x1="375.6" y1="116.30000000000001" x2="375.6" y2="402.3" stroke="#e6e6e6" stroke-width="1"/>
+<line x1="451.1" y1="116.30000000000001" x2="451.1" y2="402.3" stroke="#e6e6e6" stroke-width="1"/>
+<line x1="526.7" y1="116.30000000000001" x2="526.7" y2="402.3" stroke="#e6e6e6" stroke-width="1"/>
+<line x1="602.2" y1="116.30000000000001" x2="602.2" y2="402.3" stroke="#e6e6e6" stroke-width="1"/>
+<line x1="300.0" y1="402.3" x2="640.0" y2="402.3" stroke="#555555" stroke-width="1"/>
+<line x1="300.0" y1="402.3" x2="300.0" y2="407.3" stroke="#555555" stroke-width="1"/>
+<text x="300.0" y="426.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >50%</text>
+<line x1="375.6" y1="402.3" x2="375.6" y2="407.3" stroke="#555555" stroke-width="1"/>
+<text x="375.6" y="426.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >60%</text>
+<line x1="451.1" y1="402.3" x2="451.1" y2="407.3" stroke="#555555" stroke-width="1"/>
+<text x="451.1" y="426.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >70%</text>
+<line x1="526.7" y1="402.3" x2="526.7" y2="407.3" stroke="#555555" stroke-width="1"/>
+<text x="526.7" y="426.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >80%</text>
+<line x1="602.2" y1="402.3" x2="602.2" y2="407.3" stroke="#555555" stroke-width="1"/>
+<text x="602.2" y="426.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >90%</text>
+<text x="470.0" y="452.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >Percentage of maximum heart rate</text>
+<text x="30.0" y="132.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#555555" text-anchor="start" font-weight="600" paint-order="stroke" stroke="#ffffff" stroke-width="6">Where two rules put Zone 2</text>
+<text x="244.0" y="168.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="end" font-weight="600" >The 60–70% rule</text>
+<text x="244.0" y="187.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#555555" text-anchor="end" font-weight="400" >in wide use</text>
+<rect x="375.6" y="163.3" width="75.6" height="16" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="368.6" y="176.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="end" font-weight="600" paint-order="stroke" stroke="#ffffff" stroke-width="4">60%</text>
+<text x="458.1" y="176.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="600" paint-order="stroke" stroke="#ffffff" stroke-width="4">70%</text>
+<text x="244.0" y="218.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="end" font-weight="600" >Norwegian five-zone scale</text>
+<text x="244.0" y="237.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#555555" text-anchor="end" font-weight="400" >its Zone 2</text>
+<rect x="466.2" y="213.3" width="75.6" height="16" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="459.2" y="226.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="end" font-weight="600" paint-order="stroke" stroke="#ffffff" stroke-width="4">72%</text>
+<text x="548.8" y="226.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="600" paint-order="stroke" stroke="#ffffff" stroke-width="4">82%</text>
+<text x="30.0" y="282.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#555555" text-anchor="start" font-weight="600" paint-order="stroke" stroke="#ffffff" stroke-width="6">Where the first lactate threshold was measured</text>
+<text x="244.0" y="318.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="end" font-weight="600" >50 trained cyclists</text>
+<text x="244.0" y="337.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#555555" text-anchor="end" font-weight="400" >about two in three of them</text>
+<rect x="513.1" y="313.3" width="45.3" height="16" fill="#1a1a1a"/>
+<text x="506.1" y="326.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="end" font-weight="600" paint-order="stroke" stroke="#ffffff" stroke-width="4">78%</text>
+<text x="565.4" y="326.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="600" paint-order="stroke" stroke="#ffffff" stroke-width="4">84%</text>
+<text x="244.0" y="368.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="end" font-weight="600" >100 adults</text>
+<text x="244.0" y="387.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#555555" text-anchor="end" font-weight="400" >lowest to highest</text>
+<rect x="375.6" y="363.3" width="226.7" height="16" fill="#1a1a1a"/>
+<text x="368.6" y="376.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="end" font-weight="600" paint-order="stroke" stroke="#ffffff" stroke-width="4">60%</text>
+<text x="609.2" y="376.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="600" paint-order="stroke" stroke="#ffffff" stroke-width="4">90%</text>
+<text x="30.0" y="486.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >A rule fits a rider only if its upper end, 70% or 82%, is where that rider’s</text>
+<text x="30.0" y="505.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >threshold falls.</text>
 </svg>

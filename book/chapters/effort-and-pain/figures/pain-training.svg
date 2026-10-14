@@ -1,26 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 330" width="680" height="330" role="img" aria-label="Change in pain tolerance and time to exhaustion after six weeks of hard intervals or steady riding">
-<rect width="680" height="330" fill="#ffffff"/>
-<line x1="284.4" y1="32" x2="284.4" y2="274" stroke="#1a1a1a" stroke-width="1"/>
-<text x="284.4" y="292.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >0</text>
-<line x1="370.6" y1="32" x2="370.6" y2="274" stroke="#bdbdbd" stroke-width="1"/>
-<text x="370.6" y="292.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >+50%</text>
-<line x1="456.7" y1="32" x2="456.7" y2="274" stroke="#bdbdbd" stroke-width="1"/>
-<text x="456.7" y="292.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >+100%</text>
-<line x1="542.8" y1="32" x2="542.8" y2="274" stroke="#bdbdbd" stroke-width="1"/>
-<text x="542.8" y="292.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >+150%</text>
-<text x="422.2" y="316.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >Change after six weeks of training</text>
-<text x="206.0" y="52.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end" font-weight="600" >Pain tolerance</text>
-<text x="206.0" y="80.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="400" >Hard intervals</text>
-<rect x="284.4" y="68" width="70.6" height="20" rx="3" fill="#1a1a1a"/>
-<text x="365.1" y="83.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="600" >+41%</text>
-<text x="206.0" y="120.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="end" font-weight="400" >Steady riding</text>
-<rect x="279.3" y="108" width="5.2" height="20" rx="3" fill="#bdbdbd"/>
-<text x="294.4" y="123.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="600" >−3%</text>
-<text x="206.0" y="182.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end" font-weight="600" >Time to exhaustion</text>
-<text x="206.0" y="210.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#1a1a1a" text-anchor="end" font-weight="400" >Hard intervals</text>
-<rect x="284.4" y="198" width="254.9" height="20" rx="3" fill="#1a1a1a"/>
-<text x="549.3" y="213.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="600" >+148%</text>
-<text x="206.0" y="250.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="end" font-weight="400" >Steady riding</text>
-<rect x="284.4" y="238" width="65.4" height="20" rx="3" fill="#bdbdbd"/>
-<text x="359.9" y="253.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="600" >+38%</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 352" width="680" height="352" role="img" aria-label="Change in pain tolerance and time to exhaustion after six weeks of hard intervals or steady riding">
+<rect width="680" height="352" fill="#ffffff"/>
+<line x1="284.4" y1="32" x2="284.4" y2="286" stroke="#1a1a1a" stroke-width="1"/>
+<text x="284.4" y="308.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >0</text>
+<line x1="370.6" y1="32" x2="370.6" y2="286" stroke="#bdbdbd" stroke-width="1"/>
+<text x="370.6" y="308.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >+50%</text>
+<line x1="456.7" y1="32" x2="456.7" y2="286" stroke="#bdbdbd" stroke-width="1"/>
+<text x="456.7" y="308.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >+100%</text>
+<line x1="542.8" y1="32" x2="542.8" y2="286" stroke="#bdbdbd" stroke-width="1"/>
+<text x="542.8" y="308.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >+150%</text>
+<text x="422.2" y="336.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >Change after six weeks of training</text>
+<text x="206.0" y="52.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="end" font-weight="600" >Pain tolerance</text>
+<text x="206.0" y="84.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="end" font-weight="400" >Hard intervals</text>
+<rect x="284.4" y="70" width="70.6" height="22" rx="3" fill="#1a1a1a"/>
+<text x="365.1" y="87.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >+41%</text>
+<text x="206.0" y="126.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="end" font-weight="400" >Steady riding</text>
+<rect x="279.3" y="112" width="5.2" height="22" rx="3" fill="#bdbdbd"/>
+<text x="294.4" y="129.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >−3%</text>
+<text x="206.0" y="188.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="end" font-weight="600" >Time to exhaustion</text>
+<text x="206.0" y="220.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="end" font-weight="400" >Hard intervals</text>
+<rect x="284.4" y="206" width="254.9" height="22" rx="3" fill="#1a1a1a"/>
+<text x="549.3" y="223.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >+148%</text>
+<text x="206.0" y="262.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="end" font-weight="400" >Steady riding</text>
+<rect x="284.4" y="248" width="65.4" height="22" rx="3" fill="#bdbdbd"/>
+<text x="359.9" y="265.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >+38%</text>
 </svg>

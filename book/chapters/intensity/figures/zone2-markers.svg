@@ -1,67 +1,67 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 496" width="680" height="496" role="img" aria-label="Average power at nine markers of Zone 2 in 50 trained cyclists, from Meixner 2025">
-<rect width="680" height="496" fill="#ffffff"/>
-<text x="30.0" y="28.0" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#1a1a1a" text-anchor="start" font-weight="600" >Nine markers of Zone 2 span about 100 watts in the same riders</text>
-<text x="30.0" y="47.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="start" font-weight="400" >Average power at each marker in 50 trained cyclists tested in one laboratory,</text>
-<text x="30.0" y="63.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="start" font-weight="400" >with the heart rate at that power as a percentage of maximum.</text>
-<line x1="262.0" y1="438" x2="560.0" y2="438" stroke="#555555" stroke-width="1"/>
-<line x1="262.0" y1="438" x2="262.0" y2="443" stroke="#555555" stroke-width="1"/>
-<text x="262.0" y="458.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >100 W</text>
-<line x1="361.3" y1="438" x2="361.3" y2="443" stroke="#555555" stroke-width="1"/>
-<text x="361.3" y="458.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >150 W</text>
-<line x1="460.7" y1="438" x2="460.7" y2="443" stroke="#555555" stroke-width="1"/>
-<text x="460.7" y="458.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >200 W</text>
-<line x1="560.0" y1="438" x2="560.0" y2="443" stroke="#555555" stroke-width="1"/>
-<text x="560.0" y="458.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="middle" font-weight="400" >250 W</text>
-<text x="646.0" y="82.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="end" font-weight="400" >heart rate</text>
-<text x="246.0" y="108.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end" font-weight="600" >Peak fat burning</text>
-<text x="246.0" y="123.0" font-family="Helvetica, Arial, sans-serif" font-size="11.5" fill="#555555" text-anchor="end" font-weight="400" >median</text>
-<line x1="262.0" y1="111.0" x2="311.7" y2="111.0" stroke="#bdbdbd" stroke-width="1"/>
-<circle cx="311.7" cy="111.0" r="5.5" fill="#1a1a1a" stroke="#ffffff" stroke-width="2"/>
-<text x="323.7" y="115.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="600" >125 W</text>
-<text x="646.0" y="115.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="end" font-weight="400" >72%</text>
-<text x="246.0" y="146.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end" font-weight="600" >72% of maximum heart rate</text>
-<text x="246.0" y="161.0" font-family="Helvetica, Arial, sans-serif" font-size="11.5" fill="#555555" text-anchor="end" font-weight="400" >bottom of the Norwegian Zone 2</text>
-<line x1="262.0" y1="149.0" x2="357.4" y2="149.0" stroke="#bdbdbd" stroke-width="1"/>
-<circle cx="357.4" cy="149.0" r="5.5" fill="#1a1a1a" stroke="#ffffff" stroke-width="2"/>
-<text x="369.4" y="153.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="600" >148 W</text>
-<text x="646.0" y="153.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="end" font-weight="400" >72%</text>
-<text x="246.0" y="191.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end" font-weight="600" >65% of VO₂peak</text>
-<line x1="262.0" y1="187.0" x2="426.9" y2="187.0" stroke="#bdbdbd" stroke-width="1"/>
-<circle cx="426.9" cy="187.0" r="5.5" fill="#1a1a1a" stroke="#ffffff" stroke-width="2"/>
-<text x="438.9" y="191.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="600" >183 W</text>
-<text x="646.0" y="191.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="end" font-weight="400" >78%</text>
-<text x="246.0" y="222.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end" font-weight="600" >Lactate 1.5 mmol/L</text>
-<text x="246.0" y="237.0" font-family="Helvetica, Arial, sans-serif" font-size="11.5" fill="#555555" text-anchor="end" font-weight="400" >41 riders; bottom of Norwegian Zone 2</text>
-<line x1="262.0" y1="225.0" x2="448.7" y2="225.0" stroke="#bdbdbd" stroke-width="1"/>
-<circle cx="448.7" cy="225.0" r="5.5" fill="#1a1a1a" stroke="#ffffff" stroke-width="2"/>
-<text x="460.7" y="229.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="600" >194 W</text>
-<text x="646.0" y="229.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="end" font-weight="400" >78%</text>
-<text x="246.0" y="260.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end" font-weight="600" >Lactate 0.5 mmol/L above baseline</text>
-<text x="246.0" y="275.0" font-family="Helvetica, Arial, sans-serif" font-size="11.5" fill="#555555" text-anchor="end" font-weight="400" >a first lactate threshold</text>
-<line x1="262.0" y1="263.0" x2="458.7" y2="263.0" stroke="#bdbdbd" stroke-width="1"/>
-<circle cx="458.7" cy="263.0" r="5.5" fill="#1a1a1a" stroke="#ffffff" stroke-width="2"/>
-<text x="470.7" y="267.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="600" >199 W</text>
-<text x="646.0" y="267.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="end" font-weight="400" >81%</text>
-<text x="246.0" y="305.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end" font-weight="600" >First ventilatory threshold</text>
-<line x1="262.0" y1="301.0" x2="460.7" y2="301.0" stroke="#bdbdbd" stroke-width="1"/>
-<circle cx="460.7" cy="301.0" r="5.5" fill="#1a1a1a" stroke="#ffffff" stroke-width="2"/>
-<text x="472.7" y="305.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="600" >200 W</text>
-<text x="646.0" y="305.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="end" font-weight="400" >81%</text>
-<text x="246.0" y="336.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end" font-weight="600" >82% of maximum heart rate</text>
-<text x="246.0" y="351.0" font-family="Helvetica, Arial, sans-serif" font-size="11.5" fill="#555555" text-anchor="end" font-weight="400" >top of the Norwegian Zone 2</text>
-<line x1="262.0" y1="339.0" x2="464.6" y2="339.0" stroke="#bdbdbd" stroke-width="1"/>
-<circle cx="464.6" cy="339.0" r="5.5" fill="#1a1a1a" stroke="#ffffff" stroke-width="2"/>
-<text x="476.6" y="343.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="600" >202 W</text>
-<text x="646.0" y="343.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="end" font-weight="400" >82%</text>
-<text x="246.0" y="381.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end" font-weight="600" >Lactate 2.0 mmol/L</text>
-<line x1="262.0" y1="377.0" x2="482.5" y2="377.0" stroke="#bdbdbd" stroke-width="1"/>
-<circle cx="482.5" cy="377.0" r="5.5" fill="#1a1a1a" stroke="#ffffff" stroke-width="2"/>
-<text x="494.5" y="381.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="600" >211 W</text>
-<text x="646.0" y="381.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="end" font-weight="400" >83%</text>
-<text x="246.0" y="412.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="end" font-weight="600" >Lactate 2.5 mmol/L</text>
-<text x="246.0" y="427.0" font-family="Helvetica, Arial, sans-serif" font-size="11.5" fill="#555555" text-anchor="end" font-weight="400" >top of the Norwegian Zone 2</text>
-<line x1="262.0" y1="415.0" x2="508.3" y2="415.0" stroke="#bdbdbd" stroke-width="1"/>
-<circle cx="508.3" cy="415.0" r="5.5" fill="#1a1a1a" stroke="#ffffff" stroke-width="2"/>
-<text x="520.3" y="419.0" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#1a1a1a" text-anchor="start" font-weight="600" >224 W</text>
-<text x="646.0" y="419.0" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#555555" text-anchor="end" font-weight="400" >86%</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 592.3" width="680" height="592.3" role="img" aria-label="Average power at nine markers of Zone 2 in 50 trained cyclists, from Meixner 2025">
+<rect width="680" height="592.3" fill="#ffffff"/>
+<text x="30.0" y="30.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="start" font-weight="600" >Nine markers of Zone 2 span about 100 watts in the same riders</text>
+<text x="30.0" y="53.5" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >Average power at each marker in 50 trained cyclists tested in one laboratory, with</text>
+<text x="30.0" y="72.9" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >the heart rate at that power as a percentage of maximum.</text>
+<line x1="340.0" y1="542.3" x2="560.0" y2="542.3" stroke="#555555" stroke-width="1"/>
+<line x1="340.0" y1="542.3" x2="340.0" y2="547.3" stroke="#555555" stroke-width="1"/>
+<text x="340.0" y="566.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >100 W</text>
+<line x1="413.3" y1="542.3" x2="413.3" y2="547.3" stroke="#555555" stroke-width="1"/>
+<text x="413.3" y="566.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >150 W</text>
+<line x1="486.7" y1="542.3" x2="486.7" y2="547.3" stroke="#555555" stroke-width="1"/>
+<text x="486.7" y="566.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >200 W</text>
+<line x1="560.0" y1="542.3" x2="560.0" y2="547.3" stroke="#555555" stroke-width="1"/>
+<text x="560.0" y="566.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >250 W</text>
+<text x="670.0" y="112.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="end" font-weight="400" >heart rate</text>
+<text x="324.0" y="143.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="end" font-weight="600" >Peak fat burning</text>
+<text x="324.0" y="162.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#555555" text-anchor="end" font-weight="400" >median</text>
+<line x1="340.0" y1="147.3" x2="376.7" y2="147.3" stroke="#bdbdbd" stroke-width="1"/>
+<circle cx="376.7" cy="147.3" r="5.5" fill="#1a1a1a" stroke="#ffffff" stroke-width="2"/>
+<text x="388.7" y="152.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >125 W</text>
+<text x="670.0" y="152.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="end" font-weight="400" >72%</text>
+<text x="324.0" y="189.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="end" font-weight="600" >72% of maximum heart rate</text>
+<text x="324.0" y="208.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#555555" text-anchor="end" font-weight="400" >bottom of the Norwegian Zone 2</text>
+<line x1="340.0" y1="193.3" x2="410.4" y2="193.3" stroke="#bdbdbd" stroke-width="1"/>
+<circle cx="410.4" cy="193.3" r="5.5" fill="#1a1a1a" stroke="#ffffff" stroke-width="2"/>
+<text x="422.4" y="198.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >148 W</text>
+<text x="670.0" y="198.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="end" font-weight="400" >72%</text>
+<text x="324.0" y="244.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="end" font-weight="600" >65% of VO₂peak</text>
+<line x1="340.0" y1="239.3" x2="461.7" y2="239.3" stroke="#bdbdbd" stroke-width="1"/>
+<circle cx="461.7" cy="239.3" r="5.5" fill="#1a1a1a" stroke="#ffffff" stroke-width="2"/>
+<text x="473.7" y="244.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >183 W</text>
+<text x="670.0" y="244.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="end" font-weight="400" >78%</text>
+<text x="324.0" y="281.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="end" font-weight="600" >Lactate 1.5 mmol/L</text>
+<text x="324.0" y="300.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#555555" text-anchor="end" font-weight="400" >41 riders; bottom of Norwegian Zone 2</text>
+<line x1="340.0" y1="285.3" x2="477.9" y2="285.3" stroke="#bdbdbd" stroke-width="1"/>
+<circle cx="477.9" cy="285.3" r="5.5" fill="#1a1a1a" stroke="#ffffff" stroke-width="2"/>
+<text x="489.9" y="290.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >194 W</text>
+<text x="670.0" y="290.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="end" font-weight="400" >78%</text>
+<text x="324.0" y="327.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="end" font-weight="600" >Lactate 0.5 mmol/L above baseline</text>
+<text x="324.0" y="346.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#555555" text-anchor="end" font-weight="400" >a first lactate threshold</text>
+<line x1="340.0" y1="331.3" x2="485.2" y2="331.3" stroke="#bdbdbd" stroke-width="1"/>
+<circle cx="485.2" cy="331.3" r="5.5" fill="#1a1a1a" stroke="#ffffff" stroke-width="2"/>
+<text x="497.2" y="336.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >199 W</text>
+<text x="670.0" y="336.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="end" font-weight="400" >81%</text>
+<text x="324.0" y="382.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="end" font-weight="600" >First ventilatory threshold</text>
+<line x1="340.0" y1="377.3" x2="486.7" y2="377.3" stroke="#bdbdbd" stroke-width="1"/>
+<circle cx="486.7" cy="377.3" r="5.5" fill="#1a1a1a" stroke="#ffffff" stroke-width="2"/>
+<text x="498.7" y="382.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >200 W</text>
+<text x="670.0" y="382.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="end" font-weight="400" >81%</text>
+<text x="324.0" y="419.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="end" font-weight="600" >82% of maximum heart rate</text>
+<text x="324.0" y="438.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#555555" text-anchor="end" font-weight="400" >top of the Norwegian Zone 2</text>
+<line x1="340.0" y1="423.3" x2="489.6" y2="423.3" stroke="#bdbdbd" stroke-width="1"/>
+<circle cx="489.6" cy="423.3" r="5.5" fill="#1a1a1a" stroke="#ffffff" stroke-width="2"/>
+<text x="501.6" y="428.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >202 W</text>
+<text x="670.0" y="428.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="end" font-weight="400" >82%</text>
+<text x="324.0" y="474.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="end" font-weight="600" >Lactate 2.0 mmol/L</text>
+<line x1="340.0" y1="469.3" x2="502.8" y2="469.3" stroke="#bdbdbd" stroke-width="1"/>
+<circle cx="502.8" cy="469.3" r="5.5" fill="#1a1a1a" stroke="#ffffff" stroke-width="2"/>
+<text x="514.8" y="474.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >211 W</text>
+<text x="670.0" y="474.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="end" font-weight="400" >83%</text>
+<text x="324.0" y="511.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="end" font-weight="600" >Lactate 2.5 mmol/L</text>
+<text x="324.0" y="530.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#555555" text-anchor="end" font-weight="400" >top of the Norwegian Zone 2</text>
+<line x1="340.0" y1="515.3" x2="521.9" y2="515.3" stroke="#bdbdbd" stroke-width="1"/>
+<circle cx="521.9" cy="515.3" r="5.5" fill="#1a1a1a" stroke="#ffffff" stroke-width="2"/>
+<text x="533.9" y="520.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >224 W</text>
+<text x="670.0" y="520.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="end" font-weight="400" >86%</text>
 </svg>
