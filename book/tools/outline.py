@@ -159,32 +159,36 @@ PARTS = [(None,
   [('11',
     'Time near VO₂max',
     'Why does time spent close to VO₂max keep coming up in interval research?',
-    ["Billat's early work on time at VO₂max",
-     'What drives oxygen uptake up during an interval, and how fast',
-     'The first training study to link it to fitness gains'],
-    'Rønnestad & Hansen 2016 · Odden et al. 2024 · Urianstad et al. 2024 · Billat 2001 (to verify)',
+    ["Billat's runners on a track with gas analysers, and where the idea came from",
+     'Why short intervals keep you near the ceiling at fixed power, and why pacing matters more',
+     'The one study that followed it through training: a correlation, confounded by volume',
+     'Responders, doses and other routes to a higher VO₂max'],
+    'Billat et al. 2000 · Odden et al. 2024 · Urianstad et al. 2024 · Appelhans et al. 2025 · Bacon et al. 2013 · Inglis et al. 2024',
     5000,
-    0,
-    'Partly on the website'),
+    3450,
+    ''),
    ('12',
     'Designing intervals',
     '4 × 4, 4 × 8 or 30/15: which interval session, and why?',
-    ['Classic long intervals and the trials behind them',
-     'Short intervals, effort matching and the 2025 self-paced result',
-     'Fast-start intervals and varied-power efforts',
-     'Choosing a session for a goal'],
-    'Helgerud et al. 2007 · Sylta et al. 2016 (to verify) · Rønnestad et al. 2015, 2020 · Appelhans et al. 2025',
+    ['Four ways to spend two sessions a week: 4 × 8 beat 4 × 4 and 4 × 16 in recreational cyclists',
+     'Long intervals, 30/15s, threshold intervals and sprints, and what each does',
+     'How hard, fixed power or all-out, recoveries, and the order of sessions',
+     'Five sessions, in brief'],
+    'Seiler et al. 2013 · Sylta et al. 2016 · Rønnestad et al. 2015, 2020 · Rosenblat et al. 2020 · Helgerud et al. 2023',
     7000,
-    0,
-    'Partly on the website'),
+    3980,
+    ''),
    ('13',
     'How many hard sessions, and how often',
     'Is two hard sessions a week really the right number?',
-    ['Frequency trials: one against two against three', 'Recovery physiology and the 48-hour rule', 'Block periodisation and when three works'],
-    'Stanley et al. 2013 · Hatle et al. 2014 · Tønnessen et al. 2020 · Rønnestad et al. 2014',
+    ['Where two comes from, and trials of one, two, three and four',
+     'A difference in significance is not a significant difference',
+     'Recovery, blocks, threshold sessions and maintenance',
+     "Is the champions' hour a ceiling? A dose of 40 to 65 minutes of hard work a week"],
+    'Tønnessen et al. 2020 · Lenk et al. 2025 · Stanley et al. 2013 · Hatle et al. 2014 · Rønnestad et al. 2014 · Hickson et al. 1981',
     6000,
-    0,
-    'Website post exists')]),
+    3170,
+    '')]),
  ('Part IV',
   'Everything else',
   'The things besides ordinary training that are credited with making riders faster.',
@@ -243,33 +247,33 @@ PARTS = [(None,
     'The training week',
     'What does a sensible week look like at 4, 8 and 12 hours?',
     ["The planner's rules, explained and justified", 'Worked weeks, and how they change across a season', 'Easier weeks and building volume'],
-    'Draws on Finding your zones, What easy riding does and How many hard sessions',
+    'Buist 2008 · Bosquet 2007 · Impellizzeri 2020 · Mølmen 2019 · and the chapters of Parts I to III',
     5000,
-    0,
-    'Partly on the website'),
+    3560,
+    'Drafted 15 October with Special cases, Knowing it’s working and The verdict; two figures'),
    ('19',
     'Special cases',
     'What changes for masters riders, women, and riders short of time or training indoors?',
     ['Ageing, recovery and what the evidence actually shows',
      'Women: what is known, and how little of the research included them',
      'Riding indoors: heat, cardiac drift and ERG mode'],
-    'Coyle & González-Alonso 2001 · sources to find for each section',
+    'Pollock 1997 · Tanaka & Seals 2008 · Ose 2025 · McNulty 2020 · Diaz-Canestro & Montero 2019 · Mieras 2014',
     7000,
-    0,
-    'New research'),
+    3000,
+    'Drafted 15 October; two figures; about 4,000 words short'),
    ('20',
     "Knowing it's working",
     "How can you tell you're getting fitter without an FTP test?",
     ['Power at a fixed heart rate, and what adds noise to it', 'Cardiac drift and decoupling', 'How fast fitness is lost when you stop'],
-    'Buchheit 2014 · Coyle & González-Alonso 2001 · detraining sources to find',
+    'Buchheit 2014 · Lamberts 2011 · Saw 2016 · Javaloyes 2019 · Molina-Garcia 2022 · Hellard 2006 · Mujika & Padilla 2000',
     6000,
-    0,
-    'Partly on the website')]),
+    3150,
+    'Drafted 15 October; three figures')]),
  (None,
   None,
   None,
   'front',
-  [('21', 'The verdict', 'Just Zone 2?', ['A graded answer, claim by claim', "What the research still can't tell us"], '', 3000, 0, 'Written last')])]
+  [('21', 'The verdict', 'Just Zone 2?', ['A graded answer, claim by claim', "What the research still can't tell us"], 'Every chapter of the book', 3000, 2010, 'Drafted 15 October at George’s request; to be revised once the rest is reviewed; one figure')])]
 
 e = html.escape
 
@@ -324,7 +328,7 @@ def build():
       <li><b>Five chapters added:</b> Effort, pain and the brain (3), Fuelling (14), Strength training (15), Heat training (16) and Drugs (17).</li>
       <li><b>A new Part IV, Everything else,</b> holds those last four. Putting it together is now Part V.</li>
       <li><b>Renumbered:</b> every chapter from Intensity onwards has moved. The verdict is now 21.</li>
-      <li><b>Fifteen chapters drafted:</b> the introduction, Chapters 1 to 10, Fuelling, Strength training, Heat training and Drugs. All are first drafts awaiting your read. Beyond performance (10) is the newest, which completes Part II. Finding your zones (6) was rewritten on 11 October to lead with the lactate threshold, and the book now defines the top of Zone 2 by lactate (Chapters 5 and 6).</li>
+      <li><b>Every chapter drafted:</b> the introduction and Chapters 1 to 21. All are first drafts awaiting your read. Part V (18 to 20) and The verdict (21) are the newest, drafted together on 15 October with eight new figures, and three more figures were added to Chapters 1, 12 and 13. Part III (11 to 13, on intervals) was drafted together the same day; Beyond performance (10) completed Part II. Finding your zones (6) was rewritten on 11 October to lead with the lactate threshold, and the book now defines the top of Zone 2 by lactate (Chapters 5 and 6).</li>
       <li><b>Length:</b> the plan has grown from about 93,000 to about {round(target, -2):,} words.</li>
     </ul>
   </section>
@@ -433,8 +437,8 @@ def build():
         <p>Original conversations with two or three researchers would set the book apart from anything else on the shelf. They're worth arranging once more of the draft exists.</p>
       </div>
       <div class="decision">
-        <h3>What to write next</h3>
-        <p>Parts I and II are drafted. Next comes Part III on intervals, starting with Time near VO₂max (11). How many hard sessions (13) has to take up the question Chapter 8 leaves open: whether the champions' steady hour or so of hard training a week is a ceiling, and where it lies for a rider on 6 to 10 hours. Beyond performance (10) leaves Part III a narrower job too: for a rider on six to ten hours, the split between easy and hard riding is a question of performance, not health.</p>
+        <h3>What happens next</h3>
+        <p>Every chapter now has a first draft, about 91,700 words. What remains is your review, then a revision pass on each chapter, the edit-down, and The verdict rewritten last to match. Several drafts are short of their targets (Special cases by about 4,000 words), and each brief lists what could be added.</p>
       </div>
     </div>
   </section>

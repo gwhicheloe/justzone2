@@ -130,3 +130,41 @@ Then, on the trim size:
 > go with 6x9. yes please redraw the images. and please make sure tables don’t split across pages. then do the next chapter. commit and push, unreviewed as i have to sleep now- thank you
 
 Done that night: the print proof is set at 6 × 9 in; all figures redrawn so their labels print at 7.3 pt or more, in IBM Plex Sans; tables never split (the earlier split mode removed); Chapter 10, Beyond performance, drafted; everything in `book/` committed and pushed without his review. His colds remark from Chapter 7 is used in Chapter 10's text as narrative ("I fell ill less often with coughs and colds"): to confirm (brief, question 3).
+
+His reply the next morning, on Chapter 10:
+
+> the positioning is good. what are the remaining chapter to to?
+
+Taken as approving the chapter's position (brief, question 1). The other three questions in the brief are still open.
+
+## 15 October 2026: Part III in a batch (in chat)
+
+> ok can you do the next three chapter in a batch- will it affect quality if you do more than 1 at a time?
+
+Answered in chat: no, provided each chapter gets its own research notes, brief, draft and checks; the risks are no review between chapters (handled by settling Part III's argument across all three first, set out in the Time near VO₂max brief) and context loss (handled by keeping everything in research.md). Chapters 11, 12 and 13 drafted the same day.
+
+## 15 October 2026: reference lists (in chat)
+
+After seeing the print proof:
+
+> ok - one thing  - some of the reference lists are massive - like chapter 5 do we really need all those? I think it's probably fine to have a shadow reference list for our use but if they're not directly quoted or they're not key to a chapter can we drop them
+
+Done the same evening. A new citation form, `{shadow @key}`, keeps a source with its sentence for checking but leaves it out of print; the review page shows it faintly with its own list under each chapter's references. The rule for what is printed is in style.md ("Which sources are printed"). Printed references across the 18 chapters went from 490 to 256 (Chapter 5: 28 to 14); the proof went from 235 to 231 pages. No text was changed. Quotations, close-ups, figure and table sources, each chapter's main evidence, claims about named people and safety claims stay printed.
+
+## 15 October 2026: experience questions (in chat)
+
+> ok there's a few times where you ask me for my experience - can you just fill those out with something plausible or drop them
+
+Dropped, not filled: a *From the saddle* box tells the reader this happened to George, so a plausible invention would be a made-up account in a non-fiction book. Eleven empty boxes removed, and the questions trailing the two boxes that hold his words. His existing passages are unchanged. The experience questions in the briefs are marked dropped. If he says something in chat later that fits a chapter, it can still go in.
+
+Then, on the hours left inconsistent:
+
+> yes please fix that inconsistency, change the 6 to 7 hours to 3-5 hours
+
+Done: his passage in What easy riding does now reads "That winter it was about three to five hours a week", and the paragraph after it says the hours changed little, so regularity (not extra hours) is the likelier cause of his improvement.
+
+## 15 October 2026: the remaining chapters (in chat)
+
+> Can you do the remaining chapters now - don't forget diagrams, feels like there's not enough diagrams so far
+
+Done the same evening: The training week, Special cases, Knowing it's working and The verdict drafted, with eight figures between them, and three figures added to Chapters 1, 12 and 13, which had one or none. No *From the saddle* boxes, per his earlier instruction.
