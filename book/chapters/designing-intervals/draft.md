@@ -128,7 +128,7 @@ Across sports the middle of the range keeps doing well. A 2025 analysis of 51 st
 
 ## Short intervals: 30/15
 
-The session called 30/15 is three sets of 13 repetitions of 30 seconds hard and 15 seconds easy, with three minutes between sets [@ronnestad2020]. That is 19.5 minutes of hard work in about 35 minutes, and the short recoveries keep oxygen uptake high throughout, as described above.
+The session called 30/15 is three sets of 13 repetitions of 30 seconds hard and 15 seconds easy, with three minutes between sets [@ronnestad2020]. That is 19.5 minutes of hard work in about 35 minutes, and the short recoveries keep oxygen uptake high throughout, as described above. Fifteen seconds is long enough to decide that the next 30 seconds are impossible, which is about when they start.
 
 Two trials from Bent Rønnestad's group in Norway put it against effort-matched sessions of 4 × 5 minutes with two and a half minutes of recovery. In 2015, 16 cyclists did two sessions a week for ten weeks among their easy training, with the same volumes of hard and easy riding in both groups. VO₂max rose 8.7% in the 30/15 group against 2.6% in the long-interval group, and every performance measure, from 30-second to 40-minute power, moved in favour of the short intervals by a moderate to large amount [@ronnestad2015b]. In 2020 the same comparison in 18 elite cyclists, with a VO₂max of 73, ran for three weeks at three sessions a week. VO₂max did not differ between the groups, but the 30/15 group's peak power rose 3.7% against a fall of 0.3%, and its 20-minute power rose 4.7% against a fall of 1.4% [@ronnestad2020].
 

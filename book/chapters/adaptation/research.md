@@ -21,6 +21,7 @@ Written 10 October 2026. Tags: [FT] read in the full text; [Abs] stated in the p
 
 ## PGC-1α
 
+- Full name: peroxisome proliferator-activated receptor gamma coactivator 1-alpha (PPARγ coactivator-1α). [GK; used in the draft's opening of "How it works" for a dry line, 15 October 2026]
 - Found in 1998 in a brown-fat library from mice; its mRNA rises sharply in brown fat and skeletal muscle on cold exposure; put into white fat cells it switches on mitochondrial respiratory-chain enzymes and raises mitochondrial DNA. [Abs, Puigserver 1998]
 - Mice engineered to make more PGC-1α in muscle: muscles normally rich in type II fibres become redder, switch on mitochondrial genes, make type I proteins and resist fatigue from electrical stimulation much longer. [Abs, Lin 2002]
 - Mice with no PGC-1α increased mitochondrial enzymes with five weeks of training about as much as normal mice (Leick et al. 2008). [Rep, by Perry 2010, Discussion. Leick 2008 itself not read.] Perry's reading: PGC-1α probably mediates the response but other mechanisms exist.

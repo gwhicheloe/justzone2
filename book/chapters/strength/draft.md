@@ -2,7 +2,7 @@
 
 In 1980 Robert Hickson published a study with three groups of volunteers. One lifted weights five days a week. One did endurance training six days a week. The third did both programmes in full. After ten weeks the endurance and combined groups had raised their VO₂max by the same amount, about 25% on a bike test. Strength told a different story. The combined group kept pace with the lifters for seven weeks, then stopped improving, and in the ninth and tenth weeks went backwards [@hickson1980].
 
-The paper's title called this an interference, and the word stuck. For lifters it was a warning that endurance work costs strength. Many endurance athletes took it to mean that the two kinds of training don't mix, and stayed out of the gym.
+The paper's title called this an interference, and the word stuck. For lifters it was a warning that endurance work costs strength. Many endurance athletes took it to mean that the two kinds of training don't mix, and stayed out of the gym with a clear conscience.
 
 The study never showed that. Its endurance result was that lifting did no harm: VO₂max rose as much with weights as without. Eight years later Hickson tested the question the right way round. Eight runners and cyclists who had stopped improving added heavy leg training three days a week for ten weeks and changed nothing else. Their leg strength rose by 30%. Their VO₂max did not change. But they lasted 11% longer in a hard effort of four to eight minutes on the bike, and their time to exhaustion at 80% of VO₂max went from 71 minutes to 85 [@hickson1988].
 

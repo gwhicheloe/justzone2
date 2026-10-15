@@ -52,7 +52,7 @@ This is where the case for large volumes of easy riding begins. If easy training
 
 ## Efficiency: turning oxygen into watts
 
-The third factor is the easiest to overlook. Of the energy your muscles release from oxygen and fuel, only a fraction ends up as power at the cranks. The rest becomes heat. In cyclists, that fraction, the *gross efficiency*, typically ranges from about 18.5% to 23.5% at 300 watts [@joynercoyle2008]. Joyner and Coyle estimate that efficiency varies by 20 to 30% between cyclists, which is a large range for something that rarely appears in training discussions.
+The third factor is the easiest to overlook. Of the energy your muscles release from oxygen and fuel, only a fraction ends up as power at the cranks. The rest becomes heat, which is why nobody rides a turbo trainer without a fan more than once. In cyclists, that fraction, the *gross efficiency*, typically ranges from about 18.5% to 23.5% at 300 watts [@joynercoyle2008]. Joyner and Coyle estimate that efficiency varies by 20 to 30% between cyclists, which is a large range for something that rarely appears in training discussions.
 
 Taking the two ends of that range, a rider with a gross efficiency of 23% produces about a quarter more power from the same oxygen than a rider at 18.5% [@joynercoyle2008]. No training block raises VO₂max by a quarter in a trained cyclist.
 

@@ -176,3 +176,39 @@ Done the same evening: The training week, Special cases, Knowing it's working an
 > ok - do those first two changes. I really want to keep the drugs one and the heat training
 
 Done: Time near VO₂max merged into Designing intervals (now Chapter 11), and the "six to ten hours" endings of Chapters 8, 11 and 12 gathered into The training week (now 17). Drugs and Heat training kept. Later chapters renumbered.
+
+## 15 October 2026: humour (in chat)
+
+> can you do another review looking for opportunities to insert some humour - not too much just one per chapter
+
+And, while that was being done:
+
+> dry humour
+
+Done the same evening: one dry line inserted in each of the 21 chapters, each built on something already in the chapter, with no new numbers or sources and nothing claimed as his experience. The rule is now in style.md (Voice). Each line, for him to strike or keep:
+
+- Introduction: the word *mitochondria* appears more often in this book than the word *bike* (true on 15 October: 46 against 32; recheck before print).
+- 1 What limits endurance: most of the energy becomes heat, "which is why nobody rides a turbo trainer without a fan more than once".
+- 2 How bodies adapt: PGC-1α's full name, "which is why everyone calls it PGC-1α".
+- 3 Effort, pain and the brain: after Marcora's riders who "couldn't" go on at 242 W but then made 731 W, "a child too tired to walk another step can usually still run to an ice-cream van".
+- 4 How to read a training study: exercise physiology knows the young male student about as well as it knows the laboratory rat.
+- 5 Intensity: the skiers' own effort ratings matched their heart rate monitors, and "only the monitors needed batteries".
+- 6 Finding your zones: 220 minus age traced to a 1971 figure caption: "It has had a long career for a caption."
+- 7 What easy riding does: after the list of claims made for Zone 2, "That is a lot to ask of a pace at which you can hold a conversation."
+- 8 Why elite athletes ride easy: the professionals' lockdown training of about 12 hours a week: "Most readers of this book would call that a training camp."
+- 9 Durability: the book prefers "durability" to "physiological resilience"; "It is also easier to say on a climb."
+- 10 Beyond performance: the identical twins with a hazard ratio of 1.00: "For the twin on the sofa, it is the best news in this chapter."
+- 11 Designing intervals: on 30/15, "Fifteen seconds is long enough to decide that the next 30 seconds are impossible, which is about when they start."
+- 12 How many hard sessions: two sessions leave a weekend free, "unless Sunday's group ride turns out to be the third".
+- 13 Fuelling: caffeine is the best-supported legal aid, "and most cyclists were buying it already".
+- 14 Strength training: after Hickson 1980, endurance athletes "stayed out of the gym with a clear conscience".
+- 15 Heat training: the Copenhagen group used rectal probes. "They have obvious drawbacks for home use."
+- 16 Drugs: after "the trial does not show that" EPO doesn't work: "For the avoidance of doubt, this book is not suggesting that you find out." No rider or team is involved.
+- 17 The training week: "Weeks rarely go to plan. The three in the figure have the advantage of never having been ridden."
+- 18 Special cases: inactivity explains more of the decline than age; "A rider reading a book about training is unlikely to be leading one."
+- 19 Knowing it's working: of the sources of day-to-day noise, "Only the last [the power meter's calibration] can be blamed on the manufacturer."
+- 20 The verdict: riders with jobs in their forties and fifties are rarely studied, "possibly because they have no time to be".
+
+Two better lines were left out because they couldn't be checked: what Morris found in the busmen's uniform sizes (Beyond performance) and the Beatles experiment in Simmons 2011 (How to read a training study). Both papers are in `papers-wanted.md`.
+
+Also fixed while reading: Beyond performance still said "when I rode more" about the winter, left over from the six-to-seven-hours figure; now "when I rode more often", matching the three to five hours.

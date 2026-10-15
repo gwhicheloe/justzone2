@@ -58,7 +58,7 @@ The gaps are as instructive as the findings.
 
 **Years, not weeks.** Almost every training trial in this book lasted between four and sixteen weeks. Elite athletes build their engines over a decade. Whether years of easy volume build something that a few months of intervals can't, a bigger and more compliant heart, more capillaries, more durability, is the most important open question for anyone who trains for a long time, and no trial has been long enough to answer it.
 
-**Riders like the reader.** Most trials are of untrained people, students or well-trained athletes. Riders with jobs, on six to ten hours a week, in their forties and fifties, are rarely studied. Women are studied much less than men. Older riders are studied less than either.
+**Riders like the reader.** Most trials are of untrained people, students or well-trained athletes. Riders with jobs, on six to ten hours a week, in their forties and fifties, are rarely studied, possibly because they have no time to be. Women are studied much less than men. Older riders are studied less than either.
 
 **The top of Zone 2 against the bottom.** The book's rule for easy riding rests on mechanism and reasoning. Nobody has assigned riders on the same hours to ride their easy hours high or low in the easy range and measured the result.
 

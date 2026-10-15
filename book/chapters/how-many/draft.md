@@ -66,7 +66,7 @@ The trials describe what happened; recovery physiology explains it. A 2013 revie
 
 The review also suggests what is recovering. In the first hour and a half after a session the heart's nervous control is driven mostly by the acid left in the muscles and blood; over the following one to two days it tracks slower changes such as the volume of the blood plasma [@stanley2013]. The authors add a caution that matters for anyone using a heart-rate-variability app: the heart's nervous system recovering does not mean everything has. Muscle fuel stores and the nervous system's control of the muscles keep their own timetables, and the review had little data on them.
 
-The arithmetic follows. With at least 48 hours after each hard session [@stanley2013], a seven-day week holds three at most, Monday, Wednesday and Friday, with no room for a long ride on fresh legs. Two hard sessions leave 48 to 72 hours between them and a weekend free.
+The arithmetic follows. With at least 48 hours after each hard session [@stanley2013], a seven-day week holds three at most, Monday, Wednesday and Friday, with no room for a long ride on fresh legs. Two hard sessions leave 48 to 72 hours between them and a weekend free, unless Sunday's group ride turns out to be the third.
 
 ![Two hard sessions in a week at three spacings, with the 48 hours or more of recovery that high-intensity sessions needed in the pooled studies. Spaced 48 or 72 hours apart, the second session starts after the first has recovered; a day apart, it starts inside the first one's recovery. A schematic, drawn for this book from the review's finding [@stanley2013].](figures/hard-days.svg)
 

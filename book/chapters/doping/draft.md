@@ -72,7 +72,7 @@ Design: Randomised, double-blind and placebo-controlled. 48 male amateur cyclist
 Authors' conclusion: EPO improved the maximal test in the laboratory. It did not improve the 45-minute test or the race.
 :::
 
-The race came about 12 days after the last injection, with haemoglobin still 12% above where it started, and 40 of the 44 riders who started it finished [@heuberger2017]. The authors' conclusion is easily shortened to "EPO doesn't work", and the trial does not show that.
+The race came about 12 days after the last injection, with haemoglobin still 12% above where it started, and 40 of the 44 riders who started it finished [@heuberger2017]. The authors' conclusion is easily shortened to "EPO doesn't work", and the trial does not show that. For the avoidance of doubt, this book is not suggesting that you find out.
 
 ### Reading the research: when a trial finds nothing
 

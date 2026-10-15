@@ -38,7 +38,7 @@ The second is habit. People who exercise also tend to smoke less, eat differentl
 
 The third is inheritance. Chapter 2 described how differently people respond to the same training, and some of the fitness a person has is fitness they were born with. If the same genes that make a person fit also protect them in other ways, fitness would predict a long life without training having anything to do with it.
 
-Twins offer a test of the third. Finland has followed same-sex twins born before 1958 for decades, and asked about their exercise in 1975, 1981 and 1990. Across individuals, those who kept up vigorous exercise through all three surveys had 45% lower risk of death to 2013 than those who never did, and 27% lower after adjusting for education, smoking, alcohol, weight, work and health [@karvinen2015]. Then the researchers found the pairs in which one twin exercised throughout and the other never did. Among non-identical twins, who share about half their genes, the active twin had 42% lower risk. Among identical twins, who share all of them, there was no difference at all: a hazard ratio of 1.00 [@karvinen2015]. An earlier analysis of the same cohort, over a shorter run of years, had found the same pattern {shadow @waller2010}.
+Twins offer a test of the third. Finland has followed same-sex twins born before 1958 for decades, and asked about their exercise in 1975, 1981 and 1990. Across individuals, those who kept up vigorous exercise through all three surveys had 45% lower risk of death to 2013 than those who never did, and 27% lower after adjusting for education, smoking, alcohol, weight, work and health [@karvinen2015]. Then the researchers found the pairs in which one twin exercised throughout and the other never did. Among non-identical twins, who share about half their genes, the active twin had 42% lower risk. Among identical twins, who share all of them, there was no difference at all: a hazard ratio of 1.00 [@karvinen2015]. For the twin on the sofa, it is the best news in this chapter. An earlier analysis of the same cohort, over a shorter run of years, had found the same pattern {shadow @waller2010}.
 
 The identical-twin result rests on 34 pairs, and its 95% confidence interval runs from about half the risk to about twice it [@karvinen2015]. Thirty-four pairs cannot show that exercise does nothing. They are, though, the nearest thing in the observational data to a controlled comparison, and the benefit that every other analysis shows does not appear in them. The authors suggest that some of the same genes influence how much people exercise, how fit they are and how long they live. {grade C}
 
@@ -106,7 +106,7 @@ The most active endurance athletes, then, have more atrial fibrillation and more
 
 ## Colds
 
-In the winter described in Chapter 7, when I rode more and mostly easy, I fell ill less often with coughs and colds. That is one person's winter, and there is a literature that bears on it.
+In the winter described in Chapter 7, when I rode more often and mostly easy, I fell ill less often with coughs and colds. That is one person's winter, and there is a literature that bears on it.
 
 In 2011 David Nieman's group followed 1,002 adults through 12 weeks of autumn and winter. People who did aerobic exercise five or more days a week had 43% fewer days with cold symptoms than those who did it once a week or less, and the third who rated themselves fittest had 46% fewer than the least fit third, after adjusting for seven other factors [@nieman2011]. The study was observational, and fitness was self-rated.
 

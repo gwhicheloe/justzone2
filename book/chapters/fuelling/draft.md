@@ -156,7 +156,7 @@ Sodium in a drink does no harm, and a salty drink may be easier to keep drinking
 
 ## Caffeine
 
-Caffeine is the best-supported performance aid a cyclist can legally buy. A 2018 meta-analysis pooled 46 randomised, placebo-controlled trials of endurance time trials. At moderate doses of 3 to 6 milligrams per kilogram of body weight, caffeine raised average power by about 3% and shortened finishing time by about 2%. The response varied, and two of the studies found riders slower [@southward2018]. {grade A}
+Caffeine is the best-supported performance aid a cyclist can legally buy, and most cyclists were buying it already. A 2018 meta-analysis pooled 46 randomised, placebo-controlled trials of endurance time trials. At moderate doses of 3 to 6 milligrams per kilogram of body weight, caffeine raised average power by about 3% and shortened finishing time by about 2%. The response varied, and two of the studies found riders slower [@southward2018]. {grade A}
 
 A common belief is that regular coffee drinkers get nothing from it. A Brazilian trial tested that in 40 trained cyclists, divided by their habitual intake into low, moderate and high consumers. Each did a time trial of about half an hour three times: after caffeine, after a placebo and after nothing. On caffeine they averaged 29.92 minutes, against 30.81 on placebo and 31.14 with nothing, and the benefit was the same in all three groups {shadow @goncalves2017}. The gap between the placebo and nothing is worth a second look after Chapter 4: a capsule with nothing in it produced about a quarter of the gain that caffeine did.
 

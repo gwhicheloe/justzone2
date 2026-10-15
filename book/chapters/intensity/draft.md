@@ -114,7 +114,7 @@ A zone can be written in watts, in beats per minute or as a feeling, and each is
 
 The Auckland study shows the two readings coming apart. After two hours the power at the first threshold had fallen by 21 W, and the heart rate at the threshold had risen from 142 to 151 beats per minute {shadow @stevenson2022}. A rider who set out at the threshold power from the fresh test would have been 21 W above the threshold by the end. A rider who held the heart rate from the fresh test would have finished further below the threshold than intended.
 
-Perceived effort does better than its reputation. In the 2006 study the skiers also rated each session on a scale of perceived exertion of the kind Gunnar Borg introduced {shadow @borg1982}. Sorted by those ratings, the sessions came out at 76% zone 1, 6% zone 2 and 18% zone 3, against 75%, 8% and 17% by heart rate [@seilerkjerland2006]. Over a month of training, the athletes' own ratings and their heart rate monitors gave the same account. Chapter 6 covers the talk test, which turns the same sense into a method.
+Perceived effort does better than its reputation. In the 2006 study the skiers also rated each session on a scale of perceived exertion of the kind Gunnar Borg introduced {shadow @borg1982}. Sorted by those ratings, the sessions came out at 76% zone 1, 6% zone 2 and 18% zone 3, against 75%, 8% and 17% by heart rate [@seilerkjerland2006]. Over a month of training, the athletes' own ratings and their heart rate monitors gave the same account. Only the monitors needed batteries. Chapter 6 covers the talk test, which turns the same sense into a method.
 
 ## The terms as this book uses them
 

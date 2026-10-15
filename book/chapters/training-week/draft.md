@@ -114,7 +114,7 @@ Not everyone has a target event. A rider who rides for fitness and the odd sport
 
 ## When the week goes wrong
 
-Weeks rarely go to plan. The order of building the week is also the order of dropping things from it.
+Weeks rarely go to plan. The three in the figure have the advantage of never having been ridden. The order of building the week is also the order of dropping things from it.
 
 Drop easy riding first. Missing an easy hour costs very little.
 

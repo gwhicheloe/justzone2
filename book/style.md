@@ -33,6 +33,7 @@ The book has two aims (see `plan.md`): explain the mechanism behind each trainin
 - Disagree with experts when the evidence supports it. Respect for researchers shows in describing their work accurately, not in praising it.
 - Technical is fine. Explain a term the first time it appears, then use it. Don't re-explain.
 - British spelling and usage: programme, fibre, metre, litre, centre, -ise endings (organise, recognise), haemoglobin, oesophagus, "while" not "whilst".
+- **Dry humour, sparingly** (George, 15 October 2026: "not too much just one per chapter", then "dry humour"). About one line a chapter, said straight: understatement, a deadpan aside, a fact allowed to be funny on its own. No jokes that announce themselves, no puns in headings, no exclamation marks. The rules below Claude drew from the book's other rules, not from George: a joke obeys the evidence rules like any other sentence (no new number without `research.md`, no unchecked fact, however good the line); it never claims experience George hasn't described; it is never at a named person's expense; and the Drugs chapter's jokes stay away from riders and teams. The first pass (15 October) put one line in each chapter; the list is in `george/notes.md`.
 
 ## Evidence and numbers
 

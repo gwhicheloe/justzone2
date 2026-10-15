@@ -140,7 +140,7 @@ Seiler is reported to have seen the same thing across athletes. According to a 2
 
 The professional peloton offers a small natural comparison. Over four years, 10 professional women trained fewer hours than 20 professional men, spent less of their time in the low zones, and arrived at a similar total training load. The authors' reading was that the women made up for lower volume with higher intensity {shadow @vanerp2020}.
 
-Volume still counts for those who are adapted to it. When 18 male professionals were confined to indoor trainers for seven weeks in 2020, their training fell by a third, to about 12 hours a week with 2 of those hours at high intensity. Every one of them lost power over 5 and 20 minutes, by between 1% and 19% {shadow @muriel2021}. Those riders had also lost racing, the road and their routines, so the lost hours cannot be isolated. It is still a warning against reading this chapter as an argument that hours do not matter.
+Volume still counts for those who are adapted to it. When 18 male professionals were confined to indoor trainers for seven weeks in 2020, their training fell by a third, to about 12 hours a week with 2 of those hours at high intensity. Most readers of this book would call that a training camp. Every one of them lost power over 5 and 20 minutes, by between 1% and 19% {shadow @muriel2021}. Those riders had also lost racing, the road and their routines, so the lost hours cannot be isolated. It is still a warning against reading this chapter as an argument that hours do not matter.
 
 For a rider on these hours, the elite example says to decide the hard sessions first and let the easy riding, and the percentages, follow. Chapter 17 builds the week that way.
 

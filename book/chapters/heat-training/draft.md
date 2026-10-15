@@ -112,7 +112,7 @@ A 2024 study of a different wearable, the Calera Research Sensor, found much clo
 
 For heat training, an error of half a degree matters a good deal. The sessions in the Copenhagen trial ended with core temperatures between 39.4 and 39.9 °C [@mikkelsen2019]. Heat illness is usually associated with core temperatures above 40 °C [@dolson2022]. The useful range is about one degree wide, and the sensor's error in the published tests is about half a degree in either direction, with a tendency in two of the three studies to read low when the body is hottest. A reading of 38.8 °C could mean you are not yet in the range, or that you are at the top of it.
 
-It is also worth knowing that none of the trials in this chapter used the sensor. The Copenhagen group used rectal probes. Rønnestad's group prescribed time, a suit or a room temperature, and an easy intensity. The haemoglobin results came from riders who were simply made hot for 50 minutes, five times a week [@ronnestad2022a].
+It is also worth knowing that none of the trials in this chapter used the sensor. The Copenhagen group used rectal probes. They have obvious drawbacks for home use. Rønnestad's group prescribed time, a suit or a room temperature, and an easy intensity. The haemoglobin results came from riders who were simply made hot for 50 minutes, five times a week [@ronnestad2022a].
 
 None of this makes the sensor useless. A repeatable number that is somewhat wrong can still show you a trend from one session to the next, if you treat it as your own scale and not as a temperature. But it is an optional extra for a practice whose benefits were demonstrated without it.
 

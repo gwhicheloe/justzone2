@@ -48,7 +48,7 @@ You can read the chapters in order or dip into the ones you care about. If you s
 
 ## Who this is for
 
-This book is written for cyclists who want to understand their training rather than just follow it. It gets technical where the science needs it to, and it names researchers and studies throughout, because "studies show" is exactly the habit the book is trying to break. You don't need a science background. You do need some patience with numbers.
+This book is written for cyclists who want to understand their training rather than just follow it. It gets technical where the science needs it to, and it names researchers and studies throughout, because "studies show" is exactly the habit the book is trying to break. You don't need a science background. You do need some patience with numbers, and with the word *mitochondria*, which appears more often in this book than the word *bike*.
 
 Most of the research is in cyclists, and where it isn't, I say so. Plenty of the best training studies were done in runners, rowers and cross-country skiers, and I use them where the physiology carries across.
 

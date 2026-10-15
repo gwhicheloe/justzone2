@@ -139,6 +139,15 @@ Helgerud 2007 (already on this list for the intervals chapters) is used here too
 
 Read in full for this chapter, free: Tønnessen 2014, Solli 2017, Stöggl & Sperlich 2014. Read in part, free: Silva Oliveira 2024, Stöggl & Sperlich 2015, Treff 2017, Filipas 2022, Leo 2020, Haugen 2022, Casado 2023, Festa 2019.
 
+## Two dry lines that need a source (optional, 15 October)
+
+Found during the humour pass and left out because I couldn't check them. Low priority: each would add one line.
+
+| ✓ | Priority | Paper | Save as | Why I need the full text |
+|---|---|---|---|---|
+| ☐ | 3 | Heady JA, Morris JN, Kagan A, Raffle PAB. Coronary heart disease in London busmen: a progress report with particular reference to physique. *Br J Prev Soc Med.* 1961;15:143–153. [doi:10.1136/jech.15.4.143](https://doi.org/10.1136/jech.15.4.143) | `heady1961.pdf` | Beyond performance already says Morris studied the busmen's physique "from the sizes of the uniforms they were issued", but not what he found. I recall that the drivers were already bigger round the waist when they joined, which would be the punchline and the point (selection). **Free on PubMed Central (PMC1058836)**, but the download sits behind a bot check I won't get around: open it in a browser and save it. The 1956 *Lancet* note on the uniforms would do as well. |
+| ☐ | 3 | Simmons JP, Nelson LD, Simonsohn U. False-positive psychology: undisclosed flexibility in data collection and analysis allows presenting anything as significant. *Psychol Sci.* 2011;22:1359–1366. [doi:10.1177/0956797611417632](https://doi.org/10.1177/0956797611417632) | `simmons2011.pdf` | How to read a training study cites it for p-hacking. One of its two experiments used the same freedoms to "show" that listening to the Beatles' *When I'm Sixty-Four* made people younger. That would be the chapter's best dry line, but I have only the abstract, which doesn't mention it. |
+
 ## The short list
 
 If you only chase a few: **Cox 2010, the two Rønnestad papers, Smith 2013 and Helgerud 2007**, plus Mateo-March 2022 and Spragg 2023a from the Durability list above. Each of those carries a chapter opening, a close-up or a chart.

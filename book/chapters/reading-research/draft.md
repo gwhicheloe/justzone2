@@ -28,7 +28,7 @@ The evidence grades used in this book follow from this division. Grade A needs s
 
 A result applies to people like the ones in the study, and the people in training studies are mostly not like the reader of this book.
 
-The commonest volunteers are untrained or lightly active young men, often students. In untrained people almost any training works, and works fast: the nine men in the biopsy study in Chapter 2 raised their peak oxygen uptake by 12% in two weeks {shadow @perry2010}. A trained cyclist does not gain 12% from anything. So a comparison of two methods in untrained people mostly shows that both work, and a method that wins among beginners may do nothing for someone with five years of riding behind them.
+The commonest volunteers are untrained or lightly active young men, often students, and exercise physiology knows the young male student about as well as it knows the laboratory rat. In untrained people almost any training works, and works fast: the nine men in the biopsy study in Chapter 2 raised their peak oxygen uptake by 12% in two weeks {shadow @perry2010}. A trained cyclist does not gain 12% from anything. So a comparison of two methods in untrained people mostly shows that both work, and a method that wins among beginners may do nothing for someone with five years of riding behind them.
 
 Studies of trained athletes are rarer, smaller and shorter, because trained athletes are few and unwilling to hand over their season to a research protocol. Studies of professionals are almost always observational. Women are under-represented at every level, and several of the studies in this book had none.
 
