@@ -1,6 +1,6 @@
-# Chapter 16: Heat training
+# Chapter 15: Heat training
 
-<!-- Draft 1, complete (5 October 2026). Chapter 16, in Part IV (Everything else), agreed with George 11 October 2026. -->
+<!-- Draft 1, complete (5 October 2026). Chapter 15, in Part IV (Everything else), agreed with George 11 October 2026. -->
 
 ## Ice vests on the start line
 

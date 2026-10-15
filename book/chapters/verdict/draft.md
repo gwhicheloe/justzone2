@@ -1,4 +1,4 @@
-# Chapter 21: The verdict
+# Chapter 20: The verdict
 
 No, it isn't just Zone 2.
 
@@ -10,7 +10,7 @@ That is less exciting than the claim I started with, and more useful.
 
 The Introduction began with a winter of easy riding and a faster climb up Sa Calobra, and a sentence I had written for my website: that easy riding was the single most effective way to build mitochondria. The largest analysis of the question, 353 training studies, found that continuous training raised mitochondrial content by about 23% and interval training by 27%, and that per hour of training the harder kinds did far more [@molmen2025]. The sentence was wrong.
 
-The winter still happened, and the climb was still faster. Chapter 7 offered the likeliest explanation. My hours that winter were about the same as before, three to five a week, but the riding became regular, four or five sessions every week where before it had been hard rides done inconsistently. Riding regularly is something the research supports {shadow @molmen2025}, and something easy riding makes easy to do. The intensity was probably the least important thing about it. Zone 2 had done something real for me. It just hadn't done it for the reason I had been told.
+The winter still happened, and the climb was still faster. Chapter 7 offered the likeliest explanation. My hours that winter were about the same as before, three to five a week, but the riding became regular, four or five sessions every week where before it had been hard rides done inconsistently. Riding regularly is something the research supports [@molmen2025], and something easy riding makes easy to do. The intensity was probably the least important thing about it. Zone 2 had done something real for me. It just hadn't done it for the reason I had been told.
 
 ## The claims, graded
 

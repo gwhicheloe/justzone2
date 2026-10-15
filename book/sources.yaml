@@ -129,7 +129,7 @@
   doi: 10.1123/ijspp.2024-0115
   pmid: 40328438
   status: abstract
-  chapters: [time-near-vo2max, designing-intervals]
+  chapters: [designing-intervals]
   notes: "12 well-trained cyclists/triathletes; 3x13x30/15 vs 6x5 min. Time >90% VO2max: fixed 420 vs 178 s; self-paced 1130 vs 1016 s (n.s.)."
 
 - key: arbabzadeh2014
@@ -190,7 +190,7 @@
   doi: 10.1371/journal.pone.0073182
   pmid: 24066036
   status: fulltext
-  chapters: [time-near-vo2max]
+  chapters: [designing-intervals]
   notes: "Full text in papers/. 37 studies, 334 people: +0.51 L/min; nine largest-gain studies 0.87 vs nine smallest 0.27; trim-and-fill 0.37. Joyner an author."
 
 - key: banister1975
@@ -253,7 +253,7 @@
   doi: 10.1007/s004210050029
   pmid: 10638376
   status: abstract
-  chapters: [time-near-vo2max]
+  chapters: [designing-intervals]
   notes: "8 runners on a track with portable analysers: 30/30 at 100/50% vVO2max gave 7 min 51 s at VO2max vs 2 min 42 s in a continuous run at v-delta-50. Opening of Time near VO2max."
 
 - key: billat2001
@@ -261,7 +261,7 @@
   doi: 10.2165/00007256-200131010-00002
   pmid: 11219499
   status: abstract
-  chapters: [time-near-vo2max]
+  chapters: [designing-intervals]
   notes: "History: Reindell and Roskamm; Zatopek; coaches set speeds from race paces without physiological markers."
 
 - key: bishop1999
@@ -350,7 +350,7 @@
   doi: 10.1123/ijspp.2019-0260
   pmid: 32244222
   status: abstract
-  chapters: [time-near-vo2max, designing-intervals]
+  chapters: [designing-intervals]
   notes: "14 cyclists: varied-power work intervals 410 vs 286 s >90% VO2max at same mean power and duration; no difference in perceived load."
 
 - key: bouchard1999
@@ -398,7 +398,7 @@
   doi: 10.1007/s40279-013-0029-x
   pmid: 23539308
   status: abstract
-  chapters: [time-near-vo2max, designing-intervals]
+  chapters: [designing-intervals]
   notes: "'At least several minutes per session' above 90% VO2max believed optimal; nine variables define a session."
 
 - key: buchheit2014
@@ -488,7 +488,7 @@
   pmid: 36900796
   pmcid: PMC10000870
   status: fulltext
-  chapters: [elites, time-near-vo2max, designing-intervals, how-many]
+  chapters: [elites, designing-intervals, how-many]
   notes: "Review; text in papers/, history section and the description of the model read. Source for the history of running training (Zátopek, Lydiard, Bowerman) and the Norwegian threshold model: 3-4 lactate-guided threshold sessions and one VO2max session a week in 150-180 km. Bakken is a co-author describing his own method. Names the Ingebrigtsens; the book does not."
 
 - key: ccm2024
@@ -911,7 +911,7 @@
   doi: 10.3389/fspor.2024.1507957
   pmid: 39835194
   status: abstract
-  chapters: [time-near-vo2max]
+  chapters: [designing-intervals]
   notes: "12 middle-distance runners: 24x30 s 201 s vs 4x3 min 328 s >90% VO2max; but >90% HRmax 820 vs 545 s."
 
 - key: foster1998
@@ -1007,7 +1007,7 @@
   doi: 10.1007/s40279-013-0115-0
   pmid: 24129784
   status: abstract
-  chapters: [time-near-vo2max, designing-intervals]
+  chapters: [designing-intervals]
   notes: "16 RCTs, 318 young people: SIT VO2max ~+3.6 mL/kg/min (~8%), equal to endurance training."
 
 - key: gollnick1974
@@ -1142,14 +1142,14 @@
   doi: 10.1249/mss.0b013e3180304570
   pmid: 17414804
   status: abstract
-  chapters: [easy-riding, reading-research, designing-intervals, time-near-vo2max, how-many]
+  chapters: [easy-riding, reading-research, designing-intervals, how-many]
   notes: "40 moderately trained men, four groups matched for total work, 3 days/week for 8 weeks: 70% HRmax, 85% HRmax, 15/15, 4 x 4 min. VO2max +5.5% and +7.2% in the interval groups, more than the continuous groups; stroke volume about +10% after intervals. Paywalled; wanted in full."
 
 - key: helgerud2023
   citation: "Helgerud J, Hov H, Mehus H, Balto B, Boye A, Finsås L, Hoff J, Wang E. Aerobic high-intensity intervals improve VO2max more than supramaximal sprint intervals in females, similar to males. Scand J Med Sci Sports. 2023;33:2193-2207."
   doi: 10.1111/sms.14470
   status: fulltext
-  chapters: [time-near-vo2max, designing-intervals, special-cases, reading-research]
+  chapters: [designing-intervals, special-cases, reading-research]
   notes: "PDF from George 11 Oct 2026 (papers/helgerud2023.pdf); open access. NOT the 2007 paper of similar title. 81 well-trained women randomised to 4x4 min, 8x20 s or 10x30 s sprints, 3 times a week for 8 weeks; 49 analysed (15, 20, 14). Only 4x4 raised VO2max (7.3%); all groups improved 3000 m by 4.5%; sprints improved 300 m more. 10x30 s all-out caused 8 injuries (6 hamstring strains). Participants with 80% compliance or less excluded. Companion study in men: Hov et al. 2023 (4x4 +6.5% VO2max). Funded by the Research Council of Norway; two authors affiliated with a commercial training clinic. Read: abstract, methods, results, limitations; discussion skimmed. Not yet used in any draft."
 
 - key: hellard2006
@@ -1317,7 +1317,7 @@
   doi: 10.1249/mss.0000000000003406
   pmid: 38376995
   status: abstract
-  chapters: [time-near-vo2max]
+  chapters: [designing-intervals]
   notes: "84 young adults, six groups by domain: dVO2max control +0.1, moderate +1.8 (n.s.), heavy low +3.3, heavy high +5.4, HIIT +6.2, SIT +4.7 mL/kg/min."
 
 - key: james2017
@@ -1718,7 +1718,7 @@
   doi: 10.1113/jp272570
   pmid: 27396440
   status: abstract
-  chapters: [adaptation, designing-intervals, time-near-vo2max]
+  chapters: [adaptation, designing-intervals]
   notes: "10 active men, one leg intervals and the other continuous, 6 sessions in 2 weeks, work matched (143 vs 144 kJ): citrate synthase activity higher in the interval leg (10.2 vs 8.4)."
 
 - key: maffetone180
@@ -1913,7 +1913,7 @@
   citation: "Midgley AW, McNaughton LR. Time at or near VO2max during continuous and intermittent running. A review with special reference to considerations for the optimisation of training protocols to elicit the longest time at or near VO2max. J Sports Med Phys Fitness. 2006;46:1-14."
   pmid: 16596093
   status: abstract
-  chapters: [time-near-vo2max, designing-intervals]
+  chapters: [designing-intervals]
   notes: "Defines near VO2max as >=95%; recommends 15-30 s work and relief; 10-15 min warm-up; says further experiments needed."
 
 - key: mieras2014
@@ -1938,7 +1938,7 @@
   doi: 10.1007/s40279-015-0365-0
   pmid: 26243014
   status: abstract
-  chapters: [time-near-vo2max]
+  chapters: [designing-intervals]
   notes: "28 studies, 723 adults: endurance +4.9, HIT +5.5 vs control; HIT vs endurance +1.2 mL/kg/min. Magnitude-based inference."
 
 - key: minsoncotter2016
@@ -1995,7 +1995,7 @@
   doi: 10.1113/jp273480
   pmid: 28133739
   status: abstract
-  chapters: [adaptation, time-near-vo2max]
+  chapters: [adaptation, designing-intervals]
   notes: "78 adults, 1 to 5 hours a week for 6 weeks: non-responders 69, 40, 29, 0, 0%; a further 6 weeks with two extra sessions removed non-response. Non-response defined as change in Wmax within typical error (3.96%). Free PDF from the journal, not read in full."
 
 - key: morenojusticia2025
@@ -2172,7 +2172,7 @@
   doi: 10.1002/ejsc.12202
   pmid: 39385317
   status: fulltext
-  chapters: [time-near-vo2max, designing-intervals]
+  chapters: [designing-intervals]
   notes: "Full text in papers/. 22 cyclists, 21 sessions of 5x8 min; % of VO2max in intervals related to gains; HIGH half trained 9:43 vs 7:40 h/week (more zone 1). Close-up in Time near VO2max."
 
 - key: oleary2017
@@ -2449,7 +2449,7 @@
   doi: 10.1519/jsc.0b013e3182a73e8a
   pmid: 23942167
   status: abstract
-  chapters: [time-near-vo2max]
+  chapters: [designing-intervals]
   notes: "13 cyclists to exhaustion at MAP: 30-s work periods gave longer time >=90% VO2peak than longer ones."
 
 - key: ronnestad2020
@@ -2636,7 +2636,7 @@
   doi: 10.1046/j.1600-0838.2003.00353.x
   pmid: 15387806
   status: abstract
-  chapters: [time-near-vo2max, designing-intervals]
+  chapters: [designing-intervals]
   notes: "12 runners, self-paced 1-6 min repeats: RPE ~17 regardless; peak VO2 ~92% for 2-6 min vs 82% for 1 min; 3-5 min optimal."
 
 - key: seiler2005
@@ -2667,7 +2667,7 @@
   doi: 10.1111/j.1600-0838.2011.01351.x
   pmid: 21812820
   status: abstract
-  chapters: [time-near-vo2max, designing-intervals, how-many, training-week, verdict]
+  chapters: [designing-intervals, how-many, training-week, verdict]
   notes: "35 recreational cyclists (~6 h/week), 7 weeks: 4x4, 4x8, 4x16 (2/week) or easy only; overall gains 5.5, 11.4, 5.6, 4.2%. Close-up in Designing intervals. Recovery durations and separate outcomes not in the abstract; full text wanted."
 
 - key: seilerkjerland2006
@@ -3035,7 +3035,7 @@
   doi: 10.1002/ejsc.12214
   pmid: 39435498
   status: abstract
-  chapters: [time-near-vo2max, designing-intervals, special-cases]
+  chapters: [designing-intervals, special-cases]
   notes: "11 women, 8 men; 6x8 min at 40-min power: 30/15 1,123 s vs steady 879 vs 60/60 917 s >=90% VO2max; no sex difference."
 
 - key: usada2012

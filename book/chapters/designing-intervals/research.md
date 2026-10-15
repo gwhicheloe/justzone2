@@ -1,3 +1,5 @@
+**Merged 15 October 2026:** the notes for the time-near-VO₂max half of this chapter are in `research-time-near-vo2max.md` beside this file.
+
 # Designing intervals (Chapter 12): research notes
 
 Written 15 October 2026 with the first draft, the second of three Part III chapters done in one batch at George's request. Tags as elsewhere: [FT], [Abs], [Rep], [GK], [Own].

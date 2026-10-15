@@ -1,4 +1,4 @@
-# Chapter 15: Strength training
+# Chapter 14: Strength training
 
 In 1980 Robert Hickson published a study with three groups of volunteers. One lifted weights five days a week. One did endurance training six days a week. The third did both programmes in full. After ten weeks the endurance and combined groups had raised their VO₂max by the same amount, about 25% on a bike test. Strength told a different story. The combined group kept pace with the lifters for seven weeks, then stopped improving, and in the ninth and tenth weeks went backwards [@hickson1980].
 

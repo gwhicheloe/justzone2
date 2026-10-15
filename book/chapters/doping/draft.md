@@ -1,6 +1,6 @@
-# Chapter 17: Drugs
+# Chapter 16: Drugs
 
-<!-- Draft 1, complete (5 October 2026). Needs a legal read before publication: see the libel rule in brief.md. Chapter 17, in Part IV (Everything else), agreed with George 11 October 2026. -->
+<!-- Draft 1, complete (5 October 2026). Needs a legal read before publication: see the libel rule in brief.md. Chapter 16, in Part IV (Everything else), agreed with George 11 October 2026. -->
 
 ## Ninety-six finishers
 

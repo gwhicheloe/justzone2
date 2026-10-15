@@ -1,8 +1,8 @@
-# Chapter 13: How many hard sessions, and how often
+# Chapter 12: How many hard sessions, and how often
 
 Almost every training plan for amateur cyclists puts two hard sessions in a week, whether the week holds four hours or fourteen. Chapter 8 found something that looks like the reason. The eleven Olympic and world champion skiers whose diaries were studied kept about 1.3 hours a week above the first threshold in every phase of their gold-medal year, in two or three sessions, while their easy hours rose and fell around it [@tonnessen2014]. Chapter 8 left open whether that steady hour or so is a ceiling, and where it lies for a rider on six to ten hours.
 
-My answer is that two hard sessions a week, at least 48 hours apart, is the best-supported default for that rider [@stanley2013; @tonnessen2020]. The evidence for more comes from short blocks, and one session a week is enough to hold fitness for months. How the sessions are spaced, and how easy the riding between them is, matters at least as much as their number. The amount of hard work in the trials that produced gains, about 40 to 65 minutes a week for cyclists, is close to what the champions kept for whole seasons, which suggests that recovery sets the ceiling rather than ambition. All of the frequency trials are small and short, and several of the results quoted for one number or another turn out, read closely, to be differences in statistical significance rather than differences between groups.
+My answer is that two hard sessions a week, at least 48 hours apart, is the best-supported default for that rider [@stanley2013; @tonnessen2020]. The evidence for more comes from short blocks, and one session a week is enough to hold fitness for months. How the sessions are spaced, and how easy the riding between them is, matters at least as much as their number. The amount of hard work in the trials that produced gains, about 40 to 65 minutes a week for cyclists, is close to what the champions kept for whole seasons, which suggests that recovery sets the ceiling rather than ambition. All of the frequency trials are small and short, and several of the results quoted for one number or another turn out, read closely, to be differences in statistical significance rather than differences between groups. {grade B for two as the default; grade C for the ceiling}
 
 ## Where two comes from
 
@@ -100,16 +100,6 @@ So one hard session a week, with the easy riding cut back if need be, is a sound
 
 ## Is the champions' hour a ceiling?
 
-The trials that improved cyclists put a similar amount of hard work into a week. Seiler's 4 × 8s, twice a week, came to 64 minutes [@seiler2013]. The 30/15 sessions of Chapter 12 came to about 39 minutes of hard efforts {shadow @ronnestad2015b}. The Trondheim 4 × 4s, three times a week, came to 48 [@helgerud2007]. The champions' 1.3 hours a week is time in the top three zones as they logged it, which probably includes some of the recovery between repetitions, so their figure and the trials' are not quite the same measure [@tonnessen2014]. But they are the same order: something like 40 minutes to an hour of hard work a week, in two or three sessions.
+The trials that improved cyclists put a similar amount of hard work into a week. Seiler's 4 × 8s, twice a week, came to 64 minutes [@seiler2013]. The 30/15 sessions of Chapter 11 came to about 39 minutes of hard efforts {shadow @ronnestad2015b}. The Trondheim 4 × 4s, three times a week, came to 48 [@helgerud2007]. The champions' 1.3 hours a week is time in the top three zones as they logged it, which probably includes some of the recovery between repetitions, so their figure and the trials' are not quite the same measure [@tonnessen2014]. But they are the same order: something like 40 minutes to an hour of hard work a week, in two or three sessions.
 
 That is my inference, not a finding. It suggests that the ceiling is not a number of sessions but a dose of hard work that one body can absorb and recover from, and that the champions' extra hundreds of hours went into easy training because that was the only training left to add. No trial has tested a larger hard dose over months in amateur cyclists, so the ceiling's exact height is unknown. What is known is that pushing frequency up in the short term, in the trials above, brought no extra gain and some signs of strain. {grade C}
-
-## For a rider on six to ten hours
-
-Two hard sessions a week, at least 48 hours apart and ideally 72, with easy riding between them, is where the evidence is strongest [@stanley2013; @tonnessen2020]. One can be long intervals and the other 30/15s or a controlled threshold session; Chapter 12 has the details.
-
-Drop to one when you are new to intervals, when you are busy, ill or travelling, or when two leave you flat. You will keep most of what you have.
-
-Use three only as a short block, a week or two, followed by an easier week, and only when the rest of the week can be genuinely easy. Beyond three there is no evidence of further gain, and the warning signs come first.
-
-And count the spacing before the number. Two hard sessions on consecutive days, or easy days ridden too hard between them, undo whatever number was chosen. {grade B for two as the default; grade C for the ceiling}

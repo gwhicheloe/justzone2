@@ -168,3 +168,11 @@ Done: his passage in What easy riding does now reads "That winter it was about t
 > Can you do the remaining chapters now - don't forget diagrams, feels like there's not enough diagrams so far
 
 Done the same evening: The training week, Special cases, Knowing it's working and The verdict drafted, with eight figures between them, and three figures added to Chapters 1, 12 and 13, which had one or none. No *From the saddle* boxes, per his earlier instruction.
+
+## 15 October 2026: structure (in chat, after the chapter-summary doc)
+
+> commit and push- then produce a short summary in bullet points for each chapter in a new artifact- we can the  check that the structure makes sense and combine or drop any chapters
+
+> ok - do those first two changes. I really want to keep the drugs one and the heat training
+
+Done: Time near VO₂max merged into Designing intervals (now Chapter 11), and the "six to ten hours" endings of Chapters 8, 11 and 12 gathered into The training week (now 17). Drugs and Heat training kept. Later chapters renumbered.

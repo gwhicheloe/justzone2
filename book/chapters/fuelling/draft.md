@@ -1,4 +1,4 @@
-# Chapter 14: Fuelling
+# Chapter 13: Fuelling
 
 In a study published in 1989, researchers from Maastricht followed riders from one of the leading professional teams through the Tour de France, 22 days and about 4,000 kilometres, and had them write down everything they ate [@saris1989]. Eight riders were asked and five agreed to keep a food diary. One crashed out after four days and a team-mate took over, so four riders have a complete record.
 

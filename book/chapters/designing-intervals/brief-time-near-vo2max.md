@@ -1,3 +1,5 @@
+**Merged into Designing intervals on 15 October 2026; kept for its argument and questions. See `brief.md`.**
+
 # Time near VO₂max (Chapter 11): brief
 
 Status: **written with the first draft on 15 October 2026, the first of three Part III chapters drafted in one batch at George's request ("can you do the next three chapter in a batch"). Not reviewed; the argument has not been separately approved.**

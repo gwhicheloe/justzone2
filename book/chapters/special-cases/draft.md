@@ -1,4 +1,4 @@
-# Chapter 19: Special cases
+# Chapter 18: Special cases
 
 Twenty-one older track athletes, with an average age of about 50, had their maximum oxygen uptake measured, and then measured again ten years later and twenty years later, when their average age was 70. Nine of them had remained at an elite level. Every group had lost fitness at each test, and the nine who had kept training hardest had lost the least [@pollock1997].
 
@@ -20,15 +20,15 @@ The same review makes the point that matters most for training. A large part of 
 
 Older riders often say they recover more slowly, and it is plausible. Older muscle may be damaged more by a given session and repair more slowly. A 2008 review of the evidence found that the studies rarely compare like with like [@fell2008]. Older participants were usually less active than younger ones, so the effects of age and inactivity were tangled together, and the exercise used to cause damage was rarely anything like normal training. A later review of masters athletes reached a similar view: age may slow recovery less than is often assumed, and a sedentary life explains more of the decline in performance [@borges2016]. {grade C}
 
-That leaves an older rider with an experiment to run on themselves. Chapter 13's default of two hard sessions a week, at least 48 hours apart, is where to start. If the second session keeps going badly, stretch the gap to 72 hours or more, or drop to one hard session a week for a while, which keeps most of what you have (Chapter 13). Chapter 20 covers how to tell which is happening.
+That leaves an older rider with an experiment to run on themselves. Chapter 12's default of two hard sessions a week, at least 48 hours apart, is where to start. If the second session keeps going badly, stretch the gap to 72 hours or more, or drop to one hard session a week for a while, which keeps most of what you have (Chapter 12). Chapter 19 covers how to tell which is happening.
 
 ### Lifting
 
-Strength training matters more with age, for reasons that have little to do with speed. Pollock's athletes lost lean mass at each test, and those who had begun lifting weights tended to keep more of it. Leg strength and bone density held up reasonably well across the group, and the ones who lifted had denser bones in their arms [@pollock1997]. Chapter 15 described the consistent finding that road cyclists have low bone density in the spine, which the bike does nothing to correct. For a rider over 40 whose only exercise is cycling, heavy lifting twice a week is probably the most useful addition to the week that has nothing to do with going faster. {grade C}
+Strength training matters more with age, for reasons that have little to do with speed. Pollock's athletes lost lean mass at each test, and those who had begun lifting weights tended to keep more of it. Leg strength and bone density held up reasonably well across the group, and the ones who lifted had denser bones in their arms [@pollock1997]. Chapter 14 described the consistent finding that road cyclists have low bone density in the spine, which the bike does nothing to correct. For a rider over 40 whose only exercise is cycling, heavy lifting twice a week is probably the most useful addition to the week that has nothing to do with going faster. {grade C}
 
 ### Is hard training safe?
 
-For a healthy older rider, the trials are reassuring. In Generation 100, the five-year trial in Chapter 10, 1,567 Norwegians aged 70 to 77 were assigned to interval training, moderate training or the national guidelines, and the interval group had the fewest deaths {shadow @stensvold2020}. In 2007 a Trondheim group gave patients with heart failure after a heart attack, average age 75.5, the same 4 × 4-minute intervals that Chapter 12 describes {shadow @wisloff2007}. Neither study is evidence that hard training is safe for everyone. Both are evidence that age alone is not a reason to avoid it. Anyone with a heart condition, or chest pain, palpitations or breathlessness out of proportion to the effort, should see a doctor before changing their training, and this chapter is no substitute for one.
+For a healthy older rider, the trials are reassuring. In Generation 100, the five-year trial in Chapter 10, 1,567 Norwegians aged 70 to 77 were assigned to interval training, moderate training or the national guidelines, and the interval group had the fewest deaths {shadow @stensvold2020}. In 2007 a Trondheim group gave patients with heart failure after a heart attack, average age 75.5, the same 4 × 4-minute intervals that Chapter 11 describes {shadow @wisloff2007}. Neither study is evidence that hard training is safe for everyone. Both are evidence that age alone is not a reason to avoid it. Anyone with a heart condition, or chest pain, palpitations or breathlessness out of proportion to the effort, should see a doctor before changing their training, and this chapter is no substitute for one.
 
 ## Women
 
@@ -38,7 +38,7 @@ For a healthy older rider, the trials are reassuring. In Generation 100, the fiv
 
 The research in this book is mostly about men, and it is worth knowing by how much. In 2014 a group counted the participants in three leading sports medicine journals and found that 39% were women. In 2025 another group repeated the count for 2021 to 2023 [@ose2025]. They found 1,441 studies, of which 268 studied only men and 103 only women. The average study's participants were 40% women. Of the studies that included women, only 66, or 5.6%, took account of the menstrual cycle in their design.
 
-Those are general sports medicine journals, and training studies are worse. Almost every training trial in Parts II and III of this book is of men or mostly men. Chapter 12 noted that most interval trials are of men, and the few that compared the sexes directly found similar responses.
+Those are general sports medicine journals, and training studies are worse. Almost every training trial in Parts II and III of this book is of men or mostly men. Chapter 11 noted that most interval trials are of men, and the few that compared the sexes directly found similar responses.
 
 The question to ask of any study is who it was done on, and then whether the answer is likely to carry across. For most of the physiology in this book there is no particular reason to expect a different direction in women. There are reasons to expect differences in degree, and the honest position is that most of them have not been measured.
 
@@ -54,7 +54,7 @@ That conclusion matters because a fashion has grown up around the opposite idea:
 
 **Hormonal contraception.** A meta-analysis of 42 studies found that women on the oral contraceptive pill might perform slightly worse on average than women not taking it, an effect most likely to be trivial, and that performance was consistent across the pill cycle [@elliottsale2020]. Most of the studies were of moderate or low quality. The authors did not think the evidence justified general advice either way.
 
-**Eating enough.** Chapter 14 described relative energy deficiency in sport, the syndrome of persistently eating less than training costs, with effects on hormones, bones and performance. It affects men as well as women {shadow @mountjoy2023}. A rider who is losing weight on a hard training load, or whose periods stop, should treat it as a medical matter.
+**Eating enough.** Chapter 13 described relative energy deficiency in sport, the syndrome of persistently eating less than training costs, with effects on hormones, bones and performance. It affects men as well as women {shadow @mountjoy2023}. A rider who is losing weight on a hard training load, or whose periods stop, should treat it as a medical matter.
 
 **Pregnancy and menopause.** Neither is covered by the research in this book, and I would not give advice on either from it. Both are matters for a doctor or a specialist in women's sports medicine.
 
@@ -92,13 +92,13 @@ Heat drives heart rate up over a long ride, the drift that Chapter 9 measured. T
 
 ### Holding power, or holding heart rate
 
-Smart trainers can hold a set power whatever the cadence, which riders call ERG mode. It makes intervals precise and recoveries genuinely easy, and Chapter 12 discussed what that does for hard sessions. For a long Zone 2 ride it means that heart rate does all the drifting. An hour in, a power that started a few beats under the ceiling may have taken heart rate over it, especially in a warm room.
+Smart trainers can hold a set power whatever the cadence, which riders call ERG mode. It makes intervals precise and recoveries genuinely easy, and Chapter 11 discussed what that does for hard sessions. For a long Zone 2 ride it means that heart rate does all the drifting. An hour in, a power that started a few beats under the ceiling may have taken heart rate over it, especially in a warm room.
 
-Chapter 9 explained why no way of handling it is perfect late in a long ride. One is to hold power and accept the drift, setting the power 10 to 15 W under the top of the zone for long rides, the rule of thumb in Chapter 9. The other is to hold heart rate and let the power fall, which keeps the body under its threshold but may lower the work more than it needs to, because the threshold heart rate itself rises as you tire. I found no study of either approach indoors. Pick one, keep the room cool, and judge the ride by Chapter 20's measures over weeks, not minutes. {grade C}
+Chapter 9 explained why no way of handling it is perfect late in a long ride. One is to hold power and accept the drift, setting the power 10 to 15 W under the top of the zone for long rides, the rule of thumb in Chapter 9. The other is to hold heart rate and let the power fall, which keeps the body under its threshold but may lower the work more than it needs to, because the threshold heart rate itself rises as you tire. I found no study of either approach indoors. Pick one, keep the room cool, and judge the ride by Chapter 19's measures over weeks, not minutes. {grade C}
 
 ## Short of time
 
-Most riders are short of time, and the earlier chapters were written for them. The four-hour week in Chapter 18 shows the shape: two hard sessions and two short easy rides. One well-ridden hard session a week holds most of what a rider has for months (Chapter 13), and sprint intervals give a little more for very little time, at the cost of being the weaker choice for long efforts and the riskier one if run all-out (Chapter 12). The thing that matters most, for a rider short of time, is the same thing that mattered in my own winter: riding regularly. Four short rides every week will usually do more than one long ride when there is time for it. {grade C}
+Most riders are short of time, and the earlier chapters were written for them. The four-hour week in Chapter 17 shows the shape: two hard sessions and two short easy rides. One well-ridden hard session a week holds most of what a rider has for months (Chapter 12), and sprint intervals give a little more for very little time, at the cost of being the weaker choice for long efforts and the riskier one if run all-out (Chapter 11). The thing that matters most, for a rider short of time, is the same thing that mattered in my own winter: riding regularly. Four short rides every week will usually do more than one long ride when there is time for it. {grade C}
 
 ## What changes and what doesn't
 

@@ -871,7 +871,7 @@ def dose_response():
 
 def time_near_max():
     """Paired dots: minutes above 90% of VO2max in one session, short or varied format against a longer, steadier one."""
-    rows = _rows("time-near-vo2max", "time-near-max.csv")
+    rows = _rows("designing-intervals", "time-near-max.csv")
     b, y = head("Short work periods usually add time near VO₂max, but not when the long intervals are ridden all-out",
                 "Minutes above 90% of VO₂max in one session, in five comparisons from four studies.")
     W, left, right, rh = 680, 330, 640, 54
@@ -901,7 +901,7 @@ def time_near_max():
         hi_v, lo_v = max(s_, l_), min(s_, l_)
         b.append(text(X(hi_v) + 12, yy + 5, f"{hi_v:.1f}", 15.5, INK, "start", "600", halo))
         b.append(text(X(lo_v) - 12, yy + 5, f"{lo_v:.1f}", 15.5, INK, "end", "400", halo))
-    return _save("time-near-vo2max", "time-near-max.svg", W, H, b, "Paired dots of minutes above 90 percent of VO2max: varied 6.8 against steady 4.8; 30/15 18.7 against steady 14.7; 30/15 7.0 against 6 by 5 minutes 3.0 at fixed power and 18.8 against 16.9 all-out; 24 by 30 seconds 3.4 against 4 by 3 minutes 5.5 in runners")
+    return _save("designing-intervals", "time-near-max.svg", W, H, b, "Paired dots of minutes above 90 percent of VO2max: varied 6.8 against steady 4.8; 30/15 18.7 against steady 14.7; 30/15 7.0 against 6 by 5 minutes 3.0 at fixed power and 18.8 against 16.9 all-out; 24 by 30 seconds 3.4 against 4 by 3 minutes 5.5 in runners")
 
 
 def _bar(x, y_top, w, base, fill, stroke=None, r=4):

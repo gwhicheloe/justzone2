@@ -1,4 +1,7 @@
-# Designing intervals (Chapter 12): brief
+# Designing intervals (Chapter 11): brief
+
+**Merged 15 October 2026 at George's request** ("ok - do those first two changes"): Time near VO₂max (the old Chapter 11) is now part of this chapter, which opens with Seiler 2013, then the mechanism (Billat 2000, time near VO₂max, the slow component, MacInnis 2017), the pacing studies and figure, and *Reading the research: a correlation inside a trial* with the Odden 2024 table, then doses and other routes (Bacon 2013, Milanović 2015, Inglis 2024), and then the sessions as before. Seiler 2013 stays the one close-up. The old chapter's brief and research notes are kept beside this one as `brief-time-near-vo2max.md` and `research-time-near-vo2max.md`. The practical "For a rider on six to ten hours" ending moved to The training week (now Chapter 17), and the Women and men section now points to Special cases' trainability meta-analysis. About 6,900 words against a combined target of 8,000. The numbering in the text below is the old one.
+
 
 Status: **written with the first draft on 15 October 2026, the second of three Part III chapters drafted in one batch at George's request. Not reviewed; the argument has not been separately approved.**
 Target: 7,000 words. Part III. First draft: about 4,000 words. Nothing was padded.
