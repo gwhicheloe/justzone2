@@ -29,6 +29,6 @@ Opening (Hickson 1980 and 1988); What the cycling trials found; The pooled resul
 ## Questions for George
 
 1. Placement: answered 11 October, straight after Fuelling.
-2. From the saddle: do you lift? What, and did you notice anything on the bike?
+2. *From the saddle*: **Dropped 15 October**: George asked for the experience questions to be filled or dropped; dropped, because invented experience would read as his.
 3. It is short (2,500 words). Worth extending with: what a session looks like in practice; older riders and muscle loss (needs research); core and upper body (I found no trial evidence); injuries.
 4. The bone section is the part most relevant to riders our age. Do you want it expanded, with research on whether lifting or jumping restores bone?

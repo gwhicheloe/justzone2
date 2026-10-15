@@ -35,5 +35,5 @@ Expected grades: heat acclimation for hot races A; haemoglobin mass after five w
 ## Questions for George
 
 1. Is its own chapter right, or would you rather this were a 1,500-word section of Special cases? (Adds about 5,000 words to a book already over target.)
-2. The 2026 heatwave: how long did it last, did you keep training in the 37 °C room, and did you notice anything afterwards (lower heart rate, better numbers)? That is accidental heat training and would make a good From the saddle.
+2. The 2026 heatwave as a *From the saddle*: **Dropped 15 October**: George asked for the experience questions to be filled or dropped; dropped, because invented experience would read as his. His one line on it (power dropped in the 37 °C room) is in Durability.
 3. Have you ever prepared for a hot event (a summer sportive abroad)?

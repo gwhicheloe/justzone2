@@ -72,7 +72,7 @@ The programmes in the 17 studies were similar enough to describe an average. The
 
 Its recommended programme is two sessions a week for 12 weeks, with two or three sets of four to ten repetitions and two to three minutes' rest between sets, using exercises that work the same muscles through a similar movement to pedalling. It warns that legs feel heavy and sore for the first days after each session at the start, and advises cutting back the riding for the first two or three weeks. The suggested time to begin is straight after the end of the season, when riding matters least [@ronnestad2014].
 
-Strength gained in the winter can be kept through the season on very little. The Norwegian group had six cyclists lift twice a week for a 12-week preparation period and then once a week for the first 13 weeks of the racing season. They kept the muscle and the strength they had gained, and by the end of the 25 weeks had improved their 40-minute power more than six riders who had not lifted at all [@ronnestad2010b]. Twelve riders is very few, but the finding fits the pattern from Chapter 2 that an adaptation is cheaper to keep than to build.
+Strength gained in the winter can be kept through the season on very little. The Norwegian group had six cyclists lift twice a week for a 12-week preparation period and then once a week for the first 13 weeks of the racing season. They kept the muscle and the strength they had gained, and by the end of the 25 weeks had improved their 40-minute power more than six riders who had not lifted at all {shadow @ronnestad2010b}. Twelve riders is very few, but the finding fits the pattern from Chapter 2 that an adaptation is cheaper to keep than to build.
 
 Nobody has compared replacing riding with lifting against adding lifting on top. The 2010 review suggested that the trials which replaced some riding did better than those which added to it [@yamamoto2010]. The Norwegian trials added it and found a benefit. The question is open, and it matters to a rider with a fixed number of hours.
 
@@ -80,13 +80,11 @@ Nobody has compared replacing riding with lifting against adding lifting on top.
 
 Cycling is weight-supported. The skeleton does not carry the rider's weight on a bike the way it does in running or walking, and bone responds to load.
 
-A study in California compared 27 male masters cyclists, average age 51, who had raced for an average of 20 years, with normally active men of the same age and weight who were not athletes. The cyclists had lower bone mineral density at the spine and the hip. Four of them, 15%, had values in the range used to diagnose osteoporosis. None of the non-athletes did [@nichols2003].
+A study in California compared 27 male masters cyclists, average age 51, who had raced for an average of 20 years, with normally active men of the same age and weight who were not athletes. The cyclists had lower bone mineral density at the spine and the hip. Four of them, 15%, had values in the range used to diagnose osteoporosis. None of the non-athletes did {shadow @nichols2003}.
 
 A 2012 systematic review of 31 studies reached the same conclusion: adult road cyclists have low bone density in key regions, the lumbar spine in particular, and road cycling "does not appear to confer any significant osteogenic benefit" [@olmedillas2012]. Mountain bikers and cyclists who did other sports as well were better off. {grade C}
 
 These are comparisons between groups, so they cannot show that cycling caused the difference, though it is hard to think of another explanation for fit men having weaker bones than their less active peers. I have not found a trial showing that lifting restores bone in cyclists, and this chapter does not claim it. Loading the skeleton is the standard advice for bone health, and a squat loads the spine and hips. For a rider over 40 whose only exercise is the bike, this may be a better reason to lift than anything in a time trial.
-
-> **From the saddle.** [GEORGE: do you lift, or have you? What did you do, and did you notice anything on the bike?]
 
 ## Is this why racing is faster?
 

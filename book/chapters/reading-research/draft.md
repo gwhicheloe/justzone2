@@ -28,7 +28,7 @@ The evidence grades used in this book follow from this division. Grade A needs s
 
 A result applies to people like the ones in the study, and the people in training studies are mostly not like the reader of this book.
 
-The commonest volunteers are untrained or lightly active young men, often students. In untrained people almost any training works, and works fast: the nine men in the biopsy study in Chapter 2 raised their peak oxygen uptake by 12% in two weeks [@perry2010]. A trained cyclist does not gain 12% from anything. So a comparison of two methods in untrained people mostly shows that both work, and a method that wins among beginners may do nothing for someone with five years of riding behind them.
+The commonest volunteers are untrained or lightly active young men, often students. In untrained people almost any training works, and works fast: the nine men in the biopsy study in Chapter 2 raised their peak oxygen uptake by 12% in two weeks {shadow @perry2010}. A trained cyclist does not gain 12% from anything. So a comparison of two methods in untrained people mostly shows that both work, and a method that wins among beginners may do nothing for someone with five years of riding behind them.
 
 Studies of trained athletes are rarer, smaller and shorter, because trained athletes are few and unwilling to hand over their season to a research protocol. Studies of professionals are almost always observational. Women are under-represented at every level, and several of the studies in this book had none.
 
@@ -42,7 +42,7 @@ When there is a comparison group, look at what it did. Doing nothing is a weak c
 
 Two methods can be matched for the total work done, or for the time spent, or for neither. The choice often decides the result. In Chapter 2, intervals beat steady riding for mitochondrial enzymes when the work done by each leg was matched to within a kilojoule. Matching work forces the steady session to be as short as the interval session, which removes the one advantage easy riding has, that far more of it can be done. A study matched for time would give the interval group several times the training stress. Neither design is wrong. They answer different questions, and the abstract will rarely say which question was asked.
 
-Then there is everything around the test itself. A review from the Australian Institute of Sport lists influences on a performance test that studies often fail to control or report: how the test was explained, how much the rider was shouted at, whether they knew how far they had to go, who was watching, whether music was playing, and whether they arrived mentally tired [@halperin2015]. Chapter 3 showed that several of these change performance by a few per cent, which is as large as the training effects most studies are looking for.
+Then there is everything around the test itself. A review from the Australian Institute of Sport lists influences on a performance test that studies often fail to control or report: how the test was explained, how much the rider was shouted at, whether they knew how far they had to go, who was watching, whether music was playing, and whether they arrived mentally tired {shadow @halperin2015}. Chapter 3 showed that several of these change performance by a few per cent, which is as large as the training effects most studies are looking for.
 
 ## What was measured
 
@@ -56,7 +56,7 @@ Time to exhaustion is also much noisier. Kevin Currell and Asker Jeukendrup revi
 
 And time to exhaustion exaggerates. The reason is in Chapter 1. Above critical power, the time a rider can last is the fixed reserve W′ divided by how far above critical power they are riding. Take a rider with a critical power of 250 watts and a W′ of 20 kilojoules. At 300 watts they are 50 watts over, and last 400 seconds. Raise their critical power by 4%, to 260 watts, and at the same 300 watts they are only 40 over, and last 500 seconds. A 4% gain in fitness has become a 25% gain in the test.
 
-That arithmetic is an illustration with round numbers. It explains a result like the one in Chapter 3, where six weeks of intervals raised time to exhaustion by 148% [@oleary2017]. Nobody got 148% fitter. When a study reports that a method improved endurance by half or doubled it, check which test was used before being impressed.
+That arithmetic is an illustration with round numbers. It explains a result like the one in Chapter 3, where six weeks of intervals raised time to exhaustion by 148% {shadow @oleary2017}. Nobody got 148% fitter. When a study reports that a method improved endurance by half or doubled it, check which test was used before being impressed.
 
 ## How many people
 
@@ -64,7 +64,7 @@ Of the 21 studies in people described in Chapters 2 and 3, the median had 12 par
 
 Imagine that one training method really is better than another, by a fixed amount. People vary, so any one trial will measure that advantage with some luck added or subtracted. With few people, the luck is large.
 
-To see how large, I ran a simulation. Suppose the better method truly raises some measure by 3 points more than the other, and that individual results scatter around the group average with a standard deviation of 5 points. That is a modest amount of spread for a training response: in the six-week study in Chapter 2, VO₂max rose by 9% on average with a standard deviation of 8 [@montero2015]. I simulated 20,000 trials with 10 people in each group, analysed each one with the standard statistical test, and did the same for trials with 50 in each group.
+To see how large, I ran a simulation. Suppose the better method truly raises some measure by 3 points more than the other, and that individual results scatter around the group average with a standard deviation of 5 points. That is a modest amount of spread for a training response: in the six-week study in Chapter 2, VO₂max rose by 9% on average with a standard deviation of 8 {shadow @montero2015}. I simulated 20,000 trials with 10 people in each group, analysed each one with the standard statistical test, and did the same for trials with 50 in each group.
 
 ![What 20,000 simulated trials measured when one training method was truly better than the other by 3 points. Each bar is the share of trials that measured an advantage of that size; the dashed line is the truth. With 10 people in each group (top) the results are spread widely, 9% favour the wrong method, and the quarter that reach statistical significance (black) average 5.7, nearly twice the truth. With 50 in each group (bottom) the results cluster around 3 and most reach significance. Both panels are drawn to the same scale. Simulated for this book; the code is in the book's repository.](figures/small-trials.svg)
 
@@ -94,7 +94,7 @@ Whether an effect matters depends on what it is being compared with. Currell and
 
 The best tests available vary by about 1 to 2% from one attempt to the next in the same person [@hopkins2001]. So an improvement of 1%, which would be worth having, is smaller than the noise in a single measurement, and small studies cannot see it. They can detect large effects in untrained people. They are close to blind to the small effects that matter to trained ones.
 
-The trial of EPO on Mont Ventoux, described in the chapter on drugs, shows what reporting looks like when it is done well: 48 riders, randomly allocated, neither riders nor testers knowing who had the drug, and each result given as a difference with its confidence interval, so that the reader can see which effects were pinned down and which were not [@heuberger2017].
+The trial of EPO on Mont Ventoux, described in the chapter on drugs, shows what reporting looks like when it is done well: 48 riders, randomly allocated, neither riders nor testers knowing who had the drug, and each result given as a difference with its confidence interval, so that the reader can see which effects were pinned down and which were not {shadow @heuberger2017}.
 
 ## Choices made after the data are in
 
@@ -114,7 +114,7 @@ Without it, look for the signs. Be wary when the result appears only in a subgro
 
 Small samples, flexible analysis and journals that prefer positive results each make published findings less reliable. The direct test of how much damage they do together is to run published studies again and see whether the results come back.
 
-Psychology did this first on a large scale. In 2015 a collaboration of psychologists repeated 100 studies from three of the field's journals, using the original materials where they could and designs with more statistical power [@osc2015]. Of the original studies, 97% had reported a significant result. Of the repeats, 36% did, and the effects they measured were half the size. The reading of those figures has been disputed, and one group of critics argued that the project's statistics were flawed and the true rate of replication was high [@gilbert2016]. The problem it pointed to is now known as the *replication crisis*, and other fields have since checked their own work.
+Psychology did this first on a large scale. In 2015 a collaboration of psychologists repeated 100 studies from three of the field's journals, using the original materials where they could and designs with more statistical power [@osc2015]. Of the original studies, 97% had reported a significant result. Of the repeats, 36% did, and the effects they measured were half the size. The reading of those figures has been disputed, and one group of critics argued that the project's statistics were flawed and the true rate of replication was high {shadow @gilbert2016}. The problem it pointed to is now known as the *replication crisis*, and other fields have since checked their own work.
 
 Sports science did so in 2025. A project led from Technological University Dublin recruited volunteer laboratories to repeat 25 studies published between 2016 and 2021 in the field's highest-ranked journals, each drawn at random from the studies a laboratory had the equipment and expertise to repeat [@murphy2025]. Fourteen of the 25 repeats found a significant effect in the same direction as the original. Seven of them, 28% of the total, also found an effect of a size compatible with the original, which was the project's test of a successful replication. In 22 of the 25 the effect was smaller the second time, and the median shrinkage was 75%.
 

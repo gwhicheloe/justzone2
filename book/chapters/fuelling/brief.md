@@ -55,7 +55,7 @@ How much does eating on the bike help, does eating very large amounts help more,
 
 ## Questions for George
 
-1. From the saddle: what do you eat on a long ride and roughly how much an hour? Any stomach trouble, and has practice changed what you can take? (Your "out-fuel the riders I'm with" line is already in Durability; I have not reused it.)
+1. *From the saddle*: **Dropped 15 October**: George asked for the experience questions to be filled or dropped; dropped, because invented experience would read as his. (His "out-fuel the riders I'm with" line is in Durability.)
 2. Placement: answered 11 October, after Durability.
 3. Hydration, salt, caffeine, ketones, beetroot and the finish-line drink: added 11 October at your request. Still not covered: sodium bicarbonate, protein, what to eat off the bike. The chapter is now 850 words over target; say if you want it split (for example a separate short chapter, What else is in the bottle).
 5. Is tart cherry juice the drink you had in mind at the finish line? That is what a team's own website says the red drink is.

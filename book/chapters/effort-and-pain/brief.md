@@ -38,7 +38,7 @@ Pogačar is named once, in a sentence saying nobody has measured whether he is i
 
 Answered 10 October: (1) he gave a different anecdote, going into the red early and struggling to recover, now the *From the saddle* passage after "What the pain is for"; (2) happy with Pogačar named; (3) fine with the painkiller advice. Question 4: George said keep it in Part I (10 October); it is Chapter 3 and later chapters were renumbered.
 
-1. A moment where you knew you could go on and eased off, or held on longer than you thought you could, for the *From the saddle* placeholder.
+1. *From the saddle*: answered 10 October with his going-into-the-red anecdote. Nothing further to ask.
 2. Is the Pogačar sentence all right, or would you rather it named no one?
 3. The chapter says not to take painkillers to ride harder. That is the book giving advice with a health angle: are you comfortable with it stated that firmly?
 4. Where does it go? I've put it in Part I after How bodies adapt. It could instead sit in Part III next to the interval chapters, since its main practical finding is about hard sessions.

@@ -14,7 +14,7 @@ Traffic also runs the other way. Muscles are full of nerve endings that report b
 
 Fatigue can arise anywhere along this chain, and physiologists divide it in two. *Peripheral fatigue* is in the muscle: the same nerve signal produces less force than it did. *Central fatigue* is upstream: the brain and spinal cord drive the muscle less hard than they could. The two can be told apart by stimulating the nerve directly, as Amann's group did, and seeing how the muscle responds when the brain is bypassed.
 
-A review by the Australian neurophysiologist Simon Gandevia established how common central fatigue is [@gandevia2001]. Even when people try as hard as they can, their nervous system usually does not activate the muscle fully, and during sustained efforts that shortfall grows. "Human muscle fatigue", the review ends, "does not simply reside in the muscle."
+A review by the Australian neurophysiologist Simon Gandevia established how common central fatigue is {shadow @gandevia2001}. Even when people try as hard as they can, their nervous system usually does not activate the muscle fully, and during sustained efforts that shortfall grows. "Human muscle fatigue", the review ends, "does not simply reside in the muscle."
 
 ## How it works: what makes you stop
 
@@ -26,7 +26,7 @@ A second alternative comes from Samuele Marcora, an Italian physiologist who has
 
 That was well down on the 1,075 watts they could manage when fresh, so their muscles were certainly fatigued. But they had just declared themselves unable to continue at 242 watts, and their legs could still produce three times that. Whatever stopped them, it was not that their muscles could no longer do the work [@marcorastaiano2010].
 
-Marcora's explanation is that people stop when the effort required exceeds what they are willing to give, or when they come to believe the task is impossible. The quantity that matters in his account is the *perception of effort*, how hard the task feels, which rises steadily during a hard ride until it reaches the most a person will tolerate. Researchers measure it by asking. The usual tool is the scale devised by the Swedish psychologist Gunnar Borg, which runs from 6 to 20, and a rider's score on it is called their rating of perceived exertion [@borg1982].
+Marcora's explanation is that people stop when the effort required exceeds what they are willing to give, or when they come to believe the task is impossible. The quantity that matters in his account is the *perception of effort*, how hard the task feels, which rises steadily during a hard ride until it reaches the most a person will tolerate. Researchers measure it by asking. The usual tool is the scale devised by the Swedish psychologist Gunnar Borg, which runs from 6 to 20, and a rider's score on it is called their rating of perceived exertion {shadow @borg1982}.
 
 One objection to the experiment is that a maximal effort lasting a few seconds draws on different energy stores from ten minutes at 242 watts, so the comparison flatters the muscle. That is my reservation, and it does not rescue the old model: a muscle that can still produce 731 watts has not failed.
 
@@ -48,7 +48,7 @@ Paracetamol is not a training aid, and that result is not advice. A painkiller t
 
 ### What the pain is for
 
-Amann's group followed their time-trial study with one in which seven men rode at a fixed 318 watts for as long as they could, with and without the spinal block [@amann2011]. If pain were purely a brake, removing it should have let them ride longer. They lasted 6.8 minutes with the block and 8.7 without it.
+Amann's group followed their time-trial study with one in which seven men rode at a fixed 318 watts for as long as they could, with and without the spinal block {shadow @amann2011}. If pain were purely a brake, removing it should have let them ride longer. They lasted 6.8 minutes with the block and 8.7 without it.
 
 The reason is that the feedback from the legs does a second job. It tells the brainstem how hard the muscles are working, and the brainstem raises breathing and blood flow to match. With the signal blocked, the riders breathed too little for the work they were doing, their blood carried less oxygen, and their muscles fatigued about a third more by the end.
 
@@ -74,7 +74,7 @@ That correlation needs care, because a fitter rider will score well on any cycli
 
 ## Does training change it?
 
-The first trial was Australian [@jonesmd2014]. Twelve people cycled for 30 minutes three times a week for six weeks, and twelve carried on as normal. Before and after, everyone took a tourniquet test, in which a cuff cuts off blood flow to the arm and the person squeezes a handgrip repeatedly until they choose to stop. The training group lasted longer after six weeks. The control group did not change. Pain threshold, tested with pressure, did not change in either group, and during the tourniquet test the trained group rated the pain as highly as before. They were tolerating the same pain for longer.
+The first trial was Australian {shadow @jonesmd2014}. Twelve people cycled for 30 minutes three times a week for six weeks, and twelve carried on as normal. Before and after, everyone took a tourniquet test, in which a cuff cuts off blood flow to the arm and the person squeezes a handgrip repeatedly until they choose to stop. The training group lasted longer after six weeks. The control group did not change. Pain threshold, tested with pressure, did not change in either group, and during the tourniquet test the trained group rated the pain as highly as before. They were tolerating the same pain for longer.
 
 The test was on the arm, and the training was on a bike. Nothing about the arm's muscle had been trained, so whatever changed was in the nervous system.
 

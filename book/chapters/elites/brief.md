@@ -31,7 +31,7 @@ Why do the best endurance athletes do most of their training easy, and does thei
 
 - *One study, up close*: Stöggl & Sperlich 2014, read in full. The skill is Chapter 4's "what was compared": its distributions are session counts, the groups trained different hours, and the high-volume group was continuing what every athlete had done before.
 - *Reading the research*: an effect that shrank, on the three pooled analyses of 2019, 2024 and 2025.
-- *From the saddle*: a placeholder only. George has supplied nothing for this chapter.
+- *From the saddle*: none. **Dropped 15 October**: George asked for the experience questions to be filled or dropped; dropped, because invented experience would read as his.
 - No separate *How it works*: the mechanism is the section "Why it might work".
 
 ## Figures
@@ -74,5 +74,5 @@ None.
 1. Is the position right: copy the champions' amount of hard training, not their ratio?
 2. May the book name the skier (Marit Bjørgen, thanked by name in the paper) and the Norwegian runners (the Ingebrigtsens, named in the paper)? Neither mention would say anything beyond their training and results. They are unnamed in the draft.
 3. Do you accept the rule for how hard an easy ride should be (as much work as it can carry without taking anything from the hard sessions: Zone 2 on your hours, lower on a professional's)? It is now in Chapters 7 and 8 and recorded in plan.md for later chapters.
-4. The *From the saddle* placeholder asks whether you have followed an 80/20 plan or compared a professional's easy ride with yours. Is there something better you would rather say here?
+4. *From the saddle*: **Dropped 15 October**: George asked for the experience questions to be filled or dropped; dropped, because invented experience would read as his.
 5. The website's evidence review has three statements that do not match the papers (listed at the end of research.md). Correct them?

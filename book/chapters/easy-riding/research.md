@@ -192,10 +192,10 @@ George: "why sometimes a circle at the end of the line, sometimes a box?" Circle
 
 # George's winter, in his own figures (11 October 2026)
 
-From three comments on the draft page (verbatim in `george/notes.md`): before the winter, mainly high-intensity riding (Zwift races, hard weekend rides), inconsistent, "maybe 3 or 4 hours a week"; during it, "about 6 or seven" hours a week; he "generally felt better and fell ill less often with coughs and colds".
+From three comments on the draft page (verbatim in `george/notes.md`): before the winter, mainly high-intensity riding (Zwift races, hard weekend rides), inconsistent, "maybe 3 or 4 hours a week"; during it, "about 6 or seven" hours a week, which he corrected on 15 October to three to five, matching the Introduction; he "generally felt better and fell ill less often with coughs and colds".
 
-- [Own] Hours roughly doubled; regularity rose; intensity fell. A single before-and-after time on one climb cannot separate these, nor rule out weight, conditions or pacing. George has asked that his weight be left out of it (11 October), so the draft neither asks nor says anything about his weight that winter; the limit on the inference stands and is covered by "one rider and one climb".
-- [Own] "The extra hours and the regularity are likelier causes than the lower intensity" rests on this chapter's per-hour evidence (Mølmen 2025) and on nothing measured in George.
-- The Introduction's description of the winter (four or five rides of 45 to 60 minutes) comes to three to five hours, which does not match six or seven. Unresolved.
+- [Own] Hours changed little (three or four before, three to five during, George 15 October); regularity rose; intensity fell. A single before-and-after time on one climb cannot separate these, nor rule out weight, conditions or pacing. George has asked that his weight be left out of it (11 October), so the draft neither asks nor says anything about his weight that winter; the limit on the inference stands and is covered by "one rider and one climb".
+- [Own] "The regularity is a likelier cause than the lower intensity" rests on this chapter's per-hour evidence (Mølmen 2025) and on nothing measured in George.
+- The Introduction's description of the winter (four or five rides of 45 to 60 minutes) comes to three to five hours. Resolved 15 October: George changed his six or seven to three to five.
 - **Side road, not researched:** illness. Whether hard training raises the risk of colds and easy training lowers it is an old claim in exercise immunology and a disputed one [GK]. Nothing has been read for the book. It belongs to Beyond performance (Chapter 10) if anywhere. The draft makes no claim.
 

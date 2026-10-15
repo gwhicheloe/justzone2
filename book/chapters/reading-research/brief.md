@@ -42,7 +42,7 @@ When a study says one way of training beats another, how much should you believe
 
 ## Questions for George
 
-1. Would you write a few lines on what reading finance research taught you about small samples and results that don't repeat? It would be the chapter's *From the saddle* (or a differently named box), and it is a real qualification for writing this chapter.
+1. A box on what reading finance research taught him: **Dropped 15 October**: George asked for the experience questions to be filled or dropped; dropped, because invented experience would read as his.
 2. The chapter is short of its target by about 1,250 words. Candidates to add: meta-analyses and how to read them (the book cites several); crossover against parallel designs; regression to the mean; funding and conflicts of interest. Which, if any?
 3. The simulation is original work, not a citation. Are you comfortable with the book containing it, described as "I ran a simulation"? You can run it yourself: `python3 book/tools/simulate_small_trials.py`. **Answered 11 October: yes, George is comfortable with it.**
 4. The chapter says of magnitude-based inference that sports science "had to abandon" it. That is strong. I believe at least one major journal stopped accepting it, but I have only Sainani's abstract; soften, or check first?

@@ -54,7 +54,7 @@ This is a science book about endurance training. The chapter is about the physio
 
 ## Questions for George
 
-1. Your own memories: did you believe in the Armstrong years, and how did 2012 land? A From the saddle placeholder is in the draft.
+1. Your own memories of the Armstrong years: **Dropped 15 October**: George asked for the experience questions to be filled or dropped; dropped, because invented experience would read as his.
 2. Are you content for no current rider to be named beyond results and quotes?
 3. British cases (the 2018 parliamentary report on TUEs, the 2017 salbutamol case that was closed without sanction) are left out to keep the libel risk low. Say if you want them in, carefully attributed.
 4. Position in the book, and the word count: this takes the total to about 103,000.

@@ -37,7 +37,7 @@ Where is the top of your Zone 2, how is it measured, and how good are the shortc
 
 - *One study, up close*: Olieslagers 2026, a chest strap against lactate and breathing. Read in full.
 - *Reading the research*: validated against what?
-- *From the saddle*: George on being too squeamish for a lactate test, and on setting his own zone from Strava's percentages of his highest recorded heart rate. Placeholder questions remain.
+- *From the saddle*: George on being too squeamish for a lactate test, and on setting his own zone from Strava's percentages of his highest recorded heart rate. The placeholder questions after it were dropped 15 October: George asked for the experience questions to be filled or dropped; dropped, because invented experience would read as his.
 
 ## Figures
 
@@ -78,7 +78,7 @@ Where is the top of your Zone 2, how is it measured, and how good are the shortc
 ## Questions for George
 
 1. Is the definition right: 0.5 mmol/L above your own baseline, four-minute stages? Or do you want a different lactate rule (for example the fixed 2 mmol/L many podcasts use)?
-2. Answered 11 October: too squeamish for a home lactate test, which is why the proxies matter to him. Used as the *From the saddle* passage. Still open: which stand-in he uses himself, and whether he would have a laboratory test.
+2. Answered 11 October: too squeamish for a home lactate test, which is why the proxies matter to him. Used as the *From the saddle* passage. The follow-up questions (which stand-in he uses, whether he would have a laboratory test) were dropped 15 October: George asked for the experience questions to be filled or dropped; dropped, because invented experience would read as his.
 3. By "home lactate tests" do you mean finger-prick meters, or something newer?
 4. Is the balance now right, or should the proxies section shrink further?
 5. Should the lactate biology move from the Intensity chapter into this one?

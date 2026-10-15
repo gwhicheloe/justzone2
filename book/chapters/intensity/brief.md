@@ -25,7 +25,7 @@ What do "Zone 2", "threshold" and "easy" mean, and what in the body do they refe
 - *How it works*: lactate, and why breathing changes.
 - *Reading the research*: agreement on average is not agreement for you (bias, limits of agreement, correlation), on Borszcz 2019 and Inglis 2020.
 - *One study, up close*: Meixner 2025, nine markers in 50 cyclists. Includes a criticism of the paper's own headline statistic.
-- *From the saddle*: placeholder.
+- *From the saddle*: none. **Dropped 15 October**: George asked for the experience questions to be filled or dropped; dropped, because invented experience would read as his.
 - Ends on a list of terms as the book uses them. A real reference list, so the checker's flag stands.
 
 ## Figures
@@ -48,7 +48,7 @@ What do "Zone 2", "threshold" and "easy" mean, and what in the body do they refe
 
 ## Questions for George
 
-1. A *From the saddle* passage: which zones you started with, and whether your Zone 2 moved when you tested it.
+1. *From the saddle*: **Dropped 15 October**: George asked for the experience questions to be filled or dropped; dropped, because invented experience would read as his.
 2. The book adopts the 2025 consensus definition of Zone 2 (immediately below the first threshold). That matches the app. Happy with that as the book's definition?
 3. I use "easy" for everything below the first threshold and keep "Zone 2" for its upper part. The alternative is to call the whole range Zone 2, as most people do loosely. Which do you want?
 4. The chapter says nothing of the "extreme" domain, muscle-oxygen sensors or the Norwegian double-threshold method. Any of them wanted here?

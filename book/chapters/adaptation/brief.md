@@ -41,7 +41,7 @@ How does a ride, repeated often enough, become a bigger heart, more blood, more 
 
 ## Questions for George
 
-1. Have you had a long break from riding (illness, injury, a holiday, a newborn)? How long, and how long did it take to feel normal again? That is the *From the saddle* passage in the detraining section.
+1. A long break from riding: answered by his illness remark, now the *From the saddle* passage in the detraining section. Nothing further to ask.
 2. Is the level of molecular detail right? The chapter names AMPK, CaMK, PGC-1α and messenger RNA and no more. It could go further (p38, NRFs, Tfam, HIF) or pull back.
 3. Fibre types are barely covered here (Chapter 1 has the Coyle 1992 correlation). Do you want a section on whether training converts fibre types? It would need new sources.
 4. The chapter does not cover strength training or "train low" (low-glycogen sessions). Special cases, or here? (The nervous system now has its own chapter, Effort, pain and the brain, added 10 October.)

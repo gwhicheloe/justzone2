@@ -1,6 +1,6 @@
 # Beyond performance (Chapter 10): brief
 
-Status: **written with the first draft on 14 October 2026, at George's request ("then do the next chapter"), committed unreviewed at his request the same night. The argument has not been separately approved.**
+Status: **written with the first draft on 14 October 2026, at George's request ("then do the next chapter"), committed unreviewed at his request the same night. Position approved by George on 15 October ("the positioning is good"); the draft itself is still unreviewed.**
 Target: 5,000 words. Part II, *The easy part*. First draft: about 4,100 words. Nothing was padded; weight and mitochondria are Chapter 7's and are referred to, not retold.
 
 ## The question
@@ -32,7 +32,7 @@ From the outline: does Zone 2 make you live longer, or is that a correlation? An
 
 - *Reading the research*: marker or cause (Morris's busmen, the Cleveland limitation, the Finnish twins).
 - *One study, up close*: Generation 100, as a trial table.
-- *From the saddle*: a placeholder only; his colds remark is used in the text as narrative, since Chapter 7's blockquote already quotes it.
+- *From the saddle*: none (**Dropped 15 October**: George asked for the experience questions to be filled or dropped; dropped, because invented experience would read as his); his colds remark is used in the text as narrative, since Chapter 7's blockquote already quotes it.
 - One figure.
 
 ## Figure
@@ -63,7 +63,7 @@ None.
 
 ## Questions for George
 
-1. Is the position right: that for a rider on six to ten hours, health gives no reason to favour Zone 2 over intervals?
-2. The *From the saddle* placeholder asks whether health or living longer played any part in why you took up Zone 2 or ride at all, and whether anything measurable (resting heart rate, blood pressure) has changed. Is there something better to say here?
+1. ~~Is the position right?~~ **Approved by George, 15 October 2026: "the positioning is good".**
+2. *From the saddle*: **Dropped 15 October**: George asked for the experience questions to be filled or dropped; dropped, because invented experience would read as his.
 3. The draft uses your colds remark from Chapter 7 in the text, as narrative ("I fell ill less often with coughs and colds"). Happy for it to appear in both chapters?
 4. The chapter is about 900 words short. Leave it, or add one of the candidates under Weak points?

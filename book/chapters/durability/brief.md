@@ -46,9 +46,9 @@ Still to find: mechanism papers (glycogen and fatigue in prolonged cycling; card
 ## Questions for George
 
 0. **Answered:** opening on Pogačar's long-range solos or van der Poel's 175 km attack (George, 3 October 2026). Avoid the phrase "the honest answer" (now banned in `style.md`).
-1. Have you had a ride where you were strong for three hours and then fell apart, or the reverse, felt stronger than others late on? Sa Calobra? The details make the opening.
-2. Do you notice your Zone 2 power dropping (or heart rate rising) late in long indoor rides? Roughly how much?
-3. How do you fuel long rides now, and has that changed?
+1. Answered: the Pyrenees, day 4 (see below).
+2. Answered in part: his power dropped in the 2026 heatwave. Nothing further to ask (15 October).
+3. Answered: he tries to out-fuel the riders he is with. The empty box on his long rides was dropped 15 October: George asked for the experience questions to be filled or dropped; dropped, because invented experience would read as his.
 4. Do you agree with the "long ride is a reasonable bet, not a proven one" stance, or do you want the chapter to come down harder either way?
 
 ## George's answers (3 October 2026) and where they go
