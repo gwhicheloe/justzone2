@@ -9,6 +9,9 @@ Handles the subset of Markdown the drafts use: headings, paragraphs, bold and
 italic, numbered and bulleted lists, blockquotes. Book conventions:
   [@key] or [@a; @b]   -> numbered citations, numbered afresh in each chapter,
                           with a reference list built from sources.yaml
+  {shadow @key; @b}    -> a source kept with its sentence for checking but not printed: shown faintly
+                          on the review page with its own list, dropped from the print proof
+                          (style.md says which sources are printed)
   {grade A|B|C}        -> a small evidence-grade badge
   [GEORGE: ...]        -> a highlighted note for George
   ![caption](figures/x.svg) on its own paragraph -> the SVG inline, numbered, with the caption
@@ -55,6 +58,7 @@ def inline(text, cite):
     badge = lambda m: f'<span class="grade g{m.group(1)}" title="Evidence grade {m.group(1)}">{m.group(1)}</span>'
     t = re.sub(r"\{(grade [ABC][^{}]*)\}", lambda m: '<span class="gradenote">' + re.sub(r"grade ([ABC])", badge, m.group(1)) + "</span>", t)
     t = re.sub(r"\[(@[^\]]+)\]", lambda m: cite(m.group(1)), t)
+    t = re.sub(r"\{shadow (@[^{}]+)\}", lambda m: cite(m.group(1), shadow=True), t)
     t = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", t)
     t = re.sub(r"(?<![\w*])\*(?!\s)(.+?)(?<!\s)\*(?![\w*])", r"<em>\1</em>", t)
     return t
@@ -149,16 +153,21 @@ def render_chapter(md, sources, idx, base=".", probes=False, moves=None, layout=
     """Returns (title, anchor, words, html). For the print proof: probes marks every block,
     moves {block: n} puts a table or figure n blocks later, and layout, if a list, receives
     (block, kind) in the order printed."""
-    order = []
+    order, shadows = [], []
     md = re.sub(r"<!--.*?-->", "", md, flags=re.S)  # notes to ourselves, never printed
+    if print_mode:
+        md = re.sub(r"[ \t]*\{shadow [^{}]*\}", "", md)  # sources kept for checking, never printed
 
-    def cite(group):
+    def cite(group, shadow=False):
         keys = re.findall(r"@([A-Za-z0-9_:-]+)", group)
-        nums = []
+        seen, nums = (shadows if shadow else order), []
         for k in keys:
-            if k not in order:
-                order.append(k)
-            nums.append(order.index(k) + 1)
+            if k not in seen:
+                seen.append(k)
+            nums.append(seen.index(k) + 1)
+        if shadow:
+            links = ",".join(f'<a href="#c{idx}-s{n}">s{n}</a>' for n in nums)
+            return f'<sup class="cite shadow" title="Kept for checking, not printed">[{links}]</sup>'
         links = ",".join(f'<a href="#c{idx}-r{n}">{n}</a>' for n in nums)
         return f'<sup class="cite">[{links}]</sup>'
 
@@ -207,17 +216,25 @@ def render_chapter(md, sources, idx, base=".", probes=False, moves=None, layout=
         else:
             out.append(f"<p>{inline(' '.join(l.strip() for l in b), cite)}</p>")
 
-    words = len(re.findall(r"\b\w+\b", re.sub(r"\[@[^\]]+\]|\{grade [ABC]\}", "", md)))
-    if order:
+    words = len(re.findall(r"\b\w+\b", re.sub(r"\[@[^\]]+\]|\{shadow [^{}]*\}|\{grade [ABC]\}", "", md)))
+
+    def ref_list(keys, prefix):
         refs = []
-        for n, k in enumerate(order, 1):
+        for n, k in enumerate(keys, 1):
             s = sources.get(k, {})
             status = s.get("status", "missing")
             doi = s.get("doi")
             link = f' <a href="https://doi.org/{html.escape(doi)}">doi</a>' if doi else ""
-            refs.append(f'<li id="c{idx}-r{n}">{html.escape(s.get("citation", "MISSING FROM sources.yaml: " + k))}{link}'
+            refs.append(f'<li id="c{idx}-{prefix}{n}">{html.escape(s.get("citation", "MISSING FROM sources.yaml: " + k))}{link}'
                         f' <span class="status s-{status}">{status}</span></li>')
-        out.append('<section class="refs"><h2>References</h2><ol>' + "".join(refs) + "</ol></section>")
+        return "".join(refs)
+
+    if order or shadows:
+        sec = '<section class="refs"><h2>References</h2><ol>' + ref_list(order, "r") + "</ol>" if order else '<section class="refs">'
+        if shadows:  # never in print: print_mode stripped them above
+            sec += (f'<h2 class="shadow-h">Kept for checking, not printed ({len(shadows)})</h2>'
+                    f'<ol class="shadow">{ref_list(shadows, "s")}</ol>')
+        out.append(sec + "</section>")
         kinds.append("refs")
     seq = list(zip(range(len(out)), kinds, out))
     for j in sorted(moves or {}, reverse=True):
@@ -261,6 +278,11 @@ STYLE = """
   sup.cite{font-family:var(--sans);font-size:11px;line-height:0;margin-left:1px}
   sub{font-size:.7em;line-height:0;vertical-align:-.25em}
   sup.cite a{color:var(--accent);text-decoration:none}
+  sup.cite.shadow,sup.cite.shadow a{color:var(--faint)}
+  section.refs h2.shadow-h{margin-top:22px}
+  section.refs ol.shadow{list-style:none;padding-left:0;counter-reset:sh;color:var(--faint)}
+  section.refs ol.shadow li{counter-increment:sh;padding-left:2.2em;text-indent:-2.2em}
+  section.refs ol.shadow li::before{content:"s" counter(sh) ". ";font-family:var(--mono);font-size:12px}
   .gradenote{font-size:.88em;color:var(--muted,#666)}
   .grade{font-family:var(--mono);font-size:11px;font-weight:500;border-radius:4px;padding:1px 5px;margin-left:3px;border:1px solid currentColor;vertical-align:2px}
   .gA{color:var(--gA)} .gB{color:var(--gB)} .gC{color:var(--gC)}
@@ -595,7 +617,7 @@ def main():
 <div class="wrap">
   <div class="banner"><b>Just Zone 2? First drafts for review.</b> {total:,} words. Read for the argument and the voice first; wording can change.
     <div class="key">Evidence grades: <span class="grade gA">A</span> trials or meta-analysis <span class="grade gB">B</span> small or single-lab <span class="grade gC">C</span> observation, mechanism or opinion</div>
-    <div class="key">References show how far each source has been checked: <span class="status s-fulltext">fulltext</span> <span class="status s-abstract">abstract</span> <span class="status s-exists">exists</span> &nbsp;<mark class="george">George: highlighted notes need your input</mark></div>
+    <div class="key">References show how far each source has been checked: <span class="status s-fulltext">fulltext</span> <span class="status s-abstract">abstract</span> <span class="status s-exists">exists</span> &nbsp;<sup class="cite shadow">[s1]</sup> a source kept for checking, not printed &nbsp;<mark class="george">George: highlighted notes need your input</mark></div>
   </div>
   <nav class="toc">{toc}</nav>
   {body}

@@ -55,7 +55,7 @@ UNIT_NUM = re.compile(
     r"(?<![\w@])\d+(?:[.,]\d+)?\s?(?:%|W\b|W/kg|watts?\b|bpm|beats|mmol|mL|ml\b|L/min|kg\b|kJ\b|min\b|minutes?|"
     r"s\b|seconds?|h\b|hours?|weeks?|days?|km\b|percentage points?|participants|cyclists|riders|athletes|men|women)",
     re.I)
-CITE = re.compile(r"\[@[^\]]+\]")
+CITE = re.compile(r"\[@[^\]]+\]|\{shadow @[^{}]+\}")  # a shadow source still backs the number for us
 KEY = re.compile(r"@([A-Za-z0-9_:-]+)")
 
 
@@ -105,7 +105,7 @@ def paragraphs(text):
 
 
 def sentences(text):
-    text = re.sub(r"\[@[^\]]+\]|\{grade [ABC]\}", "", text)
+    text = re.sub(r"\[@[^\]]+\]|\{shadow [^{}]*\}|\{grade [ABC]\}", "", text)
     parts = re.split(r"(?<=[.!?])\s+(?=[A-Z\"'(])", text.strip())
     return [p for p in parts if len(p.split()) > 0]
 
@@ -180,7 +180,9 @@ def check(path, sources):
     # Summary
     flags.sort()
     name = os.path.relpath(path)
-    print(f"\n{name}: {words_total} words, {len(flags)} flags")
+    printed = {k for g in re.findall(r"\[(@[^\]]+)\]", text) for k in KEY.findall(g)}
+    shadow = {k for g in re.findall(r"\{shadow ([^{}]+)\}", text) for k in KEY.findall(g)} - printed
+    print(f"\n{name}: {words_total} words, {len(flags)} flags, {len(printed)} printed references, {len(shadow)} shadow")
     if sentence_lengths:
         print(f"  sentences: mean {statistics.mean(sentence_lengths):.1f} words, "
               f"spread {statistics.pstdev(sentence_lengths):.1f} (low spread reads as monotonous; aim for 7+)")

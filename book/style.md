@@ -57,6 +57,20 @@ Mark major claims with a grade after the citation:
 
 Grade the claim, not the paper. A strong trial can support only a weak version of a claim.
 
+### Which sources are printed
+
+George, 15 October: "some of the reference lists are massive… if they're not directly quoted or they're not key to a chapter can we drop them". Each chapter prints only the references a reader needs; the rest are kept with their sentence as `{shadow @key}`, which the review page shows faintly and the print proof leaves out. Nothing is deleted: the shadow source stays as the check on the sentence.
+
+Printed, `[@key]`:
+- any direct quotation (always: a quotation without a reference is not allowed);
+- the *One study, up close* study, and the source of every figure and trial table;
+- the studies and reviews the chapter's position rests on, usually the ones carrying a grade, and the main evidence for each section;
+- anything said about a named person, team or organisation (the doping chapter keeps nearly everything; so do the race reports and Pogačar's interview);
+- safety claims (heat illness, drinking too much, energy deficiency);
+- a source another chapter points to ("Chapter 9 describes…"), in the chapter pointed to.
+
+Shadow, `{shadow @key}`: everything else, including supporting studies described in the text, background physiology, history, second sources for one point, and sources described in full in another chapter. The text still names the study in words ("a 2019 Brazilian group"), which is the credit; the reference list is for checking. Any shadow source can be promoted back to `[@key]` if George wants it printed. First applied 15 October: 490 printed references across 18 chapters became 256. If the full list is to be available to readers, it would go online, which is George's decision.
+
 ## Structure
 
 - Prose, in paragraphs. Lists only for things that really are lists: session structures, steps of a test, a reference table. Never bold-led bullet points standing in for an argument.
@@ -130,7 +144,7 @@ What each element is, when used:
 - **One study, up close.** Who was studied, the design, what was measured, the result with numbers, and what the study can't tell us.
 - **How it works.** The mechanism. Plain explanations, analogies only where they're accurate, and a diagram where it helps. Mark speculation as speculation.
 - **Reading the research.** One skill, practised on a real study from that chapter: e.g. correlation and causation, small samples and unstable correlations, "a trend that didn't reach significance", responders and non-responders, lab markers against performance, who was studied. Short: 300 to 500 words.
-- **From the saddle.** George's experience, in a blockquote headed `> **From the saddle.**`. His words, lightly edited. Never invented: if George hasn't supplied it, the draft leaves a placeholder `> **From the saddle.** [GEORGE: …question…]`. This one is wanted in every chapter where he has something to say, and can sit anywhere, more than once.
+- **From the saddle.** George's experience, in a blockquote headed `> **From the saddle.**`. His words, lightly edited. Never invented. Use it only where George has already said something (his words are kept in `george/notes.md`); otherwise the chapter has no box. No placeholders asking for his experience: George, 15 October, asked for them to be filled or dropped, and they were dropped. It can sit anywhere, more than once.
 - **Figures.** Redrawn from published data, with the source in the caption. No copied figures.
 - **Chart titles state the point** (George, 11 October 2026): a chart's title is the main thing it is meant to show, written as a claim ("Small trials that reach significance overstate the effect"), not a description of what was plotted. What was plotted goes in the line under the title or in the caption.
 
