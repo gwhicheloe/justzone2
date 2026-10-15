@@ -1,0 +1,5 @@
+label,note,est,lo,hi
+How long fitness takes to fade,fitness time constant,38,17,59
+How long fatigue takes to fade,fatigue time constant,19,6,32
+Time to recover performance,after a block of training,19,7,35
+Time to peak performance,after training stops,43,25,61

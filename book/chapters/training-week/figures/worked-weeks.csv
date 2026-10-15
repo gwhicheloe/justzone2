@@ -1,0 +1,22 @@
+week,day,kind,hours,label
+4,Mon,rest,0,
+4,Tue,hard,1.0,4 × 8
+4,Wed,rest,0,
+4,Thu,easy,1.0,
+4,Fri,rest,0,
+4,Sat,hard,1.25,30/15
+4,Sun,easy,0.75,
+8,Mon,rest,0,
+8,Tue,hard,1.25,4 × 8
+8,Wed,easy,1.5,
+8,Thu,easy,1.0,
+8,Fri,hard,1.25,30/15
+8,Sat,long,3.0,
+8,Sun,rest,0,
+12,Mon,rest,0,
+12,Tue,hard,1.5,5 × 8
+12,Wed,easy,2.0,
+12,Thu,easy,1.5,
+12,Fri,hard,1.5,30/15
+12,Sat,long,4.0,
+12,Sun,easy,1.5,

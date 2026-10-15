@@ -869,13 +869,481 @@ def dose_response():
     return _save("beyond-performance", "dose-response.svg", W, H, b, "Bar chart of lower risk of death by amount of leisure activity: 20, 31, 37, 39 and 39 percent from under the guideline minimum to 5 to 10 times it, and 31 percent at 10 times or more")
 
 
+def time_near_max():
+    """Paired dots: minutes above 90% of VO2max in one session, short or varied format against a longer, steadier one."""
+    rows = _rows("time-near-vo2max", "time-near-max.csv")
+    b, y = head("Short work periods usually add time near VO₂max, but not when the long intervals are ridden all-out",
+                "Minutes above 90% of VO₂max in one session, in five comparisons from four studies.")
+    W, left, right, rh = 680, 330, 640, 54
+    ky = y + 30
+    b.append(f'<circle cx="36" cy="{ky}" r="6" fill="{INK}"/>')
+    b.append(text(50, ky + 5, "Short or varied intervals", 15.5, INK, "start", "600"))
+    b.append(f'<circle cx="290" cy="{ky}" r="6" fill="#ffffff" stroke="{INK}" stroke-width="2"/>')
+    b.append(text(304, ky + 5, "Longer or steadier intervals", 15.5, INK, "start", "600"))
+    top = ky + 46
+    base = top + rh * len(rows)
+    H = base + 64
+    hi = 20.0
+    X = lambda v: left + v / hi * (right - left)
+    for v in (0, 5, 10, 15, 20):
+        b.append(f'<line x1="{X(v):.1f}" y1="{top - 8}" x2="{X(v):.1f}" y2="{base}" stroke="{BAND if v else MID}" stroke-width="1"/>')
+        b.append(text(X(v), base + 22, f"{v}", 15.5, MID, "middle"))
+    b.append(text((left + right) / 2, base + 48, "Minutes above 90% of VO₂max", 15.5, MID, "middle"))
+    halo = 'paint-order="stroke" stroke="#ffffff" stroke-width="4"'
+    for i, r in enumerate(rows):
+        yy = top + rh * i + rh / 2 - 4
+        s_, l_ = float(r["short"]), float(r["long"])
+        b.append(text(left - 16, yy - 4, r["label"], 16.5, INK, "end", "600"))
+        b.append(text(left - 16, yy + 15, r["note"], 15, MID, "end"))
+        b.append(f'<line x1="{X(min(s_, l_)):.1f}" y1="{yy:.1f}" x2="{X(max(s_, l_)):.1f}" y2="{yy:.1f}" stroke="{FAINT}" stroke-width="2"/>')
+        b.append(f'<circle cx="{X(l_):.1f}" cy="{yy:.1f}" r="6" fill="#ffffff" stroke="{INK}" stroke-width="2"/>')
+        b.append(f'<circle cx="{X(s_):.1f}" cy="{yy:.1f}" r="6" fill="{INK}" stroke="#ffffff" stroke-width="1.5"/>')
+        hi_v, lo_v = max(s_, l_), min(s_, l_)
+        b.append(text(X(hi_v) + 12, yy + 5, f"{hi_v:.1f}", 15.5, INK, "start", "600", halo))
+        b.append(text(X(lo_v) - 12, yy + 5, f"{lo_v:.1f}", 15.5, INK, "end", "400", halo))
+    return _save("time-near-vo2max", "time-near-max.svg", W, H, b, "Paired dots of minutes above 90 percent of VO2max: varied 6.8 against steady 4.8; 30/15 18.7 against steady 14.7; 30/15 7.0 against 6 by 5 minutes 3.0 at fixed power and 18.8 against 16.9 all-out; 24 by 30 seconds 3.4 against 4 by 3 minutes 5.5 in runners")
+
+
+def _bar(x, y_top, w, base, fill, stroke=None, r=4):
+    """A vertical bar with a rounded top, anchored to the baseline."""
+    h = base - y_top
+    if h <= 0:
+        return ""
+    r = min(r, h, w / 2)
+    st = f' stroke="{stroke}" stroke-width="0.75"' if stroke else ""
+    return (f'<path d="M{x:.1f},{base:.1f} V{y_top + r:.1f} a{r},{r} 0 0 1 {r},-{r} H{x + w - r:.1f} '
+            f'a{r},{r} 0 0 1 {r},{r} V{base:.1f} z" fill="{fill}"{st}/>')
+
+
+def worked_weeks():
+    """Three example weeks (4, 8 and 12 hours), day by day: hard sessions, easy rides and the long ride."""
+    rows = _rows("training-week", "worked-weeks.csv")
+    b, y = head("The hard sessions stay the same from 4 hours to 12; the easy riding carries the extra hours",
+                "Three example weeks, in hours on the bike each day. My construction from the earlier chapters, not a tested programme.")
+    W, left, right = 680, 150, 668
+    days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+    cw = (right - left) / 7
+    ky = y + 28
+    keys = [(BAND, MID, "Easy ride"), (MID, None, "Long easy ride"), (INK, None, "Hard session")]
+    kx = 30
+    for fill, stroke, lab in keys:
+        st = f' stroke="{stroke}" stroke-width="0.75"' if stroke else ""
+        b.append(f'<rect x="{kx}" y="{ky - 6}" width="12" height="12" fill="{fill}"{st}/>')
+        b.append(text(kx + 20, ky + 5, lab, 15.5, INK, "start", "600"))
+        kx += 205
+    top = ky + 34
+    for i, d in enumerate(days):
+        b.append(text(left + cw * i + cw / 2, top, d, 15.5, MID, "middle", "600"))
+    rh, hmax, barh = 150, 4.0, 96
+    y0 = top + 18
+    weeks = {}
+    for r in rows:
+        weeks.setdefault(r["week"], []).append(r)
+    for wk in ("4", "8", "12"):
+        days_ = weeks[wk]
+        base = y0 + rh - 22
+        hard_min = {"4 × 8": 32, "5 × 8": 40, "30/15": 19.5}
+        work = sum(hard_min.get(d["label"], 0) for d in days_ if d["kind"] == "hard")
+        total = sum(float(d["hours"]) for d in days_)
+        b.append(text(30, y0 + 40, f"{wk} hours", 18, INK, "start", "600"))
+        b.append(text(30, y0 + 62, f"{work:.0f} min of hard work", 15.5, MID))
+        b.append(text(30, y0 + 81, f"{work / (total * 60) * 100:.0f}% of the time", 15.5, MID))
+        b.append(f'<line x1="{left}" y1="{base}" x2="{right}" y2="{base}" stroke="{FAINT}" stroke-width="1"/>')
+        for i, d in enumerate(days_):
+            h = float(d["hours"])
+            x = left + cw * i + (cw - 40) / 2
+            if h == 0:
+                b.append(text(x + 20, base - 6, "rest", 15, FAINT, "middle"))
+                continue
+            yt = base - h / hmax * barh
+            fill, stroke = {"hard": (INK, None), "easy": (BAND, MID), "long": (MID, None)}[d["kind"]]
+            b.append(_bar(x, yt, 40, base, fill, stroke))
+            lab = f"{h:g} h"
+            b.append(text(x + 20, yt - 7, lab, 15, INK, "middle", "600" if d["kind"] == "hard" else "400"))
+            if d["label"]:
+                b.append(text(x + 20, yt - 25, d["label"], 15, INK, "middle", "600"))
+        y0 += rh
+    return _save("training-week", "worked-weeks.svg", W, round(y0 + 4), b,
+                 "Three example weeks. 4 hours: Tuesday 1 hour hard (4 by 8), Thursday 1 hour easy, Saturday 1.25 hours hard (30/15), Sunday 0.75 easy. 8 hours: Tuesday 1.25 hard, Wednesday 1.5 easy, Thursday 1 easy, Friday 1.25 hard, Saturday 3 long. 12 hours: Tuesday 1.5 hard (5 by 8), Wednesday 2 easy, Thursday 1.5 easy, Friday 1.5 hard, Saturday 4 long, Sunday 1.5 easy. Hard work 52, 52 and 60 minutes.")
+
+
+def season():
+    """Bars: weekly hours across an illustrative twenty-week season, with lighter weeks and a taper."""
+    rows = _rows("training-week", "season.csv")
+    b, y = head("Hours build and then hold, every fourth week is lighter, and the last two weeks halve the hours",
+                "An illustrative season: weekly hours, with a dot for each hard session. Drawn for this book, not data.")
+    W, left, right = 680, 70, 664
+    top, base = y + 92, y + 322
+    hi = 10.0
+    Y = lambda v: base - v / hi * (base - top)
+    n = len(rows)
+    cw = (right - left) / n
+    for v in (0, 2, 4, 6, 8, 10):
+        b.append(f'<line x1="{left}" y1="{Y(v):.1f}" x2="{right}" y2="{Y(v):.1f}" stroke="{INK if v == 0 else BAND}" stroke-width="1"/>')
+        b.append(text(left - 10, Y(v) + 5, f"{v}", 15.5, MID, "end"))
+    b.append(text(14, top - 18, "Hours", 15.5, MID))
+    for i, r in enumerate(rows):
+        h, k, ph = float(r["hours"]), int(r["hard_sessions"]), r["phase"]
+        x = left + cw * i + 3
+        fill, stroke = {"build": (MID, None), "lighter": (BAND, MID), "taper": ("#ffffff", INK)}[ph]
+        b.append(_bar(x, Y(h), cw - 6, base, fill, stroke))
+        for j in range(k):
+            b.append(f'<circle cx="{x + (cw - 6) / 2:.1f}" cy="{Y(h) - 9 - j * 11:.1f}" r="3.5" fill="{INK}"/>')
+        if int(r["week"]) in (1, 4, 8, 12, 16, 20):
+            b.append(text(x + (cw - 6) / 2, base + 22, r["week"], 15.5, MID, "middle"))
+    b.append(text((left + right) / 2, base + 48, "Week", 15.5, MID, "middle"))
+    kx, ky = 30, top - 52
+    for fill, stroke, lab in ((MID, None, "Building"), (BAND, MID, "Lighter week"), ("#ffffff", INK, "Taper")):
+        st = f' stroke="{stroke}" stroke-width="0.75"' if stroke else ""
+        b.append(f'<rect x="{kx}" y="{ky - 6}" width="12" height="12" fill="{fill}"{st}/>')
+        b.append(text(kx + 20, ky + 5, lab, 15.5, INK, "start", "600"))
+        kx += 150
+    b.append(f'<circle cx="{kx + 6}" cy="{ky}" r="3.5" fill="{INK}"/>')
+    b.append(text(kx + 20, ky + 5, "Hard session", 15.5, INK, "start", "600"))
+    return _save("training-week", "season.svg", W, round(base + 64), b,
+                 "Bars of weekly hours over twenty weeks: 6 rising by half an hour a week to 9.5 by week 10, every fourth week about 30 percent lighter with one hard session, and a two-week taper at 5.75 and 4.25 hours with both hard sessions kept.")
+
+
+def pollock_decline():
+    """Lines: VO2max over twenty years in older track athletes, by training group, as % of the start (Pollock 1997)."""
+    rows = _rows("special-cases", "pollock1997.csv")
+    b, y = head("Older athletes who kept training hard lost the least, but everyone lost",
+                "VO₂max as a percentage of each group's value at the start, when their average age was about 50, "
+                "measured again 10 and 20 years later.")
+    W, left, right = 680, 80, 430
+    top, base = y + 40, y + 300
+    lo, hi = 50, 100
+    Y = lambda v: base - (v - lo) / (hi - lo) * (base - top)
+    xs = [left + 10, (left + right) / 2, right - 10]
+    for v in (50, 60, 70, 80, 90, 100):
+        b.append(f'<line x1="{left}" y1="{Y(v):.1f}" x2="{right}" y2="{Y(v):.1f}" stroke="{BAND}" stroke-width="1"/>')
+        b.append(text(left - 10, Y(v) + 5, f"{v}%", 15.5, MID, "end"))
+    for x, lab, sub in zip(xs, ("Start", "10 years", "20 years"), ("about 50", "about 60", "about 70")):
+        b.append(text(x, base + 24, lab, 15.5, INK, "middle", "600"))
+        b.append(text(x, base + 43, f"age {sub}", 15, MID, "middle"))
+    styles = [(INK, ""), (MID, ""), (MID, ' stroke-dasharray="6 5"')]
+    ends = []
+    for r, (col, dash) in zip(rows, styles):
+        vals = [float(r["t1"]), float(r["t2"]), float(r["t3"])]
+        pts = " ".join(f"{x:.1f},{Y(v):.1f}" for x, v in zip(xs, vals))
+        b.append(f'<polyline points="{pts}" fill="none" stroke="{col}" stroke-width="2.5"{dash}/>')
+        for x, v in zip(xs, vals):
+            b.append(f'<circle cx="{x:.1f}" cy="{Y(v):.1f}" r="5" fill="{col}" stroke="#ffffff" stroke-width="1.5"/>')
+        ends.append((Y(vals[2]), r, vals))
+    for k, (yy, r, vals) in enumerate(ends):
+        off = -26 if k == 0 else (14 if k == 1 else 0)
+        b.append(text(xs[2] + 16, yy + off, f'{r["group"]} ({r["n"]})', 16.5, INK, "start", "600"))
+        b.append(text(xs[2] + 16, yy + off + 19, f'{vals[2]:.0f}% after 20 years', 15.5, MID))
+    return _save("special-cases", "pollock-decline.svg", W, round(base + 64), b,
+                 "Line chart of VO2max as a percentage of the start over twenty years: remained elite 100, 92, 78; kept training moderately 100, 87, 75; greatly reduced training (two people) 100, 82, 54.")
+
+
+def who_was_studied():
+    """One stacked bar: share of 1,441 sports medicine studies with men only, both, or women only (Ose 2025)."""
+    rows = _rows("special-cases", "who-was-studied.csv")
+    b, y = head("About one study in five included only men, and one in fourteen only women",
+                "Original research in three leading sports medicine journals, 2021 to 2023: 1,441 studies, by who took part.")
+    W, left, right = 680, 30, 650
+    by = y + 70
+    x = left
+    fills = {"Men only": INK, "Both": BAND, "Women only": MID}
+    for r in rows:
+        w = float(r["pct"]) / 100 * (right - left)
+        b.append(f'<rect x="{x:.1f}" y="{by}" width="{w - 2:.1f}" height="44" fill="{fills[r["kind"]]}"/>')
+        cx = x + w / 2
+        if r["kind"] == "Both":
+            b.append(text(cx, by + 28, f'Both: {float(r["pct"]):.0f}%', 16.5, INK, "middle", "600"))
+        else:
+            anchor = "start" if r["kind"] == "Men only" else "end"
+            tx = x if anchor == "start" else x + w - 2
+            b.append(text(tx, by - 30, r["kind"], 16.5, INK, anchor, "600"))
+            b.append(text(tx, by - 11, f'{float(r["pct"]):.1f}% ({r["count"]})', 15.5, MID, anchor))
+        x += w
+    note, yn = para(left, by + 80, "Of the studies that included women, 5.6% took account of the menstrual cycle in their design. "
+                    "The average study's participants were 40% women.", 15.5, MID, 620)
+    b += note
+    return _save("special-cases", "who-was-studied.svg", W, round(yn), b,
+                 "A bar of 1,441 studies: men only 18.6 percent (268), both 74 percent, women only 7.2 percent (103). Of studies including women, 5.6 percent took account of the menstrual cycle.")
+
+
+def noise():
+    """Dots and lines: simulated weekly readings of power at a fixed heart rate, the true trend and a four-week average."""
+    rows = _rows("knowing", "noise.csv")
+    b, y = head("One week's reading can't show a 5% gain; a four-week average can",
+                "A simulated rider whose power at a fixed heart rate truly rises 5% over twelve weeks, measured weekly with a typical error of 3%. "
+                "Values are a percentage of the true starting power.")
+    W, left, right = 680, 70, 560
+    top, base = y + 40, y + 300
+    lo, hi = 94, 110
+    X = lambda w: left + w / 12 * (right - left)
+    Y = lambda v: base - (v - lo) / (hi - lo) * (base - top)
+    for v in (94, 98, 102, 106, 110):
+        b.append(f'<line x1="{left}" y1="{Y(v):.1f}" x2="{right}" y2="{Y(v):.1f}" stroke="{BAND}" stroke-width="1"/>')
+        b.append(text(left - 10, Y(v) + 5, f"{v}", 15.5, MID, "end"))
+    b.append(f'<line x1="{left}" y1="{Y(100):.1f}" x2="{right}" y2="{Y(100):.1f}" stroke="{FAINT}" stroke-width="1"/>')
+    for w in (0, 4, 8, 12):
+        b.append(text(X(w), base + 22, f"{w}", 15.5, MID, "middle"))
+    b.append(text((left + right) / 2, base + 46, "Week", 15.5, MID, "middle"))
+    tr = " ".join(f'{X(float(r["week"])):.1f},{Y(float(r["true"])):.1f}' for r in rows)
+    b.append(f'<polyline points="{tr}" fill="none" stroke="{MID}" stroke-width="2" stroke-dasharray="6 5"/>')
+    av = [r for r in rows if r["avg4"]]
+    ap = " ".join(f'{X(float(r["week"])):.1f},{Y(float(r["avg4"])):.1f}' for r in av)
+    b.append(f'<polyline points="{ap}" fill="none" stroke="{INK}" stroke-width="2.5"/>')
+    for r in rows:
+        b.append(f'<circle cx="{X(float(r["week"])):.1f}" cy="{Y(float(r["reading"])):.1f}" r="5" fill="#ffffff" stroke="{INK}" stroke-width="1.75"/>')
+    last = rows[-1]
+    b.append(text(right + 12, Y(float(last["true"])) - 14, "True power", 15.5, MID, "start", "600"))
+    b.append(text(right + 12, Y(float(av[-1]["avg4"])) + 8, "Four-week", 15.5, INK, "start", "600"))
+    b.append(text(right + 12, Y(float(av[-1]["avg4"])) + 27, "average", 15.5, INK, "start", "600"))
+    b.append(text(right + 12, Y(float(last["reading"])) + 5, "Last reading", 15.5, MID))
+    b.append(text(X(0) + 4, Y(109.3), "Each dot is one week's reading", 15.5, MID))
+    return _save("knowing", "noise.svg", W, round(base + 62), b,
+                 "Simulated weekly readings scattered between about 95 and 109 percent of the starting power, five of them below 100 including the last, while the true power rises steadily to 105 and the four-week average climbs from about 100 to 105.")
+
+
+def watch_vo2max():
+    """Interval plot: bias and limits of agreement of wearable VO2max estimates against the laboratory (Molina-Garcia 2022)."""
+    rows = _rows("knowing", "watch-vo2max.csv")
+    b, y = head("Watches estimate VO₂max well on average and can be 10 out for one person",
+                "Error of consumer wearables' VO₂max estimates against laboratory measurement, in mL/kg/min: "
+                "the average error (dot) and the range holding 95% of individual estimates (bar). 14 studies.")
+    W, left, right, rh = 680, 250, 650, 72
+    lo, hi = -15, 20
+    X = lambda v: left + (v - lo) / (hi - lo) * (right - left)
+    top = y + 40
+    base = top + rh * len(rows)
+    for v in (-15, -10, -5, 0, 5, 10, 15, 20):
+        b.append(f'<line x1="{X(v):.1f}" y1="{top - 6}" x2="{X(v):.1f}" y2="{base}" stroke="{MID if v == 0 else BAND}" stroke-width="1"/>')
+        b.append(text(X(v), base + 22, f"{v:+d}" if v else "0", 15.5, MID, "middle"))
+    b.append(text(X(-15), base + 48, "Too low", 15.5, MID, "start"))
+    b.append(text(X(20), base + 48, "Too high", 15.5, MID, "end"))
+    for i, r in enumerate(rows):
+        yy = top + rh * i + rh / 2
+        bias, l, h = float(r["bias"]), float(r["lo"]), float(r["hi"])
+        b.append(text(left - 16, yy - 4, r["kind"], 16.5, INK, "end", "600"))
+        b.append(text(left - 16, yy + 15, f"average {bias:+.1f}, range {l:.0f} to {h:+.0f}", 15, MID, "end"))
+        b.append(f'<rect x="{X(l):.1f}" y="{yy - 7:.1f}" width="{X(h) - X(l):.1f}" height="14" rx="7" fill="{BAND}"/>')
+        b.append(f'<circle cx="{X(bias):.1f}" cy="{yy:.1f}" r="7" fill="{INK}" stroke="#ffffff" stroke-width="1.5"/>')
+    return _save("knowing", "watch-vo2max.svg", W, round(base + 62), b,
+                 "Interval plot. Exercise-based estimates: average error minus 0.1, 95 percent of estimates from minus 10 to plus 10 mL/kg/min. Resting-based estimates: average plus 2.2, from minus 13 to plus 17.")
+
+
+def banister_uncertainty():
+    """Interval plot: four settings of the fitness-fatigue model with 95% confidence intervals, in days (Hellard 2006)."""
+    rows = _rows("knowing", "banister.csv")
+    b, y = head("The settings behind a fitness and fatigue chart could each be weeks out",
+                "Four settings of the fitness–fatigue model fitted to a season of nine elite swimmers, in days: "
+                "the estimate (dot) and its 95% confidence interval (bar).")
+    W, left, right, rh = 680, 280, 548, 62
+    hi = 70
+    X = lambda v: left + v / hi * (right - left)
+    top = y + 36
+    base = top + rh * len(rows)
+    for v in range(0, 71, 10):
+        b.append(f'<line x1="{X(v):.1f}" y1="{top - 6}" x2="{X(v):.1f}" y2="{base}" stroke="{BAND}" stroke-width="1"/>')
+        b.append(text(X(v), base + 22, f"{v}", 15.5, MID, "middle"))
+    b.append(text((left + right) / 2, base + 46, "Days", 15.5, MID, "middle"))
+    for i, r in enumerate(rows):
+        yy = top + rh * i + rh / 2
+        e, l, h = float(r["est"]), float(r["lo"]), float(r["hi"])
+        b.append(text(left - 16, yy - 4, r["label"], 16.5, INK, "end", "600"))
+        b.append(text(left - 16, yy + 15, r["note"], 15, MID, "end"))
+        b.append(f'<rect x="{X(l):.1f}" y="{yy - 7:.1f}" width="{X(h) - X(l):.1f}" height="14" rx="7" fill="{BAND}"/>')
+        b.append(f'<circle cx="{X(e):.1f}" cy="{yy:.1f}" r="7" fill="{INK}" stroke="#ffffff" stroke-width="1.5"/>')
+        b.append(text(X(h) + 10, yy + 5, f"{e:.0f} ({l:.0f} to {h:.0f})", 15.5, INK))
+    return _save("knowing", "banister-uncertainty.svg", W, round(base + 60), b,
+                 "Interval plot in days: fitness fades over 38 (17 to 59), fatigue over 19 (6 to 32), time to recover performance 19 (7 to 35), time to peak after training stops 43 (25 to 61).")
+
+
+def scorecard():
+    """A graded list: sixteen claims, the book's verdict on each, the grade of the evidence, and the chapter."""
+    rows = _rows("verdict", "scorecard.csv")
+    b, y = head("The verdict on sixteen claims, with the grade of the evidence",
+                "A: several randomised trials or a good meta-analysis. B: small, short or single-lab studies. "
+                "C: observation, mechanism or opinion.")
+    W = 680
+    cx, vx, gx, chx = 30, 418, 588, 650
+    top = y + 34
+    b.append(text(cx, top, "Claim", 15, MID, "start", "600"))
+    b.append(text(vx, top, "Verdict", 15, MID, "start", "600"))
+    b.append(text(gx + 12, top, "Grade", 15, MID, "middle", "600"))
+    b.append(text(chx, top, "Ch.", 15, MID, "middle", "600"))
+    yy = top + 14
+
+    def mark(kind, x, y):
+        if kind.startswith("Supported"):
+            r = 6 if kind == "Supported" else 4.5
+            return f'<circle cx="{x}" cy="{y}" r="{r}" fill="{INK}"/>'
+        if kind == "Plausible":
+            return (f'<circle cx="{x}" cy="{y}" r="6" fill="#ffffff" stroke="{INK}" stroke-width="1.75"/>'
+                    f'<path d="M{x},{y - 6} a6,6 0 0 1 0,12 z" fill="{INK}"/>')
+        if kind == "Not shown":
+            return f'<circle cx="{x}" cy="{y}" r="6" fill="#ffffff" stroke="{INK}" stroke-width="1.75"/>'
+        if kind == "Unknown":
+            return f'<circle cx="{x}" cy="{y}" r="6" fill="#ffffff" stroke="{MID}" stroke-width="1.5" stroke-dasharray="2.5 2.5"/>'
+        return (f'<path d="M{x - 5},{y - 5} L{x + 5},{y + 5} M{x + 5},{y - 5} L{x - 5},{y + 5}" '
+                f'stroke="{INK}" stroke-width="2.25" stroke-linecap="round"/>')
+
+    for i, r in enumerate(rows):
+        lines, ny = para(cx, yy + 22, r["claim"], 15.5, INK, 370)
+        h = ny - (yy + 22) + 14
+        if i % 2 == 0:
+            b.append(f'<rect x="20" y="{yy + 2:.1f}" width="{W - 40}" height="{h:.1f}" fill="#f4f4f4"/>')
+        b += lines
+        my = yy + 17
+        b.append(mark(r["verdict"], vx + 6, my))
+        b.append(text(vx + 20, my + 5, r["verdict"], 15.5, INK, "start", "600"))
+        b.append(f'<rect x="{gx}" y="{my - 11}" width="24" height="22" rx="4" fill="#ffffff" stroke="{INK}" stroke-width="1"/>')
+        b.append(text(gx + 12, my + 6, r["grade"], 15.5, INK, "middle", "600"))
+        b.append(text(chx, my + 5, r["chapter"], 15.5, MID, "middle"))
+        yy += h
+    return _save("verdict", "scorecard.svg", W, round(yy + 14), b,
+                 "A table of sixteen claims with verdicts and grades. " + "; ".join(f'{r["claim"]}: {r["verdict"]}, grade {r["grade"]}' for r in rows))
+
+
+def session_shapes():
+    """Schematic: the shape of five interval sessions over time (work and recovery), with minutes of hard work."""
+    b, y = head("Five sessions, drawn to the same time scale",
+                "Each after a 10-minute warm-up and with a 10-minute cool-down. Height shows how hard, roughly; the sessions are as listed in this chapter.")
+    W, left, right = 680, 178, 590
+    tmax = 65.0
+    X = lambda t: left + t / tmax * (right - left)
+    sess = [
+        ("4 × 4 minutes", "3 min easy between", [(4, 3)] * 4, 0.78, "16 min"),
+        ("4 × 8 minutes", "2½ min easy between", [(8, 2.5)] * 4, 0.70, "32 min"),
+        ("30/15", "3 sets of 13", None, 0.86, "19½ min"),
+        ("Threshold, 3 × 12", "3 min easy between", [(12, 3)] * 3, 0.56, "36 min"),
+        ("Sprints, 6 × 30 s", "4 min easy between", [(0.5, 4)] * 6, 1.0, "3 min"),
+    ]
+    rh, amp = 76, 50
+    top = y + 34
+    b.append(text(right + 12, top - 8, "Hard work", 15, MID, "start", "600"))
+    easy = 0.18
+    for i, (name, note, reps, lvl, work) in enumerate(sess):
+        base = top + rh * i + rh - 14
+        seq = [(10, easy)]
+        if reps is None:
+            for sset in range(3):
+                for _ in range(13):
+                    seq += [(0.5, lvl), (0.25, easy + 0.05)]
+                if sset < 2:
+                    seq.append((3, easy))
+        else:
+            for j, (wk, rec) in enumerate(reps):
+                seq.append((wk, lvl))
+                if j < len(reps) - 1:
+                    seq.append((rec, easy))
+        seq.append((10, easy * 0.8))
+        t, pts = 0.0, [f"{X(0):.1f},{base:.1f}"]
+        for dur, v in seq:
+            yv = base - v * amp
+            pts.append(f"{X(t):.1f},{yv:.1f}")
+            t += dur
+            pts.append(f"{X(t):.1f},{yv:.1f}")
+        pts.append(f"{X(t):.1f},{base:.1f}")
+        b.append(f'<polygon points="{" ".join(pts)}" fill="{MID}" stroke="none"/>')
+        b.append(f'<line x1="{left}" y1="{base}" x2="{right}" y2="{base}" stroke="{FAINT}" stroke-width="1"/>')
+        b.append(text(left - 14, base - 24, name, 16.5, INK, "end", "600"))
+        b.append(text(left - 14, base - 5, note, 15, MID, "end"))
+        b.append(text(right + 12, base - 14, work, 16.5, INK, "start", "600"))
+    axis = top + rh * len(sess) + 4
+    for v in (0, 10, 20, 30, 40, 50, 60):
+        b.append(text(X(v), axis + 16, f"{v}", 15.5, MID, "middle"))
+    b.append(text((left + right) / 2, axis + 40, "Minutes", 15.5, MID, "middle"))
+    return _save("designing-intervals", "session-shapes.svg", W, round(axis + 56), b,
+                 "Five session profiles on one time scale: 4 by 4 minutes (16 minutes of hard work), 4 by 8 minutes (32), 30/15 in three sets of 13 (19.5), threshold 3 by 12 minutes (36), sprints 6 by 30 seconds (3), each between a 10-minute warm-up and cool-down.")
+
+
+def hard_days():
+    """Schematic: two hard sessions in a week, with the 48 hours of recovery each needs, at three spacings."""
+    b, y = head("With at least 48 hours to recover, a second hard session two days later starts fresh; one a day later doesn't",
+                "Two hard sessions in a week (black) and the 48 hours or more of recovery that hard sessions needed in the pooled studies (grey).")
+    W, left, right = 680, 210, 664
+    days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+    cw = (right - left) / 7
+    top = y + 40
+    for i, d in enumerate(days):
+        b.append(text(left + cw * i + cw / 2, top, d, 15.5, MID, "middle", "600"))
+    rows = [("Tuesday and Friday", "72 hours apart", (1, 4), True),
+            ("Tuesday and Thursday", "48 hours apart", (1, 3), True),
+            ("Tuesday and Wednesday", "24 hours apart", (1, 2), False)]
+    rh = 64
+    y0 = top + 16
+    for name, note, (a, c), ok in rows:
+        yy = y0 + rh / 2
+        b.append(text(left - 16, yy - 4, name, 16.5, INK, "end", "600"))
+        b.append(text(left - 16, yy + 15, note, 15, MID, "end"))
+        for i in range(7):
+            b.append(f'<rect x="{left + cw * i + 1:.1f}" y="{yy - 14:.1f}" width="{cw - 2:.1f}" height="28" fill="#ffffff" stroke="{BAND}" stroke-width="1"/>')
+        for dday in (a, c):
+            rx = left + cw * (dday + 0.5)
+            b.append(f'<rect x="{rx:.1f}" y="{yy - 9:.1f}" width="{cw * 2:.1f}" height="18" fill="{BAND}"/>')
+        for dday in (a, c):
+            b.append(f'<rect x="{left + cw * dday + cw * 0.3:.1f}" y="{yy - 12:.1f}" width="{cw * 0.4:.1f}" height="24" rx="3" fill="{INK}"/>')
+        if not ok:
+            b.append(text(left + cw * (c + 0.5), yy + 34, "starts before the first has recovered", 15.5, INK, "middle", "600"))
+        y0 += rh + (14 if not ok else 0)
+    note, yn = para(30, y0 + 22, "Schematic, from the review's finding that the heart's nervous control took at least 48 hours to recover after high-intensity sessions, against up to 24 hours after easy ones.", 15.5, MID, 620)
+    b += note
+    return _save("how-many", "hard-days.svg", W, round(yn), b,
+                 "Three weeks with two hard sessions each: Tuesday and Friday, 72 hours apart; Tuesday and Thursday, 48 hours apart; Tuesday and Wednesday, 24 hours apart, where the second session starts inside the first one's 48-hour recovery window.")
+
+
+def power_duration():
+    """Schematic: the power-duration curve, critical power and the three intensity domains (illustrative numbers)."""
+    b, y = head("Above critical power every effort has a time limit; below it, the limit is somewhere else",
+                "The best power a rider can hold for each duration, drawn for a rider with a critical power of 250 W and "
+                "a W′ of 20 kJ. Illustrative numbers, not data.")
+    W, left, right = 680, 70, 600
+    top, base = y + 40, y + 320
+    lo, hi = 150, 500
+    tmax = 40.0
+    X = lambda t: left + t / tmax * (right - left)
+    Y = lambda v: base - (v - lo) / (hi - lo) * (base - top)
+    cp, wp, lt1 = 250.0, 20000.0, 190.0
+    b.append(f'<rect x="{left}" y="{Y(hi):.1f}" width="{right - left}" height="{Y(cp) - Y(hi):.1f}" fill="#f2f2f2"/>')
+    b.append(f'<rect x="{left}" y="{Y(cp):.1f}" width="{right - left}" height="{Y(lt1) - Y(cp):.1f}" fill="#fafafa"/>')
+    for v in (150, 200, 250, 300, 350, 400, 450, 500):
+        b.append(f'<line x1="{left}" y1="{Y(v):.1f}" x2="{right}" y2="{Y(v):.1f}" stroke="{BAND}" stroke-width="1"/>')
+        b.append(text(left - 10, Y(v) + 5, f"{v}", 15.5, MID, "end"))
+    b.append(text(14, top - 22, "Watts", 15.5, MID))
+    for t in (0, 10, 20, 30, 40):
+        b.append(text(X(t), base + 22, f"{t}", 15.5, MID, "middle"))
+    b.append(text((left + right) / 2, base + 46, "Minutes the effort can be held", 15.5, MID, "middle"))
+    pts = []
+    t = 1.4
+    while t <= tmax:
+        pts.append(f"{X(t):.1f},{Y(cp + wp / (t * 60)):.1f}")
+        t += 0.2
+    b.append(f'<polyline points="{" ".join(pts)}" fill="none" stroke="{INK}" stroke-width="2.5"/>')
+    b.append(f'<line x1="{left}" y1="{Y(cp):.1f}" x2="{right}" y2="{Y(cp):.1f}" stroke="{INK}" stroke-width="1.5" stroke-dasharray="6 5"/>')
+    b.append(f'<line x1="{left}" y1="{Y(lt1):.1f}" x2="{right}" y2="{Y(lt1):.1f}" stroke="{MID}" stroke-width="1.25" stroke-dasharray="2 4"/>')
+    b.append(text(right + 8, Y(cp) + 5, "Critical", 15.5, INK, "start", "600"))
+    b.append(text(right + 8, Y(cp) + 24, "power", 15.5, INK, "start", "600"))
+    b.append(text(right + 8, Y(lt1) + 5, "First", 15.5, MID, "start", "600"))
+    b.append(text(right + 8, Y(lt1) + 24, "threshold", 15.5, MID, "start", "600"))
+    b.append(text(X(39), Y(480), "Severe: the effort ends when W′ runs out", 15.5, INK, "end", "600"))
+    b.append(text(X(39), Y(228), "Heavy", 15.5, INK, "end", "600"))
+    b.append(text(X(39), Y(172), "Moderate", 15.5, INK, "end", "600"))
+    for t in (3, 5, 20):
+        v = cp + wp / (t * 60)
+        b.append(f'<circle cx="{X(t):.1f}" cy="{Y(v):.1f}" r="5" fill="{INK}" stroke="#ffffff" stroke-width="1.5"/>')
+        b.append(text(X(t) + 10, Y(v) - 8, f"{t} min: {v:.0f} W", 15.5, INK, "start", "600"))
+    return _save("limits", "power-duration.svg", W, round(base + 62), b,
+                 "A falling curve of best power against duration that flattens towards a dashed critical power line at 250 W: 361 W for 3 minutes, 317 W for 5, 267 W for 20. Above critical power is the severe domain, between it and the first threshold (190 W, illustrative) the heavy domain, and below that the moderate domain.")
+
+
 FIGURES = {"ventoux": ventoux, "epo-loop": epo_loop, "oxygen-route": oxygen_route, "cp-decline": cp_decline,
            "carb-dose": carb_dose, "hb-timeline": heat_timeline, "detraining": detraining, "atp-cycle": atp_cycle, "sawtooth": sawtooth, "pain-training": pain_training, "small-trials": small_trials, "carb-curve": carb_curve, "strength-effects": strength_effects,
            "zone-maps": zone_maps, "zone2-markers": zone2_markers,
            "threshold-percent": threshold_percent, "lactate-steps": lactate_steps,
            "mito-efficiency": mito_efficiency, "fatmax-feeding": fatmax_feeding,
            "elite-distributions": elite_distributions, "champions-week": champions_week,
-           "dose-response": dose_response}
+           "dose-response": dose_response, "time-near-max": time_near_max,
+           "worked-weeks": worked_weeks, "season": season, "pollock-decline": pollock_decline,
+           "who-was-studied": who_was_studied, "noise": noise, "watch-vo2max": watch_vo2max,
+           "banister-uncertainty": banister_uncertainty, "scorecard": scorecard,
+           "session-shapes": session_shapes, "hard-days": hard_days, "power-duration": power_duration}
 
 if __name__ == "__main__":
     want = sys.argv[1] if len(sys.argv) > 1 else ""

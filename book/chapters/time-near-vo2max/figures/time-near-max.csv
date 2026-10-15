@@ -1,0 +1,8 @@
+# Minutes above 90% of VO2max in one session, from the abstracts (seconds / 60, one decimal).
+# short = the short-interval or varied-power format; long = the longer or steadier comparison.
+label,note,short,long
+Varied against steady power,"Bossi 2020, 14 cyclists",6.8,4.8
+30/15 against steady 8 minutes,"Urianstad 2024, 19 cyclists",18.7,14.7
+30/15 against 6 × 5 minutes,"Appelhans 2025, 12 riders, fixed power",7.0,3.0
+The same two sessions,"Appelhans 2025, ridden all-out",18.8,16.9
+24 × 30 s against 4 × 3 minutes,"Fleckenstein 2024, 12 runners",3.4,5.5

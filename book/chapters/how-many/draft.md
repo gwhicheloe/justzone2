@@ -1,0 +1,115 @@
+# Chapter 13: How many hard sessions, and how often
+
+Almost every training plan for amateur cyclists puts two hard sessions in a week, whether the week holds four hours or fourteen. Chapter 8 found something that looks like the reason. The eleven Olympic and world champion skiers whose diaries were studied kept about 1.3 hours a week above the first threshold in every phase of their gold-medal year, in two or three sessions, while their easy hours rose and fell around it [@tonnessen2014]. Chapter 8 left open whether that steady hour or so is a ceiling, and where it lies for a rider on six to ten hours.
+
+My answer is that two hard sessions a week, at least 48 hours apart, is the best-supported default for that rider [@stanley2013; @tonnessen2020]. The evidence for more comes from short blocks, and one session a week is enough to hold fitness for months. How the sessions are spaced, and how easy the riding between them is, matters at least as much as their number. The amount of hard work in the trials that produced gains, about 40 to 65 minutes a week for cyclists, is close to what the champions kept for whole seasons, which suggests that recovery sets the ceiling rather than ambition. All of the frequency trials are small and short, and several of the results quoted for one number or another turn out, read closely, to be differences in statistical significance rather than differences between groups.
+
+## Where two comes from
+
+The number began as a description. Counting sessions by their purpose, Stephen Seiler found that elite endurance athletes in several sports did roughly four easy sessions for every hard one, which for an athlete training ten to fourteen times a week means two or three hard sessions [@seiler2010]{shadow @seilerkjerland2006}. The champions' diaries in Chapter 8 add that it was the hard dose, not the hard share, that held steady [@tonnessen2014].
+
+The champions spread their hard dose over two sessions a week in the general preparation phase and three in the final weeks before their main event [@tonnessen2014]. Over a longer span the hard dose seems to have shrunk rather than grown. Norway's international rowers from 1970 to 2001 raised their total training by about a fifth over those three decades, while their training at race pace and above fell from about 23 hours a month to about 7, and their results improved {shadow @fiskerstrand2004}. As the athletes got better, they did not add hard sessions. They added easy ones.
+
+A description of what successful athletes converged on is a strong hint and not a test. The athletes and coaches who arrived at two or three may have done so because it works best, or because more could not be sustained, or because tradition carried it from one generation to the next. Only trials can separate those.
+
+## Adding hard sessions to easy training
+
+The trials that best match an amateur's situation add a few hard sessions to a base of easy riding. In 1996 eight competitive South African cyclists, riding about 300 km a week, replaced 15% of it with six interval sessions over four weeks, about one and a half a week. Their 40 km time trial fell from 56.4 to 54.4 minutes [@lindsay1996]. Three years later 20 cyclists added six sessions over three weeks, two a week, to their usual base, and the best sessions improved the time trial by 2.4% to 2.8% [@stepto1999]. Ten well-trained rowers who did seven interval sessions in four weeks improved their 2,000 m time by 1.9%, more than when they trained continuously {shadow @driller2009}.
+
+In trained athletes with a base already in place, then, one and a half to two hard sessions a week brought improvements of a few per cent within a month. These trials did not test whether three or four would have brought more.
+
+## Trials of frequency
+
+Few trials change only the number of hard sessions, and those that exist are small.
+
+In a 1999 French study, eight trained runners did one session a week at the speed that brings out VO₂max for four weeks, then three a week for four more [@billat1999]. One a week improved the speed they could hold at VO₂max, through better economy. Three a week improved nothing further, and the noradrenaline in their blood at the end of a maximal test rose from 11.1 to 26.0 nmol/L, a sign of a stress response building.
+
+In 2025 a German group randomised 26 recreationally active people to one, two or three sessions a week of 4 × 4-minute running intervals for six weeks [@lenk2025]. VO₂max barely moved with one session a week, from 53.0 to 53.6 mL/kg/min. It rose from 53.5 to 57.6 with two, and from 48.5 to 51.2 with three. The authors saw no clear extra benefit from the third session and call their results exploratory and imprecise.
+
+Three a week can work. In the Trondheim trial of 2007, moderately trained men raised VO₂max by 7.2% in eight weeks on three sessions a week of 4 × 4 minutes [@helgerud2007].
+
+### One study, up close: two sessions or four
+
+The most direct test in trained athletes came from Norway in 2020 [@tonnessen2020].
+
+::: trial
+Hypothesis: Two longer interval sessions a week would bring greater improvements in performance and physiology than four shorter sessions at the same intensity.
+Design: Randomised trial lasting 12 weeks, May to August, on roller-skis. 20 national-level cross-country skiers and biathletes, with a median VO₂max of about 68 to 71 mL/kg/min. Every interval was in the Norwegian zone 3, at 82% to 87% of maximum heart rate and 2.5 to 4.0 mmol/L of lactate, so these were threshold sessions, not VO₂max sessions. Both groups did 136 minutes of interval work a week; the rest of their training was easy, with at most one other hard session a week [@tonnessen2020].
+| | Two sessions a week | Four sessions a week
+| Finished the study | 9 of 10 (one ill) | 6 of 10 (three ill, one accident)
+| Each week | 8 × 8 minutes in one session and 6 × 12 minutes in the other | 4 × 8 minutes twice and 3 × 12 minutes twice
+| Spacing | At least one day, usually two, between sessions | Two of the sessions on consecutive days
+-- After 12 weeks
+| 8 km roller-ski time trial (median) | 31.8 to 30.6 minutes, a significant improvement | No significant change
+~ The effect size for the difference between the groups was 0.17, which the authors describe as trivial.
+| VO₂max | No significant change | No significant change
+| Share of VO₂max at a lactate of 4 mmol/L | 80.7% to 85.4%, a significant improvement | No change
+| Oxygen cost at a fixed speed | 41.0 to 39.6 mL/kg/min, a significant improvement | No change
+Authors' conclusion: Two longer interval sessions a week appear superior to four shorter ones for endurance adaptations and performance, perhaps because the longer gaps between sessions let the athletes recover.
+:::
+
+The trial is often quoted as showing that two sessions beat four. The two-session group did improve its time trial, its threshold and its economy, and the four-session group did not change significantly. More of the four-session group also dropped out, mostly through illness, which fits the authors' suggestion that their sessions came too close together.
+
+### Reading the research: a difference in significance
+
+But look again at the time trial. The hypothesis was about the difference between the groups, and the effect size for that difference was 0.17, trivial by the authors' own description [@tonnessen2020]. "Superior" rests on one group's improvement crossing the line of statistical significance while the other group's did not. With nine athletes in one group and six in the other, small differences in where each group's change falls can move it across that line.
+
+The same pattern runs through the frequency literature. In the German runners, the test of whether frequency changed the result gave p = 0.17 for VO₂max: the groups were not shown to differ, although the two- and three-session groups' changes were each significant and the one-session group's was not [@lenk2025]. A 2025 meta-analysis of interval training in athletes found effect sizes of 0.69 for two sessions a week and 1.21 for three, against controls, and described three as superior because only the second crossed p = 0.05 [@yang2025]. Both effects point the same way, and their uncertainties overlap.
+
+The rule is to compare the groups with each other. "Group A improved significantly and group B did not" is a statement about two separate tests, each comparing a group with itself, and it is not evidence that A did better than B, which needs a test of its own. Chapter 4 described the general problem. Small trials are noisy, and significance is a line drawn through the noise.
+
+Read that way, the frequency trials agree on something more modest than any single number. One hard session a week builds little in people who are already fit, two and three build similar amounts over a few weeks, and in the one trial of trained athletes, four short sessions did no better than two long ones and may have done worse [@lenk2025; @tonnessen2020]. {grade B}
+
+## Recovery sets the ceiling
+
+The trials describe what happened; recovery physiology explains it. A 2013 review pooled studies of the heart's autonomic recovery, the return of the nervous system's control of heart rate to its resting state, after a single session [@stanley2013]. It took up to 24 hours after easy exercise, 24 to 48 hours after threshold work, and at least 48 hours after high-intensity work, and it was faster in fitter people. Seiler's own measurements over the first hours after a session show the same break at the first threshold: heart-rate variability recovered within 5 to 10 minutes of an easy session of one or two hours, but took about 30 minutes after a threshold session or intervals {shadow @seiler2007}.
+
+The review also suggests what is recovering. In the first hour and a half after a session the heart's nervous control is driven mostly by the acid left in the muscles and blood; over the following one to two days it tracks slower changes such as the volume of the blood plasma [@stanley2013]. The authors add a caution that matters for anyone using a heart-rate-variability app: the heart's nervous system recovering does not mean everything has. Muscle fuel stores and the nervous system's control of the muscles keep their own timetables, and the review had little data on them.
+
+The arithmetic follows. With at least 48 hours after each hard session [@stanley2013], a seven-day week holds three at most, Monday, Wednesday and Friday, with no room for a long ride on fresh legs. Two hard sessions leave 48 to 72 hours between them and a weekend free.
+
+![Two hard sessions in a week at three spacings, with the 48 hours or more of recovery that high-intensity sessions needed in the pooled studies. Spaced 48 or 72 hours apart, the second session starts after the first has recovered; a day apart, it starts inside the first one's recovery. A schematic, drawn for this book from the review's finding [@stanley2013].](figures/hard-days.svg)
+
+Pushing past that has a cost before it has a benefit. A consensus statement from the European and American sports medicine colleges distinguishes functional overreaching, a short drop in performance that turns into improvement after rest, from non-functional overreaching, a longer one that does not, and from the overtraining syndrome, a prolonged failure to adapt [@meeusen2013]. It also notes that no single marker reliably tells them apart. A 2004 review put the recovery from overreaching at about two weeks and from the overtraining syndrome at months to years, and found no evidence beyond anecdote that the first leads to the second {shadow @halson2004}. Billat's rising noradrenaline is a small version of the warning [@billat1999].
+
+## Arranging the same work
+
+The number per week is an average, and the trials suggest that the arrangement within it can matter in either direction.
+
+Concentrating the work in a short block, followed by recovery, helped trained cyclists. In a 2014 trial, one group did five high-intensity sessions in the first week and one a week for the next three, and another did two a week throughout, with the same volumes of hard and easy riding in total. After four weeks the block group's VO₂max was up 4.6% and its power at a lactate of 2 mmol/L up 10%, while the steady group had not changed [@ronnestad2014b].
+
+Swiss elite junior alpine skiers did something more extreme in 2010: 15 sessions of 4 × 4 minutes in 11 days, in place of their usual mixed training {shadow @breil2010}. Seven days after the last session, their VO₂max was up 6.0%, by 7.5% in the men and 2.1% in the women, and their power at the second threshold up 9.6%, while the control group's had not changed. Their jumping power had fallen by about 4% to 5%, which the authors suggested might reflect lingering fatigue. The Trondheim group, discussing that study, also cited two earlier ones in which two weeks of intensified training left competitive cyclists with a lower VO₂max and worse performance [@hatle2014]. A block works when it is followed by recovery, and the recovery is part of the dose.
+
+Compressing the work without a recovery period afterwards delayed the gain. In 2014 a Trondheim group gave 21 young adults 24 sessions of uphill treadmill intervals, 4 × 4 minutes, either over eight weeks or over three [@hatle2014]. Four days after the last session, VO₂max was 10.7% higher in the eight-week group, and the 3.0% in the three-week group was not significant. Twelve days later, after rest, the compressed group had reached 6.1% and the spread-out group had slipped to 7.9%, and the two were no longer significantly different.
+
+And the order of the hard sessions mattered not at all in the largest trial of cyclists, where 63 riders did 24 interval sessions at two a week in three different orders and all improved by 5% to 10% {shadow @sylta2016}. Doing the hard sessions consistently mattered more than sequencing them cleverly. {grade B}
+
+## Threshold sessions count differently
+
+"Hard session" covers very different things. Recovery took up to 48 hours after threshold work and at least 48 hours after harder work [@stanley2013], and the sessions in the two-against-four trial were threshold sessions [@tonnessen2020]. The Norwegian runners described in Chapter 8 do three or four threshold sessions a week, with lactate checked every one to three repetitions to keep it between 2 and 4.5 mmol/L, alongside one faster session and 150 to 180 km of easy running {shadow @casado2023}. Elite distance runners more generally do at least one threshold session and one faster session a week on a hard-day, easy-day pattern {shadow @casado2022}.
+
+So a week can hold more threshold sessions than VO₂max sessions, provided the threshold work is controlled and genuinely below the second threshold. For a rider on six to ten hours I would count a controlled threshold session as a hard session that is cheaper to recover from, and a ride between the thresholds that drifts harder than intended as a hard session that was not planned. {grade C}
+
+## How little keeps fitness
+
+Building fitness takes more than keeping it. In 1981 Robert Hickson had twelve young adults train six days a week for ten weeks, cycling and running 40 minutes a day, which raised their VO₂max by 20% to 25% [@hickson1981]. They then cut to four days a week or two, at the same intensity and duration, and fifteen weeks later both groups had kept their VO₂max.
+
+In a companion study, cutting the intensity by a third or two thirds while keeping the frequency and duration lost part of the gain in VO₂max, cut endurance at a submaximal pace by 21% and 30%, and returned the heart's muscle mass to where it started {shadow @hickson1985}. A 2021 review of the minimum dose reached the same conclusion: endurance can be held for up to 15 weeks on as few as two sessions a week, or a third to two thirds less volume, provided the intensity is kept [@spiering2021].
+
+So one hard session a week, with the easy riding cut back if need be, is a sound plan for a busy month, an illness or an off-season, and for a rider new to structured intervals one well-ridden session is a better start than two half-hearted ones. Older riders who find two leave them flat can reasonably drop to one or stretch the gap; a review of masters athletes concluded that age may slow recovery less than is often assumed, and that a sedentary life explains more of the decline [@borges2016]. {grade B}
+
+## Is the champions' hour a ceiling?
+
+The trials that improved cyclists put a similar amount of hard work into a week. Seiler's 4 × 8s, twice a week, came to 64 minutes [@seiler2013]. The 30/15 sessions of Chapter 12 came to about 39 minutes of hard efforts {shadow @ronnestad2015b}. The Trondheim 4 × 4s, three times a week, came to 48 [@helgerud2007]. The champions' 1.3 hours a week is time in the top three zones as they logged it, which probably includes some of the recovery between repetitions, so their figure and the trials' are not quite the same measure [@tonnessen2014]. But they are the same order: something like 40 minutes to an hour of hard work a week, in two or three sessions.
+
+That is my inference, not a finding. It suggests that the ceiling is not a number of sessions but a dose of hard work that one body can absorb and recover from, and that the champions' extra hundreds of hours went into easy training because that was the only training left to add. No trial has tested a larger hard dose over months in amateur cyclists, so the ceiling's exact height is unknown. What is known is that pushing frequency up in the short term, in the trials above, brought no extra gain and some signs of strain. {grade C}
+
+## For a rider on six to ten hours
+
+Two hard sessions a week, at least 48 hours apart and ideally 72, with easy riding between them, is where the evidence is strongest [@stanley2013; @tonnessen2020]. One can be long intervals and the other 30/15s or a controlled threshold session; Chapter 12 has the details.
+
+Drop to one when you are new to intervals, when you are busy, ill or travelling, or when two leave you flat. You will keep most of what you have.
+
+Use three only as a short block, a week or two, followed by an easier week, and only when the rest of the week can be genuinely easy. Beyond three there is no evidence of further gain, and the warning signs come first.
+
+And count the spacing before the number. Two hard sessions on consecutive days, or easy days ridden too hard between them, undo whatever number was chosen. {grade B for two as the default; grade C for the ceiling}

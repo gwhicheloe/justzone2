@@ -1,0 +1,77 @@
+# Time near VO₂max (Chapter 11): research notes
+
+Written 15 October 2026 with the first draft, as the first of three Part III chapters done in one batch at George's request ("can you do the next three chapter in a batch"). Tags: [FT] read in the full text (file in `papers/`), [Abs] from the abstract, [Rep] reported by another source, [GK] general knowledge with no source in the list, [Own] my arithmetic or inference.
+
+**Read in full:** Odden 2024 (design, training table, results, limitations, discussion), the abstract and results of Urianstad 2024, Bacon 2013 (abstract and results), Fleckenstein 2024 (abstract). Everything else is abstract only. George's website article on 30/15s (`website/research/30-15-intervals.html`) was read as a map; nothing is taken from it without checking the paper.
+
+## 1. The idea and where it comes from
+- Midgley & McNaughton 2006 [Abs]: several authors have suggested that training at or near VO₂max (≥95% in their definition) is the most effective intensity for raising VO₂max, and that highly trained athletes "may" need it to raise it further. Intermittent protocols give more time at or near VO₂max than continuous ones; work and relief intervals of 15 to 30 s recommended; "Further experimental research is required" before recommendations to runners.
+- Buchheit & Laursen 2013 [Abs]: "It is believed that an optimal stimulus ... is one where athletes spend at least several minutes per session in their 'red zone,' which generally means reaching at least 90% of" VO₂max. Up to nine variables define an interval session: work intensity and duration, relief intensity and duration, exercise mode, number of repetitions, number of series, and the duration and intensity of recovery between series.
+- Billat 2001 [Abs]: history: interval training first described by Reindell and Roskamm, popularised in the 1950s by Emil Zátopek.
+- Billat et al. 2000 [Abs]: 8 long-distance runners on a 400 m track with portable gas analysers (VO₂max 59.8 mL/kg/min). 30 s at 100% / 30 s at 50% of the speed at VO₂max: **7 min 51 s at VO₂max** in 19 repetitions; continuous run at 91.3% of that speed (halfway between threshold and VO₂max speed): **2 min 42 s**; the continuous run reached VO₂max in "more than half the cases" through the slow component. Blood lactate 6.8 vs 7.5 mmol/L (not significant). Authors: "These results do not allow us to speculate as to the chronic effects".
+- [GK] The slow component: in the severe domain (above critical power), oxygen uptake keeps rising during constant work until it reaches VO₂max (Chapter 5 defines the domains).
+
+## 2. What sessions do on the day (acute studies)
+- **Rønnestad & Hansen 2016** [Abs]: 13 well-trained male cyclists (VO₂peak 67 mL/kg/min), intervals to exhaustion at the minimal power that elicits VO₂peak; work periods of 80% or 50% of the time to exhaustion, or 30 s, with recovery half the work duration at 50% of that power. The 30-s protocol gave longer time ≥90% VO₂peak and longer work at that power (p ≤ 0.05). No numbers in the abstract.
+- **Urianstad et al. 2024** [Abs; FT available]: 11 women (VO₂max 62.5) and 8 men (81.0); three 6 × 8-min sessions at the same mean power (40-min power): 30/15 (30 s at 118%, 15 s at 60%), constant 100%, 60/60 (110% / 90%). Mean %VO₂max 86.7% (30/15) vs 85.0% (constant) vs 85.6% (60/60); **time ≥90%: 1,123 s vs 879 s vs 917 s** (30/15 higher than both). No sex difference; muscle fibre type, capillaries and citrate synthase not related.
+- **Bossi et al. 2020** [Abs]: 14 cyclists (VO₂max 69.2); work intervals matched for duration and mean power, varied vs constant power: **410 vs 286 s** above 90% VO₂max (p = 0.02); no difference in heart-rate or perceived training load; higher ventilation; the extra oxygen partly the cost of breathing harder.
+- **Appelhans, Rønnestad & Skovereng 2025** [Abs]: 12 well-trained cyclists and triathletes (VO₂max 68); 3 × 13 × 30/15 vs 6 × 5 min, each at fixed intensity and self-paced all-out. Time above 90% VO₂max: **fixed 420 vs 178 s** (short higher, p < 0.01); **self-paced 1,130 vs 1,016 s** (p = 0.321, no difference). All measures higher self-paced.
+- **Fleckenstein et al. 2024** [Abs]: 12 highly trained middle-distance runners (7 men, 5 women); 4 × 3 min at 95% of vVO₂max (3 min recovery at 50%) vs 24 × 30 s at 100% (30 s at 55%). Time above 90% VO₂max **201 vs 328 s** (30-s session lower, p = 0.05); time above 90% of maximum heart rate **820 vs 545 s** (30-s higher); lactate 7.59 vs 9.69 mmol/L; RPE 6.5 vs 6.8 (CR-10), no difference. Authors: heart rate "should be interpreted with caution".
+- **Seiler & Sjursen 2004** [Abs]: 12 well-trained runners (VO₂max 65), self-paced 24 × 1, 12 × 2, 6 × 4 or 4 × 6 min, 1:1 work:rest, 48 min sessions. Speed fell with longer work (93, 88, 86, 84% of vVO₂max). Peak VO₂ about 92% of VO₂max for 2, 4 and 6 min vs 82% for 1 min. Six of 12 reached their highest VO₂ and heart rate in the 4-min session. Peak RPE about 17 in all four. Lactate 4.3 to 4.6 mmol/L in all. "The optimal interval duration for eliciting a high physiological load is 3-5 min."
+- [Own] Figure data (`time-near-max.svg`): minutes ≥90% VO₂max in one session, pairs from the studies above: Bossi 6.8 vs 4.8; Urianstad 18.7 vs 14.7; Appelhans fixed 7.0 vs 3.0; Appelhans self-paced 18.8 vs 16.9; Fleckenstein 3.4 vs 5.5. Billat 2000 measured time **at** VO₂max, not ≥90%, so it is left out of the figure.
+
+## 3. Does time near VO₂max predict the gain? (the one longitudinal study)
+
+### Odden et al. 2024, Eur J Sport Sci [FT] — the close-up
+- Aim (stated): "to investigate the relationship between % of VO2max achieved during an interval training intervention and changes in endurance performance and its physiological determinants in well-trained cyclists". Introduction: "no study has, to date, measured the % of VO2max during all interval sessions throughout a prolonged training intervention".
+- 22 cyclists (19 men, 3 women), VO₂max 67.1 mL/kg/min, age 22.6; off-season training 8 h 49 min a week in the four weeks before.
+- 9 weeks, 21 sessions (20.6 on average) of 5 × 8 min at 40-min power, 3 min recovery at 35%. Three 3-week periods, each with a different 8-min format (30/15 at 118/60%; 60/60 at 110/90%; constant 100%), in randomised orders. Power lowered if a rider could not hold it; raised 2 points if RPE ≤15 after the fifth interval. On a smart trainer, supervised.
+- VO₂ measured in every work interval; expressed as % of the most recent VO₂max test (tests after periods 1 and 2), so the denominator was updated.
+- Riders averaged 74.2% to 90.8% of VO₂max during the work intervals. Halves: HIGH 86.2% (2 women, 9 men), LOW 79.9% (1 woman, 10 men).
+- **Baseline:** VO₂max HIGH 65.1 vs LOW 69.1 mL/kg/min; maximum heart rate 197 vs 188 (significant); 40-min power 3.8 vs 3.7 W/kg; % of VO₂max at 4 mmol/L 84.1 vs 80.8. Baseline power at 4 mmol/L and 15-min power were positively related to % of VO₂max during intervals (Table 4).
+- **Training a week during the study (Table 2):** total **9 h 43 min (HIGH) vs 7 h 40 min (LOW)**; zone 1 **3:12 vs 1:48 (significant)**; zone 2 3:19 vs 2:28; zone 3 1:09 vs 1:10; zone 4 1:20 vs 1:25; zone 5 0:25 vs 0:34. [Own] Zones 4+5: 1:45 vs 1:59; zones 1+2: 6:31 vs 4:16.
+- **Results, regression** (controlling for baseline, change in body mass and sex): higher % of VO₂max went with bigger gains in peak power in the VO₂max test (R² adj 0.44, p = 0.009), power at 4 mmol/L (0.25, p = 0.035), the performance index (0.36, p = 0.013) and VO₂max (0.54, p = 0.029); not 15-min power (p = 0.215); not efficiency; not haemoglobin mass.
+- **Halves:** VO₂max **+5.23 vs +1.78 mL/kg/min** (p = 0.003); peak power +0.51 vs +0.23 W/kg (p = 0.022); power at 4 mmol/L +0.31 vs +0.12 W/kg (p = 0.015); performance index +0.059 vs +0.027; 15-min power +0.30 vs +0.15 W/kg (p = 0.096, a tendency).
+- % of VO₂max had better session-to-session repeatability than % of max heart rate; ICC 0.61 for % of VO₂max vs 0.56 for time ≥90%.
+- **Authors' limitations:** 5 × 8 min at 40-min power is not necessarily the best design for everyone; **the HIGH group "performed significantly more zone 1 training and tended to have a greater total training volume", "which could have affected the results"**; they judge it "most likely" the % of VO₂max, because the LOW group did slightly more zone 4 and 5.
+- Authors' conclusion: "improvements in endurance measures were positively related to the % of VO2max achieved during interval training. Percentage of VO2max was the measure that best reflected the magnitude of training adaptations."
+- [Own] Everyone rode the same session at the same share of their own 40-min power. Whether a rider reached 86% or 80% of VO₂max was therefore a property of the rider (how high their sustainable power sits relative to VO₂max, how fast their oxygen uptake rises), not of the session. The design is a correlation within one programme, not a comparison of sessions. The HIGH group also trained two hours a week more, mostly easy, and started with a lower VO₂max. Regression to the mean and room to improve both favour the HIGH group.
+
+## 4. Training trials: do intervals beat continuous work for VO₂max?
+- **Milanović, Sporiš & Weston 2015** [Abs]: 28 controlled studies, 723 healthy adults aged 18 to 45, baseline VO₂max 40.8. Endurance training vs no exercise +4.9 mL/kg/min; HIT vs no exercise +5.5; **HIT vs endurance training +1.2 (±0.9)**, "possibly small"; larger with longer HIT repetitions (+2.2), longer programmes, lower fitness. Used magnitude-based inference (Chapter 4 discusses it).
+- **Bacon et al. 2013** [Abs]: 37 studies, 40 training groups, 334 sedentary or recreationally active people under 45 (120 women), 6 to 13 weeks of interval or interval-plus-continuous training: VO₂max **+0.51 L/min** (0.43 to 0.60); the 9 studies (72 people) with longer intervals **about 0.8 to 0.9 L/min**, "with evidence of a marked response in all subjects".
+- **Helgerud et al. 2007** [Abs]: 40 moderately trained men, 8 weeks, 3 days a week, four groups matched for work: long slow (70% HRmax), lactate threshold (85%), 15/15, 4 × 4 min. VO₂max +5.5% (15/15) and +7.2% (4 × 4), more than the continuous groups; stroke volume about +10% after the interval programmes.
+- **Inglis et al. 2024** [Abs]: 84 young healthy adults (42 women), randomised to six groups of 14, three sessions a week for 6 weeks, all but sprint training work-matched. ΔVO₂max: control +0.1; moderate (continuous, below the first threshold) +1.8 (not significant); lower heavy +3.3; upper heavy (continuous, between the thresholds) **+5.4**; HIIT (severe domain) **+6.2**; sprint intervals (extreme) +4.7 mL/kg/min. Threshold gains similar across heavy, HIIT and SIT; HIIT gave the largest rise in power at the maximal metabolic steady state. Authors: "exercise intensity is a key component".
+- **Gist et al. 2014** [Abs]: 16 RCTs, 318 young people, sprint interval training (repeated 30 s all-out): VO₂max ~+3.6 mL/kg/min (~8%); not different from continuous endurance training (d = 0.04).
+- [Own] Sprint intervals of 30 s all-out with long recoveries spend little time near VO₂max, yet raise it about as much as continuous training in young untrained people; continuous riding between the thresholds raised it nearly as much as HIIT in Inglis 2024. In less-trained people several routes raise VO₂max; time near VO₂max is one.
+- **Seiler et al. 2013** [Abs] (Chapter 12's close-up): 4 × 8 at 90% HRpeak gave more than 4 × 4 at 94%, which is the opposite of what the highest intensity would predict if only proximity to VO₂max counted; accumulated duration matters too.
+
+## 5. Mechanism
+- Helgerud 2007 [Abs]: stroke volume +10% after interval programmes; the authors' argument (not tested here) is that sessions near VO₂max load the heart maximally.
+- Odden 2024 [FT]: haemoglobin mass not related to % of VO₂max; efficiency gains tended to be larger in the LOW group.
+- Urianstad 2024 [Abs]: muscle characteristics did not predict the % of VO₂max reached.
+- [GK] Near VO₂max, cardiac output is at its maximum and nearly all motor units are recruited; this is the usual rationale, stated in reviews (Buchheit & Laursen 2013), not shown to be the cause of adaptation.
+
+## 6. Pacing and measurement
+- Heart rate lags and over- or under-states time near VO₂max (Fleckenstein 2024; Odden 2024 found % of HRmax less repeatable).
+- Self-paced, all-out efforts raise the time near VO₂max of both short and long formats (Appelhans 2025).
+- [Own] For a rider without a gas analyser, the practical signs are effort (RPE about 17 in Seiler & Sjursen 2004 regardless of duration) and power relative to their 5-min best (Chapter 12).
+
+## Added while expanding the draft (15 October)
+- **Bacon 2013** [FT]: authors Bacon, Carter, Ogle, **Joyner**. Inclusion: ≥3 healthy sedentary or recreationally active people under 45, 6 to 13 weeks, ≥3 days a week, ≥10 min of high-intensity work, ≥1:1 work:rest. Mean +0.51 L/min (0.43 to 0.60); standardised 0.86 SD. **Nine largest-gain studies 0.87 ± 0.15 vs nine smallest 0.27 ± 0.05 L/min**; weeks 9.7 vs 6.9 (p = 0.004); minutes a week 209 vs 123 (p = 0.06); total interval minutes 696 vs 479 (p = 0.12); the smaller-gain studies "appear to have been less intense (fewer total high intensity minutes)". Publication bias: trim-and-fill estimate **0.37 L/min**. HERITAGE (cited by them): mean +0.4 L/min after 20 weeks. Authors: longer intervals with high-intensity continuous training "can generate marked increases in VO2max in almost all relatively young adults".
+- **MacInnis et al. 2017** [Abs, in sources.yaml]: 10 active men, one leg intervals and the other continuous, work matched (143 vs 144 kJ), 6 sessions in 2 weeks; citrate synthase 10.2 vs 8.4. [GK] McMaster group (Gibala).
+- **Montero & Lundby 2017**: as told in Chapter 2 (non-responders disappeared with more sessions a week).
+- **Milanović 2015** moderators (HIT vs endurance): lower baseline fitness +0.8, longer interventions +1.7 mL/kg/min. [Own] 1.2 / 40.8 baseline = 2.9%.
+- **Billat 2001** [Abs]: Reindell and Roskamm; Zátopek; coaches set speeds "from 800 to 5000m ... without taking into account physiological markers". [GK] first names Hans Reindell and Helmut Roskamm.
+- **Casado 2023** [FT, Chapter 8]: Zátopek's repeated 400 m sessions.
+- **Inglis 2024** [Abs]: "exercise intensity domain-based prescription allows for a homogenous metabolic stimulus across individuals".
+- [Own] Session sizes in the figure: 6 × 8 = 48 min; 6 × 5 = 30 min; 3 × 13 × 30 s = 19.5 min.
+
+## Side roads
+- **Used:** Billat's runners on a track with gas analysers (2000); the runners in whom 30-s intervals gave less time near VO₂max but more time near maximum heart rate (Fleckenstein 2024); Inglis 2024's six groups by intensity domain.
+- **Not used:** Christensen, Hedman & Saltin 1960 (no abstract; not read; George's website article cites it as the origin of the 2:1 ratio via a GCN interview); Zátopek's sessions (in Chapter 8's history, from Casado 2023).
+
+## Weak points
+- Odden 2024 is the only study that links time near VO₂max to adaptation, and it is a correlation within one programme, confounded by training volume.
+- Every acute study is small (12 to 19 people) and most are from one Norwegian group (Rønnestad's), as are the 30/15 trials in Chapter 12.
+- The "90% of VO₂max" line is a convention; Odden found the continuous measure (% of VO₂max) more informative than time above the line.

@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 501.4" width="680" height="501.4" role="img" aria-label="Paired dots of minutes above 90 percent of VO2max: varied 6.8 against steady 4.8; 30/15 18.7 against steady 14.7; 30/15 7.0 against 6 by 5 minutes 3.0 at fixed power and 18.8 against 16.9 all-out; 24 by 30 seconds 3.4 against 4 by 3 minutes 5.5 in runners">
+<rect width="680" height="501.4" fill="#ffffff"/>
+<text x="30.0" y="30.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="start" font-weight="600" >Short work periods usually add time near VO₂max, but not when the long</text>
+<text x="30.0" y="52.5" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="start" font-weight="600" >intervals are ridden all-out</text>
+<text x="30.0" y="76.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >Minutes above 90% of VO₂max in one session, in five comparisons from four studies.</text>
+<circle cx="36" cy="121.4" r="6" fill="#1a1a1a"/>
+<text x="50.0" y="126.4" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >Short or varied intervals</text>
+<circle cx="290" cy="121.4" r="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+<text x="304.0" y="126.4" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >Longer or steadier intervals</text>
+<line x1="330.0" y1="159.4" x2="330.0" y2="437.4" stroke="#555555" stroke-width="1"/>
+<text x="330.0" y="459.4" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >0</text>
+<line x1="407.5" y1="159.4" x2="407.5" y2="437.4" stroke="#e6e6e6" stroke-width="1"/>
+<text x="407.5" y="459.4" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >5</text>
+<line x1="485.0" y1="159.4" x2="485.0" y2="437.4" stroke="#e6e6e6" stroke-width="1"/>
+<text x="485.0" y="459.4" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >10</text>
+<line x1="562.5" y1="159.4" x2="562.5" y2="437.4" stroke="#e6e6e6" stroke-width="1"/>
+<text x="562.5" y="459.4" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >15</text>
+<line x1="640.0" y1="159.4" x2="640.0" y2="437.4" stroke="#e6e6e6" stroke-width="1"/>
+<text x="640.0" y="459.4" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >20</text>
+<text x="485.0" y="485.4" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >Minutes above 90% of VO₂max</text>
+<text x="314.0" y="186.4" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="end" font-weight="600" >Varied against steady power</text>
+<text x="314.0" y="205.4" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#555555" text-anchor="end" font-weight="400" >Bossi 2020, 14 cyclists</text>
+<line x1="404.4" y1="190.4" x2="435.4" y2="190.4" stroke="#bdbdbd" stroke-width="2"/>
+<circle cx="404.4" cy="190.4" r="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+<circle cx="435.4" cy="190.4" r="6" fill="#1a1a1a" stroke="#ffffff" stroke-width="1.5"/>
+<text x="447.4" y="195.4" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="600" paint-order="stroke" stroke="#ffffff" stroke-width="4">6.8</text>
+<text x="392.4" y="195.4" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="end" font-weight="400" paint-order="stroke" stroke="#ffffff" stroke-width="4">4.8</text>
+<text x="314.0" y="240.4" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="end" font-weight="600" >30/15 against steady 8 minutes</text>
+<text x="314.0" y="259.4" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#555555" text-anchor="end" font-weight="400" >Urianstad 2024, 19 cyclists</text>
+<line x1="557.9" y1="244.4" x2="619.8" y2="244.4" stroke="#bdbdbd" stroke-width="2"/>
+<circle cx="557.9" cy="244.4" r="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+<circle cx="619.8" cy="244.4" r="6" fill="#1a1a1a" stroke="#ffffff" stroke-width="1.5"/>
+<text x="631.8" y="249.4" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="600" paint-order="stroke" stroke="#ffffff" stroke-width="4">18.7</text>
+<text x="545.9" y="249.4" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="end" font-weight="400" paint-order="stroke" stroke="#ffffff" stroke-width="4">14.7</text>
+<text x="314.0" y="294.4" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="end" font-weight="600" >30/15 against 6 × 5 minutes</text>
+<text x="314.0" y="313.4" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#555555" text-anchor="end" font-weight="400" >Appelhans 2025, 12 riders, fixed power</text>
+<line x1="376.5" y1="298.4" x2="438.5" y2="298.4" stroke="#bdbdbd" stroke-width="2"/>
+<circle cx="376.5" cy="298.4" r="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+<circle cx="438.5" cy="298.4" r="6" fill="#1a1a1a" stroke="#ffffff" stroke-width="1.5"/>
+<text x="450.5" y="303.4" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="600" paint-order="stroke" stroke="#ffffff" stroke-width="4">7.0</text>
+<text x="364.5" y="303.4" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="end" font-weight="400" paint-order="stroke" stroke="#ffffff" stroke-width="4">3.0</text>
+<text x="314.0" y="348.4" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="end" font-weight="600" >The same two sessions</text>
+<text x="314.0" y="367.4" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#555555" text-anchor="end" font-weight="400" >Appelhans 2025, ridden all-out</text>
+<line x1="592.0" y1="352.4" x2="621.4" y2="352.4" stroke="#bdbdbd" stroke-width="2"/>
+<circle cx="592.0" cy="352.4" r="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+<circle cx="621.4" cy="352.4" r="6" fill="#1a1a1a" stroke="#ffffff" stroke-width="1.5"/>
+<text x="633.4" y="357.4" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="600" paint-order="stroke" stroke="#ffffff" stroke-width="4">18.8</text>
+<text x="580.0" y="357.4" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="end" font-weight="400" paint-order="stroke" stroke="#ffffff" stroke-width="4">16.9</text>
+<text x="314.0" y="402.4" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="end" font-weight="600" >24 × 30 s against 4 × 3 minutes</text>
+<text x="314.0" y="421.4" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#555555" text-anchor="end" font-weight="400" >Fleckenstein 2024, 12 runners</text>
+<line x1="382.7" y1="406.4" x2="415.2" y2="406.4" stroke="#bdbdbd" stroke-width="2"/>
+<circle cx="415.2" cy="406.4" r="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+<circle cx="382.7" cy="406.4" r="6" fill="#1a1a1a" stroke="#ffffff" stroke-width="1.5"/>
+<text x="427.2" y="411.4" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="600" paint-order="stroke" stroke="#ffffff" stroke-width="4">5.5</text>
+<text x="370.7" y="411.4" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="end" font-weight="400" paint-order="stroke" stroke="#ffffff" stroke-width="4">3.4</text>
+</svg>
