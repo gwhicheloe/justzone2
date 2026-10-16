@@ -2,7 +2,7 @@
 
 Twenty-one older track athletes, with an average age of about 50, had their maximum oxygen uptake measured, and then measured again ten years later and twenty years later, when their average age was 70. Nine of them had remained at an elite level. Every group had lost fitness at each test, and the nine who had kept training hardest had lost the least [@pollock1997].
 
-The rules of the earlier chapters carry across to riders who are older, to women, and to riders stuck indoors: the order of the week, two hard sessions well spaced, easy riding near the top of Zone 2, and fuel for anything long. What changes is a matter of degree, and in each case the research is thinner than for the young men who make up most of it.
+The rules of the earlier chapters carry across to riders who are older, to women, and to riders stuck indoors. What changes is a matter of degree, and in each case the research is thinner than for the young men who make up most of it.
 
 ## Older riders
 

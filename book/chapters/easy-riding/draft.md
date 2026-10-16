@@ -1,5 +1,7 @@
 # Chapter 7: What easy riding does to the body
 
+The winter in the Introduction is the reason this book exists: four or five easy rides a week on a trainer in the garage, and then a climb up Sa Calobra more than two minutes faster than I had ever ridden it. I put it down to Zone 2 and the mitochondria it was said to build. The training studies in this chapter do not bear that out, and they point to a plainer explanation.
+
 Easy riding is riding below the first lactate threshold, and for most cyclists it is most of what they do. Since about 2019 a great deal has been claimed for it: that it is the best way to build mitochondria, that it teaches the body to burn fat, that it trains the clearing of lactate, and that its upper edge, Zone 2, is an intensity with effects no other has. That is a lot to ask of a pace at which you can hold a conversation. Those claims can be checked against training studies, and most of them do not hold. Easy riding is a small stimulus to the muscle, smaller per minute than any harder riding, and it costs so little that it can be repeated in very large amounts. What it does for a rider, it does through the amount.
 
 That matters because the amount is the thing riders differ in. A professional can train for most of the day, and an amateur with a job and a family may have a handful of hours a week. An account of easy riding that is true for one of them can be poor advice for the other.

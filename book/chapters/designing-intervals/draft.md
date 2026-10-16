@@ -148,35 +148,27 @@ For a rider who already trains, the comparison that matters is with long interva
 
 Sprints raise VO₂max in untrained people, improve sprinting, and save time. For a trained rider aiming at long efforts they are the weaker choice, and run all-out they are the riskier one. That trial was on a treadmill, and I found no comparable count of injuries from sprinting on a bike. {grade B}
 
-## How hard
-
-Every successful trial in this chapter asked riders for the hardest effort they could sustain for the session, and the self-paced runners above describe what that feels like: about 17 on the 6-to-20 scale, very hard, whatever the length of the repeats [@seiler2004].
-
-Start each set at the highest power you believe you can hold for all of it, expect the last repetition to be the hardest, and if you finish with something left, raise the power next time. Long efforts can be made to give more for the same effort by building surges into them, which added time near VO₂max without making the session feel any harder [@bossi2020].
-
-## Fixed power or all-out
-
-Smart trainers can hold a set power whatever the rider's cadence, and many riders do their intervals that way, typing in a power and letting the trainer enforce it. That is a fixed-power session in the sense of the trials, and the pacing study above found that every measure it took, from oxygen uptake to power, was higher when the riders chose their own pace and went as hard as they could [@appelhans2025]. The 6 × 5-minute session at fixed powers gave three minutes above 90% of VO₂max; ridden all-out, it gave seventeen.
-
-Part of that gap may come from the particular powers the researchers chose. But the same thing happens to a rider who sets a power from an old test, or a cautious one. A fixed power is a ceiling on the session as well as a floor. The remedy is not to abandon the trainer's fixed mode, which makes the efforts repeatable and the recoveries genuinely easy, but to set the power from recent efforts, raise it when a session ends with something left, and accept that the last repetition should be very hard. {grade C}
-
 ## What each session does
 
 The sessions are not interchangeable even when they raise VO₂max by similar amounts. In the women's trial, 4 × 4 minutes raised VO₂max and the sprints raised anaerobic capacity, the energy that can be released without oxygen, and improved a 300 m sprint more [@helgerud2023]. In Stepto's cyclists, the two sessions that improved a 40 km time trial were the one closest to race pace and the one far above it, and the authors suggested they worked by different routes {shadow @stepto1999}. Threshold sessions moved the fraction of VO₂max that could be sustained and the oxygen cost of moving, more than VO₂max itself {shadow @tonnessen2020}.
 
 For a rider whose events last an hour or more, which covers most of the readers of this book, that argues for intervals of four minutes and longer as the core, with 30/15s as an alternative way to the same place and threshold sessions as a cheaper complement [@rosenblat2020]. Sprints train something most of those riders rarely need. A rider who races criteriums, or who wants to win the sprint for the village sign, has a reason to include them that the VO₂max trials do not capture.
 
-## Recoveries and warm-up
+## Riding the sessions
+
+Every successful trial in this chapter asked riders for the hardest effort they could sustain for the session, and the self-paced runners above describe what that feels like: about 17 on the 6-to-20 scale, very hard, whatever the length of the repeats [@seiler2004].
+
+Start each set at the highest power you believe you can hold for all of it, expect the last repetition to be the hardest, and if you finish with something left, raise the power next time. Long efforts can be made to give more for the same effort by building surges into them, which added time near VO₂max without making the session feel any harder [@bossi2020].
+
+Smart trainers can hold a set power whatever the rider's cadence, and many riders do their intervals that way, typing in a power and letting the trainer enforce it. That is a fixed-power session in the sense of the trials, and the pacing study above found that every measure it took, from oxygen uptake to power, was higher when the riders chose their own pace and went as hard as they could [@appelhans2025]. The 6 × 5-minute session at fixed powers gave three minutes above 90% of VO₂max; ridden all-out, it gave seventeen.
+
+Part of that gap may come from the particular powers the researchers chose. But the same thing happens to a rider who sets a power from an old test, or a cautious one. A fixed power is a ceiling on the session as well as a floor. The remedy is not to abandon the trainer's fixed mode, which makes the efforts repeatable and the recoveries genuinely easy, but to set the power from recent efforts, raise it when a session ends with something left, and accept that the last repetition should be very hard. {grade C}
 
 The recoveries between efforts get less attention than the efforts, and the evidence suggests they deserve less. When nine well-trained runners did 6 × 4 minutes as hard as they could with recoveries of one, two or four minutes, the length of the rest made little difference to how fast they ran, how much oxygen they used or how hard it felt. Left to choose, they rested for about two minutes [@seiler2005]. The long-interval sessions in the trials used two and a half to three minutes [@ronnestad2020; @hatle2014]. Within that range, a rider can take whatever lets the next effort be as hard as the last.
 
 The research sessions began with a warm-up of about ten minutes [@hatle2014], and the 2006 review recommended ten to fifteen minutes at an easy pace with no long gap before the first effort [@midgley2006]. I found nothing to suggest that a longer one adds anything.
 
-## Order and variety
-
 The 63 riders who did the same three sessions in three different orders over twelve weeks all improved by the same amount [@sylta2016]. Nothing in the evidence says that a block of long intervals must come before a block of short ones, or the reverse. Variety has other uses. A session a rider looks forward to gets ridden harder, and a rider preparing for long climbs or time trials has reason to keep long intervals in the mix, since those were the sessions that beat sprints on time-trial performance [@rosenblat2020]. Those are reasons of tolerance and specificity, not evidence that variety itself adds anything.
-
-## Women and men
 
 Most interval trials are of men, and the few direct comparisons of the sessions suggest they work in much the same way in women. In the 30/15 study above, which measured 11 women and 8 men, 30/15s gave more time near VO₂max than steady intervals in both, with no difference between the sexes [@urianstad2024]. The 4 × 4 trial in well-trained women raised VO₂max by 7.3%, much as in men, although one sprint protocol that had raised it in men did not in women, and the all-out sprints injured more women than the same protocol had injured men [@helgerud2023]. Chapter 18 describes a meta-analysis of untrained people that found men's VO₂max rose more than women's on the same training, and returns to women's training generally.
 
