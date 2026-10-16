@@ -828,6 +828,13 @@
   chapters: [doping]
   notes: "Approval 1 June 1989 for anaemia of chronic renal failure (DailyMed label heading and trade press, via search results). Cite for the date only."
 
+- key: eriksson2026
+  citation: "Eriksson M. That Triathlon Show: Alistair Brownlee, two-time Olympic champion. Everyone was surprised by how slow I trained. Podcast, 3 September 2026."
+  url: https://scientifictriathlon.com/tts713/
+  status: abstract
+  chapters: [elites]
+  notes: "Episode page read through a summarising tool on 16 Oct 2026; the audio has NOT been heard. From the show notes: about 35 h a week at his peak, up to 40; bike 15-18+ h, 1-2 h hard; easy rides 200 W average, FTP 400+ W; easy runs 5:00/km; 10 km best 28:32; quotes on training slowly and on protecting the hard sessions. Check quotes against the audio before print. The host is not named in the book's text."
+
 - key: estevelanao2007
   citation: "Esteve-Lanao J, Foster C, Seiler S, Lucia A. Impact of training intensity distribution on performance in endurance athletes. J Strength Cond Res. 2007;21:943-949."
   doi: 10.1519/r-19725.1

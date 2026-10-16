@@ -129,6 +129,24 @@ George asked for Pogačar to be mentioned "to liven it up": that he trains at lo
 - "Then the Tour de France champion" is from the episode title. "Famously training at low intensity" has no source and is not in the draft; the draft says only what he described.
 - What "Zone 2" means in his team's scheme is not stated in anything I read. The draft says so.
 
+## Brownlee's account of his easy training (added 16 October 2026 at George's request)
+
+George asked for Alistair Brownlee's podcast interview to go in: "he makes powerful points about protecting the hard rides and riding ridiculously slowly when he's going easy". His blog post on it (website/blog/brownlee-slow-training.html, 27 September 2026) was the starting point; the figures below were re-checked against the episode page, not taken from the blog.
+- The interview is *That Triathlon Show* (host Mikael Eriksson), "Alistair Brownlee, Two-Time Olympic Champion | Everyone Was Surprised by How Slow I Trained", released 3 September 2026; episode page scientifictriathlon.com/tts713/ (the number 713 is from the URL, not stated on the page). **Read through a summarising tool on 16 Oct 2026 (a plain request with the research User-Agent got a 403, not bypassed). The audio has NOT been heard.** The quotes below are as the page gives them; check against the audio before print.
+- [Notes] Volume: "At most I trained about 35 hours a week on average, with big weeks going up to 40."
+- [Notes] Bike: 6 to 7 days a week, 15 to 18+ hours, 1 to 2 hours of it intensity. Easy rides averaged 200 W; FTP 400+ W.
+- [Notes] Run: up to 12 times and about 12 hours a week, 120 to 140 km, about 15 km of it at intensity. Easy pace 5:00 per km. 10 km best 28:32.
+- [Notes] Swim: 5 days, 7 to 7.5 hours, 10 to 20% intensity. Not used.
+- [Notes] Sleep: "easily averaged over eight hours a night, probably nine"; an hour's nap most days at his peak. Not used.
+- [Notes] "Everyone who came to train with me was surprised by how slowly I was going most of the time." Used in reported speech.
+- [Notes] "I then realised that if I wanted to do the maximum volume possible and protect the really hard sessions, the vast majority of that volume had to be as easy as possible." Quoted in part.
+- [Notes] Easy sessions should leave you "feeling better than you started". Used in reported speech.
+- [Notes] "The high intensity work is the icing on the cake. You are better off icing a massive cake than a small one, and the icing contributes less to the whole performance package than most of us think." The page also lists a topic, "what follows from that if your cake is small", but not what he concluded. **Not used:** read on its own it pulls against this chapter's advice for riders on few hours (decide the hard sessions first), and without the audio I can't say what he said about a small cake. George to decide after listening.
+- [Notes] Injuries: "if you get injured it is probably because you are doing too much." Not used.
+- [Own] 200 W against 400+ W is 50% of FTP or less. Coggan's level 2 starts at 56% of FTP (Chapter 5, allencoggan2010), so his easy rides sat below it.
+- [Own] 28:32 for 10 km is 2:51 per km (171.2 s).
+- [Blog error] The blog post says 200 W at a 400 W FTP is "the easy end of Zone 2 on most power-based zone models". On Coggan's levels it is below Zone 2 (level 1, under 55%). The blog also gives his 10 km as "under 29 minutes, about 2:54 per kilometre"; the page gives 28:32 (2:51). The website is not changed (update only when asked).
+
 ## The book's rule for how hard an easy ride should be (11 October 2026)
 
 George, on the conflict between What easy riding does (top of Zone 2 beats the bottom) and this chapter (champions train below Zone 2): "it's important the book is consistent- maybe we take an opinion here and stick to it". **The rule proposed and written into both chapters: an easy ride should carry as much work as it can without taking anything from the hard sessions. On six to ten hours a week that is Zone 2, a few beats under the first threshold; on 15 hours or more it is lower.** Durability's rule of thumb (10 to 15 W under the top of the zone on rides over two hours) already fits.
