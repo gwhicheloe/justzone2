@@ -78,13 +78,25 @@ That correlation deserves the suspicion Chapter 5 recommended. The 15 men were a
 
 ### One study, up close: a chest strap against the laboratory
 
-In 2026 a group at KU Leuven in Belgium tested the method on a bike, against lactate as well as breathing [@olieslagers2026]. They recruited 24 active men and analysed 21, whose average age was 23, who did about 10 hours of sport a week, and whose VO₂peak averaged 56 mL/kg/min. Each rode one test to exhaustion, starting at 40 W and rising by 30 W every four minutes. A mask measured breathing gases, a drop of blood was taken from the earlobe after each stage, and a chest strap recorded every heartbeat. The people who read the thresholds worked blind to the other results.
+In 2026 a group at KU Leuven in Belgium tested the method on a bike, against lactate as well as breathing [@olieslagers2026].
 
-The first lactate threshold, defined as this book defines it, came at 153 bpm and 180 W on average. The 0.75 heartbeat threshold came at 161 bpm and 201 W: 8 beats and 21 W too high, a difference that was not statistically significant. The scatter was the problem. For individual riders the limits of agreement ran from 36 beats too high to 21 too low, and the correlation between the two heart rates was 0.07. A personalised cut-off, set from each rider's own starting value as Rogers's group had since proposed {shadow @rogers2024}, matched the lactate threshold exactly on average and still had limits of about 30 beats either side [@olieslagers2026].
+::: trial
+Question: Does the 0.75 heartbeat cut-off find the first threshold, judged against lactate and against breathing?
+Design: One test to exhaustion each, starting at 40 W and rising by 30 W every four minutes, with a mask for breathing gases, a drop of earlobe blood after each stage and a chest strap recording every heartbeat. 24 active men recruited and 21 analysed: average age 23, about 10 hours of sport a week, VO₂peak 56 mL/kg/min. The thresholds were read blind to the other results [@olieslagers2026].
+| | Against the first lactate threshold | Against the first ventilatory threshold
+| The reference, on average | 153 bpm, 180 W | 144 bpm, 156 W
+| The 0.75 cut-off, on average | 161 bpm, 201 W
+| How far off | 8 beats and 21 W too high, not significant | 17 beats and 45 W too high, significant
+| Individual riders, against lactate | From 36 beats too high to 21 too low; correlation between the two heart rates 0.07
+| A personalised cut-off, against lactate | Exact on average, with limits of about 30 beats either side {shadow @rogers2024}
+-- The two references against each other
+| Lactate threshold and VT1 | 153 against 144 bpm in the same riders and the same test; limits from 30 beats one way to 11 the other; correlation 0.51
+Authors' conclusion: The method was not reliable enough for finding the first threshold in a test of this kind.
+:::
 
-Against the breathing threshold the method did worse. VT1 came at 144 bpm and 156 W, so the 0.75 cut-off was 17 beats and 45 W too high, and that difference was significant. The authors concluded that the method was not reliable enough for finding the first threshold in a test of this kind. A pooled analysis of 22 earlier studies had found the same lean, with the heartbeat threshold agreeing better with lactate than with breathing [@tanner2024].
+The scatter was the problem. On average the cut-off landed near the lactate threshold, but for individual riders it could be 36 beats too high or 21 too low, and the two heart rates hardly moved together. Against breathing it was further off still. A pooled analysis of 22 earlier studies had found the same lean, with the heartbeat threshold agreeing better with lactate than with breathing [@tanner2024].
 
-Those figures also show the laboratory's two measures of the first threshold disagreeing with each other. Lactate put it at 153 bpm and breathing at 144, in the same riders during the same test. For individuals the limits of agreement between the two ran from 30 beats one way to 11 the other, and the correlation between them was 0.51 [@olieslagers2026].
+The table also shows the laboratory's own two measures of the first threshold disagreeing, in the same riders during the same test.
 
 All 21 riders were young men [@olieslagers2026]. Each did one test, so nobody knows whether a rider's heartbeat threshold would come out the same the following week. Four-minute stages suit lactate sampling and may blur the ventilatory threshold, which is easier to see in a smooth ramp. The work was funded by the university and the authors declared no conflicts of interest. On average the heartbeat method lands near the lactate threshold, and for any one rider it can be 30 beats out, so a live reading on a phone should not set the top of Zone 2 unchecked. {grade B}
 

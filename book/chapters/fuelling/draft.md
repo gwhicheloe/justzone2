@@ -84,15 +84,23 @@ The intestine is where the evidence gets thinner. In animals the answer is clear
 
 ### One study, up close: 28 days of eating on the bike
 
-In 2010 a group at the Australian Institute of Sport led by Gregory Cox pair-matched 16 trained cyclists and triathletes and randomly allocated one of each pair to a high-carbohydrate group and the other to a low-carbohydrate group, for 28 days of their normal training, about 16 hours a week [@cox2010; @jeukendrup2017].
+In 2010 a group at the Australian Institute of Sport led by Gregory Cox tested whether the gut adapts to carbohydrate taken during exercise [@cox2010; @jeukendrup2017].
 
-Both groups ate the same moderate-carbohydrate base diet. The high group was given extra carbohydrate, mostly as a glucose drink, before, during and after every training session. The other group was given a supplement of fat and protein with the same energy content, eaten after training. The difference between the groups was whether the gut met a stream of sugar during exercise every day for four weeks. Daily carbohydrate intake averaged 8.5 grams per kilogram of body weight in one group and 5.3 in the other [@jeukendrup2017].
+::: trial
+Question: Does four weeks of carbohydrate in every training session raise how much of a drink a rider burns during exercise, and make them faster?
+Design: 16 trained cyclists and triathletes, pair-matched, with one of each pair allocated at random to each group, for 28 days of their normal training, about 16 hours a week. Both groups ate the same moderate-carbohydrate base diet. Before and after, a 100-minute steady ride drinking a glucose solution labelled with a tracer, then a time trial [@cox2010; @jeukendrup2017].
+| | High carbohydrate | Low carbohydrate *(the control)*
+| Riders | 8 | 8
+| Added to the base diet | Extra carbohydrate, mostly as a glucose drink, before, during and after every session | A fat and protein supplement with the same energy, eaten after training
+| Carbohydrate a day | 8.5 g per kg of body weight | 5.3 g per kg
+-- After 28 days
+| Glucose drink burned in the 100 minutes | 54.6 g to 63.6 g | No change
+| Time trial | About 6% better | About 6% better
+:::
 
-Before and after, every rider did a test ride of 100 minutes at a steady pace followed by a time trial, drinking a glucose solution labelled with a tracer so that the amount burned could be measured. In the high group, the amount of the drink burned over the 100 minutes rose from 54.6 grams to 63.6. In the low group it did not change [@cox2010].
+The difference between the groups was whether the gut met a stream of sugar during exercise every day for four weeks. In the high group the amount of the drink burned rose by about a sixth. The likeliest explanation is that the gut wall had made more transporters, as it does in animals. The study did not measure that.
 
-That is a rise of about a sixth in how much swallowed glucose reached the muscles and was used, after four weeks of practice. The likeliest explanation is that the gut wall had made more transporters, as it does in animals. The study did not measure that.
-
-The performance result is less convenient. Time-trial performance improved by about 6% after the four weeks of training, and it improved by the same amount in both groups [@cox2010]. The riders who had trained their guts absorbed more and went no faster than the riders who hadn't.
+The performance result is less convenient. The riders who had trained their guts absorbed more and went no faster than the riders who hadn't.
 
 There are limits on both findings. Eight riders a group is a small study by the standards of Chapter 4. The test drink was glucose alone, so the study cannot say whether training raises the higher ceiling that glucose and fructose mixtures reach. I have read this paper's abstract and Jeukendrup's detailed account of it, not the paper itself. And sixteen years later the 2026 reviewers note that its central finding "has not been consistently replicated" [@plews2026]. {grade C}
 

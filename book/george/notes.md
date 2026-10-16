@@ -249,3 +249,11 @@ Not done, as they need rewriting: the five heat trials told twice (haemoglobin, 
 
 The book is now 88,827 words; the proof is 267 pages with every table on one page; checker flags unchanged.
 
+## 16 October 2026: review-page comments and study tables
+
+Comments sent from the review page, each answered in its thread and resolved: a formula for performance VO₂ in Chapter 1 (new `::: formula` block in render.py, skipped by check.py); titles stating the point on the ATP diagram (Ch 2) and the pain-tolerance chart (Ch 3); "Two boundaries, three domains" renamed "The three intensity domains" ("Three zones, five zones, seven" flagged, not changed); lactate glossed at first use in Ch 1 and a paragraph in Ch 3 on what the burn is, from Pollak 2014 (abstract checked, added to sources.yaml and the Ch 3 notes); the Ch 5 zones chart now shows Coggan's levels and carries the thresholds through every row; the Ch 6 bar chart labels its open and solid bars; the Ch 6 step-test sketch explains its stage-2 dip; the Ch 7 fat-max chart is grouped by study, with a title resting on the one within-study comparison.
+
+> are there any other opportunities to use the table format for studies?
+> do the first 5
+
+Done as `::: trial` tables, every number taken from the existing prose: the five-week heat trials (one row per trial, replacing the two paragraphs that walked through them twice); the Leuven chest-strap study; Cox 2010's 28 days of gut training; the three pooled analyses of polarised training; the two FTP-against-MLSS studies. Three of the five have no "conclusion" row, so tblcheck cannot see where they end; all five were checked by eye on proof pages 64, 80, 116, 186 and 208. The proof is 269 pages.

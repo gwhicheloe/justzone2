@@ -58,9 +58,17 @@ Most cyclists meet the second threshold as functional threshold power, or FTP. T
 
 ### Reading the research: agreement on average is not agreement for you
 
-In 2019 a Brazilian group compared FTP with the maximal lactate steady state in 15 trained cyclists [@borszcz2019]. On average FTP differed from the power at MLSS by 1.4%. The correlation between the two was 0.91, which the paper called nearly perfect. The authors concluded that trained cyclists can use FTP as a practical alternative to the laboratory measure.
+Two studies have compared FTP with the maximal lactate steady state, and they reached opposite conclusions.
 
-A year later a Canadian group ran much the same comparison in 18 people [@inglis2020]. The power at MLSS averaged 88.5% of 20-minute power, so the standard 95% set FTP about 7% too high. Ten of the riders came back after seven months of training. Their MLSS had risen by 12 W and their FTP had not risen. These authors concluded that using FTP to represent MLSS "would not be advisable".
+::: trial
+Question: Does FTP, 95% of a 20-minute best, match the power at the maximal lactate steady state (MLSS)?
+| | Brazil, 2019 [@borszcz2019] | Canada, 2020 [@inglis2020]
+| Riders | 15 trained cyclists | 18 people
+| Average difference | FTP 1.4% from the power at MLSS | MLSS at 88.5% of 20-minute power, so FTP about 7% too high
+| Authors' conclusion | Trained cyclists can use FTP as a practical alternative to the laboratory measure | Using FTP to represent MLSS "would not be advisable"
+:::
+
+The Brazilian paper also reported a correlation of 0.91 between the two, which it called nearly perfect. The Canadian group brought ten of its riders back after seven months of training. Their MLSS had risen by 12 W and their FTP had not risen [@inglis2020].
 
 The two papers are closer than their conclusions. The Brazilian abstract reports a third number beside the 1.4%, the 95% limits of agreement, which were plus or minus 9.2%. Limits of agreement describe individuals. They say that for 95% of riders like these, FTP will fall within about 9% of their MLSS in either direction. For a rider whose steady state is truly at 250 W, that is an FTP anywhere from roughly 230 W to 275 W. Among the less trained riders in the group the limits were plus or minus 11.8% [@borszcz2019].
 

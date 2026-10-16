@@ -112,11 +112,17 @@ The headline number is also very large. The authors themselves wrote that an 11%
 
 ### Reading the research: an effect that shrank
 
-The first pooled analysis of polarised training was published in 2019. Its authors found four randomised trials comparing polarised with threshold-heavy training in trained athletes, three of which measured a time trial and could be combined. Pooled, the polarised groups improved by 0.66 of a standard deviation more than the others, with a confidence interval from 0.15 to 1.17 [@rosenblat2019]. The trials it drew on had 112 athletes between them [@silvaoliveira2024].
+Three pooled analyses of polarised training have been published, each larger than the last.
 
-Five years later a second group pooled 17 studies and 437 athletes. On time trials the difference between polarised training and everything else was 0.01 of a standard deviation, with an interval from −0.28 to 0.25, which is no difference. VO₂peak still favoured polarised training, by 0.24, with an interval that only just excluded zero. That advantage appeared in programmes shorter than 12 weeks and in highly trained athletes and nowhere else, and the authors pointed out that the highly trained athletes were in the short studies, so the two could not be told apart [@silvaoliveira2024].
+::: trial
+Question: Across the trials, does polarised training improve time-trial performance more than other ways of dividing the same training?
+| | Studies pooled | Athletes | Time trials, polarised against the rest
+| 2019 [@rosenblat2019] | Four randomised trials against threshold-heavy training, three of which measured a time trial | 112 [@silvaoliveira2024] | Better by 0.66 of a standard deviation, interval 0.15 to 1.17
+| 2024 [@silvaoliveira2024] | 17 | 437 | 0.01 of a standard deviation, interval −0.28 to 0.25: no difference
+| 2025, individual results [@rosenblat2025] | 13 | 348 | No difference from pyramidal training, and no significant difference from any other distribution
+:::
 
-In 2025 the author of the 2019 analysis returned to the question with the people who had run many of the trials, Seiler among them. They pooled the individual results of 348 athletes from 13 studies. Between polarised and pyramidal training they found no difference in VO₂max or in time trial performance, and no significant difference between polarised training and any other distribution [@rosenblat2025].
+The 2025 analysis was by the author of the 2019 one, working with the people who had run many of the trials, Seiler among them, and it found no difference in VO₂max either [@rosenblat2025]. The 2024 analysis still found VO₂peak favouring polarised training, by 0.24 of a standard deviation, with an interval that only just excluded zero. That advantage appeared in programmes shorter than 12 weeks and in highly trained athletes and nowhere else, and the authors pointed out that the highly trained athletes were in the short studies, so the two could not be told apart [@silvaoliveira2024].
 
 This is Chapter 4's simulation happening in real data. The first trials of a new idea are small, the small trials that get noticed are the ones that found something, and a first meta-analysis can only pool what exists. Nobody need have done anything wrong. When a training claim rests on a pooled result from three trials, the sensible reading is that the true effect lies at the low end of the interval or below it.
 
