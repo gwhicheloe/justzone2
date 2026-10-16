@@ -24,6 +24,8 @@ italic, numbered and bulleted lists, blockquotes. Book conventions:
                             | Label | a | b        a row of values; fewer values than groups -> the last spans the rest
                             ~ text                 a note under the row above (e.g. not significant)
                             -- Heading             a sub-heading across the table
+Parts: PARTS below names the chapter (by folder) that opens each part; a part title page
+goes before it, with its blank back, in the proof, and a part heading on the review page.
 The output is an HTML fragment (title, style, content) that works both as an
 Artifact page and when opened directly in a browser.
 """
@@ -36,6 +38,19 @@ import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 BOOK = os.path.dirname(HERE)
+
+# The first chapter of each part (by folder name), and the part's number and title.
+PARTS = {
+    "limits": ("Part I", "The engine"),
+    "easy-riding": ("Part II", "The easy part"),
+    "designing-intervals": ("Part III", "The hard part"),
+    "fuelling": ("Part IV", "Other ways to get faster"),
+    "training-week": ("Part V", "Putting it together"),
+}
+
+
+def part_of(path):
+    return PARTS.get(os.path.basename(os.path.dirname(os.path.abspath(path))))
 
 
 def load_sources():
@@ -275,6 +290,9 @@ STYLE = """
   nav.toc{font-family:var(--sans);font-size:15px;margin:22px 0 8px}
   nav.toc a{color:var(--accent);text-decoration:none;display:block;padding:3px 0}
   nav.toc span{color:var(--faint);font-family:var(--mono);font-size:12px;margin-left:8px}
+  nav.toc .tocpart{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:14px 0 2px}
+  .partpage{font-size:clamp(30px,6vw,40px);font-weight:600;line-height:1.15;text-align:center;margin:56px 0 0;padding:36px 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+  .partpage span{display:block;font-family:var(--sans);font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
   article{background:var(--page);border:1px solid var(--rule);border-radius:12px;padding:34px clamp(18px,5vw,48px) 30px;margin-top:28px}
   h1{font-size:clamp(30px,6vw,40px);line-height:1.15;font-weight:600;margin:0 0 6px;text-wrap:balance}
   .meta{font-family:var(--mono);font-size:12px;color:var(--faint);margin-bottom:22px;letter-spacing:.03em}
@@ -359,6 +377,10 @@ PRINT_STYLE = """
   @page :right{margin-left:%(in)sin;margin-right:%(out)sin}
   @page front{@bottom-center{content:none}}
   @page blank{@top-center{content:none}@bottom-center{content:none}}
+  @page part{@top-center{content:none}@bottom-center{content:none}}
+  section.part{page:part;height:7.5in;display:flex;flex-direction:column;justify-content:center;text-align:center}
+  section.part p{font-family:var(--sans);font-size:8.5pt;font-weight:600;letter-spacing:.16em;text-transform:uppercase;margin:0 0 10pt;text-indent:0}
+  section.part .pt{font-size:24pt;line-height:1.15;font-weight:600;margin:0;text-align:center}
   .blank{page:blank;height:1px}
   %(heads)s
   /* Nothing may be wider than the text area: Chrome would shrink every page to fit it. */
@@ -549,7 +571,10 @@ def render_print(out_pdf, files, sources, trim):
             for i, (t, _, _, _) in enumerate(chapters, 1))
         # print citations as bare superscript numbers against the word
         cites = lambda x: re.sub(r'\s*<sup class="cite">\[(.*?)\]</sup>', r'<sup class="cite">\1</sup>', x)
-        body = "".join(('<div class="blank"></div>' if i in blanks else "") + f'<article style="page:p{i}">{cites(c[3])}</article>'
+        # A part title page is a right-hand page with a blank back, so the chapter after it keeps its side.
+        part = lambda p: f'<section class="part"><p>{p[0]}</p><div class="pt">{html.escape(p[1])}</div></section><div class="blank"></div>' if p else ""
+        body = "".join(('<div class="blank"></div>' if i in blanks else "") + part(part_of(files[i - 1]))
+                       + f'<article style="page:p{i}">{cites(c[3])}</article>'
                        for i, c in enumerate(chapters, 1))
         top = '<div id="top" style="page:front"></div>' if probes else ""  # same named page as the title, or Chrome breaks between them
         links = probe_links(layouts) if probes else ""
@@ -621,8 +646,12 @@ def main():
     chapters = [render_chapter(open(f, encoding="utf-8").read(), sources, i, os.path.dirname(os.path.abspath(f))) for i, f in enumerate(files, 1)]
     total = sum(c[2] for c in chapters)
     today = datetime.date.today().strftime("%-d %B %Y")
-    toc = "".join(f'<a href="#{a}">{html.escape(t)}<span>{w:,} words</span></a>' for t, a, w, _ in chapters)
-    body = "".join(f'<article>{c[3].replace("</h1>", f"</h1><p class=meta>Draft · {c[2]:,} words · {today}</p>", 1)}</article>' for c in chapters)
+    parts = [part_of(f) for f in files]
+    toc = "".join((f'<div class="tocpart">{p[0]} · {html.escape(p[1])}</div>' if p else "")
+                  + f'<a href="#{a}">{html.escape(t)}<span>{w:,} words</span></a>' for (t, a, w, _), p in zip(chapters, parts))
+    body = "".join((f'<div class="partpage"><span>{p[0]}</span>{html.escape(p[1])}</div>' if p else "")
+                   + f'<article>{c[3].replace("</h1>", f"</h1><p class=meta>Draft · {c[2]:,} words · {today}</p>", 1)}</article>'
+                   for c, p in zip(chapters, parts))
     cut_key = '<del class="cut">struck through</del> a proposed cut, not yet made &nbsp;' if 'class="cut"' in body else ""
     page = f"""<title>Just Zone 2? Draft</title>
 {STYLE}

@@ -170,6 +170,10 @@ def check(path, sources):
                         flags.append((start, "source", f"number with no citation in paragraph: \"{s[:70]}…\""))
                         break
 
+    # Notes waiting for George (From the saddle prompts and the like) must not reach print.
+    for m in re.finditer(r"\[GEORGE:", text):
+        flags.append((text.count("\n", 0, m.start()) + 1, "george", "waiting for George's input"))
+
     # Dashes: more than ~1 per 500 words is a habit.
     dashes = len(re.findall(r"—|\s–\s|\s-\s", text))
     if words_total and dashes > max(2, words_total / 500):
