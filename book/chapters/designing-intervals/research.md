@@ -9,6 +9,8 @@ Written 15 October 2026 with the first draft, the second of three Part III chapt
 ## 1. What a session is made of
 - Buchheit & Laursen 2013 [Abs]: up to nine variables: work intensity and duration, relief intensity and duration, exercise mode, repetitions, series, and the duration and intensity of recovery between series.
 - Billat 2001 [Abs]: interval training described by Reindell and Roskamm, popularised by Zátopek in the 1950s.
+- Billat 2001 [Abs]: coaches set interval speeds from race paces, not from physiological markers.
+- Casado 2023 [FT, history section]: Zátopek ran "60 × 400 m or 40 × 400 m" (also in Chapter 8's notes). Used for the chapter's opening (16 October 2026, structure review point 8); the "Czech" and the Olympic medals are not used.
 
 ## 2. Long intervals: 4 × 4, 4 × 8 and longer
 

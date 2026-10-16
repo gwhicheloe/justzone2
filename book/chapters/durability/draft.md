@@ -56,11 +56,7 @@ A second contributor is which muscle fibres are doing the work. Chapter 1 introd
 
 Delivery is the other side. Over a long ride you lose fluid as sweat, which lowers blood volume. Your core temperature rises, and blood is diverted to the skin to shed heat, where it competes with the working muscles. The heart fills a little less with each beat and beats faster to compensate. This is cardiovascular drift, the slow rise in heart rate at constant power that everyone who rides with a heart rate monitor has seen. In the Auckland study heart rate rose 8.2% over two hours at constant power [@stevenson2022]. If the drift goes far enough, the maximum amount of oxygen the heart can deliver falls, and VO₂max, the thresholds and critical power can fall with it [@joneskirby2025].
 
-Heat makes all of this worse, and it is the mechanism I have felt most directly.
-
-> **From the saddle.** My power dropped massively during the heatwave of 2026, when the training room was 37 degrees.
-
-The point here is that part of what feels like fading legs is the circulation.
+Heat makes all of this worse, and it is the mechanism I have felt most directly, as Chapter 15 describes. Part of what feels like fading legs is the circulation.
 
 Then there is glycogen. The oldest explanation for fading late in a ride is that the muscles run out of stored carbohydrate, and nobody doubts that glycogen matters in long exercise. What Jones's lab found is that it doesn't neatly explain the fall in critical power. They took muscle biopsies from 14 men before and after two hours of riding. Glycogen fell by about 65% and critical power by about 11%, but the riders who lost the most glycogen were not the riders who lost the most critical power: the correlation between the two was 0.19, which is close to none [@clark2019b].
 
@@ -91,8 +87,6 @@ The study with the most riders comes from a Spanish group led by Manuel Mateo-Ma
 Power fell at every duration as the work mounted up. After 15 kJ/kg the losses were between 1.6% and 3.0%, depending on the duration. After 45 kJ/kg they were between 6.0% and 9.7% [@mateomarch2022].
 
 The comparison between divisions is what made the study widely cited. Fresh, the WorldTour riders and the ProTeam riders were hard to tell apart: their best power did not differ consistently. After 45 kJ/kg the WorldTour riders had lost 4.7% to 8.8% and the ProTeam riders 7.6% to 11.6%, with the gap showing mainly in efforts of five minutes and longer [@mateomarch2022]. On these figures, what separates the top division from the second is less what riders can do in the first hour than what they can still do in the last.
-
-[FIGURE: best power by duration, fresh and after 45 kJ/kg, WorldTour against ProTeam, redrawn from Mateo-March 2022. Waits on the full text.]
 
 A smaller study found the same pattern inside a single race. During the 2020 Vuelta a España, eight WorldTour and seven ProTeam riders were compared week by week. Fresh, the WorldTour riders were better only over 30 minutes. After 35 kJ/kg they were better over 30 seconds, one minute, five minutes, 20 minutes and 30 minutes {shadow @muriel2022}. That study is as close as the research comes to my fourth day in the Pyrenees, and with 15 riders it is a small one. {grade B}
 

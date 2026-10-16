@@ -25,7 +25,7 @@ Just Zone 2?
 ## Weak points
 - Every verdict and grade is a summary of a chapter that George hasn't reviewed; any change there changes this.
 - About 1,000 words short; it should stay the shortest chapter.
-- The app is mentioned once, in the last paragraph, because the Introduction promises exactly that; George should check the wording.
+- The app is mentioned once, at the end of "What Zone 2 is for", because the Introduction promises exactly that. Moved there on 16 October 2026 at George's request so the book ends on "The week, once more".
 
 ## Questions for George
 1. Are the verdicts right, especially "not supported" for Zone 2 and mitochondria and "plausible" for long rides and durability?

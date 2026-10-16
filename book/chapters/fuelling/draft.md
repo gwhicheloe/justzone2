@@ -60,6 +60,9 @@ The argument that professionals eat 120 grams an hour and professionals are fast
 
 The review on training the gut that this chapter draws on appeared in a journal supplement supported by the research institute of a sports drink company, and its author received a fee for attending the meeting behind it [@jeukendrup2017]. The carbohydrate in the 2026 dose trial was supplied by a supplement company [@norte2026]. That does not make the findings wrong, and the big dose trial was double-blind. Of the seven authors of the review that argues for raising the limit to 120 grams, five declare a relationship with one sports nutrition company, and one of them is employed by it [@morton2026]. The lead author of the more sceptical review declares a post with a company that sells other supplements [@plews2026]. None of this settles who is right. It does mean that the questions which get studied are often the ones a manufacturer would like answered, and that a reader should know where a recommendation to eat more of a product comes from.
 
+> **From the saddle.** [GEORGE: what do you eat and drink on a long ride, and how much an hour if you know? Your habit of out-eating the people you ride with is in the Durability box; a sister story belongs here, or that one could move here.]
+
+
 ## Is this why racing is faster?
 
 I could not find a study that tests the claim, and it is hard to see how one could be done. Fuelling did not change in isolation. Over the same years bikes, tyres, clothing and riding positions changed, and so did training, altitude camps, the heat work described in the Heat training chapter and the age at which riders turn professional. A race has no control group, and there is no way to hold everything else still.
@@ -108,11 +111,9 @@ There are limits on both findings. Eight riders a group is a small study by the 
 
 Whether or not practice lets you absorb more, there is better evidence that it makes eating on the move more comfortable.
 
-A group at Monash University in Melbourne ran two trials in recreational runners. In the first, 25 runners did a two-hour run while eating 90 grams of carbohydrate an hour, followed by a one-hour distance test. They were then randomly assigned to two weeks of repeated practice with carbohydrate gels, with carbohydrate foods, or with a placebo, and tested again. Total gut symptoms during the second test were 60% lower in the gel group and 63% lower in the food group. They were also 25% lower in the placebo group, so some of the improvement came simply from doing the test a second time. The distance covered in the hour rose by 5.2% and 4.3% in the two carbohydrate groups and fell by 2.1% on placebo [@martinez2023]{shadow @costa2017}.
+A group at Monash University in Melbourne ran two trials in recreational runners. In the first, 25 runners ate 90 grams of carbohydrate an hour during a two-hour run, practised for two weeks with gels, with ordinary food or with a placebo, and then repeated the test. Gut symptoms fell by about 60% in both carbohydrate groups and by 25% on placebo, so part of the improvement came simply from doing the test twice. The distance covered in an hour's test afterwards rose by about 5% in the carbohydrate groups and fell slightly on placebo [@martinez2023]{shadow @costa2017}. The second trial was blinded. Eighteen runners practised daily for two weeks with 90 grams an hour or a placebo, without being told which. Symptoms fell by 61% with carbohydrate and 2% with placebo, and breath hydrogen, a sign of sugar reaching the large intestine unabsorbed, halved [@martinez2023]{shadow @miall2018}.
 
-The second trial was blinded. Eighteen runners practised daily for two weeks, during an hour's running, with either 90 grams of carbohydrate an hour or a placebo, without being told which. Total symptoms fell by 61% in the carbohydrate group and 2% in the placebo group. Breath hydrogen, a sign of sugar reaching the large intestine unabsorbed, fell from a peak of 13 parts per million to 6 with carbohydrate and did not change with placebo [@martinez2023]{shadow @miall2018}.
-
-A third trial, from the Australian Institute of Sport, did not find this. Nineteen elite race walkers and 18 elite runners spent two weeks training on either 30 grams of carbohydrate an hour or 60 to 90. In the race walkers on the higher intake, total gut symptoms were greater after the two weeks than before. In the runners, symptoms rose during exercise by the same amount in both groups. Breath hydrogen did not change, and neither did the runners' time-trial performance. The authors' own title describes the effects as "minor" [@martinez2023].
+A third trial, from the Australian Institute of Sport, did not find this. In 19 elite race walkers and 18 elite runners, two weeks of training on 60 to 90 grams an hour instead of 30 left gut symptoms the same or worse, and changed neither breath hydrogen nor the runners' time-trial performance. The authors' own title describes the effects as "minor" [@martinez2023].
 
 All three are in a 2023 systematic review, which found eight studies of gut training in total. It concludes that two weeks of repeated feeding reduces gut discomfort and malabsorption, and that stomach emptying does not change. It also notes that no standard protocol exists, that 79% of participants were men, and that most of the studies were in runners [@martinez2023]. Only one used cycling alone. The review was written by the Monash group, and its senior author is also the senior author of the two trials that found a benefit. That is normal in a small field, and the review reports the contrary trial fairly, but it means the positive case comes from one laboratory.
 
@@ -160,35 +161,27 @@ One randomised trial found a benefit. Twenty-six triathletes took salt capsules 
 
 Sodium in a drink does no harm, and a salty drink may be easier to keep drinking. It is not protection against either of the things it is sold for.
 
-## Caffeine
+## Caffeine, ketones, beetroot and cherry juice
 
-Caffeine is the best-supported performance aid a cyclist can legally buy, and most cyclists were buying it already. A 2018 meta-analysis pooled 46 randomised, placebo-controlled trials of endurance time trials. At moderate doses of 3 to 6 milligrams per kilogram of body weight, caffeine raised average power by about 3% and shortened finishing time by about 2%. The response varied, and two of the studies found riders slower [@southward2018]. {grade A}
+Four more products are sold to riders as performance aids or handed to them at the finish, and the evidence for them differs more than the marketing does.
 
-A common belief is that regular coffee drinkers get nothing from it. A Brazilian trial tested that in 40 trained cyclists, divided by their habitual intake into low, moderate and high consumers. Each did a time trial of about half an hour three times: after caffeine, after a placebo and after nothing. On caffeine they averaged 29.92 minutes, against 30.81 on placebo and 31.14 with nothing, and the benefit was the same in all three groups {shadow @goncalves2017}. The gap between the placebo and nothing is worth a second look after Chapter 4: a capsule with nothing in it produced about a quarter of the gain that caffeine did.
+::: trial
+Question: Does it make a cyclist faster, or recover faster?
+| | What the trials found | Verdict
+| Caffeine, 3 to 6 mg per kg of body weight, about an hour before | 46 placebo-controlled trials of endurance time trials: average power up about 3% and finishing time down about 2%; two of the studies found riders slower [@southward2018] | Works {grade A}
+| A ketone drink before a ride | 13 randomised trials pooled: no effect on performance [@valenzuela2020] | Doesn't work {grade B}
+| A ketone drink after training | One trial, nine men a group, in three weeks of deliberate overload: a higher training load, and 15% more power late in a two-hour ride [@poffe2019] | Promising, not yet repeated {grade C}
+| Beetroot juice before a ride | 80 studies: a clear effect in recreationally active men, none in well-trained athletes with a VO₂max of 65 or more, none detectable in women [@senefeld2020] | A small gain for a club rider {grade B}
+| Tart cherry juice after a ride | 19 trials in athletes: muscle strength recovered better and one marker of inflammation fell; no effect on soreness; certainty of the evidence very low to moderate [@daab2026] | A recovery aid at best {grade C}
+:::
 
-For a 70-kilogram rider, 3 to 6 milligrams per kilogram is 210 to 420 milligrams, which is roughly two to four strong coffees. It is usually taken about an hour before the effort. The costs are the familiar ones, and the one that matters most to training is sleep.
+Caffeine is the best-supported performance aid a cyclist can legally buy, and most cyclists were buying it already. A common belief is that regular coffee drinkers get nothing from it. A Brazilian trial divided 40 trained cyclists by their habitual intake and found the same benefit in light, moderate and heavy coffee drinkers. It also found that a capsule with nothing in it produced about a quarter of the gain that caffeine did, which is worth remembering after Chapter 4 {shadow @goncalves2017}. For a 70-kilogram rider, 3 to 6 milligrams per kilogram is 210 to 420 milligrams, roughly two to four strong coffees, and the cost that matters most to training is sleep.
 
-## Ketones
+Ketones became famous through a 2016 paper from Oxford, which reported that a ketone drink changed the muscles' choice of fuel and improved endurance performance {shadow @coxp2016}. The next year ten professional cyclists given a different ketone compound before a time trial were 2% slower, with stomach discomfort and a higher sense of effort {shadow @leckey2017}, and the pooled trials have since sided with the second result. The sport's governing body reviewed the evidence in 2025, said it found none that was compelling, and recommended that riders not take ketones, without banning them.
 
-Ketones are fuel molecules the liver makes from fat when carbohydrate is scarce, as in fasting. A ketone ester drink raises their level in the blood without the fasting. The idea became famous through a 2016 paper from Oxford, reporting five studies in 39 athletes, which concluded that the drink changed which fuel the muscles used and improved endurance performance {shadow @coxp2016}.
+Beetroot juice is taken for its nitrate, which appears to lower the oxygen cost of exercise. The trial that started the interest, in nine club cyclists in Exeter in 2011, found them almost 3% faster over 4 and 16.1 kilometres {shadow @lansley2011}. The later trials kept the effect for club riders and lost it in well-trained ones, which makes beetroot juice an odd thing to copy from a professional.
 
-The following year an Australian group gave a ketone drink or a placebo to ten professional cyclists before a simulated 31-kilometre time trial. On the ketone drink they were 2% slower, with stomach discomfort and a higher sense of effort {shadow @leckey2017}. It was a different ketone compound from the Oxford one, and the product's defenders have said so. But when a 2020 meta-analysis pooled all 13 randomised trials of ketone supplements taken before exercise, of either type, it found no effect on performance [@valenzuela2020]. {grade B}
-
-The use that has survived is after exercise. A group at Leuven in Belgium put 18 fit men through three weeks of deliberately excessive training, two sessions a day, with a ketone drink or a control drink after each session. By the third week the ketone group was sustaining a higher training load, and their power in the last half hour of a standard two-hour ride was 15% higher than the control group's [@poffe2019]. That is a striking result from nine people a group in one laboratory, and it is waiting for independent repetition. {grade C}
-
-The sport's governing body reviewed the evidence in 2025, said it found none that was compelling, and recommended that riders not take ketones, without banning them.
-
-## Beetroot juice and the red drink at the finish
-
-Beetroot juice is taken before a ride, for its nitrate, which the body converts into a compound that widens blood vessels and appears to lower the oxygen cost of exercise. The trial that started the interest came from Exeter in 2011. Nine club-level cyclists drank half a litre of beetroot juice, or the same juice with the nitrate removed, two and a half hours before time trials of 4 and 16.1 kilometres. With nitrate they were 2.8% and 2.7% faster, and their power over the longer distance rose from 233 to 247 watts {shadow @lansley2011}.
-
-Nine years and many trials later, a meta-analysis of 80 studies found that the effect is real and small, and that it depends on who drinks it. In recreationally active men it was clear. In well-trained endurance athletes, with a VO₂max of 65 or more, it was absent. In the six studies done only in women it was not detectable [@senefeld2020]. A club rider might gain a little from beetroot juice before a race. {grade B} A professional almost certainly gains nothing, which makes it an odd thing to copy from one.
-
-The red drink handed to riders as they cross the line is something else: tart cherry juice, as at least one professional team has explained on its own website {shadow @efcherry}. It is taken for recovery. Tart cherries are rich in plant compounds that reduce inflammation, and the juice also contains sugar, which a rider needs at that moment anyway.
-
-The trial closest to cycling gave 16 trained cyclists cherry concentrate or a placebo twice a day for a week, with a hard 109-minute simulated race on each of the last three days. Blood markers of inflammation and oxidative stress rose less in the cherry group {shadow @bell2014}. The abstract reports no measure of how well they rode. A 2026 meta-analysis of 19 trials in athletes found that cherry juice improved the recovery of muscle strength and lowered one marker of inflammation, and had no significant effect on soreness or on the usual blood marker of muscle damage. The authors rate the certainty of the evidence as very low to moderate [@daab2026]. {grade C}
-
-There is a reason to be careful with it in training. The inflammation and oxidative stress that follow a hard session are part of the signal described in Chapter 2. In a small study in men, backed by experiments in rats, a gram of vitamin C a day, another antioxidant, hampered the gains from endurance training and suppressed the molecular signals that build mitochondria [@gomezcabrera2008]. Nobody has shown that cherry juice does the same. But the logic of taking it is strongest in a stage race, where the aim is to be recovered by tomorrow, and weakest after an ordinary training ride, where the aim is to adapt.
+The red drink handed to riders as they cross the line is tart cherry juice, as at least one professional team has explained on its own website {shadow @efcherry}. Tart cherries are rich in plant compounds that reduce inflammation, and the juice also contains sugar, which a rider needs at that moment anyway. There is a reason to be careful with it in training. The inflammation and oxidative stress that follow a hard session are part of the signal described in Chapter 2. In a small study in men, backed by experiments in rats, a gram of vitamin C a day, another antioxidant, hampered the gains from endurance training and suppressed the molecular signals that build mitochondria [@gomezcabrera2008]. Nobody has shown that cherry juice does the same. But the logic of taking it is strongest in a stage race, where the aim is to be recovered by tomorrow, and weakest after an ordinary training ride, where the aim is to adapt.
 
 ## What to do with it
 
@@ -200,11 +193,11 @@ There is a reason to be careful with it in training. The inflammation and oxidat
 
 **Above 90 is unproven.** It may help a professional recover between stages. For an amateur doing one ride it has not been shown to add speed, and at lower power outputs less of it will be used. A rider averaging 150 watts spends about 540 kilocalories an hour, and 120 grams of carbohydrate would replace nearly all of it.
 
-**Practise.** If you plan to eat a lot in an event, eat that way on your long training rides for at least the two weeks before. That is the dose in the trials that reduced symptoms. Use the same products you will use on the day.
+**Practise.** If you plan to eat a lot in an event, eat that way on your long training rides for at least the two weeks before. Two weeks was the dose in the trials that reduced symptoms. Use the same products you will use on the day.
 
 **Don't under-eat to get fitter.** Training short of carbohydrate has not improved performance in trained athletes, and chronic under-eating causes harm.
 
-**Drink to thirst.** That is enough on most rides. Drink more deliberately indoors and in heat, and never so much that you finish heavier than you started.
+**Drink to thirst.** On most rides nothing more is needed. Drink more deliberately indoors and in heat, and never so much that you finish heavier than you started.
 
 **Don't rely on salt** to prevent cramp or low blood sodium. Pace and training are the better explanation for cramp.
 

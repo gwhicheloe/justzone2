@@ -1,8 +1,10 @@
 # Chapter 6: Finding your zones
 
-The top of Zone 2 is the first lactate threshold. Muscle makes lactate all the time and the body clears it all the time, and the level in the blood is the balance between the two {shadow @brooks2018}. During easy riding the balance holds near its baseline, around 1 mmol/L in most people. At some power, different for every rider, production begins to outrun clearance and the level steps up. That power, and the heart rate that goes with it, is the first lactate threshold. Riding below it is easy in the sense this book uses the word, and Zone 2 is the band immediately beneath it.
+I'm too squeamish for a home lactate test. I wish I could do one, and that's why proxies are good for me. I set my own Zone 2 from a percentage of maximum heart rate, taken from the zones Strava suggested from my highest recorded heart rate.
 
-Most riders have never had it measured. They ride to a heart-rate zone that a watch worked out from their age, or a power zone that an app worked out from a 20-minute test, and both are guesses at where the lactate threshold probably lies. The threshold is the target. A lactate test measures it, and everything else (a talk test, a chest strap, a percentage of maximum heart rate) is a stand-in whose worth depends on how closely it tracks the blood.
+Most riders have never had their threshold measured either. They ride to a heart-rate zone that a watch worked out from their age, or a power zone that an app worked out from a 20-minute test, and both are guesses at where the lactate threshold probably lies.
+
+The top of Zone 2 is the first lactate threshold. Muscle makes lactate all the time and the body clears it all the time, and the level in the blood is the balance between the two {shadow @brooks2018}. During easy riding the balance holds near its baseline, around 1 mmol/L in most people. At some power, different for every rider, production begins to outrun clearance and the level steps up. That power, and the heart rate that goes with it, is the first lactate threshold. Riding below it is easy in the sense this book uses the word, and Zone 2 is the band immediately beneath it. The threshold is the target. A lactate test measures it, and everything else (a talk test, a chest strap, a percentage of maximum heart rate) is a stand-in whose worth depends on how closely it tracks the blood.
 
 ## Why the boundary matters
 
@@ -12,7 +14,7 @@ How long the effort can last changes as well. In the Exeter experiment of Chapte
 
 The cost afterwards also changes. In 2007 Stephen Seiler and colleagues had nine highly trained runners do four sessions on separate days: an hour below the first threshold, two hours below it, an hour that included 30 minutes between the thresholds, and an hour of hard intervals above the second. After each session the runners lay down, and for four hours the researchers followed their heart rate variability, a marker of how far the nervous control of the heart has been disturbed. After the easy sessions it was back to normal within 5 to 10 minutes, and two hours had cost no more than one. After the session between the thresholds it took about 30 minutes, and after the hard intervals it took the same 30 minutes. The authors called the first threshold a "binary" one for recovery: what counted was which side of it the session had been on [@seiler2007]. {grade B}
 
-That is nine runners and one marker of recovery, and the boundary in that study was found from breathing. It is still the clearest evidence for why the top edge of Zone 2 matters. Below it, training time is cheap: the effort settles, it can go on for hours, and it leaves little to recover from. A rider who drifts across the threshold is paying a price that the session's label does not show.
+Nine runners, one marker of recovery and a boundary found from breathing make it a small study, but it is still the clearest evidence for why the top edge of Zone 2 matters. Below it, training time is cheap: the effort settles, it can go on for hours, and it leaves little to recover from. A rider who drifts across the threshold is paying a price that the session's label does not show.
 
 Zones are a way of knowing which side of a boundary you are on. The body has two such boundaries, and the five or seven zones of a watch or an app are subdivisions of the three domains they create. The 2025 panel expected much the same adaptations a little above Zone 2 and a little below it [@sitko2025]. The case for finding the threshold rests on what it costs to cross it.
 
@@ -43,8 +45,6 @@ Technique matters as much as the meter. Sweat contains lactate, and a drop of bl
 Even in a laboratory the answer moves from one test to the next. Fourteen trained cyclists did the same test twice. Their lactate threshold shifted by 2 W on average, and the differences had a standard deviation of 19 W, so for about a third of the riders the second test put the threshold more than 19 W from the first [@pallares2016]. That test sampled blood only every 50 W, which will have widened the scatter. One test fixes the threshold to within perhaps 10 or 20 W, and a second on another day is worth the strips.
 
 The test gives two numbers to ride by: the power at the threshold and the heart rate at it.
-
-> **From the saddle.** I'm too squeamish for a home lactate test. I wish I could do one, and that's why proxies are good for me. I set my own Zone 2 from a percentage of maximum heart rate, taken from the zones Strava suggested from my highest recorded heart rate.
 
 ## Breathing, and the talk test
 

@@ -156,6 +156,8 @@ George, on the conflict between What easy riding does (top of Zone 2 beats the b
 - **Awaiting George's confirmation.**
 
 ## Arithmetic and unsourced statements in the draft
+
+- (16 October 2026, structure review point 10: numbers trimmed where the opening or a figure already carries them.) [Own] Solli: easy training 76 h a month in general preparation to 55 in competition is a fall of 28%, "more than a quarter". Lucía 2000: 11 to 17% between the thresholds across the three phases; Tour 23%, "almost a quarter". Fiskerstrand: 924 to 1,128 h is a rise of 22%, "a fifth".
 - [Own] The champions' hard share in general preparation is 8% (1.3 of 16.5 h). 8% of a seven-hour week is 0.56 h, "about half an hour". 1.3 h of 7 h is 19%.
 - [Own] "About 15 hours a week" is 770 / 52. "15 to 20 hours a week" for the athletes in the records: 770 h (14.8 a week), 937 h (18.0), 1,128 h (21.7).
 - [GK] The 4,000 m team pursuit "lasts about four minutes". No source in the list.

@@ -32,6 +32,9 @@ The hard dose barely changes from 4 hours to 12. It sits in the range that worke
 
 The days are movable. Put the hard sessions where you are fresh and have time to ride them properly, keep at least 48 hours between them [@stanley2013], and put the long ride where you have the hours, which for most people is the weekend. If a hard session follows the long ride, eat well on the long ride. If the long ride follows a hard session, it should be genuinely easy.
 
+> **From the saddle.** [GEORGE: what does your week look like now: which days are hard, which are easy, and how many hours in all? Has it changed since you started writing this book?]
+
+
 ### A planner, and where the book differs
 
 When I wrote a week planner for my website, before this book, I built it on the same order: two hard sessions always, on Tuesday and Thursday, everything else easy and growing with the hours, an optional long ride on Saturday that goes in only if the week can hold it, never two hard days together, and at least one rest day. Writing Part III changed two of its details. The planner's hard sessions are 4 × 4 minutes and a threshold session. The book's evidence favours four to eight minutes per effort over four, for riders like the ones in Seiler's trial, and treats a threshold session as one reasonable choice for the second session rather than a rule. Neither the planner nor these weeks has been tested as a whole. They are arrangements of findings that were each tested in pieces.
@@ -60,7 +63,7 @@ The trial was large, randomised, and set up to test exactly one thing. Five extr
 
 The runners were beginners, the outcome was injury and not fitness, and running hurts the body in a way cycling mostly doesn't. Each footstrike loads bones and tendons, and the bike, apart from crashes, spares them. So the trial doesn't say that a cyclist can add hours at any rate. It says that the most quoted number for safe progression has no evidence behind it where it was tested, and nothing better has replaced it. {grade B for the trial; grade C for what it means on a bike}
 
-What does seem to matter, in the research that followed, is the size of sudden jumps rather than any steady rate. A widely read review in 2016 argued that athletes used to high loads get injured less often, and that "excessive and rapid increases" in training are behind many injuries [@gabbett2016]. That is plausible and fits what coaches see. The tool that came with it is another matter.
+What does seem to matter, in the research that followed, is the size of sudden jumps rather than any steady rate. A widely read review in 2016 argued that athletes used to high loads get injured less often, and that "excessive and rapid increases" in training are behind many injuries [@gabbett2016]. The idea is plausible and fits what coaches see. The tool that came with it is another matter.
 
 ### Reading the research: a ratio that correlates with itself
 
@@ -124,6 +127,6 @@ Don't make up missed sessions by doubling up. The spacing matters before the num
 
 After illness or a long break, come back on easy riding for a few days before the first hard session. Chapter 2 has my experience of how quickly it returns after a short illness, and Chapter 19 covers how much is lost in longer breaks.
 
-## What to take from it
+## What to do with it
 
 Two hard sessions, well spaced and well ridden, are the core, and they look much the same at 4 hours and at 12. The easy riding fills the rest, and it is where extra hours go. The long ride is for long events. The season adds shape, and of all the shapes on offer only the taper has good evidence behind it. The rest is convention, which is no reason not to use it and every reason not to argue about it. {grade B for the core of the week; grade C for the rest}

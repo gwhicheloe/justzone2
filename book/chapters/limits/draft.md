@@ -115,8 +115,10 @@ In a 2019 study from Andrew Jones's group, 16 people did a three-minute all-out 
 
 Two riders who look identical in a fresh lab test could be almost a third apart after two hours. For anyone training for long events, that may matter more than a few per cent of VO₂max. Chapter 9 looks at durability in detail: how it's measured, what the professional peloton shows, and what, if anything, trains it.
 
-## What this means for training
+## What to do with it
 
 The model gives every training question in this book the same shape. A session can make you faster by raising your VO₂max, by raising the fraction of it you can sustain, by improving your efficiency, by making all three hold up better late in a ride, or by some combination. Arguments about training methods usually turn out to be arguments about which of these a method changes, and by how much.
 
 Each of the four factors can be trained, but they respond to different stimuli, on different timescales and to different degrees in different people, and some of them respond slowly. A training method that claims to improve everything, for everyone, is claiming more than physiology allows.
+
+The claims made for Zone 2 sit on two of the four. Easy riding is said to build the mitochondria and capillaries that let a rider hold a larger fraction of VO₂max, and to make all of it hold up late in a long ride. Chapter 7 weighs the first claim and Chapter 9 the second.

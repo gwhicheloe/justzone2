@@ -180,3 +180,6 @@ Written 11 October 2026. Tags: [FT] read in the full text; [Abs] the paper's abs
 - Sodium bicarbonate, protein and off-bike diet are not covered. Hydration, salt, caffeine, ketones, nitrate and cherry juice were added on 11 October from abstracts only.
 - Hydrogels and product formats: not covered.
 - Women: Martinez notes 79% of gut-training participants were men; most trials here are all-male.
+
+## Condensed 16 October 2026 (structure review points 2 and 4)
+The three gut-training trials were shortened and Caffeine, Ketones and Beetroot juice merged into one section with a table. Rounded figures in the new text, all from the numbers above: [Own] symptoms down "about 60%" in both carbohydrate groups (60% gels, 63% food); hour's distance up "about 5%" (5.2% and 4.3%), "fell slightly" on placebo (−2.1%); breath hydrogen "halved" (13 to 6 ppm); race walkers' symptoms higher after two weeks and runners' unchanged between groups, "the same or worse"; Lansley 2011 "almost 3% faster" (2.8% and 2.7%). Bell 2014 (cherry concentrate in 16 cyclists) is no longer cited in the draft; Daab 2026 carries the cherry juice row. The soreness and muscle-damage results of Daab 2026 are cut to "no effect on soreness".

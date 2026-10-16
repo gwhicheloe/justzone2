@@ -128,3 +128,5 @@ Sections 1 to 3 were drafted on 5 October (`draft.md`). Item 1 below is done; it
 In `book/papers/` (git-ignored): `jones2024.pdf` (published version), `clark2019a.pdf` and `clark2019b.pdf` (authors' accepted manuscripts from Figshare; page numbers differ from the journal's, so cite by section). Jones & Kirby 2025 read from PubMed Central.
 
 Still abstract only: Maunder 2021, Mateo-March 2022, Spragg 2023a and b, Muriel 2022 (paywalled, on George's list), Leo 2024 (repository file not public), Clark 2018, Gallo 2022, Voet 2024, Rønnestad 2011, Unhjem 2024, Stevenson 2022 and Smyth 2022 (the last two are free: read before drafting the sections that use them). The chapter can be drafted from what is here; the figure (Mateo-March per-duration numbers) cannot be drawn without that paper.
+
+16 October 2026: the `[FIGURE: …]` placeholder for Mateo-March 2022 was cut from the draft (final review). Draw it only if the full text is obtained.

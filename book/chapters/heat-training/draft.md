@@ -1,6 +1,6 @@
 # Chapter 15: Heat training
 
-<!-- Draft 1, complete (5 October 2026). Chapter 15, in Part IV (Everything else), agreed with George 11 October 2026. -->
+<!-- Draft 1, complete (5 October 2026). Chapter 15, in Part IV (Other ways to get faster), agreed with George 11 October 2026. -->
 
 ## Ice vests on the start line
 
@@ -41,6 +41,9 @@ The second stage is slow, and it is the reason for the current fashion. If heat 
 Why heat should do this is not established. The leading idea is that the kidney, which makes the hormone that drives red cell production, responds to how concentrated the blood is. Dilute the blood with extra plasma for long enough and the kidney reads it as a shortage of red cells and orders more [@cubel2024]. It is a neat explanation, and the evidence for it is indirect. When the Copenhagen researchers measured the relevant hormones during five and a half weeks of heat training, they found no change in them [@oberholzer2019]. The haemoglobin went up anyway.
 
 So the mechanism predicts two things that can be checked. Short heat blocks should do little for cool-weather performance, which is what the 2015 studies found. And blocks of four or five weeks should raise haemoglobin mass, and performance with it. Since 2019, a series of trials has tested the second prediction.
+
+> **From the saddle.** [GEORGE: your 37 °C garage in the 2026 heatwave is in a Durability box at the moment, and this is its natural home. Did the heat feel like training or just suffering, and did anything change once it cooled down?]
+
 
 ## What the five-week trials show
 
@@ -90,7 +93,7 @@ Authors' conclusion: Training in the heat was no better than normal training for
 
 The heat sessions were harder than "an hour at 60%" sounds. Rectal temperature at the end of every one was above 39 °C, 39.9 °C in the first and 39.4 °C in the last, and by every standard test the riders acclimated: their sweat became more dilute, their heart rate in the heat fell, and they lasted longer in a hot endurance test [@mikkelsen2019].
 
-They were no faster in the cool for it. Both groups gained 17 W in the time trial. The difference in haemoglobin mass between the groups fell just short of statistical significance, at p = 0.061 [@oberholzer2019]. That is a similar gain to the one the elite trials later found, and here it bought nothing.
+They were no faster in the cool for it. Both groups gained 17 W in the time trial. The difference in haemoglobin mass between the groups fell just short of statistical significance, at p = 0.061 [@oberholzer2019]. The elite trials later found a similar gain, and here it bought nothing.
 
 Twenty-one riders is few, and a real performance difference of a few watts could be hidden in a group that size. The controls improved by 17 W over five weeks, which suggests the whole group was coming into form after winter, and a rising tide of that kind can swamp a small effect [@mikkelsen2019]. Only men took part. But the central result is hard to argue with for an amateur weighing this up. Riders much like you gave five of their eight and a half weekly hours to sitting in a 40 °C chamber, and were no faster than the riders who trained normally. {grade C} for the claim that heat training improves cool-weather performance in amateurs.
 
@@ -98,11 +101,11 @@ Twenty-one riders is few, and a real performance difference of a few watts could
 
 Every trial in this chapter measured two kinds of thing. Haemoglobin mass is a marker: a quantity inside the body that is believed to lead to performance. Time-trial power is the performance itself. Fashions tend to be built on markers, because markers respond more consistently and can be measured more precisely than a tired rider's willingness to suffer in a time trial.
 
-The heat trials show the gap clearly. The marker rose in all six, though in one the difference from the control group fell just short of significance. The skiers gained 30 g of haemoglobin and nothing measurable in performance [@ronnestad2022b]. The Copenhagen amateurs gained 34 g and matched their controls to the watt [@mikkelsen2019; @oberholzer2019]. A headline that says "heat training increases haemoglobin mass" is accurate for both studies, and a reader would reasonably assume it means the athletes got faster.
+The heat trials show the gap clearly. The marker rose in all six, and in two of them, the skiers and the Copenhagen amateurs, performance did not move at all [@ronnestad2022b; @mikkelsen2019]. A headline that says "heat training increases haemoglobin mass" is accurate for both studies, and a reader would reasonably assume it means the athletes got faster.
 
 When a study reports a marker, look for the performance measure in the same paper. If it is missing, the study has shown that a mechanism was engaged. If it is present and didn't move, that is the finding, whatever the title says.
 
-In the trial where the heat-suit group improved and the chamber group did not, the positive result came from combining the two groups and merging three tests into a single index [@ronnestad2022a]. There can be good reasons to do that. But each choice of that kind, made after the data are in, raises the odds of finding something, and a result that appears only after pooling deserves less weight than one that was there in the first comparison.
+The table shows the same thing from the other side. Where only the heat-suit group improved, heat beat control only once both heat groups and three tests were combined [@ronnestad2022a]. A choice of that kind, made after the data are in, raises the odds of finding something, and a result that appears only after pooling deserves less weight than one that was there in the first comparison.
 
 ## The sensor
 

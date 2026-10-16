@@ -48,7 +48,7 @@ The protein behaved differently. PGC-1α protein was 23% above its starting leve
 
 The study shows the chain in order, in human muscle: a burst of message after every session, gone within a day, and protein building up underneath from one session to the next. No single session produced the adaptation, and the authors concluded that the gains in protein came from the cumulative effect of the repeated bursts.
 
-The men got fitter over the two weeks, and to keep their heart rates at the target the researchers raised the power from 203 watts in the first session to 239 in the seventh. The sessions were harder in absolute terms and the mRNA response still shrank. The authors suggest this may be part of why progress slows as training goes on: the same relative effort disturbs a trained muscle less. That is their interpretation and they label it as one [@perry2010].
+The men got fitter over the two weeks, and to keep their heart rates at the target the researchers raised the power from 203 watts in the first session to 239 in the seventh. The sessions were harder in absolute terms and the mRNA response still shrank. The authors suggest this may be part of why progress slows as training goes on: the same relative effort disturbs a trained muscle less. They label it as their interpretation [@perry2010].
 
 There were nine volunteers and no control group, so nothing rules out an effect of the repeated biopsies themselves. All of them were young untrained men. The training was hard intervals only, for two weeks only. The authors cite one other group that found the same ordering in human muscle. The exact percentages belong to these nine men. {grade B}
 
@@ -136,7 +136,7 @@ A test of maximal power, repeated on the same person with no training in between
 
 Taken together, the two studies say that people differ greatly in how much they gain from a given dose, that much of the difference is inherited, and that in healthy adults at these doses a failure to improve was a matter of too little training, not of a body that can't adapt. They were both done in untrained people. Whether a trained cyclist who has stopped improving on ten hours a week would improve on twelve is a different question, and neither study answers it. {grade B}
 
-## What this means for training
+## What to do with it
 
 The signal comes from the tissue that was disturbed. A muscle fibre that wasn't recruited during a session received no calcium flood and no energy shortfall, and it has no reason to change. This is the biology behind the old coaching principle of specificity, and it is why the question in Chapter 1, which part of the model does this session change, has a physical answer: the part it stressed.
 

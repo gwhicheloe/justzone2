@@ -52,6 +52,8 @@ Zone 2 earns its place in a different way from the one the fashion claims. Chapt
 
 Zone 2 is also the intensity that can be repeated. It doesn't hurt, it doesn't need recovery days of its own, and it can be done four or five times a week by someone with a job and a family. If the lesson of my own winter is regularity, Zone 2 is what made regularity possible. That is a real virtue, and it is a different one from the virtues it is usually credited with.
 
+I built an app, JustZone2, for my own winter training. It holds a heart rate in a zone on a smart trainer, which makes the easy part of the week easier to do and does nothing for the hard part. None of the evidence in this book depends on it, and none of the advice needs it.
+
 ## What the research can't yet tell us
 
 **Years, not weeks.** Almost every training trial in this book lasted between four and sixteen weeks. Elite athletes build their engines over a decade. Whether years of easy volume build something that a few months of intervals can't, a bigger and more compliant heart, more capillaries, more durability, is the most important open question for anyone who trains for a long time, and no trial has been long enough to answer it.
@@ -69,5 +71,3 @@ Each of those is a trial someone could run. Until they are, the honest position 
 ## The week, once more
 
 Two hard sessions, at least 48 hours apart: long intervals of four to eight minutes adding up to about half an hour of hard work, and 30/15s or a controlled threshold session. Easy riding for the rest, near the top of Zone 2, a few beats under the ceiling. A long ride if your events are long. Fuel on anything over 90 minutes. Lift through the winter if you can. Ride regularly. Measure the same thing every week and judge it every month. And when the next fashion arrives, which it will, ask what it was compared with. {grade B for the core; grade C for the rest}
-
-I built an app, JustZone2, for my own winter training. It holds a heart rate in a zone on a smart trainer, which makes the easy part of the week easier to do and does nothing for the hard part. None of the evidence in this book depends on it, and none of the advice needs it.

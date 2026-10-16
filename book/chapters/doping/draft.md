@@ -1,6 +1,6 @@
 # Chapter 16: Drugs
 
-<!-- Draft 1, complete (5 October 2026). Needs a legal read before publication: see the libel rule in brief.md. Chapter 16, in Part IV (Everything else), agreed with George 11 October 2026. -->
+<!-- Draft 1, complete (5 October 2026). Needs a legal read before publication: see the libel rule in brief.md. Chapter 16, in Part IV (Other ways to get faster), agreed with George 11 October 2026. -->
 
 ## Ninety-six finishers
 
@@ -80,7 +80,7 @@ A result of "no difference" can mean that there is no effect, or that the study 
 
 In their planning, the authors worked out the size of effect that would matter: a gain in sustained power of a little over 3%, which they estimated was worth about two minutes on a climb like Ventoux [@heuberger2017]. Now look at what the race could detect. The difference in time between the groups was 0.3%, with a 95% confidence interval from 8.3% faster on EPO to 9.6% slower. On a 100-minute climb that is a range of roughly eight minutes either way. A two-minute effect is well inside it. So is a five-minute one.
 
-The paper itself explains why the race was so imprecise. The wind at the summit that afternoon was blowing at 85 km/h and the temperature there was 5 °C. Four riders gave up from exhaustion. Each rider did the climb once, at the end of a long day [@heuberger2017].
+The paper itself gives the reasons the race was so imprecise: an 85 km/h wind and 5 °C at the summit that afternoon, four riders giving up from exhaustion, and one attempt each, at the end of a long day [@heuberger2017].
 
 The 45-minute laboratory test was far better controlled, and it is the stronger evidence. Its result was a difference of 5.9 W in favour of EPO, with an interval from 0.9 W the wrong way to 12.7 W the right way. As a percentage, that runs from about zero to about 4.5%. The best estimate is a gain of 2%. The commission was told that micro-dosing was worth 3% to 5%. The trial's own laboratory time trial does not rule that out [@heuberger2017; @circ2015].
 
@@ -88,7 +88,7 @@ The 45-minute laboratory test was far better controlled, and it is the stronger 
 
 Who was studied matters too. These riders trained five to six hours a week, which the authors acknowledge is far below a professional's load. For an amateur, a 2% change in sustained power is lost among everything else that varies from one rider to the next on the day. For a professional racing against riders who have all spent years removing those other differences, the same 2% is a decisive margin.
 
-What the trial does show is narrower and still useful. A recreational rider who took a professional's dose of EPO for two months came out with a measurably higher VO₂max, a gain in sustained power too small to distinguish from nothing, no advantage on a mountain, and in most cases no idea he had been on it. Keep that in mind for the passage on amateur racing below. {grade B} for the claim that EPO improves sustained performance in the laboratory; {grade C}, resting on testimony and race speeds, for its size on the road in professionals.
+What the trial does show is narrower and still useful. Two months of a professional's dose raised a recreational rider's VO₂max measurably, and most of the riders who had it could not tell. Keep that in mind for the passage on amateur racing below. {grade B} for the claim that EPO improves sustained performance in the laboratory; {grade C}, resting on testimony and race speeds, for its size on the road in professionals.
 
 ## The risks
 

@@ -21,6 +21,9 @@ To do it at home:
 
 Heart rate moves from day to day even when nothing else has changed. Forty-four people who repeated the same submaximal running test on five consecutive days varied by about 5 beats a minute at the stage where they were most consistent, and more at easier stages {shadow @lamberts2004}. A single week's reading carries that wobble with it.
 
+> **From the saddle.** [GEORGE: how do you tell whether your training is working? If you watch the power you hold at a fixed heart rate, what has it done over a season?]
+
+
 ## Signal and noise
 
 ![A simulated rider whose true power at a fixed heart rate rises by 5% over twelve weeks, measured once a week with a typical error of 3%. Single readings (dots) jump about, and five of the twelve after the first fall below the true starting value, including the last; the four-week average (line) climbs with only small dips. The numbers are simulated, not measured. The 3% error sits within the range found for a laboratory version of the test.](figures/noise.svg)
@@ -41,7 +44,7 @@ Chapter 9 described a simple test of durability: on a long ride at steady power,
 
 The largest study of this kind is of marathon runners. In 82,303 of them, the researchers compared heart rate with pace in the last 5 km of the race against the early kilometres [@smyth2022]. The third of runners whose heart rate stayed most closely coupled to their pace ran faster relative to their estimated critical speed, finished in 217 minutes on average against 225 and 239 for the moderate and high groups, and began to decouple later, at 33 km against 23 and 19. Adding decoupling to a model of marathon performance reduced its prediction error from 6.5% to 5.2%.
 
-That is an observational study of runners in one kind of race. It shows that decoupling goes with performance, not that training to reduce it will make anyone faster. It does show that the measure carries information, and a rider can take it from every long ride without any extra effort. {grade B that decoupling goes with performance; grade C for using it to judge training}
+It was an observational study of runners in one kind of race. It shows that decoupling goes with performance, not that training to reduce it will make anyone faster. It does show that the measure carries information, and a rider can take it from every long ride without any extra effort. {grade B that decoupling goes with performance; grade C for using it to judge training}
 
 ## How you feel
 
@@ -107,7 +110,7 @@ The same review gave the remedy, which Chapter 12 reached from the training tria
 
 Coming back is quicker than building the first time, though nobody has measured how much quicker in amateur cyclists. After a short illness, my own experience, which Chapter 2 records, is that the first ride feels terrible and the legs come back within two or three rides. After a longer break, come back on easy riding for a week or two before the first hard session, and expect the first few of your weekly readings to be down. That is what they are for. {grade B for the losses; grade C for the advice on returning}
 
-## What to take from it
+## What to do with it
 
 A rider who wants to know whether their training is working needs three numbers and a note.
 
@@ -119,4 +122,6 @@ Whenever they happen, the best efforts: five minutes, twenty, an hour, from ride
 
 And after each hard session, a line on how it felt and how you slept.
 
-Over two or three months those will show whether the training is working, more reliably than any single test and much more reliably than a watch's estimate or a model's chart. If they don't move, Chapter 17's order of the week is where to look first: whether the hard sessions are being ridden hard enough and recovered from, and whether the easy riding is staying easy. {grade C for the routine as a whole}
+Over two or three months those will show whether the training is working, more reliably than any single test and much more reliably than a watch's estimate or a model's chart. {grade C for the routine as a whole}
+
+If they don't move, Chapter 17's order of the week is where to look first: whether the hard sessions are being ridden hard enough and recovered from, and whether the easy riding is staying easy.

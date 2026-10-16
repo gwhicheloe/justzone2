@@ -257,3 +257,15 @@ Comments sent from the review page, each answered in its thread and resolved: a 
 > do the first 5
 
 Done as `::: trial` tables, every number taken from the existing prose: the five-week heat trials (one row per trial, replacing the two paragraphs that walked through them twice); the Leuven chest-strap study; Cox 2010's 28 days of gut training; the three pooled analyses of polarised training; the two FTP-against-MLSS studies. Three of the five have no "conclusion" row, so tblcheck cannot see where they end; all five were checked by eye on proof pages 64, 80, 116, 186 and 208. The proof is 269 pages.
+
+## 16 October 2026: Alistair Brownlee in Chapter 8
+
+> yes please- he makes powerful points about protecting the hard rides and riding ridiculously slowly when he's going easy
+
+A paragraph after Pogačar's in "What the records show": about 35 hours a week, easy rides at about 200 W from an FTP over 400 W (half or less, below Coggan's level 2), easy runs at 5:00 a kilometre against a 10 km best of 2:51 a kilometre, training partners surprised by how slowly he went, and his reason, quoted: "the maximum volume possible and protect the really hard sessions, the vast majority of that volume had to be as easy as possible". The next paragraph now counts him with the skiers and Pogačar. Source: the *That Triathlon Show* episode page (3 September 2026), read through a summarising tool; the audio is not heard, so the quotes need checking before print. Not used: the "icing on the cake" line, which on its own pulls against the chapter's advice for riders on few hours. Two errors found in the blog post (Zone 2 and the 10 km pace), noted in research.md, website not changed.
+
+## 16 October 2026: the rest of the structure review
+
+> Can you get on with all the other points as well please including putting back in points where I need to add detail from notes from the saddle
+
+All ten points in `george/structure-review.md` are now done, decided or waiting on George (point 7). In brief: part title pages, with Part IV renamed *Other ways to get faster* and Part V named *Putting it together* (to confirm); practical endings all called "What to do with it"; seven `[GEORGE: …]` From the saddle prompts (Chapters 11, 13, 14, 15, 17, 18, 19), flagged by check.py; Chapter 4 stays where it is, with Chapters 1 and 3 now ending on the Zone 2 claim; Chapter 11 opens on Zátopek; endings of 3, 7, 18 and 19 no longer finish on a caveat; Fuelling's supplements in one table and its gut trials condensed; Heat's and Drugs' second features no longer repeat the first; long sentences split in 11 and 12; numbers trimmed in 5 and 8. The Verdict keeps its three statements of the week. Proof 278 pages (the part pages add ten), every table on one page.

@@ -64,6 +64,9 @@ So the training in this book applies to women as it is. The hard sessions, the s
 
 Riding indoors changes the numbers more than it changes the training.
 
+> **From the saddle.** [GEORGE: your whole Sa Calobra winter was on a trainer in the garage. What made it bearable, and what did you do about heat and boredom?]
+
+
 ### One study, up close: same effort, indoors and out
 
 In 2014 a group of American researchers had cyclists ride a 40 km time trial twice, once in the laboratory and once outdoors, in random order, at the same perceived effort [@mieras2014].
@@ -100,8 +103,8 @@ Chapter 9 explained why no way of handling it is perfect late in a long ride. On
 
 Most riders are short of time, and the earlier chapters were written for them. The four-hour week in Chapter 17 shows the shape: two hard sessions and two short easy rides. One well-ridden hard session a week holds most of what a rider has for months (Chapter 12), and sprint intervals give a little more for very little time, at the cost of being the weaker choice for long efforts and the riskier one if run all-out (Chapter 11). The thing that matters most, for a rider short of time, is the same thing that mattered in my own winter: riding regularly. Four short rides every week will usually do more than one long ride when there is time for it. {grade C}
 
-## What changes and what doesn't
+## What to do with it
 
-For an older rider, keep the intensity, expect the numbers to fall slowly anyway, reset heart-rate zones from a recent threshold, lift for your bones, and stretch the gap between hard sessions if two leave you flat. For a woman, train as the book describes, knowing that most of the evidence comes from men and that the average effect of the cycle on performance is trivial, and track your own response if you are curious. Indoors, expect less power at the same effort, use fans, and decide whether you are holding power or heart rate on long rides.
+For an older rider, keep the intensity, expect the numbers to fall slowly anyway, reset heart-rate zones from a recent threshold, lift for your bones, and stretch the gap between hard sessions if two leave you flat. For a woman, train as the book describes, knowing that most of the evidence comes from men and that the average effect of the cycle on performance is trivial, and track your own response if you are curious. Indoors, expect less power at the same effort, use fans, and decide whether you are holding power or heart rate on long rides. {grade C overall: most of this chapter rests on small studies, reviews and reasoning}
 
-None of these changes the order of the week. Each of them is a reason to judge your training by what happens to you, which is the subject of the next chapter. {grade C overall: most of this chapter rests on small studies, reviews and reasoning}
+None of these changes the order of the week. Each of them is a reason to judge your training by what happens to you, which is the subject of the next chapter.

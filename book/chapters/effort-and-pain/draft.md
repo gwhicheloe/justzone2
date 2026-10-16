@@ -136,12 +136,13 @@ It was nine riders, a short effort and a 2% deception. Nobody should conclude th
 
 ## What to do with it
 
-Hard sessions probably train something that easy sessions don't, apart from their effects on the heart and muscle. The only randomised comparison found that intervals raised pain tolerance and steady riding matched for work did not. That is one small trial in untrained people, and it is a reason not to drop hard riding entirely even if you are persuaded by the case for volume.
+Most of the studies have between seven and twenty participants, most outcomes depend on a person deciding to stop, and the theories are still argued over. What can be said with some confidence is that the muscle is not the only thing that sets how hard you can ride, and that the rest is not fixed.
 
-Arrive at hard sessions and events mentally fresh if you can. In the Canberra study, half an hour of concentrated mental work cost recreational riders 10 watts in a 20-minute time trial. A day of difficult meetings is not a Stroop task, and the comparison is loose, but the direction is the one most riders with jobs would recognise: the interval session after a draining day feels harder at the same power. If it does, the studies suggest that is a real effect on perceived effort and not a failure of character [@martin2016].
 
 Treat the discomfort of a hard effort as information. The spinal-block experiments show what happens without it: riders start too fast, breathe too little and wreck their legs. Pacing by feel works because the feeling is tied to what the muscles and lungs are doing.
 
 Don't take painkillers to train or race harder. The paracetamol result is interesting as evidence about how pacing works. As a practice it trades a warning signal for a few watts.
 
-Most of the studies have between seven and twenty participants, most outcomes depend on a person deciding to stop, and the theories are still argued over. What can be said with some confidence is that the muscle is not the only thing that sets how hard you can ride, and that the rest is not fixed.
+Arrive at hard sessions and events mentally fresh if you can. In the Canberra study, half an hour of concentrated mental work cost recreational riders 10 watts in a 20-minute time trial. A day of difficult meetings is not a Stroop task, and the comparison is loose, but the direction is the one most riders with jobs would recognise: the interval session after a draining day feels harder at the same power. If it does, the studies suggest that is a real effect on perceived effort and not a failure of character [@martin2016].
+
+Hard sessions probably train something that easy sessions don't, apart from their effects on the heart and muscle. The only randomised comparison found that intervals raised pain tolerance and steady riding matched for work did not. It was one small trial in untrained people. It is also the first sign in this book that a rider who stays in Zone 2 may leave something untrained, and a reason not to drop hard riding entirely even if you are persuaded by the case for volume.

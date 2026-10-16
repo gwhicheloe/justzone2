@@ -84,7 +84,7 @@ Blood sugar falls too. In 47 trials of people with type 2 diabetes, structured e
 
 On intensity, the trials in patients lean the other way from the Zone 2 argument. In ten trials of 273 people with heart disease, high blood pressure, metabolic syndrome or obesity, interval training raised peak oxygen uptake by 3.03 mL/kg/min more than moderate continuous training, which the authors describe as almost double the gain {shadow @weston2014}. In 50 studies of interval training, insulin resistance fell more after intervals than after continuous training, by a small to moderate margin [@jelleyman2015]. Both sets of trials were small and short, and their authors call for longer ones. {grade B}
 
-These are markers, the kind of measurement Chapter 15 warned about, and a marker that improves is a reason to expect fewer heart attacks and strokes, not a count of them. The markers that matter most for health respond to training of any intensity, respond more in the people who need them to, and respond more to more of it.
+These are markers, the kind of measurement Chapter 2 warned against reading as an adaptation, and a marker that improves is a reason to expect fewer heart attacks and strokes, not a count of them. The markers that matter most for health respond to training of any intensity, respond more in the people who need them to, and respond more to more of it.
 
 ## Zone 2 as medicine, weighed
 
@@ -120,8 +120,8 @@ So regular exercise goes with fewer colds, and big events and very heavy trainin
 
 Chapter 7 dealt with the question of which fuel a ride burns and concluded that for weight it matters little. What matters is how much energy the riding uses. In the Midwest Exercise Trial, 141 overweight young adults exercised five days a week for ten months without being asked to change their diet, using either 400 or 600 kcal a session. Among those who completed nearly all their sessions, weight fell by 3.9 kg and 5.2 kg, while the control group gained 0.5 kg {shadow @donnelly2013}. Across 50 studies of interval training, weight fell by 1.3 kg against controls [@jelleyman2015]. Exercise alone takes off a few kilograms over months, in proportion to the work done, whatever the intensity. {grade B}
 
-## What this means for a rider on six to ten hours
+## What to do with it
 
 The large surveys place a rider on six to ten hours well into the part of the curve where more activity buys no more lower risk, or beyond the end of the data. Whatever exercise does for lifespan, that rider has most of it already, and nothing in the evidence says that the split between Zone 2 and intervals changes it. If the one trial points anywhere, it points to the intervals.
 
-That leaves the split as a question of performance, which is where Part III takes it up. It also leaves a simpler piece of advice for anyone riding mainly for their health, or advising someone who is. The first few hours a week of activity of almost any kind carry most of the association with a longer life, and the risk factors improve with any intensity and improve more with more. On the evidence, the best exercise for health is the one a person will keep doing. In Generation 100, about half of each exercise group was still doing its programme after five years [@stensvold2020]. {grade C}
+That leaves the split as a question of performance, which is where Part III takes it up. It also leaves a simpler piece of advice for anyone riding mainly for their health, or advising someone who is. The first few hours a week of activity of almost any kind carry most of the association with a longer life, and the risk factors improve with any intensity and improve more with more. {grade C} In Generation 100, about half of each exercise group was still doing its programme after five years [@stensvold2020]. On the evidence, the best exercise for health is the one a person will keep doing.

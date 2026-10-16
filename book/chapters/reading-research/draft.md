@@ -58,7 +58,7 @@ That arithmetic is an illustration with round numbers. It explains a result like
 
 ## How many people
 
-Of the 21 studies in people described in Chapters 2 and 3, the median had 12 participants. Only three had more than 50. That is normal for exercise science, where every participant may need weeks of supervised training and several muscle biopsies, and it has consequences that are easy to underestimate.
+Of the 22 studies in people described in Chapters 2 and 3, the median had 11 participants. Only three had more than 50. Small samples are normal in exercise science, where every participant may need weeks of supervised training and several muscle biopsies, and it has consequences that are easy to underestimate.
 
 Imagine that one training method really is better than another, by a fixed amount. People vary, so any one trial will measure that advantage with some luck added or subtracted. With few people, the luck is large.
 
