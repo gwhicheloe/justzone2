@@ -84,6 +84,7 @@ class WorkoutViewModel: ObservableObject {
     }
     @Published var adjustedPower: Int = 0
     private var hrBuffer: [Int] = []
+    private var hrFilter = HeartRateGlitchFilter()
     private let hrBufferSize = 45
     private let zone2Min: Int
     private let zone2Max: Int
@@ -251,21 +252,35 @@ class WorkoutViewModel: ObservableObject {
 
     private func bindHRSource() {
         hrCancellable?.cancel()
+        hrFilter.reset()   // a new source starts its own baseline
         switch hrSource {
         case .appleWatch:
             // Watch streams HR over WCSession.
             hrCancellable = watchConnectivityService.$fallbackHeartRate
-                .sink { [weak self] hr in self?.currentHeartRate = hr }
+                .sink { [weak self] hr in self?.receiveHeartRate(hr) }
         case .airPods:
             // AirPods Pro 3 in-ear PPG → HealthKit store → iPhone's
             // HKLiveWorkoutBuilder auto-collects → didCollectDataOf delegate
             // publishes builderHeartRate. We just subscribe to it.
             hrCancellable = healthKitManager.$builderHeartRate
-                .sink { [weak self] hr in self?.currentHeartRate = hr }
+                .sink { [weak self] hr in self?.receiveHeartRate(hr) }
         case .bleStrap:
             hrCancellable = heartRateService.$currentHeartRate
-                .sink { [weak self] hr in self?.currentHeartRate = hr }
+                .sink { [weak self] hr in self?.receiveHeartRate(hr) }
         }
+    }
+
+    /// Every heart-rate reading, from any source, enters the workout here.
+    /// Momentary sensor dropouts are held at the last good value before they
+    /// reach the display, Zone Targeting, the recorded samples, Apple Health
+    /// and the Strava upload. See `HeartRateGlitchFilter`.
+    private func receiveHeartRate(_ hr: Int) {
+        let before = hrFilter.rejected
+        let value = hrFilter.filter(hr)
+        if hrFilter.rejected > before {
+            dlog("[IPHONE-VM] HR_GLITCH — \(hrSource.displayName) reported \(hr) bpm, held at \(value) (total rejected \(hrFilter.rejected))")
+        }
+        currentHeartRate = value
     }
 
     /// Whether the chosen HR source is currently producing samples.

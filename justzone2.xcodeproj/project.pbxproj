@@ -35,6 +35,7 @@
 		1100000000000023 /* Typography.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000023 /* Typography.swift */; };
 		1100000000000091 /* IntervalSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000091 /* IntervalSession.swift */; };
 		1100000000000092 /* IntervalProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000092 /* IntervalProfileView.swift */; };
+		1100000000000094 /* HeartRateGlitchFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000094 /* HeartRateGlitchFilter.swift */; };
 		1100000000000093 /* IntervalBuilderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000093 /* IntervalBuilderView.swift */; };
 		1100000000000090 /* ReviewPrompt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000090 /* ReviewPrompt.swift */; };
 		1100000000000024 /* ActivityStreams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000024 /* ActivityStreams.swift */; };
@@ -159,6 +160,7 @@
 		2200000000000023 /* Typography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typography.swift; sourceTree = "<group>"; };
 		2200000000000091 /* IntervalSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalSession.swift; sourceTree = "<group>"; };
 		2200000000000092 /* IntervalProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalProfileView.swift; sourceTree = "<group>"; };
+		2200000000000094 /* HeartRateGlitchFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartRateGlitchFilter.swift; sourceTree = "<group>"; };
 		2200000000000093 /* IntervalBuilderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalBuilderView.swift; sourceTree = "<group>"; };
 		2200000000000090 /* ReviewPrompt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewPrompt.swift; sourceTree = "<group>"; };
 		2200000000000024 /* ActivityStreams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityStreams.swift; sourceTree = "<group>"; };
@@ -370,6 +372,7 @@
 				2200000000000013 /* Constants.swift */,
 				2200000000000023 /* Typography.swift */,
 				2200000000000090 /* ReviewPrompt.swift */,
+				2200000000000094 /* HeartRateGlitchFilter.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -597,6 +600,7 @@
 				1100000000000023 /* Typography.swift in Sources */,
 				1100000000000090 /* ReviewPrompt.swift in Sources */,
 				1100000000000093 /* IntervalBuilderView.swift in Sources */,
+				1100000000000094 /* HeartRateGlitchFilter.swift in Sources */,
 				1100000000000092 /* IntervalProfileView.swift in Sources */,
 				1100000000000091 /* IntervalSession.swift in Sources */,
 				1100000000000024 /* ActivityStreams.swift in Sources */,
