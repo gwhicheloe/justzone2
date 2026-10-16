@@ -2,7 +2,7 @@
 
 Twenty-one older track athletes, with an average age of about 50, had their maximum oxygen uptake measured, and then measured again ten years later and twenty years later, when their average age was 70. Nine of them had remained at an elite level. Every group had lost fitness at each test, and the nine who had kept training hardest had lost the least [@pollock1997].
 
-That study holds most of what this chapter has to say about older riders, and its shape holds for the other cases too. The rules of the earlier chapters carry across to riders who are older, to women, and to riders stuck indoors: the order of the week, two hard sessions well spaced, easy riding near the top of Zone 2, and fuel for anything long. What changes is a matter of degree, and in each case the research is thinner than for the young men who make up most of it.
+The rules of the earlier chapters carry across to riders who are older, to women, and to riders stuck indoors: the order of the week, two hard sessions well spaced, easy riding near the top of Zone 2, and fuel for anything long. What changes is a matter of degree, and in each case the research is thinner than for the young men who make up most of it.
 
 ## Older riders
 
@@ -14,7 +14,7 @@ Their maximum heart rate fell by about 5 to 7 beats a minute per decade, and the
 
 The review that set out how endurance performance changes with age, by Hirofumi Tanaka and Douglas Seals in 2008, describes the usual pattern in masters athletes: peak performance holds to about 35, falls modestly to between 50 and 60, and falls more steeply after that [@tanaka2008]. Of the three factors in Joyner and Coyle's model, VO₂max falls most and does most of the damage. The lactate threshold falls too, perhaps as a consequence. Efficiency, in trained athletes, does not change with age. The heart's maximum output falls because both its maximum rate and its maximum stroke volume fall, and the muscle extracts less oxygen from the blood.
 
-The same review makes the point that matters most for training. A large part of the decline, the authors write, appears to come from a fall in the intensity and volume of training that older athletes can do. Some of that fall is ageing itself. Some of it is that older athletes train less hard, because they have less time or less appetite for it or because they expect to recover slowly. Pollock's elite group, who kept training hardest, lost the least, though with nine people and no randomisation it is impossible to say how much of that was the training and how much was the kind of person who keeps racing at seventy. {grade B for the decline; grade C for how much training slows it}
+A large part of the decline, the authors write, appears to come from a fall in the intensity and volume of training that older athletes can do. Some of that fall is ageing itself. Some of it is that older athletes train less hard, because they have less time or less appetite for it or because they expect to recover slowly. Pollock's elite group, who kept training hardest, lost the least, though with nine people and no randomisation it is impossible to say how much of that was the training and how much was the kind of person who keeps racing at seventy. {grade B for the decline; grade C for how much training slows it}
 
 ### Recovery
 
@@ -82,7 +82,7 @@ Authors' conclusion: Outdoor cycling lets cyclists exercise at a higher intensit
 
 At the same sense of effort, the riders produced about a fifth less power in the laboratory, and their heart rate was 9 beats lower. Their core temperature was the same in both places; their skin was warmer indoors, where nothing moved the air.
 
-The abstract doesn't say what the riders rode indoors, and a laboratory ergometer may feel different from a rider's own bike on a smart trainer. It is twelve men and one ride each. But the direction fits what many riders find, and the lesson is practical. A rider who sets a session by feel indoors will probably ride it easier than intended, and a rider who sets it by power or heart rate will find the same numbers feel harder than outdoors. Neither is wrong. They are measuring different things in a different place. {grade C}
+The abstract doesn't say what the riders rode indoors, and a laboratory ergometer may feel different from a rider's own bike on a smart trainer. It is twelve men and one ride each. A rider who sets a session by feel indoors will probably ride it easier than intended, and a rider who sets it by power or heart rate will find the same numbers feel harder than outdoors. Neither is wrong. They are measuring different things in a different place. {grade C}
 
 ### Heat and still air
 

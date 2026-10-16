@@ -8,8 +8,6 @@ It is a memorable result, and it is the kind that travels: belief alone is worth
 
 None of that means the finding is false. The six riders' power followed the order of their beliefs, lowest when they thought they had nothing and highest when they thought they had the most, and that fits the other evidence in Chapter 3 that expectation changes performance. But the study supports a much more modest sentence than the one that gets repeated: a placebo effect on cycling performance probably exists, and six riders cannot say how large it is. {grade C}
 
-This chapter sets out the questions that get you from the headline to the modest sentence. They are the questions used to grade every claim in the rest of the book.
-
 ## Three kinds of evidence
 
 Almost every claim about training rests on one of three kinds of evidence, and the first thing to settle about any claim is which.
@@ -70,11 +68,11 @@ To see how large, I ran a simulation. Suppose the better method truly raises som
 
 With 10 in each group, the trials observed everything from a small advantage for the wrong method to more than double the true effect. Nine per cent of them pointed the wrong way. Only a quarter reached statistical significance, so three times out of four a real effect would have been reported as "no significant difference".
 
-The trials that did reach significance had something in common. To be significant with so few people, the observed difference has to be big, so the significant trials were the lucky ones: on average they reported an advantage of 5.7 points, almost twice the truth. Journals publish significant results far more readily than others, so the small trials a reader gets to see are drawn mostly from that lucky quarter.
+To be significant with so few people, the observed difference has to be big, so the significant trials were the lucky ones: on average they reported an advantage of 5.7 points, almost twice the truth. Journals publish significant results far more readily than others, so the small trials a reader gets to see are drawn mostly from that lucky quarter.
 
 With 50 in each group, 84% of trials reached significance, and those reported an average of 3.3.
 
-The pattern has been documented in real research. In 2013 a group led by Katherine Button showed that studies in neuroscience were typically too small to detect the effects they were looking for, and set out what follows: real effects are missed, the effects that are found are overestimated, and results fail to repeat [@button2013]. Everything in their argument applies to training studies of 10 people a side.
+In 2013 a group led by Katherine Button showed that studies in neuroscience were typically too small to detect the effects they were looking for, and set out what follows: real effects are missed, the effects that are found are overestimated, and results fail to repeat [@button2013]. Everything in their argument applies to training studies of 10 people a side.
 
 A small study that finds nothing has shown very little, because it would probably have found nothing even if the effect were real. And a small study that finds a large effect has probably overestimated it. The surprising, dramatic result from 16 volunteers is the kind most likely to shrink when someone repeats it with 60.
 
@@ -104,7 +102,7 @@ Each decision is defensible. The trouble comes when they are made after seeing t
 
 There are signs of it in sports science. In 2020 a group in Dublin looked at 129 studies published over five months in four leading sports medicine journals and counted how many reported that their main hypothesis had been supported. The answer was 82% [@buttner2020]. Researchers are not right that often. The likelier explanation is that hypotheses which fail go unpublished, or are quietly replaced by ones the data happen to support.
 
-The field also has a case of its own. For about a decade many sports science papers used a home-grown statistical method called magnitude-based inference, which described results in phrases such as "likely beneficial" and "possibly harmful" and was promoted as better suited to small studies than conventional tests. In 2018 Kristin Sainani, a statistician at Stanford, re-ran the method's own published simulations and showed that at the sample sizes its developers recommended it produced false positives at two to six times the rate of standard testing [@sainani2018]. Her paper ends: "Magnitude-based inference should not be used." A reader who meets "likely beneficial" in a paper from those years should read it as "not statistically significant by ordinary standards".
+For about a decade many sports science papers used a home-grown statistical method called magnitude-based inference, which described results in phrases such as "likely beneficial" and "possibly harmful" and was promoted as better suited to small studies than conventional tests. In 2018 Kristin Sainani, a statistician at Stanford, re-ran the method's own published simulations and showed that at the sample sizes its developers recommended it produced false positives at two to six times the rate of standard testing [@sainani2018]. Her paper ends: "Magnitude-based inference should not be used." A reader who meets "likely beneficial" in a paper from those years should read it as "not statistically significant by ordinary standards".
 
 The defence against all of this is *preregistration*: the researchers publish their hypothesis, their main outcome and their analysis plan before collecting data, so that they cannot adjust them afterwards. It is required for clinical trials in medicine and still unusual in training research. When a study is preregistered, the paper says so, and it counts in its favour.
 
@@ -118,7 +116,7 @@ Psychology did this first on a large scale. In 2015 a collaboration of psycholog
 
 Sports science did so in 2025. A project led from Technological University Dublin recruited volunteer laboratories to repeat 25 studies published between 2016 and 2021 in the field's highest-ranked journals, each drawn at random from the studies a laboratory had the equipment and expertise to repeat [@murphy2025]. Fourteen of the 25 repeats found a significant effect in the same direction as the original. Seven of them, 28% of the total, also found an effect of a size compatible with the original, which was the project's test of a successful replication. In 22 of the 25 the effect was smaller the second time, and the median shrinkage was 75%.
 
-The authors are frank about the limits. Twenty-five studies cannot stand for a field. Many of the repeats simply doubled the original sample, which the authors say left them with less statistical power than planned, so some real effects will have been missed. And the project covered biomechanics, psychology, physiology, nutrition and injury prevention, in experiments a volunteer laboratory could fit in. A training study that runs for months is far harder to repeat, and I know of no project that has repeated a set of them.
+Twenty-five studies cannot stand for a field. Many of the repeats simply doubled the original sample, which the authors say left them with less statistical power than planned, so some real effects will have been missed. And the project covered biomechanics, psychology, physiology, nutrition and injury prevention, in experiments a volunteer laboratory could fit in. A training study that runs for months is far harder to repeat, and I know of no project that has repeated a set of them.
 
 The shrinkage is the simulation's result appearing in real data. The simulated small trials that reached significance reported almost twice the true effect, because they were the lucky ones, and a repeat is a second draw that has not been selected for luck. When a single small study reports a striking effect, the reasonable working assumption is that the true effect is a good deal smaller than the published one. {grade B}
 

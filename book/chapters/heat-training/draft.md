@@ -12,9 +12,9 @@ The practice has spread well beyond one team. A group of Danish researchers who 
 
 Heat training is sold for two purposes, and only one of them is well supported.
 
-The first is preparing for heat. If your event will be hot, training in the heat beforehand makes you faster on the day. Nobody disputes this. In one study, two weeks of training at about 35 °C improved cyclists' time-trial performance in the heat by 16% [@karlsen2015]. In another, 10 days improved it by 10% [@keiser2015]. {grade A} Cooling on the day has good evidence too, and a later section covers the vests and the slushies.
+The first is preparing for heat. If your event will be hot, training in the heat beforehand makes you faster on the day. Nobody disputes this. In one study, two weeks of training at about 35 °C improved cyclists' time-trial performance in the heat by 16% [@karlsen2015]. In another, 10 days improved it by 10% [@keiser2015]. {grade A}
 
-The second is using heat the way riders use altitude: as a stimulus that makes you fitter everywhere, including on a cool day. That is the claim behind the sensors and the heat suits, and it is the subject of this chapter. It also makes a good test of the two questions this book keeps asking. What is the mechanism, and has the effect been shown or only inferred from it?
+The second is using heat the way riders use altitude: as a stimulus that makes you fitter everywhere, including on a cool day. That is the claim behind the sensors and the heat suits, and it is the subject of this chapter.
 
 ## Where the idea came from
 
@@ -56,7 +56,7 @@ Among these elite trials, two say yes, one says yes after pooling and two say no
 
 Carsten Lundby, who argued the "no" side of the 2016 debate, is an author on every one of these five-week trials. It is to his credit that he tested a position he had argued against, and it means the evidence comes from one connected group of labs in Copenhagen and Lillehammer. Nobody outside that group has yet repeated it.
 
-The riders were nearly all elite, and the men among them had VO₂max values in the mid-70s [@ronnestad2021; @lundby2023]. An elite rider has little room left to improve by ordinary training, so a 3% rise in haemoglobin is worth chasing. Whether the same applies to a rider with far more room is a separate question, and the one trial that tested it is described in the next section.
+The riders were nearly all elite, and the men among them had VO₂max values in the mid-70s [@ronnestad2021; @lundby2023]. An elite rider has little room left to improve by ordinary training, so a 3% rise in haemoglobin is worth chasing.
 
 And the gain does not last. In the 2024 trial, haemoglobin mass was back to its starting value two weeks after the heat sessions stopped [@cubel2024]. Rønnestad's group found that three sessions a week were enough to hold it [@ronnestad2022a]. Heat training is therefore something you keep doing or time carefully, like a taper.
 
@@ -86,7 +86,7 @@ The heat sessions were harder than "an hour at 60%" sounds. Rectal temperature a
 
 They were no faster in the cool for it. Both groups gained 17 W in the time trial. The difference in haemoglobin mass between the groups fell just short of statistical significance, at p = 0.061 [@oberholzer2019]. That is a similar gain to the one the elite trials later found, and here it bought nothing.
 
-The study has limits. Twenty-one riders is few, and a real performance difference of a few watts could be hidden in a group that size. The controls improved by 17 W over five weeks, which suggests the whole group was coming into form after winter, and a rising tide of that kind can swamp a small effect [@mikkelsen2019]. Only men took part. But the central result is hard to argue with for an amateur weighing this up. Riders much like you gave five of their eight and a half weekly hours to sitting in a 40 °C chamber, and were no faster than the riders who trained normally. {grade C} for the claim that heat training improves cool-weather performance in amateurs.
+Twenty-one riders is few, and a real performance difference of a few watts could be hidden in a group that size. The controls improved by 17 W over five weeks, which suggests the whole group was coming into form after winter, and a rising tide of that kind can swamp a small effect [@mikkelsen2019]. Only men took part. But the central result is hard to argue with for an amateur weighing this up. Riders much like you gave five of their eight and a half weekly hours to sitting in a 40 °C chamber, and were no faster than the riders who trained normally. {grade C} for the claim that heat training improves cool-weather performance in amateurs.
 
 ### Reading the research: a marker is not a performance
 
@@ -96,7 +96,7 @@ The heat trials show the gap clearly. The marker rose in all six, though in one 
 
 When a study reports a marker, look for the performance measure in the same paper. If it is missing, the study has shown that a mechanism was engaged. If it is present and didn't move, that is the finding, whatever the title says.
 
-A second habit is worth watching for in the same literature. In the trial where the heat-suit group improved and the chamber group did not, the positive result came from combining the two groups and merging three tests into a single index [@ronnestad2022a]. There can be good reasons to do that. But each choice of that kind, made after the data are in, raises the odds of finding something, and a result that appears only after pooling deserves less weight than one that was there in the first comparison. Chapter 4 returns to why analyses should be decided in advance.
+In the trial where the heat-suit group improved and the chamber group did not, the positive result came from combining the two groups and merging three tests into a single index [@ronnestad2022a]. There can be good reasons to do that. But each choice of that kind, made after the data are in, raises the odds of finding something, and a result that appears only after pooling deserves less weight than one that was there in the first comparison.
 
 ## The sensor
 

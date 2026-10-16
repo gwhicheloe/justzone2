@@ -12,6 +12,8 @@ italic, numbered and bulleted lists, blockquotes. Book conventions:
   {shadow @key; @b}    -> a source kept with its sentence for checking but not printed: shown faintly
                           on the review page with its own list, dropped from the print proof
                           (style.md says which sources are printed)
+  ~~text~~             -> a proposed cut, waiting for George: struck through on the review page,
+                          dropped from the print proof and from the word counts
   {grade A|B|C}        -> a small evidence-grade badge
   [GEORGE: ...]        -> a highlighted note for George
   ![caption](figures/x.svg) on its own paragraph -> the SVG inline, numbered, with the caption
@@ -52,6 +54,7 @@ def load_sources():
 def inline(text, cite):
     t = html.escape(text, quote=False)
     t = t.replace("₂", "<sub>2</sub>")  # Newsreader has no subscript two; a fallback font's would show
+    t = re.sub(r"~~(.+?)~~", r'<del class="cut" title="Proposed cut">\1</del>', t)
     t = re.sub(r"\[GEORGE:(.*?)\]", lambda m: f'<mark class="george">George: {m.group(1).strip()}</mark>', t, flags=re.S)
     t = re.sub(r"\{grade ([ABC])\}", lambda m: f'<span class="grade g{m.group(1)}" title="Evidence grade {m.group(1)}">{m.group(1)}</span>', t)
     # qualified grades, e.g. {grade A for the shape; grade B for the details}: a badge for each grade, the words kept
@@ -157,6 +160,7 @@ def render_chapter(md, sources, idx, base=".", probes=False, moves=None, layout=
     md = re.sub(r"<!--.*?-->", "", md, flags=re.S)  # notes to ourselves, never printed
     if print_mode:
         md = re.sub(r"[ \t]*\{shadow [^{}]*\}", "", md)  # sources kept for checking, never printed
+        md = re.sub(r"[ \t]*~~.*?~~", "", md)  # proposed cuts: the proof shows the book as it would be
 
     def cite(group, shadow=False):
         keys = re.findall(r"@([A-Za-z0-9_:-]+)", group)
@@ -216,7 +220,7 @@ def render_chapter(md, sources, idx, base=".", probes=False, moves=None, layout=
         else:
             out.append(f"<p>{inline(' '.join(l.strip() for l in b), cite)}</p>")
 
-    words = len(re.findall(r"\b\w+\b", re.sub(r"\[@[^\]]+\]|\{shadow [^{}]*\}|\{grade [ABC]\}", "", md)))
+    words = len(re.findall(r"\b\w+\b", re.sub(r"\[@[^\]]+\]|\{shadow [^{}]*\}|\{grade [ABC]\}|~~.*?~~", "", md)))
 
     def ref_list(keys, prefix):
         refs = []
@@ -252,12 +256,12 @@ STYLE = """
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
-  :root{--bg:#F6F5F1;--page:#FFFFFF;--ink:#1C1F1D;--muted:#5D6460;--faint:#8B918D;--rule:#E1E3DF;
+  :root{--bg:#F6F5F1;--page:#FFFFFF;--ink:#1C1F1D;--muted:#5D6460;--faint:#8B918D;--rule:#E1E3DF;--cut:#A8402C;
     --accent:#1E7F45;--mark:#FFF1B8;--mark-ink:#5A4300;--gA:#1E7F45;--gB:#B07A12;--gC:#9A4E2E;
     --serif:"Newsreader",Georgia,"Times New Roman",serif;--sans:"IBM Plex Sans",-apple-system,"Segoe UI",sans-serif;--mono:"IBM Plex Mono",ui-monospace,Menlo,monospace}
-  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111412;--page:#181C19;--ink:#E5E8E5;--muted:#A0A8A3;--faint:#737B76;--rule:#2B312D;
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111412;--page:#181C19;--ink:#E5E8E5;--muted:#A0A8A3;--faint:#737B76;--rule:#2B312D;--cut:#E58A78;
     --accent:#58C485;--mark:#4A3C0E;--mark-ink:#FFE7A0;--gA:#58C485;--gB:#E0B04A;--gC:#E08A66;color-scheme:dark}}
-  :root[data-theme="dark"]{--bg:#111412;--page:#181C19;--ink:#E5E8E5;--muted:#A0A8A3;--faint:#737B76;--rule:#2B312D;
+  :root[data-theme="dark"]{--bg:#111412;--page:#181C19;--ink:#E5E8E5;--muted:#A0A8A3;--faint:#737B76;--rule:#2B312D;--cut:#E58A78;
     --accent:#58C485;--mark:#4A3C0E;--mark-ink:#FFE7A0;--gA:#58C485;--gB:#E0B04A;--gC:#E08A66;color-scheme:dark}
   body{background:var(--bg);color:var(--ink);font-family:var(--serif);font-size:19px;line-height:1.62}
   .wrap{max-width:720px;margin:0 auto;padding-inline:20px;padding-block:28px 90px}
@@ -279,6 +283,7 @@ STYLE = """
   sub{font-size:.7em;line-height:0;vertical-align:-.25em}
   sup.cite a{color:var(--accent);text-decoration:none}
   sup.cite.shadow,sup.cite.shadow a{color:var(--faint)}
+  del.cut,del.cut a{color:var(--cut);text-decoration:line-through;text-decoration-thickness:1px}
   section.refs h2.shadow-h{margin-top:22px}
   section.refs ol.shadow{list-style:none;padding-left:0;counter-reset:sh;color:var(--faint)}
   section.refs ol.shadow li{counter-increment:sh;padding-left:2.2em;text-indent:-2.2em}
@@ -612,12 +617,13 @@ def main():
     today = datetime.date.today().strftime("%-d %B %Y")
     toc = "".join(f'<a href="#{a}">{html.escape(t)}<span>{w:,} words</span></a>' for t, a, w, _ in chapters)
     body = "".join(f'<article>{c[3].replace("</h1>", f"</h1><p class=meta>Draft · {c[2]:,} words · {today}</p>", 1)}</article>' for c in chapters)
+    cut_key = '<del class="cut">struck through</del> a proposed cut, not yet made &nbsp;' if 'class="cut"' in body else ""
     page = f"""<title>Just Zone 2? Draft</title>
 {STYLE}
 <div class="wrap">
   <div class="banner"><b>Just Zone 2? First drafts for review.</b> {total:,} words. Read for the argument and the voice first; wording can change.
     <div class="key">Evidence grades: <span class="grade gA">A</span> trials or meta-analysis <span class="grade gB">B</span> small or single-lab <span class="grade gC">C</span> observation, mechanism or opinion</div>
-    <div class="key">References show how far each source has been checked: <span class="status s-fulltext">fulltext</span> <span class="status s-abstract">abstract</span> <span class="status s-exists">exists</span> &nbsp;<sup class="cite shadow">[s1]</sup> a source kept for checking, not printed &nbsp;<mark class="george">George: highlighted notes need your input</mark></div>
+    <div class="key">References show how far each source has been checked: <span class="status s-fulltext">fulltext</span> <span class="status s-abstract">abstract</span> <span class="status s-exists">exists</span> &nbsp;<sup class="cite shadow">[s1]</sup> a source kept for checking, not printed &nbsp;{cut_key}<mark class="george">George: highlighted notes need your input</mark></div>
   </div>
   <nav class="toc">{toc}</nav>
   {body}

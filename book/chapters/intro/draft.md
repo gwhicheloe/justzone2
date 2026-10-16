@@ -6,7 +6,7 @@ I knew why, or thought I did. I had spent the winter in my garage on a smart tra
 
 That winter was Zone 2 training, and I wrote about it with the enthusiasm of a convert. I told readers of my website that easy riding was the single most effective way to build mitochondria, the structures in muscle cells that use oxygen to make energy. I believed it. I had heard it from people who sounded as if they knew.
 
-A few months later I sat down to read the research properly, and that sentence didn't survive. The largest summary of the evidence, a review of 353 training studies published in 2024, found that mitochondrial content rose by similar amounts whether people did steady continuous training (about 23%) or either kind of interval training, high-intensity or all-out sprints (27%). Per hour of training, the sprints did almost four times as much {shadow @molmen2025}. In 2025 four Canadian researchers made the same point at length, in a review they called "Much Ado About Zone 2" [@storoschuk2025]. Zone 2 had done something real for me. It just hadn't done it for the reason I had been told, or not only for that reason.
+A few months later I sat down to read the research properly, and that sentence didn't survive. The largest summary of the evidence, a review of 353 training studies published in 2025, found that mitochondrial content rose by similar amounts whether people did steady continuous training (about 23%) or either kind of interval training, high-intensity or all-out sprints (27%). Per hour of training, the sprints did almost four times as much {shadow @molmen2025}. In 2025 four Canadian researchers made the same point at length, in a review they called "Much Ado About Zone 2" [@storoschuk2025]. Zone 2 had done something real for me. It just hadn't done it for the reason I had been told, or not only for that reason.
 
 This book grew out of that gap: between what people confidently say about endurance training and what the studies actually show.
 
@@ -44,7 +44,7 @@ The book is built around one question, which is what actually limits how fast yo
 
 Part I, *The engine*, sets out the model, the biology of how bodies adapt to training, what the brain and nerves contribute, how to read a training study, and how to define and find your training intensities. Part II, *The easy part*, covers what low-intensity riding does to the body, why elite athletes do so much of it, durability, and the claims about health and longevity. Part III, *The hard part*, covers intervals: why time spent close to VO₂max seems to matter, how to design a session, and how many hard sessions a week make sense. Part IV, *Everything else*, weighs the things besides ordinary training that are credited with making riders faster: fuelling, strength training, heat training and drugs. Part V puts it together into a training week, deals with special cases such as masters riders, women and riding indoors, and looks at how to tell whether any of it is working. The last chapter answers the title's question.
 
-You can read the chapters in order or dip into the ones you care about. If you skip anything, don't skip Chapters 2 and 4. The biology and the research skills in those two chapters are what the rest of the book builds on.
+If you skip anything, don't skip Chapters 2 and 4. The biology and the research skills in those two chapters are what the rest of the book builds on.
 
 ## Who this is for
 

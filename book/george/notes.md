@@ -212,3 +212,26 @@ Done the same evening: one dry line inserted in each of the 21 chapters, each bu
 Two better lines were left out because they couldn't be checked: what Morris found in the busmen's uniform sizes (Beyond performance) and the Beatles experiment in Simmons 2011 (How to read a training study). Both papers are in `papers-wanted.md`.
 
 Also fixed while reading: Beyond performance still said "when I rode more" about the winter, left over from the six-to-seven-hours figure; now "when I rode more often", matching the three to five hours.
+
+## 15 October 2026: filler (in chat)
+
+> check for sentences that look like filler, apart from the humour ones or cycling anecdotes ,that could be dropped to make the story tighter
+
+Done the same evening as proposed cuts, not deletions. Each candidate is marked `~~like this~~` in the draft. The review page shows it struck through in red, while the print proof, the checker and the word counts already leave it out. 121 sentences, about 1,500 words (91,270 to 89,747). All 21 chapters were read sentence by sentence. Nothing that carries a number, a source, a grade, an opinion of his or a safety point was marked, and neither were the humour lines, race stories or *From the saddle* passages.
+
+What was marked, by kind (the rules are style.md's own):
+- signposting: "This chapter follows…", "The next section has the trials…", "Chapter 4 goes through the reasoning in full."
+- announcements and teasers: "That range is the important part.", "That study then did something unusual.", "The limits are worth setting out."
+- mirrored pairs and morals: "Case studies are valuable for raising questions. They can't answer them."
+- repeats: Chapter 1's paragraph listing what Chapters 2 to 4 cover (the Introduction already does), and three sentences in Chapter 5 restating the point just made, that critical power can be held for only 20 to 30 minutes.
+
+Most cuts fell in Chapter 1 (22), Durability (12) and How bodies adapt (8). Four short openers were kept because cutting them left their paragraphs monotonous by the checker's rhythm test. One cut sentence carried a citation, which was moved to the next sentence.
+
+Also fixed while reading: the Introduction said the 353-study review was published in 2024; it is Sports Medicine 2025 (online late 2024), as Chapter 7 and the references say.
+
+## 16 October 2026: filler cuts accepted (in chat)
+
+> accept all the cuts
+
+Done: all 121 marked sentences deleted from the drafts, with the empty paragraphs and spaces they left removed. The book is now 89,747 words. The print proof is still 269 pages with every table on one page, and the checker reports the same flags as before the deletion.
+

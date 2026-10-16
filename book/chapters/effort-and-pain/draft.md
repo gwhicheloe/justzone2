@@ -4,7 +4,7 @@ In 2009 Markus Amann and his colleagues at the University of Wisconsin gave eigh
 
 With the feedback blocked, the riders started faster. Their power over the first half of the time trial was 6% higher than on the placebo day. Over the second half it was 11% lower. When the researchers stimulated the nerve to the thigh muscle afterwards, to measure how much force the muscle itself could still produce, it had lost 46% of its force, against 33% after the placebo ride [@amann2009].
 
-The riders hadn't been freed to go faster. They had lost the signal that normally stops a rider going out too hard, and their muscles finished in a worse state than the riders would ever have chosen. The experiment shows that in a time trial ridden as hard as possible, the legs are held back from their limit by something the brain does with the information coming up from them. This chapter is about that: what the nervous system contributes to endurance, whether pain or effort is what stops you, whether some people can stand more of it, and whether training changes how much.
+The riders hadn't been freed to go faster. They had lost the signal that normally stops a rider going out too hard, and their muscles finished in a worse state than the riders would ever have chosen. The experiment shows that in a time trial ridden as hard as possible, the legs are held back from their limit by something the brain does with the information coming up from them.
 
 ## From brain to muscle and back
 
@@ -30,7 +30,7 @@ Marcora's explanation is that people stop when the effort required exceeds what 
 
 One objection to the experiment is that a maximal effort lasting a few seconds draws on different energy stores from ten minutes at 242 watts, so the comparison flatters the muscle. That is my reservation, and it does not rescue the old model: a muscle that can still produce 731 watts has not failed.
 
-The theories differ on what the brain is responding to, and the experiments in the rest of this chapter don't settle it. They agree on the point that matters for training. At the end of a maximal effort there is still capacity in the muscle, and what a rider can do depends partly on how the brain weighs the sensations coming from the body. {grade B that exhaustion in these tests is not muscle failure; grade C for any one theory of why}
+The theories differ on what the brain is responding to, and the experiments in the rest of this chapter don't settle it. At the end of a maximal effort there is still capacity in the muscle, and what a rider can do depends partly on how the brain weighs the sensations coming from the body. {grade B that exhaustion in these tests is not muscle failure; grade C for any one theory of why}
 
 ## Effort and pain are different things
 
@@ -60,13 +60,13 @@ Amann's time-trial riders did the same thing with a drug's help. Riding 6% over 
 
 ## Can some people stand more than others?
 
-Researchers who study pain measure two things. The *pain threshold* is the point at which a stimulus, such as pressure or cold, is first felt as painful. *Pain tolerance* is how long or how much of it a person will bear before asking for it to stop.
+The *pain threshold* is the point at which a stimulus, such as pressure or cold, is first felt as painful. *Pain tolerance* is how long or how much of it a person will bear before asking for it to stop.
 
 In 2012 a German group pooled 15 studies that compared athletes with normally active people on laboratory pain tests, 899 people in all [@tesarz2012]. Athletes had clearly higher pain tolerance. The pooled difference was 0.87 standard deviations, which is large: it puts the average athlete above roughly four in five of the comparison group. For pain threshold the studies disagreed, and once the weaker ones were set aside there was no significant difference.
 
 Athletes, then, appear to feel pain at about the same point as everyone else and to put up with it for longer. {grade B}
 
-The comparison has the weakness of every comparison between athletes and other people, the one met in Chapter 1 with the professional cyclists in Madrid. It cannot show whether training made the athletes tolerant or whether tolerant people are the ones who become athletes. The next section has the trials that tried to find out.
+The comparison has the weakness of every comparison between athletes and other people, the one met in Chapter 1 with the professional cyclists in Madrid. It cannot show whether training made the athletes tolerant or whether tolerant people are the ones who become athletes.
 
 There is also the question of which pain. Mauger's group later tested 32 recreationally active people on two standard laboratory pain tests, a hand held in cold water and pressure on a muscle, and on a third they designed themselves: how much pain the person would tolerate during cycling when the effort was held at a fixed rating [@astokorki2017]. Then everyone rode a 10-mile time trial. Neither the cold-water test nor the pressure test predicted time-trial performance at all. Tolerance of pain during exercise predicted it strongly, with a correlation of −0.83.
 
@@ -96,9 +96,9 @@ The rides to exhaustion split the same way. At the same power as before training
 
 The authors' interpretation is that repeatedly riding at an intensity that hurts teaches the nervous system to tolerate it, that this is separate from the gain in aerobic fitness, and that it may be part of why interval training improves hard efforts more than steady training does.
 
-The limits are worth setting out. Twenty people is a small trial, and they were untrained, so six weeks of anything was a large change for them. The pain was in an arm starved of blood, which is not the pain of a climb, and the authors say plainly that tolerance of one kind of pain may not carry over to another. The correlations are modest: at 0.44 to 0.51, changes in pain tolerance go with about a fifth to a quarter of the variation in the performance gain. And the study shows that pain tolerance and performance improved together, which is weaker than showing that one caused the other. {grade B that hard training raises tolerance of this kind of pain; grade C that this explains any of the performance gain}
+Twenty people is a small trial, and they were untrained, so six weeks of anything was a large change for them. The pain was in an arm starved of blood, which is not the pain of a climb, and the authors say plainly that tolerance of one kind of pain may not carry over to another. The correlations are modest: at 0.44 to 0.51, changes in pain tolerance go with about a fifth to a quarter of the variation in the performance gain. And the study shows that pain tolerance and performance improved together, which is weaker than showing that one caused the other. {grade B that hard training raises tolerance of this kind of pain; grade C that this explains any of the performance gain}
 
-For this book's question the finding has a plain implication. An hour or more of steady riding just under the lactate threshold improved fitness as much as intervals did and did nothing for pain tolerance. If tolerating discomfort is trainable, the evidence so far says it is trained by discomfort.
+An hour or more of steady riding just under the lactate threshold improved fitness as much as intervals did and did nothing for pain tolerance. If tolerating discomfort is trainable, the evidence so far says it is trained by discomfort.
 
 ### Reading the research: when nobody can be blinded
 
@@ -142,4 +142,4 @@ Treat the discomfort of a hard effort as information. The spinal-block experimen
 
 Don't take painkillers to train or race harder. The paracetamol result is interesting as evidence about how pacing works. As a practice it trades a warning signal for a few watts.
 
-This chapter covers a part of endurance that the model in Chapter 1 leaves out, and the evidence for it is thinner than for the heart or the muscle. Most of the studies have between seven and twenty participants, most outcomes depend on a person deciding to stop, and the theories are still argued over. What can be said with some confidence is that the muscle is not the only thing that sets how hard you can ride, and that the rest is not fixed.
+Most of the studies have between seven and twenty participants, most outcomes depend on a person deciding to stop, and the theories are still argued over. What can be said with some confidence is that the muscle is not the only thing that sets how hard you can ride, and that the rest is not fixed.

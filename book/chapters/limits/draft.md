@@ -2,7 +2,7 @@
 
 In 1923 the physiologist Archibald Hill and his colleague Hartley Lupton described something that every endurance athlete now takes for granted. As exercise gets harder, the body takes up more oxygen, until it reaches a ceiling. Beyond that point the work can continue for a while, but the extra energy has to come from somewhere other than oxygen, and it can't come from there for long {shadow @hill1923}. That ceiling became known as maximal oxygen uptake, or VO₂max, and for most of the following century it was the number physiologists reached for first when they wanted to explain why one athlete was faster than another.
 
-It explains less than you might think. Two riders can have the same VO₂max and finish an hour-long time trial minutes apart. A rider with a modest VO₂max can beat one with a much higher one. To see why, you need the rest of the model, and that model is what this chapter is about. Cyclists talk about a rider's engine without saying what they mean by it. In this book the engine is the whole aerobic system that the model describes, and VO₂max is one part of it. The model is also the framework for the whole book. Every training claim in later chapters comes down to a simple question: which part of this model does it change?
+It explains less than you might think. Two riders can have the same VO₂max and finish an hour-long time trial minutes apart. A rider with a modest VO₂max can beat one with a much higher one. To see why, you need the rest of the model, and that model is what this chapter is about. Cyclists talk about a rider's engine without saying what they mean by it. In this book the engine is the whole aerobic system that the model describes, and VO₂max is one part of it. Every training claim in later chapters comes down to a simple question: which part of this model does it change?
 
 ## The question
 
@@ -16,7 +16,7 @@ In 2008 the physiologists Michael Joyner and Edward Coyle set out the answer tha
 2. **The fraction of VO₂max you can sustain**, which depends on where your lactate threshold sits.
 3. **Efficiency**, the share of the energy you produce that ends up as power at the pedals.
 
-Multiply the first two and you get what Joyner and Coyle call your *performance VO₂*, the rate of oxygen use you can hold for the duration of a race. Multiply that by your efficiency and you have your sustainable power. The rest of this chapter takes each part in turn, then adds a fourth that the original model left out.
+Multiply the first two and you get what Joyner and Coyle call your *performance VO₂*, the rate of oxygen use you can hold for the duration of a race. Multiply that by your efficiency and you have your sustainable power.
 
 ## How it works: from air to muscle
 
@@ -30,7 +30,7 @@ Any link in that chain could, in principle, set the ceiling. In practice, the ev
 
 Joyner and Coyle identify the size of the heart's stroke volume as the most important single difference between champions and everyone else, alongside a larger blood volume, more capillaries and more mitochondria in the trained muscles [@joynercoyle2008]. Those last two matter for a different reason, covered in the next section: they don't raise the ceiling much, but they change how close to it you can ride.
 
-The mechanics of how training changes the heart, the blood and the muscle are the subject of Chapter 2. For now, the important point is that there are two broad sites of adaptation: the delivery system, which mostly sets VO₂max, and the muscle itself, which mostly sets how much of it you can use.
+For now, the important point is that there are two broad sites of adaptation: the delivery system, which mostly sets VO₂max, and the muscle itself, which mostly sets how much of it you can use.
 
 ## VO₂max: the ceiling
 
@@ -38,17 +38,17 @@ Champion endurance athletes have VO₂max values of roughly 70 to 85 millilitres
 
 A high VO₂max is close to a requirement for elite endurance performance. You won't find a Tour de France winner with an average one. But among athletes who are already good, VO₂max becomes a poor predictor of who wins, because the riders in a professional peloton all have high values. Once the ceiling is high enough, the other two factors decide most of the differences that remain.
 
-VO₂max is also only partly trainable. It rises quickly in untrained people and much more slowly in those who have trained for years, and part of it is set by genetics. That matters later in the book, when we look at how much of the case for high-intensity intervals rests on VO₂max, and how much of the case for easy riding rests on everything else.
+VO₂max is also only partly trainable. It rises quickly in untrained people and much more slowly in those who have trained for years, and part of it is set by genetics.
 
 ## The fraction you can sustain
 
 Nobody can ride at 100% of their VO₂max for long. The question is how close they can get for an hour, and the answer depends on what happens to lactate in the blood as effort rises.
 
-At low intensities, blood lactate stays close to its resting level. As intensity rises, it reaches a point where lactate starts to accumulate, and above a second, higher point it keeps rising until the effort has to stop. The first of these points is the lactate threshold that Chapter 5 explores in detail. For now, the useful fact is where it sits. In untrained people, lactate begins to rise noticeably at around 60% of VO₂max. In elite endurance athletes it can sit at 75 to 90% [@joynercoyle2008]. {grade A}
+At low intensities, blood lactate stays close to its resting level. As intensity rises, it reaches a point where lactate starts to accumulate, and above a second, higher point it keeps rising until the effort has to stop. The first of these points is the lactate threshold that Chapter 5 explores in detail. In untrained people, lactate begins to rise noticeably at around 60% of VO₂max. In elite endurance athletes it can sit at 75 to 90% [@joynercoyle2008]. {grade A}
 
 That shift is one of the largest effects of endurance training, and it has little to do with the heart. It comes mainly from changes in the muscle: more mitochondria, more of the enzymes that use oxygen, better capacity to burn fat, and so less reliance on producing lactate at a given rate of work [@bassetthowley2000]. Bassett and Howley argue that the lactate threshold is the best single physiological predictor of endurance performance, because it combines all three factors in one number: how high your VO₂max is, how much of it you can use, and how economically you use it.
 
-This is where the case for large volumes of easy riding begins. If easy training builds mitochondria and capillaries, it should raise the fraction of VO₂max you can sustain, even if it does relatively little for VO₂max itself. That's a mechanism argument. Whether the training studies bear it out is a question for Part II.
+This is where the case for large volumes of easy riding begins. If easy training builds mitochondria and capillaries, it should raise the fraction of VO₂max you can sustain, even if it does relatively little for VO₂max itself. That's a mechanism argument.
 
 ## Efficiency: turning oxygen into watts
 
@@ -58,7 +58,7 @@ Taking the two ends of that range, a rider with a gross efficiency of 23% produc
 
 The best-known evidence on why some riders are more efficient than others comes from Edward Coyle's lab in 1992. In 19 highly trained cyclists, the proportion of slow-twitch (type I) fibres in the thigh muscle ranged from 32% to 76%, and riders with more of them were markedly more efficient: the correlation between type I fibre percentage and one measure of efficiency was 0.85 [@coyle1992]. Type I fibres are the ones built for sustained, aerobic work, and they seem to produce force with less energy wasted as heat. {grade B}
 
-Whether training can increase efficiency much, and how quickly, is less clear. Joyner and Coyle suggest it may improve by 1 to 3% a year with continued endurance training [@joynercoyle2008]. The most famous evidence for that idea is a single case study, and it is worth looking at closely.
+Whether training can increase efficiency much, and how quickly, is less clear. Joyner and Coyle suggest it may improve by 1 to 3% a year with continued endurance training [@joynercoyle2008].
 
 ### Reading the research: what one athlete can and can't tell us
 
@@ -66,7 +66,7 @@ In 2005 Coyle published a paper following one cyclist from age 21 to 28 [@coyle2
 
 The paper was widely cited as evidence that efficiency improves with years of training. It also drew immediate challenges. In the same journal and the same year, a published exchange asked whether Armstrong's efficiency had improved at all [@martin2005]. In 2008, a letter from four researchers was published under the blunt title "Delta efficiency calculation in Tour de France champion is wrong" [@gore2008]. And in 2012 the United States Anti-Doping Agency found that Armstrong had doped, and his Tour de France results from 1999 onwards were disqualified [@usada2012].
 
-The specific dispute about the calculation is technical. The general lesson isn't, and it applies far beyond this one paper. A case study follows one person. It can't separate the effect of training from everything else that changed in that person's life over the same period: equipment, testing methods, illness, weight, and, in this case, drugs that alter blood and muscle. Measurements taken years apart, on different occasions, may not be comparable at all. Case studies are valuable for raising questions. They can't answer them.
+A case study follows one person. It can't separate the effect of training from everything else that changed in that person's life over the same period: equipment, testing methods, illness, weight, and, in this case, drugs that alter blood and muscle. Measurements taken years apart, on different occasions, may not be comparable at all.
 
 When you see a training claim resting on one athlete, however famous, treat it as grade C at best. Efficiency may well improve over years of training. This paper can't show it.
 
@@ -74,9 +74,9 @@ When you see a training claim resting on one athlete, however famous, treat it a
 
 In 2002 Alejandro Lucía and colleagues in Madrid tested 11 world-class professional road cyclists [@lucia2002]. Their average VO₂max was 72 mL/kg/min, firmly in the elite range. Each rode a ramp test to find their VO₂max, then 20 minutes at a steady power equal to 80% of it, which averaged 385 watts. From the second test, the researchers calculated each rider's efficiency, which averaged 24.5%.
 
-The striking result was the relationship between the two. Riders with a higher VO₂max tended to be *less* efficient, and riders with a lower VO₂max tended to be more efficient. The correlations were around −0.65 to −0.72, depending on how VO₂max was scaled for body size. The authors concluded that, at the top of the sport, high efficiency seems to compensate for a relatively low VO₂max.
+Riders with a higher VO₂max tended to be *less* efficient, and riders with a lower VO₂max tended to be more efficient. The correlations were around −0.65 to −0.72, depending on how VO₂max was scaled for body size. The authors concluded that, at the top of the sport, high efficiency seems to compensate for a relatively low VO₂max.
 
-It's a small study, and it describes riders who had already reached the top. That matters. If you only study successful professionals, you only see combinations that worked: a rider with a modest VO₂max and modest efficiency wouldn't be in the sample, because they wouldn't be a world-class professional. The study can't tell us that training trades one factor for the other, and it doesn't claim to. What it shows is that there is more than one route to the same performance, and that VO₂max alone would have ranked these riders wrongly. {grade B}
+It's a small study, and it describes riders who had already reached the top. If you only study successful professionals, you only see combinations that worked: a rider with a modest VO₂max and modest efficiency wouldn't be in the sample, because they wouldn't be a world-class professional. The study can't tell us that training trades one factor for the other, and it doesn't claim to. What it shows is that there is more than one route to the same performance, and that VO₂max alone would have ranked these riders wrongly. {grade B}
 
 ## Putting the three together
 
@@ -84,7 +84,7 @@ Because the three factors multiply, a change in any of them changes sustainable 
 
 That multiplication explains several things that puzzle riders. It's why VO₂max alone ranks experienced riders poorly. It's why a training block that leaves your VO₂max unchanged can still make you faster, if it raises your threshold or your efficiency. And it's why arguments about whether easy riding or hard intervals are "better" often talk past each other: they may be arguing about different factors. Broadly, and with the details still to come, the case for high-intensity training rests heavily on VO₂max, and the case for large amounts of easy training rests on the fraction you can sustain and, possibly, on efficiency.
 
-Joyner and Coyle described elite performance as the product of these factors working together, which is why an elite cyclist can hold around 400 watts for an extended effort [@joynercoyle2008]. They also warned that this physiological picture leaves things out: the nervous system's role in fatigue, motivation and the realities of racing. Their model explains a great deal, and it doesn't claim to explain everything. Chapter 3 takes up what it leaves out.
+Joyner and Coyle described elite performance as the product of these factors working together, which is why an elite cyclist can hold around 400 watts for an extended effort [@joynercoyle2008]. They also warned that this physiological picture leaves things out: the nervous system's role in fatigue, motivation and the realities of racing. Chapter 3 takes up what it leaves out.
 
 ## The power–duration curve and critical power
 
@@ -106,14 +106,12 @@ Every number in this chapter so far is usually measured on a rested rider. Labor
 
 In 2021 a group of physiologists led by Ed Maunder argued that this was a serious gap. The attributes measured in routine testing aren't fixed: they shift during prolonged exercise, and models that ignore those shifts will misjudge how athletes perform and how they should pace {shadow @maunder2021}. They proposed measuring *durability*: when, and by how much, those characteristics deteriorate as exercise goes on.
 
-The size of the problem is now becoming clear. In a 2019 study from Andrew Jones's group, 16 people did a three-minute all-out test fresh, and again after 40 minutes, 80 minutes and two hours of hard cycling. Their critical power held up for the first 80 minutes, but after two hours it was 9% lower {shadow @clark2019a}. In a 2024 review, Jones described critical power falling by about 10% on average after two hours of heavy-intensity cycling, with individual changes ranging from less than 1% to about 32% {shadow @jones2024}. He argued that this resilience to fatigue should be treated as a fourth dimension of endurance performance, alongside the three in Joyner and Coyle's model. {grade B}
+In a 2019 study from Andrew Jones's group, 16 people did a three-minute all-out test fresh, and again after 40 minutes, 80 minutes and two hours of hard cycling. Their critical power held up for the first 80 minutes, but after two hours it was 9% lower {shadow @clark2019a}. In a 2024 review, Jones described critical power falling by about 10% on average after two hours of heavy-intensity cycling, with individual changes ranging from less than 1% to about 32% {shadow @jones2024}. He argued that this resilience to fatigue should be treated as a fourth dimension of endurance performance, alongside the three in Joyner and Coyle's model. {grade B}
 
-That range is the important part. Two riders who look identical in a fresh lab test could be almost a third apart after two hours. For anyone training for long events, that may matter more than a few per cent of VO₂max. Chapter 9 looks at durability in detail: how it's measured, what the professional peloton shows, and what, if anything, trains it.
+Two riders who look identical in a fresh lab test could be almost a third apart after two hours. For anyone training for long events, that may matter more than a few per cent of VO₂max. Chapter 9 looks at durability in detail: how it's measured, what the professional peloton shows, and what, if anything, trains it.
 
 ## What this means for training
 
 The model gives every training question in this book the same shape. A session can make you faster by raising your VO₂max, by raising the fraction of it you can sustain, by improving your efficiency, by making all three hold up better late in a ride, or by some combination. Arguments about training methods usually turn out to be arguments about which of these a method changes, and by how much.
 
-The rest of the book takes those questions one at a time. Chapter 2 looks at the biology of adaptation, the chain of events by which a training session, repeated often enough, becomes a bigger heart, more capillaries or more mitochondria. Chapter 3 covers what the brain and nerves contribute. Chapter 4 is about judging the studies. Then Part II asks what easy riding does, and Part III asks the same of hard intervals.
-
-Carry one thing forward from this chapter. Each of the four factors can be trained, but they respond to different stimuli, on different timescales and to different degrees in different people, and some of them respond slowly. A training method that claims to improve everything, for everyone, is claiming more than physiology allows.
+Each of the four factors can be trained, but they respond to different stimuli, on different timescales and to different degrees in different people, and some of them respond slowly. A training method that claims to improve everything, for everyone, is claiming more than physiology allows.

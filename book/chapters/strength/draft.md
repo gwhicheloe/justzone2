@@ -54,7 +54,7 @@ The first Norwegian trial and the long-ride result described above have the same
 
 There is nothing improper in that. A study that takes three months and several kinds of test produces more than one paper can hold. But a reader counting studies will count two, and a quick survey of the literature will find "several trials from Norway" where there are fewer independent groups of riders than papers. When a field depends heavily on one laboratory, it is worth checking how many separate experiments stand behind the list of references.
 
-The abstracts of those two papers also say that the riders "were assigned" to their groups. The women's trial says "randomly assigned" [@vikmoen2016]. The difference matters. Cyclists who choose to spend a winter in the gym may be the more motivated or the more ambitious, and Chapter 4 described how the same problem undid an early study of pain tolerance. The meta-analysis identified missing randomisation as the main weakness of this whole literature.
+The abstracts of those two papers also say that the riders "were assigned" to their groups. The women's trial says "randomly assigned" [@vikmoen2016]. Cyclists who choose to spend a winter in the gym may be the more motivated or the more ambitious, and Chapter 4 described how the same problem undid an early study of pain tolerance. The meta-analysis identified missing randomisation as the main weakness of this whole literature.
 
 ## Will it make me heavier?
 
@@ -100,7 +100,7 @@ What the evidence supports is a modest gain in trained riders from a specific ki
 
 **Push the weight up as fast as you can.** It will still move slowly. The intent is what the evidence supports.
 
-**Expect a small gain where it matters and none in VO₂max.** The benefit showed up in efforts of a few minutes to an hour, and in one trial at the end of a three-hour ride. Your VO₂max will not move.
+**Expect a small gain where it matters and none in VO₂max.** The benefit showed up in efforts of a few minutes to an hour, and in one trial at the end of a three-hour ride.
 
 **Don't expect to bulk up.** Riders doing a full endurance programme gained strength with little or no gain in weight.
 

@@ -16,7 +16,7 @@ The winter still happened, and the climb was still faster. Chapter 7 offered the
 
 ![The book's verdict on sixteen common claims about training, with the grade of the evidence behind each verdict. A means several randomised trials or a good meta-analysis; B, small, short or single-lab studies; C, observation, mechanism or opinion. The last column gives the chapter that weighs each claim.](figures/scorecard.svg)
 
-The figure sets out the book's verdict on sixteen claims that a rider will meet, each with its grade. A few deserve a sentence more.
+The figure sets out the book's verdict on sixteen claims that a rider will meet, each with its grade.
 
 **Zone 2 and mitochondria.** Not supported, at grade A. Per programme, steady riding builds about as much as harder riding in people who aren't yet trained. Per hour it builds less, and in people who are already well trained, more of it was not shown to add anything measurable [@molmen2025]. Easy riding builds plenty in a beginner. It is not the best builder of mitochondria for anyone.
 
@@ -34,7 +34,7 @@ The figure sets out the book's verdict on sixteen claims that a rider will meet,
 
 **Health.** Zone 2 is not shown to be special, at grade C. Most of the lower risk of death in the large surveys comes with the first few hours of activity a week [@arem2015], and a rider on six to ten hours is well past it. Training lowers blood pressure and blood sugar whatever its intensity. For health, the best exercise is the one that gets done.
 
-**Lactate clearance.** Not shown, at grade C. The claim that riding in Zone 2 is what trains the body to clear lactate comes from a comparison of professional athletes with less active people at one moment, which describes a very fit body without showing how it was built. The one training study I found that measured the lactate transporter directly found it fell after months of mostly easy training, in 20 skiers, and held steady in the group that trained near the threshold. Chapter 7 weighed it.
+**Lactate clearance.** Not shown, at grade C. The claim that riding in Zone 2 is what trains the body to clear lactate comes from a comparison of professional athletes with less active people at one moment, which describes a very fit body without showing how it was built. The one training study I found that measured the lactate transporter directly found it fell after months of mostly easy training, in 20 skiers, and held steady in the group that trained near the threshold.
 
 **Copying the ratio.** Not shown, at grade B. Trials that gave athletes polarised, pyramidal or threshold-heavy versions of mostly easy training found no consistent winner over a few months [@silvaoliveira2024]. A rider on seven hours who rides 80% easy has about an hour and a half of hard training, close to the champions' 1.3 hours, and that is a better reason for the ratio than the ratio itself.
 
@@ -53,8 +53,6 @@ Zone 2 earns its place in a different way from the one the fashion claims. Chapt
 Zone 2 is also the intensity that can be repeated. It doesn't hurt, it doesn't need recovery days of its own, and it can be done four or five times a week by someone with a job and a family. If the lesson of my own winter is regularity, Zone 2 is what made regularity possible. That is a real virtue, and it is a different one from the virtues it is usually credited with.
 
 ## What the research can't yet tell us
-
-The gaps are as instructive as the findings.
 
 **Years, not weeks.** Almost every training trial in this book lasted between four and sixteen weeks. Elite athletes build their engines over a decade. Whether years of easy volume build something that a few months of intervals can't, a bigger and more compliant heart, more capillaries, more durability, is the most important open question for anyone who trains for a long time, and no trial has been long enough to answer it.
 

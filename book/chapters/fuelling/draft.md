@@ -8,8 +8,6 @@ That figure is worth holding against the way fuelling is talked about now. The u
 
 The number came from diaries, and a diary is not accurate to the gram, although these were checked each week by a nutritionist against what the team had supplied, and the drinks came in standard bottles [@saris1989]. It should make anyone cautious about the word revolution. Riders in the Tour were eating a great deal on the bike in the 1980s, and much of it was cake.
 
-The Durability chapter covered what eating does to the fade late in a long ride. This chapter takes the rest: how much carbohydrate helps, whether very large amounts help more, whether the gut can be trained to take them, and what the evidence says about water, salt, caffeine, ketones, beetroot juice and the red drink riders are handed at the finish.
-
 ## What a ride costs
 
 A power meter makes the cost of a ride easy to estimate. The body turns roughly a quarter of the energy it burns into work at the pedals, and a kilocalorie is a little over four kilojoules, so the two factors nearly cancel. A ride that records 2,000 kilojoules of work has cost about 2,000 kilocalories.
@@ -58,9 +56,9 @@ In 2012 a group surveyed 221 athletes after Ironman triathlons, a marathon, a lo
 
 It is tempting to read that as proof that eating more makes you faster. The survey can't show it. The faster athletes in an Ironman are the fitter and more experienced ones. By my reasoning, not the survey's, they are working at a lower fraction of their capacity at any given speed, which leaves more blood flow for the gut, and they have had years to practise eating in races. Speed may be what allows the eating. The same survey found that higher intakes went with more nausea and flatulence {shadow @pfeiffer2012}, so the athletes eating the most were not having an easy time of it.
 
-The argument that professionals eat 120 grams an hour and professionals are fast has the same weakness, and so does the argument that winners eat more than the riders they beat. Chapter 4 calls this kind of evidence observation. It can suggest a cause and it can't establish one.
+The argument that professionals eat 120 grams an hour and professionals are fast has the same weakness, and so does the argument that winners eat more than the riders they beat.
 
-It is also worth knowing who is involved. The review on training the gut that this chapter draws on appeared in a journal supplement supported by the research institute of a sports drink company, and its author received a fee for attending the meeting behind it [@jeukendrup2017]. The carbohydrate in the 2026 dose trial was supplied by a supplement company [@norte2026]. That does not make the findings wrong, and the big dose trial was double-blind. Of the seven authors of the review that argues for raising the limit to 120 grams, five declare a relationship with one sports nutrition company, and one of them is employed by it [@morton2026]. The lead author of the more sceptical review declares a post with a company that sells other supplements [@plews2026]. None of this settles who is right. It does mean that the questions which get studied are often the ones a manufacturer would like answered, and that a reader should know where a recommendation to eat more of a product comes from.
+The review on training the gut that this chapter draws on appeared in a journal supplement supported by the research institute of a sports drink company, and its author received a fee for attending the meeting behind it [@jeukendrup2017]. The carbohydrate in the 2026 dose trial was supplied by a supplement company [@norte2026]. That does not make the findings wrong, and the big dose trial was double-blind. Of the seven authors of the review that argues for raising the limit to 120 grams, five declare a relationship with one sports nutrition company, and one of them is employed by it [@morton2026]. The lead author of the more sceptical review declares a post with a company that sells other supplements [@plews2026]. None of this settles who is right. It does mean that the questions which get studied are often the ones a manufacturer would like answered, and that a reader should know where a recommendation to eat more of a product comes from.
 
 ## Is this why racing is faster?
 
@@ -170,11 +168,9 @@ The following year an Australian group gave a ketone drink or a placebo to ten p
 
 The use that has survived is after exercise. A group at Leuven in Belgium put 18 fit men through three weeks of deliberately excessive training, two sessions a day, with a ketone drink or a control drink after each session. By the third week the ketone group was sustaining a higher training load, and their power in the last half hour of a standard two-hour ride was 15% higher than the control group's [@poffe2019]. That is a striking result from nine people a group in one laboratory, and it is waiting for independent repetition. {grade C}
 
-The sport's governing body reviewed the evidence in 2025, said it found none that was compelling, and recommended that riders not take ketones, without banning them. The Drugs chapter has the details.
+The sport's governing body reviewed the evidence in 2025, said it found none that was compelling, and recommended that riders not take ketones, without banning them.
 
 ## Beetroot juice and the red drink at the finish
-
-These are two different things, taken for different reasons.
 
 Beetroot juice is taken before a ride, for its nitrate, which the body converts into a compound that widens blood vessels and appears to lower the oxygen cost of exercise. The trial that started the interest came from Exeter in 2011. Nine club-level cyclists drank half a litre of beetroot juice, or the same juice with the nitrate removed, two and a half hours before time trials of 4 and 16.1 kilometres. With nitrate they were 2.8% and 2.7% faster, and their power over the longer distance rose from 233 to 247 watts {shadow @lansley2011}.
 
