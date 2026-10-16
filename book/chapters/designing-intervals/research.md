@@ -108,3 +108,7 @@ Written 15 October 2026 with the first draft, the second of three Part III chapt
 - Almost everything is abstract only; Seiler 2013, the close-up, is abstract only (recovery durations and the separate outcomes unknown).
 - The 30/15 trials are small (16 and 18 riders) and from the group that designed the session.
 - Most sprint-interval evidence is in untrained young people or team-sport athletes, and running.
+
+## From the saddle (George, review-page comment, 16 October 2026)
+[George] "I ride 2 interval sessions a week - one is a 5x4 minutes @300w with 2 minutes rest in between. The other is 10 x 1 minute at 350w. I know I'm going to suffer in these sessions and if I'm tired from work I might delay a session or or replace it with a longer zone 2 session." Set as the box in "Riding the sessions", lightly edited, nothing added. Not stated: his FTP, the rest in the 10 × 1 minute. Note for George: 5 × 4 is 20 minutes of hard work and 10 × 1 is 10, below the 30 or so minutes this chapter's trials favour; left for him to decide whether the text should say so.
+[George, 16 October 2026, in chat] "ah can you adjust what I said to be more in line with the research - I promise I'll change my sessions!" Done by adding his intention to the box, not by rewriting what he rides: the box still gives his current sessions, then says they hold 20 and 10 minutes of hard work [Own: 5 × 4 and 10 × 1], less than the trials favour, and that he is changing them. What he changes to is not stated; update the box once he has.

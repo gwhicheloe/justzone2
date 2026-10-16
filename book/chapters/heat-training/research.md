@@ -75,3 +75,6 @@
 - Passive methods (sauna, hot baths: Zurawlew 2016, Heathcote 2018): not read; draft does not cover them.
 - Women: only Lundby 2023 and Goods 2023.
 - Safety guidance: no clinical source read. The draft's safety paragraph is deliberately short and should be checked by the copy-editor or a clinician.
+
+## From the saddle (George, review-page comment, 16 October 2026)
+[George] "Yes it was crazy hot during the summer heatwave. My watts were way down when the pain cave was hitting 37 degrees - on a holiday soon after in Greece I felt like I was hitting some good power numbers in the Greek heat. When it cooled down it was good to see my watts go back to normal." Set as the box before "What the five-week trials show", lightly edited. Not stated, so not written: how far the watts fell, whether he rode to heart rate or to power, how long the hot spell lasted, the temperature in Greece. "Good power numbers" in Greece is his feel, not a measured comparison. His watts returned to normal in the cool, not above it, which is consistent with the chapter's reading (heat acclimation helps in the heat; benefit in the cool unproven for amateurs). The one-line Durability box on the same heatwave is kept, as its paragraph leans on it.

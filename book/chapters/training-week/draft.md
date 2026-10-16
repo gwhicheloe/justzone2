@@ -32,7 +32,9 @@ The hard dose barely changes from 4 hours to 12. It sits in the range that worke
 
 The days are movable. Put the hard sessions where you are fresh and have time to ride them properly, keep at least 48 hours between them [@stanley2013], and put the long ride where you have the hours, which for most people is the weekend. If a hard session follows the long ride, eat well on the long ride. If the long ride follows a hard session, it should be genuinely easy.
 
-> **From the saddle.** [GEORGE: what does your week look like now: which days are hard, which are easy, and how many hours in all? Has it changed since you started writing this book?]
+> **From the saddle.** My training week has massively changed since I started on this book. My mates used to tease me about how much Zone 2 I was doing. I've introduced structured intervals and seen a massive benefit within a few weeks, and it's still building. My Zone 2 output has notched up, and I'm feeling stronger. I now do two interval sessions a week, two Zone 2 sessions and a longer ride at the weekend. Now that I know what I'm doing, I'm confident I'm on the right track.
+
+That is one rider over a few weeks, and it can't separate the intervals from anything else that changed at the same time.
 
 
 ### A planner, and where the book differs

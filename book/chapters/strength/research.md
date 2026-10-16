@@ -63,3 +63,6 @@ Written 11 October 2026. Tags: [FT] full text; [Abs] abstract; [Rep] reported by
 - Full texts of all the trials.
 - Masters cyclists and muscle loss with age; upper body and core; injury rates; women beyond Vikmoen and Bishop.
 - Sunde 2010, Levin 2009, Beattie 2017 and other trials in the meta-analysis were not looked up individually.
+
+## From the saddle (George, review-page comments, 16 October 2026)
+[George] "I've started lifting recently, mainly upper strength" ... "I'm starting to get older now so I want to maintain muscle weight. I use dumbbells, one of my aims this year is to introduce leg exercises." Set as the box before "The case that has nothing to do with speed", which his reason fits. "Maintain muscle weight" became "keep my muscle". Not stated, so not written: how often, since when, any effect on the bike. His routine (mainly upper body, dumbbells) is outside what the cycling trials in this chapter tested, which were mostly heavy leg work.

@@ -64,7 +64,7 @@ So the training in this book applies to women as it is. The hard sessions, the s
 
 Riding indoors changes the numbers more than it changes the training.
 
-> **From the saddle.** [GEORGE: your whole Sa Calobra winter was on a trainer in the garage. What made it bearable, and what did you do about heat and boredom?]
+> **From the saddle.** I was fine with the boredom. In fact I was never bored, whether I was watching Netflix or chess videos on YouTube, or listening to music. Zone 2 was my sacred decompression time, great after a busy day at work. I could think things through and solve life's problems. I'd also enjoy the kids roaming into the pain cave to chat. They might go on the rowing machine, or we'd just catch up. Luckily, in Zone 2 it's still easy to talk.
 
 
 ### One study, up close: same effort, indoors and out

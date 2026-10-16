@@ -42,7 +42,7 @@ Why heat should do this is not established. The leading idea is that the kidney,
 
 So the mechanism predicts two things that can be checked. Short heat blocks should do little for cool-weather performance, which is what the 2015 studies found. And blocks of four or five weeks should raise haemoglobin mass, and performance with it. Since 2019, a series of trials has tested the second prediction.
 
-> **From the saddle.** [GEORGE: your 37 °C garage in the 2026 heatwave is in a Durability box at the moment, and this is its natural home. Did the heat feel like training or just suffering, and did anything change once it cooled down?]
+> **From the saddle.** It was crazy hot in the 2026 heatwave. My watts were way down when the pain cave was hitting 37 degrees. On a holiday in Greece soon afterwards I felt I was hitting some good power numbers in the Greek heat. When it cooled down, it was good to see my watts go back to normal.
 
 
 ## What the five-week trials show

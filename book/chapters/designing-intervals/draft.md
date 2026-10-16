@@ -174,7 +174,7 @@ The 63 riders who did the same three sessions in three different orders over twe
 
 Most interval trials are of men, and the few direct comparisons of the sessions suggest they work in much the same way in women. In the 30/15 study above, which measured 11 women and 8 men, 30/15s gave more time near VO₂max than steady intervals in both, with no difference between the sexes [@urianstad2024]. The 4 × 4 trial in well-trained women raised VO₂max by 7.3%, much as in men. One sprint protocol that had raised it in men did not in women, and the all-out sprints injured more women than the same protocol had injured men [@helgerud2023]. Chapter 18 describes a meta-analysis of untrained people that found men's VO₂max rose more than women's on the same training, and returns to women's training generally.
 
-> **From the saddle.** [GEORGE: which interval sessions do you actually ride, and how does the last rep feel compared with the first? If you have ever got the pacing of a session wrong, that would fit here too.]
+> **From the saddle.** I ride two interval sessions a week. One is 5 × 4 minutes at 300 W, with 2 minutes' rest between them. The other is 10 × 1 minute at 350 W. I know I'm going to suffer in both. If I'm tired from work I might put a session off, or replace it with a longer Zone 2 ride. Writing this chapter showed me that those sessions hold 20 and 10 minutes of hard work, less than the trials here favour, so I'm changing them.
 
 
 ## The sessions, in brief

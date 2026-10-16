@@ -45,3 +45,7 @@ Written 15 October 2026 in the Part V batch. Tags: [FT] full text, [Abs] abstrac
 ## Short of time
 
 - Covered by The training week (4-hour week), How many hard sessions (one session maintains; Spiering 2021) and Designing intervals (sprints for a rider short of time; Gibala 2006; Rosenblat 2020).
+
+## From the saddle (George, review-page comment, 16 October 2026)
+[George] "I was ok with the boredom, in fact I was never bored either watching netflix, chess videos on youtube or listening to music. zone 2 was my sacred decompression time, great after a busy day at work. I could think things through and solve life's problems. I'd also enjoy the kids roaming into the paincave to to chat, they might go on the rowing machine or we'd just catch up, luckily zone 2 it's still easy to talk"
+Set as the box in Indoors, before the indoor-outdoor close-up, lightly edited. Brand names (Netflix, YouTube) in George's words only. The children are not named or described. Not stated, so not written: how often the kids came in; heat and fans.

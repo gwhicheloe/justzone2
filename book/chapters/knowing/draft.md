@@ -21,7 +21,7 @@ To do it at home:
 
 Heart rate moves from day to day even when nothing else has changed. Forty-four people who repeated the same submaximal running test on five consecutive days varied by about 5 beats a minute at the stage where they were most consistent, and more at easier stages {shadow @lamberts2004}. A single week's reading carries that wobble with it.
 
-> **From the saddle.** [GEORGE: how do you tell whether your training is working? If you watch the power you hold at a fixed heart rate, what has it done over a season?]
+> **From the saddle.** My main indicator of how my training is going is the average watts I can hold while keeping my heart rate in Zone 2. My other measure is how my heart rate responds to the same interval sessions. They are close to maximal efforts for me, and when I see my maximum heart rate for a session going down, or the effort feeling easier, I ratchet the intervals up by 5 W.
 
 
 ## Signal and noise

@@ -76,7 +76,7 @@ Strength gained in the winter can be kept through the season on very little. The
 
 Nobody has compared replacing riding with lifting against adding lifting on top. The 2010 review suggested that the trials which replaced some riding did better than those which added to it [@yamamoto2010]. The Norwegian trials added it and found a benefit. The question is open, and it matters to a rider with a fixed number of hours.
 
-> **From the saddle.** [GEORGE: do you lift? If so, what and how often, and has it made any difference you can feel on the bike? If not, why not.]
+> **From the saddle.** I've started lifting recently, mainly for upper-body strength. I'm getting older, and I want to keep my muscle. I use dumbbells, and one of my aims this year is to add leg exercises.
 
 
 ## The case that has nothing to do with speed
