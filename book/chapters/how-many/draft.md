@@ -14,7 +14,7 @@ A description of what successful athletes converged on is a strong hint and not 
 
 ## Adding hard sessions to easy training
 
-The trials that best match an amateur's situation add a few hard sessions to a base of easy riding. In 1996 eight competitive South African cyclists, riding about 300 km a week, replaced 15% of it with six interval sessions over four weeks, about one and a half a week. Their 40 km time trial fell from 56.4 to 54.4 minutes [@lindsay1996]. Three years later 20 cyclists added six sessions over three weeks, two a week, to their usual base, and the best sessions improved the time trial by 2.4% to 2.8% [@stepto1999]. Ten well-trained rowers who did seven interval sessions in four weeks improved their 2,000 m time by 1.9%, more than when they trained continuously {shadow @driller2009}.
+The trials that best match an amateur's situation add a few hard sessions to a base of easy riding. In the two South African trials described in Chapter 11, trained cyclists who added about one and a half or two interval sessions a week to their usual riding improved their 40 km time trial within three or four weeks [@lindsay1996; @stepto1999]. Ten well-trained rowers who did seven interval sessions in four weeks improved their 2,000 m time by 1.9%, more than when they trained continuously {shadow @driller2009}.
 
 In trained athletes with a base already in place, then, one and a half to two hard sessions a week brought improvements of a few per cent within a month. These trials did not test whether three or four would have brought more.
 

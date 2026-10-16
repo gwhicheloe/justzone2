@@ -235,3 +235,17 @@ Also fixed while reading: the Introduction said the 353-study review was publish
 
 Done: all 121 marked sentences deleted from the drafts, with the empty paragraphs and spaces they left removed. The book is now 89,747 words. The print proof is still 269 pages with every table on one page, and the checker reports the same flags as before the deletion.
 
+## 16 October 2026: tedious runs of similar studies (in chat)
+
+> I need you to identify 'tedious' sections - this is where there's multiple paragraphs in a row that list very similar studies where the incremental gain of the subsequent study might be small but overall has a negative effect in inducing tedium
+
+Nine runs found, plus trials told in full in more than one chapter. Then:
+
+> ok good - do the cuts please
+
+Done (946 words): Elites, the three later polarised trials before the pooled analyses, the recap of the 2013 crossover and the cyclists' pooled analysis in "Six to ten hours", and Seiler's second-hand 350-hour view. Easy riding, the year-long jogging study and the 2015 ski expedition. Strength, the repeated 371→400 W result (kept in Durability) and the 25-week young-elite trial. Designing intervals, the heart-failure patients (Special cases tells them), two of the three matched-power studies in "Short work periods" (the figure still shows them), and the order clause in "Long intervals" (kept under "Order and variety"). Durability, the Gallo study, and the semi-professional study squeezed to one sentence, not dropped, because it cuts against the professional data. Finding your zones, the 14 talking runners and a sentence on what a summary leaves out. Heat, the Calera sensor (the CORE 2 sentence moved up). How many, the two South African trials now point back to Chapter 11.
+
+Not done, as they need rewriting: the five heat trials told twice (haemoglobin, then performance) and the three gut-training trials before the review that pools them.
+
+The book is now 88,827 words; the proof is 267 pages with every table on one page; checker flags unchanged.
+
