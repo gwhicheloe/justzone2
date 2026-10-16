@@ -17,6 +17,7 @@ italic, numbered and bulleted lists, blockquotes. Book conventions:
   {grade A|B|C}        -> a small evidence-grade badge
   [GEORGE: ...]        -> a highlighted note for George
   ![caption](figures/x.svg) on its own paragraph -> the SVG inline, numbered, with the caption
+  ::: formula ... :::  -> each line inside set as a centred display line (an equation)
   ::: trial ... :::    -> a trial laid out as a table (no blank lines inside):
                             Label: text            a row across the full width (Hypothesis, Design, Authors' conclusion)
                             | | Arm A | Arm B      the groups, one column each (two or more)
@@ -187,7 +188,7 @@ def render_chapter(md, sources, idx, base=".", probes=False, moves=None, layout=
     out, kinds, title, anchor, fig_n = [], [], "", f"ch{idx}", [0]
     for b in blocks:
         first = b[0]
-        kinds.append("trial" if first.startswith("::: trial") else "h3" if first.startswith("### ") else
+        kinds.append("trial" if first.startswith("::: trial") else "formula" if first.startswith("::: formula") else "h3" if first.startswith("### ") else
                      "h2" if first.startswith("## ") else "h1" if first.startswith("# ") else
                      "figure" if re.match(r"!\[(.*)\]\((\S+\.svg)\)\s*$", " ".join(b)) else
                      "quote" if first.startswith(">") else "list" if re.match(r"(\d+\.|[-*])\s", first) else "p")
@@ -196,6 +197,9 @@ def render_chapter(md, sources, idx, base=".", probes=False, moves=None, layout=
             out.append(f'<h1 id="{anchor}">{inline(title, cite)}</h1>')
         elif first.startswith("::: trial"):
             out.append(render_trial(b, cite, two_part=print_mode))
+        elif first.startswith("::: formula"):
+            rows = "".join(f"<div>{inline(l.strip(), cite)}</div>" for l in b[1:] if l.strip() != ":::")
+            out.append(f'<div class="formula">{rows}</div>')
         elif first.startswith("### "):
             out.append(f"<h3>{inline(first[4:], cite)}</h3>")
         elif first.startswith("## "):
@@ -296,6 +300,7 @@ STYLE = """
   figcaption{font-family:var(--sans);font-size:14px;line-height:1.5;color:var(--muted);margin-top:8px}
   figcaption b{color:var(--ink)}
   blockquote.saddle{margin:18px 0;padding:4px 0 4px 18px;border-left:3px solid var(--accent);font-style:italic}
+  .formula{margin:18px 0 20px;text-align:center;line-height:1.7}
   section.refs{margin-top:34px;padding-top:6px;border-top:1px solid var(--rule)}
   section.refs h2{font-family:var(--sans);font-size:15px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
   section.refs ol{font-family:var(--sans);font-size:14px;line-height:1.5;color:var(--muted)}
@@ -381,6 +386,7 @@ PRINT_STYLE = """
   figure{margin:10pt 0 12pt;break-inside:avoid} figure svg{display:block;width:100%%;height:auto}
   figcaption{font-family:var(--sans);font-size:7.5pt;line-height:1.35;text-align:left;hyphens:manual;margin-top:4pt}
   blockquote.saddle{margin:9pt 0;padding-left:9pt;border-left:1.2pt solid #000;font-style:italic}
+  .formula{margin:8pt 0 9pt;text-align:center;line-height:1.6;break-inside:avoid}
   section.refs{margin-top:16pt}
   section.refs h2{font-family:var(--sans);font-size:7.5pt;letter-spacing:.08em;text-transform:uppercase;margin:0 0 4pt}
   section.refs ol{font-family:var(--sans);font-size:7pt;line-height:1.35;text-align:left;hyphens:manual;padding-left:2em;margin:0}

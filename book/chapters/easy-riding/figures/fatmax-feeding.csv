@@ -3,8 +3,8 @@
 # Sources: Achten & Jeukendrup 2004 (Int J Sports Med 25:32-37), abstract: fat max 63, first lactate rise 61; feeding state not given in the abstract.
 # Achten & Jeukendrup 2003 (J Sports Sci 21:1017-1024), abstract: fat max 60.1 after placebo (overnight fast), 52.0 after 75 g glucose 45 min before; lactate not reported.
 # Meixner et al. 2025, full text, Table 2: fat max 56.0, baseline + 0.5 mmol/L lactate 69.4 (% of VO2peak); carbohydrate-rich meal no less than 3 h before.
-label,note,fatmax,lactate
-Feeding not stated,33 trained athletes,63,61
-After an overnight fast,11 trained people,60.1,
-45 min after 75 g of glucose,the same 11 people,52.0,
-3 h after a carbohydrate meal,50 trained cyclists,56.0,69.4
+study,label,note,fatmax,lactate
+Achten and Jeukendrup 2004,Feeding not stated,33 trained athletes,63,61
+Achten and Jeukendrup 2003: the same people tested twice,After an overnight fast,11 trained people,60.1,
+Achten and Jeukendrup 2003: the same people tested twice,45 min after 75 g of glucose,the same 11 people,52.0,
+Meixner and colleagues 2025,3 h after a carbohydrate meal,50 trained cyclists,56.0,69.4

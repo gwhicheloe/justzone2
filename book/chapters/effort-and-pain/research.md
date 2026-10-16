@@ -27,6 +27,7 @@ Written 10 October 2026. Tags: [FT] read in the full text; [Abs] stated in the p
 
 - Motor cortex, spinal cord, motor neuron, motor unit; recruitment and firing rate; motor unit sizes. [GK: textbook]
 - Group III/IV afferents respond to pressure, heat and metabolites and carry nociceptive signals. [FT, O'Leary 2017 introduction]
+- Pollak 2014 (Amann a co-author): ten volunteers; protons, lactate and ATP infused into a thumb muscle (abductor pollicis brevis). Each alone, even at maximal amounts, evoked no sensation. Combined at levels found in moderate exercise: fatigue sensations; at vigorous-exercise levels: stronger fatigue and some ache; at ischaemic levels: more ache. [Abs]
 - Central and peripheral fatigue; voluntary activation usually less than maximal; central fatigue develops during sustained maximal efforts. Closing line: "Human muscle fatigue does not simply reside in the muscle." [Abs, Gandevia 2001]
 
 ## Theories

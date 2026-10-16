@@ -8,7 +8,7 @@ He had not changed his mind. The zone 2 of the 2006 paper lies between two physi
 
 Most arguments about training intensity have this problem somewhere in them. "Threshold" has at least two meanings and dozens of ways of being measured. "Easy" is often set as a percentage of a maximum heart rate that was itself guessed from the rider's age. Before Part II can ask what easy riding does, the words need fixing to something in the body.
 
-## Two boundaries, three domains
+## The three intensity domains
 
 Chapter 1 introduced the idea that exercise intensity divides into domains: moderate below the first threshold, heavy between the first threshold and critical power, and severe above critical power. The boundaries are there because the body behaves differently on each side of them, and a 2017 experiment at the University of Exeter shows the difference more clearly than any definition [@black2017].
 
@@ -74,7 +74,7 @@ Once there are two boundaries, the simplest scheme has three zones: below the fi
 
 Coaches wanted finer divisions. The scale used by the Norwegian Olympic federation has five zones. Its zones 1 and 2 both lie below the first threshold, zone 3 is the band between the thresholds, and zones 4 and 5 lie above the second [@seiler2010]. Its Zone 2 is given as 72–82% of maximum heart rate, or a blood lactate of 1.5 to 2.5 mmol/L [@meixner2025]. Most heart-rate zone systems in apps and bike computers have five zones of this general kind, and this is the Zone 2 of the podcasts.
 
-![A sketch of blood lactate against power in a test of rising intensity, with the two thresholds, the intensity domains, the three-zone model and the five-zone model beneath. The curve is drawn for illustration and is not data. The zone boundaries follow Seiler's description of the two models [@seiler2010].](figures/zone-maps.svg)
+![A sketch of blood lactate against power in a test of rising intensity, with the two thresholds carried down through four ways of dividing the range: the intensity domains, the three-zone and five-zone models, and Coggan's power levels. Each system's second zone sits somewhere different. The three-zone and five-zone boundaries follow Seiler's description [@seiler2010] and Coggan's levels his percentages of FTP [@allencoggan2010], placed for a rider whose FTP equals the second threshold; for a rider whose first threshold sits higher or lower against FTP, Level 2 moves with it. The curve is drawn for illustration and is not data.](figures/zone-maps.svg)
 
 Coggan's power levels, widely used in power-meter software, number seven and are all set as percentages of FTP. Level 2, "endurance", is 56–75% of FTP. Level 3, "tempo", is 76–90%. Level 4, "lactate threshold", is 91–105%, and three more levels sit above that [@allencoggan2010]. These zones are easy to calculate, which is why software uses them. But the first threshold appears nowhere in the calculation. The top of Level 2 is wherever 75% of your FTP happens to be. In Iannetta's 100 volunteers the first threshold ranged from 23% to 57% of peak ramp power and the upper steady state from 44% to 71% [@iannetta2020], and with ranges that wide the gap between a person's two thresholds is unlikely to be a fixed proportion. A zone system built from one anchor has to assume that it is.
 

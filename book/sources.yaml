@@ -2316,6 +2316,14 @@
   chapters: [fuelling]
   notes: "18 fit men, 3 weeks of twice-daily training, ketone ester or control after each session (9 per group). Training load in week 3 and power in the final 30 min of a 2 h session 15% higher with ketones. Open access, full text not yet read; check funding."
 
+- key: pollak2014
+  citation: "Pollak KA, Swenson JD, Vanhaitsma TA, Hughen RW, Jo D, White AT, Light KC, Schweinhardt P, Amann M, Light AR. Exogenously applied muscle metabolites synergistically evoke sensations of muscle fatigue and pain in human subjects. Exp Physiol. 2014;99:368-380."
+  doi: 10.1113/expphysiol.2013.075812
+  pmid: 24142455
+  status: abstract
+  chapters: [effort-and-pain]
+  notes: "Ten volunteers; protons, lactate and ATP infused under the fascia of a thumb muscle. Single metabolites at maximal amounts evoked nothing; the combination at moderate-exercise levels evoked fatigue, at vigorous-exercise levels stronger fatigue and some ache, at ischaemic levels more ache."
+
 - key: pollock1997
   citation: "Pollock ML, Mengelkoch LJ, Graves JE, Lowenthal DT, Limacher MC, Foster C, Wilmore JH. Twenty-year follow-up of aerobic power and body composition of older track athletes. J Appl Physiol (1985). 1997;82:1508-1516."
   doi: 10.1152/jappl.1997.82.5.1508

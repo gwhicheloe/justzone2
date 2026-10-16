@@ -315,11 +315,14 @@ def atp_cycle():
     def arrow(x1, y1, x2, y2, col=INK, mk="ah", dash=""):
         return f'<line x1="{x1}" y1="{y1}" x2="{x2}" y2="{y2}" stroke="{col}" stroke-width="2" marker-end="url(#{mk})" {dash}/>'
 
+    h, y0 = head("A muscle senses an energy shortfall through AMP, which switches on AMPK",
+                 "ATP is spent and rebuilt all the time. When rebuilding falls behind, AMP builds up.", x=10, width=660)
+    b += h
     bw, bh = 250, 110
-    ax, ay = 10, 76          # ATP, top left
-    dx, dy = 420, 76         # ADP, top right
-    mx, my = 420, 330        # AMP, bottom right
-    kx, ky = 10, 330         # AMPK, bottom left
+    ax, ay = 10, round(y0 + 70)   # ATP, top left
+    dx, dy = 420, ay              # ADP, top right
+    mx, my = 420, ay + 254        # AMP, bottom right
+    kx, ky = 10, my               # AMPK, bottom left
     b += box(ax, ay, bw, bh, "ATP", ["three phosphates", "carries the energy"])
     b += box(dx, dy, bw, bh, "ADP", ["two phosphates: what is", "left when ATP is spent"])
     b += box(mx, my, bw, bh, "AMP", ["one phosphate", "rises when ADP builds up"])
@@ -401,12 +404,14 @@ def sawtooth():
 def pain_training():
     """Bar chart: change in pain tolerance and time to exhaustion by training group (O'Leary 2017)."""
     rows = _rows("effort-and-pain", "oleary2017.csv")
-    W, left, right, top, rh, gap = 680, 250, 560, 40, 42, 26
+    b, y0 = head("Both groups got fitter, but only the interval group's pain tolerance rose",
+                 "Change after six weeks in 20 healthy adults: time lasted in a tourniquet test on the arm, "
+                 "and time to exhaustion at the same hard power as before.", x=10, width=660)
+    W, left, right, top, rh, gap = 680, 250, 560, round(y0 + 40), 42, 26
     lo, hi = -20.0, 160.0
     X = lambda v: left + (v - lo) / (hi - lo) * (right - left)
     n_groups = len({r["measure"] for r in rows})
     base = top + rh * len(rows) + gap * (n_groups - 1) + 26 * n_groups
-    b = []
     for v in (0, 50, 100, 150):
         b.append(f'<line x1="{X(v):.1f}" y1="{top - 8}" x2="{X(v):.1f}" y2="{base}" stroke="{INK if v == 0 else FAINT}" stroke-width="1"/>')
         b.append(text(X(v), base + 22, f"+{v}%" if v else "0", 15.5, MID, "middle"))
@@ -537,9 +542,10 @@ def strength_effects():
 
 def zone_maps():
     """Schematic: a lactate curve, the two thresholds, and three ways of dividing the intensity range."""
-    b, y = head("Zone 2 is the middle of one map and the easy end of another",
+    b, y = head("Zone 2 is in a different place in each system",
                 "Blood lactate in a test of rising power (a sketch, not data), the two thresholds, "
-                "and three ways of dividing the range. Both cells called Zone 2 are shaded.")
+                "and four ways of dividing the range. Each system's second zone is shaded. Coggan's levels are "
+                "placed for a rider whose FTP sits at the second threshold.")
     W = 680
     left, right = 60, 640
     top = y + 36
@@ -562,14 +568,32 @@ def zone_maps():
             ("Five-zone model, used by the Norwegian federation and most apps",
              [(left, (left + t1) / 2, "Zone 1", 0), ((left + t1) / 2, t1, "Zone 2", 1), (t1, t2, "Zone 3", 0),
               (t2, (t2 + right) / 2, "Zone 4", 0), ((t2 + right) / 2, right, "Zone 5", 0)])]
+    # Coggan's levels are percentages of FTP; with FTP at the second threshold, power is t2 * fraction.
+    P = lambda f: min(right, left + f * (t2 - left))
+    cuts = [0, 0.555, 0.755, 0.905, 1.055, 1.205, 9]
+    names = ["Level 1", "Level 2", "3", "4", "5", "6–7"]
+    rows.append(("Coggan's power levels, percentages of FTP, used in most power software",
+                 [(P(a), P(c), n, int(n == "Level 2")) for a, c, n in zip(cuts, cuts[1:], names)]))
     y = base + 56
+    labels = []   # drawn last, each on a patch of its background, so the threshold lines run behind them
+
+    def patch(x, y, s, size, fill, anchor):
+        w = len(s) * size * 0.56 + 8
+        x0 = x - w / 2 if anchor == "middle" else x - 4
+        return f'<rect x="{x0:.1f}" y="{y - size * 0.85:.1f}" width="{w:.1f}" height="{size * 1.15:.1f}" fill="{fill}"/>'
+
     for label, cells in rows:
-        b.append(text(left, y, label, 15.5, MID, "start"))
+        labels += [patch(left, y, label, 15.5, "#ffffff", "start"), text(left, y, label, 15.5, MID, "start")]
         for a, c, name, hit in cells:
-            b.append(f'<rect x="{a + 1:.1f}" y="{y + 8}" width="{c - a - 2:.1f}" height="30" fill="{BAND if hit else "#ffffff"}" stroke="{INK if hit else FAINT}" stroke-width="{1.5 if hit else 1}"/>')
-            b.append(text((a + c) / 2, y + 29, name, 16.5, INK, "middle", "600" if hit else "400"))
+            fill = BAND if hit else "#ffffff"
+            b.append(f'<rect x="{a + 1:.1f}" y="{y + 8}" width="{c - a - 2:.1f}" height="30" fill="{fill}" stroke="{INK if hit else FAINT}" stroke-width="{1.5 if hit else 1}"/>')
+            labels += [patch((a + c) / 2, y + 29, name, 16.5, fill, "middle"),
+                       text((a + c) / 2, y + 29, name, 16.5, INK, "middle", "600" if hit else "400")]
         y += 64
-    return _save("intensity", "zone-maps.svg", W, y - 12, b, "Sketch of a lactate curve with two thresholds, and the three-zone and five-zone models beneath it")
+    for x in (t1, t2):
+        b.append(f'<line x1="{x:.1f}" y1="{base}" x2="{x:.1f}" y2="{y - 18}" stroke="{MID}" stroke-width="1" stroke-dasharray="4 4"/>')
+    b += labels
+    return _save("intensity", "zone-maps.svg", W, y - 12, b, "Sketch of a lactate curve with two thresholds, and beneath it the intensity domains, the three-zone and five-zone models and Coggan's power levels, each with its second zone shaded in a different place")
 
 
 def zone2_markers():
@@ -620,13 +644,17 @@ def threshold_percent():
         b.append(f'<line x1="{X(v):.1f}" y1="{base}" x2="{X(v):.1f}" y2="{base + 5}" stroke="{MID}" stroke-width="1"/>')
         b.append(text(X(v), base + 24, f"{v}%", 15.5, MID, "middle"))
     b.append(text((X(lo) + X(hi)) / 2, base + 50, "Percentage of maximum heart rate", 15.5, MID, "middle"))
-    heads = {"rule": "Where two rules put Zone 2", "measured": "Where the first lactate threshold was measured"}
+    heads = {"rule": "Open bars: where two rules put Zone 2",
+             "measured": "Solid bars: where the first lactate threshold was measured"}
     y0, seen = top, None
     for r in rows:
         if r["kind"] != seen:
             if seen is not None:
                 y0 += gap
-            b.append(text(30, y0 - 14, heads[r["kind"]], 16.5, MID, "start", "600", 'paint-order="stroke" stroke="#ffffff" stroke-width="6"'))
+            sw = (f'<rect x="30" y="{y0 - 27:.1f}" width="22" height="14" fill="#ffffff" stroke="{INK}" stroke-width="1.5"/>'
+                  if r["kind"] == "rule" else f'<rect x="30" y="{y0 - 27:.1f}" width="22" height="14" fill="{INK}"/>')
+            b.append(sw)
+            b.append(text(62, y0 - 14, heads[r["kind"]], 16.5, MID, "start", "600", 'paint-order="stroke" stroke="#ffffff" stroke-width="6"'))
             seen = r["kind"]
         y = y0 + rh / 2
         a, c = float(r["lo"]), float(r["hi"])
@@ -681,9 +709,14 @@ def lactate_steps():
         b.append(text(cx(i), base + 24, f"stage {i + 1}", 15, MID, "middle"))
         b.append(text(cx(i), base + 54, talk[i], 15.5, INK, "middle", "600" if i >= 4 else "400"))
     b.append(text(left - 10, base + 54, "speak?", 15.5, MID, "end"))
+    # The early readings wobble (stage 2 below stage 1): say so on the chart, as step 6 of the test does.
+    by, x0, x1 = Y(1.95), cx(0) - 14, cx(3) + 14
+    b.append(f'<path d="M{x0:.1f},{by + 8:.1f} V{by:.1f} H{x1:.1f} V{by + 8:.1f}" fill="none" stroke="{MID}" stroke-width="1.2"/>')
+    b.append(text((x0 + x1) / 2, by - 24, "Early readings wobble by a tenth", 15, MID, "middle"))
+    b.append(text((x0 + x1) / 2, by - 7, "or two; their average is the baseline", 15, MID, "middle"))
     b.append(text(cx(hit), top + 12, "top of", 15.5, INK, "middle"))
     b.append(text(cx(hit), top + 31, "Zone 2", 16.5, INK, "middle", "600"))
-    note, y = para(30, base + 96, "The first four readings differ by a tenth or two, as a meter’s will. Their average, 1.1, is the baseline. "
+    note, y = para(30, base + 96, "The first four readings differ by a tenth or two, as a meter’s will, and stage 2 reads lower than stage 1. Their average, 1.1, is the baseline. "
                    "Stage 6 is the first to read 0.5 mmol/L above it, and stage 7 confirms it by reading higher still. "
                    "The top of Zone 2 is the power and heart rate of stage 5.")
     b += note
@@ -723,15 +756,17 @@ def mito_efficiency():
 def fatmax_feeding():
     """Dot plot, one row per feeding condition: peak fat burning (circle) and, where measured, the first lactate rise (square)."""
     rows = _rows("easy-riding", "fatmax-feeding.csv")
-    b, y = head("After carbohydrate, peak fat burning falls below the first threshold",
-                "The intensity at which fat burning peaked in four feeding conditions, and the intensity of the "
-                "first rise in blood lactate in the two studies that measured it. Both as a percentage of VO₂max.")
-    W, left, right, rh = 680, 300, 640, 52
+    b, y = head("Carbohydrate before a ride moved peak fat burning to a lower intensity",
+                "Where fat burning peaked, and where blood lactate first rose, as a percentage of VO₂max, in three "
+                "separate studies. Compare points within a study, not across them: each tested different people "
+                "in a different way.")
+    W, left, right, rh, sh = 680, 300, 640, 52, 34
     ky = y + 30
-    top = ky + 44
+    top = ky + 40
     lo, hi = 45.0, 75.0
     X = lambda v: left + (v - lo) / (hi - lo) * (right - left)
-    base = top + rh * len(rows)
+    studies = list(dict.fromkeys(r["study"] for r in rows))
+    base = top + rh * len(rows) + sh * len(studies)
     H = base + 64
     b.append(f'<circle cx="36" cy="{ky}" r="5.5" fill="{INK}"/>')
     b.append(text(50, ky + 5, "Peak fat burning", 15.5, INK, "start", "600"))
@@ -745,8 +780,16 @@ def fatmax_feeding():
         b.append(text(X(v), base + 24, f"{v}%", 15.5, MID, "middle"))
     b.append(text((X(lo) + X(hi)) / 2, base + 50, "Percentage of VO₂max", 15.5, MID, "middle"))
     halo = 'paint-order="stroke" stroke="#ffffff" stroke-width="4"'
-    for i, r in enumerate(rows):
-        y = top + rh * i + rh / 2 - 2
+    y0, last = top, None
+    for r in rows:
+        if r["study"] != last:
+            if last is not None:
+                b.append(f'<line x1="30" y1="{y0 + 6}" x2="{right}" y2="{y0 + 6}" stroke="{FAINT}" stroke-width="1"/>')
+            b.append(text(30, y0 + 26, r["study"], 15, MID, "start", "600"))
+            y0 += sh
+            last = r["study"]
+        y = y0 + rh / 2 - 2
+        y0 += rh
         b.append(text(left - 20, y - 4, r["label"], 16.5, INK, "end", "600"))
         b.append(text(left - 20, y + 15, r["note"], 15, MID, "end"))
         f = float(r["fatmax"])
@@ -758,7 +801,7 @@ def fatmax_feeding():
             b.append(text(X(l) - side * 12, y + 5, f"{l:.0f}%", 15.5, INK, "end" if side > 0 else "start", "400", halo))
         b.append(f'<circle cx="{X(f):.1f}" cy="{y:.1f}" r="5.5" fill="{INK}" stroke="#ffffff" stroke-width="2"/>')
         b.append(text(X(f) + side * 12, y + 5, f"{f:.0f}%", 15.5, INK, "start" if side > 0 else "end", "600", halo))
-    return _save("easy-riding", "fatmax-feeding.svg", W, H, b, "Peak fat burning at 63, 60, 52 and 56 percent of VO2max in four feeding conditions, with the first lactate rise at 61 percent in the first and 69 percent in the last")
+    return _save("easy-riding", "fatmax-feeding.svg", W, H, b, "Three separate studies. Peak fat burning at 63, 60, 52 and 56 percent of VO2max in four feeding conditions, with the first lactate rise at 61 percent in the first and 69 percent in the last")
 
 
 def elite_distributions():

@@ -49,10 +49,13 @@
 <text x="610.4" y="348.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#555555" text-anchor="middle" font-weight="400" >stage 7</text>
 <text x="610.4" y="378.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="middle" font-weight="600" >no</text>
 <text x="86.0" y="378.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="end" font-weight="400" >speak?</text>
+<path d="M121.6,212.9 V204.9 H387.0 V212.9" fill="none" stroke="#555555" stroke-width="1.2"/>
+<text x="254.3" y="180.9" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#555555" text-anchor="middle" font-weight="400" >Early readings wobble by a tenth</text>
+<text x="254.3" y="197.9" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#555555" text-anchor="middle" font-weight="400" >or two; their average is the baseline</text>
 <text x="452.1" y="140.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >top of</text>
 <text x="452.1" y="159.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="middle" font-weight="600" >Zone 2</text>
-<text x="30.0" y="420.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >The first four readings differ by a tenth or two, as a meter’s will. Their average,</text>
-<text x="30.0" y="439.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >1.1, is the baseline. Stage 6 is the first to read 0.5 mmol/L above it, and stage 7</text>
-<text x="30.0" y="459.1" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >confirms it by reading higher still. The top of Zone 2 is the power and heart rate of</text>
-<text x="30.0" y="478.5" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >stage 5.</text>
+<text x="30.0" y="420.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >The first four readings differ by a tenth or two, as a meter’s will, and stage 2</text>
+<text x="30.0" y="439.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >reads lower than stage 1. Their average, 1.1, is the baseline. Stage 6 is the first</text>
+<text x="30.0" y="459.1" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >to read 0.5 mmol/L above it, and stage 7 confirms it by reading higher still. The top</text>
+<text x="30.0" y="478.5" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >of Zone 2 is the power and heart rate of stage 5.</text>
 </svg>

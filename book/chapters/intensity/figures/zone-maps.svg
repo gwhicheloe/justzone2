@@ -1,41 +1,78 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 510.29999999999995" width="680" height="510.29999999999995" role="img" aria-label="Sketch of a lactate curve with two thresholds, and the three-zone and five-zone models beneath it">
-<rect width="680" height="510.29999999999995" fill="#ffffff"/>
-<text x="30.0" y="30.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="start" font-weight="600" >Zone 2 is the middle of one map and the easy end of another</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 593.7" width="680" height="593.7" role="img" aria-label="Sketch of a lactate curve with two thresholds, and beneath it the intensity domains, the three-zone and five-zone models and Coggan's power levels, each with its second zone shaded in a different place">
+<rect width="680" height="593.7" fill="#ffffff"/>
+<text x="30.0" y="30.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="start" font-weight="600" >Zone 2 is in a different place in each system</text>
 <text x="30.0" y="53.5" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >Blood lactate in a test of rising power (a sketch, not data), the two thresholds, and</text>
-<text x="30.0" y="72.9" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >three ways of dividing the range. Both cells called Zone 2 are shaded.</text>
-<line x1="60" y1="274.3" x2="640" y2="274.3" stroke="#555555" stroke-width="1"/>
-<line x1="60" y1="124.3" x2="60" y2="274.3" stroke="#555555" stroke-width="1"/>
-<text x="46.0" y="199.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" transform="rotate(-90 46 199.3)">Blood lactate</text>
-<text x="640.0" y="296.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="end" font-weight="400" >Power →</text>
-<text x="60.0" y="296.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >Easy</text>
-<path d="M60,252.3 L281.0,252.3 Q321.0,252.3 361.0,240.3 C437.6,218.3 497.6,192.3 537.6,147.3 L557.6,124.30000000000001" fill="none" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round"/>
-<line x1="321.0" y1="138.3" x2="321.0" y2="274.3" stroke="#555555" stroke-width="1" stroke-dasharray="4 4"/>
-<text x="321.0" y="128.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="middle" font-weight="600" >First threshold</text>
-<line x1="477.6" y1="138.3" x2="477.6" y2="274.3" stroke="#555555" stroke-width="1" stroke-dasharray="4 4"/>
-<text x="477.6" y="128.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="middle" font-weight="600" >Second threshold</text>
-<text x="60.0" y="330.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >What the body does: intensity domains</text>
-<rect x="61.0" y="338.3" width="259.0" height="30" fill="#ffffff" stroke="#bdbdbd" stroke-width="1"/>
-<text x="190.5" y="359.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >Moderate</text>
-<rect x="322.0" y="338.3" width="154.6" height="30" fill="#ffffff" stroke="#bdbdbd" stroke-width="1"/>
-<text x="399.3" y="359.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >Heavy</text>
-<rect x="478.6" y="338.3" width="160.4" height="30" fill="#ffffff" stroke="#bdbdbd" stroke-width="1"/>
-<text x="558.8" y="359.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >Severe</text>
-<text x="60.0" y="394.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >Three-zone model, used in most research</text>
-<rect x="61.0" y="402.3" width="259.0" height="30" fill="#ffffff" stroke="#bdbdbd" stroke-width="1"/>
-<text x="190.5" y="423.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >Zone 1</text>
-<rect x="322.0" y="402.3" width="154.6" height="30" fill="#e6e6e6" stroke="#1a1a1a" stroke-width="1.5"/>
-<text x="399.3" y="423.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="middle" font-weight="600" >Zone 2</text>
-<rect x="478.6" y="402.3" width="160.4" height="30" fill="#ffffff" stroke="#bdbdbd" stroke-width="1"/>
-<text x="558.8" y="423.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >Zone 3</text>
-<text x="60.0" y="458.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >Five-zone model, used by the Norwegian federation and most apps</text>
-<rect x="61.0" y="466.3" width="128.5" height="30" fill="#ffffff" stroke="#bdbdbd" stroke-width="1"/>
-<text x="125.2" y="487.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >Zone 1</text>
-<rect x="191.5" y="466.3" width="128.5" height="30" fill="#e6e6e6" stroke="#1a1a1a" stroke-width="1.5"/>
-<text x="255.8" y="487.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="middle" font-weight="600" >Zone 2</text>
-<rect x="322.0" y="466.3" width="154.6" height="30" fill="#ffffff" stroke="#bdbdbd" stroke-width="1"/>
-<text x="399.3" y="487.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >Zone 3</text>
-<rect x="478.6" y="466.3" width="79.2" height="30" fill="#ffffff" stroke="#bdbdbd" stroke-width="1"/>
-<text x="518.2" y="487.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >Zone 4</text>
-<rect x="559.8" y="466.3" width="79.2" height="30" fill="#ffffff" stroke="#bdbdbd" stroke-width="1"/>
-<text x="599.4" y="487.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >Zone 5</text>
+<text x="30.0" y="72.9" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >four ways of dividing the range. Each system's second zone is shaded. Coggan's levels</text>
+<text x="30.0" y="92.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >are placed for a rider whose FTP sits at the second threshold.</text>
+<line x1="60" y1="293.7" x2="640" y2="293.7" stroke="#555555" stroke-width="1"/>
+<line x1="60" y1="143.7" x2="60" y2="293.7" stroke="#555555" stroke-width="1"/>
+<text x="46.0" y="218.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" transform="rotate(-90 46 218.7)">Blood lactate</text>
+<text x="640.0" y="315.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="end" font-weight="400" >Power →</text>
+<text x="60.0" y="315.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >Easy</text>
+<path d="M60,271.7 L281.0,271.7 Q321.0,271.7 361.0,259.7 C437.6,237.7 497.6,211.7 537.6,166.7 L557.6,143.7" fill="none" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round"/>
+<line x1="321.0" y1="157.7" x2="321.0" y2="293.7" stroke="#555555" stroke-width="1" stroke-dasharray="4 4"/>
+<text x="321.0" y="147.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="middle" font-weight="600" >First threshold</text>
+<line x1="477.6" y1="157.7" x2="477.6" y2="293.7" stroke="#555555" stroke-width="1" stroke-dasharray="4 4"/>
+<text x="477.6" y="147.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="middle" font-weight="600" >Second threshold</text>
+<rect x="61.0" y="357.7" width="259.0" height="30" fill="#ffffff" stroke="#bdbdbd" stroke-width="1"/>
+<rect x="322.0" y="357.7" width="154.6" height="30" fill="#ffffff" stroke="#bdbdbd" stroke-width="1"/>
+<rect x="478.6" y="357.7" width="160.4" height="30" fill="#ffffff" stroke="#bdbdbd" stroke-width="1"/>
+<rect x="61.0" y="421.7" width="259.0" height="30" fill="#ffffff" stroke="#bdbdbd" stroke-width="1"/>
+<rect x="322.0" y="421.7" width="154.6" height="30" fill="#e6e6e6" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="478.6" y="421.7" width="160.4" height="30" fill="#ffffff" stroke="#bdbdbd" stroke-width="1"/>
+<rect x="61.0" y="485.7" width="128.5" height="30" fill="#ffffff" stroke="#bdbdbd" stroke-width="1"/>
+<rect x="191.5" y="485.7" width="128.5" height="30" fill="#e6e6e6" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="322.0" y="485.7" width="154.6" height="30" fill="#ffffff" stroke="#bdbdbd" stroke-width="1"/>
+<rect x="478.6" y="485.7" width="79.2" height="30" fill="#ffffff" stroke="#bdbdbd" stroke-width="1"/>
+<rect x="559.8" y="485.7" width="79.2" height="30" fill="#ffffff" stroke="#bdbdbd" stroke-width="1"/>
+<rect x="61.0" y="549.7" width="229.8" height="30" fill="#ffffff" stroke="#bdbdbd" stroke-width="1"/>
+<rect x="292.8" y="549.7" width="81.5" height="30" fill="#e6e6e6" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="376.3" y="549.7" width="60.6" height="30" fill="#ffffff" stroke="#bdbdbd" stroke-width="1"/>
+<rect x="438.9" y="549.7" width="60.6" height="30" fill="#ffffff" stroke="#bdbdbd" stroke-width="1"/>
+<rect x="501.6" y="549.7" width="60.6" height="30" fill="#ffffff" stroke="#bdbdbd" stroke-width="1"/>
+<rect x="564.2" y="549.7" width="74.8" height="30" fill="#ffffff" stroke="#bdbdbd" stroke-width="1"/>
+<line x1="321.0" y1="293.7" x2="321.0" y2="587.7" stroke="#555555" stroke-width="1" stroke-dasharray="4 4"/>
+<line x1="477.6" y1="293.7" x2="477.6" y2="587.7" stroke="#555555" stroke-width="1" stroke-dasharray="4 4"/>
+<rect x="56.0" y="336.5" width="329.2" height="17.8" fill="#ffffff"/>
+<text x="60.0" y="349.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >What the body does: intensity domains</text>
+<rect x="149.5" y="364.7" width="81.9" height="19.0" fill="#ffffff"/>
+<text x="190.5" y="378.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >Moderate</text>
+<rect x="372.2" y="364.7" width="54.2" height="19.0" fill="#ffffff"/>
+<text x="399.3" y="378.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >Heavy</text>
+<rect x="527.1" y="364.7" width="63.4" height="19.0" fill="#ffffff"/>
+<text x="558.8" y="378.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >Severe</text>
+<rect x="56.0" y="400.5" width="346.5" height="17.8" fill="#ffffff"/>
+<text x="60.0" y="413.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >Three-zone model, used in most research</text>
+<rect x="158.8" y="428.7" width="63.4" height="19.0" fill="#ffffff"/>
+<text x="190.5" y="442.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >Zone 1</text>
+<rect x="367.6" y="428.7" width="63.4" height="19.0" fill="#e6e6e6"/>
+<text x="399.3" y="442.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="middle" font-weight="600" >Zone 2</text>
+<rect x="527.1" y="428.7" width="63.4" height="19.0" fill="#ffffff"/>
+<text x="558.8" y="442.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >Zone 3</text>
+<rect x="56.0" y="464.5" width="554.8" height="17.8" fill="#ffffff"/>
+<text x="60.0" y="477.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >Five-zone model, used by the Norwegian federation and most apps</text>
+<rect x="93.5" y="492.7" width="63.4" height="19.0" fill="#ffffff"/>
+<text x="125.2" y="506.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >Zone 1</text>
+<rect x="224.0" y="492.7" width="63.4" height="19.0" fill="#e6e6e6"/>
+<text x="255.8" y="506.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="middle" font-weight="600" >Zone 2</text>
+<rect x="367.6" y="492.7" width="63.4" height="19.0" fill="#ffffff"/>
+<text x="399.3" y="506.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >Zone 3</text>
+<rect x="486.5" y="492.7" width="63.4" height="19.0" fill="#ffffff"/>
+<text x="518.2" y="506.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >Zone 4</text>
+<rect x="567.7" y="492.7" width="63.4" height="19.0" fill="#ffffff"/>
+<text x="599.4" y="506.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >Zone 5</text>
+<rect x="56.0" y="528.5" width="615.6" height="17.8" fill="#ffffff"/>
+<text x="60.0" y="541.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >Coggan's power levels, percentages of FTP, used in most power software</text>
+<rect x="139.5" y="556.7" width="72.7" height="19.0" fill="#ffffff"/>
+<text x="175.9" y="570.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >Level 1</text>
+<rect x="297.2" y="556.7" width="72.7" height="19.0" fill="#e6e6e6"/>
+<text x="333.5" y="570.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="middle" font-weight="600" >Level 2</text>
+<rect x="398.0" y="556.7" width="17.2" height="19.0" fill="#ffffff"/>
+<text x="406.6" y="570.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >3</text>
+<rect x="460.6" y="556.7" width="17.2" height="19.0" fill="#ffffff"/>
+<text x="469.2" y="570.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >4</text>
+<rect x="523.3" y="556.7" width="17.2" height="19.0" fill="#ffffff"/>
+<text x="531.9" y="570.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >5</text>
+<rect x="583.7" y="556.7" width="35.7" height="19.0" fill="#ffffff"/>
+<text x="601.6" y="570.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >6–7</text>
 </svg>

@@ -18,6 +18,11 @@ In 2008 the physiologists Michael Joyner and Edward Coyle set out the answer tha
 
 Multiply the first two and you get what Joyner and Coyle call your *performance VO₂*, the rate of oxygen use you can hold for the duration of a race. Multiply that by your efficiency and you have your sustainable power.
 
+::: formula
+*performance VO₂* = VO₂max × fraction sustained
+sustainable power = *performance VO₂* × efficiency
+:::
+
 ## How it works: from air to muscle
 
 Before the three factors make sense, it helps to follow oxygen from the air to the muscle.
@@ -42,7 +47,7 @@ VO₂max is also only partly trainable. It rises quickly in untrained people and
 
 ## The fraction you can sustain
 
-Nobody can ride at 100% of their VO₂max for long. The question is how close they can get for an hour, and the answer depends on what happens to lactate in the blood as effort rises.
+Nobody can ride at 100% of their VO₂max for long. The question is how close they can get for an hour, and the answer depends on what happens as effort rises to lactate, a molecule that muscle makes from glucose all the time and that other tissues burn as fuel {shadow @brooks2018}.
 
 At low intensities, blood lactate stays close to its resting level. As intensity rises, it reaches a point where lactate starts to accumulate, and above a second, higher point it keeps rising until the effort has to stop. The first of these points is the lactate threshold that Chapter 5 explores in detail. In untrained people, lactate begins to rise noticeably at around 60% of VO₂max. In elite endurance athletes it can sit at 75 to 90% [@joynercoyle2008]. {grade A}
 
