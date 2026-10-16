@@ -170,11 +170,11 @@ struct SummaryView: View {
 
     @MainActor
     private func saveChartToPhotos() {
-        let exportView = ExportableChartView(workout: viewModel.workout)
+        let exportView = ExportCardView(workout: viewModel.workout)
 
         let renderer = ImageRenderer(content: exportView)
         renderer.scale = 2.0
-        renderer.proposedSize = .init(width: 600, height: 450)
+        renderer.proposedSize = .init(width: ExportCardView.size.width, height: ExportCardView.size.height)
 
         guard let image = renderer.uiImage else { return }
 
@@ -305,6 +305,34 @@ struct SummaryChartView: View {
             MiniChartView(chartData: chartData, targetPower: workout.targetPower)
                 .frame(maxHeight: .infinity)
         }
+    }
+}
+
+/// The saved image: the chart card with rounded corners, on a coloured mat.
+/// The photo is saved as JPEG, which has no transparency, so rounding the
+/// card's own corners would leave solid black or white corners in the Strava
+/// feed. Drawing the rounding onto a mat keeps it visible wherever it's shown.
+struct ExportCardView: View {
+    let workout: Workout
+
+    static let size = CGSize(width: 640, height: 490)
+    /// The app's near-black green. Chosen over a light mat (October 2026)
+    /// because the rounded corners stay visible in Strava's light feed.
+    static let mat = Color(red: 0.07, green: 0.10, blue: 0.08)
+
+    var body: some View {
+        ZStack {
+            Self.mat
+            // Shadow on a plain shape behind the card, so it doesn't fall on
+            // the card's text and chart lines.
+            RoundedRectangle(cornerRadius: 28, style: .continuous)
+                .fill(Color.white)
+                .frame(width: 600, height: 450)
+                .shadow(color: .black.opacity(0.22), radius: 12, y: 5)
+            ExportableChartView(workout: workout)
+                .clipShape(RoundedRectangle(cornerRadius: 28, style: .continuous))
+        }
+        .frame(width: Self.size.width, height: Self.size.height)
     }
 }
 
