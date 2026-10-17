@@ -54,7 +54,7 @@ The first Norwegian trial and the long-ride result described above have the same
 
 There is nothing improper in that. A study that takes three months and several kinds of test produces more than one paper can hold. But a reader counting studies will count two, and a quick survey of the literature will find "several trials from Norway" where there are fewer independent groups of riders than papers. When a field depends heavily on one laboratory, it is worth checking how many separate experiments stand behind the list of references.
 
-The abstracts of those two papers also say that the riders "were assigned" to their groups. The women's trial says "randomly assigned" [@vikmoen2016]. Cyclists who choose to spend a winter in the gym may be the more motivated or the more ambitious, and Chapter 4 described how the same problem undid an early study of pain tolerance. The meta-analysis identified missing randomisation as the main weakness of this whole literature.
+The abstracts of those two papers also say that the riders "were assigned" to their groups. The women's trial says "randomly assigned" [@vikmoen2016]. Cyclists who choose to spend a winter in the gym may be the more motivated or the more ambitious, and Chapter 4 described how the same problem undid an early study of pain tolerance. The meta-analysis identified missing randomisation as the main weakness of this whole literature. What survives is the summary above: heavy lifting probably makes trained cyclists somewhat faster, on fewer independent experiments than the reference list suggests.
 
 ## Will it make me heavier?
 
@@ -110,3 +110,9 @@ What the evidence supports is a modest gain in trained riders from a specific ki
 **Learn the lifts properly.** The Norwegian review says that endurance athletes should develop proper technique with lighter loads before lifting heavy ones [@ronnestad2014]. None of the trials reports on injuries in a way I can cite, and a heavy squat done badly is a reliable way to miss a month of riding. If you have not lifted before, get the movement taught.
 
 **If you are over 40 and only ride, lift for your bones as well.** The evidence that road cyclists have low bone density is consistent, and the bike will not fix it.
+
+::: survives
+Heavy leg lifting probably makes trained cyclists a little faster in efforts from minutes to an hour. {grade B}
+Road cyclists tend to have low bone density, and the bike won't fix it. {grade C}
+If you are over 40 and only ride, lift for your bones as well.
+:::

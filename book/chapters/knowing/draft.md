@@ -8,7 +8,7 @@ The reason is noise. Every measure of fitness a rider can take at home moves fro
 
 A 2014 review of heart-rate monitoring by Martin Buchheit concluded that two measures were the most useful for following an athlete's training: heart-rate variability recorded at rest for a few minutes, and heart rate during a fixed submaximal effort, averaged over 30 to 60 seconds [@buchheit2014]. It also stressed what this chapter is about: a change only means something when it is larger than the error of the measurement, judged against what the training has been doing.
 
-The best-tested version of the fixed effort for cyclists is the Lamberts Submaximal Cycle Test. Riders ride three short stages at fixed heart rates, and the power they produce at each is recorded, with their rated effort and how fast the heart rate falls afterwards. In 17 well-trained road cyclists who did it four times, the power in the second and third stages was highly repeatable, with a typical error of 1.3% to 4.4%, and the power in the third stage tracked their performance in a 40 km time trial and a peak power test closely, with correlations of 0.91 to 0.94 [@lamberts2011]. A later study from the same group added heart-rate variability in the minute after the test, which was repeatable to within about 6% and also tracked performance [@lamberts2024].
+The best-tested version of the fixed effort for cyclists is the Lamberts Submaximal Cycle Test. Riders ride three short stages at fixed heart rates, and the power they produce at each is recorded, with their rated effort and how fast the heart rate falls afterwards. In 17 well-trained road cyclists who did it four times, the power in the second and third stages was highly repeatable, with a typical error of 1.3% to 4.4%. The power in the third stage tracked their performance in a 40 km time trial and a peak power test closely, with correlations of 0.91 to 0.94 [@lamberts2011]. A later study from the same group added heart-rate variability in the minute after the test, which was repeatable to within about 6% and also tracked performance [@lamberts2024].
 
 A laboratory protocol is not the same as a stretch of road or a session on a trainer. I know of no study that has validated a rider's own version, and it will be noisier. But the principle is the one the test is built on: hold the effort the body is under fixed, and see what power comes out.
 
@@ -42,7 +42,7 @@ That makes best efforts a useful but rough measure. They track fitness when they
 
 Chapter 9 described a simple test of durability: on a long ride at steady power, compare your heart rate in the last half hour with the half hour after you warmed up. The more it rises, the more you are fading. Repeated over a season, on cool days, the drift should shrink as durability improves.
 
-The largest study of this kind is of marathon runners. In 82,303 of them, the researchers compared heart rate with pace in the last 5 km of the race against the early kilometres [@smyth2022]. The third of runners whose heart rate stayed most closely coupled to their pace ran faster relative to their estimated critical speed, finished in 217 minutes on average against 225 and 239 for the moderate and high groups, and began to decouple later, at 33 km against 23 and 19. Adding decoupling to a model of marathon performance reduced its prediction error from 6.5% to 5.2%.
+The largest study of this kind is of marathon runners. In 82,303 of them, the researchers compared heart rate with pace in the last 5 km of the race against the early kilometres [@smyth2022]. The third of runners whose heart rate stayed most closely coupled to their pace ran faster relative to their estimated critical speed. They finished in 217 minutes on average against 225 and 239 for the moderate and high groups, and began to decouple later, at 33 km against 23 and 19. Adding decoupling to a model of marathon performance reduced its prediction error from 6.5% to 5.2%.
 
 It was an observational study of runners in one kind of race. It shows that decoupling goes with performance, not that training to reduce it will make anyone faster. It does show that the measure carries information, and a rider can take it from every long ride without any extra effort. {grade B that decoupling goes with performance; grade C for using it to judge training}
 
@@ -125,3 +125,9 @@ And after each hard session, a line on how it felt and how you slept.
 Over two or three months those will show whether the training is working, more reliably than any single test and much more reliably than a watch's estimate or a model's chart. {grade C for the routine as a whole}
 
 If they don't move, Chapter 17's order of the week is where to look first: whether the hard sessions are being ridden hard enough and recovered from, and whether the easy riding is staying easy.
+
+::: survives
+How you feel is the measure with the best record, so write it down. {grade B}
+Check power at a fixed heart rate each week, and judge it by the four-week average. {grade C}
+A watch's VO₂max and a fitness chart are estimates, not measurements.
+:::

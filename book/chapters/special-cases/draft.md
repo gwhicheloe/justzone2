@@ -40,13 +40,13 @@ The research in this book is mostly about men, and it is worth knowing by how mu
 
 Those are general sports medicine journals, and training studies are worse. Almost every training trial in Parts II and III of this book is of men or mostly men. Chapter 11 noted that most interval trials are of men, and the few that compared the sexes directly found similar responses.
 
-The question to ask of any study is who it was done on, and then whether the answer is likely to carry across. For most of the physiology in this book there is no particular reason to expect a different direction in women. There are reasons to expect differences in degree, and the honest position is that most of them have not been measured.
+The question to ask of any study is who it was done on, and then whether the answer is likely to carry across. For most of the physiology in this book there is no particular reason to expect a different direction in women. There are reasons to expect differences in degree, and the honest position is that most of them have not been measured. What survives is the default: until a difference is measured, the advice in this book applies to women as it does to men, and the trials that compared the sexes found similar responses.
 
 ### What has been measured
 
 **How much training raises VO₂max.** The one meta-analysis I found that set out to answer this pooled eight studies of untrained people, 90 men and 85 women, who were given the same training [@diazcanestro2019]. The men's VO₂max rose more: by 191 mL/min more in absolute terms, and by 1.95 mL/kg/min more relative to body weight. There was no sign of disagreement between the studies. It is one small analysis of untrained people, and it measured VO₂max alone, not threshold, efficiency or performance. In trained women, the Trondheim 4 × 4 trial found a rise in VO₂max of 7.3%, much as in men, and the 30/15 study in Chapter 11 found the same advantage in time near VO₂max in both sexes {shadow @helgerud2023; @urianstad2024}. {grade C}
 
-**Fatigue.** Women are usually less fatigable than men in sustained, static muscle contractions at the same relative intensity, according to a 2014 review by Sandra Hunter, though the difference depends on the task: how fast and how hard the muscle works, which muscle it is, and the conditions [@hunter2014]. In 82,303 marathon runners, the women's heart rate drifted less relative to their pace, and later in the race, than the men's {shadow @smyth2022}. Chapter 9 called that quality durability. Whether it means women should train differently has not been tested.
+**Fatigue.** Women are usually less fatigable than men in sustained, static muscle contractions at the same relative intensity, according to a 2014 review by Sandra Hunter. The difference depends on the task: how fast and how hard the muscle works, which muscle it is, and the conditions [@hunter2014]. In 82,303 marathon runners, the women's heart rate drifted less relative to their pace, and later in the race, than the men's {shadow @smyth2022}. Chapter 9 called that quality durability. Whether it means women should train differently has not been tested.
 
 **The menstrual cycle.** A 2020 meta-analysis of 78 studies found that performance might be trivially lower in the early follicular phase, the days around the start of a period, than at other times [@mcnulty2020]. The pooled effect was small enough that its credible interval included no effect at all, the largest contrast between two phases was also small, and the authors rated the quality of the evidence as low. Their conclusion was that general guidelines can't be drawn, and that women should take a personal approach, based on how they themselves respond.
 
@@ -101,10 +101,17 @@ Chapter 9 explained why no way of handling it is perfect late in a long ride. On
 
 ## Short of time
 
-Most riders are short of time, and the earlier chapters were written for them. The four-hour week in Chapter 17 shows the shape: two hard sessions and two short easy rides. One well-ridden hard session a week holds most of what a rider has for months (Chapter 12), and sprint intervals give a little more for very little time, at the cost of being the weaker choice for long efforts and the riskier one if run all-out (Chapter 11). The thing that matters most, for a rider short of time, is the same thing that mattered in my own winter: riding regularly. Four short rides every week will usually do more than one long ride when there is time for it. {grade C}
+Most riders are short of time, and the earlier chapters were written for them. The four-hour week in Chapter 17 shows the shape: two hard sessions and two short easy rides. One well-ridden hard session a week holds most of what a rider has for months (Chapter 12). Sprint intervals give a little more for very little time, at the cost of being the weaker choice for long efforts and the riskier one if run all-out (Chapter 11). The thing that matters most, for a rider short of time, is the same thing that mattered in my own winter: riding regularly. Four short rides every week will usually do more than one long ride when there is time for it. {grade C}
 
 ## What to do with it
 
 For an older rider, keep the intensity, expect the numbers to fall slowly anyway, reset heart-rate zones from a recent threshold, lift for your bones, and stretch the gap between hard sessions if two leave you flat. For a woman, train as the book describes, knowing that most of the evidence comes from men and that the average effect of the cycle on performance is trivial, and track your own response if you are curious. Indoors, expect less power at the same effort, use fans, and decide whether you are holding power or heart rate on long rides. {grade C overall: most of this chapter rests on small studies, reviews and reasoning}
 
 None of these changes the order of the week. Each of them is a reason to judge your training by what happens to you, which is the subject of the next chapter.
+
+::: survives
+Women appear to respond to training much as men do, though far fewer have been studied. {grade C}
+Age may slow recovery less than is often assumed. {grade C}
+Over 40, lift twice a week for your bones. {grade C}
+Short of time, ride regularly: four short rides usually beat one long one. {grade C}
+:::

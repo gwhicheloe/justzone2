@@ -92,7 +92,7 @@ Whether an effect matters depends on what it is being compared with. Currell and
 
 The best tests available vary by about 1 to 2% from one attempt to the next in the same person [@hopkins2001]. So an improvement of 1%, which would be worth having, is smaller than the noise in a single measurement, and small studies cannot see it. They can detect large effects in untrained people. They are close to blind to the small effects that matter to trained ones.
 
-The trial of EPO on Mont Ventoux, described in the chapter on drugs, shows what reporting looks like when it is done well: 48 riders, randomly allocated, neither riders nor testers knowing who had the drug, and each result given as a difference with its confidence interval, so that the reader can see which effects were pinned down and which were not {shadow @heuberger2017}.
+The trial of EPO on Mont Ventoux, described in the chapter on drugs, shows what reporting looks like when it is done well: 48 riders, randomly allocated, neither riders nor testers knowing who had the drug, and each result given as a difference with its confidence interval. The reader can see which effects were pinned down and which were not {shadow @heuberger2017}.
 
 ## Choices made after the data are in
 
@@ -174,3 +174,9 @@ These are the questions this chapter has worked through. They are worth asking o
 The last question is the one that most often settles the matter. One small study is one draw. When several independent groups, using different volunteers and different protocols, find the same thing, the luck averages out, and that is what a grade A means in this book.
 
 There is a limit to what these questions can do, and it applies to this book as much as to anything else. Most of the studies it describes are small, short and done on people fitter or less fit than you. Applying the questions strictly would leave very little standing. The aim is to proportion belief to evidence: to hold the well-supported claims firmly, to treat the rest as reasonable bets, and to know which is which.
+
+::: survives
+A small study with a striking result has probably overstated it. {grade B}
+Ask who was studied, for how long, and what they were compared with.
+Hold the well-supported claims firmly, treat the rest as reasonable bets, and know which is which.
+:::

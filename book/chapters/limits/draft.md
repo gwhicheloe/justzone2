@@ -47,7 +47,7 @@ VO₂max is also only partly trainable. It rises quickly in untrained people and
 
 ## The fraction you can sustain
 
-Nobody can ride at 100% of their VO₂max for long. The question is how close they can get for an hour, and the answer depends on what happens as effort rises to lactate, a molecule that muscle makes from glucose all the time and that other tissues burn as fuel {shadow @brooks2018}.
+Nobody can ride at 100% of their VO₂max for long. The question is how close they can get for an hour. The answer depends on what happens as effort rises to lactate, a molecule that muscle makes from glucose all the time and that other tissues burn as fuel {shadow @brooks2018}.
 
 At low intensities, blood lactate stays close to its resting level. As intensity rises, it reaches a point where lactate starts to accumulate, and above a second, higher point it keeps rising until the effort has to stop. The first of these points is the lactate threshold that Chapter 5 explores in detail. In untrained people, lactate begins to rise noticeably at around 60% of VO₂max. In elite endurance athletes it can sit at 75 to 90% [@joynercoyle2008]. {grade A}
 
@@ -61,13 +61,13 @@ The third factor is the easiest to overlook. Of the energy your muscles release 
 
 Taking the two ends of that range, a rider with a gross efficiency of 23% produces about a quarter more power from the same oxygen than a rider at 18.5% [@joynercoyle2008]. No training block raises VO₂max by a quarter in a trained cyclist.
 
-The best-known evidence on why some riders are more efficient than others comes from Edward Coyle's lab in 1992. In 19 highly trained cyclists, the proportion of slow-twitch (type I) fibres in the thigh muscle ranged from 32% to 76%, and riders with more of them were markedly more efficient: the correlation between type I fibre percentage and one measure of efficiency was 0.85 [@coyle1992]. Type I fibres are the ones built for sustained, aerobic work, and they seem to produce force with less energy wasted as heat. {grade B}
+The best-known evidence on why some riders are more efficient than others comes from Edward Coyle's lab in 1992. In 19 highly trained cyclists, the proportion of slow-twitch (type I) fibres in the thigh muscle ranged from 32% to 76%. Riders with more of them were markedly more efficient: the correlation between type I fibre percentage and one measure of efficiency was 0.85 [@coyle1992]. Type I fibres are the ones built for sustained, aerobic work, and they seem to produce force with less energy wasted as heat. {grade B}
 
 Whether training can increase efficiency much, and how quickly, is less clear. Joyner and Coyle suggest it may improve by 1 to 3% a year with continued endurance training [@joynercoyle2008].
 
 ### Reading the research: what one athlete can and can't tell us
 
-In 2005 Coyle published a paper following one cyclist from age 21 to 28 [@coyle2005]. Over those seven years, the paper reported, the rider's VO₂max stayed at about 6 litres a minute, but his muscular efficiency rose by 8%, and together with losing body fat before each race season, his steady-state power per kilogram at a given rate of oxygen use rose by 18%. The paper suggested the improvement probably reflected changes in muscle proteins after years of training intensely for three to six hours on most days. The rider was described as a six-time consecutive champion of the Tour de France. He was Lance Armstrong.
+In 2005 Coyle published a paper following one cyclist from age 21 to 28 [@coyle2005]. Over those seven years, the paper reported, the rider's VO₂max stayed at about 6 litres a minute, but his muscular efficiency rose by 8%. Together with losing body fat before each race season, his steady-state power per kilogram at a given rate of oxygen use rose by 18%. The paper suggested the improvement probably reflected changes in muscle proteins after years of training intensely for three to six hours on most days. The rider was described as a six-time consecutive champion of the Tour de France. He was Lance Armstrong.
 
 The paper was widely cited as evidence that efficiency improves with years of training. It also drew immediate challenges. In the same journal and the same year, a published exchange asked whether Armstrong's efficiency had improved at all [@martin2005]. In 2008, a letter from four researchers was published under the blunt title "Delta efficiency calculation in Tour de France champion is wrong" [@gore2008]. And in 2012 the United States Anti-Doping Agency found that Armstrong had doped, and his Tour de France results from 1999 onwards were disqualified [@usada2012].
 
@@ -122,3 +122,9 @@ The model gives every training question in this book the same shape. A session c
 Each of the four factors can be trained, but they respond to different stimuli, on different timescales and to different degrees in different people, and some of them respond slowly. A training method that claims to improve everything, for everyone, is claiming more than physiology allows.
 
 The claims made for Zone 2 sit on two of the four. Easy riding is said to build the mitochondria and capillaries that let a rider hold a larger fraction of VO₂max, and to make all of it hold up late in a long ride. Chapter 7 weighs the first claim and Chapter 9 the second.
+
+::: survives
+Training raises VO₂max mainly by making the heart pump more blood. {grade A}
+Lactate starts to rise at about 60% of VO₂max in the untrained, and up to 90% in elites. {grade A}
+Efficiency and resistance to fatigue differ widely, so VO₂max alone ranks riders badly. {grade B}
+:::
