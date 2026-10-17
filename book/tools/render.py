@@ -18,6 +18,7 @@ italic, numbered and bulleted lists, blockquotes. Book conventions:
   [GEORGE: ...]        -> a highlighted note for George
   ![caption](figures/x.svg) on its own paragraph -> the SVG inline, numbered, with the caption
   ::: formula ... :::  -> each line inside set as a centred display line (an equation)
+  ::: survives ... ::: -> the 'What survives' box that closes a chapter: one short claim per line
   ::: trial ... :::    -> a trial laid out as a table (no blank lines inside):
                             Label: text            a row across the full width (Hypothesis, Design, Authors' conclusion)
                             | | Arm A | Arm B      the groups, one column each (two or more)
@@ -203,13 +204,16 @@ def render_chapter(md, sources, idx, base=".", probes=False, moves=None, layout=
     out, kinds, title, anchor, fig_n = [], [], "", f"ch{idx}", [0]
     for b in blocks:
         first = b[0]
-        kinds.append("trial" if first.startswith("::: trial") else "formula" if first.startswith("::: formula") else "h3" if first.startswith("### ") else
+        kinds.append("survives" if first.startswith("::: survives") else "trial" if first.startswith("::: trial") else "formula" if first.startswith("::: formula") else "h3" if first.startswith("### ") else
                      "h2" if first.startswith("## ") else "h1" if first.startswith("# ") else
                      "figure" if re.match(r"!\[(.*)\]\((\S+\.svg)\)\s*$", " ".join(b)) else
                      "quote" if first.startswith(">") else "list" if re.match(r"(\d+\.|[-*])\s", first) else "p")
         if first.startswith("# "):
             title = first[2:].strip()
             out.append(f'<h1 id="{anchor}">{inline(title, cite)}</h1>')
+        elif first.startswith("::: survives"):
+            items = "".join(f"<li>{inline(l.strip(), cite)}</li>" for l in b[1:] if l.strip() != ":::")
+            out.append(f'<aside class="survives"><div class="sv-h">What survives</div><ul>{items}</ul></aside>')
         elif first.startswith("::: trial"):
             out.append(render_trial(b, cite, two_part=print_mode))
         elif first.startswith("::: formula"):
@@ -319,6 +323,10 @@ STYLE = """
   figcaption b{color:var(--ink)}
   blockquote.saddle{margin:18px 0;padding:4px 0 4px 18px;border-left:3px solid var(--accent);font-style:italic}
   .formula{margin:18px 0 20px;text-align:center;line-height:1.7}
+  aside.survives{margin:30px 0 8px;padding:14px 18px 12px;border-top:3px solid var(--accent);border-bottom:1px solid var(--rule);background:var(--bg)}
+  aside.survives .sv-h{font-family:var(--sans);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
+  aside.survives ul{list-style:none;margin:0;padding:0}
+  aside.survives li{margin:6px 0;font-size:17px;line-height:1.45;font-weight:500}
   section.refs{margin-top:34px;padding-top:6px;border-top:1px solid var(--rule)}
   section.refs h2{font-family:var(--sans);font-size:15px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
   section.refs ol{font-family:var(--sans);font-size:14px;line-height:1.5;color:var(--muted)}
@@ -409,6 +417,10 @@ PRINT_STYLE = """
   figcaption{font-family:var(--sans);font-size:7.5pt;line-height:1.35;text-align:left;hyphens:manual;margin-top:4pt}
   blockquote.saddle{margin:9pt 0;padding-left:9pt;border-left:1.2pt solid #000;font-style:italic}
   .formula{margin:8pt 0 9pt;text-align:center;line-height:1.6;break-inside:avoid}
+  aside.survives{margin:14pt 0 4pt;padding:5pt 0 4pt;border-top:1.2pt solid #000;border-bottom:.5pt solid #000;break-inside:avoid}
+  aside.survives .sv-h{font-family:var(--sans);font-size:7pt;font-weight:600;letter-spacing:.12em;text-transform:uppercase;margin-bottom:2pt}
+  aside.survives ul{list-style:none;margin:0;padding:0}
+  aside.survives li{margin:3pt 0;text-align:left;hyphens:manual;-webkit-hyphens:manual}
   section.refs{margin-top:16pt}
   section.refs h2{font-family:var(--sans);font-size:7.5pt;letter-spacing:.08em;text-transform:uppercase;margin:0 0 4pt}
   section.refs ol{font-family:var(--sans);font-size:7pt;line-height:1.35;text-align:left;hyphens:manual;padding-left:2em;margin:0}

@@ -96,6 +96,7 @@ def paragraphs(text):
                         "quote" if first.startswith(">") else
                         "table" if first.startswith("|") else
                         "formula" if first.startswith("::: formula") else
+                        "survives" if first.startswith("::: survives") else
                         "trial" if first.startswith(":::") else
                         "list" if re.match(r"([-*+]|\d+\.)\s", first) else "para")
                 yield start, kind, "\n".join(block)
@@ -148,6 +149,20 @@ def check(path, sources):
             if not block.rstrip().endswith(":::"):
                 flags.append((start, "structure", "formula not closed with :::"))
             continue
+        if kind == "survives":
+            # The box that closes a chapter: a few short claims, already sourced in the chapter above.
+            items = [l for l in block.split("\n")[1:] if l.strip() != ":::"]
+            if not block.rstrip().endswith(":::"):
+                flags.append((start, "structure", "survives box not closed with :::"))
+            if not 2 <= len(items) <= 4:
+                flags.append((start, "structure", f"survives box has {len(items)} lines (aim for 2 to 4)"))
+            for i, l in enumerate(items, 1):
+                n = len(re.sub(r"\{grade [ABC]\}", "", l).split())
+                if n > 22:
+                    flags.append((start + i, "survives", f"line of {n} words: keep each under about 20"))
+            if text.rstrip()[-len(block):] != block.rstrip():
+                flags.append((start, "structure", "survives box should be the last thing in the chapter"))
+            continue
         if kind == "trial":
             # A trial laid out as a table: no rhythm check, but its numbers still need a citation inside it.
             if not CITE.search(block):
@@ -156,6 +171,9 @@ def check(path, sources):
                 flags.append((start, "structure", "trial table not closed with ::: (no blank lines allowed inside)"))
             continue
         if kind == "para":
+            keys = {k for g in re.findall(r"\[(@[^\]]+)\]", block) for k in KEY.findall(g)}
+            if len(keys) >= 4 and not block.lstrip().startswith("!["):
+                flags.append((start, "crowded", f"paragraph cites {len(keys)} studies: one should carry the point (style.md, Leading the reader)"))
             sents = sentences(block)
             lens = [len(s.split()) for s in sents]
             sentence_lengths += lens

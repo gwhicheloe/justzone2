@@ -96,6 +96,39 @@ Make the general point through the particular. Not "a solo win depends on the ch
 
 Real races told in detail are the model for the particular (George, 5 October 2026, on the van der Poel and Pogačar openings of Durability): where the attack went, how far out, the gap at a named point, the margin, what the rider said afterwards. Use them where a chapter has a natural one, with every detail checked against official results.
 
+## Leading the reader through the evidence
+
+(George, 17 October 2026: "some of the text in the book has lost its clarity - and clarity is key, sometimes we end up meandering between studies leaving the reader confused and overwhelmed. Writing style should be direct leading the reader carefully through the complexity." Earlier the same day, on Chapter 11: "very heavy going, too many studies, darting around"; and "if they are coming to similar conclusions, pick the better one and stick with that".)
+
+This is the book's most important rule of prose, and the one a model drafting from research notes breaks most easily. The failure has a recognisable shape: a claim is introduced through the studies instead of stated; each study gets its own caveat; a second study is brought in to qualify the first; the paragraph closes on the dispute. The reader finishes holding four studies and no sentence they could repeat. The remedy is not fewer facts. It is an order.
+
+**The order of a paragraph that uses evidence**
+
+1. **The claim, in plain words, first.** What the reader should take away, as a sentence a rider could repeat. "Take the baseline as the average of the early stages, not the lowest reading." Not "The papers that use the rule do not agree on what to call the baseline."
+2. **One study carries it.** The best one: the largest, the one in cyclists, the one that measured what the rider cares about. Give its numbers.
+3. **Other studies become a clause or go unprinted.** "Two smaller trials agree." "A later study in 12 cyclists found the same stage, almost to the beat." If a second study adds nothing the first didn't, it moves to `{shadow}` or out.
+4. **One caveat at most, and then what it means for the rider.** The caveat names the study it applies to and what it changes. Not "more research is needed."
+
+A section follows the same order at a larger scale: its first paragraph says what the section concludes, the studies follow, and it ends on the conclusion or the advice, never on the last caveat.
+
+**Before and after** (Chapter 6, the baseline paragraph). Before: "The meter's error also bears on what to call the baseline. The papers that use the rule do not agree on it. One averaged the readings of the early stages, the Würzburg group's label for its baseline points to the lowest reading of the test, and others do not say. This book takes the average of the early stages, because…" After: "Take the baseline as the average of the early stages, not the lowest reading. One stray low reading moves an average less than it moves a minimum, and with a meter's error, stray readings happen. The papers that use the rule do not agree on this: one averaged the early stages, the Würzburg group's label points to the lowest reading, and others do not say." Same facts, same citations. The reader has the answer before the dispute.
+
+**When studies disagree.** Say so in one sentence, say which the book follows and why, and move on. "The two cyclist studies agree on where the uncertain stage falls and disagree on which stage to use. The difference is in the question each asked." A paragraph that lays out both sides at equal length and leaves the reader to choose has not done its job. If the book genuinely cannot choose, say that in one sentence, give the grade, and give the practical consequence.
+
+**When studies agree.** One study, named, with numbers. The rest in a clause. A reader convinced by one good trial is not more convinced by four small ones listed after it, only more tired.
+
+**Limits, in numbers.** A paragraph of prose cites one study, sometimes two. Three is the ceiling, and only when the sentence is of the form "three studies found X, Y and Z". A section rarely needs more than four printed studies. `tools/check.py` flags a prose paragraph with four or more distinct printed citations. A chapter above about 7 sources per 1,000 words is a sign that studies are being listed rather than used.
+
+**Sentences.** The median sentence is 17 to 20 words. Anything over 35 words gets split unless it is a list. Chains of "the same group", "a later review", "another study" are the sound of a reference list being read aloud; name the finding instead.
+
+**Chains to break.** "In 2013 X found… In 2016 Y found… A 2020 review found…" is a history of the literature, not an argument. If the history matters, as in Chapter 8's account of how elite training changed, say that it is history and tell it as one. Otherwise lead with the current position and cite the study that establishes it.
+
+**Hedging.** Hedge once, precisely, at the point where the uncertainty lives. "In the one trial in amateurs, they were no faster" is a hedge. "It may be that in some circumstances this could…" is three. Grades carry most of the hedging; the prose can be direct because the grade is honest.
+
+**Endings.** Sections and chapters end on what survives: the claim, the advice, or the single fact the reader should carry out of the door. Never on the caveat. The `::: survives` box exists for chapters; inside a chapter the last sentence of a section does the same work. Every *Reading the research* box ends by saying what still holds of the study it has just taken apart.
+
+**A test for any paragraph.** Cover the citations and read it. Could a rider tell someone else what it says in one sentence? If not, the claim is missing or buried. Then uncover the citations. Does each one hold up a sentence the reader needed? If not, it goes.
+
 ## Words and phrases to avoid
 
 The checker flags these. A few have legitimate uses (a "robust" statistical method, a "landscape" photo); keep those only when the plain meaning is intended.
@@ -146,6 +179,7 @@ What each element is, when used:
 - **How it works.** The mechanism. Plain explanations, analogies only where they're accurate, and a diagram where it helps. Mark speculation as speculation.
 - **Reading the research.** One skill, practised on a real study from that chapter: e.g. correlation and causation, small samples and unstable correlations, "a trend that didn't reach significance", responders and non-responders, lab markers against performance, who was studied. Short: 300 to 500 words.
 - **From the saddle.** George's experience, in a blockquote headed `> **From the saddle.**`. His words, lightly edited. Never invented. Use it only where George has already said something (his words are kept in `george/notes.md`); otherwise the chapter has no box. No placeholders asking for his experience: George, 15 October, asked for them to be filled or dropped, and they were dropped. It can sit anywhere, more than once.
+- **What survives** (George, 17 October 2026: "a box at the end of each chapter saying 'what survives' that can be a nice punchy way to finish the chapter where appropriate. I like short conclusions"). The last thing in a chapter, written `::: survives`, one claim per line, two to four lines, each under about 20 words, with the chapter's own grade where the chapter gives one. No citations and no new facts: every line restates something the chapter has already sourced, and its grade must match the chapter's and the Verdict's. Left out of the Introduction, the Verdict and the Drugs chapter (legal read pending). Reading the research boxes likewise end by saying what survives of the study, not on the warning.
 - **Figures.** Redrawn from published data, with the source in the caption. No copied figures.
 - **Chart titles state the point** (George, 11 October 2026): a chart's title is the main thing it is meant to show, written as a claim ("Small trials that reach significance overstate the effect"), not a description of what was plotted. What was plotted goes in the line under the title or in the caption.
 
