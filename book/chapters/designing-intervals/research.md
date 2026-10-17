@@ -9,8 +9,9 @@ Written 15 October 2026 with the first draft, the second of three Part III chapt
 ## 1. What a session is made of
 - Buchheit & Laursen 2013 [Abs]: up to nine variables: work intensity and duration, relief intensity and duration, exercise mode, repetitions, series, and the duration and intensity of recovery between series.
 - Billat 2001 [Abs]: interval training described by Reindell and Roskamm, popularised by Zátopek in the 1950s.
-- Billat 2001 [Abs]: coaches set interval speeds from race paces, not from physiological markers.
-- Casado 2023 [FT, history section]: Zátopek ran "60 × 400 m or 40 × 400 m" (also in Chapter 8's notes). Used for the chapter's opening (16 October 2026, structure review point 8); the "Czech" and the Olympic medals are not used.
+- Billat 2001 [Abs]: coaches set interval speeds from race paces, not from physiological markers. (17 October: the draft's earlier "because nobody could yet measure" was my inference, not the abstract's; now says only that speeds were not set from anything measured in the athlete. Heart rate, oxygen uptake and lactate are given as examples of such markers.)
+- **Cut from this chapter 17 October** (George: "make the cut - it doesn't add anything"): the Zátopek opening and the Billat 2001 sentence after it; the chapter now opens on Seiler 2013 ("The hardest interval session…", hardest by heart rate and lactate; RPE was compared only between 4 × 4 and 4 × 8). Zátopek stays in Chapter 8.
+- Casado 2023 [FT, history section]: Zátopek ran "60 × 400 m or 40 × 400 m" (also in Chapter 8's notes). Recovery "typically of a 200 m jog"; "The pace used and effort made during these repetitions were submaximal" (and again in section 6: "Zatopek covered interval training at submaximal paces and effort"). Used for the chapter's opening (16 October 2026, structure review point 8; "hard" corrected to "none of them flat out" on 17 October after George queried the sentence); on 17 October, after George asked who Zátopek was, the opening also uses Casado's "Czech runner Emil Zatopek, multiple-time Olympic champion in events from 5000 m to marathon from 1948 to 1952" (no specific medals beyond that).
 
 ## 2. Long intervals: 4 × 4, 4 × 8 and longer
 
@@ -22,6 +23,7 @@ Written 15 October 2026 with the first draft, the second of three Part III chapt
 - Gains, "overall" in VO₂peak, power at VO₂peak and power at 4 mmol/L (mean, 95% CI): **4 × 8: 11.4% (8.0 to 14.9)**; Low 4.2% (0.4 to 8.0); 4 × 16 5.6% (2.1 to 9.1); 4 × 4 5.5% (2.0 to 9.0). P < 0.02 for 4 × 8 against every other group.
 - Authors: "Accumulating 32 min of work at 90% HR max induces greater adaptive gains than accumulating 16 min of work at ~95% HR max despite lower RPE."
 - [Own] Work per session: 16, 32 and 64 min. Recovery durations are not in the abstract and are not stated in the draft. The "overall" figure appears to combine three measures; the abstract does not give each one.
+- 17 October 2026: full text checked for. Closed access (Wiley; Unpaywall and Semantic Scholar list no open copy), so it was not read. After George's comment ("don't really want to say we just read the abstract"), the draft's limits paragraph now says "the headline gain combines three measures, so on its own it doesn't show…", which is true whatever the full paper reports. If the full text is obtained (library or the authors), check the separate VO₂peak and 4 mmol/L results and the recovery durations.
 
 ### Sylta et al. 2016, Med Sci Sports Exerc [Abs]
 - 63 cyclists (VO₂peak 61.3), 12 weeks, 24 interval sessions, high volume of low-intensity training. Increasing group (n = 23): 4 × 16 (weeks 1 to 4), 4 × 8 (5 to 8), 4 × 4 (9 to 12); decreasing (n = 20) the reverse; mixed (n = 20). Sessions as maximal session efforts: lactate **4.7, 9.2 and 12.7 mmol/L** in 4 × 16, 4 × 8, 4 × 4.
@@ -90,6 +92,7 @@ Written 15 October 2026 with the first draft, the second of three Part III chapt
 - **Wisløff et al. 2007**, Circulation [Abs]: 27 patients with stable post-infarction heart failure, age 75.5 ± 11.1, ejection fraction 29%, VO₂peak 13 mL/kg/min; moderate continuous (70% of peak HR) vs aerobic interval training (95% of peak HR), 3 times a week for 12 weeks, vs control. VO₂peak **+46% vs +14%**; LV end-diastolic and end-systolic volumes down 18% and 25% and ejection fraction up 35% with intervals only. The interval protocol (4 × 4) is not stated in the abstract and not stated in the draft.
 - **Seiler & Hetlelid 2005** [Abs]: 9 well-trained male runners (VO₂max 71), 6 × 4 min self-paced with 1, 2 or 4 min recovery: speed 14.4 (1 min) vs 14.7 (2 and 4 min) km/h; work VO₂ 66.2 (2 min) vs 65.1 and 64.9; peak lactate similar; peak RPE 17.1, 17.7, 16.8; self-selected recovery **118 ± 23 s**.
 - **Midgley & McNaughton 2006** [Abs]: warm-up of 10 to 15 min at 1 or 2 km/h below lactate-threshold speed, no gap before the intervals.
+- Midgley 2006 [Abs, re-read 17 October 2026]: near VO₂max defined as ≥95%; work 90% to 105% of vVO₂max; relief between 50% of vVO₂max and lactate-threshold velocity; work and relief 15 to 30 s each; "Further experimental research is required to identify the specific physiological responses and adaptations … before recommendations can be given to competitive endurance runners." Draft now names these after George's comment ("feels really vague talking about these 'rules'"). [Own] "which fits the review's short periods" replaces "which is why the review recommended", since the abstract doesn't give its reasoning.
 - **Hatle 2014** [FT]: 10-min warm-up; 3 min recovery at 70% HRmax.
 - **Stöggl & Sperlich 2014** [FT, Chapter 8]: threshold group 46/54/0% of sessions; VO₂peak no significant change; power at 4 mmol/L +1.4%.
 - **Hov et al. 2023** (men; in sources.yaml notes for helgerud2023): 4 × 4 +6.5% VO₂max. Not cited separately.
@@ -101,6 +104,7 @@ Written 15 October 2026 with the first draft, the second of three Part III chapt
 - Appelhans 2025: the fixed intensities were "based on percentages of maximal aerobic power"; whether they were conservative is not stated, and the draft says only "may".
 
 ## Side roads
+- **17 October 2026, George:** "there's still lots of trials here … if they are coming to similar conclusions, pick the better one and stick with that". "Long intervals" now rests on Sylta 2016 (the largest, in cyclists) plus one sentence defining the Trondheim 4 × 4. Cut from this chapter: Helgerud 2007's 4 × 4 against 15/15 numbers (still in Chapters 7 and 12, and cited here for stroke volume), Lindsay 1996 and Stepto 1999 (still in Chapter 12, whose "described in Chapter 11" was removed).
 - **Used:** Lindsay's 1996 South African cyclists (the first well-trained cyclists shown to improve with intervals); Stepto's five sessions with two winners at opposite ends; Helgerud 2023's injuries in women running all-out sprints; Seiler 2013's recreational cyclists on six hours a week, the readers of this book.
 - **Not used:** Tabata 1996 (cited by Helgerud 2023; not looked up); the GCN video on 30/15s (not watched); Christensen, Hedman & Saltin 1960 (not read).
 

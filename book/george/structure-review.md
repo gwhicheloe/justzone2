@@ -72,7 +72,7 @@ All seven From the saddle boxes are in Chapters 2–9; Chapters 10–20 (about 4
 ### 8. The chapter openings repeat one formula — done 16 Oct (partly)
 Nine of the twenty chapters open "In [year], [researcher]…". Chapters 6 and 7 opened with definitions instead of a scene.
 - Ch 7: done (point 6).
-- Ch 11: done. Opens on Zátopek's 40 or 60 × 400 m, then Seiler 2013 as the measured answer.
+- Ch 11: done. Opens on Zátopek's 40 or 60 × 400 m, then Seiler 2013 as the measured answer. **Reversed 17 October** (George: "make the cut - it doesn't add anything"): Zátopek cut; now opens "Harder intervals are not always better intervals." then Seiler 2013 (first tried "The hardest interval session did little more than riding easy"; George: "what hardest interval?").
 - Open: the other "In [year], [researcher]" openings are left; with two changed, nine of twenty is now seven.
 
 ### 9. Many chapters end by deflating — done 16 Oct
