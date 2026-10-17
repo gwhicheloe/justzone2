@@ -36,7 +36,7 @@ Why do the best endurance athletes do most of their training easy, and does thei
 
 ## Figures
 
-- `elite-distributions.svg`: eight groups of elite athletes as stacked bars. From `elite-distributions.csv`. Four rows are taken from the table in a review, not from the original papers, and the last is my arithmetic; the caption says both.
+- `elite-distributions.svg`: seven groups of elite athletes as stacked bars (the single skier's row removed 17 October 2026). From `elite-distributions.csv`. Four rows are taken from the table in a review, not from the original papers, and the last is my arithmetic; the caption says both.
 - `champions-week.svg`: the champions' easy and hard hours by phase, with an illustrative seven-hour week. From `champions-week.csv` (Tønnessen 2014, Table 4).
 - Both checked by screenshot at 680 px.
 

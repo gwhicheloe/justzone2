@@ -1,6 +1,6 @@
 # Chapter 9: Durability
 
-<!-- Draft 1, complete (5 October 2026). Figure in "What the professionals show" waits on the Mateo-March 2022 full text. -->
+<!-- Draft 1, complete (5 October 2026). -->
 
 ## 175 kilometres alone
 
@@ -58,7 +58,7 @@ Delivery is the other side. Over a long ride you lose fluid as sweat, which lowe
 
 Heat makes all of this worse, and it is the mechanism I have felt most directly, as Chapter 15 describes. Part of what feels like fading legs is the circulation.
 
-Then there is glycogen. The oldest explanation for fading late in a ride is that the muscles run out of stored carbohydrate, and nobody doubts that glycogen matters in long exercise. What Jones's lab found is that it doesn't neatly explain the fall in critical power. They took muscle biopsies from 14 men before and after two hours of riding. Glycogen fell by about 65% and critical power by about 11%, but the riders who lost the most glycogen were not the riders who lost the most critical power: the correlation between the two was 0.19, which is close to none [@clark2019b].
+Then there is glycogen. The oldest explanation for fading late in a ride is that the muscles run out of stored carbohydrate, and nobody doubts that glycogen matters in long exercise. What Jones's lab found is that it doesn't neatly explain the fall in critical power. They took muscle biopsies from 14 men before and after two hours of riding. Glycogen fell by about 65% and critical power by about 11%. But the riders who lost the most glycogen were not the riders who lost the most critical power: the correlation between the two was 0.19, which is close to none [@clark2019b].
 
 That result is often repeated as "it's not about glycogen", which goes further than the data. The authors themselves point out that a biopsy samples a tiny piece of one muscle, and that a real relationship could be hidden by that alone. A study of 14 people is also too small to detect a relationship of moderate size reliably, a problem the Reading the research box in this chapter returns to. The fair summary is that in these data, glycogen loss did not predict who faded most. The same study found that the rise in oxygen cost did not predict it either. The two most obvious explanations both fail to account for the differences between riders, and the question is open. {grade C}
 
@@ -94,9 +94,7 @@ In a lab study of trained amateurs described later in this chapter, three hours 
 
 The "fatigued" figures are the best efforts a rider happened to make late in a ride. Nobody asked him to make them. A rider produces a maximal five-minute effort after 45 kJ/kg only if the race puts him in a position where it is worth doing, which means he is in the front group on the last climb. A domestique who has finished his work for the day rides in at whatever pace gets him to the bus. Better riders are more often in the finale, so they have more chances to record a high number late on. Some of the gap between divisions may be opportunity. This is my own reading of the method, and I have not seen the size of the effect estimated.
 
-A second complication is that kilojoules are a blunt measure of how tired someone is. Two thousand kilojoules ridden steadily in the bunch and 2,000 that include repeated attacks are different days. A group led by Peter Leo counted only the work done above critical power and found that in under-23 riders, power for efforts of a minute or longer fell significantly after 5 kJ/kg of it, while professionals held on until 7.5 kJ/kg {shadow @leo2024}. A 2026 systematic review of 21 studies reached the same conclusion more generally: hard work does more damage per kilojoule than easy work, with losses of 10% to 20% reported after as little as 2.5 to 15 kJ/kg of high-intensity riding [@sanchezjimenez2026]. For anyone comparing their own files, the lesson is to compare like with like. Power after three steady hours and power after a three-hour chain gang are answers to different questions.
-
-A Dutch-led group that tested 16 semi-professionals in the lab, fresh and after about 38 kJ/kg, found the opposite emphasis: one-minute power fell when they were tired and ten-minute power did not {shadow @voet2024}.
+A second complication is that kilojoules are a blunt measure of how tired someone is. Two thousand kilojoules ridden steadily in the bunch and 2,000 that include repeated attacks are different days. A group led by Peter Leo counted only the work done above critical power. In under-23 riders, power for efforts of a minute or longer fell significantly after 5 kJ/kg of it, while professionals held on until 7.5 kJ/kg {shadow @leo2024}. A 2026 systematic review of 21 studies reached the same conclusion more generally: hard work does more damage per kilojoule than easy work, with losses of 10% to 20% reported after as little as 2.5 to 15 kJ/kg of high-intensity riding [@sanchezjimenez2026]. For anyone comparing their own files, the lesson is to compare like with like. Power after three steady hours and power after a three-hour chain gang are answers to different questions.
 
 Whether durability can be read off an ordinary lab test is disputed. In the amateur riders tested in Jones's lab, the fall in critical power was unrelated to VO₂max or to critical power when fresh [@joneskirby2025]. In 10 young professionals studied by James Spragg and colleagues, the change in critical power after a set of hard efforts correlated very strongly with VO₂max, threshold power and efficiency, with correlations between 0.74 and 0.89 [@spragg2023a]. Ten riders is a very small group for claims of that kind, and the Reading the research box below explains why those numbers deserve less trust than they seem to. For now the fair statement is that nobody knows whether durability is a separate quality or mostly a reflection of being fit.
 
@@ -112,7 +110,7 @@ The one trial that assigned people to easy or hard riding comes from Finland. Pe
 
 Durability improved in both groups, and by about the same amount. In the low-intensity group the average drift went from 7.7% to 6.3% and its onset moved from 106 to 131 minutes, changes that fell just short of statistical significance. In the interval group the drift went from 8.8% to 5.4% and the onset from 108 to 137 minutes, both significant [@matomaki2023]. There was no significant difference between the groups.
 
-In that trial, training of either kind made beginners more durable. Four times the hours of easy riding bought no more durability than the intervals did. And the changes were small. It can't tell you what happens in a rider with five years of training behind them, or over a year instead of 10 weeks, and the reviews' main suggestion is precisely that durability comes from volume accumulated over years [@joneskirby2025]. A 10-week trial cannot test that idea. {grade B} for the claim that training improves durability in untrained people.
+In that trial, training of either kind made beginners more durable. Four times the hours of easy riding bought no more durability than the intervals did. And the changes were small. It can't tell you what happens in a rider with five years of training behind them, or over a year instead of 10 weeks. The reviews' main suggestion is precisely that durability comes from volume accumulated over years [@joneskirby2025]. A 10-week trial cannot test that idea. {grade B} for the claim that training improves durability in untrained people.
 
 The study in trained cyclists was of strength training. Bent Rønnestad's group in Norway had 11 well-trained cyclists add heavy leg strength training twice a week for 12 weeks while nine carried on with endurance training alone {shadow @ronnestad2011}. Afterwards each rode for just over three hours at an easy pace and then did a five-minute all-out effort. The strength group's power in that effort rose from 371 W to 400 W. The control group's didn't change. It is one study of 20 riders, but it is an intervention in trained cyclists, measured late in a long ride, and the thing that worked was heavy weights. It belongs here as a reminder that the long ride is not the only candidate.
 
@@ -150,7 +148,7 @@ Spragg's season-long study found that riders who spent more time below the first
 
 Spragg's lab study found correlations as high as 0.89 between riders' lab measures and the change in their critical power [@spragg2023a]. That looks close to proof. It came from 10 riders. With a sample that small, the true value could plausibly lie anywhere from about 0.6 to 0.97, by the standard calculation of a 95% confidence interval. For the weakest of the reported correlations, 0.74, the plausible range runs from about 0.2 to 0.93. The same arithmetic applies in the other direction to the glycogen result earlier in the chapter. A correlation of 0.19 from 14 riders is compatible with a true value anywhere between about −0.4 and 0.65, which covers everything from a moderate negative relationship to a strong positive one [@clark2019b]. With 10 or 14 people, chance alone can produce a large correlation or hide a real one.
 
-When a paper reports a correlation, look for the number of people before the size of r. Below about 30, treat a striking correlation as a reason to run a bigger study.
+When a paper reports a correlation, look for the number of people before the size of r. Below about 30, treat a striking correlation as a reason to run a bigger study. What survives from this chapter's correlations is a pointer, not a proof: over a real season, the riders who did more easy riding improved their power when fatigued.
 
 ## What to do with it
 
@@ -166,3 +164,8 @@ Eat on anything longer than about 90 minutes, which is roughly where critical po
 
 Then there is the long ride itself. Keep doing it. The mechanism is plausible, the comparisons of durable and less durable athletes point to accumulated volume, and nothing else on offer has better evidence apart from fuelling and, on one study, the weights room. But hold the belief at its proper strength. If the next few years bring a trial showing that an hour of intervals builds as much durability in trained riders as it did in the Finnish beginners, that should change your mind, and it will change this chapter.
 
+::: survives
+Over a long ride, riders lose anything from under 1% to about a third of their critical power. {grade B}
+Carbohydrate during the ride protects late-ride power. {grade B}
+The long ride is a reasonable bet for durability, not a proven one. {grade C}
+:::

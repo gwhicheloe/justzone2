@@ -66,7 +66,7 @@ Athletes training 10 to 13 times a week "converge on" about 80% of sessions at l
 - Guellich & Seiler 2010 [Abs]: 51 German junior track cyclists (30 international, 21 national junior finalists), 15 weeks; 17 "responders" (+11 ± 4% power at 4 mmol/L per kg) against 17 "non-responders" (−7 ± 6%); same total distance; responders more distance under 2 mmol/L, non-responders more at 3 to 6; distribution "accounted for approx. 60% of the variance".
 
 ## 2. History (all from Casado, Foster, Bakken & Tjelta 2023 [FT, section 2], a review)
-- Interval training named in the 1930s by Woldemar Gerschler and Herbert Reindel; Emil Zátopek ran "60 × 400 m or 40 × 400 m".
+- Interval training named in the 1930s by Woldemar Gerschler and Herbert Reindel; Emil Zátopek ran "60 × 400 m or 40 × 400 m". Casado also calls him a "Czech runner" and "multiple-time Olympic champion in events from 5000 m to marathon from 1948 to 1952" (used from 17 October to say who he was).
 - 1960s: Arthur Lydiard (New Zealand) "criticized the hard interval training regimes"; 10 to 12 weeks of mostly easy continuous running "targeted at reaching 100 miles (160 km) per week", then hills, then track intervals. Coached Peter Snell (three Olympic golds, 800 and 1,500 m, 1960 to 1964) and Murray Halberg (5,000 m gold, 1960). Ernst van Aaken in Germany proposed much the same.
 - 1970s and 1980s: Lydiard's volume plus interval sessions in the preparation period; "hard day–easy day" "usually attributed to" Bill Bowerman and Bill Dellinger at Oregon.
 - Since then "two to five weekly sessions of interval training and/or longer tempo runs combined with a relatively high volume of easy" running; "Most of these training characteristics have been determined through a 'trial and error' approach rather than by the outcomes of intervention studies."
@@ -176,3 +176,6 @@ Not used: the champions ignored the tapering advice from short trials (three of 
 - It attributes the 350 and 750 hours a year to Sun and colleagues as an observation. Sun reports it as something Seiler "posits".
 - "Polarized produced an 11.7% rise in VO₂peak and a 17.4% rise in time to exhaustion, significantly more than the others": the time to exhaustion did not differ significantly between groups.
 - Not corrected on the website.
+
+## Single skier removed (17 October 2026)
+George, review-page comment: "let's forget about this single skier!" (after an earlier comment that comparing cycling with one person was strange). Solli 2017 is no longer cited in the chapter: its sentence in "What the records show", its row in the figure, the career paragraph in "How the pattern came about", the "same shape" paragraph in "Why it might work", her altitude camps and 12-year build-up in the selection paragraph, and the citation on "15 to 20 hours a week". The notes on her above are kept for reference. The figure title no longer calls road cycling "the untidy case".

@@ -805,10 +805,10 @@ def fatmax_feeding():
 
 
 def elite_distributions():
-    """Stacked bars: share of training time below, between and above the thresholds in eight groups of elite athletes."""
+    """Stacked bars: share of training time below, between and above the thresholds in seven groups of elite athletes."""
     rows = _rows("elites", "elite-distributions.csv")
-    b, y = head("Elite training is mostly easy, and road cycling is the untidy case",
-                "Share of endurance training time in eight groups of elite athletes, most easy at the top. "
+    b, y = head("Elite training is mostly easy, but road cyclists do more in the middle",
+                "Share of endurance training time in seven groups of elite athletes, most easy at the top. "
                 "The studies counted in different ways, noted under each name.")
     W, left, right, rh = 680, 330, 550, 48
     X = lambda v: left + v / 100.0 * (right - left)
@@ -835,7 +835,7 @@ def elite_distributions():
             b.append(f'<rect x="{X(x):.1f}" y="{y - 10:.1f}" width="{w:.1f}" height="20" fill="{fill}"/>')
             x += v
         b.append(text(right + 12, y + 5, " / ".join(f"{v:.0f}" for v in vals), 16.5, INK, "start", "600"))
-    return _save("elites", "elite-distributions.svg", W, H, b, "Stacked bars of training time below the first threshold, between the thresholds and above the second in eight groups of elite athletes, from 95, 2 and 3 percent in junior rowers to 22, 68 and 10 percent in under-23 professional cyclists")
+    return _save("elites", "elite-distributions.svg", W, H, b, "Stacked bars of training time below the first threshold, between the thresholds and above the second in seven groups of elite athletes, from 95, 2 and 3 percent in junior rowers to 22, 68 and 10 percent in under-23 professional cyclists")
 
 
 def champions_week():
