@@ -234,3 +234,13 @@ Candidates for the less-used material (style.md, "Choosing what to cover"). **Us
 - The step protocol is a synthesis, untested as a package. It should be tried by George before the book recommends it.
 - The explanation of why speech becomes hard at the first threshold is inference.
 - First names and places not in the papers: [GK].
+
+## If FTP is the only number you have (17 October 2026)
+
+George asked "have we talked about ftp at all?", then "yes please cover it". Section added to the draft after "The second threshold".
+- Coggan Level 2 = 56–75% of FTP: as printed in Chapter 5 (allencoggan2010; the level boundaries are [GK] in the Intensity notes).
+- Jamnick 2018 [FT, Intensity notes]: 4-minute stages, baseline + 0.5 mmol/L at 229 W; MLSS 264 W. [Own] 229 / 264 = 86.7%, "about 87%". Chosen over Pallarés 2016 (214 / 255 = 84%) because Pallarés used a 25 W-a-minute ramp, which this chapter says delays the lactate rise.
+- Borszcz 2019 [Abs]: FTP vs MLSS bias 1.4% ± 9.2% (direction not stated): "level". Inglis 2020 [Abs]: MLSS = 93.1% of FTP, so FTP 7.4% above MLSS: "about 7% above". Limits of about 9% either way: Chapter 5.
+- [Own] First threshold as a share of FTP: 0.867 / 1.074 = 80.7% to 0.867 / 1.0 = 86.7%, "roughly 80 to 87%". Two small studies of different riders combined; no study measured the first threshold against FTP directly. Graded C.
+- [Own] 250 W FTP: 75% = 187.5 W ("about 190"); 80.7 to 86.7% = 202 to 217 W ("around 200 to 220").
+- "Threshold intervals a little below it": Chapter 11's "just below the second threshold", adjusted for Inglis's high reading [Own].

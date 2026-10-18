@@ -162,6 +162,16 @@ The talk test reaches the second threshold too. In the 18 trained cyclists, the 
 
 A rider who wants percentages as a cross-check should measure a maximum heart rate on the bike and not predict one. A properly measured maximum is accurate to about two beats [@robergs2002]. Older riders, untrained riders and anyone with a heart condition should not go looking for one without medical advice.
 
+## If FTP is the only number you have
+
+Many riders have only an FTP, because that is the number their software asks for. It can set a Zone 2 ceiling, as long as the ceiling is treated as a first guess.
+
+The usual way is Coggan's levels, which stop Level 2 at 75% of FTP {shadow @allencoggan2010}. On average that sits below the first threshold, not at it. In 17 trained cyclists tested with four-minute stages, the first lactate rise came at 229 W and the maximal lactate steady state at 264 W, so the first threshold was about 87% of the steady state [@jamnick2018]. FTP has come out level with the steady state in one study and about 7% above it in another, as Chapter 5 described [@borszcz2019; @inglis2020]. Put together, my arithmetic places the average first threshold at roughly 80 to 87% of FTP. For a rider with an FTP of 250 W, Level 2 stops at about 190 W, and the average threshold sits somewhere around 200 to 220 W.
+
+Those are averages from small groups, and for one rider each step adds its own error: FTP can be about 9% out against the steady state [@inglis2020], and the gap between the two thresholds is unlikely to be a fixed proportion (Chapter 5). So start at 75% of FTP, which is cautious for the average rider in these studies, and use the talk test to find how far above it you can ride while still speaking comfortably. {grade C}
+
+For the hard sessions FTP is more useful, because it is an estimate of the second threshold itself. Threshold intervals belong a little below it, since it may read high. For the sessions near VO₂max, Chapter 11's advice stands: a percentage of FTP is a starting point, and the power to ride is the highest you can hold for the whole set.
+
 ## Keeping the numbers right
 
 Heart rate at the threshold stays put through a season and the power moves, so the power is what needs rechecking. In 2000 Alejandro Lucía and colleagues tested 13 professional road cyclists three times in a season: in November during their break, in January, and in May when they were racing. The power at their thresholds rose as they got fitter. The heart rates hardly moved. At the lactate threshold they averaged 154, 152 and 154 bpm across the three tests, and at the second ventilatory threshold 178, 173 and 176 {shadow @lucia2000}. The authors concluded that one test at the start of the season is enough to set a professional's heart-rate targets for the year.
@@ -176,4 +186,5 @@ A lactate meter stays at home, and the numbers it gave you are what you ride to.
 A lactate test finds the top of Zone 2 best, and even it is uncertain by 10 to 20 W.
 The talk test is the best-supported method that costs nothing. {grade B}
 A heart-rate app can be 30 beats out for one rider. Check it before you ride to it. {grade B}
+With only an FTP, 75% of it is a cautious Zone 2 ceiling to start from. {grade C}
 :::
