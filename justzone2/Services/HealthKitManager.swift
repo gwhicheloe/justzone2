@@ -154,10 +154,7 @@ class HealthKitManager: NSObject, ObservableObject {
             workoutBuilder?.delegate = self
 
             if collectLiveHR {
-                workoutBuilder?.dataSource = HKLiveWorkoutDataSource(
-                    healthStore: healthStore,
-                    workoutConfiguration: configuration
-                )
+                workoutBuilder?.dataSource = makeLiveDataSource(configuration)
             }
             liveHRSourceEnabled = collectLiveHR
             loggedUnexpectedBuilderHR = false
@@ -180,12 +177,19 @@ class HealthKitManager: NSObject, ObservableObject {
         let configuration = HKWorkoutConfiguration()
         configuration.activityType = .cycling
         configuration.locationType = .indoor
-        builder.dataSource = HKLiveWorkoutDataSource(
-            healthStore: healthStore,
-            workoutConfiguration: configuration
-        )
+        builder.dataSource = makeLiveDataSource(configuration)
         liveHRSourceEnabled = true
         dlog("[IPHONE-HK] attachLiveHRCollection — live HR data source attached mid-workout")
+    }
+
+    /// Live data source used only to pick up AirPods heart rate. Its own
+    /// active-energy estimate (from heart rate) is switched off: the app writes
+    /// active energy itself from measured power (see `addEnergySample`), and
+    /// both together would count calories twice.
+    private func makeLiveDataSource(_ configuration: HKWorkoutConfiguration) -> HKLiveWorkoutDataSource {
+        let source = HKLiveWorkoutDataSource(healthStore: healthStore, workoutConfiguration: configuration)
+        source.disableCollection(for: HKQuantityType(.activeEnergyBurned))
+        return source
     }
 
     /// Detach the live HR data source — used when switching AWAY from AirPods to
@@ -287,6 +291,35 @@ class HealthKitManager: NSObject, ObservableObject {
         workoutBuilder?.add([sample]) { _, error in
             if let error = error {
                 dlog("[IPHONE-HK] addPowerSample FAILED: \(error.localizedDescription)")
+            }
+        }
+    }
+}
+
+// MARK: - Active energy
+
+extension HealthKitManager {
+    /// Active energy for one sample interval, written so Apple Health and
+    /// Fitness show calories (and the workout counts towards the Move ring).
+    /// Until 1.0.5 the app never wrote active energy at all.
+    ///
+    /// Calculated from measured power, as for the Strava upload: kilojoules of
+    /// work at the pedals ≈ kilocalories burned. The body's ~20–25% gross
+    /// efficiency and the 4.184 kJ/kcal conversion roughly cancel, so an hour
+    /// at 160 W ≈ 576 kcal. Far better than a heart-rate estimate on a
+    /// power-measuring trainer.
+    func addEnergySample(watts: Int, over interval: TimeInterval, endingAt end: Date) {
+        guard watts > 0, interval > 0 else { return }
+        let kilocalories = Double(watts) * interval / 1000
+        let sample = HKQuantitySample(
+            type: HKQuantityType(.activeEnergyBurned),
+            quantity: HKQuantity(unit: .kilocalorie(), doubleValue: kilocalories),
+            start: end.addingTimeInterval(-interval),
+            end: end
+        )
+        workoutBuilder?.add([sample]) { _, error in
+            if let error = error {
+                dlog("[IPHONE-HK] addEnergySample FAILED: \(error.localizedDescription)")
             }
         }
     }

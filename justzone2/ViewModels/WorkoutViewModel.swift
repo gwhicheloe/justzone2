@@ -879,6 +879,7 @@ class WorkoutViewModel: ObservableObject {
         }
         if let power = pwr {
             healthKitManager.addPowerSample(power, at: now)
+            healthKitManager.addEnergySample(watts: power, over: Constants.sampleInterval, endingAt: now)
         }
         sendWatchDisplayUpdate(state: "running")
 
