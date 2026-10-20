@@ -4,7 +4,7 @@ Between 1991 and 2014 the Cleveland Clinic put 122,007 patients through a treadm
 
 Figures like these are why Zone 2 is sold as medicine as well as training. Fitness predicts lifespan better than most things a doctor measures, steady riding builds fitness, and so an hour in Zone 2 is presented as an hour added to a life.
 
-My reading of the evidence is narrower than that. Fit and active people do live longer. How much of the difference is the training and how much is the kind of person who becomes fit is not known, and the one long trial that randomised people to exercise found no difference in deaths. The trials do show that training lowers blood pressure and blood sugar, and the large surveys show that most of the lower risk arrives with the first few hours a week. A rider on six to ten hours has gone well past that point. For that rider, how the hours are split between Zone 2 and intervals is a question about performance, and the evidence on health gives no reason to favour Zone 2.
+Fit and active people do live longer. How much of the difference comes from training, rather than the kind of person who becomes fit, is not known. The one long randomised trial found no significant reduction in deaths from adding supervised training to advice to follow activity guidelines. Trials do show that training lowers blood pressure and blood sugar. In the surveys, most of the lower risk arrives with the first few hours a week, well below a six-to-ten-hour rider's volume. The health evidence gives that rider no reason to favour Zone 2 over intervals.
 
 ## Fit people live longer
 
@@ -30,7 +30,7 @@ That fit and active people live longer is one of the most consistent findings in
 
 The question is as old as the field. In the 1950s Jeremy Morris and his colleagues in London found less coronary heart disease among the conductors of double-decker buses, who climbed the stairs all day, than among the drivers who sat, and less among postmen than among civil servants at desks {shadow @paffenbarger2001}. Morris knew the obvious objection, that heavier and less healthy men might choose the driver's seat, and his group went on to study the physique of busmen from the sizes of the uniforms they were issued {shadow @heady1956}.
 
-The same objection applies to every cohort in this chapter. The Cleveland authors were explicit about it in their limitations: their study could not tell, they wrote, whether high fitness picks out patients who were going to live longer anyway or makes them live longer [@mandsager2018]. Training is not the only thing that makes a person fit, and each of the others would produce the same result on its own.
+The Cleveland authors could not tell whether high fitness picked out patients who were going to live longer anyway or made them live longer [@mandsager2018]. Illness, habits and inheritance could each contribute to the association.
 
 The first is illness. People who are already becoming ill, before any diagnosis, walk less far on a treadmill and also die sooner. Leaving out the patients who could not exercise removes the most obvious cases and leaves the hidden ones in.
 
@@ -42,7 +42,7 @@ Twins offer a test of the third. Finland has followed same-sex twins born before
 
 The identical-twin result rests on 34 pairs, and its 95% confidence interval runs from about half the risk to about twice it [@karvinen2015]. Thirty-four pairs cannot show that exercise does nothing. They are, though, the nearest thing in the observational data to a controlled comparison, and the benefit that every other analysis shows does not appear in them. The authors suggest that some of the same genes influence how much people exercise, how fit they are and how long they live. {grade C}
 
-The skill is to ask what else could make the exposed group different. A hazard ratio describes groups that differ in many ways at once, and says nothing directly about what happens to someone who moves from one group to the other. What survives is that fitness marks out people who live longer, and the randomised trials later in this chapter show training lowering blood pressure and blood sugar, which no cohort can.
+A hazard ratio compares groups that differ in many ways; it does not directly measure what happens when someone changes their behaviour. Fitness reliably marks out people who live longer. The trials below can tell us more about what training itself changes.
 
 ## A trial of exercise and death
 
@@ -72,11 +72,9 @@ The confidence intervals show how little five years could settle. Against the co
 
 The trial had the problem that every long exercise trial has: the control group would not sit still. At five years 69% of them still met the guidelines, about one in five had taken up interval training on their own, and only about half of each exercise group kept to its programme. The volunteers were also healthier than their neighbours. Deaths in the control group ran at less than half the 10% expected over five years among Norwegians of that age. The authors accept that a population this active may have had little room to gain [@stensvold2020]. A null result in people who were all exercising is not evidence that exercise does nothing.
 
-What the trial does show is narrower and still useful. Five years of supervised training added nothing measurable to the survival of healthy, active 70-year-olds beyond what following the guidelines gave them. {grade B} And it offers no support for the idea that steady moderate exercise is the better medicine. The moderate sessions, at about 72% of peak heart rate and rated somewhat hard, were the nearest the trial came to steady Zone 2, although nobody measured whether they were below each person's first threshold. That group had the most deaths and the interval group the fewest, and the interval group ended with higher peak oxygen uptake than both others and better scores for physical and mental quality of life [@stensvold2020]. None of the mortality differences was statistically significant. Nor were the intervals dangerous: there were no heart problems during supervised sessions, and the three injuries were fractures from falls on slippery ground, two of them in the moderate group.
+Five years of supervised training added no measurable survival benefit for healthy, active 70-year-olds beyond following the guidelines. {grade B} The moderate sessions, at about 72% of peak heart rate and rated somewhat hard, were the nearest the trial came to steady Zone 2, although nobody measured whether they were below each person's first threshold. The interval group ended with higher peak oxygen uptake than both others and better scores for physical and mental quality of life [@stensvold2020]. There were no heart problems during supervised sessions. The three injuries were fractures from falls on slippery ground, two of them in the moderate group.
 
 ## What training does to the risk factors
-
-Trials of disease markers are easier to run, because blood pressure and blood sugar change in weeks, and there are many of them.
 
 Blood pressure falls with endurance training. A 2013 analysis of 93 randomised trials involving 5,223 healthy adults found an average fall of 3.5 mmHg in systolic and 2.5 mmHg in diastolic pressure [@cornelissen2013]. The size depended on where people started: 8.3 and 5.2 mmHg in people with high blood pressure, about 2 in those slightly above normal, and in people with normal pressure a fall of less than a millimetre in systolic pressure that could have been zero. {grade A}
 
@@ -84,13 +82,13 @@ Blood sugar falls too. In 47 trials of people with type 2 diabetes, structured e
 
 On intensity, the trials in patients lean the other way from the Zone 2 argument. In ten trials of 273 people with heart disease, high blood pressure, metabolic syndrome or obesity, interval training raised peak oxygen uptake by 3.03 mL/kg/min more than moderate continuous training, which the authors describe as almost double the gain {shadow @weston2014}. In 50 studies of interval training, insulin resistance fell more after intervals than after continuous training, by a small to moderate margin [@jelleyman2015]. Both sets of trials were small and short, and their authors call for longer ones. {grade B}
 
-These are markers, the kind of measurement Chapter 2 warned against reading as an adaptation, and a marker that improves is a reason to expect fewer heart attacks and strokes, not a count of them. The markers that matter most for health respond to training of any intensity, respond more in the people who need them to, and respond more to more of it.
+Lower blood pressure and blood sugar give a reason to expect fewer heart attacks and strokes. These trials did not count those events, so they cannot tell us how much the risk fell.
 
 ## Zone 2 as medicine, weighed
 
 The case for Zone 2 as medicine starts from metabolic disease, in which the muscles burn fat poorly and let lactate build up. If Zone 2 is the intensity that best trains a muscle to burn fat and clear lactate, the argument goes, it must be the best exercise for metabolic health, and through that for a long life.
 
-The observation about diseased muscle comes from the 2018 comparison of professional cyclists, moderately active people and patients with metabolic syndrome described in Chapters 6 and 7 {shadow @sanmillan2018}. It describes three groups of different people at one moment, and it trained nobody. Per hour, harder training builds more mitochondrial content than continuous training. The Canadian review that weighed the Zone 2 claims for the general population concluded that Zone 2 had not been shown to be the best intensity for either mitochondria or fitness {shadow @storoschuk2025}. The conclusion is contradicted by the trials above, in which intervals did at least as well on fitness and insulin resistance, and by the one trial of death, in which the trend ran towards intervals.
+The observation about diseased muscle comes from the 2018 comparison in Chapters 6 and 7, which trained nobody {shadow @sanmillan2018}. The Canadian review concluded that Zone 2 had not been shown to be the best intensity for either mitochondria or fitness {shadow @storoschuk2025}. The trials above likewise offer no support for its superiority: intervals did at least as well on fitness and insulin resistance, and the mortality trial's non-significant trend favoured intervals.
 
 What the argument gets right is that steady exercise is effective medicine. It lowers blood pressure and blood sugar, it is safe for nearly anyone, and it can be done in amounts that hard training cannot, which matters because the diabetes trials found that amount counted. For a person starting from nothing, with a heart condition, or who simply will not do hard sessions, steady riding is a sound prescription. That is a long way from saying it is a special one. {grade C}
 
@@ -106,7 +104,7 @@ The most active endurance athletes, then, have more atrial fibrillation and more
 
 ## Colds
 
-In the winter described in Chapter 7, when I rode more often and mostly easy, I fell ill less often with coughs and colds. That is one person's winter, and there is a literature that bears on it.
+In the winter described in Chapter 7, when I rode more often and mostly easy, I fell ill less often with coughs and colds.
 
 In 2011 David Nieman's group followed 1,002 adults through 12 weeks of autumn and winter. People who did aerobic exercise five or more days a week had 43% fewer days with cold symptoms than those who did it once a week or less. The third who rated themselves fittest had 46% fewer than the least fit third, after adjusting for seven other factors [@nieman2011]. The study was observational, and fitness was self-rated.
 
@@ -122,7 +120,7 @@ Chapter 7 dealt with the question of which fuel a ride burns and concluded that 
 
 The large surveys place a rider on six to ten hours well into the part of the curve where more activity buys no more lower risk, or beyond the end of the data. Whatever exercise does for lifespan, that rider has most of it already, and nothing in the evidence says that the split between Zone 2 and intervals changes it. If the one trial points anywhere, it points to the intervals.
 
-That leaves the split as a question of performance, which is where Part III takes it up. It also leaves a simpler piece of advice for anyone riding mainly for their health, or advising someone who is. The first few hours a week of activity of almost any kind carry most of the association with a longer life, and the risk factors improve with any intensity and improve more with more. {grade C} In Generation 100, about half of each exercise group was still doing its programme after five years [@stensvold2020]. On the evidence, the best exercise for health is the one a person will keep doing.
+For someone riding mainly for health, the first few hours of weekly activity carry most of the association with a longer life, and the risk factors improve with any intensity. {grade C} In Generation 100, about half of each exercise group was still doing its programme after five years [@stensvold2020]. The best exercise for health is the one a person will keep doing.
 
 ::: survives
 Training lowers blood pressure and blood sugar. {grade A}

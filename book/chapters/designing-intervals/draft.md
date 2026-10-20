@@ -2,11 +2,11 @@
 
 Harder intervals are not always better intervals. In 2013 Stephen Seiler's group in Kristiansand split recreational cyclists, much like the readers of this book, into four groups for seven weeks. Three added two interval sessions a week to their easy riding, of 4 × 4, 4 × 8 or 4 × 16 minutes, each ridden as hard as the rider could sustain. The fourth rode only easy. The 4 × 8 group improved twice as much as any other. The 4 × 4 group, which rode hardest, at 94% of peak heart rate, gained 5.5% against the easy riders' 4.2% [@seiler2013].
 
-There is no single best interval session, and the claims made for particular ones are mostly larger than the trials behind them. In trained cyclists the sessions that let a rider pile up the most work close to the top of what they can sustain, whether as intervals of four to eight minutes or as 30/15s, sets of 30 seconds hard and 15 seconds easy, beat both shorter, harder intervals and longer, easier ones [@seiler2013; @ronnestad2015b]. Long intervals beat all-out sprints for time-trial performance, and sprints run all-out carry a risk of injury [@rosenblat2020]. In the largest trial, riders who worked from long intervals to short ones over 12 weeks gained as much as those who went from short to long, or mixed them. So the choice comes down to three things: pick one or two formats you will ride hard, ride every set at the highest effort you can hold for all of it, and progress by adding work at that effort. {grade B}
+The useful compromise is enough intensity to work near your limit, held for enough minutes to accumulate a substantial session. In trained cyclists, both long intervals and 30/15s, sets of 30 seconds hard and 15 seconds easy, have worked well [@seiler2013; @ronnestad2015b]. Pick one or two formats you will ride hard, pace each set so you can finish it, and progress by adding work at that effort. {grade B}
 
 ## Twice the work, a little less hard
 
-The Kristiansand trial deserves a close look, because its design is the one most riders copy without knowing it. Nobody was given a target power. Every interval was ridden as hard as the rider could sustain for the set, so the sessions were matched for effort and the power fell where it would.
+In the Kristiansand trial, nobody was given a target power. Each set was ridden as hard as the rider could sustain, matching the sessions for effort rather than watts.
 
 ### One study, up close: four ways to spend two sessions a week
 
@@ -25,7 +25,7 @@ Design: Randomised trial lasting seven weeks. 35 cyclists, 29 men and 6 women, w
 Authors' conclusion: Intensity and accumulated duration interact. Accumulating 32 minutes of work at about 90% of maximum heart rate gave greater gains than accumulating 16 minutes at about 95%, although it felt easier.
 :::
 
-The heart rates and lactates show where each group ended up when left to find its own limit. The 4 × 4 riders worked near their maximum heart rate and built up 13.2 mmol/L of lactate. The 4 × 16 riders settled at a level between the thresholds. The 4 × 8 riders landed in between, close enough to the top to be very hard and long enough to double the work of the 4 × 4 session [@seiler2013]. It was neither the hardest session nor the longest that won.
+The 4 × 8 riders worked less intensely than the 4 × 4 group but accumulated twice as many hard minutes [@seiler2013]. Going longer still, to 4 × 16, meant settling between the thresholds and brought a smaller gain.
 
 The trial has limits. Each group had nine riders and the programme lasted seven weeks. The headline gain combines three measures, so on its own it doesn't show whether the 4 × 8 advantage was in VO₂peak, in threshold power or in both. And the 4.2% gain in the easy-only group is a reminder that seven weeks of riding more than before will improve a rider whatever the sessions [@seiler2013]. But its central finding is clear for a rider with two hard sessions a week: doubling the work at a slightly lower intensity did more than squeezing half the work in at the very top.
 
@@ -62,11 +62,11 @@ Design: One training programme, not a comparison of programmes. 22 well-trained 
 Authors' conclusion: Improvements in endurance were positively related to the share of VO₂max reached during interval training, and that share was the measure that best reflected how much each rider adapted.
 :::
 
-The study was careful. The riders were tested for VO₂max during the programme as well as before and after, so each session was compared with a current VO₂max, and the share of VO₂max proved more repeatable from session to session than the share of maximum heart rate [@odden2024].
+VO₂max was measured during the programme as well as before and after, keeping each session's comparison current. The share of VO₂max proved more repeatable from session to session than the share of maximum heart rate [@odden2024].
 
 What it cannot show is that reaching a higher share caused the bigger improvements, and the table shows why. Every rider rode the same session at the same share of their own 40-minute power, so whether a rider reached 86% of VO₂max or 80% was a property of the rider, not of the session. The two halves were different groups of people before the training began, and they trained differently while it ran. The higher half rode two hours a week more, most of it in the lowest zone, and started with a lower VO₂max, which leaves more room to improve. The authors acknowledge that the extra volume "could have affected the results", and judge that the share of VO₂max was "most likely" responsible [@odden2024]. That judgement is reasonable, but it is a judgement, not a result.
 
-The thing to check is what is being compared. When riders are assigned to different sessions at random, chance decides who does what, so a difference in results can be put down to the sessions. This study gave everyone the same session and then compared the riders by how they responded to it. That is the comparison Chapter 10's cohorts make, and it has the same weakness: the riders who did better differed in other ways too. The trial that would test the idea, with riders assigned at random to sessions that differ only in how close to VO₂max they keep them, has not been run as far as I can find. {grade C} What survives doesn't depend on this study. The randomised trials in this chapter favour the sessions that pile up the most work close to the top of what a rider can sustain.
+Despite taking place inside a training programme, this was an observational comparison: the riders who did better also differed in other ways. Testing the cause would require random assignment to sessions that differ only in how close to VO₂max they keep riders. I found no such trial. {grade C} The practical case rests on the randomised comparisons in this chapter, which favour accumulating work close to the top of what a rider can sustain.
 
 ## Other routes to a bigger engine
 
@@ -82,7 +82,7 @@ As a yardstick, though, it works. Between two sessions of the same length and ef
 
 Four to eight minutes is the oldest and best-tested range. The best-known version is the Trondheim group's 4 × 4 minutes, at 90% to 95% of maximum heart rate with three minutes of easy recovery, which has been used in heart patients as well as athletes [@hatle2014].
 
-The largest trial of long intervals in cyclists, published in 2016, put 63 riders through 24 sessions in 12 weeks of 4 × 16, 4 × 8 and 4 × 4 minutes, all as maximal efforts, on top of a large amount of easy riding [@sylta2016]. One group rode four weeks of each, longest first; a second rode them shortest first; a third mixed all three throughout. Every group improved its 40-minute power, peak power and VO₂peak by 5% to 10%, and the order made no difference. Nothing in the evidence says that a block of long intervals must come before a block of short ones, or the reverse. A session a rider looks forward to gets ridden harder, which is a reason for variety, though not evidence that variety itself adds anything.
+The largest trial of long intervals in cyclists, published in 2016, put 63 riders through 24 sessions in 12 weeks of 4 × 16, 4 × 8 and 4 × 4 minutes, all as maximal efforts, on top of a large amount of easy riding [@sylta2016]. One group rode four weeks of each, longest first; a second rode them shortest first; a third mixed all three throughout. Every group improved its 40-minute power, peak power and VO₂peak by 5% to 10%, and the order made no difference. Choose an order that suits you; the trial gives no reason to insist on one.
 
 ## 30/15, and the catch
 
@@ -116,17 +116,17 @@ Sprint interval training usually means repeated efforts of about 30 seconds, all
 
 For a rider who already trains, the comparison that matters is with long intervals. A 2020 analysis of six trials in moderately trained people found no overall difference in time-trial performance, but intervals of four minutes or more beat sprints by 2%, and raised maximal aerobic power more [@rosenblat2020]. A 2023 trial in 81 well-trained women, running, was starker. After eight weeks at three sessions a week, only 4 × 4 minutes raised VO₂max, by 7.3%; two sprint protocols raised anaerobic capacity instead and improved a 300 m sprint more [@helgerud2023]. And the 10 × 30-second all-out sprints caused eight injuries, six of them hamstring strains, each bad enough to stop training for at least a week. The other two protocols caused none. That trial was on a treadmill, and I found no comparable count of injuries from sprinting on a bike.
 
-Sprints raise VO₂max in untrained people, improve sprinting, and save time. For a trained rider aiming at long efforts they are the weaker choice, and run all-out they are the riskier one. {grade B}
+Sprints raise VO₂max in untrained people, improve sprinting, and save time. For a trained rider aiming at long efforts they are the weaker choice. The injury finding came from all-out running sprints; I found no comparable cycling figures. {grade B}
 
 Most readers of this book ride events that last an hour or more, and sprints train something those riders rarely need. A rider who races criteriums, or who wants to win the sprint for the village sign, has a reason to include them that the VO₂max trials do not capture.
 
 ## Riding the sessions
 
-Every successful trial in this chapter asked riders for the hardest effort they could sustain for the session. When twelve well-trained runners chose their own pace for repeats of one to six minutes, they rated every session at about 17 on the 6-to-20 scale, very hard, whatever the length [@seiler2004]. Start each set at the highest power you believe you can hold for all of it, expect the last repetition to be the hardest, and if you finish with something left, raise the power next time. Long efforts can be made to give more for the same effort by building surges into them, which added time near VO₂max without making the session feel any harder [@bossi2020].
+For self-paced sessions, aim for the hardest effort you can sustain across the whole set. When twelve well-trained runners chose their own pace for repeats of one to six minutes, they rated every session at about 17 on the 6-to-20 scale, very hard, whatever the length [@seiler2004]. Expect the last repetition to be the hardest, and if you finish with something left, raise the power next time. Building surges into long efforts added time near VO₂max without making the session feel any harder [@bossi2020].
 
 Smart trainers can hold a set power whatever the rider's cadence, and many riders do their intervals that way, which in the sense of the trials makes them fixed-power sessions. In the pacing study above, the 6 × 5-minute session gave three minutes above 90% of VO₂max at the researchers' fixed powers and seventeen when the riders went as hard as they could [@appelhans2025]. Part of that gap may come from the particular powers the researchers chose, but the same thing happens to a rider who sets a power from an old test, or a cautious one. A fixed power is a ceiling on the session as well as a floor.
 
-The trainer's fixed mode makes the efforts repeatable and the recoveries genuinely easy, so the remedy is not to abandon it. It is to set the power from recent efforts, raise it when a session ends with something left, and accept that the last repetition should be very hard. {grade C}
+Set the trainer's power from recent efforts and raise it when you finish with something left. {grade C}
 
 The recoveries between efforts matter less than the efforts. When nine well-trained runners did 6 × 4 minutes as hard as they could with recoveries of one, two or four minutes, the length of the rest made little difference to how fast they ran, how much oxygen they used or how hard it felt. Left to choose, they rested for about two minutes [@seiler2005]. The trials used two and a half to three minutes between long intervals, and a warm-up of about ten minutes [@ronnestad2020; @hatle2014]. I found nothing to suggest that a longer warm-up adds anything.
 
@@ -150,6 +150,6 @@ These are the sessions the trials in this chapter used, as a rider might ride th
 ::: survives
 Piling up work near your limit beats going harder: 4 × 8 doubled the gain of 4 × 4. {grade B}
 Thirty-fifteens make a large dose of near-maximal work easier to reach. {grade B}
-For long efforts, sprints are the weaker choice, and run all-out the riskier one. {grade B}
+For long efforts, sprints have weaker evidence than long intervals. {grade B}
 Ride every set as hard as you can hold for all of it.
 :::

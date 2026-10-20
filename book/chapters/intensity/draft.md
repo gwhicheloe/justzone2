@@ -10,7 +10,7 @@ Most arguments about training intensity have this problem somewhere in them. "Th
 
 ## The three intensity domains
 
-Chapter 1 introduced the idea that exercise intensity divides into domains: moderate below the first threshold, heavy between the first threshold and critical power, and severe above critical power. The boundaries are there because the body behaves differently on each side of them, and a 2017 experiment at the University of Exeter shows the difference more clearly than any definition [@black2017].
+Exercise intensity divides into three domains: moderate below the first threshold, heavy between the first threshold and critical power, and severe above critical power. A 2017 experiment at the University of Exeter shows how differently the body behaves in each [@black2017].
 
 Eleven recreationally active men rode to exhaustion at a constant power in each domain, on separate days, with muscle biopsies taken from most of them. In the moderate domain, at 20 W below their first threshold (113 W on average), they lasted three and a half hours. Their blood lactate barely moved from its starting level. When they stopped, the glycogen in their thigh muscle was down by 83%. The likeliest reason they stopped is that they had run out of fuel [@black2017].
 
@@ -18,7 +18,7 @@ In the heavy domain, at an average of 231 W, they lasted 43 minutes, and the ind
 
 In the severe domain they did several rides at different powers, and lasted between 2 and 14 minutes. Every rider reached his maximum oxygen uptake on every one of those rides. The chemistry inside the muscle at the point of stopping (its acidity, its lactate, its store of phosphocreatine) did not differ measurably whether the ride had taken 2 minutes or 14. Above critical power the riders stopped at a fixed chemical limit, and how hard they were riding decided only how soon they reached it [@black2017]. {grade B}
 
-Martin Burnley and Andrew Jones had described the same pattern from earlier work {shadow @burnleyjones2018}, and the review led by David Poole and Jones calls the boundaries consistent across species and kinds of exercise {shadow @poole2016}. That there are three domains, with different fatigue, different fuel use and different limits, is well established. What is unsettled is how to find the two boundaries in a given person, and what to call them.
+Earlier work found the same pattern across species and kinds of exercise {shadow @burnleyjones2018; @poole2016}. The domains are well established; finding their boundaries in an individual is harder.
 
 ## How it works: lactate, and why breathing changes
 
@@ -30,7 +30,7 @@ Breathing follows. Lactate leaves the muscle together with hydrogen ions, which 
 
 The man who connected breathing to lactate was Karlman Wasserman, in a 1964 paper with a colleague on detecting what its title called the threshold of anaerobic metabolism in cardiac patients {shadow @wasserman1964}. His explanation was that the working muscle had run short of oxygen and switched to making energy without it. The method survived and the explanation did not. Lactate rises because glycolysis speeds up as the work gets harder, and muscle that has all the oxygen it needs produces it [@poole2021]{shadow @brooks1985}. A 2021 review of the argument, with Brooks and Poole among its authors, carries the subtitle "50+ years of controversy" [@poole2021]. The name is still in everyday use. When you see "anaerobic threshold", read it as a threshold of some kind, and find out which.
 
-One more change starts at the first threshold, and it matters more to a rider than lactate does. Below it, a given power costs a fixed amount of oxygen, and heart rate and breathing level off within a few minutes. Above it, the oxygen cost of holding the same power creeps upward for many minutes. Physiologists call this the slow component of oxygen uptake. It reflects the muscle becoming less efficient as it tires and as it brings in fast-twitch fibres that use more oxygen for the same work {shadow @jones2011}. A steady effort above the first threshold therefore costs more than its power suggests, and costs more the longer it goes on.
+Above the first threshold, holding a fixed power becomes progressively more costly. Below it, the oxygen cost is fixed, and heart rate and breathing level off within a few minutes. Above it, oxygen use creeps upward for many minutes. Physiologists call this the slow component of oxygen uptake. It reflects the muscle becoming less efficient as it tires and recruits fast-twitch fibres that use more oxygen for the same work {shadow @jones2011}.
 
 ## The first threshold
 
@@ -56,7 +56,7 @@ MLSS has its own critics. Andrew Jones and colleagues argued in 2019 that it und
 
 Their candidate for the real boundary is critical power, which Chapter 1 described: the power the curve of your best efforts flattens towards. In the critical power model the boundary is defined by performance, and the physiology follows: just below it oxygen uptake and lactate stabilise, and just above it they climb to their maximum. A 2020 review of every common method concluded that there is some evidence for the first lactate and ventilatory thresholds as the lower boundary. For the upper one it found little evidence for anything except critical power [@jamnick2020]. The authors of the 2019 paper are the researchers most associated with critical power, and their opponents point out that a rider can hold their measured critical power for only 20 to 30 minutes, which is short for something described as sustainable [@jones2019].
 
-Most cyclists meet the second threshold as functional threshold power, or FTP. The term comes from Andrew Coggan, who defined it as the highest power a rider can maintain in a quasi-steady state for about an hour. He offered a field test: ride as hard as you can for 20 minutes and take 95% of the average [@allencoggan2010]. It is a performance measure standing in for a physiological one, and whether it stands in well has been tested.
+Most cyclists meet the second threshold as functional threshold power, or FTP. The term comes from Andrew Coggan, who defined it as the highest power a rider can maintain in a quasi-steady state for about an hour. He offered a field test: ride as hard as you can for 20 minutes and take 95% of the average [@allencoggan2010].
 
 ### Reading the research: agreement on average is not agreement for you
 
@@ -80,7 +80,7 @@ When a paper says a cheap test is valid against an expensive one, the average di
 
 ## Three zones, five zones, seven
 
-Once there are two boundaries, the simplest scheme has three zones: below the first, between the two, above the second. The framework goes back at least to a 1980 paper by James Skinner and Thomas McLellan, which described three phases in the transition from easy to maximal work {shadow @skinner1980}. Seiler adopted it for his studies of how athletes distribute their training, and most research on the subject has used it since [@seiler2010]. In this scheme zone 2 is the middle band, the heavy domain.
+The three-zone scheme puts zone 2 between the thresholds, in the heavy domain. The framework goes back at least to a 1980 paper by James Skinner and Thomas McLellan {shadow @skinner1980}. Seiler adopted it for his studies of how athletes distribute their training, and most research on the subject has used it since [@seiler2010].
 
 Coaches wanted finer divisions. The scale used by the Norwegian Olympic federation has five zones. Its zones 1 and 2 both lie below the first threshold, zone 3 is the band between the thresholds, and zones 4 and 5 lie above the second [@seiler2010]. Its Zone 2 is given as 72–82% of maximum heart rate, or a blood lactate of 1.5 to 2.5 mmol/L [@meixner2025]. Most heart-rate zone systems in apps and bike computers have five zones of this general kind, and this is the Zone 2 of the podcasts.
 
@@ -114,7 +114,7 @@ For individuals the picture is looser still. VT1 sat at 81% of maximum heart rat
 
 The study's headline finding needs care. The abstract reports "substantial variability", with coefficients of variation between riders of 6% to 29% depending on the marker. Those coefficients were calculated on raw watts and raw beats per minute. Riders differ in fitness, and in this group peak power itself varied by 19% and maximum heart rate by 5.7%. A marker that sat at an identical percentage of every rider's maximum would still show variation of about that size. Most of the 6–29% is the spread of fitness in the sample, and it says little about whether the markers are good or bad. The stronger evidence is in the table of averages and in the agreement analysis, which the paper shows only as charts [@meixner2025].
 
-Nobody in the study did any training. It shows that the markers land in different places, and it can't show which of them makes the better ceiling for an easy ride. It was one laboratory, one step protocol and riders mostly in their twenties and thirties. The authors declared no funding and no conflicts of interest. It does establish that the common definitions of Zone 2 pick out different intensities in the same rider. {grade B}
+The study establishes that the common definitions of Zone 2 pick out different intensities in the same rider. Nobody did any training, so it cannot show which makes the better ceiling for an easy ride. It used one laboratory, one step protocol and riders mostly in their twenties and thirties. The authors declared no funding and no conflicts of interest. {grade B}
 
 ## Power, heart rate and feel
 
@@ -126,8 +126,6 @@ Perceived effort does better than its reputation. In the 2006 study the skiers a
 
 ## The terms as this book uses them
 
-From here on the book holds each word to one meaning.
-
 - **The first threshold** is the first lactate threshold (LT1): the intensity at which blood lactate first rises above the rider's own baseline, taken as a rise of 0.5 mmol/L in a test with stages of at least four minutes. Breathing first rises out of proportion to oxygen uptake at about the same point, the first ventilatory threshold (VT1). Where a study measured the threshold from breathing, the text says so.
 - **The second threshold** is the highest intensity at which the body can still reach a steady state. Where a study measured critical power, MLSS or FTP, the text names the measure, because they are not interchangeable.
 - **Easy**, or low intensity, means below the first threshold: the physiologists' moderate domain and zone 1 of the three-zone model. Physiologists call this intensity moderate and riders call it easy, and the book uses the riders' word.
@@ -135,7 +133,7 @@ From here on the book holds each word to one meaning.
 - **Between the thresholds** is the heavy domain. Riders call parts of it tempo, sweet spot and threshold; the book uses those words only for a session a study itself gave that name.
 - **Hard**, or high intensity, means above the second threshold, in the severe domain.
 
-Whenever a study, a coach or an app uses one of these words, two questions are worth asking. Which of the two boundaries is meant, and on which map? And how was the boundary found for the person doing the training: measured, or calculated as a percentage of something else? Several of the studies in Part II set intensity as a percentage of a maximum, and Iannetta's figures mean that some of their volunteers were probably not training in the domain the paper's title names.
+Check which boundary a study, coach or app means, and whether it was measured or calculated from a percentage. Several studies in Part II used percentages of a maximum. Iannetta's figures mean that some volunteers were probably not training in the domain the paper's title names.
 
 ::: survives
 The top of Zone 2 is the first lactate threshold, by expert agreement rather than experiment. {grade C}

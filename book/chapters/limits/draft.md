@@ -2,7 +2,7 @@
 
 In 1923 the physiologist Archibald Hill and his colleague Hartley Lupton described something that every endurance athlete now takes for granted. As exercise gets harder, the body takes up more oxygen, until it reaches a ceiling. Beyond that point the work can continue for a while, but the extra energy has to come from somewhere other than oxygen, and it can't come from there for long {shadow @hill1923}. That ceiling became known as maximal oxygen uptake, or VO₂max, and for most of the following century it was the number physiologists reached for first when they wanted to explain why one athlete was faster than another.
 
-It explains less than you might think. Two riders can have the same VO₂max and finish an hour-long time trial minutes apart. A rider with a modest VO₂max can beat one with a much higher one. To see why, you need the rest of the model, and that model is what this chapter is about. Cyclists talk about a rider's engine without saying what they mean by it. In this book the engine is the whole aerobic system that the model describes, and VO₂max is one part of it. Every training claim in later chapters comes down to a simple question: which part of this model does it change?
+Two riders can have the same VO₂max and finish an hour-long time trial minutes apart. VO₂max is only one part of what cyclists call a rider's engine. In this book the engine means the whole aerobic system: how much oxygen you can use, how much of that capacity you can sustain, and how efficiently you turn it into power.
 
 ## The question
 
@@ -25,17 +25,13 @@ sustainable power = *performance VO₂* × efficiency
 
 ## How it works: from air to muscle
 
-Before the three factors make sense, it helps to follow oxygen from the air to the muscle.
-
 You breathe it into your lungs, where it crosses into the blood and binds to haemoglobin in red blood cells. Your heart pumps that blood out to the body. The amount it can pump each minute, the *cardiac output*, is your heart rate multiplied by the volume of blood ejected with each beat, the *stroke volume*. In the working leg muscles, blood flows through a dense mesh of tiny vessels called capillaries, and oxygen moves out of the blood into the muscle fibres. Inside each fibre it reaches the mitochondria, small structures that use it to break down fuel and make ATP, the molecule that powers muscle contraction.
 
 ![Oxygen's route from the air to the working muscle. The first three steps deliver it and the last two use it. Drawn for this book, following Bassett and Howley's review and Joyner and Coyle's model [@bassetthowley2000; @joynercoyle2008].](figures/oxygen-route.svg)
 
-Any link in that chain could, in principle, set the ceiling. In practice, the evidence points mostly at delivery: how much oxygen the heart and blood can bring to the muscle. Bassett and Howley's influential review set out three lines of evidence [@bassetthowley2000]. When oxygen delivery is changed, by blood doping, by breathing thin air at altitude, or by drugs that slow the heart, VO₂max changes with it. When people train, the rise in VO₂max comes mainly from a bigger maximum cardiac output, not from muscles extracting more oxygen from each litre of blood. And when a small muscle group is given more blood than it would normally get, it can consume oxygen at a far higher rate than it does during whole-body exercise, which suggests the muscle could use more oxygen if only it were delivered. {grade A}
+The ceiling depends mostly on delivery: how much oxygen the heart and blood can bring to the muscle. As Bassett and Howley's review describes, changing oxygen delivery through blood doping, thin air at altitude, or drugs that slow the heart changes VO₂max with it [@bassetthowley2000]. When people train, the rise in VO₂max comes mainly from a bigger maximum cardiac output, not from muscles extracting more oxygen from each litre of blood. And when a small muscle group is given more blood than it would normally get, it can consume oxygen at a far higher rate than it does during whole-body exercise. The muscle could use more oxygen if it were delivered. {grade A}
 
 Joyner and Coyle identify the size of the heart's stroke volume as the most important single difference between champions and everyone else, alongside a larger blood volume, more capillaries and more mitochondria in the trained muscles [@joynercoyle2008]. Those last two matter for a different reason, covered in the next section: they don't raise the ceiling much, but they change how close to it you can ride.
-
-For now, the important point is that there are two broad sites of adaptation: the delivery system, which mostly sets VO₂max, and the muscle itself, which mostly sets how much of it you can use.
 
 ## VO₂max: the ceiling
 
@@ -87,7 +83,7 @@ It's a small study, and it describes riders who had already reached the top. If 
 
 Because the three factors multiply, a change in any of them changes sustainable power in proportion. Take two riders, as an illustration. Both have the same VO₂max. One can sustain 80% of it for an hour and the other 75%. All else equal, the first rider's sustainable power is about 7% higher, simply because 80 is about 7% more than 75. Now make the second rider 7% more efficient, and the two are level again.
 
-That multiplication explains several things that puzzle riders. It's why VO₂max alone ranks experienced riders poorly. It's why a training block that leaves your VO₂max unchanged can still make you faster, if it raises your threshold or your efficiency. And it's why arguments about whether easy riding or hard intervals are "better" often talk past each other: they may be arguing about different factors. Broadly, and with the details still to come, the case for high-intensity training rests heavily on VO₂max, and the case for large amounts of easy training rests on the fraction you can sustain and, possibly, on efficiency.
+A training block can therefore make you faster without changing your VO₂max, if it raises your threshold or efficiency. Arguments about whether easy riding or hard intervals are "better" often concern different factors. The case for high-intensity training rests heavily on VO₂max; the case for large amounts of easy training rests on the fraction you can sustain and, possibly, on efficiency.
 
 Joyner and Coyle described elite performance as the product of these factors working together, which is why an elite cyclist can hold around 400 watts for an extended effort [@joynercoyle2008]. They also warned that this physiological picture leaves things out: the nervous system's role in fatigue, motivation and the realities of racing. Chapter 3 takes up what it leaves out.
 
@@ -107,7 +103,7 @@ Critical power isn't a fourth factor alongside the other three. It's a different
 
 ## The fourth factor: durability
 
-Every number in this chapter so far is usually measured on a rested rider. Laboratory tests are done in the morning, after an easy day, with fresh legs. Races aren't.
+These measurements usually come from rested riders, tested after an easy day. They may describe a rider poorly by the end of a race.
 
 In 2021 a group of physiologists led by Ed Maunder argued that this was a serious gap. The attributes measured in routine testing aren't fixed: they shift during prolonged exercise, and models that ignore those shifts will misjudge how athletes perform and how they should pace {shadow @maunder2021}. They proposed measuring *durability*: when, and by how much, those characteristics deteriorate as exercise goes on.
 
@@ -118,8 +114,6 @@ Two riders who look identical in a fresh lab test could be almost a third apart 
 ## What to do with it
 
 The model gives every training question in this book the same shape. A session can make you faster by raising your VO₂max, by raising the fraction of it you can sustain, by improving your efficiency, by making all three hold up better late in a ride, or by some combination. Arguments about training methods usually turn out to be arguments about which of these a method changes, and by how much.
-
-Each of the four factors can be trained, but they respond to different stimuli, on different timescales and to different degrees in different people, and some of them respond slowly. A training method that claims to improve everything, for everyone, is claiming more than physiology allows.
 
 The claims made for Zone 2 sit on two of the four. Easy riding is said to build the mitochondria and capillaries that let a rider hold a larger fraction of VO₂max, and to make all of it hold up late in a long ride. Chapter 7 weighs the first claim and Chapter 9 the second.
 

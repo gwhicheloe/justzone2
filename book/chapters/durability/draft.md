@@ -8,15 +8,13 @@ The final stage of the 2026 Tour de Luxembourg ran 177 km from Mersch to the Lim
 
 Tadej Pogačar has made a habit of the same thing from shorter range. At Strade Bianche in March 2024 he attacked on the Monte Sante Marie gravel sector with 81 km left and won by 2:44. At the World Championships in Zürich that September he rode the last 50 km alone and held off Ben O'Connor by 34 seconds [@tourmagazin2025].
 
-It is tempting to read these rides as proof of superior fitness, but a result on its own can't prove that. Van der Poel's lead came down by almost two and a half minutes in the last 45 km [@skodatour2026]. That could be a rider fading or a bunch finally racing for the finish, and nothing public tells us which. His power in the first hour and the last hasn't been released, so nobody outside his team can say how much he faded.
+Van der Poel's lead came down by almost two and a half minutes in the last 45 km [@skodatour2026]. That could be a rider fading or a bunch finally racing for the finish. His power files haven't been released, so nobody outside his team can say how much he faded.
 
-What the rides do is pose a question that the model in Chapter 1 leaves open. VO₂max, the fraction of it you can sustain, and efficiency are all measured on a rider who is fresh. Races are decided four or five hours in. How much of what you had at the start do you still have at the end?
-
-Most of us meet that question well below the level of a World Championship.
+VO₂max, the fraction of it you can sustain, and efficiency are usually measured on a fresh rider. Four or five hours into a race, what matters is how much of that capacity remains. I have felt the difference well below the level of a World Championship.
 
 > **From the saddle.** In 2025 I rode a tour of the Pyrenees. On the fourth day I was really struggling, while one of my friends in particular seemed to be getting stronger. He's an ex-professional golfer and spends a lot of his time on the golf course.
 
-I can't tell you why he got stronger while I got weaker, and the research can't yet either. Most of it concerns a single long ride, and little of it reaches a fourth day in a row. But the thing I was short of that day now has a name and a growing set of measurements behind it.
+Most durability research concerns a single long ride, so it cannot yet explain our fourth day in the Pyrenees. It has begun to measure why some riders fade more than others.
 
 ## What durability is, and what to call it
 
@@ -42,11 +40,9 @@ After two hours of riding in Zone 2, then, the top of Zone 2 was 21 W lower and 
 
 ## How it works
 
-The reviews of this field are candid that nobody can yet fully explain why two hours of steady riding lowers the power you can sustain [@jones2024; @joneskirby2025]. Several mechanisms have some evidence behind them, and none yet explains why one rider loses 1% and another 30%.
+Rising oxygen cost and falling oxygen delivery both help explain why sustainable power declines. Neither yet explains why one rider loses 1% and another 30% [@jones2024; @joneskirby2025].
 
 Start with what critical power is. Below it, oxygen uptake rises when you start riding and then settles. Above it, oxygen uptake keeps climbing until it reaches VO₂max and you have to stop. Critical power is the highest power at which uptake can still settle. It follows that anything which raises the oxygen cost of each watt, or lowers the amount of oxygen the body can deliver, will lower critical power, without anything having gone wrong in the usual sense of the word.
-
-Both happen during a long ride.
 
 Take the cost first. In the two-hour rides from Jones's lab, the power was held constant and oxygen uptake was not. In one study the same power went from 64% to 68% of VO₂peak over the two hours [@clark2019a]; in another, from 65% to 72% [@clark2019b]. The rider's computer shows the same number throughout while the body works progressively harder to produce it.
 
@@ -64,25 +60,15 @@ That result is often repeated as "it's not about glycogen", which goes further t
 
 Carbohydrate during the ride is a clearer story. When the riders in the earlier study repeated the two-hour ride drinking 60 grams of carbohydrate an hour, their critical power afterwards was 254 W, against 236 W on a placebo and 260 W fresh [@clark2019a]. Carbohydrate removed most of the fall. It did so without sparing muscle glycogen, which dropped by almost the same amount in both trials. Blood glucose and the rate of carbohydrate burning late in the ride were higher with the drink, and the authors' reading is that a steady supply of glucose from the blood kept the working fibres going.
 
-Put together, the picture is of a rider whose watts become more expensive as the hours pass, whose oxygen supply slowly tightens, and whose fuel is shifting towards the kind that costs more oxygen to burn. Each change is modest. They compound, because critical power sits where supply and cost meet.
+These changes compound: critical power falls as each watt costs more oxygen and less oxygen can be delivered.
 
 This also suggests why training might improve durability, and here the chapter moves from evidence to inference. If the trouble starts when type I fibres tire and more costly fibres take over, then anything that lets type I fibres carry the load for longer should delay it: more capillaries around them, more mitochondria inside them, a greater capacity to burn fat. Those are among the adaptations to endurance training described in Chapter 2. It is a plausible chain of reasoning, and it is the reasoning behind the long easy ride.
-
-### Durability in the wild
-
-It would be satisfying to say that van der Poel or Pogačar has exceptional durability, and plenty of commentary does.
-
-The results give distances, times and gaps. For the Luxembourg stage that means 177 km, a lead of 3:30 with 45 km left and 1:04 at the line [@skodatour2026]. They don't give power. A rider's speed on a long climb can be turned into an estimate of power, but the estimate rests on a guess at his weight, the wind and how long he sat in someone's slipstream.
-
-The published science has the opposite limitation. The largest study of professional power files covers 112 riders and reports them as two anonymous groups [@mateomarch2022]. It can tell you what WorldTour riders as a class do after 45 kJ/kg of work, and nothing about any one of them.
-
-That is why this chapter makes no claim about van der Poel's physiology or Pogačar's. Their rides are here because they are what durability looks like from the roadside. Everything the chapter concludes comes from riders who were measured.
 
 ## What the professionals show
 
 Professional cyclists are the best-studied group in this field, for a practical reason: they race with power meters, their teams keep every file, and a season of racing contains maximal efforts made at every stage of fatigue.
 
-The study with the most riders comes from a Spanish group led by Manuel Mateo-March, using data collected between 2013 and 2021 from 112 male professionals: 66 from the WorldTour, the sport's top division, and 46 from ProTeams, the division below [@mateomarch2022]. For each rider they found the best power ever recorded for durations from 10 seconds to two hours. Then they found the best power for the same durations among efforts made after 15, 25, 35 and 45 kJ/kg of work that day.
+The study with the most riders comes from a Spanish group led by Manuel Mateo-March, using data collected between 2013 and 2021 from 112 male professionals: 66 from the WorldTour, the sport's top division, and 46 from ProTeams, the division below [@mateomarch2022]. It reports anonymous groups, so it cannot tell us about van der Poel or Pogačar individually. For each rider the researchers found the best power ever recorded for durations from 10 seconds to two hours, then the best for the same durations after 15, 25, 35 and 45 kJ/kg of work that day.
 
 Power fell at every duration as the work mounted up. After 15 kJ/kg the losses were between 1.6% and 3.0%, depending on the duration. After 45 kJ/kg they were between 6.0% and 9.7% [@mateomarch2022].
 
@@ -100,7 +86,7 @@ Whether durability can be read off an ordinary lab test is disputed. In the amat
 
 ## What trains it
 
-This is the part of the chapter with the weakest evidence, and the people who know the field best say so. Jones and Kirby's 2025 review, the most thorough attempt to answer the question, describes the data as "scant" and states that no long-term study has yet set out to find the training that best improves durability [@joneskirby2025]. What exists is one 10-week training trial in beginners, one study of strength training in trained cyclists, and a set of comparisons between groups: trained against untrained, faster against slower, professionals against under-23s.
+No long-term trial has set out to find which training best improves durability. Jones and Kirby's 2025 review describes the data as "scant": one 10-week training trial in beginners, one strength-training study in trained cyclists, and comparisons of trained with untrained, faster with slower, and professionals with under-23s [@joneskirby2025].
 
 Take the comparisons first. Trained runners drift less than active adults who don't run over an hour at the same relative intensity: in one study of 20 people the relative intensity rose by 2.6% in the trained group and 8.3% in the others {shadow @unhjem2024}. Faster runners lose less running economy over 90 minutes than slower ones, 2.4% against 4.5% in a study of 44 men {shadow @zanini2024}. The same study, as Jones and Kirby describe it, found that among runners of similar ability, those who regularly ran for longer than 90 minutes held their economy better than those who didn't [@joneskirby2025]. Professionals fade less than under-23s. Each comparison points the same way, and none can separate cause from effect. People who are naturally durable may find long sessions easier and so do more of them.
 
@@ -114,9 +100,9 @@ In that trial, training of either kind made beginners more durable. Four times t
 
 The study in trained cyclists was of strength training. Bent Rønnestad's group in Norway had 11 well-trained cyclists add heavy leg strength training twice a week for 12 weeks while nine carried on with endurance training alone {shadow @ronnestad2011}. Afterwards each rode for just over three hours at an easy pace and then did a five-minute all-out effort. The strength group's power in that effort rose from 371 W to 400 W. The control group's didn't change. It is one study of 20 riders, but it is an intervention in trained cyclists, measured late in a long ride, and the thing that worked was heavy weights. It belongs here as a reminder that the long ride is not the only candidate.
 
-That leaves the long easy ride. The case for it is the mechanism described earlier, the cross-sectional comparisons, and Spragg's season of data. Against it stands nothing. There is simply no trial in trained riders that has tested them. I think the long ride is a reasonable bet. I would not tell you it has been shown to work. {grade C}
+The case for the long easy ride rests on the mechanism, the comparisons between groups and Spragg's season of data. No trial in trained riders has tested it. I think it is a reasonable bet. {grade C}
 
-There is one more observation to add, and it is only an observation. My friend in the Pyrenees, the one getting stronger on day four, spends a lot of his time on the golf course. If he walks his rounds, that is many hours a week of very low-intensity exercise, kept up for years. It fits the volume-over-years idea neatly, and a single golfer proves nothing.
+My friend in the Pyrenees spends a lot of his time on the golf course. If he walks his rounds, that is many hours a week of very low-intensity exercise, kept up for years. It fits the volume-over-years idea, though a single golfer proves nothing.
 
 Fuelling is a different matter, because there the trials exist.
 
@@ -141,8 +127,6 @@ The first step did most of the work: going from nothing to 60 grams an hour save
 The paper describes no attempt to disguise which drink was which, so the riders presumably knew when they were on water, and a three-minute all-out test depends on how hard someone is willing to go. Fifteen of the 16 were men. Carbohydrate was supplied by a supplement company, although the funding came from a public research foundation. Critical power was estimated from a single short test, and the authors themselves think the method may have understated the fall. And it measured one all-out effort after one ride. So it shows carbohydrate protecting late-ride power on the day, and leaves open whether fuelling well in training makes you more durable in the long run. {grade B}
 
 ### Reading the research: correlation and small samples
-
-Two studies in this chapter reported correlations, and they show two different ways a correlation can mislead.
 
 Spragg's season-long study found that riders who spent more time below the first threshold improved their fatigued two-minute power, with a correlation of 0.43 [@spragg2023b]. Squaring a correlation gives the share of the variation it accounts for. Here that is 18%, which leaves 82% to everything else. Then there is the direction. Easy riding might build durability. Or riders who are already durable, or who are simply healthy and uninjured that year, might be the ones able to pile up easy hours. Or a third thing, such as a coach who prescribes both more volume and better fuelling, might drive both. An observational study can't choose between these, however carefully it is done. Only assigning riders to different training can.
 

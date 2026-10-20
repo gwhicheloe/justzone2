@@ -10,19 +10,15 @@ Cooling a rider on the day is one answer to heat. The other is to send him to th
 
 The practice has spread well beyond one team. A group of Danish researchers who work with professional riders wrote in 2024 that heat training had become widespread among them. Riders were using it to go faster in ordinary temperatures as well as to prepare for hot races [@cubel2024]. The equipment has followed. A Swiss company sells a sensor the size of a matchbox that clips to a heart rate strap and shows an estimate of core body temperature on a bike computer. Its maker has announced partnerships with 10 professional teams {shadow @cyclingnews_core}.
 
-Heat training is sold for two purposes, and only one of them is well supported.
+Preparing for a hot race is well supported. Two weeks of training at about 35 °C improved cyclists' time-trial performance in the heat by 16% in one study [@karlsen2015]; 10 days improved it by 10% in another [@keiser2015]. {grade A}
 
-The first is preparing for heat. If your event will be hot, training in the heat beforehand makes you faster on the day. Nobody disputes this. In one study, two weeks of training at about 35 °C improved cyclists' time-trial performance in the heat by 16% [@karlsen2015]. In another, 10 days improved it by 10% [@keiser2015]. {grade A}
-
-The second is using heat the way riders use altitude: as a stimulus that makes you fitter everywhere, including on a cool day. That is the claim behind the sensors and the heat suits, and it is the subject of this chapter.
+The disputed claim is that heat also makes you faster on a cool day, acting as a training stimulus much as altitude does.
 
 ## Where the idea came from
 
 The modern interest dates from a single paper. In 2010 Santiago Lorenzo and Christopher Minson at the University of Oregon took 12 trained cyclists and had them ride for 10 days at an easy intensity, about half of VO₂max, in a room at 40 °C. Eight matched controls did the same riding at 13 °C [@lorenzo2010].
 
 When the heat group was tested afterwards in the cool room, their VO₂max had risen by 5%, from 66.8 to 70.2 mL/kg/min [@lorenzo2010]. The work they could do in a time trial had risen by 6%, and their power at the lactate threshold by 5%. The control group had not changed. Plasma volume in the heat group was up 6.5%, and the heart's maximum output had risen with it.
-
-For 10 days of easy riding in cyclists who were already trained, that is a very large effect, and people noticed.
 
 Other labs tried to repeat it, and the first attempts did not go well. The two-week study mentioned earlier tested its cyclists in the cool as well as the heat. After two weeks their VO₂max had gone from 4.79 to 4.82 L/min, and their power in a 43 km outdoor time trial from 300 W to 302 W [@karlsen2015]. The 10-day study used a crossover, in which the same seven men did 10 days of training at 38 °C and, separately, 10 days at 18 °C. The heat block raised their VO₂max and time-trial power in a hot room by about 10% each. In a room at 18 °C, both were unchanged [@keiser2015].
 
@@ -32,15 +28,17 @@ Length turned out to matter, because the blood adapts to heat in two stages.
 
 ## How it works
 
-The first stage is fast. Within about a week of daily heat exposure, the liquid part of the blood expands. The studies in this chapter put the increase at 6% to 7% [@lorenzo2010; @keiser2015; @mikkelsen2019], which is a long way short of the 25% in Swart's interview, although he did say "up to". With more plasma, the heart fills more fully on each beat and has blood to spare for the skin. Sweating starts sooner and becomes more copious and more dilute: in one five-week study, riders' sweat rate rose by 0.44 litres an hour [@cubel2024]. Core temperature at a given workload comes down. All of this is what makes a rider faster in the heat, and it is why the benefit there is so reliable.
+Within about a week of daily heat exposure, the liquid part of the blood expands. The studies here put the increase at 6% to 7% [@lorenzo2010; @keiser2015; @mikkelsen2019], well short of Swart's 25%, although he did say "up to". More plasma helps the heart fill on each beat and supply the skin.
+
+Sweating starts sooner and becomes more copious and more dilute. In one five-week study, sweat rate rose by 0.44 litres an hour [@cubel2024]. Core temperature at a given workload comes down, helping the rider cope with heat.
 
 For performance in the cool, the same change cuts both ways. Chapter 1 described VO₂max as mostly a matter of oxygen delivery, which is the amount of blood the heart can pump multiplied by the oxygen each litre carries. Extra plasma helps the first and hurts the second, because the same number of red cells is now spread through more liquid. The Copenhagen group suggested that the two roughly cancel [@mikkelsen2019]. That would explain why 10 days of heat does so much in a hot room and so little in a cool one.
 
 The second stage is slow, and it is the reason for the current fashion. If heat exposure continues for several weeks, the total amount of haemoglobin in the body starts to rise. Haemoglobin is the protein in red cells that carries oxygen, and its total mass, measured in grams, sets how much oxygen the blood can carry in all. Raising it is the whole point of altitude training.
 
-Why heat should do this is not established. The leading idea is that the kidney, which makes the hormone that drives red cell production, responds to how concentrated the blood is. Dilute the blood with extra plasma for long enough and the kidney reads it as a shortage of red cells and orders more [@cubel2024]. It is a neat explanation, and the evidence for it is indirect. When the Copenhagen researchers measured the relevant hormones during five and a half weeks of heat training, they found no change in them [@oberholzer2019]. The haemoglobin went up anyway.
+The proposed explanation is that the kidney, which makes the hormone driving red cell production, responds to blood concentration. Dilute the blood with extra plasma for long enough and the kidney reads a shortage of red cells and orders more [@cubel2024]. The evidence is indirect: Copenhagen researchers found no change in the relevant hormones during five and a half weeks of heat training, although haemoglobin rose [@oberholzer2019].
 
-So the mechanism predicts two things that can be checked. Short heat blocks should do little for cool-weather performance, which is what the 2015 studies found. And blocks of four or five weeks should raise haemoglobin mass, and performance with it. Since 2019, a series of trials has tested the second prediction.
+That suggests a longer heat block could raise haemoglobin mass and perhaps performance. Since 2019, trials lasting four or five weeks have tested it.
 
 > **From the saddle.** It was crazy hot in the 2026 heatwave. My watts were way down when the pain cave was hitting 37 degrees. On a holiday in Greece soon afterwards I felt I was hitting some good power numbers in the Greek heat. When it cooled down, it was good to see my watts go back to normal.
 
@@ -63,7 +61,7 @@ On haemoglobin every trial points the same way, and the size of the effect, 30 t
 
 On performance they do not agree: two say yes, one says yes after pooling and two say no. A meta-analysis that gathered 28 heat studies of all lengths put the effect on cool-weather VO₂max, compared with control training, at 0.30 standard deviations, which is conventionally called small, with a confidence interval running from 0.06 to 0.54 [@waldron2021]. My reading is that there is probably a real effect on performance in elite riders, that it is small, and that it is much less certain than the effect on haemoglobin. {grade B}
 
-Carsten Lundby, who argued the "no" side of the 2016 debate, is an author on every one of these five-week trials. It is to his credit that he tested a position he had argued against, and it means the evidence comes from one connected group of labs in Copenhagen and Lillehammer. Nobody outside that group has yet repeated it.
+Carsten Lundby, who argued the "no" side of the 2016 debate, is an author on every one of these five-week trials. The evidence comes from one connected group of labs in Copenhagen and Lillehammer; nobody outside it has yet repeated the result.
 
 The riders were nearly all elite, and the men among them had VO₂max values in the mid-70s [@ronnestad2021; @lundby2023]. An elite rider has little room left to improve by ordinary training, so a 3% rise in haemoglobin is worth chasing.
 
@@ -99,9 +97,9 @@ Twenty-one riders is few, and a real performance difference of a few watts could
 
 ### Reading the research: a marker is not a performance
 
-Every trial in this chapter measured two kinds of thing. Haemoglobin mass is a marker: a quantity inside the body that is believed to lead to performance. Time-trial power is the performance itself. Fashions tend to be built on markers, because markers respond more consistently and can be measured more precisely than a tired rider's willingness to suffer in a time trial.
+Haemoglobin mass measures a proposed route to better performance. Time-trial power measures whether the rider actually got faster. The heat trials show why the distinction matters.
 
-The heat trials show the gap clearly. The marker rose in all six, and in two of them, the skiers and the Copenhagen amateurs, performance did not move at all [@ronnestad2022b; @mikkelsen2019]. A headline that says "heat training increases haemoglobin mass" is accurate for both studies, and a reader would reasonably assume it means the athletes got faster.
+Haemoglobin rose in all six trials, but the skiers and the Copenhagen amateurs gained no performance advantage over controls [@ronnestad2022b; @mikkelsen2019]. A headline saying "heat training increases haemoglobin mass" leaves that out.
 
 When a study reports a marker, look for the performance measure in the same paper. If it is missing, the study has shown that a mechanism was engaged. If it is present and didn't move, that is the finding, whatever the title says.
 
@@ -111,7 +109,7 @@ The table shows the same thing from the other side. Where only the heat-suit gro
 
 The device most riders mean is called CORE, made by a Swiss company, greenTEG. It doesn't measure core temperature, which can only be measured from inside the body. It measures the temperature of the skin on your chest and the rate at which heat is flowing out through it. It optionally adds heart rate, and uses an algorithm to estimate what the temperature deep in the body must be [@verdel2021].
 
-I don't own one, so what follows is from the published tests and not from my own riding. I found three independent studies that compared it with a direct measurement.
+I don't own one. I found three independent studies comparing it with a direct measurement.
 
 One group tested it against a rectal probe during indoor cycling. It was repeatable: when 12 men did the same ride twice, the sensor's readings on the two days differed by an average of 0.02 °C. Against the probe it did less well. At 19 °C it read 0.23 °C high on average, and only 51% of its readings were within 0.3 °C of the true value. At 31 °C it read 0.10 °C low on average, with 45% of readings within 0.3 °C. Most individual readings fell somewhere between 0.6 °C below the probe and 0.7 °C above it [@verdel2021]. The authors concluded that their results did not support the maker's claim of a valid measure.
 
@@ -121,7 +119,7 @@ For heat training, an error of half a degree matters a good deal. The sessions i
 
 It is also worth knowing that none of the trials in this chapter used the sensor. The Copenhagen group used rectal probes. They have obvious drawbacks for home use. Rønnestad's group prescribed time, a suit or a room temperature, and an easy intensity. The haemoglobin results came from riders who were simply made hot for 50 minutes, five times a week [@ronnestad2022a].
 
-None of this makes the sensor useless. A repeatable number that is somewhat wrong can still show you a trend from one session to the next, if you treat it as your own scale and not as a temperature. But it is an optional extra for a practice whose benefits were demonstrated without it.
+A repeatable but inaccurate reading might help track your own sessions, though it cannot tell you your true temperature. The sensor is optional: the training benefits were demonstrated without it.
 
 ## Cooling on the day
 
@@ -143,7 +141,7 @@ If you want to try it anyway, perhaps because you are short of ways to add load 
 
 Be careful. The sessions in the trials were supervised, the riders were young and screened, and their core temperatures were being measured properly. Riding to a core temperature above 39 °C alone in a spare room is a different undertaking. Drink, stop if you feel dizzy, confused or chilled, and don't do it at all without medical advice if you have a heart condition or take medication that affects sweating or blood pressure.
 
-Heat training for cool-weather speed is a fair example of how a fashion forms. It began with one striking study that later, shorter studies could not repeat. It was rescued by a better mechanism and longer trials, which showed that the mechanism is real. What those trials have not yet shown is that an amateur who engages the mechanism gets faster, and the single time anyone checked, they did not.
+The longer trials established an increase in haemoglobin more clearly than an increase in speed. For an amateur weighing five hot hours against ordinary training, the one direct comparison found no advantage.
 
 ::: survives
 Training in the heat makes you faster in the heat. {grade A}

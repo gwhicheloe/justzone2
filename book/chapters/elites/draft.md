@@ -2,9 +2,7 @@
 
 Eleven Norwegian cross-country skiers and biathletes, each the winner of at least one individual Olympic or world championship gold medal, kept a diary of every training session in the year that led to the best result of their careers. Researchers at the Norwegian Olympic Federation later added the diaries up. The athletes had trained for 770 hours each on average, in 470 sessions, which is about 15 hours a week across the whole year. Of the time they spent on endurance training, 91% was below the first lactate threshold [@tonnessen2014].
 
-Records like these are where the advice to train mostly easy comes from, and they are usually read as a recipe: four easy sessions to one hard one, or 80/20. I think that reading takes the wrong number from the diaries. In every phase of the year the same athletes logged about 1.3 hours a week above the first threshold, spread over two or three sessions, and that figure hardly moved while their easy training rose to 15 hours a week in summer and fell to 10 in the racing season [@tonnessen2014]. The hard training looks like a fixed dose, of a size within an amateur's reach. The easy training is whatever a full-time athlete has the hours and the recovery to add on top. If that is right, the ratio is a consequence of how much the champions train, and a rider with seven hours a week who copies it has copied the wrong thing.
-
-That is an inference from diaries, and the evidence carries it only part of the way.
+These records are usually read as a recipe: four easy sessions to one hard one, or 80/20. I think that takes the wrong number from the diaries. The same athletes logged about 1.3 hours a week above the first threshold in every phase of the year, spread over two or three sessions. Their easy training rose to 15 hours a week in summer and fell to 10 in the racing season [@tonnessen2014]. The hard training looks like a fixed dose within an amateur's reach, with easy hours added around it. If that reading is right, a seven-hour rider should copy the hard dose rather than the ratio. The diaries alone cannot establish it.
 
 ## What the records show
 
@@ -28,7 +26,7 @@ Part of the difference comes from the counting. Fifteen well-trained road cyclis
 
 The diaries also show how easy the easy training was: most of it was below Zone 2. The Norwegian federation's scale has five zones, and Chapter 5 placed its zones 1 and 2 both below the first threshold. In the champions' version zone 1 ran up to 73% of maximum heart rate, with blood lactate under 1.2 mmol/L, and Zone 2 from 74 to 83%, with lactate of 1.3 to 2.0 mmol/L. That Zone 2 is the band this book calls Zone 2, the upper part of easy. The champions spent 86.0% of their endurance training time in zone 1 and 5.3% in Zone 2. In the summer preparation phase that was 14.3 hours a week against 0.9 [@tonnessen2014].
 
-For professional cyclists there is no such record, only Tadej Pogačar's account of himself. In September 2024, as the reigning Tour de France champion, he gave a long podcast interview about his training [@attia2024]. As it was reported, he put his Zone 2 at 320 to 340 W, said that on flat roads he will ride in it for five hours, and added that by the end of a ride like that the power has slipped to about 300 W [@hansen2024; @idlprocycling2025]. He weighed about 65 kg at that year's Tour [@attia2024], which puts his Zone 2 at roughly 5 W/kg. The 14 trained cyclists and triathletes of Chapter 9, who rode about nine hours a week, reached their first threshold at 217 W {shadow @stevenson2022}. He judges the zone, he said, from heart rate, power, speed and how he feels [@attia2024].
+For professional cyclists I found no record separating the easy hours this way. Tadej Pogačar gave his own account in a September 2024 podcast interview, as the reigning Tour de France champion [@attia2024]. As it was reported, he put his Zone 2 at 320 to 340 W, said that on flat roads he will ride in it for five hours, and added that by the end the power has slipped to about 300 W [@hansen2024; @idlprocycling2025]. He weighed about 65 kg at that year's Tour [@attia2024], which puts his Zone 2 at roughly 5 W/kg. The 14 trained cyclists and triathletes of Chapter 9, who rode about nine hours a week, reached their first threshold at 217 W {shadow @stevenson2022}. He judges the zone, he said, from heart rate, power, speed and how he feels [@attia2024].
 
 An interview is not a training record, and his Zone 2 is whatever his team's testing says it is. Taken at face value, it has the Tour de France champion doing his long rides in Zone 2, where the skiers do theirs below it.
 
@@ -38,7 +36,7 @@ I think the skiers, the triathlete and the cyclist are all following the same ru
 
 ## How the pattern came about
 
-Nobody designed it in a laboratory. A 2023 review of a century of distance-running training concluded that most of what runners do was arrived at by trial and error, and little of it by experiment [@casado2023]. From the 1930s to the 1950s the leading runners trained on intervals: Emil Zátopek, the Czech Olympic champion, ran sessions of 40 or 60 repetitions of 400 metres. In the 1960s the New Zealand coach Arthur Lydiard argued against the hard interval programmes and built his runners' preparation on 10 to 12 weeks of mostly easy continuous running, aiming at 100 miles a week. His athletes Peter Snell and Murray Halberg won four Olympic gold medals between them from 1960 to 1964. By the 1970s and 1980s many international runners had combined Lydiard's volume with interval sessions, on a pattern of hard days and easy days usually credited to the Oregon coaches Bill Bowerman and Bill Dellinger [@casado2023].
+A 2023 review of a century of distance-running training traced most practices to trial and error [@casado2023]. From the 1930s to the 1950s the leading runners trained on intervals: Emil Zátopek, the Czech Olympic champion, ran sessions of 40 or 60 repetitions of 400 metres. In the 1960s the New Zealand coach Arthur Lydiard argued against the hard interval programmes and built his runners' preparation on 10 to 12 weeks of mostly easy continuous running, aiming at 100 miles a week. His athletes Peter Snell and Murray Halberg won four Olympic gold medals between them from 1960 to 1964. By the 1970s and 1980s many international runners had combined Lydiard's volume with interval sessions, on a pattern of hard days and easy days usually credited to the Oregon coaches Bill Bowerman and Bill Dellinger [@casado2023].
 
 Rowing left numbers. Twenty-eight Norwegian rowers won international medals between 1970 and 2001, and 21 of them answered a detailed questionnaire about how they had trained. Between the 1970s and the 1990s the medallists' easy training went from 30 hours a month to 50, and their training at race pace and above fell from 23 hours a month to about 7. Their total volume rose by a fifth. Over the same period their VO₂max rose by 12% and their six-minute ergometer performance by almost 10% [@fiskerstrand2004].
 
@@ -48,7 +46,7 @@ All of this is observation, and it points one way: athletes and squads did bette
 
 ## Why it might work
 
-The first explanation is that hard training has a ceiling, and the champions' diaries show where it was for them. Their time above the first threshold stayed at about 1.3 hours a week in every phase of the year while their easy training rose and fell around it. It was done in two sessions a week, rising to three before a championship, about 100 sessions a year [@tonnessen2014].
+The champions' steady hard dose suggests a limit to how much hard training they could usefully do. Their two weekly hard sessions rose to three before a championship, about 100 sessions a year [@tonnessen2014].
 
 ![Hours are the means of eleven athletes, from the training diaries analysed by Tønnessen and colleagues [@tonnessen2014]. Easy is zones 1 and 2 of the Norwegian five-zone scale and hard is zones 3 to 5. The percentages and the bottom row are my arithmetic.](figures/champions-week.svg)
 
@@ -90,8 +88,6 @@ Design: Randomised trial lasting nine weeks, every session controlled by heart r
 Authors' conclusion: Polarised training gave the greatest improvements in most of the key measures of endurance. Threshold and high-volume training gave no further improvement.
 :::
 
-The paper's title says that polarised training has a greater impact on endurance than the three alternatives. The full text supports something narrower.
-
 The distributions are counts of sessions. The polarised group is described as 68 / 6 / 26, which means that 14 of its 54 sessions were interval sessions. Each held 16 minutes of hard effort. By my arithmetic from the paper's table, that is under four hours of intervals in 104 hours of training, less than 4% of the time [@stoggl2014].
 
 The groups did not train for the same number of hours, and the polarised group trained for 38 hours more than the interval group over the nine weeks [@stoggl2014]. Only the comparison with the high-volume group is free of that difference.
@@ -118,7 +114,7 @@ Question: Across the trials, does polarised training improve time-trial performa
 
 The 2025 analysis was by the author of the 2019 one, working with the people who had run many of the trials, Seiler among them, and it found no difference in VO₂max either [@rosenblat2025]. The 2024 analysis still found VO₂peak favouring polarised training, by 0.24 of a standard deviation, with an interval that only just excluded zero. That advantage appeared in programmes shorter than 12 weeks and in highly trained athletes and nowhere else, and the authors pointed out that the highly trained athletes were in the short studies, so the two could not be told apart [@silvaoliveira2024].
 
-This is Chapter 4's simulation happening in real data. The first trials of a new idea are small, the small trials that get noticed are the ones that found something, and a first meta-analysis can only pool what exists. Nobody need have done anything wrong. When a training claim rests on a pooled result from three trials, the sensible reading is that the true effect lies at the low end of the interval or below it.
+Pooling three small trials doesn't remove the selection problem in Chapter 4. The trials most likely to be published are the ones with large effects, so an early meta-analysis can inherit their exaggeration. As more trials accumulated here, the time-trial advantage disappeared.
 
 The same caution applies to what the later analyses found in subgroups. The 2025 paper reports that competitive athletes gained more VO₂max from polarised training and recreational athletes more from pyramidal [@rosenblat2025]. Chapter 4 listed the subgroup among the signs that a finding may not last, and this one has not yet been tested by a trial designed to look for it.
 
@@ -126,7 +122,7 @@ Cyclists have a pooled analysis of their own. Published in 2025, it took in 41 s
 
 Among programmes that are mostly easy and contain some hard work, no way of dividing the hard work has been shown to make athletes faster than another over 4 to 16 weeks [@silvaoliveira2024; @rosenblat2025; @cove2025]. {grade B} Whether one does better over years is unknown, because nobody has run the trial. {grade C}
 
-So the evidence doesn't ask a rider to choose between polarised and pyramidal. What the programmes in these trials had in common was a large amount of easy training with some hard work, and that common ground, not the label, is the part to copy.
+The programmes shared a large amount of easy training with some hard work. The evidence gives little reason to choose between polarised and pyramidal versions of that mix.
 
 ## Six to ten hours a week
 
@@ -140,11 +136,11 @@ Volume still counts for those who are adapted to it. When 18 male professionals 
 
 For a rider on these hours, the elite example says to decide the hard sessions first and let the easy riding, and the percentages, follow. Chapter 17 builds the week that way.
 
-The best evidence that easy training matters comes from athletes who do 15 hours of it a week, and in the one set of diaries that divides it up, 86% of their training time was below Zone 2 and 5% was in it [@tonnessen2014]. Elite practice is evidence for a large volume of training, most of it easy, and beyond one rider's interview it lends little to Zone 2 in particular. The case for Zone 2 is the narrower one from Chapter 7: a rider with few hours gets the most from the easy ones by riding near the top of the range.
+Elite practice lends little support to Zone 2 in particular: most of the champions' easy hours were below it [@tonnessen2014]. The case for riding near the top of the range remains Chapter 7's practical judgement for riders with fewer hours.
 
 ::: survives
-Champions spend about 91% of their training time below the first threshold. {grade A}
-Their hard training is a steady dose of about 1.3 hours a week. {grade A}
+Champions spend about 91% of their training time below the first threshold. {grade C}
+Their hard training is a steady dose of about 1.3 hours a week. {grade C}
 No way of dividing the hard work has beaten another over 4 to 16 weeks. {grade B}
 Copy the volume and the steady hard dose, not the ratio. {grade C}
 :::

@@ -4,21 +4,17 @@ I'm too squeamish for a home lactate test. I wish I could do one, and that's why
 
 Most riders have never had their threshold measured either. They ride to a heart-rate zone that a watch worked out from their age, or a power zone that an app worked out from a 20-minute test, and both are guesses at where the lactate threshold probably lies.
 
-This chapter is about finding it. The top of Zone 2 is the first lactate threshold. Muscle makes lactate all the time and the body clears it all the time, and the level in the blood is the balance between the two {shadow @brooks2018}. During easy riding the balance holds near its baseline, around 1 mmol/L in most people. At some power, different for every rider, production begins to outrun clearance and the level steps up. That power, and the heart rate that goes with it, is the first lactate threshold, and Zone 2 is the band immediately beneath it. A lactate test measures it. Everything else in this chapter, the talk test, a chest strap, a percentage of maximum heart rate, is a stand-in, and the question to ask of each is how closely it tracks the blood.
+The top of Zone 2 is the first lactate threshold. During easy riding, lactate production and clearance balance near the rider's baseline, around 1 mmol/L in most people {shadow @brooks2018}. As power rises, production begins to outrun clearance and the level steps up. A lactate test finds that point. The talk test, chest-strap methods and percentages of maximum heart rate all estimate it, with different degrees of success.
 
 ## Why the boundary matters
 
-Below the first threshold, riding is cheap. Above it, a ride costs more than its label shows.
+Below the first threshold, oxygen uptake, heart rate and lactate level off within a few minutes of a change in power. Above it, the oxygen cost of holding the same power creeps upward for many minutes as the muscle tires and recruits less efficient fibres {shadow @jones2011}.
 
-The effort settles. Within a few minutes of a change in power, oxygen uptake, heart rate and lactate level off and stay level. Above the threshold, as Chapter 5 described, the oxygen cost of holding the same power creeps upward for many minutes, because the muscle is tiring and calling on less efficient fibres {shadow @jones2011}.
+In the Exeter experiment of Chapter 5, men riding 20 W below their first threshold lasted three and a half hours, and stopped when the glycogen in their muscles had nearly run out. Between the thresholds they lasted 43 minutes {shadow @black2017}.
 
-The effort lasts. In the Exeter experiment of Chapter 5, men riding 20 W below their first threshold lasted three and a half hours, and stopped when the glycogen in their muscles had nearly run out. Between the thresholds they lasted 43 minutes {shadow @black2017}.
+Recovery also changes across the boundary. In 2007 Stephen Seiler and colleagues had nine highly trained runners do four sessions on separate days: an hour below the first threshold, two hours below it, an hour that included 30 minutes between the thresholds, and an hour of hard intervals above the second. After each session the runners lay down, and for four hours the researchers followed their heart rate variability, a marker of how far the nervous control of the heart has been disturbed. After the easy sessions it was back to normal within 5 to 10 minutes, and two hours had cost no more than one. After the session between the thresholds it took about 30 minutes, as it did after the hard intervals. The authors called the first threshold a "binary" one for recovery: what counted was which side of it the session had been on [@seiler2007]. {grade B}
 
-And the effort is cheap to recover from. In 2007 Stephen Seiler and colleagues had nine highly trained runners do four sessions on separate days: an hour below the first threshold, two hours below it, an hour that included 30 minutes between the thresholds, and an hour of hard intervals above the second. After each session the runners lay down, and for four hours the researchers followed their heart rate variability, a marker of how far the nervous control of the heart has been disturbed. After the easy sessions it was back to normal within 5 to 10 minutes, and two hours had cost no more than one. After the session between the thresholds it took about 30 minutes, and after the hard intervals it took the same 30 minutes. The authors called the first threshold a "binary" one for recovery: what counted was which side of it the session had been on [@seiler2007]. {grade B}
-
-Nine runners, one marker of recovery and a boundary found from breathing make it a small study, but it is the clearest evidence there is for why the top edge of Zone 2 matters. A rider who drifts across the threshold is paying a price that the session's label does not show.
-
-That is the whole case for zones. The body has two boundaries, and the five or seven zones of a watch or an app are subdivisions of the three domains they create. The 2025 panel expected much the same adaptations a little above Zone 2 and a little below it [@sitko2025]. What matters is not the zone but the line at the top of it, and what it costs to cross.
+The study used nine runners, one marker of recovery and a boundary found from breathing. It gives a reason to pay attention to the first threshold, rather than proof of a sharp recovery boundary for every rider. The 2025 panel expected much the same adaptations a little above Zone 2 and a little below it [@sitko2025]; the recovery cost is the reason to keep an easy ride below the line.
 
 ## Why lactate
 
@@ -30,7 +26,7 @@ The second is that a rider can measure it. The first ventilatory threshold needs
 
 The third is that the rule is a rise above your own baseline, not a fixed figure. The Zone 2 of the podcasts is often given as "lactate below 2 mmol/L" {shadow @storoschuk2025}, and a fixed figure fails in two ways. Baselines differ between people: in the 50 cyclists of Chapter 5, 2.0 mmol/L arrived at 211 W on average, 12 W beyond the first rise, and nine of the riders never recorded a value below 1.5 at any power [@meixner2025]. And handheld meters tend to read lower than laboratory analysers [@tannerrk2010]{shadow @bonaventura2015}, so a meter that reads low delays a fixed 2.0 and sets the zone too high. A rise measured against the same meter's own baseline survives both problems.
 
-None of this shows lactate to be the better boundary, and I should say so. A 2020 review of every common method found some evidence for both the first lactate threshold and the first ventilatory threshold as the lower boundary [@jamnick2020]. In the one study here that tested the same cyclists twice, the breathing threshold was slightly the more repeatable, with a standard deviation of 13 W in the retest differences against 19 W for the lactate threshold [@pallares2016].
+A 2020 review found some evidence for both lactate and breathing as measures of the lower boundary [@jamnick2020]. In the one study here that tested the same cyclists twice, the breathing threshold was slightly the more repeatable, with a standard deviation of 13 W in the retest differences against 19 W for the lactate threshold [@pallares2016].
 
 The two do not always coincide. In three studies of trained cyclists that measured both, the lactate threshold came out level with the breathing threshold, 14 W above it and 24 W above it [@meixner2025; @pallares2016; @olieslagers2026]. Nobody has run the trial that would settle it, with one group training to a ceiling set by lactate and another to a ceiling set by breathing. The choice is made on lineage and practicality. {grade C}
 
@@ -96,11 +92,9 @@ Design: One test to exhaustion each, starting at 40 W and rising by 30 W every f
 Authors' conclusion: The method was not reliable enough for finding the first threshold in a test of this kind.
 :::
 
-The scatter was the problem. On average the cut-off landed near the lactate threshold, but for individual riders it could be 36 beats too high or 21 too low, and the two heart rates hardly moved together. Against breathing it was further off still. A pooled analysis of 22 earlier studies had found the same lean, with the heartbeat threshold agreeing better with lactate than with breathing [@tanner2024].
+The average concealed errors as large as a whole heart-rate zone for individual riders. A pooled analysis of 22 earlier studies also found that the heartbeat threshold agreed better with lactate than with breathing [@tanner2024].
 
-The table also shows the laboratory's own two measures of the first threshold disagreeing, in the same riders during the same test. The next section comes back to that.
-
-All 21 riders were young men [@olieslagers2026]. Each did one test, so nobody knows whether a rider's heartbeat threshold would come out the same the following week. Four-minute stages suit lactate sampling and may blur the ventilatory threshold, which is easier to see in a smooth ramp. The work was funded by the university and the authors declared no conflicts of interest. On average the heartbeat method lands near the lactate threshold, and for any one rider it can be 30 beats out, so a live reading on a phone should not set the top of Zone 2 unchecked. {grade B}
+All 21 riders were young men, and each did only one test, leaving the method's repeatability untested [@olieslagers2026]. Four-minute stages suit lactate sampling and may blur the ventilatory threshold, which is easier to see in a smooth ramp. The work was funded by the university and the authors declared no conflicts of interest. Check a live phone reading against another method before using it to set the top of Zone 2. {grade B}
 
 The 2024 pooled analysis looks more encouraging than it is. Across 22 studies the average difference between the heartbeat threshold and the laboratory one was trivial, and the pooled correlation was 0.85. The body of the paper reports that about 90% of the variation between those studies reflected real differences in what they found, and that a new study could expect a correlation anywhere from 0.06 to 0.99 [@tanner2024]. The trivial average comes from studies that erred in both directions.
 
@@ -110,7 +104,7 @@ A validation study compares a cheap method with a reference and reports the gap.
 
 The Leuven study lets a reader see this because it measured two references. Against breathing, the heartbeat threshold was 17 beats out and the difference was statistically significant. Against lactate it was 8 beats out and the difference was not. Had the group collected only breathing, the paper would have reported a method that fails. Had they collected only lactate, it could fairly have reported one that agrees with the laboratory on average. Studies in this field differ in which reference they use, and the pooled analysis found that the choice changes the result [@tanner2024].
 
-So when a paper says a home method agrees with the laboratory, ask three things. Which laboratory measure was the reference: lactate or breathing, and by which of Chapter 5's definitions? The talk-test studies above all used breathing, and this book's definition uses lactate. How repeatable is the reference? If the same rider were tested again, or the same test read by another physiologist, the answer would move: by a standard deviation of 19 W in the retest of 14 cyclists, and by 16% between the four physiologists of 1983 [@pallares2016]{shadow @yeh1983}. And were the people who read the reference kept blind to the home method's result, as they were in Leuven? A threshold found by eye is easy to nudge towards a number the reader already knows.
+Check which laboratory measure was used as the reference, and how repeatable it is. The talk-test studies used breathing, while this book defines Zone 2 by lactate. Even the laboratory answer moves: by a standard deviation of 19 W in the retest of 14 cyclists, and by 16% between the four physiologists of 1983 [@pallares2016]{shadow @yeh1983}. The people reading the reference should also be kept blind to the home method's result, as they were in Leuven. A threshold found by eye is easy to nudge towards a number the reader already knows.
 
 A lactate threshold from a single test is uncertain by 10 or 20 W, and lactate and breathing were about 10 beats apart on average in Leuven [@pallares2016; @olieslagers2026]. A home method that lands within 10 beats of the lactate threshold has done about as well as the laboratory does against itself.
 
@@ -134,7 +128,7 @@ Feel finds the zone but not its edge. In 2008 a group of exercise psychologists 
 
 ## A step test for the turbo trainer
 
-A smart trainer makes a step test easy to run properly. In ERG mode the trainer holds a set power whatever the cadence, so each stage is exactly the power it is meant to be. The protocol below takes lactate and the talk test together, and a rider without a meter can run the talk test alone. It is assembled from the studies above. Nobody has tested it as a package, and each choice is given with the finding it rests on.
+In ERG mode a smart trainer holds a set power whatever your cadence, which helps keep the stages consistent. This protocol combines lactate sampling with the talk test; without a meter, you can use the talk test alone. I have assembled it from the studies above. Nobody has tested it as a package.
 
 1. Pick a day when you are rested, and ride in a cool room with a fan. Heat and fatigue both raise heart rate at a given power.
 2. Warm up for 10 minutes at a very easy power. With a meter, take a first sample at the end.
@@ -183,7 +177,7 @@ Day to day, heart rate wobbles by about 5 beats, and within a long ride by more.
 A lactate meter stays at home, and the numbers it gave you are what you ride to. Of the stand-ins, the talk test is the one that goes out on the road. If you are riding at your Zone 2 heart rate and can't finish a sentence comfortably, the number is wrong for that day.
 
 ::: survives
-A lactate test finds the top of Zone 2 best, and even it is uncertain by 10 to 20 W.
+Lactate is this book's reference; even a laboratory test is uncertain by 10 to 20 W.
 The talk test is the best-supported method that costs nothing. {grade B}
 A heart-rate app can be 30 beats out for one rider. Check it before you ride to it. {grade B}
 With only an FTP, 75% of it is a cautious Zone 2 ceiling to start from. {grade C}

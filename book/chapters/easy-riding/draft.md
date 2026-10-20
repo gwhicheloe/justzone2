@@ -2,9 +2,9 @@
 
 The winter in the Introduction is the reason this book exists: four or five easy rides a week on a trainer in the garage, and then a climb up Sa Calobra more than two minutes faster than I had ever ridden it. I put it down to Zone 2 and the mitochondria it was said to build. The training studies in this chapter do not bear that out, and they point to a plainer explanation.
 
-Easy riding is riding below the first lactate threshold, and for most cyclists it is most of what they do. Since about 2019 a great deal has been claimed for it: that it is the best way to build mitochondria, that it teaches the body to burn fat, that it trains the clearing of lactate, and that its upper edge, Zone 2, is an intensity with effects no other has. That is a lot to ask of a pace at which you can hold a conversation. Those claims can be checked against training studies, and most of them do not hold. Easy riding is a small stimulus to the muscle, smaller per minute than any harder riding, and it costs so little that it can be repeated in very large amounts. What it does for a rider, it does through the amount.
+Since about 2019 a great deal has been claimed for easy riding: that it is the best way to build mitochondria, that it trains fat burning and lactate clearance, and that its upper edge, Zone 2, has effects no other intensity does. That is a lot to ask of a pace at which you can hold a conversation. The training studies support a simpler account. Easy riding provides a small stimulus that can be repeated in large amounts.
 
-That matters because the amount is the thing riders differ in. A professional can train for most of the day, and an amateur with a job and a family may have a handful of hours a week. An account of easy riding that is true for one of them can be poor advice for the other.
+A professional can train for most of the day; an amateur with a job and a family may have a handful of hours a week. Easy riding has a different place in those two weeks.
 
 ## What an easy ride asks of the muscle
 
@@ -58,9 +58,9 @@ What the analysis establishes is that continuous riding below the second thresho
 
 ## Studies that kept the riding easy
 
-A handful of studies trained people at an intensity that was clearly easy and measured the result. Each is small, and they point the same way.
+The studies that kept training clearly below the first threshold are small, but let us separate easy riding from the broader continuous-training category.
 
-Four weeks is not enough at low volume. In a 2016 study from David Bishop's laboratory, 29 men did 12 sessions over four weeks of sprints, of four-minute intervals, or of continuous riding below the lactate threshold for 20 to 36 minutes. Citrate synthase, the usual marker of mitochondrial content, did not change in any group, and the mitochondria's capacity to use oxygen rose only after sprints [@granata2016].
+At low volume, four weeks produced no measurable gain in mitochondrial content. In a 2016 study from David Bishop's laboratory, 29 men did 12 sessions of sprints, four-minute intervals, or continuous riding below the lactate threshold for 20 to 36 minutes. Citrate synthase, the usual marker of mitochondrial content, did not change in any group, and the mitochondria's capacity to use oxygen rose only after sprints [@granata2016].
 
 At equal work, easy training does not raise the ceiling. A Norwegian trial assigned 40 moderately trained men to four ways of running, three days a week for eight weeks, with the total oxygen consumed matched between groups: slow running at 70% of maximum heart rate, steady running at 85%, and two kinds of interval. VO₂max rose by 5.5% and 7.2% in the interval groups, significantly more than in the other two, and the heart's stroke volume rose by about 10% after intervals {shadow @helgerud2007}. The summary of the paper gives no figures for the slow group.
 
@@ -92,7 +92,7 @@ Fat burning rises with intensity to a peak and then falls as carbohydrate takes 
 
 ![Three separate studies, four feeding conditions. Only the middle pair is a direct comparison: the same people tested fasted and after glucose, in the same laboratory, whose summary gives no lactate figure [@achten2003feeding]. The top group is from Achten and Jeukendrup, with the feeding not stated [@achten2004], and the bottom from Meixner and colleagues, where the lactate marker is a rise of 0.5 mmol/L above baseline [@meixner2025]. The studies tested different people in different ways, so the gaps between groups are not the effect of feeding alone.](figures/fatmax-feeding.svg)
 
-So the belief is right for a fasted rider and wrong for a fed one. That the difference between the studies is the feeding is my inference: their test protocols differed as well. The peak is also broad and hard to pin down. In moderately trained cyclists, fat burning stayed within 10% of its peak from 55% to 72% of VO₂max {shadow @achten2002}, and when 15 men were tested twice, each man's peak moved by 16–21% between the two tests {shadow @croci2014}.
+Peak fat burning may sit near the Zone 2 ceiling when fasted and lower after eating. Feeding is my explanation for the difference between studies, but their test protocols differed too. The peak is broad: in moderately trained cyclists, fat burning stayed within 10% of its peak from 55% to 72% of VO₂max {shadow @achten2002}. When 15 men were tested twice, each man's peak moved by 16–21% {shadow @croci2014}.
 
 For body fat, where the peak sits matters much less than it seems. Sixteen adults each spent three days in a sealed room that measured everything they burned. On one day they rested, on one they did 400 kcal of exercise at 40% of VO₂max, and on one they did 400 kcal at 70%. Over the full 24 hours, the fat they burned did not differ between the three days [@melanson2002]. A review by the same group concluded that exercise of an hour or less has little effect on fat burned over a day {shadow @melanson2009}. The likely reason is that the body settles its fuel account over the day, so that a ride which burned mostly fat is followed by hours that burn a little less. {grade B}
 
@@ -120,15 +120,13 @@ And look at who is writing. One of the Canadian authors declares an advisory rol
 
 ## What easy riding is good for
 
-If easy riding is a weaker stimulus per hour than any other kind, the case for it has to rest on something else, and it does. It rests on cost.
+Easy riding earns its place when recovery, rather than time, limits how much you can train.
 
-A comparison per hour assumes that time is what a rider is short of. For some riders it is. For others the scarce thing is the capacity to recover, and measured against that, the ranking of the three kinds of training reverses.
-
-Riders 20 W below their first threshold kept going for three and a half hours {shadow @black2017}, and trained runners had recovered within 5 to 10 minutes of an easy session whether it lasted one hour or two, against 30 minutes after anything harder {shadow @seiler2007}. There is a limit to how many hard sessions a rider can absorb in a week, which Chapter 12 examines. Beyond that limit, every further hour of training has to be easy or it will not get done.
+In Seiler's runners, the heart-rate-variability marker returned to normal within 5 to 10 minutes of an easy session, against 30 minutes after harder sessions {shadow @seiler2007}. Chapter 12 examines how many hard sessions a rider can absorb in a week. Easy riding lets you add work around them.
 
 So easy riding is how a rider with time turns that time into training. The Norwegian authors found that training load, the product of volume and intensity, was the best predictor of the gain in mitochondrial content [@molmen2025], and easy riding is the only way to raise the volume term very far. This is why the athletes of Chapter 8 do so much of it. It does not follow that a rider with four hours a week should spend them the same way.
 
-Easy riding may also build things that short studies cannot see. Chapter 2 gave the timescales: capillaries and the structure of the heart change over months and years, and nearly every trial in this chapter lasted weeks. Chapter 9 describes durability, the ability to hold power late in a long ride, which in one ten-week trial improved as much on nearly seven hours a week of easy riding as on about an hour and a half of intervals, although only the intervals raised VO₂max {shadow @matomaki2023}. The argument that years of easy volume build an engine that intervals alone cannot rests on what elite athletes do and on mechanism. No trial has run long enough to test it. {grade C}
+Easy riding may also build things that short studies cannot see. Chapter 2 described changes to the heart over months and years; nearly every trial here lasted weeks. The case that years of easy volume build an engine that intervals alone cannot rests on mechanism and what elite athletes do. No trial has run long enough to test it. {grade C}
 
 ## How easy, and how long
 
@@ -146,7 +144,7 @@ On duration, the mechanism favours long rides over many short ones, and nothing 
 
 > **From the saddle.** Before that winter I'd been doing mainly high-intensity sessions, mostly racing online on Zwift, and rather inconsistently. At the weekends I rode with friends, and those rides were generally high intensity too. It came to maybe three or four hours a week. That winter it was about three to five hours a week. I generally felt better, and I fell ill less often with coughs and colds.
 
-The intensity, then, was not the only thing that changed that winter. The hours changed little, from three or four a week to three to five, but the riding became regular: four or five sessions every week, where before it had been hard sessions done inconsistently. Four or five sessions a week is the frequency at which the Norwegian analysis found the gains growing [@molmen2025]. Per hour, the evidence in this chapter favours harder riding over easy, so the regularity is a likelier cause of the improvement than the lower intensity. One rider and one climb make it an inference, not a finding. Easy riding was something I could do week after week and feel better for. It does not show that easy riding was the best use of those hours.
+My hours changed little, from three or four a week to three to five. What changed was the regularity: four or five sessions every week, a frequency at which the Norwegian analysis found larger gains [@molmen2025]. Since the evidence favours harder riding per hour, I think regularity explains my improvement better than the lower intensity. One rider and one climb cannot establish that. Easy riding was simply something I could do week after week and feel better for.
 
 ## Who it is for
 
@@ -158,7 +156,7 @@ A trained rider with only a few hours a week gets the least from it. The muscle 
 
 That reading comes from studies that were mostly not designed to sort riders this way, and Part III tests it against the trials that compared easy riding with intervals directly. {grade C}
 
-A trained rider with many hours is the one it is for. Once the week holds as many hard sessions as the rider can absorb, every further hour has to be easy, those hours cost little, and they are the only way left to raise the training load. Per hour, harder riding does more, and yet the best endurance athletes in the world do most of their training easy, year after year.
+A trained rider with many hours can use easy riding to add work once the hard sessions are in place. That is the position of the best endurance athletes in the world, who do most of their training easy, year after year.
 
 ::: survives
 Easy riding builds mitochondria and capillaries in the untrained, as much per programme as harder training. {grade A}

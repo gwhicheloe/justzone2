@@ -4,9 +4,9 @@ In a study published in 1989, researchers from Maastricht followed riders from o
 
 They took in an average of 24.7 megajoules a day, which is about 5,900 kilocalories, and 32.4 megajoules on the hardest day in the mountains. Almost half of it, 49%, was eaten on the bike. Across 115 hours of racing that came to 94 grams of carbohydrate an hour. The largest single source of their energy was sweet cakes, eaten during the stages. A maltodextrin drink came second and bread third [@saris1989].
 
-That figure is worth holding against the way fuelling is talked about now. The usual account is that professionals have recently learned to eat far more during races than riders once did, 100 or 120 grams of carbohydrate an hour from drinks and gels designed for the purpose, and that this is one of the main reasons racing has become faster. A 2026 review of the subject says the change "has been widely described as a 'carbohydrate revolution'" [@plews2026].
+The usual account today is that professionals have recently learned to eat far more during races, 100 or 120 grams an hour from drinks and gels, and that this helps explain why racing is faster. A 2026 review says the change "has been widely described as a 'carbohydrate revolution'" [@plews2026].
 
-The number came from diaries, and a diary is not accurate to the gram, although these were checked each week by a nutritionist against what the team had supplied, and the drinks came in standard bottles [@saris1989]. It should make anyone cautious about the word revolution. Riders in the Tour were eating a great deal on the bike in the 1980s, and much of it was cake.
+The old diaries were not accurate to the gram, although a nutritionist checked them weekly against team supplies, and drinks came in standard bottles [@saris1989]. They still show Tour riders eating a great deal on the bike in the 1980s, much of it cake.
 
 ## What a ride costs
 
@@ -48,7 +48,7 @@ The 2026 review, by a group based in Auckland, went through all of this and conc
 
 The authors do not dismiss the practice. They point out that people differ: in one study, riders all given 120 grams an hour burned anything from about 1.3 to 1.9 grams a minute, so a few could use nearly all of it and most could not. And they suggest that the real benefit of eating a great deal during a stage may arrive the next day, as better recovery. That would matter in a three-week race, and no laboratory trial of a single ride would detect it [@plews2026].
 
-A second review, published the same year by seven British researchers, reads the same studies and reaches a different recommendation. It argues that the upper limit could now rise from 90 to 120 grams an hour, at least for trained athletes, because more of the carbohydrate is burned at the higher intake [@morton2026]. The two reviews agree on the facts more than their conclusions suggest. This one states that the intakes of 120 to 200 grams an hour now being tried by athletes are "not yet substantiated by current scientific research", and concedes that a definitive study of dose and performance "is yet to be completed". Its case for 120 grams rests on how much is burned, and the Auckland review's case against rests on the absence of a performance gain. A reader can hold both: more is burned, and nobody has shown it makes you faster.
+A second review, published the same year by seven British researchers, argues for raising the limit from 90 to 120 grams an hour for trained athletes, because more carbohydrate is burned [@morton2026]. It concedes that a definitive study of dose and performance "is yet to be completed". The reviews disagree about the recommendation, rather than the result: more is burned, but a performance gain has not been established.
 
 ### Reading the research: what the fast riders eat
 
@@ -56,24 +56,20 @@ In 2012 a group surveyed 221 athletes after Ironman triathlons, a marathon, a lo
 
 It is tempting to read that as proof that eating more makes you faster. The survey can't show it. The faster athletes in an Ironman are the fitter and more experienced ones. By my reasoning, not the survey's, they are working at a lower fraction of their capacity at any given speed, which leaves more blood flow for the gut, and they have had years to practise eating in races. Speed may be what allows the eating. The same survey found that higher intakes went with more nausea and flatulence {shadow @pfeiffer2012}, so the athletes eating the most were not having an easy time of it.
 
-The argument that professionals eat 120 grams an hour and professionals are fast has the same weakness, and so does the argument that winners eat more than the riders they beat.
-
 The review on training the gut that this chapter draws on appeared in a journal supplement supported by the research institute of a sports drink company, and its author received a fee for attending the meeting behind it [@jeukendrup2017]. The carbohydrate in the 2026 dose trial was supplied by a supplement company [@norte2026]. That does not make the findings wrong, and the big dose trial was double-blind.
 
-The two 2026 reviews are not neutral either. Of the seven authors of the review that argues for raising the limit to 120 grams, five declare a relationship with one sports nutrition company, and one of them is employed by it [@morton2026]. The lead author of the more sceptical review declares a post with a company that sells other supplements [@plews2026]. None of this settles who is right. It does mean that the questions which get studied are often the ones a manufacturer would like answered, and that a reader should know where a recommendation to eat more of a product comes from.
+The two 2026 reviews also declare industry relationships. Five of the seven authors arguing for 120 grams have a relationship with one sports nutrition company, and one is employed by it [@morton2026]. The lead author of the more sceptical review holds a post with a company selling other supplements [@plews2026]. These interests don't settle the argument, but belong alongside a recommendation to consume more of a product.
 
 > **From the saddle.** On a long ride I eat Precision PF 30 Chews. They're pretty tasty and I can keep eating them on the move. I've found it's important to start on them early, maybe 20 minutes in, because it gets me into the habit of eating regularly. Gels can upset my stomach. I generally prefer Lucozade Sport to a specialist carb drink, mainly for the taste. It matters to me that the drink tastes good, so that I'm looking forward to drinking it rather than forcing it down.
 
 
 ## Is this why racing is faster?
 
-I could not find a study that tests the claim, and it is hard to see how one could be done. Fuelling did not change in isolation. Over the same years bikes, tyres, clothing and riding positions changed, and so did training, altitude camps, the heat work described in the Heat training chapter and the age at which riders turn professional. A race has no control group, and there is no way to hold everything else still.
-
-What can be said is narrower. Carbohydrate during long rides improves performance, and that has been known for decades. Riders in the Tour were recorded eating 94 grams an hour in the 1980s, and their total for the day, 12.3 grams per kilogram, is almost the same as the 12.5 measured on a WorldTour team three decades later [@saris1989; @muros2019]. Those are two teams in two different races, one recorded by diary and one by weighing, so the match should not be pressed.
+I found no study isolating fuelling's contribution to faster racing. Nor do the older records establish that riders always ate as much as they do now: they cover two teams in different races, measured by diary in one case and weighing in the other [@saris1989; @muros2019].
 
 The published hourly figures show a recent upturn, and it is smaller than the word revolution implies. The British review, some of whose authors work with professional teams, says that professional cyclists' intakes have usually been reported at 60 to 90 grams an hour. It gives Chris Froome's figures across nine stages of the 2018 Giro d'Italia, which he won: between 52 and 96 grams an hour, with the highest on the hardest day. It also passes on a press report that a stage winner at the 2025 Tour took about 116, and reports that some riders are said to be training their guts to tolerate 200 or more [@morton2026]. So the leading edge has moved up in the last few years, from the nineties to something over a hundred, if the press figures are right, and the 200 figure is hearsay.
 
-The controlled trials do not show that going from 90 to 120 makes anyone faster on the day [@plews2026]. So if modern fuelling has made racing faster, the laboratory evidence suggests it did not do so through a higher hourly number in the final of a single stage.
+The controlled trials have not shown that going from 90 to 120 makes riders faster on the day [@plews2026].
 
 It might still be true by the recovery route. A rider who eats more on Tuesday starts Wednesday with more glycogen, and over three weeks that could add up. Both reviews say as much. The British one suggests that higher intakes help riders match what they eat to what they spend each day, "even if this does not necessarily confer an immediate performance benefit" [@morton2026].
 
@@ -87,7 +83,7 @@ The athletic version is less dramatic and works the same way. In one study he de
 
 Diet changes how fast the stomach empties, and the change is specific to the nutrient. Volunteers whose diet was supplemented with 400 grams of glucose a day for three days emptied a glucose drink from the stomach faster afterwards, with a half-emptying time of about 21 minutes against 29, while a protein drink emptied no faster than before [@jeukendrup2017]. Three days was enough.
 
-The intestine is where the evidence gets thinner. In animals the answer is clear: feed more carbohydrate and the gut wall makes more of the SGLT1 transporter. Mice had nearly twice as much after two weeks on a high-carbohydrate diet, and changes have been seen in other species within days [@jeukendrup2017]. Nobody has measured this directly in a human athlete, because it would mean taking samples of the intestinal wall. "No direct human studies exist," the review says. The human evidence is indirect, and the most important piece of it is one study in cyclists.
+In animals, feeding more carbohydrate makes the gut wall produce more SGLT1 transporter. Mice had nearly twice as much after two weeks on a high-carbohydrate diet [@jeukendrup2017]. Nobody has measured this directly in a human athlete, which would require samples of the intestinal wall. The cyclist study below provides indirect evidence.
 
 ### One study, up close: 28 days of eating on the bike
 
@@ -105,9 +101,7 @@ Design: 16 trained cyclists and triathletes, pair-matched, with one of each pair
 | Time trial | About 6% better | About 6% better
 :::
 
-The difference between the groups was whether the gut met a stream of sugar during exercise every day for four weeks. In the high group the amount of the drink burned rose by about a sixth. The likeliest explanation is that the gut wall had made more transporters, as it does in animals. The study did not measure that.
-
-The performance result is less convenient. The riders who had trained their guts absorbed more and went no faster than the riders who hadn't.
+The high-carbohydrate group burned about a sixth more of the test drink after training, but gained no more speed than the control group. More transporters in the gut wall could explain the extra absorption, as in animals; the study did not measure them.
 
 There are limits on both findings. Eight riders a group is a small study by the standards of Chapter 4. The test drink was glucose alone, so the study cannot say whether training raises the higher ceiling that glucose and fructose mixtures reach. I have read this paper's abstract and Jeukendrup's detailed account of it, not the paper itself. And sixteen years later the 2026 reviewers note that its central finding "has not been consistently replicated" [@plews2026]. {grade C}
 
@@ -123,9 +117,9 @@ A third trial, from the Australian Institute of Sport, did not find this. In 19 
 
 All three are in a 2023 systematic review, which found eight studies of gut training in total. It concludes that two weeks of repeated feeding reduces gut discomfort and malabsorption, and that stomach emptying does not change. It also notes that no standard protocol exists, that 79% of participants were men, and that most of the studies were in runners [@martinez2023]. Only one used cycling alone. The review was written by the Monash group, and its senior author is also the senior author of the two trials that found a benefit. That is normal in a small field, and the review reports the contrary trial fairly, but it means the positive case comes from one laboratory.
 
-So the gut can probably be trained, in the sense that matters most to most riders. In recreational runners, two weeks of regularly eating during exercise made it more comfortable and reduced how much sugar passed through unabsorbed. {grade B} In elite athletes one trial found no such benefit, and in cyclists it has barely been tested. That practice raises the ceiling on how much carbohydrate can be burned rests on one small study. {grade C} And nobody has shown that a trained gut makes a cyclist faster.
+Practice probably makes eating during exercise more comfortable, at least in recreational runners. {grade B} Evidence that it raises carbohydrate absorption rests on one small cyclist study, which found no extra performance gain. {grade C}
 
-## Not only fuel
+## Carbohydrate sensed in the mouth
 
 One finding does not fit the picture of carbohydrate as petrol. In 2004 nine endurance cyclists did a time trial lasting about an hour, twice. In one they rinsed a carbohydrate solution around the mouth for five seconds at intervals and spat it out. In the other they did the same with water. Nothing was swallowed either time. With the carbohydrate rinse they finished in 59.57 minutes against 61.37, at an average of 259 watts against 252 [@carter2004].
 
@@ -147,7 +141,7 @@ For decades the standard advice was to drink enough to keep weight loss during e
 
 In cycling time trials, moderate dehydration has cost riders little. A 2011 meta-analysis took only studies that used cycling time trials. It found five, with 39 riders between them. Riders who finished an average of 2.2% lighter performed no differently from riders who had been kept topped up: the difference was 0.06%. Drinking according to thirst gave better results than drinking less than thirst asked for [@goulet2011].
 
-The same held when the rider's knowledge was removed. In 2015 an Australian group did that: Ten cyclists were dehydrated by 3% of body weight and then given back all, a third or none of the fluid through a drip, without knowing which. They then rode a 25-kilometre time trial at 33 °C with a 32 km/h headwind. Performance did not differ between the three conditions [@wall2015].
+In 2015 an Australian group repeated the comparison with the riders blinded. Ten cyclists were dehydrated by 3% of body weight and then given back all, a third or none of the fluid through a drip, without knowing which. They then rode a 25-kilometre time trial at 33 °C with a 32 km/h headwind. Performance did not differ between the three conditions [@wall2015].
 
 Two years later a British group did the blinding another way, by putting water into the stomach through a tube, and got the opposite result. Seven active men, about 2.4% dehydrated and at 34 °C, did 152 kilojoules of work in a 15-minute test against 165 when hydrated {shadow @james2017}.
 
@@ -168,8 +162,6 @@ One randomised trial found a benefit. Twenty-six triathletes took salt capsules 
 Sodium in a drink does no harm, and a salty drink may be easier to keep drinking. It is not protection against either of the things it is sold for.
 
 ## Caffeine, ketones, beetroot and cherry juice
-
-Four more products are sold to riders as performance aids or handed to them at the finish, and the evidence for them differs more than the marketing does.
 
 ::: trial
 Question: Does it make a cyclist faster, or recover faster?

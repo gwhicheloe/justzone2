@@ -4,7 +4,7 @@ In 1966 five healthy 20-year-old men in Dallas agreed to spend three weeks in be
 
 Thirty years later the same five men, now 50, came back to the laboratory. Their VO₂max averaged 2.90 litres of oxygen a minute, against 3.30 when they were 20, a fall of 11%. (Those are totals for the whole body, not adjusted for weight like the per-kilogram figures in Chapter 1.) The researchers who retested them concluded that three weeks of bed rest at 20 had done more damage to the men's capacity for physical work than three decades of ageing {shadow @mcguire2001}.
 
-The Dallas study is usually told as a warning about bed rest. It also shows how training works. The body does not hold on to capacity it isn't using: a big heart, a large blood volume and muscles packed with mitochondria all cost energy to maintain, and they are kept only while something keeps demanding them. Training is that demand.
+The body does not hold on to capacity it isn't using. A big heart, a large blood volume and muscles packed with mitochondria all cost energy to maintain. Training gives the body a reason to keep them.
 
 ## A session is a disturbance
 
@@ -20,7 +20,7 @@ These sensors are kinases, enzymes that work by attaching a phosphate group to o
 
 Every muscle cell carries the instructions for every protein the body can make, and at any moment it is using only some of them. To make more of a protein, such as an enzyme inside the mitochondria, the cell first copies the relevant gene into a short-lived molecule called messenger RNA (mRNA). The mRNA travels out of the nucleus and is read by the machinery that assembles proteins. More mRNA for a protein means, some hours later, more of the protein. The signals set off by exercise change which genes are being copied.
 
-So the outline of adaptation is a chain with four links. A session disturbs the cell. Sensors register the disturbance. Genes are switched on, and mRNA is made. Protein follows. Repeat the session often enough and the extra protein accumulates into something that can be seen under a microscope: more mitochondria, more capillaries around each fibre.
+Repeat the session often enough and the extra protein accumulates into something that can be seen under a microscope: more mitochondria, more capillaries around each fibre.
 
 ## How it works: from one ride to more mitochondria
 
@@ -32,7 +32,7 @@ Four years after the discovery, the same laboratory bred mice whose muscles made
 
 That experiment is why PGC-1α is often called the master regulator of mitochondrial biogenesis, the building of new mitochondria. Exercise activates it through the sensors described above, AMPK and the calcium-dependent kinases among them, and it also raises the amount of PGC-1α the cell makes [@egan2010].
 
-"Master regulator" overstates it. Mice bred with no PGC-1α at all still increased their mitochondrial enzymes when they were trained for five weeks, by about as much as normal mice, according to a Danish study described by Christopher Perry and colleagues [@perry2010]. The cell evidently has other routes to the same result. PGC-1α is the best understood of them and the one most often measured, and that second fact matters later in this chapter, because a great many claims about training rest on measurements of it.
+"Master regulator" overstates it. Mice bred with no PGC-1α at all still increased their mitochondrial enzymes when they were trained for five weeks, by about as much as normal mice, according to a Danish study described by Christopher Perry and colleagues [@perry2010]. The cell has other routes to the same result. PGC-1α is the best understood and most often measured; many claims about training rest on measurements of it.
 
 ### One study, up close: seven sessions, nine biopsies
 
@@ -68,7 +68,7 @@ David Bishop's group in Melbourne has reviewed the human training studies twice.
 
 Not every experiment fits. In 2017 Martin Gibala's laboratory in Canada had ten men train one leg with intervals and the other with continuous riding, six sessions over two weeks, with the work done by each leg matched to within a kilojoule per session. Using two legs of the same person removes differences in genes, diet and sleep. Citrate synthase activity ended about a fifth higher in the interval leg {shadow @macinnis2017}. When the total work is the same, in other words, intensity won.
 
-The two findings can both be true. Matching the work forces the comparison onto short sessions, about half an hour here, and nobody doing low-intensity training rides for half an hour. The practical comparison is between the amount of hard riding a person can tolerate in a week and the much larger amount of easy riding they can tolerate, and a single-leg study over two weeks cannot make it. Part II and Part III take up that comparison with the studies that tried. {grade C that volume determines mitochondrial content and intensity determines function; the reviewers themselves call it provisional}
+These work-matched sessions lasted about half an hour. They don't compare the amount of hard riding a person can tolerate in a week with the much larger amount of easy riding they can tolerate. Parts II and III take up that comparison. {grade C that volume determines mitochondrial content and intensity determines function; the reviewers themselves call it provisional}
 
 ## What changes in the blood and the heart
 
@@ -80,7 +80,7 @@ The second stage is slower. The number of red blood cells rises over weeks, unde
 
 VO₂max had risen by 9% over the six weeks. The men's muscles had more mitochondria and more capillaries, and their blood had more red cells. To find out which of those was responsible, the researchers took blood from each man until his red cell volume was back at its pre-training level, and tested him again. VO₂max fell by 7%. Most of the gain went with the blood, even though every adaptation in the muscle was still in place [@montero2015].
 
-This is direct evidence for the claim in Chapter 1 that oxygen delivery sets VO₂max. It applies to untrained men in their first six weeks, and it should not be stretched further than that. It also doesn't mean the muscle adaptations were wasted. They don't show up in a test of maximal oxygen uptake because they act on something else: how much of that maximum the rider can hold. {grade B}
+The result supports Chapter 1's account of oxygen delivery setting VO₂max, at least in untrained men over their first six weeks. The muscle adaptations affect how much of that maximum a rider can hold, which a VO₂max test doesn't measure. {grade B}
 
 The heart itself is the slowest of all. In a study published in 2014, Benjamin Levine's group in Dallas, the successors of the bed-rest researchers, took 12 sedentary adults and trained them for a year, with the aim that each would finish a marathon. By the end they were training seven to nine hours a week. Their hearts were scanned by MRI every three months. VO₂max rose from 40 to 49 millilitres per kilogram per minute. The wall of the left ventricle, the main pumping chamber, thickened over the first six months. The chamber itself barely enlarged in that time: its volume was 8% greater at six months, and most of the enlargement came in the second half of the year. After twelve months the hearts had the mass of an elite endurance athlete's, and they were still stiffer, less able to stretch and fill {shadow @arbabzadeh2014}.
 
@@ -96,7 +96,7 @@ If the authors' suggestion about growth is true, it concerns the very top of VO�
 
 In 2010 a group in Dublin had eight sedentary men ride twice. On one occasion they rode at 40% of VO₂max and on the other at 80%, in each case until they had burned 400 kilocalories. Three hours after the easy ride, PGC-1α mRNA in their thigh muscle was 3.8 times its resting level. Three hours after the hard ride it was 10.2 times. AMPK was activated immediately after the hard ride and not after the easy one [@egan2010].
 
-It is a careful study, and it is easy to read too much into it. The tempting conclusion is that hard riding builds mitochondria nearly three times as well as easy riding. Results like this are quoted in support of high-intensity training all the time. Nothing in the study measured mitochondria.
+It is tempting to conclude that hard riding builds mitochondria nearly three times as well as easy riding. But the study did not measure mitochondria.
 
 Start with what was measured: one messenger molecule, at one moment, after one session. Perry's study showed that this message is gone within a day and shrinks as training proceeds, while the protein it codes for keeps climbing. A snapshot of mRNA at three hours says which session produced the bigger burst. It does not say how much protein is eventually made, and it says nothing about what months of such sessions would do.
 
@@ -104,7 +104,7 @@ Then look at who was studied. The men were sedentary. For someone untrained, 40%
 
 And look at what was held equal. To match the energy burned, the easy ride lasted 70 minutes and the hard one 36. A cyclist's weekly long ride is not 70 minutes. The comparison a rider cares about, four hours easy against one hour hard, is not the one the study made [@egan2010].
 
-Bishop's group, reviewing this whole field, concluded that the changes seen after single sessions are "not necessarily predictive" of the adaptations seen after training [@granata2018]. The same caution cuts in both directions. Signalling studies are quoted for Zone 2 as readily as for intervals, and in both cases they are evidence about mechanism: they show that a pathway exists and that a session activates it. Whether one way of training makes riders faster than another is a question only a training study can answer, by training people and measuring them, and Chapter 4 is about how to read those. What survives from this study is the mechanism: easy and hard riding both switched on the pathway, and the training studies in Chapter 7 show that both build mitochondria.
+Bishop's group concluded that the changes seen after single sessions are "not necessarily predictive" of the adaptations seen after training [@granata2018]. This applies equally to signalling studies quoted in support of Zone 2. Comparing training methods requires a study that trains people and measures the result. Here, easy and hard riding both switched on the pathway; the training studies in Chapter 7 show that both build mitochondria.
 
 ## How fast it comes, how fast it goes
 
@@ -124,9 +124,7 @@ For a rider, the useful reading is that the adaptations lost fastest are also th
 
 ## Why the same training gives different results
 
-Everything so far describes averages. The spread around them is wide.
-
-The largest study of it is HERITAGE, run in North America in the 1990s. It put 481 sedentary adults from 98 families through the same 20-week training programme. The average gain in VO₂max was about 400 millilitres a minute. Some people gained more than a litre a minute, and some gained little or nothing [@bouchard1999].
+People gain very different amounts from the same training. HERITAGE, run in North America in the 1990s, put 481 sedentary adults from 98 families through the same 20-week programme. The average gain in VO₂max was about 400 millilitres a minute. Some people gained more than a litre a minute, and some gained little or nothing [@bouchard1999].
 
 Because whole families took part, the researchers could ask how much of that spread was inherited. The gains varied 2.5 times more between families than within them, and the statistical model put the heritable share of the training response at up to 47%. How much you improve on a given programme is, to a considerable degree, a family trait. All the participants in that analysis were white, which limits how far the figure can be generalised [@bouchard1999]. {grade B}
 
@@ -138,7 +136,7 @@ Taken together, the two studies say that people differ greatly in how much they 
 
 ## What to do with it
 
-The signal comes from the tissue that was disturbed. A muscle fibre that wasn't recruited during a session received no calcium flood and no energy shortfall, and it has no reason to change. This is the biology behind the old coaching principle of specificity, and it is why the question in Chapter 1, which part of the model does this session change, has a physical answer: the part it stressed.
+Training changes the tissue it stresses. A muscle fibre that wasn't recruited during a session received no calcium flood and no energy shortfall, and it has no reason to change. This is the biology behind the coaching principle of specificity.
 
 Adaptation is cumulative. In Perry's study the message from each session was gone within a day, and the proteins rose in steps across sessions. The mechanism favours training that can be repeated over training that can't, and a session that leaves a rider unable to train properly for four days has to be worth four days of bursts. That is an argument from mechanism, and it should be weighed as one.
 

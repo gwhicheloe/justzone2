@@ -4,13 +4,11 @@ In 2006 Chris Beedie and colleagues at Canterbury Christ Church University told 
 
 Every capsule was a placebo. When the riders believed they had taken the high dose, they produced 3.1% more power than in their baseline rides. When they believed they had taken the moderate dose, 1.3% more. When they believed they had been given nothing, 1.4% less. All six reported feeling the effects of caffeine [@beedie2006].
 
-It is a memorable result, and it is the kind that travels: belief alone is worth 3%, and more belief is worth more. There were six riders. The paper gives a range of uncertainty around each of those figures, and all of those ranges include zero: for the 3.1%, it runs from a loss of 0.4% to a gain of 6.7%. And the paper's own wording, that the effect was "likely beneficial", comes from a statistical method that sports science later had to abandon [@beedie2006].
+That is easily retold as "belief alone is worth 3%". But the range of uncertainty around every result includes zero: for the 3.1%, it runs from a loss of 0.4% to a gain of 6.7%. The paper's wording, that the effect was "likely beneficial", comes from a statistical method that sports science later had to abandon [@beedie2006].
 
-None of that means the finding is false. The six riders' power followed the order of their beliefs, lowest when they thought they had nothing and highest when they thought they had the most, and that fits the other evidence in Chapter 3 that expectation changes performance. But the study supports a much more modest sentence than the one that gets repeated: a placebo effect on cycling performance probably exists, and six riders cannot say how large it is. {grade C}
+The order of the results fits the evidence in Chapter 3 that expectation changes performance. A placebo effect on cycling performance probably exists; six riders cannot say how large it is. {grade C}
 
 ## Three kinds of evidence
-
-Almost every claim about training rests on one of three kinds of evidence, and the first thing to settle about any claim is which.
 
 The first is *mechanism*. A study shows that a session switches on a pathway, or raises a marker, and the claim follows by reasoning: this should make you fitter because of what it does in the cell. The single-session studies of PGC-1α in Chapter 2 are mechanism evidence. So are most of the arguments for any new training idea in its first few years, because mechanism studies are quick and cheap and a training study takes months.
 
@@ -24,8 +22,6 @@ The evidence grades used in this book follow from this division. Grade A needs s
 
 ## Who was studied
 
-A result applies to people like the ones in the study, and the people in training studies are mostly not like the reader of this book.
-
 The commonest volunteers are untrained or lightly active young men, often students, and exercise physiology knows the young male student about as well as it knows the laboratory rat. In untrained people almost any training works, and works fast: the nine men in the biopsy study in Chapter 2 raised their peak oxygen uptake by 12% in two weeks {shadow @perry2010}. A trained cyclist does not gain 12% from anything. So a comparison of two methods in untrained people mostly shows that both work, and a method that wins among beginners may do nothing for someone with five years of riding behind them.
 
 Studies of trained athletes are rarer, smaller and shorter, because trained athletes are few and unwilling to hand over their season to a research protocol. Studies of professionals are almost always observational. Women are under-represented at every level, and several of the studies in this book had none.
@@ -38,7 +34,7 @@ A training group that improves has shown very little by itself, because people w
 
 When there is a comparison group, look at what it did. Doing nothing is a weak comparison: it shows the training beats no training. The informative comparisons are between two kinds of training, and there the detail to find is what was held equal.
 
-Two methods can be matched for the total work done, or for the time spent, or for neither. The choice often decides the result. In Chapter 2, intervals beat steady riding for mitochondrial enzymes when the work done by each leg was matched to within a kilojoule. Matching work forces the steady session to be as short as the interval session, which removes the one advantage easy riding has, that far more of it can be done. A study matched for time would give the interval group several times the training stress. Neither design is wrong. They answer different questions, and the abstract will rarely say which question was asked.
+Two methods can be matched for total work, time spent, or neither. In Chapter 2, intervals beat steady riding for mitochondrial enzymes when the work done by each leg was matched to within a kilojoule. That comparison leaves out the advantage of easy riding: far more of it can be done. Matching time instead gives the interval group more training stress. Read the methods to find out which comparison the researchers made.
 
 Then there is everything around the test itself. A review from the Australian Institute of Sport lists influences on a performance test that studies often fail to control or report: how the test was explained, how much the rider was shouted at, whether they knew how far they had to go, who was watching, whether music was playing, and whether they arrived mentally tired {shadow @halperin2015}. Chapter 3 showed that several of these change performance by a few per cent, which is as large as the training effects most studies are looking for.
 
@@ -58,7 +54,7 @@ That arithmetic is an illustration with round numbers. It explains a result like
 
 ## How many people
 
-Of the 22 studies in people described in Chapters 2 and 3, the median had 11 participants. Only three had more than 50. Small samples are normal in exercise science, where every participant may need weeks of supervised training and several muscle biopsies, and it has consequences that are easy to underestimate.
+Of the 22 studies in people described in Chapters 2 and 3, the median had 11 participants. Only three had more than 50. Recruiting is expensive when every participant needs weeks of supervised training and several muscle biopsies.
 
 Imagine that one training method really is better than another, by a fixed amount. People vary, so any one trial will measure that advantage with some luck added or subtracted. With few people, the luck is large.
 
@@ -80,7 +76,7 @@ A small study that finds nothing has shown very little, because it would probabl
 
 Most results in a training paper come from one calculation. The researchers take the difference they observed between the groups and divide it by its *standard error*, an estimate of how much that difference would vary by chance if the study were run again with different volunteers. The answer is a *t-statistic*: the signal measured in units of the noise. A t of 1 means the difference is no bigger than chance routinely produces. By convention a result counts once t passes about 2, and with 10 people in each group, as in the simulation, the threshold is 2.1.
 
-The noise shrinks with the square root of the number of people, so halving it takes four times the volunteers. A small study therefore needs a large observed difference to pass the threshold, which is why the significant trials in the simulation were the ones that had overestimated.
+The noise shrinks with the square root of the number of people, so halving it takes four times the volunteers.
 
 The t-statistic is then converted into a *p-value*, the number most papers report, and "statistically significant" by convention means the p-value is below 0.05. The p-value answers one narrow question: if the training truly made no difference, how often would chance alone produce a difference at least as large as the one observed? Below 0.05 means less than one time in twenty.
 
@@ -88,7 +84,7 @@ It does not say how big the effect is, and it does not say whether the effect ma
 
 The size of the effect in real units, such as watts, seconds or per cent, is more useful, and so is the *confidence interval* around it, the range within which the true effect plausibly lies given the data. A wide interval means the study couldn't pin the effect down.
 
-Whether an effect matters depends on what it is being compared with. Currell and Jeukendrup point out that first and second place in sport are typically separated by less than 1% [@currell2008]. Hopkins calculated that to detect the smallest improvement that would change an elite athlete's results, a study needs somewhere between 16 and 65 athletes if each one tries both treatments, and between 65 and 260 if separate groups are used [@hopkins1999]. Compare that with a median of 12.
+Currell and Jeukendrup point out that first and second place in sport are typically separated by less than 1% [@currell2008]. Hopkins calculated that to detect the smallest improvement that would change an elite athlete's results, a study needs somewhere between 16 and 65 athletes if each one tries both treatments, and between 65 and 260 if separate groups are used [@hopkins1999]. Compare that with the median of 11 in the preceding chapters.
 
 The best tests available vary by about 1 to 2% from one attempt to the next in the same person [@hopkins2001]. So an improvement of 1%, which would be worth having, is smaller than the noise in a single measurement, and small studies cannot see it. They can detect large effects in untrained people. They are close to blind to the small effects that matter to trained ones.
 
@@ -110,7 +106,7 @@ Without it, look for the signs. Be wary when the result appears only in a subgro
 
 ## When studies are repeated
 
-Small samples, flexible analysis and journals that prefer positive results each make published findings less reliable. The direct test of how much damage they do together is to run published studies again and see whether the results come back.
+Repeating published studies tests how well their findings hold up.
 
 Psychology did this first on a large scale. In 2015 a collaboration of psychologists repeated 100 studies from three of the field's journals, using the original materials where they could and designs with more statistical power [@osc2015]. Of the original studies, 97% had reported a significant result. Of the repeats, 36% did, and the effects they measured were half the size. The reading of those figures has been disputed, and one group of critics argued that the project's statistics were flawed and the true rate of replication was high {shadow @gilbert2016}. The problem it pointed to is now known as the *replication crisis*, and other fields have since checked their own work.
 
@@ -122,7 +118,7 @@ The shrinkage is the simulation's result appearing in real data. The simulated s
 
 ## Individual results
 
-Many papers now show each participant's change as a separate line or dot, and discuss who responded and who didn't. The plots are appealing, and they are easy to over-read.
+Many papers plot each participant's change and discuss who responded and who didn't. Measurement noise can produce those apparent differences.
 
 Greg Atkinson and Alan Batterham made the problem clear with a simulation [@atkinson2015]. They created an imaginary trial in which every person's true response to a treatment was exactly the same, added ordinary day-to-day measurement variation, and plotted the results. The plot showed what looked like strong responders, weak responders and non-responders. All of the difference between individuals was noise.
 
@@ -132,7 +128,7 @@ This is the statistical reason behind the caution in Chapter 2 about non-respond
 
 ### One study, up close: a trial that gets most of it right
 
-Chapter 2 described a trial from Dallas in which sedentary people in their fifties trained for two years [@howden2018]. It is one of the best training trials there is, so it is a fair test of the questions.
+The two-year Dallas trial in Chapter 2 shows how to apply these questions to a study [@howden2018].
 
 *What kind of evidence?* A randomised experiment. A statistician allocated the volunteers in blocks, balanced for sex.
 
@@ -152,13 +148,11 @@ Chapter 2 described a trial from Dallas in which sedentary people in their fifti
 
 *Has anyone repeated it?* Not at this length. The authors describe it as the longest randomised trial of structured training in healthy middle-aged adults.
 
-The trial does not say which part of the training did the work. The programme mixed easy sessions, sessions near the threshold, four-minute intervals and strength training, and its effects cannot be divided among them. So it shows that training changed these hearts, and it is silent on the question this book is about.
+The programme mixed easy sessions, sessions near the threshold, four-minute intervals and strength training. The trial shows that this combination changed the heart, but cannot tell us how much each kind of training contributed.
 
 One comparison in 61 people took two years, a staff of exercise physiologists and catheters in 52 hearts, twice. There are few training trials like it for that reason, and most of the evidence in this book is weaker.
 
 ## The questions
-
-These are the questions this chapter has worked through. They are worth asking of any study, including the ones in this book.
 
 1. What kind of evidence is it: mechanism, observation or experiment?
 2. If an experiment, were people allocated at random?
@@ -173,7 +167,7 @@ These are the questions this chapter has worked through. They are worth asking o
 
 The last question is the one that most often settles the matter. One small study is one draw. When several independent groups, using different volunteers and different protocols, find the same thing, the luck averages out, and that is what a grade A means in this book.
 
-There is a limit to what these questions can do, and it applies to this book as much as to anything else. Most of the studies it describes are small, short and done on people fitter or less fit than you. Applying the questions strictly would leave very little standing. The aim is to proportion belief to evidence: to hold the well-supported claims firmly, to treat the rest as reasonable bets, and to know which is which.
+Most of the studies in this book are small, short and done on people fitter or less fit than you. That still leaves useful evidence. Hold the well-supported claims firmly, treat the rest as reasonable bets, and know which is which.
 
 ::: survives
 A small study with a striking result has probably overstated it. {grade B}

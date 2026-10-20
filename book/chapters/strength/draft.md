@@ -6,7 +6,7 @@ The paper's title called this an interference, and the word stuck. For lifters i
 
 The study never showed that. Its endurance result was that lifting did no harm: VO₂max rose as much with weights as without. Eight years later Hickson tested the question the right way round. Eight runners and cyclists who had stopped improving added heavy leg training three days a week for ten weeks and changed nothing else. Their leg strength rose by 30%. Their VO₂max did not change. But they lasted 11% longer in a hard effort of four to eight minutes on the bike, and their time to exhaustion at 80% of VO₂max went from 71 minutes to 85 [@hickson1988].
 
-Eight people with no comparison group, tested by time to exhaustion, is the kind of evidence Chapter 4 says to hold loosely. It set the question for everything since: whether lifting makes a trained cyclist faster, and by what route, given that it does nothing for VO₂max.
+Eight people, no comparison group and time-to-exhaustion tests leave the result uncertain. But it raised a useful question: could lifting make a cyclist faster without raising VO₂max?
 
 ## What the cycling trials found
 
@@ -38,7 +38,7 @@ So the best summary available says that heavy lifting probably makes trained cyc
 
 ## How it works
 
-The engine described in Chapter 1 has three parts: VO₂max, the fraction of it that can be sustained, and efficiency. The pooled data say that lifting leaves the first two alone. What it changes is efficiency and the muscle's ability to produce force.
+Of Chapter 1's original three factors, lifting appears to change efficiency, with no pooled effect on VO₂max or threshold power. It also improves the muscle's ability to produce force.
 
 A review by Rønnestad and Iñigo Mujika sets out the mechanisms that have been proposed [@ronnestad2014]. Rønnestad led most of the Norwegian trials, so this is the field's main contributor summarising work that is largely his own. The simplest mechanism is that a stronger muscle uses a smaller share of its maximum on every pedal stroke. The slow-twitch fibres, which are the efficient ones, can then do more of the work before the less efficient fast-twitch fibres have to be called in. The review cites a study in which, among cyclists of equal VO₂max, the stronger ones showed less electrical activity in their muscles at a given power.
 
@@ -52,15 +52,13 @@ These are proposals supported by correlations in groups of ten to twenty riders.
 
 The first Norwegian trial and the long-ride result described above have the same design in every detail: 20 cyclists, 11 lifting and nine not, seven men and two women in the comparison group, four leg exercises twice a week for 12 weeks [@ronnestad2010a; @ronnestad2011]. They read as two reports from one group of riders.
 
-There is nothing improper in that. A study that takes three months and several kinds of test produces more than one paper can hold. But a reader counting studies will count two, and a quick survey of the literature will find "several trials from Norway" where there are fewer independent groups of riders than papers. When a field depends heavily on one laboratory, it is worth checking how many separate experiments stand behind the list of references.
+One experiment can reasonably produce several papers. Count the independent groups of riders, though, and "several trials from Norway" may amount to fewer experiments than the reference list suggests.
 
 The abstracts of those two papers also say that the riders "were assigned" to their groups. The women's trial says "randomly assigned" [@vikmoen2016]. Cyclists who choose to spend a winter in the gym may be the more motivated or the more ambitious, and Chapter 4 described how the same problem undid an early study of pain tolerance. The meta-analysis identified missing randomisation as the main weakness of this whole literature. What survives is the summary above: heavy lifting probably makes trained cyclists somewhat faster, on fewer independent experiments than the reference list suggests.
 
 ## Will it make me heavier?
 
-This is the usual objection from cyclists, for whom every kilogram counts on a climb.
-
-In the first Norwegian trial the lifters' thigh muscles grew, and their body mass did not increase [@ronnestad2010a]. In Hickson's 1988 study, leg strength rose 30% with no change in thigh girth or in the size of the muscle fibres [@hickson1988]. In the 25-week study of elite riders, lean mass in the lower body did increase [@ronnestad2015]. The meta-analysis found that the riders' body mass made no difference to the size of the benefit [@llanoslagos2026].
+In the first Norwegian trial the lifters' thigh muscles grew, and their body mass did not increase [@ronnestad2010a]. In Hickson's 1988 study, leg strength rose 30% with no change in thigh girth or muscle-fibre size [@hickson1988]. Lean mass in the lower body did increase in the 25-week elite study {shadow @ronnestad2015}; across the meta-analysis, body mass made no difference to the size of the benefit [@llanoslagos2026].
 
 The Norwegian review summarises the wider literature the same way: across trials of 8 to 16 weeks in cyclists, runners, triathletes and skiers, added strength training did not increase total body mass, while the muscles being trained grew by about 3 to 6% [@ronnestad2014].
 
@@ -87,13 +85,7 @@ A study in California compared 27 male masters cyclists, average age 51, who had
 
 A 2012 systematic review of 31 studies reached the same conclusion: adult road cyclists have low bone density in key regions, the lumbar spine in particular, and road cycling "does not appear to confer any significant osteogenic benefit" [@olmedillas2012]. Mountain bikers and cyclists who did other sports as well were better off. {grade C}
 
-These are comparisons between groups, so they cannot show that cycling caused the difference, though it is hard to think of another explanation for fit men having weaker bones than their less active peers. I have not found a trial showing that lifting restores bone in cyclists, and this chapter does not claim it. Loading the skeleton is the standard advice for bone health, and a squat loads the spine and hips. For a rider over 40 whose only exercise is the bike, this may be a better reason to lift than anything in a time trial.
-
-## Is this why racing is faster?
-
-The answer is the same as for fuelling. Nobody has tested it, too much else changed at the same time, and the idea is older than it is made to sound: Hickson's cyclists were riding longer after ten weeks of leg weights in 1988.
-
-What the evidence supports is a modest gain in trained riders from a specific kind of lifting. It does not support the idea that the gym is a recent discovery, or that it accounts for a large share of anyone's speed.
+These comparisons cannot show that cycling caused the difference. Nor have I found a trial showing that lifting restores bone in cyclists. Loading the skeleton is standard advice for bone health, and a squat loads the spine and hips. For a rider over 40 whose only exercise is the bike, this may be a better reason to lift than anything in a time trial.
 
 ## What to do with it
 
@@ -107,7 +99,7 @@ What the evidence supports is a modest gain in trained riders from a specific ki
 
 **Don't expect to bulk up.** Riders doing a full endurance programme gained strength with little or no gain in weight.
 
-**Learn the lifts properly.** The Norwegian review says that endurance athletes should develop proper technique with lighter loads before lifting heavy ones [@ronnestad2014]. None of the trials reports on injuries in a way I can cite, and a heavy squat done badly is a reliable way to miss a month of riding. If you have not lifted before, get the movement taught.
+**Learn the lifts properly.** The Norwegian review advises developing technique with lighter loads before lifting heavy ones [@ronnestad2014]. The trials do not give injury figures I can cite. If you have not lifted before, get the movement taught.
 
 **If you are over 40 and only ride, lift for your bones as well.** The evidence that road cyclists have low bone density is consistent, and the bike will not fix it.
 
