@@ -1,7 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 453" width="680" height="453" role="img" aria-label="Three weeks with two hard sessions each: Tuesday and Friday, 72 hours apart; Tuesday and Thursday, 48 hours apart; Tuesday and Wednesday, 24 hours apart, where the second session starts inside the first one's 48-hour recovery window.">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 453" width="680" height="453" role="img" aria-label="Three weeks with two hard sessions each: Tuesday and Friday, 72 hours apart; Tuesday and Thursday, 48 hours apart; Tuesday and Wednesday, 24 hours apart, where the second session starts inside the first one’s 48-hour recovery window.">
 <rect width="680" height="453" fill="#ffffff"/>
 <text x="30.0" y="30.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="start" font-weight="600" >With at least 48 hours to recover, a second hard session two days later</text>
-<text x="30.0" y="52.5" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="start" font-weight="600" >starts fresh; one a day later doesn't</text>
+<text x="30.0" y="52.5" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="start" font-weight="600" >starts fresh; one a day later doesn’t</text>
 <text x="30.0" y="76.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >Two hard sessions in a week (black) and the 48 hours or more of recovery that hard</text>
 <text x="30.0" y="95.4" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >sessions needed in the pooled studies (grey).</text>
 <text x="242.4" y="150.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="600" >Mon</text>
@@ -13,45 +13,45 @@
 <text x="631.6" y="150.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="600" >Sun</text>
 <text x="194.0" y="194.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="end" font-weight="600" >Tuesday and Friday</text>
 <text x="194.0" y="213.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#555555" text-anchor="end" font-weight="400" >72 hours apart</text>
-<rect x="211.0" y="184.8" width="62.9" height="28" fill="#ffffff" stroke="#e6e6e6" stroke-width="1"/>
-<rect x="275.9" y="184.8" width="62.9" height="28" fill="#ffffff" stroke="#e6e6e6" stroke-width="1"/>
-<rect x="340.7" y="184.8" width="62.9" height="28" fill="#ffffff" stroke="#e6e6e6" stroke-width="1"/>
-<rect x="405.6" y="184.8" width="62.9" height="28" fill="#ffffff" stroke="#e6e6e6" stroke-width="1"/>
-<rect x="470.4" y="184.8" width="62.9" height="28" fill="#ffffff" stroke="#e6e6e6" stroke-width="1"/>
-<rect x="535.3" y="184.8" width="62.9" height="28" fill="#ffffff" stroke="#e6e6e6" stroke-width="1"/>
-<rect x="600.1" y="184.8" width="62.9" height="28" fill="#ffffff" stroke="#e6e6e6" stroke-width="1"/>
+<rect x="211.0" y="184.8" width="62.9" height="28" fill="#ffffff" stroke="#e6e6e6" stroke-width="1.54"/>
+<rect x="275.9" y="184.8" width="62.9" height="28" fill="#ffffff" stroke="#e6e6e6" stroke-width="1.54"/>
+<rect x="340.7" y="184.8" width="62.9" height="28" fill="#ffffff" stroke="#e6e6e6" stroke-width="1.54"/>
+<rect x="405.6" y="184.8" width="62.9" height="28" fill="#ffffff" stroke="#e6e6e6" stroke-width="1.54"/>
+<rect x="470.4" y="184.8" width="62.9" height="28" fill="#ffffff" stroke="#e6e6e6" stroke-width="1.54"/>
+<rect x="535.3" y="184.8" width="62.9" height="28" fill="#ffffff" stroke="#e6e6e6" stroke-width="1.54"/>
+<rect x="600.1" y="184.8" width="62.9" height="28" fill="#ffffff" stroke="#e6e6e6" stroke-width="1.54"/>
 <rect x="307.3" y="189.8" width="129.7" height="18" fill="#e6e6e6"/>
 <rect x="501.9" y="189.8" width="129.7" height="18" fill="#e6e6e6"/>
 <rect x="294.3" y="186.8" width="25.9" height="24" rx="3" fill="#1a1a1a"/>
 <rect x="488.9" y="186.8" width="25.9" height="24" rx="3" fill="#1a1a1a"/>
 <text x="194.0" y="258.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="end" font-weight="600" >Tuesday and Thursday</text>
 <text x="194.0" y="277.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#555555" text-anchor="end" font-weight="400" >48 hours apart</text>
-<rect x="211.0" y="248.8" width="62.9" height="28" fill="#ffffff" stroke="#e6e6e6" stroke-width="1"/>
-<rect x="275.9" y="248.8" width="62.9" height="28" fill="#ffffff" stroke="#e6e6e6" stroke-width="1"/>
-<rect x="340.7" y="248.8" width="62.9" height="28" fill="#ffffff" stroke="#e6e6e6" stroke-width="1"/>
-<rect x="405.6" y="248.8" width="62.9" height="28" fill="#ffffff" stroke="#e6e6e6" stroke-width="1"/>
-<rect x="470.4" y="248.8" width="62.9" height="28" fill="#ffffff" stroke="#e6e6e6" stroke-width="1"/>
-<rect x="535.3" y="248.8" width="62.9" height="28" fill="#ffffff" stroke="#e6e6e6" stroke-width="1"/>
-<rect x="600.1" y="248.8" width="62.9" height="28" fill="#ffffff" stroke="#e6e6e6" stroke-width="1"/>
+<rect x="211.0" y="248.8" width="62.9" height="28" fill="#ffffff" stroke="#e6e6e6" stroke-width="1.54"/>
+<rect x="275.9" y="248.8" width="62.9" height="28" fill="#ffffff" stroke="#e6e6e6" stroke-width="1.54"/>
+<rect x="340.7" y="248.8" width="62.9" height="28" fill="#ffffff" stroke="#e6e6e6" stroke-width="1.54"/>
+<rect x="405.6" y="248.8" width="62.9" height="28" fill="#ffffff" stroke="#e6e6e6" stroke-width="1.54"/>
+<rect x="470.4" y="248.8" width="62.9" height="28" fill="#ffffff" stroke="#e6e6e6" stroke-width="1.54"/>
+<rect x="535.3" y="248.8" width="62.9" height="28" fill="#ffffff" stroke="#e6e6e6" stroke-width="1.54"/>
+<rect x="600.1" y="248.8" width="62.9" height="28" fill="#ffffff" stroke="#e6e6e6" stroke-width="1.54"/>
 <rect x="307.3" y="253.8" width="129.7" height="18" fill="#e6e6e6"/>
 <rect x="437.0" y="253.8" width="129.7" height="18" fill="#e6e6e6"/>
 <rect x="294.3" y="250.8" width="25.9" height="24" rx="3" fill="#1a1a1a"/>
 <rect x="424.0" y="250.8" width="25.9" height="24" rx="3" fill="#1a1a1a"/>
 <text x="194.0" y="322.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="end" font-weight="600" >Tuesday and Wednesday</text>
 <text x="194.0" y="341.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#555555" text-anchor="end" font-weight="400" >24 hours apart</text>
-<rect x="211.0" y="312.8" width="62.9" height="28" fill="#ffffff" stroke="#e6e6e6" stroke-width="1"/>
-<rect x="275.9" y="312.8" width="62.9" height="28" fill="#ffffff" stroke="#e6e6e6" stroke-width="1"/>
-<rect x="340.7" y="312.8" width="62.9" height="28" fill="#ffffff" stroke="#e6e6e6" stroke-width="1"/>
-<rect x="405.6" y="312.8" width="62.9" height="28" fill="#ffffff" stroke="#e6e6e6" stroke-width="1"/>
-<rect x="470.4" y="312.8" width="62.9" height="28" fill="#ffffff" stroke="#e6e6e6" stroke-width="1"/>
-<rect x="535.3" y="312.8" width="62.9" height="28" fill="#ffffff" stroke="#e6e6e6" stroke-width="1"/>
-<rect x="600.1" y="312.8" width="62.9" height="28" fill="#ffffff" stroke="#e6e6e6" stroke-width="1"/>
+<rect x="211.0" y="312.8" width="62.9" height="28" fill="#ffffff" stroke="#e6e6e6" stroke-width="1.54"/>
+<rect x="275.9" y="312.8" width="62.9" height="28" fill="#ffffff" stroke="#e6e6e6" stroke-width="1.54"/>
+<rect x="340.7" y="312.8" width="62.9" height="28" fill="#ffffff" stroke="#e6e6e6" stroke-width="1.54"/>
+<rect x="405.6" y="312.8" width="62.9" height="28" fill="#ffffff" stroke="#e6e6e6" stroke-width="1.54"/>
+<rect x="470.4" y="312.8" width="62.9" height="28" fill="#ffffff" stroke="#e6e6e6" stroke-width="1.54"/>
+<rect x="535.3" y="312.8" width="62.9" height="28" fill="#ffffff" stroke="#e6e6e6" stroke-width="1.54"/>
+<rect x="600.1" y="312.8" width="62.9" height="28" fill="#ffffff" stroke="#e6e6e6" stroke-width="1.54"/>
 <rect x="307.3" y="317.8" width="129.7" height="18" fill="#e6e6e6"/>
 <rect x="372.1" y="317.8" width="129.7" height="18" fill="#e6e6e6"/>
 <rect x="294.3" y="314.8" width="25.9" height="24" rx="3" fill="#1a1a1a"/>
 <rect x="359.2" y="314.8" width="25.9" height="24" rx="3" fill="#1a1a1a"/>
 <text x="372.1" y="360.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="middle" font-weight="600" >starts before the first has recovered</text>
-<text x="30.0" y="394.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >Schematic, from the review's finding that the heart's nervous control took at least</text>
+<text x="30.0" y="394.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >Schematic, from the review’s finding that the heart’s nervous control took at least</text>
 <text x="30.0" y="414.2" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >48 hours to recover after high-intensity sessions, against up to 24 hours after easy</text>
 <text x="30.0" y="433.6" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >ones.</text>
 </svg>

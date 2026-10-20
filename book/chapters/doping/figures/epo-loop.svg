@@ -1,36 +1,36 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 439" width="680" height="439" role="img" aria-label="The feedback loop controlling red cell production, and where injected EPO enters it">
 <rect width="680" height="439" fill="#ffffff"/>
 <defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1a1a1a"/></marker><marker id="ahg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#555555"/></marker></defs>
-<rect x="20" y="72" width="250" height="92" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="20" y="72" width="250" height="92" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.54"/>
 <text x="145.0" y="99.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="600" >Kidney</text>
 <text x="145.0" y="123.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >senses how much oxygen</text>
 <text x="145.0" y="142.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >the blood is delivering</text>
-<rect x="410" y="72" width="250" height="92" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="410" y="72" width="250" height="92" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.54"/>
 <text x="535.0" y="99.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="600" >EPO in the blood</text>
 <text x="535.0" y="123.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >the hormone the kidney</text>
 <text x="535.0" y="142.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >releases when oxygen is low</text>
-<rect x="410" y="300" width="250" height="92" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="410" y="300" width="250" height="92" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.54"/>
 <text x="535.0" y="327.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="600" >Bone marrow</text>
 <text x="535.0" y="351.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >more red cell precursors</text>
 <text x="535.0" y="370.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >survive and mature</text>
-<rect x="20" y="300" width="250" height="92" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="20" y="300" width="250" height="92" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.54"/>
 <text x="145.0" y="327.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="600" >Red cells</text>
 <text x="145.0" y="351.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >more haemoglobin,</text>
 <text x="145.0" y="370.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >more oxygen carried</text>
-<line x1="276" y1="132.0" x2="402" y2="132.0" stroke="#1a1a1a" stroke-width="2" marker-end="url(#ah)" />
+<line x1="276" y1="132.0" x2="402" y2="132.0" stroke="#1a1a1a" stroke-width="2.00" marker-end="url(#ah)" />
 <text x="340.0" y="100.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >low oxygen:</text>
 <text x="340.0" y="119.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >makes more</text>
-<line x1="535.0" y1="170" x2="535.0" y2="292" stroke="#1a1a1a" stroke-width="2" marker-end="url(#ah)" />
+<line x1="535.0" y1="170" x2="535.0" y2="292" stroke="#1a1a1a" stroke-width="2.00" marker-end="url(#ah)" />
 <text x="547.0" y="237.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="400" >signal</text>
-<line x1="404" y1="360.0" x2="278" y2="360.0" stroke="#1a1a1a" stroke-width="2" marker-end="url(#ah)" />
+<line x1="404" y1="360.0" x2="278" y2="360.0" stroke="#1a1a1a" stroke-width="2.00" marker-end="url(#ah)" />
 <text x="340.0" y="328.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >over days</text>
 <text x="340.0" y="347.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >to weeks</text>
-<line x1="145.0" y1="294" x2="145.0" y2="172" stroke="#1a1a1a" stroke-width="2" marker-end="url(#ah)" />
+<line x1="145.0" y1="294" x2="145.0" y2="172" stroke="#1a1a1a" stroke-width="2.00" marker-end="url(#ah)" />
 <text x="157.0" y="227.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="400" >more oxygen reaches</text>
 <text x="157.0" y="246.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="400" >the kidney: makes less</text>
 <text x="145.0" y="24.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" font-style="italic">Altitude, blood loss, anaemia</text>
-<line x1="145.0" y1="32" x2="145.0" y2="64" stroke="#555555" stroke-width="2" marker-end="url(#ahg)" stroke-dasharray="5 4"/>
+<line x1="145.0" y1="32" x2="145.0" y2="64" stroke="#555555" stroke-width="2.00" marker-end="url(#ahg)" stroke-dasharray="5 4"/>
 <text x="535.0" y="24.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" font-style="italic">Injected EPO: bypasses the sensor</text>
-<line x1="535.0" y1="32" x2="535.0" y2="64" stroke="#555555" stroke-width="2" marker-end="url(#ahg)" stroke-dasharray="5 4"/>
-<text x="340.0" y="426.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >Solid arrows: the body's own loop. Dashed arrows: what can push it from outside.</text>
+<line x1="535.0" y1="32" x2="535.0" y2="64" stroke="#555555" stroke-width="2.00" marker-end="url(#ahg)" stroke-dasharray="5 4"/>
+<text x="340.0" y="426.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >Solid arrows: the body’s own loop. Dashed arrows: what can push it from outside.</text>
 </svg>

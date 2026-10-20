@@ -1,15 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 440" width="680" height="440" role="img" aria-label="Change in pain tolerance and time to exhaustion after six weeks of hard intervals or steady riding">
 <rect width="680" height="440" fill="#ffffff"/>
-<text x="10.0" y="30.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="start" font-weight="600" >Both groups got fitter, but only the interval group's pain tolerance rose</text>
+<text x="10.0" y="30.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="start" font-weight="600" >Both groups got fitter, but only the interval group’s pain tolerance rose</text>
 <text x="10.0" y="53.5" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >Change after six weeks in 20 healthy adults: time lasted in a tourniquet test on the arm,</text>
 <text x="10.0" y="72.9" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >and time to exhaustion at the same hard power as before.</text>
-<line x1="284.4" y1="120" x2="284.4" y2="374" stroke="#1a1a1a" stroke-width="1"/>
+<line x1="284.4" y1="120" x2="284.4" y2="374" stroke="#1a1a1a" stroke-width="1.54"/>
 <text x="284.4" y="396.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >0</text>
-<line x1="370.6" y1="120" x2="370.6" y2="374" stroke="#bdbdbd" stroke-width="1"/>
+<line x1="370.6" y1="120" x2="370.6" y2="374" stroke="#bdbdbd" stroke-width="1.54"/>
 <text x="370.6" y="396.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >+50%</text>
-<line x1="456.7" y1="120" x2="456.7" y2="374" stroke="#bdbdbd" stroke-width="1"/>
+<line x1="456.7" y1="120" x2="456.7" y2="374" stroke="#bdbdbd" stroke-width="1.54"/>
 <text x="456.7" y="396.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >+100%</text>
-<line x1="542.8" y1="120" x2="542.8" y2="374" stroke="#bdbdbd" stroke-width="1"/>
+<line x1="542.8" y1="120" x2="542.8" y2="374" stroke="#bdbdbd" stroke-width="1.54"/>
 <text x="542.8" y="396.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >+150%</text>
 <text x="422.2" y="424.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >Change after six weeks of training</text>
 <text x="206.0" y="140.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="end" font-weight="600" >Pain tolerance</text>

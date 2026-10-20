@@ -5,7 +5,7 @@
 <text x="30.0" y="76.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >Change in the muscle’s mitochondrial content after a training programme, and the same</text>
 <text x="30.0" y="95.4" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >change per hour of training relative to continuous riding. Pooled from 353 studies.</text>
 <text x="190.0" y="144.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >After a whole programme</text>
-<line x1="190" y1="156.8" x2="190" y2="336.8" stroke="#555555" stroke-width="1"/>
+<line x1="190" y1="156.8" x2="190" y2="336.8" stroke="#555555" stroke-width="1.54"/>
 <rect x="190" y="172.8" width="158.9" height="24" fill="#1a1a1a"/>
 <text x="356.9" y="190.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >+23%</text>
 <rect x="190" y="230.8" width="189.0" height="24" fill="#bdbdbd"/>
@@ -13,7 +13,7 @@
 <rect x="190" y="288.8" width="189.0" height="24" fill="#bdbdbd"/>
 <text x="387.0" y="306.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >+27%</text>
 <text x="470.0" y="144.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >Per hour of training</text>
-<line x1="470" y1="156.8" x2="470" y2="336.8" stroke="#555555" stroke-width="1"/>
+<line x1="470" y1="156.8" x2="470" y2="336.8" stroke="#555555" stroke-width="1.54"/>
 <rect x="470" y="172.8" width="38.1" height="24" fill="#1a1a1a"/>
 <text x="516.1" y="190.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >1.0×</text>
 <rect x="470" y="230.8" width="64.8" height="24" fill="#bdbdbd"/>

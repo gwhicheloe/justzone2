@@ -3,35 +3,35 @@
 <defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1a1a1a"/></marker><marker id="ahg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#555555"/></marker></defs>
 <text x="10.0" y="30.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="start" font-weight="600" >A muscle senses an energy shortfall through AMP, which switches on AMPK</text>
 <text x="10.0" y="53.5" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >ATP is spent and rebuilt all the time. When rebuilding falls behind, AMP builds up.</text>
-<rect x="10" y="139" width="250" height="110" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="10" y="139" width="250" height="110" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.54"/>
 <text x="135.0" y="167.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="19" fill="#1a1a1a" text-anchor="middle" font-weight="600" >ATP</text>
 <text x="135.0" y="192.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >three phosphates</text>
 <text x="135.0" y="211.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >carries the energy</text>
-<rect x="420" y="139" width="250" height="110" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="420" y="139" width="250" height="110" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.54"/>
 <text x="545.0" y="167.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="19" fill="#1a1a1a" text-anchor="middle" font-weight="600" >ADP</text>
 <text x="545.0" y="192.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >two phosphates: what is</text>
 <text x="545.0" y="211.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >left when ATP is spent</text>
-<rect x="420" y="393" width="250" height="110" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="420" y="393" width="250" height="110" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.54"/>
 <text x="545.0" y="421.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="19" fill="#1a1a1a" text-anchor="middle" font-weight="600" >AMP</text>
 <text x="545.0" y="446.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >one phosphate</text>
 <text x="545.0" y="465.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >rises when ADP builds up</text>
-<rect x="10" y="393" width="250" height="110" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="10" y="393" width="250" height="110" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.54"/>
 <text x="135.0" y="421.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="19" fill="#1a1a1a" text-anchor="middle" font-weight="600" >AMPK</text>
 <text x="135.0" y="446.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >the sensor: switches on</text>
 <text x="135.0" y="465.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >when AMP rises against ATP</text>
-<line x1="266" y1="180.0" x2="412" y2="180.0" stroke="#1a1a1a" stroke-width="2" marker-end="url(#ah)" />
+<line x1="266" y1="180.0" x2="412" y2="180.0" stroke="#1a1a1a" stroke-width="2.00" marker-end="url(#ah)" />
 <text x="340.0" y="98.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >Contraction</text>
 <text x="340.0" y="117.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >splits off a</text>
 <text x="340.0" y="136.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >phosphate and</text>
 <text x="340.0" y="155.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >releases energy</text>
-<line x1="414" y1="208.0" x2="268" y2="208.0" stroke="#1a1a1a" stroke-width="2" marker-end="url(#ah)" />
+<line x1="414" y1="208.0" x2="268" y2="208.0" stroke="#1a1a1a" stroke-width="2.00" marker-end="url(#ah)" />
 <text x="340.0" y="236.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >Mitochondria</text>
 <text x="340.0" y="255.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >rebuild it, using</text>
 <text x="340.0" y="274.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >oxygen and fuel</text>
-<line x1="545.0" y1="255" x2="545.0" y2="385" stroke="#555555" stroke-width="2" marker-end="url(#ahg)" stroke-dasharray="5 4"/>
+<line x1="545.0" y1="255" x2="545.0" y2="385" stroke="#555555" stroke-width="2.00" marker-end="url(#ahg)" stroke-dasharray="5 4"/>
 <text x="533.0" y="325.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="end" font-weight="400" >when demand</text>
 <text x="533.0" y="344.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="end" font-weight="400" >outruns supply</text>
-<line x1="414" y1="458.0" x2="268" y2="458.0" stroke="#555555" stroke-width="2" marker-end="url(#ahg)" stroke-dasharray="5 4"/>
+<line x1="414" y1="458.0" x2="268" y2="458.0" stroke="#555555" stroke-width="2.00" marker-end="url(#ahg)" stroke-dasharray="5 4"/>
 <text x="340.0" y="426.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >read as a</text>
 <text x="340.0" y="445.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >fuel gauge</text>
 <text x="340.0" y="537.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >Solid arrows: the cycle that runs all the time. Dashed arrows: what happens when it</text>

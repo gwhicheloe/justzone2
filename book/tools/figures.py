@@ -17,7 +17,10 @@ prints a figure 4.6 in (331 pt) wide, so one unit is about 0.49 pt: text is
 """
 import csv
 import os
+import re
 import sys
+
+from typography import smart_quotes
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 BOOK = os.path.dirname(HERE)
@@ -25,14 +28,31 @@ INK, MID, FAINT, BAND = "#1a1a1a", "#555555", "#bdbdbd", "#e6e6e6"
 FONT = 'font-family="IBM Plex Sans, Helvetica, Arial, sans-serif"'
 
 
+# KDP asks for lines of at least 0.75 pt in print (Paperback Submission Guidelines, checked 20 October
+# 2026), and fills of at least 10% grey. A figure prints 331 pt wide, so thinner strokes are raised to this.
+MIN_STROKE = 0.75 * 680 / 331.2
+
+
 def svg(w, h, body, title):
+    floor = MIN_STROKE * w / 680
+    thick = lambda m: f'stroke-width="{max(float(m.group(1)), floor):.2f}"' if float(m.group(1)) else m.group(0)
+    body = [re.sub(r'stroke-width="([\d.]+)"', thick, el) for el in body]
+    body = [re.sub(r">([^<]+)<", lambda m: ">" + smart_quotes(m.group(1)) + "<", el) for el in body]  # printed quotes
     return (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} {h}" width="{w}" height="{h}" '
-            f'role="img" aria-label="{title}">\n<rect width="{w}" height="{h}" fill="#ffffff"/>\n'
+            f'role="img" aria-label="{smart_quotes(title)}">\n<rect width="{w}" height="{h}" fill="#ffffff"/>\n'
             + "\n".join(body) + "\n</svg>\n")
 
 
 def text(x, y, s, size=16.5, fill=INK, anchor="start", weight="400", style=""):
-    return (f'<text x="{x:.1f}" y="{y:.1f}" {FONT} font-size="{size}" fill="{fill}" '
+    # A halo (paint-order="stroke") becomes a box of its colour behind the text: Chrome prints stroked
+    # text as a Type 3 font, which some print shops reject.
+    halo, box = re.search(r'paint-order="stroke" stroke="([^"]+)" stroke-width="[\d.]+"', style), ""
+    if halo:
+        style = style.replace(halo.group(0), "").strip()
+        w = len(re.sub(r"<[^>]+>", "", s)) * size * (0.58 if weight == "600" else 0.54) + 6
+        x0 = x - w / 2 if anchor == "middle" else x - w + 3 if anchor == "end" else x - 3
+        box = f'<rect x="{x0:.1f}" y="{y - size * 0.82:.1f}" width="{w:.1f}" height="{size * 1.08:.1f}" fill="{halo.group(1)}"/>'
+    return box + (f'<text x="{x:.1f}" y="{y:.1f}" {FONT} font-size="{size}" fill="{fill}" '
             f'text-anchor="{anchor}" font-weight="{weight}" {style}>{s}</text>')
 
 
@@ -458,7 +478,7 @@ def small_trials():
         base = top + 170
         sel = [r for r in rows if int(r["n"]) == n]
         Y = lambda sh: base - sh / mx * (base - top)
-        b.append(f'<rect x="{X(lo):.1f}" y="{top}" width="{X(0) - X(lo):.1f}" height="{base - top}" fill="#f3f3f3"/>')
+        b.append(f'<rect x="{X(lo):.1f}" y="{top}" width="{X(0) - X(lo):.1f}" height="{base - top}" fill="{BAND}"/>')
         for r in sel:
             x, sh, sg = X(float(r["lo"])), float(r["share"]), float(r["sig_share"])
             if sh > 0.0005:
@@ -492,7 +512,7 @@ def carb_curve():
     H = base + 70
     X = lambda d: left + d / 120 * (right - left)
     Y = lambda p: base - p / 5 * (base - top)
-    b.append(f'<rect x="{X(78):.1f}" y="{top}" width="{X(120) - X(78):.1f}" height="{base - top}" fill="#f3f3f3"/>')
+    b.append(f'<rect x="{X(78):.1f}" y="{top}" width="{X(120) - X(78):.1f}" height="{base - top}" fill="{BAND}"/>')
     for p in range(0, 6):
         b.append(f'<line x1="{left}" y1="{Y(p):.1f}" x2="{right}" y2="{Y(p):.1f}" stroke="{INK if p == 0 else FAINT}" stroke-width="1"/>')
         b.append(text(left - 10, Y(p) + 5, f"+{p}%" if p else "0", 15.5, MID, "end"))
@@ -894,7 +914,7 @@ def dose_response():
     xs = [left + cw * i for i in range(n)]
     band = [i for i, r in enumerate(rows) if r["rider"] == "1"]
     bx0, bx1 = xs[band[0]] + 4, xs[band[-1]] + cw - 4
-    b.append(f'<rect x="{bx0:.1f}" y="{top - 20}" width="{bx1 - bx0:.1f}" height="{base - top + 20}" fill="#f3f3f3"/>')
+    b.append(f'<rect x="{bx0:.1f}" y="{top - 20}" width="{bx1 - bx0:.1f}" height="{base - top + 20}" fill="{BAND}"/>')
     b.append(text(bx1, top - 50, "A trained rider on 6 to 10 hours", 15.5, INK, "end", "600"))
     b.append(text(bx1, top - 31, "a week, roughly (my estimate)", 15.5, MID, "end"))
     for v in (0, 10, 20, 30, 40):
@@ -1121,7 +1141,7 @@ def noise():
     X = lambda w: left + w / 12 * (right - left)
     Y = lambda v: base - (v - lo) / (hi - lo) * (base - top)
     for v in (94, 98, 102, 106, 110):
-        b.append(f'<line x1="{left}" y1="{Y(v):.1f}" x2="{right}" y2="{Y(v):.1f}" stroke="{BAND}" stroke-width="1"/>')
+        b.append(f'<line x1="{left}" y1="{Y(v):.1f}" x2="{right}" y2="{Y(v):.1f}" stroke="{FAINT}" stroke-width="1"/>')
         b.append(text(left - 10, Y(v) + 5, f"{v}", 15.5, MID, "end"))
     b.append(f'<line x1="{left}" y1="{Y(100):.1f}" x2="{right}" y2="{Y(100):.1f}" stroke="{FAINT}" stroke-width="1"/>')
     for w in (0, 4, 8, 12):
@@ -1236,7 +1256,7 @@ def scorecard():
         lines, ny = para(cx, yy + 22, r["claim"], 15.5, INK, 370)
         h = ny - (yy + 22) + 14
         if i % 2 == 0:
-            b.append(f'<rect x="20" y="{yy + 2:.1f}" width="{W - 40}" height="{h:.1f}" fill="#f4f4f4"/>')
+            b.append(f'<rect x="20" y="{yy + 2:.1f}" width="{W - 40}" height="{h:.1f}" fill="{BAND}"/>')
         b += lines
         my = yy + 17
         b.append(mark(r["verdict"], vx + 6, my))
@@ -1349,10 +1369,10 @@ def power_duration():
     X = lambda t: left + t / tmax * (right - left)
     Y = lambda v: base - (v - lo) / (hi - lo) * (base - top)
     cp, wp, lt1 = 250.0, 20000.0, 190.0
-    b.append(f'<rect x="{left}" y="{Y(hi):.1f}" width="{right - left}" height="{Y(cp) - Y(hi):.1f}" fill="#f2f2f2"/>')
-    b.append(f'<rect x="{left}" y="{Y(cp):.1f}" width="{right - left}" height="{Y(lt1) - Y(cp):.1f}" fill="#fafafa"/>')
+    b.append(f'<rect x="{left}" y="{Y(hi):.1f}" width="{right - left}" height="{Y(cp) - Y(hi):.1f}" fill="#dcdcdc"/>')
+    b.append(f'<rect x="{left}" y="{Y(cp):.1f}" width="{right - left}" height="{Y(lt1) - Y(cp):.1f}" fill="{BAND}"/>')
     for v in (150, 200, 250, 300, 350, 400, 450, 500):
-        b.append(f'<line x1="{left}" y1="{Y(v):.1f}" x2="{right}" y2="{Y(v):.1f}" stroke="{BAND}" stroke-width="1"/>')
+        b.append(f'<line x1="{left}" y1="{Y(v):.1f}" x2="{right}" y2="{Y(v):.1f}" stroke="{FAINT}" stroke-width="1"/>')
         b.append(text(left - 10, Y(v) + 5, f"{v}", 15.5, MID, "end"))
     b.append(text(14, top - 22, "Watts", 15.5, MID))
     for t in (0, 10, 20, 30, 40):

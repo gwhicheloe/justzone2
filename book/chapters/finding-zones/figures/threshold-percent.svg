@@ -3,47 +3,47 @@
 <text x="30.0" y="30.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="start" font-weight="600" >No fixed percentage of maximum heart rate finds the first threshold</text>
 <text x="30.0" y="53.5" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >Every bar is a range of heart rates, as a percentage of the person’s own maximum. The</text>
 <text x="30.0" y="72.9" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >first threshold is the top of Zone 2.</text>
-<line x1="300.0" y1="116.30000000000001" x2="300.0" y2="402.3" stroke="#e6e6e6" stroke-width="1"/>
-<line x1="375.6" y1="116.30000000000001" x2="375.6" y2="402.3" stroke="#e6e6e6" stroke-width="1"/>
-<line x1="451.1" y1="116.30000000000001" x2="451.1" y2="402.3" stroke="#e6e6e6" stroke-width="1"/>
-<line x1="526.7" y1="116.30000000000001" x2="526.7" y2="402.3" stroke="#e6e6e6" stroke-width="1"/>
-<line x1="602.2" y1="116.30000000000001" x2="602.2" y2="402.3" stroke="#e6e6e6" stroke-width="1"/>
-<line x1="300.0" y1="402.3" x2="640.0" y2="402.3" stroke="#555555" stroke-width="1"/>
-<line x1="300.0" y1="402.3" x2="300.0" y2="407.3" stroke="#555555" stroke-width="1"/>
+<line x1="300.0" y1="116.30000000000001" x2="300.0" y2="402.3" stroke="#e6e6e6" stroke-width="1.54"/>
+<line x1="375.6" y1="116.30000000000001" x2="375.6" y2="402.3" stroke="#e6e6e6" stroke-width="1.54"/>
+<line x1="451.1" y1="116.30000000000001" x2="451.1" y2="402.3" stroke="#e6e6e6" stroke-width="1.54"/>
+<line x1="526.7" y1="116.30000000000001" x2="526.7" y2="402.3" stroke="#e6e6e6" stroke-width="1.54"/>
+<line x1="602.2" y1="116.30000000000001" x2="602.2" y2="402.3" stroke="#e6e6e6" stroke-width="1.54"/>
+<line x1="300.0" y1="402.3" x2="640.0" y2="402.3" stroke="#555555" stroke-width="1.54"/>
+<line x1="300.0" y1="402.3" x2="300.0" y2="407.3" stroke="#555555" stroke-width="1.54"/>
 <text x="300.0" y="426.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >50%</text>
-<line x1="375.6" y1="402.3" x2="375.6" y2="407.3" stroke="#555555" stroke-width="1"/>
+<line x1="375.6" y1="402.3" x2="375.6" y2="407.3" stroke="#555555" stroke-width="1.54"/>
 <text x="375.6" y="426.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >60%</text>
-<line x1="451.1" y1="402.3" x2="451.1" y2="407.3" stroke="#555555" stroke-width="1"/>
+<line x1="451.1" y1="402.3" x2="451.1" y2="407.3" stroke="#555555" stroke-width="1.54"/>
 <text x="451.1" y="426.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >70%</text>
-<line x1="526.7" y1="402.3" x2="526.7" y2="407.3" stroke="#555555" stroke-width="1"/>
+<line x1="526.7" y1="402.3" x2="526.7" y2="407.3" stroke="#555555" stroke-width="1.54"/>
 <text x="526.7" y="426.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >80%</text>
-<line x1="602.2" y1="402.3" x2="602.2" y2="407.3" stroke="#555555" stroke-width="1"/>
+<line x1="602.2" y1="402.3" x2="602.2" y2="407.3" stroke="#555555" stroke-width="1.54"/>
 <text x="602.2" y="426.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >90%</text>
 <text x="470.0" y="452.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >Percentage of maximum heart rate</text>
-<rect x="30" y="119.3" width="22" height="14" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
-<text x="62.0" y="132.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#555555" text-anchor="start" font-weight="600" paint-order="stroke" stroke="#ffffff" stroke-width="6">Open bars: where two rules put Zone 2</text>
+<rect x="30" y="119.3" width="22" height="14" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.54"/>
+<rect x="59.0" y="118.8" width="360.1" height="17.8" fill="#ffffff"/><text x="62.0" y="132.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#555555" text-anchor="start" font-weight="600" >Open bars: where two rules put Zone 2</text>
 <text x="244.0" y="168.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="end" font-weight="600" >The 60–70% rule</text>
 <text x="244.0" y="187.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#555555" text-anchor="end" font-weight="400" >in wide use</text>
-<rect x="375.6" y="163.3" width="75.6" height="16" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
-<text x="368.6" y="176.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="end" font-weight="600" paint-order="stroke" stroke="#ffffff" stroke-width="4">60%</text>
-<text x="458.1" y="176.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="600" paint-order="stroke" stroke="#ffffff" stroke-width="4">70%</text>
+<rect x="375.6" y="163.3" width="75.6" height="16" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.54"/>
+<rect x="338.6" y="163.6" width="33.0" height="16.7" fill="#ffffff"/><text x="368.6" y="176.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="end" font-weight="600" >60%</text>
+<rect x="455.1" y="163.6" width="33.0" height="16.7" fill="#ffffff"/><text x="458.1" y="176.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >70%</text>
 <text x="244.0" y="218.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="end" font-weight="600" >Norwegian five-zone scale</text>
 <text x="244.0" y="237.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#555555" text-anchor="end" font-weight="400" >its Zone 2</text>
-<rect x="466.2" y="213.3" width="75.6" height="16" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
-<text x="459.2" y="226.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="end" font-weight="600" paint-order="stroke" stroke="#ffffff" stroke-width="4">72%</text>
-<text x="548.8" y="226.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="600" paint-order="stroke" stroke="#ffffff" stroke-width="4">82%</text>
+<rect x="466.2" y="213.3" width="75.6" height="16" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.54"/>
+<rect x="429.3" y="213.6" width="33.0" height="16.7" fill="#ffffff"/><text x="459.2" y="226.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="end" font-weight="600" >72%</text>
+<rect x="545.8" y="213.6" width="33.0" height="16.7" fill="#ffffff"/><text x="548.8" y="226.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >82%</text>
 <rect x="30" y="269.3" width="22" height="14" fill="#1a1a1a"/>
-<text x="62.0" y="282.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#555555" text-anchor="start" font-weight="600" paint-order="stroke" stroke="#ffffff" stroke-width="6">Solid bars: where the first lactate threshold was measured</text>
+<rect x="59.0" y="268.8" width="561.1" height="17.8" fill="#ffffff"/><text x="62.0" y="282.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#555555" text-anchor="start" font-weight="600" >Solid bars: where the first lactate threshold was measured</text>
 <text x="244.0" y="318.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="end" font-weight="600" >50 trained cyclists</text>
 <text x="244.0" y="337.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#555555" text-anchor="end" font-weight="400" >about two in three of them</text>
 <rect x="513.1" y="313.3" width="45.3" height="16" fill="#1a1a1a"/>
-<text x="506.1" y="326.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="end" font-weight="600" paint-order="stroke" stroke="#ffffff" stroke-width="4">78%</text>
-<text x="565.4" y="326.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="600" paint-order="stroke" stroke="#ffffff" stroke-width="4">84%</text>
+<rect x="476.1" y="313.6" width="33.0" height="16.7" fill="#ffffff"/><text x="506.1" y="326.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="end" font-weight="600" >78%</text>
+<rect x="562.4" y="313.6" width="33.0" height="16.7" fill="#ffffff"/><text x="565.4" y="326.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >84%</text>
 <text x="244.0" y="368.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="end" font-weight="600" >100 adults</text>
 <text x="244.0" y="387.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#555555" text-anchor="end" font-weight="400" >lowest to highest</text>
 <rect x="375.6" y="363.3" width="226.7" height="16" fill="#1a1a1a"/>
-<text x="368.6" y="376.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="end" font-weight="600" paint-order="stroke" stroke="#ffffff" stroke-width="4">60%</text>
-<text x="609.2" y="376.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="600" paint-order="stroke" stroke="#ffffff" stroke-width="4">90%</text>
+<rect x="338.6" y="363.6" width="33.0" height="16.7" fill="#ffffff"/><text x="368.6" y="376.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="end" font-weight="600" >60%</text>
+<rect x="606.2" y="363.6" width="33.0" height="16.7" fill="#ffffff"/><text x="609.2" y="376.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >90%</text>
 <text x="30.0" y="486.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >A rule fits a rider only if its upper end, 70% or 82%, is where that rider’s</text>
 <text x="30.0" y="505.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >threshold falls.</text>
 </svg>

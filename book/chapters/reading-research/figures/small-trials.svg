@@ -4,7 +4,7 @@
 <text x="30.0" y="53.5" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >Results of 20,000 simulated trials of a method whose real advantage is 3 points.</text>
 <text x="30.0" y="102.9" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="start" font-weight="600" >10 people in each group</text>
 <text x="30.0" y="125.9" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >25% of trials reached statistical significance (black); 75% did not (grey).</text>
-<rect x="30.0" y="161.3" width="198.9" height="170.0" fill="#f3f3f3"/>
+<rect x="30.0" y="161.3" width="198.9" height="170.0" fill="#e6e6e6"/>
 <rect x="113.4" y="329.8" width="15.6" height="1.5" fill="#bdbdbd"/>
 <rect x="130.0" y="328.4" width="15.6" height="2.9" fill="#bdbdbd"/>
 <rect x="146.6" y="326.8" width="15.6" height="4.5" fill="#bdbdbd"/>
@@ -47,13 +47,13 @@
 <rect x="527.9" y="329.5" width="15.6" height="1.8" fill="#1a1a1a"/>
 <rect x="544.4" y="330.7" width="15.6" height="0.6" fill="#bdbdbd"/>
 <rect x="544.4" y="330.7" width="15.6" height="0.6" fill="#1a1a1a"/>
-<line x1="30" y1="331.3" x2="660" y2="331.3" stroke="#1a1a1a" stroke-width="1"/>
-<line x1="328.4" y1="161.3" x2="328.4" y2="331.3" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="5 4"/>
+<line x1="30" y1="331.3" x2="660" y2="331.3" stroke="#1a1a1a" stroke-width="1.54"/>
+<line x1="328.4" y1="161.3" x2="328.4" y2="331.3" stroke="#1a1a1a" stroke-width="1.54" stroke-dasharray="5 4"/>
 <text x="328.4" y="154.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >true advantage +3</text>
 <text x="36.0" y="181.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >9% favoured the wrong method</text>
 <text x="36.0" y="200.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#555555" text-anchor="start" font-weight="400" >(shaded area)</text>
 <text x="660.0" y="181.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="end" font-weight="600" >significant trials averaged +5.7</text>
-<line x1="417.9" y1="189.3" x2="417.9" y2="291.3" stroke="#1a1a1a" stroke-width="1"/>
+<line x1="417.9" y1="189.3" x2="417.9" y2="291.3" stroke="#1a1a1a" stroke-width="1.54"/>
 <path d="M413.9,285.3 L421.9,285.3 L417.9,293.3 Z" fill="#1a1a1a"/>
 <text x="30.0" y="353.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >−6</text>
 <text x="129.5" y="353.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >−3</text>
@@ -64,7 +64,7 @@
 <text x="626.8" y="353.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >+12</text>
 <text x="30.0" y="387.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="start" font-weight="600" >50 people in each group</text>
 <text x="30.0" y="410.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >84% of trials reached statistical significance (black); 16% did not (grey).</text>
-<rect x="30.0" y="445.7" width="198.9" height="170.00000000000006" fill="#f3f3f3"/>
+<rect x="30.0" y="445.7" width="198.9" height="170.00000000000006" fill="#e6e6e6"/>
 <rect x="212.9" y="614.8" width="15.6" height="0.9" fill="#bdbdbd"/>
 <rect x="229.4" y="611.9" width="15.6" height="3.8" fill="#bdbdbd"/>
 <rect x="246.0" y="602.7" width="15.6" height="13.0" fill="#bdbdbd"/>
@@ -89,8 +89,8 @@
 <rect x="411.8" y="611.9" width="15.6" height="3.8" fill="#1a1a1a"/>
 <rect x="428.4" y="614.6" width="15.6" height="1.1" fill="#bdbdbd"/>
 <rect x="428.4" y="614.6" width="15.6" height="1.1" fill="#1a1a1a"/>
-<line x1="30" y1="615.7" x2="660" y2="615.7" stroke="#1a1a1a" stroke-width="1"/>
-<line x1="328.4" y1="445.7" x2="328.4" y2="615.7" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="5 4"/>
+<line x1="30" y1="615.7" x2="660" y2="615.7" stroke="#1a1a1a" stroke-width="1.54"/>
+<line x1="328.4" y1="445.7" x2="328.4" y2="615.7" stroke="#1a1a1a" stroke-width="1.54" stroke-dasharray="5 4"/>
 <text x="328.4" y="438.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="middle" font-weight="400" >true advantage +3</text>
 <text x="36.0" y="465.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >0.1% favoured the wrong method</text>
 <text x="36.0" y="484.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#555555" text-anchor="start" font-weight="400" >(shaded area)</text>

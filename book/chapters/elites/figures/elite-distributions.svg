@@ -3,21 +3,21 @@
 <text x="30.0" y="30.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="start" font-weight="600" >Elite training is mostly easy, but road cyclists do more in the middle</text>
 <text x="30.0" y="53.5" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >Share of endurance training time in seven groups of elite athletes, most easy at the</text>
 <text x="30.0" y="72.9" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >top. The studies counted in different ways, noted under each name.</text>
-<rect x="30" y="112.3" width="12" height="12" fill="#e6e6e6" stroke="#555555" stroke-width="0.75"/>
+<rect x="30" y="112.3" width="12" height="12" fill="#e6e6e6" stroke="#555555" stroke-width="1.54"/>
 <text x="50.0" y="123.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >Below the first threshold</text>
-<rect x="330" y="112.3" width="12" height="12" fill="#555555" stroke="#555555" stroke-width="0.75"/>
+<rect x="330" y="112.3" width="12" height="12" fill="#555555" stroke="#555555" stroke-width="1.54"/>
 <text x="350.0" y="123.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >Between the thresholds</text>
-<rect x="30" y="136.3" width="12" height="12" fill="#1a1a1a" stroke="#555555" stroke-width="0.75"/>
+<rect x="30" y="136.3" width="12" height="12" fill="#1a1a1a" stroke="#555555" stroke-width="1.54"/>
 <text x="50.0" y="147.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >Above the second threshold</text>
-<line x1="330.0" y1="176.3" x2="330.0" y2="518.3" stroke="#e6e6e6" stroke-width="1"/>
+<line x1="330.0" y1="176.3" x2="330.0" y2="518.3" stroke="#e6e6e6" stroke-width="1.54"/>
 <text x="330.0" y="540.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >0%</text>
-<line x1="385.0" y1="176.3" x2="385.0" y2="518.3" stroke="#e6e6e6" stroke-width="1"/>
+<line x1="385.0" y1="176.3" x2="385.0" y2="518.3" stroke="#e6e6e6" stroke-width="1.54"/>
 <text x="385.0" y="540.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >25%</text>
-<line x1="440.0" y1="176.3" x2="440.0" y2="518.3" stroke="#e6e6e6" stroke-width="1"/>
+<line x1="440.0" y1="176.3" x2="440.0" y2="518.3" stroke="#e6e6e6" stroke-width="1.54"/>
 <text x="440.0" y="540.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >50%</text>
-<line x1="495.0" y1="176.3" x2="495.0" y2="518.3" stroke="#e6e6e6" stroke-width="1"/>
+<line x1="495.0" y1="176.3" x2="495.0" y2="518.3" stroke="#e6e6e6" stroke-width="1.54"/>
 <text x="495.0" y="540.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >75%</text>
-<line x1="550.0" y1="176.3" x2="550.0" y2="518.3" stroke="#e6e6e6" stroke-width="1"/>
+<line x1="550.0" y1="176.3" x2="550.0" y2="518.3" stroke="#e6e6e6" stroke-width="1.54"/>
 <text x="550.0" y="540.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >100%</text>
 <text x="440.0" y="566.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >Share of endurance training time</text>
 <text x="316.0" y="200.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="end" font-weight="600" >Junior world-class rowers</text>

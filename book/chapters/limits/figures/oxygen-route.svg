@@ -1,37 +1,37 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 301" width="680" height="301" role="img" aria-label="Oxygen's route from the air to the muscle, and the factors that limit endurance">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 301" width="680" height="301" role="img" aria-label="Oxygen’s route from the air to the muscle, and the factors that limit endurance">
 <rect width="680" height="301" fill="#ffffff"/>
 <defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1a1a1a"/></marker></defs>
-<rect x="4" y="60" width="122" height="88" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="4" y="60" width="122" height="88" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.54"/>
 <text x="65.0" y="86.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="middle" font-weight="600" >Lungs</text>
 <text x="65.0" y="110.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >oxygen crosses</text>
 <text x="65.0" y="129.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >into the blood</text>
-<line x1="128" y1="104.0" x2="138" y2="104.0" stroke="#1a1a1a" stroke-width="2" marker-end="url(#ah)"/>
-<rect x="141" y="60" width="122" height="88" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="128" y1="104.0" x2="138" y2="104.0" stroke="#1a1a1a" stroke-width="2.00" marker-end="url(#ah)"/>
+<rect x="141" y="60" width="122" height="88" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.54"/>
 <text x="202.0" y="86.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="middle" font-weight="600" >Blood</text>
 <text x="202.0" y="110.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >carried by</text>
 <text x="202.0" y="129.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >haemoglobin</text>
-<line x1="265" y1="104.0" x2="275" y2="104.0" stroke="#1a1a1a" stroke-width="2" marker-end="url(#ah)"/>
-<rect x="278" y="60" width="122" height="88" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="265" y1="104.0" x2="275" y2="104.0" stroke="#1a1a1a" stroke-width="2.00" marker-end="url(#ah)"/>
+<rect x="278" y="60" width="122" height="88" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.54"/>
 <text x="339.0" y="86.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="middle" font-weight="600" >Heart</text>
 <text x="339.0" y="110.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >pumps it out:</text>
 <text x="339.0" y="129.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >cardiac output</text>
-<line x1="402" y1="104.0" x2="412" y2="104.0" stroke="#1a1a1a" stroke-width="2" marker-end="url(#ah)"/>
-<rect x="415" y="60" width="122" height="88" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="402" y1="104.0" x2="412" y2="104.0" stroke="#1a1a1a" stroke-width="2.00" marker-end="url(#ah)"/>
+<rect x="415" y="60" width="122" height="88" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.54"/>
 <text x="476.0" y="86.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="middle" font-weight="600" >Capillaries</text>
 <text x="476.0" y="110.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >deliver it to</text>
 <text x="476.0" y="129.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >each fibre</text>
-<line x1="539" y1="104.0" x2="549" y2="104.0" stroke="#1a1a1a" stroke-width="2" marker-end="url(#ah)"/>
-<rect x="552" y="60" width="122" height="88" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="539" y1="104.0" x2="549" y2="104.0" stroke="#1a1a1a" stroke-width="2.00" marker-end="url(#ah)"/>
+<rect x="552" y="60" width="122" height="88" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.54"/>
 <text x="613.0" y="86.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="middle" font-weight="600" >Mitochondria</text>
 <text x="613.0" y="110.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >use it to</text>
 <text x="613.0" y="129.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >make ATP</text>
 <text x="8.0" y="30.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#555555" text-anchor="start" font-weight="400" font-style="italic">Air</text>
-<line x1="40" y1="26" x2="65.0" y2="52" stroke="#555555" stroke-width="1.5" marker-end="url(#ah)"/>
-<path d="M4,162 v8 H400 v-8" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="40" y1="26" x2="65.0" y2="52" stroke="#555555" stroke-width="1.54" marker-end="url(#ah)"/>
+<path d="M4,162 v8 H400 v-8" fill="none" stroke="#1a1a1a" stroke-width="1.54"/>
 <text x="202.0" y="192.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="middle" font-weight="600" >Delivery: mostly sets VO₂max</text>
 <text x="202.0" y="212.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >how much oxygen reaches</text>
 <text x="202.0" y="231.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >the muscle each minute</text>
-<path d="M415,162 v8 H674 v-8" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+<path d="M415,162 v8 H674 v-8" fill="none" stroke="#1a1a1a" stroke-width="1.54"/>
 <text x="544.5" y="192.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="middle" font-weight="600" >The muscle</text>
 <text x="544.5" y="212.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >mostly sets the fraction</text>
 <text x="544.5" y="231.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >of VO₂max you can sustain</text>

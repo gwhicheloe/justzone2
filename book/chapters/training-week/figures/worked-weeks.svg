@@ -4,7 +4,7 @@
 <text x="30.0" y="52.5" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="start" font-weight="600" >carries the extra hours</text>
 <text x="30.0" y="76.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >Three example weeks, in hours on the bike each day. My construction from the earlier</text>
 <text x="30.0" y="95.4" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >chapters, not a tested programme.</text>
-<rect x="30" y="132.8" width="12" height="12" fill="#e6e6e6" stroke="#555555" stroke-width="0.75"/>
+<rect x="30" y="132.8" width="12" height="12" fill="#e6e6e6" stroke="#555555" stroke-width="1.54"/>
 <text x="50.0" y="143.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >Easy ride</text>
 <rect x="235" y="132.8" width="12" height="12" fill="#555555"/>
 <text x="255.0" y="143.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >Long easy ride</text>
@@ -20,31 +20,31 @@
 <text x="30.0" y="230.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="start" font-weight="600" >4 hours</text>
 <text x="30.0" y="252.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >52 min of hard work</text>
 <text x="30.0" y="271.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >21% of the time</text>
-<line x1="150" y1="318.8" x2="668" y2="318.8" stroke="#bdbdbd" stroke-width="1"/>
+<line x1="150" y1="318.8" x2="668" y2="318.8" stroke="#bdbdbd" stroke-width="1.54"/>
 <text x="187.0" y="312.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#bdbdbd" text-anchor="middle" font-weight="400" >rest</text>
 <path d="M241.0,318.8 V298.8 a4,4 0 0 1 4,-4 H277.0 a4,4 0 0 1 4,4 V318.8 z" fill="#1a1a1a"/>
 <text x="261.0" y="287.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="600" >1 h</text>
 <text x="261.0" y="269.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="600" >4 × 8</text>
 <text x="335.0" y="312.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#bdbdbd" text-anchor="middle" font-weight="400" >rest</text>
-<path d="M389.0,318.8 V298.8 a4,4 0 0 1 4,-4 H425.0 a4,4 0 0 1 4,4 V318.8 z" fill="#e6e6e6" stroke="#555555" stroke-width="0.75"/>
+<path d="M389.0,318.8 V298.8 a4,4 0 0 1 4,-4 H425.0 a4,4 0 0 1 4,4 V318.8 z" fill="#e6e6e6" stroke="#555555" stroke-width="1.54"/>
 <text x="409.0" y="287.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="400" >1 h</text>
 <text x="483.0" y="312.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#bdbdbd" text-anchor="middle" font-weight="400" >rest</text>
 <path d="M537.0,318.8 V292.8 a4,4 0 0 1 4,-4 H573.0 a4,4 0 0 1 4,4 V318.8 z" fill="#1a1a1a"/>
 <text x="557.0" y="281.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="600" >1.25 h</text>
 <text x="557.0" y="263.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="600" >30/15</text>
-<path d="M611.0,318.8 V304.8 a4,4 0 0 1 4,-4 H647.0 a4,4 0 0 1 4,4 V318.8 z" fill="#e6e6e6" stroke="#555555" stroke-width="0.75"/>
+<path d="M611.0,318.8 V304.8 a4,4 0 0 1 4,-4 H647.0 a4,4 0 0 1 4,4 V318.8 z" fill="#e6e6e6" stroke="#555555" stroke-width="1.54"/>
 <text x="631.0" y="293.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="400" >0.75 h</text>
 <text x="30.0" y="380.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="start" font-weight="600" >8 hours</text>
 <text x="30.0" y="402.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >52 min of hard work</text>
 <text x="30.0" y="421.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >11% of the time</text>
-<line x1="150" y1="468.8" x2="668" y2="468.8" stroke="#bdbdbd" stroke-width="1"/>
+<line x1="150" y1="468.8" x2="668" y2="468.8" stroke="#bdbdbd" stroke-width="1.54"/>
 <text x="187.0" y="462.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#bdbdbd" text-anchor="middle" font-weight="400" >rest</text>
 <path d="M241.0,468.8 V442.8 a4,4 0 0 1 4,-4 H277.0 a4,4 0 0 1 4,4 V468.8 z" fill="#1a1a1a"/>
 <text x="261.0" y="431.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="600" >1.25 h</text>
 <text x="261.0" y="413.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="600" >4 × 8</text>
-<path d="M315.0,468.8 V436.8 a4,4 0 0 1 4,-4 H351.0 a4,4 0 0 1 4,4 V468.8 z" fill="#e6e6e6" stroke="#555555" stroke-width="0.75"/>
+<path d="M315.0,468.8 V436.8 a4,4 0 0 1 4,-4 H351.0 a4,4 0 0 1 4,4 V468.8 z" fill="#e6e6e6" stroke="#555555" stroke-width="1.54"/>
 <text x="335.0" y="425.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="400" >1.5 h</text>
-<path d="M389.0,468.8 V448.8 a4,4 0 0 1 4,-4 H425.0 a4,4 0 0 1 4,4 V468.8 z" fill="#e6e6e6" stroke="#555555" stroke-width="0.75"/>
+<path d="M389.0,468.8 V448.8 a4,4 0 0 1 4,-4 H425.0 a4,4 0 0 1 4,4 V468.8 z" fill="#e6e6e6" stroke="#555555" stroke-width="1.54"/>
 <text x="409.0" y="437.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="400" >1 h</text>
 <path d="M463.0,468.8 V442.8 a4,4 0 0 1 4,-4 H499.0 a4,4 0 0 1 4,4 V468.8 z" fill="#1a1a1a"/>
 <text x="483.0" y="431.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="600" >1.25 h</text>
@@ -55,20 +55,20 @@
 <text x="30.0" y="530.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="start" font-weight="600" >12 hours</text>
 <text x="30.0" y="552.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >60 min of hard work</text>
 <text x="30.0" y="571.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >8% of the time</text>
-<line x1="150" y1="618.8" x2="668" y2="618.8" stroke="#bdbdbd" stroke-width="1"/>
+<line x1="150" y1="618.8" x2="668" y2="618.8" stroke="#bdbdbd" stroke-width="1.54"/>
 <text x="187.0" y="612.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#bdbdbd" text-anchor="middle" font-weight="400" >rest</text>
 <path d="M241.0,618.8 V586.8 a4,4 0 0 1 4,-4 H277.0 a4,4 0 0 1 4,4 V618.8 z" fill="#1a1a1a"/>
 <text x="261.0" y="575.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="600" >1.5 h</text>
 <text x="261.0" y="557.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="600" >5 × 8</text>
-<path d="M315.0,618.8 V574.8 a4,4 0 0 1 4,-4 H351.0 a4,4 0 0 1 4,4 V618.8 z" fill="#e6e6e6" stroke="#555555" stroke-width="0.75"/>
+<path d="M315.0,618.8 V574.8 a4,4 0 0 1 4,-4 H351.0 a4,4 0 0 1 4,4 V618.8 z" fill="#e6e6e6" stroke="#555555" stroke-width="1.54"/>
 <text x="335.0" y="563.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="400" >2 h</text>
-<path d="M389.0,618.8 V586.8 a4,4 0 0 1 4,-4 H425.0 a4,4 0 0 1 4,4 V618.8 z" fill="#e6e6e6" stroke="#555555" stroke-width="0.75"/>
+<path d="M389.0,618.8 V586.8 a4,4 0 0 1 4,-4 H425.0 a4,4 0 0 1 4,4 V618.8 z" fill="#e6e6e6" stroke="#555555" stroke-width="1.54"/>
 <text x="409.0" y="575.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="400" >1.5 h</text>
 <path d="M463.0,618.8 V586.8 a4,4 0 0 1 4,-4 H499.0 a4,4 0 0 1 4,4 V618.8 z" fill="#1a1a1a"/>
 <text x="483.0" y="575.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="600" >1.5 h</text>
 <text x="483.0" y="557.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="600" >30/15</text>
 <path d="M537.0,618.8 V526.8 a4,4 0 0 1 4,-4 H573.0 a4,4 0 0 1 4,4 V618.8 z" fill="#555555"/>
 <text x="557.0" y="515.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="400" >4 h</text>
-<path d="M611.0,618.8 V586.8 a4,4 0 0 1 4,-4 H647.0 a4,4 0 0 1 4,4 V618.8 z" fill="#e6e6e6" stroke="#555555" stroke-width="0.75"/>
+<path d="M611.0,618.8 V586.8 a4,4 0 0 1 4,-4 H647.0 a4,4 0 0 1 4,4 V618.8 z" fill="#e6e6e6" stroke="#555555" stroke-width="1.54"/>
 <text x="631.0" y="575.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#1a1a1a" text-anchor="middle" font-weight="400" >1.5 h</text>
 </svg>

@@ -1,14 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 380" width="680" height="380" role="img" aria-label="Critical power and W prime as a percentage of their fresh values over two hours of riding">
 <rect width="680" height="380" fill="#ffffff"/>
-<line x1="70" y1="300.0" x2="440" y2="300.0" stroke="#bdbdbd" stroke-width="1"/>
+<line x1="70" y1="300.0" x2="440" y2="300.0" stroke="#bdbdbd" stroke-width="1.54"/>
 <text x="60.0" y="305.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="end" font-weight="400" >70%</text>
-<line x1="70" y1="240.0" x2="440" y2="240.0" stroke="#bdbdbd" stroke-width="1"/>
+<line x1="70" y1="240.0" x2="440" y2="240.0" stroke="#bdbdbd" stroke-width="1.54"/>
 <text x="60.0" y="245.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="end" font-weight="400" >80%</text>
-<line x1="70" y1="180.0" x2="440" y2="180.0" stroke="#bdbdbd" stroke-width="1"/>
+<line x1="70" y1="180.0" x2="440" y2="180.0" stroke="#bdbdbd" stroke-width="1.54"/>
 <text x="60.0" y="185.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="end" font-weight="400" >90%</text>
-<line x1="70" y1="120.0" x2="440" y2="120.0" stroke="#1a1a1a" stroke-width="1"/>
+<line x1="70" y1="120.0" x2="440" y2="120.0" stroke="#1a1a1a" stroke-width="1.54"/>
 <text x="60.0" y="125.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="end" font-weight="400" >100%</text>
-<line x1="70" y1="60.0" x2="440" y2="60.0" stroke="#bdbdbd" stroke-width="1"/>
+<line x1="70" y1="60.0" x2="440" y2="60.0" stroke="#bdbdbd" stroke-width="1.54"/>
 <text x="60.0" y="65.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="end" font-weight="400" >110%</text>
 <text x="70.0" y="326.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >fresh</text>
 <text x="193.3" y="326.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >40 min</text>
@@ -16,16 +16,16 @@
 <text x="440.0" y="326.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >120 min</text>
 <text x="255.0" y="354.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >Time ridden at 164 W before the test</text>
 <text x="14.0" y="32.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >Per cent of the fresh value</text>
-<polyline points="70.0,120.0 193.3,180.3 316.7,227.3 440.0,257.4" fill="none" stroke="#555555" stroke-width="2" stroke-dasharray="6 4" stroke-linejoin="round"/>
-<polyline points="70.0,120.0 193.3,101.5 316.7,120.0 440.0,175.4" fill="none" stroke="#1a1a1a" stroke-width="2" stroke-linejoin="round"/>
-<circle cx="70.0" cy="120.0" r="4.5" fill="#ffffff" stroke="#555555" stroke-width="2"/>
-<circle cx="193.3" cy="180.3" r="4.5" fill="#ffffff" stroke="#555555" stroke-width="2"/>
-<circle cx="316.7" cy="227.3" r="4.5" fill="#ffffff" stroke="#555555" stroke-width="2"/>
-<circle cx="440.0" cy="257.4" r="4.5" fill="#ffffff" stroke="#555555" stroke-width="2"/>
-<circle cx="70.0" cy="120.0" r="5" fill="#1a1a1a" stroke="#ffffff" stroke-width="2"/>
-<circle cx="193.3" cy="101.5" r="5" fill="#1a1a1a" stroke="#ffffff" stroke-width="2"/>
-<circle cx="316.7" cy="120.0" r="5" fill="#1a1a1a" stroke="#ffffff" stroke-width="2"/>
-<circle cx="440.0" cy="175.4" r="5" fill="#1a1a1a" stroke="#ffffff" stroke-width="2"/>
+<polyline points="70.0,120.0 193.3,180.3 316.7,227.3 440.0,257.4" fill="none" stroke="#555555" stroke-width="2.00" stroke-dasharray="6 4" stroke-linejoin="round"/>
+<polyline points="70.0,120.0 193.3,101.5 316.7,120.0 440.0,175.4" fill="none" stroke="#1a1a1a" stroke-width="2.00" stroke-linejoin="round"/>
+<circle cx="70.0" cy="120.0" r="4.5" fill="#ffffff" stroke="#555555" stroke-width="2.00"/>
+<circle cx="193.3" cy="180.3" r="4.5" fill="#ffffff" stroke="#555555" stroke-width="2.00"/>
+<circle cx="316.7" cy="227.3" r="4.5" fill="#ffffff" stroke="#555555" stroke-width="2.00"/>
+<circle cx="440.0" cy="257.4" r="4.5" fill="#ffffff" stroke="#555555" stroke-width="2.00"/>
+<circle cx="70.0" cy="120.0" r="5" fill="#1a1a1a" stroke="#ffffff" stroke-width="2.00"/>
+<circle cx="193.3" cy="101.5" r="5" fill="#1a1a1a" stroke="#ffffff" stroke-width="2.00"/>
+<circle cx="316.7" cy="120.0" r="5" fill="#1a1a1a" stroke="#ffffff" stroke-width="2.00"/>
+<circle cx="440.0" cy="175.4" r="5" fill="#1a1a1a" stroke="#ffffff" stroke-width="2.00"/>
 <text x="456.0" y="171.4" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >Critical power</text>
 <text x="456.0" y="190.4" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >236 W, down 9%</text>
 <text x="456.0" y="253.4" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="16.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >W′, the reserve</text>

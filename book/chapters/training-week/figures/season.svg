@@ -4,17 +4,17 @@
 <text x="30.0" y="52.5" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="start" font-weight="600" >weeks halve the hours</text>
 <text x="30.0" y="76.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >An illustrative season: weekly hours, with a dot for each hard session. Drawn for</text>
 <text x="30.0" y="95.4" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >this book, not data.</text>
-<line x1="70" y1="432.8" x2="664" y2="432.8" stroke="#1a1a1a" stroke-width="1"/>
+<line x1="70" y1="432.8" x2="664" y2="432.8" stroke="#1a1a1a" stroke-width="1.54"/>
 <text x="60.0" y="437.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="end" font-weight="400" >0</text>
-<line x1="70" y1="386.8" x2="664" y2="386.8" stroke="#e6e6e6" stroke-width="1"/>
+<line x1="70" y1="386.8" x2="664" y2="386.8" stroke="#e6e6e6" stroke-width="1.54"/>
 <text x="60.0" y="391.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="end" font-weight="400" >2</text>
-<line x1="70" y1="340.8" x2="664" y2="340.8" stroke="#e6e6e6" stroke-width="1"/>
+<line x1="70" y1="340.8" x2="664" y2="340.8" stroke="#e6e6e6" stroke-width="1.54"/>
 <text x="60.0" y="345.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="end" font-weight="400" >4</text>
-<line x1="70" y1="294.8" x2="664" y2="294.8" stroke="#e6e6e6" stroke-width="1"/>
+<line x1="70" y1="294.8" x2="664" y2="294.8" stroke="#e6e6e6" stroke-width="1.54"/>
 <text x="60.0" y="299.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="end" font-weight="400" >6</text>
-<line x1="70" y1="248.8" x2="664" y2="248.8" stroke="#e6e6e6" stroke-width="1"/>
+<line x1="70" y1="248.8" x2="664" y2="248.8" stroke="#e6e6e6" stroke-width="1.54"/>
 <text x="60.0" y="253.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="end" font-weight="400" >8</text>
-<line x1="70" y1="202.8" x2="664" y2="202.8" stroke="#e6e6e6" stroke-width="1"/>
+<line x1="70" y1="202.8" x2="664" y2="202.8" stroke="#e6e6e6" stroke-width="1.54"/>
 <text x="60.0" y="207.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="end" font-weight="400" >10</text>
 <text x="14.0" y="184.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >Hours</text>
 <path d="M73.0,432.8 V298.8 a4,4 0 0 1 4,-4 H92.7 a4,4 0 0 1 4,4 V432.8 z" fill="#555555"/>
@@ -27,7 +27,7 @@
 <path d="M132.4,432.8 V275.8 a4,4 0 0 1 4,-4 H152.1 a4,4 0 0 1 4,4 V432.8 z" fill="#555555"/>
 <circle cx="144.2" cy="262.8" r="3.5" fill="#1a1a1a"/>
 <circle cx="144.2" cy="251.8" r="3.5" fill="#1a1a1a"/>
-<path d="M162.1,432.8 V316.1 a4,4 0 0 1 4,-4 H181.8 a4,4 0 0 1 4,4 V432.8 z" fill="#e6e6e6" stroke="#555555" stroke-width="0.75"/>
+<path d="M162.1,432.8 V316.1 a4,4 0 0 1 4,-4 H181.8 a4,4 0 0 1 4,4 V432.8 z" fill="#e6e6e6" stroke="#555555" stroke-width="1.54"/>
 <circle cx="173.9" cy="303.1" r="3.5" fill="#1a1a1a"/>
 <text x="173.9" y="454.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >4</text>
 <path d="M191.8,432.8 V264.3 a4,4 0 0 1 4,-4 H211.5 a4,4 0 0 1 4,4 V432.8 z" fill="#555555"/>
@@ -39,7 +39,7 @@
 <path d="M251.2,432.8 V241.3 a4,4 0 0 1 4,-4 H270.9 a4,4 0 0 1 4,4 V432.8 z" fill="#555555"/>
 <circle cx="263.1" cy="228.3" r="3.5" fill="#1a1a1a"/>
 <circle cx="263.1" cy="217.3" r="3.5" fill="#1a1a1a"/>
-<path d="M280.9,432.8 V293.1 a4,4 0 0 1 4,-4 H300.6 a4,4 0 0 1 4,4 V432.8 z" fill="#e6e6e6" stroke="#555555" stroke-width="0.75"/>
+<path d="M280.9,432.8 V293.1 a4,4 0 0 1 4,-4 H300.6 a4,4 0 0 1 4,4 V432.8 z" fill="#e6e6e6" stroke="#555555" stroke-width="1.54"/>
 <circle cx="292.8" cy="280.1" r="3.5" fill="#1a1a1a"/>
 <text x="292.8" y="454.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >8</text>
 <path d="M310.6,432.8 V229.8 a4,4 0 0 1 4,-4 H330.3 a4,4 0 0 1 4,4 V432.8 z" fill="#555555"/>
@@ -51,7 +51,7 @@
 <path d="M370.0,432.8 V218.3 a4,4 0 0 1 4,-4 H389.7 a4,4 0 0 1 4,4 V432.8 z" fill="#555555"/>
 <circle cx="381.9" cy="205.3" r="3.5" fill="#1a1a1a"/>
 <circle cx="381.9" cy="194.3" r="3.5" fill="#1a1a1a"/>
-<path d="M399.7,432.8 V281.6 a4,4 0 0 1 4,-4 H419.4 a4,4 0 0 1 4,4 V432.8 z" fill="#e6e6e6" stroke="#555555" stroke-width="0.75"/>
+<path d="M399.7,432.8 V281.6 a4,4 0 0 1 4,-4 H419.4 a4,4 0 0 1 4,4 V432.8 z" fill="#e6e6e6" stroke="#555555" stroke-width="1.54"/>
 <circle cx="411.6" cy="268.6" r="3.5" fill="#1a1a1a"/>
 <text x="411.6" y="454.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >12</text>
 <path d="M429.4,432.8 V218.3 a4,4 0 0 1 4,-4 H449.1 a4,4 0 0 1 4,4 V432.8 z" fill="#555555"/>
@@ -63,7 +63,7 @@
 <path d="M488.8,432.8 V218.3 a4,4 0 0 1 4,-4 H508.5 a4,4 0 0 1 4,4 V432.8 z" fill="#555555"/>
 <circle cx="500.7" cy="205.3" r="3.5" fill="#1a1a1a"/>
 <circle cx="500.7" cy="194.3" r="3.5" fill="#1a1a1a"/>
-<path d="M518.5,432.8 V281.6 a4,4 0 0 1 4,-4 H538.2 a4,4 0 0 1 4,4 V432.8 z" fill="#e6e6e6" stroke="#555555" stroke-width="0.75"/>
+<path d="M518.5,432.8 V281.6 a4,4 0 0 1 4,-4 H538.2 a4,4 0 0 1 4,4 V432.8 z" fill="#e6e6e6" stroke="#555555" stroke-width="1.54"/>
 <circle cx="530.4" cy="268.6" r="3.5" fill="#1a1a1a"/>
 <text x="530.4" y="454.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >16</text>
 <path d="M548.2,432.8 V218.3 a4,4 0 0 1 4,-4 H567.9 a4,4 0 0 1 4,4 V432.8 z" fill="#555555"/>
@@ -72,19 +72,19 @@
 <path d="M577.9,432.8 V218.3 a4,4 0 0 1 4,-4 H597.6 a4,4 0 0 1 4,4 V432.8 z" fill="#555555"/>
 <circle cx="589.8" cy="205.3" r="3.5" fill="#1a1a1a"/>
 <circle cx="589.8" cy="194.3" r="3.5" fill="#1a1a1a"/>
-<path d="M607.6,432.8 V304.6 a4,4 0 0 1 4,-4 H627.3 a4,4 0 0 1 4,4 V432.8 z" fill="#ffffff" stroke="#1a1a1a" stroke-width="0.75"/>
+<path d="M607.6,432.8 V304.6 a4,4 0 0 1 4,-4 H627.3 a4,4 0 0 1 4,4 V432.8 z" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.54"/>
 <circle cx="619.5" cy="291.6" r="3.5" fill="#1a1a1a"/>
 <circle cx="619.5" cy="280.6" r="3.5" fill="#1a1a1a"/>
-<path d="M637.3,432.8 V339.1 a4,4 0 0 1 4,-4 H657.0 a4,4 0 0 1 4,4 V432.8 z" fill="#ffffff" stroke="#1a1a1a" stroke-width="0.75"/>
+<path d="M637.3,432.8 V339.1 a4,4 0 0 1 4,-4 H657.0 a4,4 0 0 1 4,4 V432.8 z" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.54"/>
 <circle cx="649.1" cy="326.1" r="3.5" fill="#1a1a1a"/>
 <circle cx="649.1" cy="315.1" r="3.5" fill="#1a1a1a"/>
 <text x="649.1" y="454.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >20</text>
 <text x="367.0" y="480.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >Week</text>
 <rect x="30" y="144.8" width="12" height="12" fill="#555555"/>
 <text x="50.0" y="155.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >Building</text>
-<rect x="180" y="144.8" width="12" height="12" fill="#e6e6e6" stroke="#555555" stroke-width="0.75"/>
+<rect x="180" y="144.8" width="12" height="12" fill="#e6e6e6" stroke="#555555" stroke-width="1.54"/>
 <text x="200.0" y="155.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >Lighter week</text>
-<rect x="330" y="144.8" width="12" height="12" fill="#ffffff" stroke="#1a1a1a" stroke-width="0.75"/>
+<rect x="330" y="144.8" width="12" height="12" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.54"/>
 <text x="350.0" y="155.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >Taper</text>
 <circle cx="486" cy="150.8" r="3.5" fill="#1a1a1a"/>
 <text x="500.0" y="155.8" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >Hard session</text>

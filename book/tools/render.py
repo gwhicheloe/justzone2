@@ -2,8 +2,10 @@
 """Render chapter drafts to one HTML review page.
 
   python3 book/tools/render.py OUT.html book/chapters/intro/draft.md book/chapters/limits/draft.md ...
-  python3 book/tools/render.py [--trim 6x9] OUT.pdf chapters...   -> a print proof: book pages at the
-                          paperback's trim size (default 6 x 9 in), made with Chrome; OUT.html is kept beside it
+  python3 book/tools/render.py [--trim 6x9] OUT.pdf chapters...   -> the paperback's interior: front matter
+                          (front/title.md, front/copyright.md), contents, part pages and chapters at the trim size
+                          (default 6 x 9 in), made with Chrome, with running heads and page numbers stamped on;
+                          OUT.html is kept beside it. It lists anything that must not reach print (NOT FOR PRINT).
 
 Handles the subset of Markdown the drafts use: headings, paragraphs, bold and
 italic, numbered and bulleted lists, blockquotes. Book conventions:
@@ -26,7 +28,8 @@ italic, numbered and bulleted lists, blockquotes. Book conventions:
                             ~ text                 a note under the row above (e.g. not significant)
                             -- Heading             a sub-heading across the table
 Parts: PARTS below names the chapter (by folder) that opens each part; a part title page
-goes before it, with its blank back, in the proof, and a part heading on the review page.
+goes before it, on a right-hand page with its blank back, in print, and a part heading on the review page.
+Chapters open on the next page, left or right (CHAPTERS_OPEN). Straight quotes become curly (typography.py).
 The output is an HTML fragment (title, style, content) that works both as an
 Artifact page and when opened directly in a browser.
 """
@@ -36,6 +39,8 @@ import os
 import re
 import subprocess
 import sys
+
+from typography import smart_quotes
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 BOOK = os.path.dirname(HERE)
@@ -69,7 +74,7 @@ def load_sources():
 
 
 def inline(text, cite):
-    t = html.escape(text, quote=False)
+    t = smart_quotes(html.escape(text, quote=False))  # before any tags, which have quotes of their own
     t = t.replace("₂", "<sub>2</sub>")  # Newsreader has no subscript two; a fallback font's would show
     t = re.sub(r"~~(.+?)~~", r'<del class="cut" title="Proposed cut">\1</del>', t)
     t = re.sub(r"\[GEORGE:(.*?)\]", lambda m: f'<mark class="george">George: {m.group(1).strip()}</mark>', t, flags=re.S)
@@ -252,7 +257,7 @@ def render_chapter(md, sources, idx, base=".", probes=False, moves=None, layout=
             status = s.get("status", "missing")
             doi = s.get("doi")
             link = f' <a href="https://doi.org/{html.escape(doi)}">doi</a>' if doi else ""
-            refs.append(f'<li id="c{idx}-{prefix}{n}">{html.escape(s.get("citation", "MISSING FROM sources.yaml: " + k))}{link}'
+            refs.append(f'<li id="c{idx}-{prefix}{n}">{smart_quotes(html.escape(s.get("citation", "MISSING FROM sources.yaml: " + k), quote=False))}{link}'
                         f' <span class="status s-{status}">{status}</span></li>')
         return "".join(refs)
 
@@ -373,51 +378,66 @@ STYLE = """
 """
 
 
-# The print proof: the same chapters set as book pages, for checking how the paperback will look.
-# Sizes are KDP's: inside margins must be at least 0.5 in for 151 to 300 pages and 0.625 in for 301 to 500,
-# other margins at least 0.25 in without bleed. Black ink only.
+# The print proof: the same chapters set as book pages, as the paperback's interior file.
+# KDP's rules (Paperback Submission Guidelines, checked 20 October 2026): inside margins at least
+# 0.5 in for 151 to 300 pages and 0.625 in for 301 to 500, other margins at least 0.25 in without
+# bleed; type at least 7 pt; lines at least 0.75 pt; grey fills at least 10%; no links, bookmarks or
+# annotations. Black ink only. Running heads and page numbers are added afterwards (stamp).
 PRINT_STYLE = """
 <style>
   %(fonts)s
-  @page{size:%(w)sin %(h)sin;margin:%(margins)s;
-    @bottom-center{content:counter(page);font:7.5pt "IBM Plex Sans",sans-serif;color:#000}}
+  @page{size:%(w)sin %(h)sin;margin:%(margins)s}
   @page :left{margin-left:%(out)sin;margin-right:%(in)sin}
   @page :right{margin-left:%(in)sin;margin-right:%(out)sin}
-  @page front{@bottom-center{content:none}}
-  @page blank{@top-center{content:none}@bottom-center{content:none}}
-  @page part{@top-center{content:none}@bottom-center{content:none}}
-  section.part{page:part;height:7.5in;display:flex;flex-direction:column;justify-content:center;text-align:center}
+  section.part{break-before:page;height:7.5in;display:flex;flex-direction:column;justify-content:center;text-align:center}
   section.part p{font-family:var(--sans);font-size:8.5pt;font-weight:600;letter-spacing:.16em;text-transform:uppercase;margin:0 0 10pt;text-indent:0}
   section.part .pt{font-size:24pt;line-height:1.15;font-weight:600;margin:0;text-align:center}
-  .blank{page:blank;height:1px}
-  %(heads)s
+  .blank{break-before:page;break-after:page;height:1px}
   /* Nothing may be wider than the text area: Chrome would shrink every page to fit it. */
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact;box-sizing:border-box}
-  :root{--serif:"Newsreader",Georgia,serif;--sans:"IBM Plex Sans",sans-serif;--mono:"IBM Plex Mono",monospace}
+  :root{--serif:"Newsreader","Noto Serif",serif;--sans:"IBM Plex Sans",sans-serif;--mono:"IBM Plex Mono",monospace}
   html,body{margin:0;padding:0;background:#fff;color:#000}
   body{font-family:var(--serif);font-size:10.5pt;line-height:14pt;text-align:justify;hyphens:auto;-webkit-hyphens:auto;font-variant-numeric:lining-nums}
-  section.front{page:front;height:7.5in;display:flex;flex-direction:column;justify-content:center;text-align:left}
-  section.front h1{font-size:30pt;line-height:1.1;margin:0 0 10pt;font-weight:600}
-  section.front p{font-family:var(--sans);font-size:8.5pt;line-height:1.5;text-align:left;text-indent:0;margin:0 0 6pt;hyphens:manual}
-  article{break-before:right}
+  /* Front matter, in KDP's order: half title, its blank back, title page, copyright page, contents. */
+  section.fm{break-before:page;break-after:page}
+  section.fm p{text-indent:0;hyphens:manual;-webkit-hyphens:manual}
+  section.half,section.tpage,section.copy,section.ded{height:7.5in;display:flex;flex-direction:column}
+  section.half .ht{margin:1.5in 0 0;font-size:16pt;font-weight:600;text-align:center}
+  section.tpage h1.bt{font-size:30pt;line-height:1.1;margin:1.3in 0 12pt;text-align:center}
+  section.tpage .sub{font-size:13pt;line-height:1.35;font-style:italic;text-align:center;margin:0 auto;max-width:3.6in}
+  section.tpage .au{margin:auto 0 0.5in;font-family:var(--sans);font-size:9pt;font-weight:600;letter-spacing:.16em;text-transform:uppercase;text-align:center}
+  section.copy{justify-content:flex-end}
+  section.copy p{font-family:var(--sans);font-size:7.5pt;line-height:1.45;text-align:left;margin:0 0 6pt}
+  section.ded p{margin:1.5in 0 0;font-style:italic;text-align:center}
+  section.toc h1{margin:0.5in 0 0.22in}  /* one page, so it needs no running head or number */
+  section.toc a{display:flex;align-items:baseline;color:#000}
+  section.toc a.tp{font-family:var(--sans);font-size:7.5pt;font-weight:600;letter-spacing:.14em;text-transform:uppercase;margin:8pt 0 3pt}
+  section.toc a.tp .sep{margin:0 .5em}
+  section.toc a.te{margin:0 0 2pt;text-align:left}
+  section.toc .tn{flex:none;width:2em;font-variant-numeric:tabular-nums}
+  section.toc .tt{flex:none;max-width:3.6in}
+  section.toc .tl{flex:1;min-width:12pt;margin:0 5pt;border-bottom:.75pt dotted #000;position:relative;top:-3pt}
+  section.toc .tpg{flex:none;min-width:2em;text-align:right;font-variant-numeric:tabular-nums}
+  article{break-before:page}
   h1{font-size:21pt;line-height:1.15;font-weight:600;margin:0.9in 0 0.3in;text-align:left;hyphens:manual;text-wrap:balance}
+  h1 .chl{display:block;font-family:var(--sans);font-size:8.5pt;line-height:1.2;font-weight:600;letter-spacing:.16em;text-transform:uppercase;margin:0 0 9pt}
   h2{font-size:12.5pt;line-height:1.25;font-weight:600;margin:15pt 0 5pt;text-align:left;hyphens:manual;break-after:avoid}
   h3{font-family:var(--sans);font-size:8.5pt;font-weight:600;letter-spacing:.02em;margin:12pt 0 3pt;text-align:left;hyphens:manual;break-after:avoid}
   p{margin:0;orphans:2;widows:2} p+p{text-indent:1.2em}
   ol,ul{margin:5pt 0 6pt;padding-left:1.5em} li{margin:2pt 0}
   strong{font-weight:600}
   a{color:inherit;text-decoration:none}
-  sup.cite{font-family:var(--sans);font-size:6pt;line-height:0;margin-left:.5pt}
-  sub{font-size:.7em;line-height:0;vertical-align:-.25em}
+  sup.cite{font-family:var(--sans);font-size:7pt;line-height:0;margin-left:.5pt}
+  sub{font-size:max(.7em,7pt);line-height:0;vertical-align:-.25em}  /* KDP: nothing under 7 pt, even in captions and tables */
   .probes{font-size:1px;line-height:1px;color:#fff;break-before:page}
-  .gradenote{font-size:.9em}
-  .grade{font-family:var(--mono);font-size:6pt;border:.5pt solid #000;border-radius:2pt;padding:0 1.5pt;margin-left:2pt;vertical-align:1pt}
+  .gradenote{font-size:max(.9em,7pt)}
+  .grade{font-family:var(--mono);font-size:7pt;border:.75pt solid #000;border-radius:2pt;padding:0 1.5pt;margin-left:2pt;vertical-align:1pt}
   mark.george{background:#e4e4e4;color:#000;font-family:var(--sans);font-size:8pt;padding:0 2pt;-webkit-box-decoration-break:clone;box-decoration-break:clone}
   figure{margin:10pt 0 12pt;break-inside:avoid} figure svg{display:block;width:100%%;height:auto}
   figcaption{font-family:var(--sans);font-size:7.5pt;line-height:1.35;text-align:left;hyphens:manual;margin-top:4pt}
   blockquote.saddle{margin:9pt 0;padding-left:9pt;border-left:1.2pt solid #000;font-style:italic}
   .formula{margin:8pt 0 9pt;text-align:center;line-height:1.6;break-inside:avoid}
-  aside.survives{margin:14pt 0 4pt;padding:5pt 0 4pt;border-top:1.2pt solid #000;border-bottom:.5pt solid #000;break-inside:avoid}
+  aside.survives{margin:14pt 0 4pt;padding:5pt 0 4pt;border-top:1.2pt solid #000;border-bottom:.75pt solid #000;break-inside:avoid}
   aside.survives .sv-h{font-family:var(--sans);font-size:7pt;font-weight:600;letter-spacing:.12em;text-transform:uppercase;margin-bottom:2pt}
   aside.survives ul{list-style:none;margin:0;padding:0}
   aside.survives li{margin:3pt 0;text-align:left;hyphens:manual;-webkit-hyphens:manual}
@@ -426,26 +446,26 @@ PRINT_STYLE = """
   section.refs ol{font-family:var(--sans);font-size:7pt;line-height:1.35;text-align:left;hyphens:manual;padding-left:2em;margin:0}
   section.refs li{margin:0 0 1.5pt}
   .status,section.refs a{display:none}
-  .missing{font-family:var(--sans);font-size:8pt;border:.5pt dashed #000;padding:6pt}
-  .trial{margin:9pt 0 11pt;border:.6pt solid #000;font-family:var(--sans);font-size:7.5pt;line-height:1.35;text-align:left;hyphens:manual;-webkit-hyphens:manual;break-inside:avoid}
+  .missing{font-family:var(--sans);font-size:8pt;border:.75pt dashed #000;padding:6pt}
+  .trial{margin:9pt 0 11pt;border:.75pt solid #000;font-family:var(--sans);font-size:7.5pt;line-height:1.35;text-align:left;hyphens:manual;-webkit-hyphens:manual;break-inside:avoid}
   .trial table{width:100%%;border-collapse:collapse;table-layout:fixed}
   .trial col.crl{width:21%%} .trial.wide col.crl{width:17%%}
   .trial th,.trial td{padding:3pt 4.5pt;vertical-align:top;text-align:left}
   .trial tr{break-inside:avoid}
-  .trial tr+tr>*{border-top:.4pt solid #9a9a9a}
+  .trial tr+tr>*{border-top:.75pt solid #bdbdbd}
   .trial .rl{font-weight:600;color:#333}
-  .trial tr.data td+td{border-left:.4pt solid #9a9a9a}
+  .trial tr.data td+td{border-left:.75pt solid #bdbdbd}
   .trial tr.data td{font-variant-numeric:tabular-nums}
   .trial tr.arms th{font-size:8pt;font-weight:600;border-bottom:.9pt solid #000}
-  .trial tr.arms th em{display:block;font-size:6.8pt;font-weight:400;color:#444}
-  .trial tr.sub th{font-size:6.5pt;font-weight:600;letter-spacing:.06em;text-transform:uppercase;background:#ececec;padding:2pt 4.5pt}
-  .trial tr.note>*{border-top:0;padding-top:0;font-size:6.8pt;font-style:italic;color:#444}
+  .trial tr.arms th em{display:block;font-size:7pt;font-weight:400;color:#444}
+  .trial tr.sub th{font-size:7pt;font-weight:600;letter-spacing:.06em;text-transform:uppercase;background:#e6e6e6;padding:2pt 4.5pt}
+  .trial tr.note>*{border-top:0;padding-top:0;font-size:7pt;font-style:italic;color:#444}
   .trial tr.hyp td,.trial tr.concl td{font-family:var(--serif);font-size:8.8pt;line-height:1.3}
   .trial tr.hyp td{font-style:italic}
   .trial tr.concl>*{border-top:.9pt solid #000}
   .trial tr.mlab{display:none}
   .trial table.lead{break-inside:avoid;break-after:avoid}
-  .trial table.main thead tr>*{border-top:.4pt solid #9a9a9a}
+  .trial table.main thead tr>*{border-top:.75pt solid #bdbdbd}
 </style>
 """
 
@@ -454,44 +474,49 @@ FONTS_CSS = ("https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght
              "&family=IBM+Plex+Sans:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@500")
 
 
+# Newsreader has no Greek, so the α of PGC-1α comes from Noto Serif (also SIL Open Font License),
+# not from a system font such as Georgia, whose licence is Microsoft's.
+FALLBACK_CSS = "https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,600;1,400"
+
+
 def local_fonts():
     """@font-face rules pointing at copies of the fonts in book/fonts/ (git-ignored), fetched once.
 
-    Chrome prints before web fonts arrive, so the proof uses local files. Newsreader and
-    IBM Plex are under the SIL Open Font License, which allows embedding them in a printed book.
+    Chrome prints before web fonts arrive, so the proof uses local files. Newsreader, IBM Plex and
+    Noto Serif are under the SIL Open Font License, which allows embedding them in a printed book.
     """
     folder = os.path.join(BOOK, "fonts")
-    css_path = os.path.join(folder, "fonts.css")
-    if not os.path.exists(css_path):
-        import urllib.request
-        os.makedirs(folder, exist_ok=True)
-        get = lambda u: urllib.request.urlopen(urllib.request.Request(u, headers={"User-Agent": "just-zone-2-book-research"})).read()
-        css = get(FONTS_CSS).decode()
-        for url in re.findall(r"url\((https://[^)]+\.ttf)\)", css):
-            name = re.sub(r"[^A-Za-z0-9.]", "", url.split("/s/")[1].replace("/", "-"))
-            open(os.path.join(folder, name), "wb").write(get(url))
-            css = css.replace(url, name)
-        open(css_path, "w", encoding="utf-8").write(css)
-    css = open(css_path, encoding="utf-8").read()
-    return re.sub(r"url\(([^)]+\.ttf)\)", lambda m: "url(file://" + os.path.join(folder, m.group(1)) + ")", css)
-
-
-def css_string(s):
-    return '"' + s.replace("\\", "\\\\").replace('"', '\\"') + '"'
+    out = []
+    for name, url in (("fonts.css", FONTS_CSS), ("fallback.css", FALLBACK_CSS)):
+        css_path = os.path.join(folder, name)
+        if not os.path.exists(css_path):
+            import urllib.request
+            os.makedirs(folder, exist_ok=True)
+            get = lambda u: urllib.request.urlopen(urllib.request.Request(u, headers={"User-Agent": "just-zone-2-book-research"})).read()
+            css = get(url).decode()
+            for u in re.findall(r"url\((https://[^)]+\.ttf)\)", css):
+                fn = re.sub(r"[^A-Za-z0-9.]", "", u.split("/s/")[1].replace("/", "-"))
+                open(os.path.join(folder, fn), "wb").write(get(u))
+                css = css.replace(u, fn)
+            open(css_path, "w", encoding="utf-8").write(css)
+        css = open(css_path, encoding="utf-8").read()
+        out.append(re.sub(r"url\(([^)]+\.ttf)\)", lambda m: "url(file://" + os.path.join(folder, m.group(1)) + ")", css))
+    return "\n".join(out)
 
 
 def chrome_pdf(html_path, pdf_path):
     chrome = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
-    subprocess.run([chrome, "--headless=new", "--disable-gpu", "--no-pdf-header-footer", "--generate-pdf-document-outline",
+    subprocess.run([chrome, "--headless=new", "--disable-gpu", "--no-pdf-header-footer",
                     "--virtual-time-budget=20000", f"--print-to-pdf={os.path.abspath(pdf_path)}", "file://" + os.path.abspath(html_path)],
                    check=True, capture_output=True)
 
 
-def chapter_starts(pdf_path):
-    """The page number each chapter starts on, from the PDF's outline (one top-level entry per h1)."""
+def dest_pages(pdf_path):
+    """The page each linked anchor landed on, {id: page}, from the PDF's named destinations.
+    Chrome records one for every element that something links to (the contents does this)."""
     import pypdf
     r = pypdf.PdfReader(pdf_path)
-    return [r.get_destination_page_number(x) + 1 for x in r.outline if not isinstance(x, list)][1:]
+    return {k.lstrip("/"): r.get_destination_page_number(d) + 1 for k, d in r.named_destinations.items()}
 
 
 # Margins of the print proof, in inches: top, outside, bottom, inside. Line height in points.
@@ -553,92 +578,253 @@ def fill_gaps(pdf_path, layouts, moves, page_h):
     return changed
 
 
-def render_print(out_pdf, files, sources, trim):
-    """Set the chapters as a print proof: an HTML page laid out for paper, then a PDF of it from Chrome.
+# Chapters open on the next page, left or right, as in most paperbacks (George, 20 October 2026, asked
+# why there were blank pages between chapters). "right" puts every chapter on a right-hand page, with a
+# blank page before any that would open on the left. The Introduction and the part title pages open on
+# the right either way.
+CHAPTERS_OPEN = "any"
 
-    Chrome cannot float a table or figure, or start a chapter on a right-hand page, so the proof
-    is printed several times: first to move text up into gaps left by tables and figures that
-    were pushed to the next page (tables are never split), then to put a blank page before each
-    chapter that would start on the left. The running head is the book's title on left-hand pages and the chapter's on
-    right-hand pages.
-    """
+NOCITE = lambda group, shadow=False: ""  # front matter and contents have no citations
+
+
+def front_matter():
+    """The title, subtitle and author (front/title.md), the copyright page (front/copyright.md) and,
+    if front/dedication.md exists, a dedication."""
+    folder = os.path.join(BOOK, "front")
+    read = lambda n: re.sub(r"<!--.*?-->", "", open(os.path.join(folder, n), encoding="utf-8").read(), flags=re.S)
+    lines = [l.strip() for l in read("title.md").split("\n") if l.strip()]
+    paras = lambda n: "".join(f"<p>{inline(' '.join(p.split()), NOCITE)}</p>" for p in read(n).split("\n\n") if p.strip())
+    return {"title": next(l[2:].strip() for l in lines if l.startswith("# ")),
+            "sub": next((l[3:].strip() for l in lines if l.startswith("## ")), ""),
+            "author": next(l for l in lines if not l.startswith("#")),
+            "copyright": paras("copyright.md"),
+            "dedication": paras("dedication.md") if os.path.exists(os.path.join(folder, "dedication.md")) else ""}
+
+
+def split_title(t):
+    """'Chapter 1: What limits endurance' -> ('Chapter 1', 'What limits endurance'); likewise 'Introduction: ...'."""
+    m = re.match(r"(Chapter \d+|Introduction):\s*(.+)", t)
+    return (m.group(1), m.group(2)) if m else ("", t)
+
+
+def running_title(t):
+    lab, name = split_title(t)
+    return "Introduction" if lab == "Introduction" else name
+
+
+def opener(h):
+    """A chapter's heading for print: 'Chapter 1' (or 'Introduction') as a small label above the title."""
+    return re.sub(r'<h1 id="(ch\d+)">(Chapter \d+|Introduction):\s*', r'<h1 id="\1"><span class="chl">\2</span>', h, count=1)
+
+
+def contents_page(chapters, files, folios):
+    """The contents: each part as a heading, then each chapter's number, title and page. Every line links
+    to its chapter or part page, which is also how Chrome records where each one starts (dest_pages)."""
+    rows, n = [], 0
+    for (t, a, _, _), f in zip(chapters, files):
+        p = part_of(f)
+        if p:
+            n += 1
+            rows.append(f'<a class="tp" href="#part{n}">{p[0]}<span class="sep">·</span>{inline(p[1], NOCITE)}</a>')
+        lab, name = split_title(t)
+        num = lab[len("Chapter "):] if lab.startswith("Chapter ") else ""
+        rows.append(f'<a class="te" href="#{a}"><span class="tn">{num}</span><span class="tt">{inline(name if num else t, NOCITE)}</span>'
+                    f'<span class="tl"></span><span class="tpg">{folios.get(a, "000")}</span></a>')
+    return f'<section class="fm toc" id="contents"><h1><a href="#contents">Contents</a></h1>{"".join(rows)}</section>'
+
+
+def roman(n):
+    out = ""
+    for v, r in ((1000, "m"), (900, "cm"), (500, "d"), (400, "cd"), (100, "c"), (90, "xc"),
+                 (50, "l"), (40, "xl"), (10, "x"), (9, "ix"), (5, "v"), (4, "iv"), (1, "i")):
+        while n >= v:
+            out, n = out + r, n - v
+    return out
+
+
+def folio(page, first):
+    """The printed page number: roman before the Introduction, arabic from 1 on its first page. The
+    Introduction opens on a right-hand (odd) page, so even numbers stay on the left, as KDP requires."""
+    return str(page - first + 1) if page >= first else roman(page)
+
+
+def stamp(raw_pdf, out_pdf, chapters, pages, meta, trim):
+    """Put the running heads and page numbers on the pages Chrome made, and write the interior file.
+
+    Chrome cannot leave a running head off a chapter's first page, so the heads and numbers are
+    printed by Chrome as a second PDF, one overlay page per page in the same fonts, and merged on top.
+    Left pages carry the book's title, right pages the chapter's. A chapter's first page gets a
+    number but no head; blank pages and part title pages get neither; the front matter is numbered
+    in roman, shown only on the contents' later pages. Links, bookmarks and named destinations are
+    left out, as KDP asks."""
     import pypdf
+    w, h = (float(x) for x in trim)
+    raw = pypdf.PdfReader(raw_pdf)
+    first = pages["ch1"]
+    opens = {pages[f"ch{i}"]: i for i in range(1, len(chapters) + 1)}
+    parts = {p for k, p in pages.items() if re.fullmatch(r"part\d+", k)}
+    empty = {i for i, pg in enumerate(raw.pages, 1) if not (pg.extract_text() or "").strip()}
+    marks, ch = [], 0
+    for p in range(1, len(raw.pages) + 1):
+        ch = opens.get(p, ch)
+        if p < first:
+            marks.append(("", roman(p) if p > pages["contents"] and p not in empty else ""))
+        elif p in empty or p in parts:
+            marks.append(("", ""))
+        elif p in opens:
+            marks.append(("", folio(p, first)))
+        else:
+            marks.append((meta["title"] if p % 2 == 0 else running_title(chapters[ch - 1][0]), folio(p, first)))
+    divs = []
+    for p, (head, num) in enumerate(marks, 1):
+        l, r = (MARGINS[3], MARGINS[1]) if p % 2 else (MARGINS[1], MARGINS[3])
+        box = f"left:{l}in;right:{r}in"
+        divs.append(f'<div class="pg"><div class="hd" style="{box}">{html.escape(smart_quotes(head))}</div>'
+                    f'<div class="fo" style="{box}">{num}</div></div>')
+    overlay_html = os.path.splitext(raw_pdf)[0] + "-heads.html"
+    overlay_pdf = os.path.splitext(raw_pdf)[0] + "-heads.pdf"
+    # each head and number centred in its margin, where Chrome's own margin boxes put them
+    open(overlay_html, "w", encoding="utf-8").write(f"""<!doctype html>
+<html lang="en-GB"><head><meta charset="utf-8"><style>
+  {local_fonts()}
+  @page{{size:{w}in {h}in;margin:0}}
+  html,body{{margin:0;padding:0}}
+  .pg{{position:relative;height:{h - 0.1}in;break-after:page}}
+  .pg:last-child{{break-after:auto}}
+  .hd,.fo{{position:absolute;height:10pt;text-align:center;color:#000;white-space:nowrap}}
+  .hd{{top:calc({MARGINS[0] / 2}in - 5pt);font:italic 7.5pt/10pt "Newsreader",serif}}
+  .fo{{top:calc({h - MARGINS[2] / 2}in - 5pt);font:7.5pt/10pt "IBM Plex Sans",sans-serif}}
+</style></head><body>{"".join(divs)}</body></html>
+""")
+    chrome_pdf(overlay_html, overlay_pdf)
+    over = pypdf.PdfReader(overlay_pdf)
+    if len(over.pages) != len(raw.pages):
+        sys.exit(f"stamp: {len(over.pages)} overlay pages for {len(raw.pages)} book pages")
+    out = pypdf.PdfWriter()
+    for page, top in zip(raw.pages, over.pages):
+        page.merge_page(top)
+        if "/Annots" in page:
+            del page["/Annots"]  # the links Chrome made from the contents and the citations
+        out.add_page(page)
+    out.add_metadata({"/Title": meta["title"], "/Author": meta["author"]})
+    with open(out_pdf, "wb") as fh:
+        out.write(fh)
+    for f in (overlay_html, overlay_pdf, raw_pdf):
+        os.remove(f)
+    return marks
+
+
+def render_print(out_pdf, files, sources, trim):
+    """Set the book as the paperback's interior: front matter, contents, part pages and chapters, then a
+    PDF of it from Chrome, with running heads and page numbers stamped on afterwards.
+
+    Chrome cannot float a table or figure, or start a page on the right, so the book is printed several
+    times: first to move text up into gaps left by tables and figures pushed to the next page (tables
+    are never split), then to add blank pages so the Introduction and the part pages open on the right
+    (and every chapter, if CHAPTERS_OPEN is "right"), then to put the page numbers in the contents.
+    """
     w, h = trim
     page_h = float(h) * 72
-    today = datetime.date.today().strftime("%-d %B %Y")
     out_html = os.path.splitext(out_pdf)[0] + ".html"
+    raw_pdf = os.path.splitext(out_pdf)[0] + "-raw.pdf"
     moves = {i: {} for i in range(1, len(files) + 1)}
+    meta = front_matter()
+    blank = '<div class="blank"></div>'
+    # the ids that can have a blank page put before them, in book order, and those that must open on the right
+    order, n = [], 0
+    for i, f in enumerate(files, 1):
+        if part_of(f):
+            n += 1
+            order.append(f"part{n}")
+        order.append(f"ch{i}")
+    recto = {k for k in order if k == "ch1" or k.startswith("part") or CHAPTERS_OPEN == "right"}
 
-    def build(probes, blanks=()):
+    def build(probes, blanks=(), folios=None):
         chapters, layouts = [], []
         for i, f in enumerate(files, 1):
             layouts.append([])
             chapters.append(render_chapter(open(f, encoding="utf-8").read(), sources, i, os.path.dirname(os.path.abspath(f)),
                                            probes=probes, moves=moves[i], layout=layouts[-1], print_mode=True))
-        total = sum(c[2] for c in chapters)
-        font = 'font:italic 7.5pt "Newsreader",serif'
-        heads = "\n  ".join(
-            f'@page p{i}:left{{@top-center{{content:"Just Zone 2?";{font}}}}} '
-            f'@page p{i}:right{{@top-center{{content:{css_string(t)};{font}}}}}'
-            for i, (t, _, _, _) in enumerate(chapters, 1))
         # print citations as bare superscript numbers against the word
         cites = lambda x: re.sub(r'\s*<sup class="cite">\[(.*?)\]</sup>', r'<sup class="cite">\1</sup>', x)
-        # A part title page is a right-hand page with a blank back, so the chapter after it keeps its side.
-        part = lambda p: f'<section class="part"><p>{p[0]}</p><div class="pt">{html.escape(p[1])}</div></section><div class="blank"></div>' if p else ""
-        body = "".join(('<div class="blank"></div>' if i in blanks else "") + part(part_of(files[i - 1]))
-                       + f'<article style="page:p{i}">{cites(c[3])}</article>'
-                       for i, c in enumerate(chapters, 1))
-        top = '<div id="top" style="page:front"></div>' if probes else ""  # same named page as the title, or Chrome breaks between them
+        body, n = [], 0
+        for i, (c, f) in enumerate(zip(chapters, files), 1):
+            p = part_of(f)
+            if p:  # a right-hand page with a blank back, so the chapter after it opens on the right too
+                n += 1
+                body.append((blank if f"part{n}" in blanks else "")
+                            + f'<section class="part" id="part{n}"><p>{p[0]}</p><div class="pt">{html.escape(p[1])}</div></section>' + blank)
+            body.append((blank if f"ch{i}" in blanks else "") + f'<article>{opener(cites(c[3]))}</article>')
+        title, sub, author = (inline(meta[k], NOCITE) for k in ("title", "sub", "author"))
+        top = '<div id="top"></div>' if probes else ""  # the top of the first page's text area, to calibrate fill_gaps
+        front = (f'<section class="fm half">{top}<p class="ht">{title}</p></section>{blank}'
+                 f'<section class="fm tpage"><h1 class="bt">{title}</h1><p class="sub">{sub}</p><p class="au">{author}</p></section>'
+                 f'<section class="fm copy">{meta["copyright"]}</section>'
+                 + (f'<section class="fm ded">{meta["dedication"]}</section>{blank}' if meta["dedication"] else "")
+                 + contents_page(chapters, files, folios or {}))
         links = probe_links(layouts) if probes else ""
-        style = PRINT_STYLE % {"w": w, "h": h, "heads": heads, "fonts": local_fonts(),
+        style = PRINT_STYLE % {"w": w, "h": h, "fonts": local_fonts(),
                                "margins": " ".join(f"{m}in" for m in MARGINS), "out": MARGINS[1], "in": MARGINS[3]}
         page = f"""<!doctype html>
 <html lang="en-GB">
 <head>
 <meta charset="utf-8">
-<title>Just Zone 2? Print proof</title>
+<title>{html.escape(meta["title"])} Print proof</title>
 {style}
 </head>
-<body>{top}
-<section class="front">
-  <h1>Just Zone 2?</h1>
-  <p>George Whicheloe</p>
-  <p>Print proof, {w} × {h} in. {len(chapters)} chapters in first draft, {total:,} words. {today}.</p>
-  <p>Set to the paperback's size, type and margins, to show how the pages will look. The figures were drawn for the screen and have not yet been redrawn for print.</p>
-</section>
-{body}
+<body>
+{front}
+{"".join(body)}
 {links}
 </body>
 </html>
 """
         open(out_html, "w", encoding="utf-8").write(page)
-        chrome_pdf(out_html, out_pdf)
+        chrome_pdf(out_html, raw_pdf)
         return chapters, layouts
 
     for _ in range(6):
         chapters, layouts = build(True)
-        if not fill_gaps(out_pdf, layouts, moves, page_h):
+        if not fill_gaps(raw_pdf, layouts, moves, page_h):
             break
     # Blank pages from the last layout measured, then checked against the final one (the gap
     # filling can stop before it settles, so the two can differ) and recomputed if need be.
-    starts, blanks = chapter_starts(out_pdf), set()
+    pages, blanks = dest_pages(raw_pdf), set()
     for _ in range(4):
-        natural = [p - sum(1 for k in blanks if k <= i) for i, p in enumerate(starts, 1)]
+        natural = {k: pages[k] - sum(1 for b in blanks if order.index(b) <= order.index(k)) for k in order}
         blanks, shift = set(), 0
-        for i, p in enumerate(natural, 1):
-            if (p + shift) % 2 == 0:
-                blanks.add(i)
+        for k in order:
+            if k in recto and (natural[k] + shift) % 2 == 0:
+                blanks.add(k)
                 shift += 1
         chapters, _ = build(False, blanks)
-        starts = chapter_starts(out_pdf)
-        if all(p % 2 for p in starts):
+        pages = dest_pages(raw_pdf)
+        if all(pages[k] % 2 for k in recto):
             break
-    left = [chapters[i][0] for i, p in enumerate(starts) if p % 2 == 0]
-    pages = len(pypdf.PdfReader(out_pdf).pages)
+    # The contents' page numbers, then a check that putting them in moved nothing.
+    for _ in range(3):
+        folios = {k: folio(p, pages["ch1"]) for k, p in pages.items()}
+        build(False, blanks, folios)
+        settled, pages = pages, dest_pages(raw_pdf)
+        if pages == settled:
+            break
+    name = lambda k: chapters[int(k[2:]) - 1][0] if k.startswith("ch") else k
+    left = [name(k) for k in order if k in recto and pages[k] % 2 == 0]
+    marks = stamp(raw_pdf, out_pdf, chapters, pages, meta, trim)
+    total = len(marks)
+    blank_pages = sum(1 for p, (hd, num) in enumerate(marks, 1) if not hd and not num and p >= pages["ch1"]
+                      and p not in {v for k, v in pages.items() if k.startswith("part")})
     moved = sum(len(m) for m in moves.values())
-    print(f"{out_pdf}: {len(chapters)} chapters, {sum(c[2] for c in chapters):,} words, {w} × {h} in, {pages} pages, "
-          f"tables or figures moved down to fill a gap: {moved}"
-          + (f"; WARNING, starting on a left-hand page: {left}" if left else ""))
+    # Anything that must not reach the printed book
+    text = open(out_html, encoding="utf-8").read()
+    notes = [re.sub(r"<[^>]+>", "", m) for m in re.findall(r'<mark class="george">(.*?)</mark>', text, re.S)]
+    problems = notes + re.findall(r"MISSING FROM sources\.yaml: \S+|Missing figure: [^<]+|\[FIGURE[^\]]*\]", text)
+    print(f"{out_pdf}: {len(chapters)} chapters, {sum(c[2] for c in chapters):,} words, {w} × {h} in, {total} pages "
+          f"({pages['ch1'] - 1} of front matter), {blank_pages} blank pages after the front matter, "
+          f"tables or figures moved down to fill a gap: {moved}. Spine: {total * 0.002252:.3f} in on white paper, "
+          f"{total * 0.0025:.3f} in on cream (KDP's rule)."
+          + (f"\nWARNING, opening on a left-hand page: {left}" if left else "")
+          + ("".join(f"\nNOT FOR PRINT: {p}" for p in problems)))
 
 
 def main():

@@ -1,27 +1,27 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 470" width="680" height="470" role="img" aria-label="Simulated weekly readings scattered between about 95 and 109 percent of the starting power, five of them below 100 including the last, while the true power rises steadily to 105 and the four-week average climbs from about 100 to 105.">
 <rect width="680" height="470" fill="#ffffff"/>
-<text x="30.0" y="30.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="start" font-weight="600" >One week's reading can't show a 5% gain; a four-week average can</text>
+<text x="30.0" y="30.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="start" font-weight="600" >One week’s reading can’t show a 5% gain; a four-week average can</text>
 <text x="30.0" y="53.5" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >A simulated rider whose power at a fixed heart rate truly rises 5% over twelve weeks,</text>
 <text x="30.0" y="72.9" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >measured weekly with a typical error of 3%. Values are a percentage of the true</text>
 <text x="30.0" y="92.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >starting power.</text>
-<line x1="70" y1="407.7" x2="560" y2="407.7" stroke="#e6e6e6" stroke-width="1"/>
+<line x1="70" y1="407.7" x2="560" y2="407.7" stroke="#bdbdbd" stroke-width="1.54"/>
 <text x="60.0" y="412.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="end" font-weight="400" >94</text>
-<line x1="70" y1="342.7" x2="560" y2="342.7" stroke="#e6e6e6" stroke-width="1"/>
+<line x1="70" y1="342.7" x2="560" y2="342.7" stroke="#bdbdbd" stroke-width="1.54"/>
 <text x="60.0" y="347.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="end" font-weight="400" >98</text>
-<line x1="70" y1="277.7" x2="560" y2="277.7" stroke="#e6e6e6" stroke-width="1"/>
+<line x1="70" y1="277.7" x2="560" y2="277.7" stroke="#bdbdbd" stroke-width="1.54"/>
 <text x="60.0" y="282.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="end" font-weight="400" >102</text>
-<line x1="70" y1="212.7" x2="560" y2="212.7" stroke="#e6e6e6" stroke-width="1"/>
+<line x1="70" y1="212.7" x2="560" y2="212.7" stroke="#bdbdbd" stroke-width="1.54"/>
 <text x="60.0" y="217.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="end" font-weight="400" >106</text>
-<line x1="70" y1="147.7" x2="560" y2="147.7" stroke="#e6e6e6" stroke-width="1"/>
+<line x1="70" y1="147.7" x2="560" y2="147.7" stroke="#bdbdbd" stroke-width="1.54"/>
 <text x="60.0" y="152.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="end" font-weight="400" >110</text>
-<line x1="70" y1="310.2" x2="560" y2="310.2" stroke="#bdbdbd" stroke-width="1"/>
+<line x1="70" y1="310.2" x2="560" y2="310.2" stroke="#bdbdbd" stroke-width="1.54"/>
 <text x="70.0" y="429.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >0</text>
 <text x="233.3" y="429.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >4</text>
 <text x="396.7" y="429.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >8</text>
 <text x="560.0" y="429.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >12</text>
 <text x="315.0" y="453.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >Week</text>
-<polyline points="70.0,310.2 110.8,303.4 151.7,296.7 192.5,289.9 233.3,283.1 274.2,276.4 315.0,269.6 355.8,262.8 396.7,256.1 437.5,249.3 478.3,242.4 519.2,235.8 560.0,228.9" fill="none" stroke="#555555" stroke-width="2" stroke-dasharray="6 5"/>
-<polyline points="192.5,317.2 233.3,300.8 274.2,285.7 315.0,269.1 355.8,267.1 396.7,291.4 437.5,277.7 478.3,240.2 519.2,233.5 560.0,236.1" fill="none" stroke="#1a1a1a" stroke-width="2.5"/>
+<polyline points="70.0,310.2 110.8,303.4 151.7,296.7 192.5,289.9 233.3,283.1 274.2,276.4 315.0,269.6 355.8,262.8 396.7,256.1 437.5,249.3 478.3,242.4 519.2,235.8 560.0,228.9" fill="none" stroke="#555555" stroke-width="2.00" stroke-dasharray="6 5"/>
+<polyline points="192.5,317.2 233.3,300.8 274.2,285.7 315.0,269.1 355.8,267.1 396.7,291.4 437.5,277.7 478.3,240.2 519.2,233.5 560.0,236.1" fill="none" stroke="#1a1a1a" stroke-width="2.50"/>
 <circle cx="70.0" cy="282.4" r="5" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.75"/>
 <circle cx="110.8" cy="320.1" r="5" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.75"/>
 <circle cx="151.7" cy="387.1" r="5" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.75"/>
@@ -39,5 +39,5 @@
 <text x="572.0" y="244.1" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >Four-week</text>
 <text x="572.0" y="263.1" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >average</text>
 <text x="572.0" y="329.5" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >Last reading</text>
-<text x="74.0" y="159.1" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >Each dot is one week's reading</text>
+<text x="74.0" y="159.1" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >Each dot is one week’s reading</text>
 </svg>
