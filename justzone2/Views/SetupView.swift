@@ -409,6 +409,11 @@ struct SetupView: View {
                     // Stop KICKR (may still be at cool-down power) then clean up
                     viewModel.kickrService.stopWorkout()
                     workoutViewModel = nil
+                    // The ride just finished was saved as complete. Re-check from
+                    // disk rather than trust anything found earlier, so only a
+                    // genuinely interrupted ride is offered.
+                    pendingRecovery = nil
+                    checkForRecovery()
                     // Back on Setup: clear the consumed Watch-start signal and
                     // re-arm the Watch for the next ride.
                     viewModel.clearWatchStartedFlag()
@@ -541,9 +546,13 @@ struct SetupView: View {
             }
             // Check HealthKit authorization
             viewModel.healthKitManager.checkAuthorizationStatus()
-            // Check for in-progress workout to recover (samples + settings preserved)
-            if pendingRecovery == nil, let local = LocalWorkoutStore.shared.mostRecentInProgress() {
-                pendingRecovery = local
+            // Check for in-progress workout to recover (samples + settings preserved).
+            // Not while a ride is on screen: this onAppear also fires when the
+            // rider switches tabs mid-ride, and the running ride's own 5-minute
+            // checkpoint is "in progress", so it was offered for recovery and
+            // the stale banner showed once the ride had finished normally.
+            if workoutViewModel == nil {
+                checkForRecovery()
             }
             // Drop any stale "Watch started" signal, then arm the Watch if we're
             // already ready (Mode A).
@@ -954,6 +963,14 @@ struct SetupView: View {
             isDemo: demoMode
         )
         showWorkout = true
+    }
+
+    /// Offer to resume the most recent ride that was cut short (app killed or
+    /// crashed mid-ride), if there is one.
+    private func checkForRecovery() {
+        guard pendingRecovery == nil, let local = LocalWorkoutStore.shared.mostRecentInProgress() else { return }
+        dlog("[SETUP] offering recovery: ride \(local.id.uuidString.prefix(8)) started \(local.workout.startDate), elapsed \(Int(local.elapsedTime))s, last checkpoint \(local.lastCheckpoint)")
+        pendingRecovery = local
     }
 
     private func resumeRecoveredWorkout(_ recovery: LocalWorkout) {
