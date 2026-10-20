@@ -12,11 +12,13 @@ Chapter 7 offered a likelier explanation for the faster climb. My hours changed 
 
 ## The claims, graded
 
-![The book's verdict on sixteen common claims about training, with the grade of the evidence behind each verdict. A means several randomised trials or a good meta-analysis; B, small, short or single-lab studies; C, observation, mechanism or opinion. The last column gives the chapter that weighs each claim.](figures/scorecard.svg)
+![The book's verdict on seventeen common claims about training, with the grade of the evidence behind each verdict. A means several randomised trials or a good meta-analysis; B, small, short or single-lab studies; C, observation, mechanism or opinion. The last column gives the chapter that weighs each claim.](figures/scorecard.svg)
 
 **Zone 2 as the best way to build mitochondria.** Not supported, at grade A. Per programme, steady riding builds about as much as harder riding in people who aren't yet trained. Per hour it builds less, and in well-trained people more was not shown to add anything measurable [@molmen2025]. Easy riding works for beginners; the evidence gives it no special advantage.
 
-**Fat burning.** Not supported, at grade B. The intensity of peak fat burning is real, and it varies from rider to rider and with what they have eaten. But the fat burned over a whole day didn't differ between days of easy and harder exercise {shadow @melanson2002}. A pooled analysis of 31 studies found no difference in body fat between people assigned to intervals and people assigned to steady training [@keating2017]. Weight follows the work done, not the fuel mix.
+**Fat burning for weight loss.** Not supported, at grade B. The intensity of peak fat burning is real, and it varies from rider to rider and with what they have eaten. But the fat burned over a whole day didn't differ between days of easy and harder exercise {shadow @melanson2002}. A pooled analysis of 31 studies found no difference in body fat between people assigned to intervals and people assigned to steady training [@keating2017]. Weight follows the work done, not the fuel mix.
+
+**Fat burning for racing.** Not supported, at grade B. Training shifts the fuel mix towards fat, and intervals do it as well as steady riding [@burgomaster2008]. A fitter rider races faster on more carbohydrate, not less [@westgarthtaylor1997]. A high-fat diet raised fat burning further and left elite race walkers without the improvement their training brought the others [@burke2017]. Fat burning is a sign of fitness, not a separate thing to train.
 
 **The elite pattern.** Supported, at grade C, as a description. The Olympic champions whose diaries Chapter 8 analysed spent 91% of their endurance training time below the first threshold, and about 1.3 hours a week above it [@tonnessen2014]. What is not supported is the step from their ratio to an amateur's week. Trials of different ways of dividing the hard work found no clear winner over 4 to 16 weeks [@silvaoliveira2024; @cove2025]. The elite example is better read as evidence for a large amount of training, most of it easy, around a modest and steady dose of hard work.
 

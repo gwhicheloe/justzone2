@@ -130,3 +130,7 @@ In `book/papers/` (git-ignored): `jones2024.pdf` (published version), `clark2019
 Still abstract only: Maunder 2021, Mateo-March 2022, Spragg 2023a and b, Muriel 2022 (paywalled, on George's list), Leo 2024 (repository file not public), Clark 2018, Gallo 2022, Voet 2024, Rønnestad 2011, Unhjem 2024, Stevenson 2022 and Smyth 2022 (the last two are free: read before drafting the sections that use them). The chapter can be drafted from what is here; the figure (Mateo-March per-duration numbers) cannot be drawn without that paper.
 
 16 October 2026: the `[FIGURE: …]` placeholder for Mateo-March 2022 was cut from the draft (final review). Draw it only if the full text is obtained.
+
+## Ørtenblad 2024: lab tests and durability in elite road cyclists (20 October 2026)
+
+Added to "What the professionals show", in the paragraph on whether durability can be read off a lab test, while researching George's fat-burning question (details in `easy-riding/research.md`, "Fat burning for performance"). Ørtenblad 2024 [FT]: 12 elite and professional road cyclists (Odense), VO₂peak 73.6 mL/kg/min, 4 h intermittent riding with 100 g CHO an hour; 6-min power fell 10% [4;15]. Fresh LT1, gross efficiency, MFO and VO₂peak were not related to the fall (MFO r = 0.20, 95% CI -0.43 to 0.69), nor was fat oxidation during the protocol. [Own] "It is hardly larger": 12 against Spragg's 10; the wide intervals mean it cannot exclude a moderate relation either.

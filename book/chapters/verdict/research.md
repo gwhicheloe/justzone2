@@ -8,6 +8,7 @@ Written 15 October 2026 in the Part V batch. No new research: every claim and nu
 |---|---|---|---|---|
 | 1 | Zone 2 builds mitochondria better than harder training | Not supported | A | 7: Mølmen 2025 [FT], 353 studies: continuous training +23%, intervals +27%; per hour, sprints almost four times as much (Introduction) |
 | 2 | Riding at peak fat burning is best for losing fat | Not supported | B | 7: Melanson 2002 [Abs] (fat burned over 24 h did not differ); Keating 2017 [Abs] (31 studies, no difference in body fat between intervals and steady training) |
+| 2a | Easy miles make you faster by training fat burning (added 20 October 2026, George's question about Couzens) | Not supported | B | 7: training shifts fuel towards fat (Hurley 1986 [Abs]); sprints did it as well as 10 times the steady work (Burgomaster 2008 [Abs]); trained cyclists' faster time trial used more carbohydrate (Westgarth-Taylor 1997 [Abs]); high-fat diet raised fat burning and negated the training gain (Burke 2017 [Abs]). Scorecard row 3; the figure now counts seventeen claims |
 | 3 | Zone 2 is what trains lactate clearance | Not shown | C | 7: no direct evidence; Evertsen 2001 (skiers) |
 | 4 | Elite endurance athletes do most of their training easy | Supported | A | 8: Tønnessen 2014 [FT]: 91% of endurance time below the first lactate threshold; distributions across sports (Stöggl 2015) |
 | 5 | Copying the elite ratio makes amateurs faster than other mixes | Not shown | B | 8: Silva Oliveira 2024, Rosenblat 2025, Cove 2025: no distribution better over 4–16 weeks |

@@ -240,6 +240,14 @@
   chapters: [fuelling]
   notes: "16 trained cyclists, 7 days of cherry concentrate or placebo, 109-min simulated race on days 5 to 7. Lower lipid hydroperoxides, IL-6 and hsCRP. No performance outcome in the abstract. Open access, full text not yet read."
 
+- key: bergman1999
+  citation: "Bergman BC, Brooks GA. Respiratory gas-exchange ratios during graded exercise in fed and fasted trained and untrained men. J Appl Physiol. 1999;86:479-487."
+  doi: 10.1152/jappl.1999.86.2.479
+  pmid: 9931180
+  status: abstract
+  chapters: [easy-riding]
+  notes: "7 untrained men vs 7 category 2-3 US cyclists, fed and fasted, at 22, 40, 59, 75% VO2peak. Trained had lower RER at the same absolute power; at the same relative intensity, lower only at 22% (fasted) and 40%, not at 59 or 75%. Authors: athletes training and racing above 40% VO2max will not oxidise a greater proportion of fat than untrained people."
+
 - key: billat1999
   citation: "Billat VL, Flechet B, Petit B, Muriaux G, Koralsztein JP. Interval training at VO2max: effects on aerobic performance and overtraining markers. Med Sci Sports Exerc. 1999;31:156-163."
   doi: 10.1097/00005768-199901000-00024
@@ -426,6 +434,23 @@
   chapters: [heat-training]
   notes: "10 men, 90 min cycling at 32 C then time trial: slushy 18:28, warm drink 20:24, slushy mouthwash 19:45."
 
+- key: burgomaster2008
+  citation: "Burgomaster KA, Howarth KR, Phillips SM, Rakobowchuk M, Macdonald MJ, McGee SL, Gibala MJ. Similar metabolic adaptations during exercise after low volume sprint interval and traditional endurance training in humans. J Physiol. 2008;586:151-160."
+  doi: 10.1113/jphysiol.2007.142109
+  pmid: 17991697
+  status: abstract
+  chapters: [easy-riding, verdict]
+  notes: "Active but untrained, 23 years, 5 men + 5 women per group, 6 weeks. Sprint: 4-6 x 30 s Wingate (~500 W), 4.5 min recovery, 3 days/week, ~1.5 h and ~225 kJ a week. Endurance: 40-60 min at ~65% VO2peak (~150 W), 5 days/week, ~4.5 h and ~2250 kJ a week. Test: 1 h at 65% VO2peak before and after. Glycogen and PCr use fell; whole-body CHO oxidation fell and fat oxidation rose, no difference between groups. Magnitudes not in the abstract."
+
+- key: burke2017
+  citation: "Burke LM, Ross ML, Garvican-Lewis LA, Welvaert M, Heikura IA, Forbes SG, Mirtschin JG, Cato LE, Strobel N, Sharma AP, Hawley JA. Low carbohydrate, high fat diet impairs exercise economy and negates the performance benefit from intensified training in elite race walkers. J Physiol. 2017;595:2785-2807."
+  doi: 10.1113/JP273230
+  pmid: 28012184
+  pmcid: PMC5407976
+  status: abstract
+  chapters: [easy-riding, fuelling, verdict]
+  notes: "Elite race walkers, 3 weeks of intensified training on one of three isoenergetic diets: high CHO (n = 9), the same intake periodised (n = 10), ketogenic LCHF (<50 g CHO a day, 78% fat; n = 10). VO2peak rose in all. LCHF peak fat oxidation 1.57 +/- 0.32 g/min during 2 h at ~80% VO2peak; oxygen cost at 20 km race pace not improved (fell in the other groups). 10 km race walk: HCHO +6.6% (90% CI 4.1 to 9.1), PCHO +5.3% (3.4 to 7.2), LCHF -1.6% (-8.5 to 5.3), i.e. no improvement. Open access; numbers from the abstract's key points."
+
 - key: burnley2022
   citation: "Burnley M, Bearden SE, Jones AM. Polarized training is not optimal for endurance athletes. Med Sci Sports Exerc. 2022;54:1032-1034."
   doi: 10.1249/mss.0000000000002869
@@ -583,6 +608,12 @@
   status: abstract
   chapters: [easy-riding]
   notes: "Calf muscle biopsies from 17 female and 23 male track athletes and 21 untrained people, stained for myosin ATPase and oxidative enzymes. Sprint- and endurance-trained athletes 'are characterized by distinct fiber compositions and enzyme activities'. The abstract gives no percentages."
+
+- key: couzens2008
+  citation: "Couzens A. How to turn yourself into a fat-burning machine. Part 1: what science says. alancouzens.com, originally published 25 May 2008, updated 9 January 2019. Read 20 October 2026."
+  status: fulltext
+  chapters: [easy-riding]
+  notes: "Coach's blog. Argues fat oxidation distinguishes those who excel at Ironman; mitochondria come 'from a whole bunch of low intensity miles'; two rules: cut sugar and moderate total carbohydrate, and train more in the aerobic zones, cutting the hard work until a metabolic base is built. Rests on Goedecke 2000 (cross-sectional, 61 trained cyclists). His later posts (Fat Burning Ironman, 9 Sep 2014; Metabolic Profiles of Kona Qualifiers, 8 May 2015) qualify it: Ironman race output is more than half carbohydrate, high-fat dieters with the highest fat oxidation did not race better, 'shoot for optimal rather than maximal fat oxidation'. Not cited or named in the book (George, 20 October 2026: the section rests on the studies); kept as the source of the claim in easy-riding/research.md."
 
 - key: cove2025
   citation: "Cove B, Chalmers S, Nelson MJ, Anderson M, Bennett H. The effect of training distribution, duration, and volume on VO2max and performance in trained cyclists: a systematic review, multilevel meta-analysis, and multivariate meta-regression. J Sci Med Sport. 2025;28:423-434."
@@ -951,6 +982,14 @@
   chapters: [finding-zones]
   notes: "Origin of 220 minus age, as a remark in a figure legend. Not read: everything about it is from Robergs and Landwehr 2002."
 
+- key: frandsen2017
+  citation: "Frandsen J, Vest SD, Larsen S, Dela F, Helge JW. Maximal fat oxidation is related to performance in an Ironman triathlon. Int J Sports Med. 2017;38:975-982."
+  doi: 10.1055/s-0043-117178
+  pmid: 29050040
+  status: abstract
+  chapters: [easy-riding]
+  notes: "61 male Ironman triathletes tested 4-25 days before Ironman Copenhagen 2016. Race time vs MFO r2 = 0.12; vs VO2peak r2 = 0.45; vs body fat r2 = 0.27. MFO and VO2peak not correlated; together adj R2 = 0.50. Cross-sectional."
+
 - key: gabbett2016
   citation: "Gabbett TJ. The training-injury prevention paradox: should athletes be training smarter and harder? Br J Sports Med. 2016;50:273-280."
   doi: 10.1136/bjsports-2015-095788
@@ -1136,6 +1175,14 @@
   chapters: [elites]
   notes: "Review; text in papers/, parts read. At least 80% of distance at low intensity; most of it in zone 1 of seven; easy runs 3-5 km/h slower than marathon pace; 11-14 sessions a week."
 
+- key: havemann2006
+  citation: "Havemann L, West SJ, Goedecke JH, Macdonald IA, St Clair Gibson A, Noakes TD, Lambert EV. Fat adaptation followed by carbohydrate loading compromises high-intensity sprint performance. J Appl Physiol. 2006;100:194-202."
+  doi: 10.1152/japplphysiol.00813.2005
+  pmid: 16141377
+  status: abstract
+  chapters: [easy-riding]
+  notes: "8 well-trained cyclists, randomised single-blind crossover: 6 days high-fat (68% fat) or high-CHO, then 1 day CHO loading. Fat oxidation up; 100 km time trial not different; 1 km sprint power lower after the high-fat diet."
+
 - key: heady1956
   citation: "Heady JA, Morris JN, Raffle PAB. Physique of London busmen: epidemiology of uniforms. Lancet. 1956;271:569-570."
   doi: 10.1016/s0140-6736(56)92049-9
@@ -1271,6 +1318,14 @@
   status: abstract
   chapters: [special-cases]
   notes: "Women usually less fatigable than men in similar-intensity isometric fatiguing contractions; task-specific."
+
+- key: hurley1986
+  citation: "Hurley BF, Nemeth PM, Martin WH, Hagberg JM, Dalsky GP, Holloszy JO. Muscle triglyceride utilization during exercise: effect of training. J Appl Physiol. 1986;60:562-567."
+  doi: 10.1152/jappl.1986.60.2.562
+  pmid: 3512511
+  status: abstract
+  chapters: [easy-riding]
+  notes: "9 men, strenuous 12-week endurance programme; prolonged exercise at the same absolute power (64% of pre-training VO2max) before and after. Share of energy from fat (from RER) 35% -> 57%; muscle glycogen use 41% lower; muscle triglyceride use about doubled. Washington University, St Louis (Holloszy)."
 
 - key: iannetta2020
   citation: "Iannetta D, Inglis EC, Mattu AT, et al. A critical evaluation of current methods for exercise prescription in women and men. Med Sci Sports Exerc. 2020;52:466-473."
@@ -1849,6 +1904,15 @@
   chapters: [heat-training]
   notes: "17 men, 3 weeks at 33 vs 18 C, heart-rate matched. TT gain 30 vs 16 W (n = 7 vs 6, p = .04)."
 
+- key: maunder2022
+  citation: "Maunder E, Plews DJ, Wallis GA, Brick MJ, Leigh WB, Chang WL, Stewart T, Watkins CM, Kilding AE. Peak fat oxidation is positively associated with vastus lateralis CD36 content, fed-state exercise fat oxidation, and endurance performance in trained males. Eur J Appl Physiol. 2022;122:93-102."
+  doi: 10.1007/s00421-021-04820-3
+  pmid: 34562114
+  pmcid: PMC8475903
+  status: fulltext
+  chapters: [easy-riding]
+  notes: "Read 20 Oct 2026. 17 trained male cyclists and triathletes, 8 +/- 2 h a week, VO2peak 4.3 L/min; cross-sectional. Fasted incremental test: peak fat oxidation 0.58 +/- 0.28 g/min. PFO vs citrate synthase r = 0.84; vs CD36 rs = 0.68; vs 30-min TT after 2 h fed riding (251 +/- 51 W) r = 0.76; vs fat oxidation in the 2 h ride r = 0.83. Adding PFO to VO2peak + power at 4 mmol/L + efficiency raised adjusted R2 from 0.877 to 0.903 (about 2.6%). Authors: possibly not causal; greater mitochondrial content may support both."
+
 - key: mcguire2001
   citation: "McGuire DK, Levine BD, Williamson JW, et al. A 30-year follow-up of the Dallas Bedrest and Training Study: I. Effect of age on the cardiovascular response to exercise. Circulation. 2001;104:1350-1357."
   doi: 10.1161/hc3701.096099
@@ -2216,6 +2280,15 @@
   chapters: [elites]
   notes: "Medal-winning Dutch speed skaters over 10 Olympiads, from interviews: zone 1 share rose, zones 2 and 3 fell, no trend in total hours. The 40/40/20 and ~80/12/8 figures are from Stöggl & Sperlich 2015."
 
+- key: ortenblad2024
+  citation: "Ørtenblad N, Zachariassen M, Nielsen J, Gejl KD. Substrate utilization and durability during prolonged intermittent exercise in elite road cyclists. Eur J Appl Physiol. 2024;124:2193-2205."
+  doi: 10.1007/s00421-024-05437-y
+  pmid: 38441690
+  pmcid: PMC11199313
+  status: fulltext
+  chapters: [easy-riding, durability]
+  notes: "Read 20 Oct 2026. 12 elite and professional road cyclists, 23 years, VO2peak 73.6 mL/kg/min. 4 h intermittent protocol with 100 g CHO an hour. 6-min TT power fell 10% [4;15], peak sprint power 6%. Fat oxidation rose 0.28 -> 0.47 g/min from hour 1 to 4. Fresh LT1, gross efficiency, MFO, VO2peak not related to the falls (MFO vs change in 6-min power r = 0.20, 95% CI -0.43 to 0.69); fat oxidation during the protocol not related either. Wide CIs: n = 12 cannot exclude a moderate relation."
+
 - key: osc2015
   citation: "Open Science Collaboration. Estimating the reproducibility of psychological science. Science. 2015;349:aac4716."
   doi: 10.1126/science.aac4716
@@ -2286,6 +2359,14 @@
   status: abstract
   chapters: [fuelling]
   notes: "221 athletes; intakes 6 to 136 g/h; in Ironman, intake correlated with faster finishing (r -0.55, -0.48) and with nausea and flatulence."
+
+- key: phillips1996
+  citation: "Phillips SM, Green HJ, Tarnopolsky MA, Heigenhauser GJF, Hill RE, Grant SM. Effects of training duration on substrate turnover and oxidation during exercise. J Appl Physiol. 1996;81:2182-2191."
+  doi: 10.1152/jappl.1996.81.5.2182
+  pmid: 9053394
+  status: abstract
+  chapters: [easy-riding]
+  notes: "Active untrained men, 2 h a day at 60% VO2peak for 31 days; tests of 90 min at the same power. Fat oxidation +10% after 5 days, a further +58% by 31 days, mainly intramuscular fat; glycogen oxidation -16% at 5 days."
 
 - key: plews2026
   citation: "Plews DJ, Booth PD, Krieger T, Maunder E. Fuelled or fooled? Examining the evidence and mechanisms behind ultra-high carbohydrate intake in endurance athletes. Sports Med. 2026;56:2367-2388."
@@ -2925,6 +3006,14 @@
   chapters: [intro]
   notes: "6 wk, 5 d/wk: 7-8 x 20 s at ~170% VO2max / 10 s rest raised VO2max by 7 mL/kg/min and anaerobic capacity 28% (n = 7); 60 min at 70% raised VO2max 53 -> 58."
 
+- key: talanian2007
+  citation: "Talanian JL, Galloway SDR, Heigenhauser GJF, Bonen A, Spriet LL. Two weeks of high-intensity aerobic interval training increases the capacity for fat oxidation during exercise in women. J Appl Physiol. 2007;102:1439-1447."
+  doi: 10.1152/japplphysiol.01098.2006
+  pmid: 17170203
+  status: abstract
+  chapters: [easy-riding]
+  notes: "8 moderately active women, 7 sessions of 10 x 4 min at ~90% VO2peak over 2 weeks; no control group. Fat burned in 60 min at ~60% VO2peak 15.0 -> 20.4 g (+36%); net glycogen use reduced; beta-HAD +32%, citrate synthase +20%; VO2peak +13%."
+
 - key: tanaka2001
   citation: "Tanaka H, Monahan KD, Seals DR. Age-predicted maximal heart rate revisited. J Am Coll Cardiol. 2001;37:153-156."
   doi: 10.1016/s0735-1097(00)01054-8
@@ -3158,6 +3247,14 @@
   status: exists
   chapters: [intensity]
   notes: "Not read (no abstract). Cited for its existence and title; what it argued is taken from Poole 2021."
+
+- key: westgarthtaylor1997
+  citation: "Westgarth-Taylor C, Hawley JA, Rickard S, Myburgh KH, Noakes TD, Dennis SC. Metabolic and performance adaptations to interval training in endurance-trained cyclists. Eur J Appl Physiol. 1997;75:298-304."
+  doi: 10.1007/s004210050164
+  pmid: 9134360
+  status: abstract
+  chapters: [easy-riding, verdict]
+  notes: "8 endurance-trained male cyclists, 300 +/- 66 km a week; replaced 15% with 12 sessions of 6-9 x 5 min at 80% Wpeak (1 min recovery) over 6 weeks. No control group. Wpeak 404 -> 424 W; 40 km TT 42.0 -> 43.0 km/h, absolute power 291 -> 327 W, relative 72.6% -> 78.1%. CHO oxidation, lactate and ventilation lower at the same absolute power (60, 70, 80% pre-Wpeak), not at the same relative. TT CHO oxidation rose from ~4.3 to ~5.1 g/min. Authors: the better TT was not due to lower CHO oxidation. Same Cape Town lab and session type as Lindsay 1996."
 
 - key: weston2014
   citation: "Weston KS, Wisløff U, Coombes JS. High-intensity interval training in patients with lifestyle-induced cardiometabolic disease: a systematic review and meta-analysis. Br J Sports Med. 2014;48:1227-1234."

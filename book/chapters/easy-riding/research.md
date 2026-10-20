@@ -199,3 +199,34 @@ From three comments on the draft page (verbatim in `george/notes.md`): before th
 - The Introduction's description of the winter (four or five rides of 45 to 60 minutes) comes to three to five hours. Resolved 15 October: George changed his six or seven to three to five.
 - **Side road, not researched:** illness. Whether hard training raises the risk of colds and easy training lowers it is an old claim in exercise immunology and a disputed one [GK]. Nothing has been read for the book. It belongs to Beyond performance (Chapter 10) if anywhere. The draft makes no claim.
 
+
+## Fat burning for performance (George's question, 20 October 2026)
+
+George, in conversation: "do we have anything on training your fat burning ability- i read alan couzens and he's always talking about making your body more efficient at running off fat and that's what pros do so many miles for". The existing fat section dealt only with body weight; the performance version of the claim was untested anywhere in the book.
+
+**The claim, in its source.** Couzens 2008, updated 2019 [FT, blog]: fat oxidation is "an important, distinguishing factor" for Ironman; mitochondria come "from a whole bunch of low intensity miles"; his two rules are to cut sugar and to train more in the aerobic zones, leaving out hard work until a metabolic base is built. His evidence is Goedecke 2000 [Abs]: 61 trained cyclists, fasted; large spread in RER at rest and during exercise; determinants included training volume, muscle glycogen, type I fibres, blood fatty acids and dietary fat; at 70% of peak power the main determinant was blood lactate. Cross-sectional. His later posts [FT, blog] qualify the claim: Ironman race output is more than half carbohydrate (9 September 2014); five high-fat dieters with the highest fat oxidation he had measured did not race better than Kona qualifiers, and he advises "optimal rather than maximal fat oxidation" (8 May 2015). The book states the claim as George put it and as Couzens's 2008 post makes it, not as a position held by Couzens today; he is not named in the draft (George to decide).
+
+**1. Training shifts the fuel mix towards fat at a given power.** {grade A}: replicated in every training study found that measured it, across labs and decades; no contrary result found.
+- Hurley 1986 [Abs]: 9 men, 12 weeks; fat 35% -> 57% of energy at the same absolute power; glycogen use 41% lower.
+- Phillips 1996 [Abs]: fat oxidation +10% after 5 days, a further +58% by 31 days, mainly from fat stored in the muscle.
+- Bergman & Brooks 1999 [Abs]: the shift shows at the same absolute power. At the same relative intensity, trained and untrained men burned the same mix at 59% and 75% of VO₂peak.
+
+**2. Intervals shift it too.** {grade B}: small, uncontrolled or untrained.
+- Burgomaster 2008 [Abs]: untrained, 10 per group, 6 weeks; sprints ~1.5 h and ~225 kJ a week vs steady riding ~4.5 h and ~2,250 kJ a week. Fat oxidation up and glycogen use down in the same 1-h test, no difference between groups. [Own] 2,250/225 = ten times the work.
+- Talanian 2007 [Abs]: 8 women, 7 interval sessions in 2 weeks, fat burned in an hour +36%. No control group.
+- Westgarth-Taylor 1997 [Abs]: 8 trained cyclists on ~300 km a week replaced 15% of it with 12 sessions of 6 to 9 × 5 min at 80% of peak power over 6 weeks. CHO oxidation lower at the same absolute power; not at the same relative. No control group. The only trial found in trained cyclists that measured fuel use after interval training.
+- No trial found in trained riders comparing easy and hard training on fat oxidation. Storoschuk 2025 (above) reached the same conclusion for the general population: which intensity is best for fat oxidation is "less clear".
+
+**3. A faster rider races on more carbohydrate, not less.** Westgarth-Taylor 1997 [Abs]: 40 km TT 42.0 -> 43.0 km/h, at 291 -> 327 W and 72.6% -> 78.1% of peak power; CHO oxidation in the TT rose from ~4.3 to ~5.1 g/min. Authors: the better performance was "not due to lower rates of CHO oxidation". {grade B}
+
+**4. Lab fat burning mostly reflects fitness.** {grade C}: cross-sectional.
+- Maunder 2022 [FT]: 17 trained cyclists and triathletes. Peak fat oxidation vs citrate synthase r = 0.84; vs 30-min TT after 2 h r = 0.76. Adding it to VO₂peak, power at 4 mmol/L and efficiency raised R² from 0.877 to 0.903 (2.6 points). Authors: perhaps not causal, mitochondrial content may underlie both.
+- Frandsen 2017 [Abs]: 61 Ironman athletes; MFO r² = 0.12 with race time, VO₂peak 0.45; independent of each other. The one result that gives the claim some support, and it is in races of over nine hours (the authors' ">9 h"). Printed as a clause, because it is the evidence closest to Couzens's own field and leaving it out would overstate the case.
+- Ørtenblad 2024 [FT]: 12 elite and professional road cyclists, 4 h with 100 g CHO an hour; 6-min power fell 10%. Neither fresh MFO nor fat oxidation during the 4 h related to the fall (MFO r = 0.20, 95% CI -0.43 to 0.69). Too few riders to exclude a moderate relation. Printed in Durability (lab tests and durability); Chapter 7 refers to it.
+
+**5. Raising fat burning further does not make athletes faster.** {grade B}
+- Burke 2017 [Abs; open access]: elite race walkers, 3 weeks of hard training. LCHF raised peak fat oxidation to 1.57 g/min over 2 h at ~80% VO₂peak; oxygen cost at race pace did not improve as it did in the other groups. 10 km: high CHO +6.6%, periodised +5.3%, LCHF -1.6% (90% CI -8.5 to 5.3), no improvement.
+- Havemann 2006 [Abs], shadow: fat-adapted then carbohydrate-loaded cyclists, 100 km TT no different, 1 km sprint power lower.
+- Not used: Volek 2016 [Abs] (keto-adapted ultra-runners, fat oxidation 2.3 times higher, glycogen use in a 3-h run the same; no performance test); Stellingwerff 2006 [Abs] (after fat adaptation glycogen breakdown is impaired, not spared); Gawelczyk 2026 [Abs] (vote-counting review of 33 studies in Nutrients; all 30 that measured fat oxidation found it up; performance mixed); Klaris 2024 [Abs] (6 h simulated racing in 12 national elite riders at ~90 g/h; fat oxidation 0.7 -> 1.1 g/min; fade correlated with time above LT1, r² = 0.45).
+
+**[Own] Placement.** Chapter 7, as a fourth claim after lactate clearance, because that section already explains that mitochondria burn both fat and lactate and that San-Millán's comparison describes a fit body rather than showing how to build one; the new section builds on it without repeating. Chapter 8 gets one sentence in its list of what the elite hours might do; Chapter 9 gets Ørtenblad in its paragraph on lab tests; Chapter 13 gets one sentence pointing to the race walkers; the Verdict a new entry and a seventeenth scorecard row.

@@ -1198,10 +1198,15 @@ def banister_uncertainty():
                  "Interval plot in days: fitness fades over 38 (17 to 59), fatigue over 19 (6 to 32), time to recover performance 19 (7 to 35), time to peak after training stops 43 (25 to 61).")
 
 
+NUMBER_WORDS = {12: "twelve", 13: "thirteen", 14: "fourteen", 15: "fifteen", 16: "sixteen", 17: "seventeen",
+                18: "eighteen", 19: "nineteen", 20: "twenty"}
+
+
 def scorecard():
-    """A graded list: sixteen claims, the book's verdict on each, the grade of the evidence, and the chapter."""
+    """A graded list of claims, the book's verdict on each, the grade of the evidence, and the chapter."""
     rows = _rows("verdict", "scorecard.csv")
-    b, y = head("The verdict on sixteen claims, with the grade of the evidence",
+    n = NUMBER_WORDS[len(rows)]
+    b, y = head(f"The verdict on {n} claims, with the grade of the evidence",
                 "A: several randomised trials or a good meta-analysis. B: small, short or single-lab studies. "
                 "C: observation, mechanism or opinion.")
     W = 680
@@ -1241,7 +1246,7 @@ def scorecard():
         b.append(text(chx, my + 5, r["chapter"], 15.5, MID, "middle"))
         yy += h
     return _save("verdict", "scorecard.svg", W, round(yy + 14), b,
-                 "A table of sixteen claims with verdicts and grades. " + "; ".join(f'{r["claim"]}: {r["verdict"]}, grade {r["grade"]}' for r in rows))
+                 f"A table of {n} claims with verdicts and grades. " + "; ".join(f'{r["claim"]}: {r["verdict"]}, grade {r["grade"]}' for r in rows))
 
 
 def session_shapes():

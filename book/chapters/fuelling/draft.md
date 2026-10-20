@@ -133,7 +133,9 @@ A meta-analysis in 2021 pooled the nine training studies done in well-trained en
 
 This is Chapter 2's warning in a real case. A larger signal after a session did not become a larger adaptation over weeks, and the likely reason is that riders short of carbohydrate cannot train as hard. The Cox study points the same way from the other side. Its two groups ate very differently around training for a month and improved by the same amount [@cox2010]. Within the range those studies cover, how much carbohydrate you eat around training seems to matter less to how fit you get than either camp has claimed.
 
-The real hazard is at the far end. Athletes who persistently eat less than their training costs develop a recognised syndrome, relative energy deficiency in sport, which affects men as well as women and damages both health and performance [@mountjoy2023]. A cyclist trying to lose weight while training hard is an obvious candidate.
+Cutting carbohydrate out almost entirely is another matter. On a high-fat diet, the elite race walkers in Chapter 7 burned far more fat and missed the improvement that the same training brought the groups eating carbohydrate [@burke2017]. {grade B}
+
+The greater hazard is eating too little altogether. Athletes who persistently eat less than their training costs develop a recognised syndrome, relative energy deficiency in sport, which affects men as well as women and damages both health and performance [@mountjoy2023]. A cyclist trying to lose weight while training hard is an obvious candidate.
 
 ## Water
 

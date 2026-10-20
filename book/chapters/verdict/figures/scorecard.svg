@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 820" width="680" height="820" role="img" aria-label="A table of sixteen claims with verdicts and grades. Zone 2 builds mitochondria better than harder training: Not supported, grade A; Riding at peak fat burning is best for losing fat: Not supported, grade B; Zone 2 is what trains lactate clearance: Not shown, grade C; Elite endurance athletes do most of their training easy: Supported, grade C; Copying the elite ratio makes amateurs faster than other mixes: Not shown, grade B; Years of easy volume build an engine intervals can't: Unknown, grade C; Two hard sessions a week, at least 48 hours apart: Supported, grade B; Intervals of 4 to 8 minutes, or 30/15s, for long efforts: Supported, grade B; Time near VO₂max is why intervals work: Not shown, grade C; Long rides build durability: Plausible, grade C; Carbohydrate on rides over two hours helps: Supported, grade A; Heavy leg lifting makes trained cyclists a little faster: Supported, small, grade B; Heat training makes amateurs faster in normal weather: Not shown, grade C; Zone 2 is the best training for health: Not shown, grade C; Zones from 220 minus age or a fixed % of maximum: Not supported, grade B; Add no more than 10% a week: Not supported, grade B">
-<rect width="680" height="820" fill="#ffffff"/>
-<text x="30.0" y="30.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="start" font-weight="600" >The verdict on sixteen claims, with the grade of the evidence</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 854" width="680" height="854" role="img" aria-label="A table of seventeen claims with verdicts and grades. Zone 2 builds mitochondria better than harder training: Not supported, grade A; Riding at peak fat burning is best for losing fat: Not supported, grade B; Easy miles make you faster by training fat burning: Not supported, grade B; Zone 2 is what trains lactate clearance: Not shown, grade C; Elite endurance athletes do most of their training easy: Supported, grade C; Copying the elite ratio makes amateurs faster than other mixes: Not shown, grade B; Years of easy volume build an engine intervals can't: Unknown, grade C; Two hard sessions a week, at least 48 hours apart: Supported, grade B; Intervals of 4 to 8 minutes, or 30/15s, for long efforts: Supported, grade B; Time near VO₂max is why intervals work: Not shown, grade C; Long rides build durability: Plausible, grade C; Carbohydrate on rides over two hours helps: Supported, grade A; Heavy leg lifting makes trained cyclists a little faster: Supported, small, grade B; Heat training makes amateurs faster in normal weather: Not shown, grade C; Zone 2 is the best training for health: Not shown, grade C; Zones from 220 minus age or a fixed % of maximum: Not supported, grade B; Add no more than 10% a week: Not supported, grade B">
+<rect width="680" height="854" fill="#ffffff"/>
+<text x="30.0" y="30.0" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="18" fill="#1a1a1a" text-anchor="start" font-weight="600" >The verdict on seventeen claims, with the grade of the evidence</text>
 <text x="30.0" y="53.5" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >A: several randomised trials or a good meta-analysis. B: small, short or single-lab</text>
 <text x="30.0" y="72.9" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="start" font-weight="400" >studies. C: observation, mechanism or opinion.</text>
 <text x="30.0" y="122.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15" fill="#555555" text-anchor="start" font-weight="600" >Claim</text>
@@ -22,100 +22,107 @@
 <text x="600.0" y="212.1" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="middle" font-weight="600" >B</text>
 <text x="650.0" y="211.1" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >7</text>
 <rect x="20" y="224.5" width="640" height="33.4" fill="#f4f4f4"/>
-<text x="30.0" y="244.5" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="400" >Zone 2 is what trains lactate clearance</text>
-<circle cx="424" cy="239.50000000000003" r="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.75"/>
-<text x="438.0" y="244.5" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >Not shown</text>
+<text x="30.0" y="244.5" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="400" >Easy miles make you faster by training fat burning</text>
+<path d="M419,234.50000000000003 L429,244.50000000000003 M429,234.50000000000003 L419,244.50000000000003" stroke="#1a1a1a" stroke-width="2.25" stroke-linecap="round"/>
+<text x="438.0" y="244.5" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >Not supported</text>
 <rect x="588" y="228.50000000000003" width="24" height="22" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1"/>
-<text x="600.0" y="245.5" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="middle" font-weight="600" >C</text>
+<text x="600.0" y="245.5" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="middle" font-weight="600" >B</text>
 <text x="650.0" y="244.5" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >7</text>
-<text x="30.0" y="277.9" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="400" >Elite endurance athletes do most of their training</text>
-<text x="30.0" y="297.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="400" >easy</text>
-<circle cx="424" cy="272.90000000000003" r="6" fill="#1a1a1a"/>
-<text x="438.0" y="277.9" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >Supported</text>
+<text x="30.0" y="277.9" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="400" >Zone 2 is what trains lactate clearance</text>
+<circle cx="424" cy="272.90000000000003" r="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.75"/>
+<text x="438.0" y="277.9" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >Not shown</text>
 <rect x="588" y="261.90000000000003" width="24" height="22" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1"/>
 <text x="600.0" y="278.9" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="middle" font-weight="600" >C</text>
-<text x="650.0" y="277.9" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >8</text>
-<rect x="20" y="310.7" width="640" height="52.8" fill="#f4f4f4"/>
-<text x="30.0" y="330.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="400" >Copying the elite ratio makes amateurs faster than</text>
-<text x="30.0" y="350.1" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="400" >other mixes</text>
-<circle cx="424" cy="325.70000000000005" r="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.75"/>
-<text x="438.0" y="330.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >Not shown</text>
-<rect x="588" y="314.70000000000005" width="24" height="22" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1"/>
-<text x="600.0" y="331.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="middle" font-weight="600" >B</text>
-<text x="650.0" y="330.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >8</text>
-<text x="30.0" y="383.5" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="400" >Years of easy volume build an engine intervals</text>
-<text x="30.0" y="402.9" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="400" >can't</text>
-<circle cx="424" cy="378.50000000000006" r="6" fill="#ffffff" stroke="#555555" stroke-width="1.5" stroke-dasharray="2.5 2.5"/>
-<text x="438.0" y="383.5" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >Unknown</text>
-<rect x="588" y="367.50000000000006" width="24" height="22" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1"/>
-<text x="600.0" y="384.5" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="middle" font-weight="600" >C</text>
-<text x="650.0" y="383.5" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >7–8</text>
-<rect x="20" y="416.3" width="640" height="33.4" fill="#f4f4f4"/>
-<text x="30.0" y="436.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="400" >Two hard sessions a week, at least 48 hours apart</text>
-<circle cx="424" cy="431.30000000000007" r="6" fill="#1a1a1a"/>
-<text x="438.0" y="436.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >Supported</text>
-<rect x="588" y="420.30000000000007" width="24" height="22" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1"/>
-<text x="600.0" y="437.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="middle" font-weight="600" >B</text>
-<text x="650.0" y="436.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >12</text>
-<text x="30.0" y="469.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="400" >Intervals of 4 to 8 minutes, or 30/15s, for long</text>
-<text x="30.0" y="489.1" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="400" >efforts</text>
+<text x="650.0" y="277.9" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >7</text>
+<rect x="20" y="291.3" width="640" height="52.8" fill="#f4f4f4"/>
+<text x="30.0" y="311.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="400" >Elite endurance athletes do most of their training</text>
+<text x="30.0" y="330.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="400" >easy</text>
+<circle cx="424" cy="306.3" r="6" fill="#1a1a1a"/>
+<text x="438.0" y="311.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >Supported</text>
+<rect x="588" y="295.3" width="24" height="22" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1"/>
+<text x="600.0" y="312.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="middle" font-weight="600" >C</text>
+<text x="650.0" y="311.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >8</text>
+<text x="30.0" y="364.1" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="400" >Copying the elite ratio makes amateurs faster than</text>
+<text x="30.0" y="383.5" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="400" >other mixes</text>
+<circle cx="424" cy="359.1" r="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.75"/>
+<text x="438.0" y="364.1" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >Not shown</text>
+<rect x="588" y="348.1" width="24" height="22" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1"/>
+<text x="600.0" y="365.1" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="middle" font-weight="600" >B</text>
+<text x="650.0" y="364.1" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >8</text>
+<rect x="20" y="396.9" width="640" height="52.8" fill="#f4f4f4"/>
+<text x="30.0" y="416.9" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="400" >Years of easy volume build an engine intervals</text>
+<text x="30.0" y="436.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="400" >can't</text>
+<circle cx="424" cy="411.90000000000003" r="6" fill="#ffffff" stroke="#555555" stroke-width="1.5" stroke-dasharray="2.5 2.5"/>
+<text x="438.0" y="416.9" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >Unknown</text>
+<rect x="588" y="400.90000000000003" width="24" height="22" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1"/>
+<text x="600.0" y="417.9" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="middle" font-weight="600" >C</text>
+<text x="650.0" y="416.9" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >7–8</text>
+<text x="30.0" y="469.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="400" >Two hard sessions a week, at least 48 hours apart</text>
 <circle cx="424" cy="464.70000000000005" r="6" fill="#1a1a1a"/>
 <text x="438.0" y="469.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >Supported</text>
 <rect x="588" y="453.70000000000005" width="24" height="22" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1"/>
 <text x="600.0" y="470.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="middle" font-weight="600" >B</text>
-<text x="650.0" y="469.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >11</text>
-<rect x="20" y="502.5" width="640" height="33.4" fill="#f4f4f4"/>
-<text x="30.0" y="522.5" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="400" >Time near VO₂max is why intervals work</text>
-<circle cx="424" cy="517.5" r="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.75"/>
-<text x="438.0" y="522.5" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >Not shown</text>
-<rect x="588" y="506.5" width="24" height="22" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1"/>
-<text x="600.0" y="523.5" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="middle" font-weight="600" >C</text>
-<text x="650.0" y="522.5" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >11</text>
-<text x="30.0" y="555.9" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="400" >Long rides build durability</text>
-<circle cx="424" cy="550.9000000000001" r="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.75"/><path d="M424,544.9000000000001 a6,6 0 0 1 0,12 z" fill="#1a1a1a"/>
-<text x="438.0" y="555.9" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >Plausible</text>
-<rect x="588" y="539.9000000000001" width="24" height="22" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1"/>
+<text x="650.0" y="469.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >12</text>
+<rect x="20" y="483.1" width="640" height="52.8" fill="#f4f4f4"/>
+<text x="30.0" y="503.1" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="400" >Intervals of 4 to 8 minutes, or 30/15s, for long</text>
+<text x="30.0" y="522.5" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="400" >efforts</text>
+<circle cx="424" cy="498.1" r="6" fill="#1a1a1a"/>
+<text x="438.0" y="503.1" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >Supported</text>
+<rect x="588" y="487.1" width="24" height="22" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1"/>
+<text x="600.0" y="504.1" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="middle" font-weight="600" >B</text>
+<text x="650.0" y="503.1" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >11</text>
+<text x="30.0" y="555.9" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="400" >Time near VO₂max is why intervals work</text>
+<circle cx="424" cy="550.9" r="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.75"/>
+<text x="438.0" y="555.9" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >Not shown</text>
+<rect x="588" y="539.9" width="24" height="22" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1"/>
 <text x="600.0" y="556.9" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="middle" font-weight="600" >C</text>
-<text x="650.0" y="555.9" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >9</text>
+<text x="650.0" y="555.9" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >11</text>
 <rect x="20" y="569.3" width="640" height="33.4" fill="#f4f4f4"/>
-<text x="30.0" y="589.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="400" >Carbohydrate on rides over two hours helps</text>
-<circle cx="424" cy="584.3000000000001" r="6" fill="#1a1a1a"/>
-<text x="438.0" y="589.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >Supported</text>
-<rect x="588" y="573.3000000000001" width="24" height="22" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1"/>
-<text x="600.0" y="590.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="middle" font-weight="600" >A</text>
-<text x="650.0" y="589.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >13</text>
-<text x="30.0" y="622.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="400" >Heavy leg lifting makes trained cyclists a little</text>
-<text x="30.0" y="642.1" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="400" >faster</text>
-<circle cx="424" cy="617.7" r="4.5" fill="#1a1a1a"/>
-<text x="438.0" y="622.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >Supported, small</text>
-<rect x="588" y="606.7" width="24" height="22" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1"/>
-<text x="600.0" y="623.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="middle" font-weight="600" >B</text>
-<text x="650.0" y="622.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >14</text>
-<rect x="20" y="655.5" width="640" height="52.8" fill="#f4f4f4"/>
-<text x="30.0" y="675.5" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="400" >Heat training makes amateurs faster in normal</text>
-<text x="30.0" y="694.9" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="400" >weather</text>
-<circle cx="424" cy="670.5" r="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.75"/>
-<text x="438.0" y="675.5" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >Not shown</text>
-<rect x="588" y="659.5" width="24" height="22" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1"/>
-<text x="600.0" y="676.5" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="middle" font-weight="600" >C</text>
-<text x="650.0" y="675.5" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >15</text>
-<text x="30.0" y="728.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="400" >Zone 2 is the best training for health</text>
-<circle cx="424" cy="723.3" r="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.75"/>
-<text x="438.0" y="728.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >Not shown</text>
-<rect x="588" y="712.3" width="24" height="22" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1"/>
-<text x="600.0" y="729.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="middle" font-weight="600" >C</text>
-<text x="650.0" y="728.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >10</text>
+<text x="30.0" y="589.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="400" >Long rides build durability</text>
+<circle cx="424" cy="584.3" r="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.75"/><path d="M424,578.3 a6,6 0 0 1 0,12 z" fill="#1a1a1a"/>
+<text x="438.0" y="589.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >Plausible</text>
+<rect x="588" y="573.3" width="24" height="22" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1"/>
+<text x="600.0" y="590.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="middle" font-weight="600" >C</text>
+<text x="650.0" y="589.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >9</text>
+<text x="30.0" y="622.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="400" >Carbohydrate on rides over two hours helps</text>
+<circle cx="424" cy="617.6999999999999" r="6" fill="#1a1a1a"/>
+<text x="438.0" y="622.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >Supported</text>
+<rect x="588" y="606.6999999999999" width="24" height="22" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1"/>
+<text x="600.0" y="623.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="middle" font-weight="600" >A</text>
+<text x="650.0" y="622.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >13</text>
+<rect x="20" y="636.1" width="640" height="52.8" fill="#f4f4f4"/>
+<text x="30.0" y="656.1" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="400" >Heavy leg lifting makes trained cyclists a little</text>
+<text x="30.0" y="675.5" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="400" >faster</text>
+<circle cx="424" cy="651.0999999999999" r="4.5" fill="#1a1a1a"/>
+<text x="438.0" y="656.1" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >Supported, small</text>
+<rect x="588" y="640.0999999999999" width="24" height="22" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1"/>
+<text x="600.0" y="657.1" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="middle" font-weight="600" >B</text>
+<text x="650.0" y="656.1" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >14</text>
+<text x="30.0" y="708.9" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="400" >Heat training makes amateurs faster in normal</text>
+<text x="30.0" y="728.3" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="400" >weather</text>
+<circle cx="424" cy="703.8999999999999" r="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.75"/>
+<text x="438.0" y="708.9" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >Not shown</text>
+<rect x="588" y="692.8999999999999" width="24" height="22" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1"/>
+<text x="600.0" y="709.9" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="middle" font-weight="600" >C</text>
+<text x="650.0" y="708.9" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >15</text>
 <rect x="20" y="741.7" width="640" height="33.4" fill="#f4f4f4"/>
-<text x="30.0" y="761.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="400" >Zones from 220 minus age or a fixed % of maximum</text>
-<path d="M419,751.6999999999999 L429,761.6999999999999 M429,751.6999999999999 L419,761.6999999999999" stroke="#1a1a1a" stroke-width="2.25" stroke-linecap="round"/>
-<text x="438.0" y="761.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >Not supported</text>
-<rect x="588" y="745.6999999999999" width="24" height="22" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1"/>
-<text x="600.0" y="762.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="middle" font-weight="600" >B</text>
-<text x="650.0" y="761.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >5–6</text>
-<text x="30.0" y="795.1" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="400" >Add no more than 10% a week</text>
-<path d="M419,785.0999999999999 L429,795.0999999999999 M429,785.0999999999999 L419,795.0999999999999" stroke="#1a1a1a" stroke-width="2.25" stroke-linecap="round"/>
+<text x="30.0" y="761.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="400" >Zone 2 is the best training for health</text>
+<circle cx="424" cy="756.6999999999998" r="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.75"/>
+<text x="438.0" y="761.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >Not shown</text>
+<rect x="588" y="745.6999999999998" width="24" height="22" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1"/>
+<text x="600.0" y="762.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="middle" font-weight="600" >C</text>
+<text x="650.0" y="761.7" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >10</text>
+<text x="30.0" y="795.1" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="400" >Zones from 220 minus age or a fixed % of maximum</text>
+<path d="M419,785.0999999999998 L429,795.0999999999998 M429,785.0999999999998 L419,795.0999999999998" stroke="#1a1a1a" stroke-width="2.25" stroke-linecap="round"/>
 <text x="438.0" y="795.1" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >Not supported</text>
-<rect x="588" y="779.0999999999999" width="24" height="22" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1"/>
+<rect x="588" y="779.0999999999998" width="24" height="22" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1"/>
 <text x="600.0" y="796.1" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="middle" font-weight="600" >B</text>
-<text x="650.0" y="795.1" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >17</text>
+<text x="650.0" y="795.1" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >5–6</text>
+<rect x="20" y="808.5" width="640" height="33.4" fill="#f4f4f4"/>
+<text x="30.0" y="828.5" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="400" >Add no more than 10% a week</text>
+<path d="M419,818.4999999999998 L429,828.4999999999998 M429,818.4999999999998 L419,828.4999999999998" stroke="#1a1a1a" stroke-width="2.25" stroke-linecap="round"/>
+<text x="438.0" y="828.5" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="start" font-weight="600" >Not supported</text>
+<rect x="588" y="812.4999999999998" width="24" height="22" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1"/>
+<text x="600.0" y="829.5" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#1a1a1a" text-anchor="middle" font-weight="600" >B</text>
+<text x="650.0" y="828.5" font-family="IBM Plex Sans, Helvetica, Arial, sans-serif" font-size="15.5" fill="#555555" text-anchor="middle" font-weight="400" >17</text>
 </svg>

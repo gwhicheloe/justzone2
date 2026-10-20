@@ -179,3 +179,7 @@ Not used: the champions ignored the tapering advice from short trials (three of 
 
 ## Single skier removed (17 October 2026)
 George, review-page comment: "let's forget about this single skier!" (after an earlier comment that comparing cycling with one person was strange). Solli 2017 is no longer cited in the chapter: its sentence in "What the records show", its row in the figure, the career paragraph in "How the pattern came about", the "same shape" paragraph in "Why it might work", her altitude camps and 12-year build-up in the selection paragraph, and the citation on "15 to 20 hours a week". The notes on her above are kept for reference. The figure title no longer calls road cycling "the untidy case".
+
+## The fat-burning reason for elite hours (20 October 2026)
+
+One sentence added to "Why it might work": the reason coaches most often give for the hours, that they teach the body to run on fat, is tested in Chapter 7 (new section "That easy miles teach the body to run on fat"; evidence in `easy-riding/research.md`, "Fat burning for performance"). No new numbers in this chapter.

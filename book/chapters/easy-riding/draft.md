@@ -76,7 +76,7 @@ Capillaries follow the same pattern. A 2022 analysis of 57 training groups found
 
 I know of no study that adds easy hours to a trained cyclist's week and measures the muscle, or that compares riding at the top of Zone 2 with riding lower at the same hours. The evidence that exists says that easy training builds a great deal in the untrained, and that in the trained, at the volumes and durations anyone has studied, it maintains more than it builds. {grade B}
 
-## Three claims
+## Four claims
 
 ### That Zone 2 is the best way to build mitochondria
 
@@ -107,6 +107,22 @@ The idea comes from the 2018 paper described in Chapter 6, in which professional
 The step from there to a training prescription is the weak one. The paper compared three groups of different people at one moment. It did not train anybody. Professionals differ from patients in years of training of every kind, in how much of it they do, and in whatever made them professionals in the first place, and a comparison of that sort cannot say which of those produced the difference. It is a description of what a very fit body looks like, and it is used as if it were evidence about how to build one.
 
 The one training study I found that measured the machinery directly points the other way. In the elite skiers described above, the researchers also measured MCT1, the transporter that carries lactate into muscle fibres to be burned. After five months of mostly easy training it had fallen by 12%. In the group that trained near the lactate threshold it was unchanged, and theirs was the group whose threshold speed improved {shadow @evertsen2001}. The study had 20 skiers, and the summary does not say how they had trained before, so the fall may reflect a step down from harder training. It does not support the idea that easy riding is what builds lactate clearance. {grade C}
+
+### That easy miles teach the body to run on fat
+
+The performance version of the fat claim says that long easy rides train the muscles to burn fat, that a rider who burns more fat saves glycogen and lasts longer, and that this is what the professionals' hours are for. The first step is right: training does shift the fuel mix towards fat. The rest has little support. Intervals shift it as well, and burning more fat has not by itself made anyone faster.
+
+The shift is one of the oldest findings in the field, and Chapter 2 gave the reason for it: with more mitochondria, the muscle meets the same power with more fat. In 1986 Holloszy's laboratory put nine men through a strenuous 12-week programme and tested them at the same power before and after. The share of their energy that came from fat rose from 35% to 57%, and they used 41% less muscle glycogen [@hurley1986]{shadow @phillips1996}. {grade A}
+
+Easy riding is not the only way to get it. In 2008 Martin Gibala's laboratory gave active but untrained young adults six weeks of either all-out 30-second sprints, about an hour and a half a week, or steady riding, about four and a half hours a week. In the same one-hour test afterwards, both groups burned more fat and less glycogen, with no difference between them, although the steady group had done ten times the work [@burgomaster2008]{shadow @talanian2007}. In trained cyclists the evidence is thinner. In the same Cape Town laboratory as the trials in Chapter 12, eight cyclists riding about 300 km a week swapped 15% of it for 12 sessions of five-minute intervals over six weeks. Afterwards they burned less carbohydrate at the same power [@westgarthtaylor1997]. That study had no control group, and I found none in trained riders that compared easy and hard training on this measure. {grade B}
+
+The Cape Town study also shows that a fitter rider does not win by saving glycogen. The cyclists' 40 km time trial went from 42.0 to 43.0 km/h. They rode it at 327 W instead of 291 W and at a higher share of their peak power, so they burned more carbohydrate, about 5.1 grams a minute instead of 4.3 [@westgarthtaylor1997]. At the old pace the fitter rider runs more on fat. In a race they go faster, and back onto carbohydrate {shadow @bergman1999}. {grade B}
+
+A laboratory test of fat burning adds little to what a test of fitness already shows. In 17 trained cyclists and triathletes in New Zealand, peak fat burning tracked a marker of mitochondrial content closely and predicted a 30-minute time trial ridden after two hours. But once their VO₂max, threshold power and efficiency were known, it explained only 2.6% more of the differences between riders. The authors suggested that more mitochondria may underlie both [@maunder2022]. In Ironman triathletes, whose races last more than nine hours, it had a modest link with finishing time that VO₂max did not explain [@frandsen2017]. In elite road cyclists, how much fat they burned did not predict how much power they lost over four hours (Chapter 9). {grade C}
+
+The most direct test is to raise fat burning further than training can, which a high-fat diet does. In 2017 Louise Burke's group at the Australian Institute of Sport put elite race walkers through three weeks of hard training on one of three diets. On the high-fat diet their fat burning rose sharply, to 1.57 grams a minute during two hours of walking. The walkers on high or periodised carbohydrate improved their 10 km race times by 6.6% and 5.3%. The high-fat group did not improve, and walking at race pace cost them more oxygen, since fat needs more oxygen than carbohydrate for the same energy (Chapter 9) [@burke2017]{shadow @havemann2006}. {grade B}
+
+The professionals' hours probably raise their fat burning along with everything else, but nothing shows that this is why the hours work. Fat burning is better read as a sign of fitness than as a separate quality to train. Whatever makes a rider fitter raises it, and the harder a rider races, the more of the energy comes from carbohydrate, which is why Chapter 13 is about eating it.
 
 ### Reading the research: who chose the studies?
 
@@ -159,8 +175,8 @@ That reading comes from studies that were mostly not designed to sort riders thi
 A trained rider with many hours can use easy riding to add work once the hard sessions are in place. That is the position of the best endurance athletes in the world, who do most of their training easy, year after year.
 
 ::: survives
-Easy riding builds mitochondria and capillaries in the untrained, as much per programme as harder training. {grade A}
-Per hour, harder riding builds more. {grade A}
+Easy riding builds mitochondria and capillaries in the untrained, as much per programme as harder training but less per hour. {grade A}
 In well-trained riders, more easy riding has not been shown to build more. {grade B}
 Easy hours earn their place by adding work without taking anything from the hard sessions. {grade C}
+Any training, intervals included, shifts the fuel mix towards fat; burning more fat has not made anyone faster. {grade B}
 :::
