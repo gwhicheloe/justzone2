@@ -8,6 +8,9 @@ class HistoryViewModel: ObservableObject {
     @Published var isLoading = false
     @Published var loadingProgress: String?
     @Published var error: String?
+    /// A failed Strava connect, shown as an alert. Kept apart from `error`,
+    /// which replaces the page with a Retry that only works once connected.
+    @Published var stravaError: String?
     @Published var isStravaConnected = false
     @Published var lastUpdated: Date?
     @Published var loadingStreamsFor: Int?
@@ -28,6 +31,16 @@ class HistoryViewModel: ObservableObject {
         stravaService.$isAuthenticated
             .assign(to: &$isStravaConnected)
 
+        // Disconnecting Strava removes the Strava data cached on the phone
+        // (activity list and streams), not just the login. Rides recorded in
+        // the app that haven't been uploaded are the rider's own and stay.
+        stravaService.$isAuthenticated
+            .removeDuplicates()
+            .dropFirst()
+            .filter { !$0 }
+            .sink { [weak self] _ in Task { await self?.clearStravaData() } }
+            .store(in: &cancellables)
+
         // Load cached activities
         loadFromCache()
         loadLocalWorkouts()
@@ -36,7 +49,40 @@ class HistoryViewModel: ObservableObject {
     /// Reload local workouts from disk. Call after upload completes or
     /// when entering History so the pending list reflects current state.
     func loadLocalWorkouts() {
+        // Demo Mode shows only the sample rides; the rider's own stay hidden
+        // until it's switched off (`clearDemoHistory` reloads them).
+        guard !demoHistoryActive else { return }
         localWorkouts = LocalWorkoutStore.shared.all()
+    }
+
+    /// Rides for the progress charts: Strava's Zone 2 rides plus the rides
+    /// recorded in the app that are still only on the phone. Without the
+    /// local ones, a rider who never connects Strava would see empty charts
+    /// however many rides they'd recorded. No ride is counted twice, because
+    /// uploading a ride to Strava deletes its local copy.
+    var chartActivities: [StravaActivity] {
+        activities + localWorkouts.compactMap(Self.chartActivity)
+    }
+
+    /// A local ride as a chart point, averaged over the whole ride as Strava
+    /// averages it. Interval sessions stay off the Zone 2 charts, as they do
+    /// for Strava rides, and so do fragments under five minutes.
+    static func chartActivity(_ local: LocalWorkout) -> StravaActivity? {
+        let workout = local.workout
+        guard !workout.isIntervalSession, local.elapsedTime >= 300 else { return nil }
+        let hrs = workout.samples.compactMap(\.heartRate).filter { $0 > 0 }
+        guard !hrs.isEmpty, let power = workout.averagePower, power > 0 else { return nil }
+        return StravaActivity(
+            id: -abs(workout.id.hashValue % 1_000_000_000) - 1,   // negative: never a Strava ID
+            name: "JustZone2",
+            type: "VirtualRide",
+            startDate: workout.startDate,
+            movingTime: Int(local.elapsedTime),
+            distance: workout.totalDistance,
+            averageWatts: Double(power),
+            averageHeartrate: Double(hrs.reduce(0, +)) / Double(hrs.count),
+            maxHeartrate: hrs.max().map(Double.init)
+        )
     }
 
     // MARK: - Demo Mode
@@ -216,6 +262,17 @@ class HistoryViewModel: ObservableObject {
         await refreshActivities()
     }
 
+    /// Remove everything downloaded from Strava (activity list and cached
+    /// streams). Called when the rider disconnects Strava.
+    func clearStravaData() async {
+        if !demoHistoryActive { activities = [] }
+        UserDefaults.standard.removeObject(forKey: cacheKey)
+        UserDefaults.standard.removeObject(forKey: lastUpdatedKey)
+        lastUpdated = nil
+        await streamsCache.clearCache()
+        dlog("[STRAVA] disconnected: cleared cached Strava activities and streams")
+    }
+
     func clearAllData() async {
         activities = []
         dataCleared = true
@@ -242,14 +299,9 @@ class HistoryViewModel: ObservableObject {
     func connectToStrava() async {
         do {
             try await stravaService.authenticate()
-        } catch {
-            // ASWebAuthenticationSession error 1 = user cancelled — not an error
-            let nsError = error as NSError
-            if nsError.domain == "com.apple.AuthenticationServices.WebAuthenticationSession" && nsError.code == 1 {
-                return
-            }
-            self.error = error.localizedDescription
-        }
+        } catch where !StravaService.isUserCancel(error) {
+            stravaError = error.localizedDescription
+        } catch {}
     }
 
     func disconnectStrava() {

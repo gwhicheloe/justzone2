@@ -33,6 +33,13 @@ struct SettingsView: View {
             .scrollBounceBehavior(.basedOnSize)
             .background(tintedBackground)
             .sheet(isPresented: $showTargetInfo) { zone2TargetInfo }
+            .alert("Strava",
+                   isPresented: Binding(
+                       get: { viewModel.stravaError != nil },
+                       set: { if !$0 { viewModel.stravaError = nil } }
+                   ),
+                   actions: { Button("OK", role: .cancel) { viewModel.stravaError = nil } },
+                   message: { Text(viewModel.stravaError ?? "") })
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .principal) {

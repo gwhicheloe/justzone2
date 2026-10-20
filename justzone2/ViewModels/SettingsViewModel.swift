@@ -6,6 +6,7 @@ class SettingsViewModel: ObservableObject {
     @Published var isStravaConnected = false
     @Published var stravaAthleteName: String?
     @Published var showClearConfirmation = false
+    @Published var stravaError: String?
 
     /// Demo Mode: simulate a connected trainer + HR strap so the whole app can be
     /// used (and reviewed) without hardware. Persisted; `onDemoModeChange` lets
@@ -33,11 +34,12 @@ class SettingsViewModel: ObservableObject {
     }
 
     func connectToStrava() async {
+        stravaError = nil
         do {
             try await stravaService.authenticate()
-        } catch {
-            // Error handled silently
-        }
+        } catch where !StravaService.isUserCancel(error) {
+            stravaError = error.localizedDescription
+        } catch {}
     }
 
     func disconnectStrava() {

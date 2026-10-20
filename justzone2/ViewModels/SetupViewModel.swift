@@ -284,9 +284,9 @@ class SetupViewModel: ObservableObject {
         stravaError = nil
         do {
             try await stravaService.authenticate()
-        } catch {
+        } catch where !StravaService.isUserCancel(error) {
             stravaError = error.localizedDescription
-        }
+        } catch {}
     }
 
     func disconnectStrava() {

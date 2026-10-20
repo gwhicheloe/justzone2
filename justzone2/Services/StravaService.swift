@@ -83,6 +83,16 @@ class StravaService: NSObject, ObservableObject {
             }
         }
 
+        // Strava sends `?error=...` instead of a code when it refuses: the
+        // rider pressed Cancel (access_denied), or the app is over its
+        // connected-athlete limit.
+        if let refusal = callbackError(from: callbackURL) {
+            dlog("[STRAVA] authorize refused: \(refusal)")
+            if refusal.lowercased().contains("access_denied") { throw StravaError.cancelled }
+            if Self.isAthleteLimit(refusal) { throw StravaError.athleteLimitReached }
+            throw StravaError.authenticationFailed
+        }
+
         // Extract authorization code from callback URL
         guard let code = extractAuthCode(from: callbackURL) else {
             throw StravaError.invalidAuthCode
@@ -455,6 +465,28 @@ class StravaService: NSObject, ObservableObject {
         return components.url!
     }
 
+    private func callbackError(from url: URL) -> String? {
+        let items = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems ?? []
+        guard let error = items.first(where: { $0.name == "error" })?.value else { return nil }
+        let detail = items.first(where: { $0.name == "error_description" })?.value
+        return [error, detail].compactMap { $0 }.joined(separator: ": ")
+    }
+
+    /// Strava's wording when an app is at its connected-athlete limit
+    /// ("Limit of connected athletes exceeded", HTTP 403).
+    static func isAthleteLimit(_ text: String) -> Bool {
+        let t = text.lowercased()
+        return t.contains("limit of connected athletes") || t.contains("connected athletes")
+    }
+
+    /// True when the rider dismissed Strava's sign-in sheet or pressed Cancel:
+    /// not an error worth showing.
+    static func isUserCancel(_ error: Error) -> Bool {
+        if case StravaError.cancelled = error { return true }
+        let ns = error as NSError
+        return ns.domain == "com.apple.AuthenticationServices.WebAuthenticationSession" && ns.code == 1
+    }
+
     private func extractAuthCode(from url: URL) -> String? {
         let components = URLComponents(url: url, resolvingAgainstBaseURL: false)
         return components?.queryItems?.first(where: { $0.name == "code" })?.value
@@ -477,7 +509,13 @@ class StravaService: NSObject, ObservableObject {
 
         if httpResponse.statusCode != 200 {
             let errorMessage = String(data: data, encoding: .utf8) ?? "Unknown error"
-            print("Token exchange failed: \(errorMessage)")
+            dlog("[STRAVA] token exchange failed: HTTP \(httpResponse.statusCode) \(errorMessage.prefix(300))")
+            // The Worker passes Strava's status and message through. At the
+            // connected-athlete limit Strava answers 403 "Limit of connected
+            // athletes exceeded".
+            if httpResponse.statusCode == 403 || Self.isAthleteLimit(errorMessage) {
+                throw StravaError.athleteLimitReached
+            }
             throw StravaError.tokenExchangeFailed
         }
 
@@ -637,6 +675,8 @@ private struct StreamData: Decodable {
 // MARK: - Errors
 
 enum StravaError: LocalizedError {
+    case cancelled
+    case athleteLimitReached
     case authenticationFailed
     case invalidAuthCode
     case tokenExchangeFailed
@@ -649,8 +689,12 @@ enum StravaError: LocalizedError {
 
     var errorDescription: String? {
         switch self {
+        case .cancelled:
+            return "Strava sign-in was cancelled"
+        case .athleteLimitReached:
+            return "Strava is limiting how many riders can connect to JustZone2 while it reviews the app. Your rides still save to Apple Health and History, and you can upload them to Strava from History once connecting works again."
         case .authenticationFailed:
-            return "Authentication failed"
+            return "Couldn't connect to Strava. Please try again."
         case .invalidAuthCode:
             return "Invalid authorization code"
         case .tokenExchangeFailed:

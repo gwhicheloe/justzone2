@@ -20,6 +20,9 @@ class SummaryViewModel: ObservableObject {
     @Published private(set) var uploadState: UploadState = .ready
     @Published var uploadProgress: Double = 0
     @Published var isStravaConnected: Bool = false
+    /// A failed Strava connect, shown as an alert: the upload state it used to
+    /// go into is only displayed once Strava is connected, so it was invisible.
+    @Published var stravaError: String?
     /// Seconds left on the auto-upload countdown (nil when not counting). When it
     /// reaches zero the workout uploads to Strava automatically — so people don't
     /// forget — while leaving a window to Discard or upload immediately.
@@ -78,9 +81,9 @@ class SummaryViewModel: ObservableObject {
     func connectToStrava() async {
         do {
             try await stravaService.authenticate()
-        } catch {
-            uploadState = .failed(message: error.localizedDescription)
-        }
+        } catch where !StravaService.isUserCancel(error) {
+            stravaError = error.localizedDescription
+        } catch {}
     }
 
     /// Begin the auto-upload countdown. Only for a fresh, connected, not-yet-

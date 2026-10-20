@@ -853,7 +853,7 @@
 				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "JustZone2 needs Bluetooth to connect to your KICKR trainer and heart rate monitor.";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "JustZone2 reads your heart rate during workouts to track Zone 2 training.";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "JustZone2 saves your workouts to Apple Health so they appear in the Fitness app.";
-				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "JustZone2 saves your workout chart to your photo library so you can add it to Strava.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "JustZone2 saves an image of your ride to your photo library so you can keep or share it.";
 				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -892,7 +892,7 @@
 				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "JustZone2 needs Bluetooth to connect to your KICKR trainer and heart rate monitor.";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "JustZone2 reads your heart rate during workouts to track Zone 2 training.";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "JustZone2 saves your workouts to Apple Health so they appear in the Fitness app.";
-				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "JustZone2 saves your workout chart to your photo library so you can add it to Strava.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "JustZone2 saves an image of your ride to your photo library so you can keep or share it.";
 				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

@@ -86,6 +86,13 @@ struct HistoryView: View {
         .onDisappear {
             forcePortrait()
         }
+        .alert("Strava",
+               isPresented: Binding(
+                   get: { viewModel.stravaError != nil },
+                   set: { if !$0 { viewModel.stravaError = nil } }
+               ),
+               actions: { Button("OK", role: .cancel) { viewModel.stravaError = nil } },
+               message: { Text(viewModel.stravaError ?? "") })
     }
 
     private func updateOrientationLock(for mode: HistoryViewMode) {
@@ -223,10 +230,12 @@ struct HistoryView: View {
                         }
                     }
                 } header: {
+                    // Strava is optional. Without it these are simply the
+                    // rider's rides, not a backlog of failed uploads.
                     HStack(spacing: 6) {
-                        Image(systemName: "icloud.slash")
+                        Image(systemName: viewModel.isStravaConnected ? "icloud.slash" : "figure.indoor.cycle")
                             .font(.tiny)
-                        Text("Pending Upload")
+                        Text(viewModel.isStravaConnected ? "Pending Upload" : "Your Rides")
                             .font(.tiny)
                     }
                     .foregroundColor(.secondary)
@@ -255,7 +264,7 @@ struct HistoryView: View {
     }
 
     private var bubbleChartView: some View {
-        let chartData = filterOutliers(viewModel.activities.filter {
+        let chartData = filterOutliers(viewModel.chartActivities.filter {
             $0.averageHeartrate != nil && $0.averageWatts != nil
         }).sorted { $0.startDate < $1.startDate }
 
@@ -518,7 +527,7 @@ struct HistoryView: View {
     // MARK: - Line Chart View
 
     private var lineChartView: some View {
-        let chartData = filterOutliers(viewModel.activities.filter {
+        let chartData = filterOutliers(viewModel.chartActivities.filter {
             $0.averageHeartrate != nil && $0.averageWatts != nil
         }).sorted { $0.startDate < $1.startDate }
 
@@ -601,12 +610,19 @@ struct HistoryView: View {
 
                         // HR lines (red) with Zone 2 band
                         Chart {
-                            // Zone 2 band
-                            RectangleMark(
-                                yStart: .value("Zone Min", zone2Min),
-                                yEnd: .value("Zone Max", zone2Max)
-                            )
-                            .foregroundStyle(.green.opacity(0.2))
+                            // Zone 2 band, clamped to the visible HR range. Unclamped,
+                            // a zone reaching past the chart's top or bottom drew the
+                            // band outside the plot, over the date labels and the
+                            // zoom buttons.
+                            let bandLow = max(Double(zone2Min), minHR)
+                            let bandHigh = min(Double(zone2Max), maxHR)
+                            if bandLow < bandHigh {
+                                RectangleMark(
+                                    yStart: .value("Zone Min", bandLow),
+                                    yEnd: .value("Zone Max", bandHigh)
+                                )
+                                .foregroundStyle(.green.opacity(0.2))
+                            }
 
                             // HR data lines
                             ForEach(Array(hrSegments.enumerated()), id: \.offset) { segmentIndex, segment in
@@ -624,7 +640,16 @@ struct HistoryView: View {
                         .chartYScale(domain: minHR...maxHR)
                         .chartXScale(domain: dateRange)
                         .chartYAxis(.hidden)
-                        .chartXAxis(.hidden)
+                        // Same date axis as the power chart, drawn invisibly, so
+                        // both plots are the same height and the HR layer (and
+                        // its Zone 2 band) stops above the date labels.
+                        .chartXAxis {
+                            AxisMarks(values: axisDates(for: dateRange)) { _ in
+                                AxisValueLabel(format: dateAxis(for: dateRange).format, anchor: .top)
+                                    .foregroundStyle(.clear)
+                            }
+                        }
+                        .chartPlotStyle { $0.clipped() }
                     }
                     .frame(height: 220)
                     .contentShape(Rectangle())
@@ -832,24 +857,26 @@ struct LocalWorkoutRow: View {
     @ScaledMetric(relativeTo: .body) private var statWidth: CGFloat = 40
     @ScaledMetric(relativeTo: .body) private var dateWidth: CGFloat = 130
 
-    private var statusLabel: String {
+    // "Not uploaded" only means something to a rider who uses Strava. For
+    // everyone else a finished ride is just a ride.
+    private var statusLabel: String? {
         switch local.status {
         case .inProgress: return "Interrupted"
-        case .pendingUpload: return "Not uploaded"
+        case .pendingUpload: return viewModel.isStravaConnected ? "Not uploaded" : nil
         }
     }
 
     private var statusIcon: String {
         switch local.status {
         case .inProgress: return "arrow.counterclockwise.circle"
-        case .pendingUpload: return "icloud.and.arrow.up"
+        case .pendingUpload: return viewModel.isStravaConnected ? "icloud.and.arrow.up" : "figure.indoor.cycle"
         }
     }
 
     private var statusColor: Color {
         switch local.status {
         case .inProgress: return .orange
-        case .pendingUpload: return .strava
+        case .pendingUpload: return viewModel.isStravaConnected ? .strava : .green
         }
     }
 
@@ -863,9 +890,11 @@ struct LocalWorkoutRow: View {
                 Text(viewModel.formatDateWithTime(local.workout.startDate))
                     .font(.labelMedium)
                     .lineLimit(1)
-                Text(statusLabel)
-                    .font(.tiny)
-                    .foregroundColor(statusColor)
+                if let statusLabel {
+                    Text(statusLabel)
+                        .font(.tiny)
+                        .foregroundColor(statusColor)
+                }
             }
             .frame(width: dateWidth, alignment: .leading)
 

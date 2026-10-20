@@ -17,7 +17,16 @@ struct LocalActivityDetailView: View {
         }
     }
 
+    /// "Not uploaded yet" is only shown to riders who use Strava; without it a
+    /// finished ride needs no badge. An interrupted ride is always flagged.
+    @ViewBuilder
     private var statusBadge: some View {
+        if local.status == .inProgress || viewModel.isStravaConnected {
+            statusBadgeContent
+        }
+    }
+
+    private var statusBadgeContent: some View {
         HStack(spacing: 6) {
             Image(systemName: local.status == .inProgress ? "arrow.counterclockwise.circle.fill" : "icloud.and.arrow.up.fill")
             Text(local.status == .inProgress ? "Interrupted workout" : "Not uploaded yet")
@@ -100,8 +109,8 @@ struct LocalActivityDetailView: View {
                         }
                         .disabled(chartData.isEmpty)
                     } else {
-                        Text("Connect Strava in Settings to upload")
-                            .font(.labelMedium)
+                        Text("Strava is optional. Connect it in Settings if you'd like to upload this ride.")
+                            .font(.labelSmall)
                             .foregroundColor(.secondary)
                             .multilineTextAlignment(.center)
                     }

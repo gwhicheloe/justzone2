@@ -429,6 +429,15 @@ struct SetupView: View {
             }
             // `healthKitError` was previously set but never rendered, so a failed
             // Health authorization looked like a dead button. Surface it.
+            // Strava connection errors used to be stored but never shown, so a
+            // failed connect just left the tile on "Tap to connect".
+            .alert("Strava",
+                   isPresented: Binding(
+                       get: { viewModel.stravaError != nil },
+                       set: { if !$0 { viewModel.stravaError = nil } }
+                   ),
+                   actions: { Button("OK", role: .cancel) { viewModel.stravaError = nil } },
+                   message: { Text(viewModel.stravaError ?? "") })
             .alert("Apple Health",
                    isPresented: Binding(
                        get: { viewModel.healthKitError != nil },

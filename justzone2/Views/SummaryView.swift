@@ -6,6 +6,7 @@ struct SummaryView: View {
     @ObservedObject var viewModel: SummaryViewModel
     var onDismiss: () -> Void
     @State private var chartSaved = false
+    @State private var photosDenied = false
     @State private var uploadState: UploadState = .ready
     @State private var showDiscardConfirm = false
 
@@ -76,6 +77,13 @@ struct SummaryView: View {
                 }
             }
         }
+        .alert("Strava",
+               isPresented: Binding(
+                   get: { viewModel.stravaError != nil },
+                   set: { if !$0 { viewModel.stravaError = nil } }
+               ),
+               actions: { Button("OK", role: .cancel) { viewModel.stravaError = nil } },
+               message: { Text(viewModel.stravaError ?? "") })
         .onAppear { viewModel.startAutoUploadCountdown() }
         .onReceive(viewModel.$uploadState) { newState in
             uploadState = newState
@@ -92,11 +100,28 @@ struct SummaryView: View {
             // add nothing here so the layout is unchanged.
             EmptyView()
         } else if !viewModel.isStravaConnected {
-            Button(action: { Task { await viewModel.connectToStrava() } }) {
-                Image("btn_strava_connect_orange")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(height: 44)
+            // Strava is optional, so the ride image mustn't depend on it: with
+            // Strava it's saved after the upload, without it the rider saves it
+            // here.
+            VStack(spacing: 8) {
+                if chartSaved {
+                    Label("Image saved to Photos", systemImage: "photo.fill")
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                } else if photosDenied {
+                    photosDeniedNote
+                } else {
+                    Button(action: { saveChartToPhotos() }) {
+                        Label("Save Image to Photos", systemImage: "photo.badge.arrow.down")
+                            .font(.subheadline.weight(.medium))
+                    }
+                }
+                Button(action: { Task { await viewModel.connectToStrava() } }) {
+                    Image("btn_strava_connect_orange")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 44)
+                }
             }
         } else {
             VStack(spacing: 6) {
@@ -118,6 +143,8 @@ struct SummaryView: View {
                         Label("Chart saved to Photos", systemImage: "photo.fill")
                             .font(.caption)
                             .foregroundColor(.secondary)
+                    } else if photosDenied {
+                        photosDeniedNote
                     }
                 } else if viewModel.autoCountdown != nil {
                     Text("Auto-uploading — tap to upload now, or Discard to cancel")
@@ -168,6 +195,14 @@ struct SummaryView: View {
         }
     }
 
+    /// Shown when the image couldn't be saved because Photos access is off.
+    private var photosDeniedNote: some View {
+        Text("To save the ride image, allow JustZone2 to add photos in Settings.")
+            .font(.caption)
+            .foregroundColor(.secondary)
+            .multilineTextAlignment(.center)
+    }
+
     @MainActor
     private func saveChartToPhotos() {
         let exportView = ExportCardView(workout: viewModel.workout)
@@ -182,8 +217,23 @@ struct SummaryView: View {
         guard let jpegData = image.jpegData(compressionQuality: 0.9),
               let jpegImage = UIImage(data: jpegData) else { return }
 
-        UIImageWriteToSavedPhotosAlbum(jpegImage, nil, nil, nil)
-        chartSaved = true
+        // Only say "saved" once Photos has it: the old fire-and-forget write
+        // reported success even when the rider had denied Photos access.
+        Task {
+            guard await PHPhotoLibrary.requestAuthorization(for: .addOnly) == .authorized else {
+                dlog("[SUMMARY] ride image not saved: Photos access not granted")
+                photosDenied = true
+                return
+            }
+            do {
+                try await PHPhotoLibrary.shared().performChanges {
+                    PHAssetCreationRequest.creationRequestForAsset(from: jpegImage)
+                }
+                chartSaved = true
+            } catch {
+                dlog("[SUMMARY] ride image save failed: \(error.localizedDescription)")
+            }
+        }
     }
 }
 
