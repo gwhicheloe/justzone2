@@ -299,18 +299,31 @@ class HealthKitManager: NSObject, ObservableObject {
 // MARK: - Active energy
 
 extension HealthKitManager {
+    /// Typical adult resting energy burn (about 1,700 kcal a day). Fixed rather
+    /// than personalised so no extra Health permissions are needed; for most
+    /// adults it's within ~15 kcal/h of a formula from their own height,
+    /// weight, age and sex.
+    static let restingKcalPerHour: Double = 70
+
     /// Active energy for one sample interval, written so Apple Health and
     /// Fitness show calories (and the workout counts towards the Move ring).
     /// Until 1.0.5 the app never wrote active energy at all.
     ///
-    /// Calculated from measured power, as for the Strava upload: kilojoules of
-    /// work at the pedals ≈ kilocalories burned. The body's ~20–25% gross
-    /// efficiency and the 4.184 kJ/kcal conversion roughly cancel, so an hour
-    /// at 160 W ≈ 576 kcal. Far better than a heart-rate estimate on a
-    /// power-measuring trainer.
+    /// Calculated from measured power: kilojoules of work at the pedals ≈
+    /// kilocalories burned. The body's ~20–25% gross efficiency and the
+    /// 4.184 kJ/kcal conversion roughly cancel, so an hour at 160 W ≈ 576 kcal.
+    /// Far better than a heart-rate estimate on a power-measuring trainer.
+    ///
+    /// That rule gives *total* energy, including what the body burns at rest
+    /// anyway. Apple Health counts resting energy separately, so a typical
+    /// adult resting rate (`restingKcalPerHour`) is subtracted to give active
+    /// energy: an hour at 160 W is written as ~506 kcal. The Strava upload
+    /// keeps the total, which is what Strava shows.
     func addEnergySample(watts: Int, over interval: TimeInterval, endingAt end: Date) {
         guard watts > 0, interval > 0 else { return }
-        let kilocalories = Double(watts) * interval / 1000
+        let total = Double(watts) * interval / 1000
+        let kilocalories = total - Self.restingKcalPerHour * interval / 3600
+        guard kilocalories > 0 else { return }
         let sample = HKQuantitySample(
             type: HKQuantityType(.activeEnergyBurned),
             quantity: HKQuantity(unit: .kilocalorie(), doubleValue: kilocalories),
