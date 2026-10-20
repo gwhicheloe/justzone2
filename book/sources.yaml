@@ -286,7 +286,7 @@
   pmid: 28008101
   pmcid: PMC5429469
   status: fulltext
-  chapters: [intensity, finding-zones, easy-riding]
+  chapters: [intensity, finding-zones]
   notes: "11 recreationally active men (Exeter), 8 volunteered for biopsies. Moderate (20 W below GET, 113 W): 211 min (180-360), lactate largely unchanged, glycogen -83%. Heavy (231 W): 43.5 min (20.5-67.4). Severe: 2.2-13.9 min, VO2peak reached in all, same muscle metabolites at exhaustion. Results and discussion read 11 Oct 2026; neuromuscular methods skimmed."
 
 - key: bok2022
@@ -910,7 +910,7 @@
   doi: 10.1046/j.1600-0838.2003.370.x
   pmid: 15387804
   status: abstract
-  chapters: [elites, how-many]
+  chapters: [elites]
   notes: "28 medal-winning rowers, 21 of 27 living answered. 1970s to 1990s: low-lactate training 30 to 50 h a month, race pace and above 23 to ~7; volume 924 to 1,128 h a year; VO2max 5.8 to 6.5 L/min; 6-min ergometer almost +10%; altitude camps."
 
 - key: fleckenstein2024
@@ -2980,7 +2980,7 @@
   pmid: 25019608
   pmcid: PMC4096917
   status: fulltext
-  chapters: [elites, easy-riding, how-many, training-week, verdict]
+  chapters: [elites, easy-riding, how-many, verdict]
   notes: "READ IN FULL 11 Oct 2026 (text in papers/). 11 Norwegian XC skiers and biathletes with individual Olympic or World gold; diaries of the year before their best result. 770 h, 470 sessions. Endurance time 91% below LT1; five zones 86.0/5.3/3.3/3.3/2.1%; sessions 77/23. Zone 1 up to 73% HRmax, zone 2 74-83%. Time above LT1 1.3 h a week in every phase; easy hours 15.2, 14.4, 9.8 a week (Table 4). Details in chapters/elites/research.md."
 
 - key: tonnessen2020

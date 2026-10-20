@@ -99,7 +99,7 @@ Chapter 9 explained why no way of handling it is perfect late in a long ride. On
 
 ## Short of time
 
-Use Chapter 17's four-hour week as a starting point: two hard sessions and two short easy rides. If that won't fit, Chapter 12 suggests one hard session alongside whatever easy riding you can manage as a practical fallback. Sprints save time, but long intervals have better evidence for long efforts (Chapter 11). My winter's lesson was to choose riding I could keep doing regularly. {grade C}
+Use Chapter 17's four-hour week as a starting point: two hard sessions and two short easy rides. If that won't fit, Chapter 12 suggests one hard session alongside whatever easy riding you can manage as a practical fallback. Sprints save time, but long intervals have better evidence for long efforts (Chapter 11). What matters most is what mattered in my own winter: riding regularly. {grade C}
 
 ## What to do with it
 
@@ -109,5 +109,5 @@ For an older rider, keep the intensity, expect the numbers to fall slowly anyway
 Women appear to respond to training much as men do, though far fewer have been studied. {grade C}
 Age may slow recovery less than is often assumed. {grade C}
 Over 40, lift twice a week for your bones. {grade C}
-Short of time, choose a routine you can keep doing regularly. {grade C}
+Short of time, what matters most is riding regularly. {grade C}
 :::
