@@ -84,10 +84,23 @@ struct SummaryView: View {
                ),
                actions: { Button("OK", role: .cancel) { viewModel.stravaError = nil } },
                message: { Text(viewModel.stravaError ?? "") })
-        .onAppear { viewModel.startAutoUploadCountdown() }
+        .onAppear {
+            viewModel.startAutoUploadCountdown()
+            // Without Strava there's no upload to trigger the save, so save the
+            // ride image straight away, as the Strava flow does after its upload.
+            // Only when Photos access is already granted: a rider who hasn't
+            // granted it gets the Save Image button rather than an unasked-for
+            // permission prompt.
+            if !viewModel.isDemo && !viewModel.isStravaConnected
+                && PHPhotoLibrary.authorizationStatus(for: .addOnly) == .authorized {
+                saveChartToPhotos()
+            }
+        }
         .onReceive(viewModel.$uploadState) { newState in
             uploadState = newState
-            if case .complete = newState {
+            // Skip if the image was already saved (no-Strava auto-save, then
+            // the rider connected and uploaded): no duplicate in Photos.
+            if case .complete = newState, !chartSaved {
                 saveChartToPhotos()
             }
         }
