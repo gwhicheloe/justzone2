@@ -919,7 +919,7 @@
   citation: "Festina affair. Wikipedia, read 5 October 2026. https://en.wikipedia.org/wiki/Festina_affair"
   status: exists
   chapters: [doping]
-  notes: "Encyclopaedia summary only. Replace with court reports and contemporary press before publication."
+  notes: "Encyclopaedia summary, used only for the date (8 July 1998) and the drugs found (EPO, testosterone, corticosteroids, growth hormone). The substance is confirmed by the organiser's own history page (see tour1998, checked 22 October 2026): a Festina team car found at the border with performance-enhancing drugs before the start, the director's confession, the expulsion. French newspaper archives refused automated access, so no contemporary report has been read."
 
 - key: festinaverdict
   citation: "Le jugement du procès Festina. cyclisme-dopage.com (summary of the judgment of the Tribunal correctionnel de Lille, 22 December 2000, citing Libération, 23 December 2000). See also: Richard Virenque relaxé. swissinfo.ch, 22 December 2000."
@@ -3081,10 +3081,10 @@
   notes: "Full text in papers/. Threshold intervals (82-87% HRmax), 136 min/week as 2 long or 4 short sessions, 12 weeks: LF TT 31.8->30.6 min; HF n.s.; between-group ES 0.17. Close-up in How many hard sessions."
 
 - key: tour1998
-  citation: "1998 Tour de France. Wikipedia, read 5 October 2026. https://en.wikipedia.org/wiki/1998_Tour_de_France"
+  citation: "Tour de France. History: 1998 to 2005 (rankings, starters and race summaries). letour.fr, read 22 October 2026. https://www.letour.fr/en/history"
   status: exists
   chapters: [doping]
-  notes: "Use for start date, starters, finishers and the Festina expulsion only. Its figure for the 2013 Senate retests conflicts with press reports and is NOT used. Start 11 July Dublin; 189 starters, 96 finishers; Festina expelled after stage 6; French Senate 2013: 44 of 60 retested samples positive for EPO. Replace with the Senate report and race records before publication."
+  notes: "The organiser's own record, checked 22 October 2026. 1998: prologue in Dublin; 189 starters; 96 riders in the final general classification; Festina riders in the classification after stage 6 and absent after stage 7; besides Festina, six teams with no finisher (ONCE, Banesto, TVM, Vitalicio Seguros, Kelme, Riso Scotti); race summary: before the start a Festina team car was found at the French-Belgian border loaded with performance-enhancing drugs, the team director confessed to systematic doping and the team was expelled; Pantani first. 1999 to 2005: each ranking starts at second place, no winner listed. Replaces the Wikipedia page read on 5 October. Not used: the 2013 Senate retests."
 
 - key: tourmagazin2025
   citation: "Tour Magazin. Epic victories: Pogačar's 10 longest solo victories. 6 October 2025. https://www.tour-magazin.de/en/professional-cycling/latest-news/epic-victories-top-10-pogacar-s-longest-solo-victories/"
@@ -3107,17 +3107,23 @@
   chapters: [elites]
   notes: "Text in papers/; abstract, design and limitations read. 14 rowers, 11 weeks, not randomised: 94/1/6 against 93/3/2; 2,000 m power +1.5% in both, neither significant."
 
-- key: uci2025co
-  citation: "Union Cycliste Internationale. The UCI bans repeated inhalation of carbon monoxide. Press release, 1 February 2025."
+- key: uci2019tramadol
+  citation: "Union Cycliste Internationale. Tramadol ban: all you need to know. https://www.uci.org/pressrelease/tramadol-ban-all-you-need-to-know/74DtzJjWw8w8CeZqpNsRwP"
   status: exists
   chapters: [doping]
-  notes: "Read through a tool. Ban on possession of CO rebreathing systems outside a medical facility from 10 February 2025; one measurement allowed, a second after two weeks."
+  notes: "Read in full at uci.org, 22 October 2026. In-competition use banned in all disciplines from 1 March 2019 under the UCI Medical Rules, for riders' health and safety (not an anti-doping rule); WADA monitoring found tramadol in 4.4% of in-competition tests on cyclists in 2017. The page is now marked 'Not in force from 05.02.24', after WADA listed tramadol (see usada2024list)."
+
+- key: uci2025co
+  citation: "Union Cycliste Internationale. The UCI bans repeated inhalation of carbon monoxide, and introduces measures to ensure participation of best teams in top-tier road events. Press release, February 2025. https://www.uci.org/pressrelease/the-uci-bans-repeated-inhalation-of-carbon-monoxide-and-introduces-measures/vvSYoDzCDZBPjA1dXNoWq"
+  status: exists
+  chapters: [doping]
+  notes: "Read in full at uci.org, 22 October 2026. Management Committee, 31 January and 1 February 2025; ban in force 10 February 2025, 'to protect the health of riders'; forbids possession, outside a medical facility, of commercially available CO re-breathing systems; one inhalation to measure haemoglobin mass, a second only two weeks after; independent of the anti-doping rules; the UCI 'officially requested' WADA to take position on repeated use. Names no team or rider."
 
 - key: uci2025ketones
-  citation: "Union Cycliste Internationale. Statement on ketone supplements, 20 October 2025."
+  citation: "Union Cycliste Internationale. UCI declaration concerning the use of ketone supplements by cyclists. 20 October 2025. https://www.uci.org/pressrelease/uci-declaration-concerning-the-use-of-ketone-supplements-by-cyclists/i4RNiOalWYxGqYtQ6h2rt"
   status: exists
   chapters: [doping]
-  notes: "Known from news reports (Tour Magazin, road.cc): recommends against use, no ban. Find the statement itself."
+  notes: "Read in full at uci.org, 22 October 2026: 'no compelling evidence that ketone supplements enhance performance or recovery'; the UCI 'does not recommend the inclusion of such supplements in riders' nutritional plans'. No ban. The page carries no date; 20 October 2025 is the date of Cycling Weekly's report of it."
 
 - key: umpierre2011
   citation: "Umpierre D, Ribeiro PA, Kramer CK, Leitão CB, Zucatti AT, Azevedo MJ, et al. Physical activity advice only or structured exercise training and association with HbA1c levels in type 2 diabetes: a systematic review and meta-analysis. JAMA. 2011;305:1790-1799."
@@ -3144,10 +3150,16 @@
   notes: "11 women, 8 men; 6x8 min at 40-min power: 30/15 1,123 s vs steady 879 vs 60/60 917 s >=90% VO2max; no sex difference."
 
 - key: usada2012
-  citation: "United States Anti-Doping Agency. Reasoned decision of the United States Anti-Doping Agency on disqualification and ineligibility: Lance Armstrong. 10 October 2012."
+  citation: "United States Anti-Doping Agency. Reasoned decision of the United States Anti-Doping Agency on disqualification and ineligibility: Lance Armstrong. 10 October 2012. https://www.usada.org/wp-content/uploads/ReasonedDecision.pdf"
   status: exists
-  chapters: [limits]
-  notes: "Public record: Armstrong's Tour results from 1999 onwards disqualified. Cite only for that fact."
+  chapters: [limits, doping]
+  notes: "Checked at usada.org, 22 October 2026: the decision (opening pages read) says the sanction of lifetime ineligibility and disqualification of results since 1 August 1998 was imposed and announced on 24 August 2012, and describes 'a team-wide doping program'; USADA's statement of 10 October 2012 says Armstrong chose not to contest the evidence and accepted the ban. Hence the draft says USADA banned him and its published decision described the programme. Cite only for these facts."
+
+- key: usada2024list
+  citation: "United States Anti-Doping Agency. Explanation of key changes on the 2024 WADA Prohibited List. https://www.usada.org/athlete-advisory/key-changes-2024-prohibited-list/"
+  status: exists
+  chapters: [doping]
+  notes: "Read at usada.org, 22 October 2026: 'As of January 1, 2024, tramadol is prohibited in-competition' (class S7, narcotics). Cited instead of WADA's own pages, which refused automated requests."
 
 - key: valenzuela2020
   citation: "Valenzuela PL, Morales JS, Castillo-García A, Lucia A. Acute ketone supplementation and exercise performance: a systematic review and meta-analysis of randomized controlled trials. Int J Sports Physiol Perform. 2020;15:298-308."

@@ -1,12 +1,12 @@
 # Chapter 16: Drugs
 
-<!-- Draft 1, complete (5 October 2026). Needs a legal read before publication: see the libel rule in brief.md. Chapter 16, in Part IV (Other ways to get faster), agreed with George 11 October 2026. -->
+<!-- Draft 1, complete (5 October 2026). No legal read: George decided against one on 22 October 2026. The chapter relies on the libel rule in brief.md (read it before any edit), and the facts about named people and organisations were checked at primary sources that day (research.md, last section). Chapter 16, in Part IV (Other ways to get faster), agreed with George 11 October 2026. -->
 
 ## Ninety-six finishers
 
 The 1998 Tour de France started in Dublin on 11 July with 189 riders. Three days earlier a car belonging to the Festina team had been stopped at the French-Belgian border carrying EPO, steroids and other drugs. The team was expelled after the sixth stage. Six more teams left the race before the end, and 96 riders reached Paris [@festina; @tour1998].
 
-Fourteen years later the United States Anti-Doping Agency published its decision on the rider who won the next seven Tours. It described a team-run doping programme, banned Lance Armstrong for life and struck out his results [@usada2012]. He admitted it the following January. No winner is listed for those seven races.
+Fourteen years later the United States Anti-Doping Agency banned Lance Armstrong, the rider who won the next seven Tours, for life and struck out his results. Its published decision described a team-wide doping programme [@usada2012]. He admitted it the following January. No winner is listed for those seven races {shadow @tour1998}.
 
 I assume today's riders are clean. Nothing here is meant to suggest otherwise about anyone, and nobody is connected with doping in this chapter unless an official body has found it or the rider has admitted it. What I do think is that professional teams look for every advantage the rules allow, and that the rules keep having to catch up with them.
 
@@ -136,11 +136,11 @@ I find these plausible contributors to modern speeds. Adding up their separate e
 
 The line between clean and doped is drawn by a list, and the list moves.
 
-Tramadol is an opioid painkiller. For years it was legal, and the 2015 commission was told it was "used widely" in the peloton for that reason [@circ2015]. In one trial, cyclists produced 220 W in a 20-minute time trial on tramadol against 209 W on a placebo, although a second experiment in the same paper found no difference [@holgado2018]. Cycling banned it in competition from March 2019 and the World Anti-Doping Agency followed in 2024. A rider who took it in 2018 broke no rule. The same act six years later is a doping offence.
+Tramadol is an opioid painkiller. For years it was legal, and the 2015 commission was told it was "used widely" in the peloton for that reason [@circ2015]. In one trial, cyclists produced 220 W in a 20-minute time trial on tramadol against 209 W on a placebo, although a second experiment in the same paper found no difference [@holgado2018]. Cycling banned it in competition from March 2019 and the World Anti-Doping Agency followed in 2024 {shadow @uci2019tramadol; @usada2024list}. A rider who took it in 2018 broke no rule. The same act six years later is a doping offence.
 
-Carbon monoxide is a more recent case. Inhaling a small, measured amount is the standard way to measure haemoglobin mass, and it is how the heat training studies in the previous chapter got their numbers. In 2024 it was reported that professional teams owned the equipment, which they said they used for measurement. Used once, it is a measuring tool. Used repeatedly, in theory, it could starve the body of a little oxygen and prompt the kidney to make more EPO, which would be altitude training from a cylinder. In February 2025 the sport's governing body banned possession of the equipment outside a medical facility, allowed a single supervised measurement with a second no sooner than two weeks later, gave rider health as its reason, and asked the World Anti-Doping Agency to rule on it [@uci2025co]. I know of no evidence that any rider used it for anything except measurement. The rule was written because the possibility existed.
+Carbon monoxide is a more recent case. Inhaling a small, measured amount is the standard way to measure haemoglobin mass, and it is how the heat training studies in the previous chapter got their numbers. Used once, it is a measuring tool. Used repeatedly, in theory, it could starve the body of a little oxygen and prompt the kidney to make more EPO, which would be altitude training from a cylinder. In February 2025 the sport's governing body banned possession of carbon monoxide rebreathing kits outside a medical facility, allowed a single supervised measurement with a second no sooner than two weeks later, gave rider health as its reason, and asked the World Anti-Doping Agency to take a position on it [@uci2025co]. I know of no evidence that any rider used it for anything except measurement. The rule was written because the possibility existed.
 
-Ketone drinks are legal. In October 2025 the governing body said it could find "no compelling evidence" that they help and recommended that riders not take them, without banning them [@uci2025ketones].
+Ketone drinks are legal. In October 2025 the governing body said there was "no compelling evidence" that they help and that it did not recommend them, but it did not ban them [@uci2025ketones].
 
 Tramadol, carbon monoxide measurement and ketones illustrate how the rules change around practices that were permitted. Looking for legal gains is what a professional team is for; describing that search is not an accusation of doping. As the 50% rule showed, riders can also interpret a limit as permission to approach it.
 

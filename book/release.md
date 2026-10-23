@@ -21,7 +21,7 @@ It prints the page count, the spine width and a `NOT FOR PRINT` line for anythin
 
 ## Still to do before upload
 
-- **Legal read of Chapter 16, Drugs** (the note at the top of its draft; the libel rule is in `brief.md`).
+- **Chapter 16, Drugs: no legal read** (George's decision, 22 October). Before upload, check the chapter against the libel rule in its `brief.md` once more: the only living person linked to doping is Armstrong, and no current rider, team or company is named or implied. Any edit to that chapter after 22 October needs the same check.
 - **Open editorial items:**
   - the "Worth deciding" points in `george/final-review.md`;
   - the waiting points in `george/structure-review.md`;
@@ -72,3 +72,6 @@ It prints the page count, the spine width and a `NOT FOR PRINT` line for anythin
 - **Glossary** (`back/glossary.md`, 76 terms), after the Verdict and on the review page, listed in the contents. Each definition follows the chapter it points to.
 - **Page breaks:** no list item splits over a page, no list leaves one item alone at the foot or head of a page, the sentence introducing a list or formula stays with it, and From the saddle boxes stay whole. Grade badges and chapter numbers no longer wrap onto a line of their own. The build reports any breaks left (`SPLIT`).
 
+## Done, 22 October 2026
+
+- **Chapter 16 checked instead of a legal read.** One sentence about current teams cut. The facts about named people and organisations were checked against the original documents: USADA's decision on Armstrong, the Tour organiser's records for 1998 to 2005, and the cycling governing body's statements on carbon monoxide, ketones and tramadol. Three wordings were tightened to match them. Details in `chapters/doping/research.md`, last section. Not confirmed at a primary source: the date of the Festina border stop and the list of drugs found, which every account agrees on.

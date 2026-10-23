@@ -25,6 +25,8 @@ George will not be getting a lawyer's review (6 October 2026), so the chapter is
 
 This is care, not legal advice. If the book sells widely, a paid review of this one chapter is still the safer course.
 
+**22 October 2026: George decided against a legal read.** Instead: the one sentence about current teams (that teams owned carbon monoxide rebreathing equipment, sourced to a 2024 press report never read) was cut, and the facts about named people and organisations were checked at primary sources (research.md, last section). Under KDP's terms (section 5.8) George warrants that the book contains no defamatory material and indemnifies Amazon, so this rule is the chapter's only protection: any later edit that names a person, team or company, or sets public numbers side by side so that they imply doping, reopens the risk. Being publicly available is not a defence.
+
 ## Scope (George, 6 October 2026)
 
 This is a science book about endurance training. The chapter is about the physiology, the evidence and what they teach. Court cases, sentences and sanctions get a clause, not a paragraph: enough to establish that the doping happened. The detail gathered on the Festina verdict, the Aderlass sentence and the USADA witnesses stays in `research.md` and out of the draft.
