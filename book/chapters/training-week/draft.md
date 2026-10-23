@@ -6,7 +6,7 @@ The hard sessions produced most of the improvement in Part III's trials on a few
 
 ## The order to build it in
 
-**The hard sessions.** Two a week is the best-supported default for a rider on six to ten hours. The reasons are in Chapter 12. Two sessions build about as much as three over a few weeks, and the heart's nervous control takes 48 hours or more to recover from a hard session [@stanley2013]. One of the two should be long intervals of four to eight minutes per effort, adding up to about half an hour of hard work. In recreational cyclists on about six hours a week, 4 × 8 minutes doubled the gain from 4 × 4 [@seiler2013]. The other can be 30/15s, more long intervals, or a controlled threshold session, which costs less to recover from and builds more of the fraction of VO₂max you can sustain than of VO₂max itself (Chapter 11). A third hard session belongs only in a short block of a week or two, followed by an easier week, and only when the rest of the week can be genuinely easy. Beyond three the trials found no further gain, and the warning signs of overreaching came first (Chapter 12). {grade B for two sessions and their spacing; grade C for the choice of the second}
+**The hard sessions.** Two a week is the best-supported default for a rider on six to ten hours. The reasons are in Chapter 12. Two sessions build about as much as three over a few weeks, and the heart's nervous control takes 48 hours or more to recover from a hard session [@stanley2013]. One of the two should be long intervals of four to eight minutes per effort, adding up to about half an hour of hard work. In recreational cyclists on about six hours a week, 4 × 8 minutes doubled the gain from 4 × 4 [@seiler2013]. The other can be 30/15s, more long intervals, or a controlled threshold session. A threshold session costs less to recover from, and builds the fraction of VO₂max you can sustain more than VO₂max itself (Chapter 11). A third hard session belongs only in a short block of a week or two, followed by an easier week, and only when the rest of the week can be genuinely easy. Beyond three the trials found no further gain, and the warning signs of overreaching came first (Chapter 12). {grade B for two sessions and their spacing; grade C for the choice of the second}
 
 **Riding them.** For long intervals and 30/15s, ride at the hardest effort you can sustain to the end. Keep threshold sessions controlled below the second threshold. Judge by power and effort; heart rate can make short intervals look closer to VO₂max than they are (Chapter 11). When a session becomes comfortable, add a repetition before adding power. {grade B for the sessions; grade C for the advice on progression}
 
@@ -22,7 +22,7 @@ The hard sessions produced most of the improvement in Part III's trials on a few
 
 The figure shows one way to lay out a week at 4, 8 and 12 hours. Each total is the time on the bike, including warm-ups and cool-downs.
 
-At **4 hours**, the week is two hard sessions and two short easy rides: 4 × 8 minutes on Tuesday, an hour easy on Thursday, three sets of 30/15s on Saturday and 45 minutes easy on Sunday. The hard sessions are 96 and 72 hours apart. Their efforts total about 52 minutes, or 21% of the week. The short easy rides keep the riding regular. You could combine them into one longer ride, which has more to recommend it on Chapter 7's account of the mechanism, if three riding days suit your life better than four.
+At **4 hours**, the week is two hard sessions and two short easy rides: 4 × 8 minutes on Tuesday, an hour easy on Thursday, three sets of 30/15s on Saturday and 45 minutes easy on Sunday. The hard sessions are 96 and 72 hours apart. Their efforts total about 52 minutes, or 21% of the week. The short easy rides keep the riding regular. If three riding days suit your life better than four, you could combine them into one longer ride, which Chapter 7's account of the mechanism slightly favours.
 
 At **8 hours**, the hard sessions move to Tuesday and Friday, 72 hours apart, with an easy ride of an hour and a half on Wednesday and an hour on Thursday, and a three-hour long ride on Saturday. Sunday and Monday are rest. The hard work is the same 52 minutes, now 11% of the week.
 
@@ -67,7 +67,7 @@ The review proposed a number for spotting a dangerous jump: the acute:chronic wo
 
 Look at how the conventional version is calculated. The four-week average includes this week. So the top and the bottom of the ratio share a quarter of their content. A week with a high load raises the top of the ratio fully and the bottom by a quarter as much, and the ratio rises whatever was happening to the rider. A week of 400 units after three weeks of 200 gives a ratio of 400 divided by 250, which is 1.6. The same 400 after three weeks of 400 gives exactly 1.0. The ratio is partly measuring this week twice.
 
-That matters when the ratio is correlated with something else that depends on this week's load, such as injury. In 2019 a group of sport scientists published a short paper with the plain title "Mathematical coupling causes spurious correlation within the conventional acute-to-chronic workload ratio calculations" {shadow @lolli2019}. A ratio that shares a term with its own denominator will correlate with things that correlate with that term, even when the ratio itself adds nothing.
+That matters when the ratio is correlated with something else that depends on this week's load, such as injury. In 2019 a group of sport scientists published a short paper with the plain title "Mathematical coupling causes spurious correlation within the conventional acute-to-chronic workload ratio calculations" {shadow @lolli2019}. A ratio whose top and bottom share a term will correlate with anything that correlates with that term, even when the ratio itself adds nothing.
 
 In 2020 a fuller critique concluded that "There is no evidence supporting the use of ACWR in training-load-management systems or for training recommendations aimed at reducing injury risk" [@impellizzeri2020]. No study had tried to estimate a causal effect properly. The ratio failed to normalise what it claimed to normalise, behaved differently depending on how it was calculated, and was not consistently related to injury. In the authors' words, it "adds noise and creates statistical artifacts".
 
@@ -77,9 +77,9 @@ For a cyclist, the useful part survives without the ratio. Don't double your tra
 
 ## Monotony
 
-In 1998 Carl Foster followed 25 experienced athletes who logged each session as its rated effort multiplied by duration [@foster1998]. He defined weekly monotony as the average daily load divided by its standard deviation: similar days score high, varied days low. Illnesses clustered when athletes went over individual thresholds, mostly of strain, the week's load multiplied by its monotony.
+In 1998 Carl Foster followed 25 experienced athletes who logged each session as its rated effort multiplied by duration [@foster1998]. He defined weekly monotony as the average daily load divided by its standard deviation: similar days score high, varied days low. Illnesses clustered when athletes went over individual thresholds, mostly of strain: the week's load multiplied by its monotony.
 
-This was an observational study with self-reported illness. It does not establish a cause, but supports varying the days rather than riding seven identical sessions between the thresholds. {grade C}
+This was an observational study with self-reported illness. It does not establish a cause, but it supports varying the days rather than riding seven identical sessions between the thresholds. {grade C}
 
 ## Where the rest goes
 
@@ -87,11 +87,11 @@ The other things Part IV weighed fit around the riding, not into it.
 
 **Strength.** Chapter 14's advice is heavy lifting for the legs twice a week for about three months, starting after the season ends, and once a week after that to keep it. In a week, that is one or two short sessions in the gym, and they compete with the hard rides for fresh legs. One arrangement, which no trial has tested, is to lift on the same day as a hard ride, after it or several hours later. The easy days then stay easy, and the legs are not heavy from squats at the start of an interval session. For the first two or three weeks of lifting, expect soreness and ride less. {grade C}
 
-**Fuel.** Arrive at the hard sessions fuelled, because a hard session ridden on empty is a hard session wasted, and eat on anything longer than about 90 minutes. Chapter 13 has the amounts. The long ride is also the place to practise eating what you will eat in your events.
+**Fuel.** Arrive at the hard sessions fuelled, because a hard session ridden on empty is a hard session wasted. Eat on anything longer than about 90 minutes. Chapter 13 has the amounts. The long ride is also the place to practise eating what you will eat in your events.
 
 **Heat.** Chapter 15 found little for an amateur in deliberate heat training, apart from a week or two of riding in warm conditions before a hot event. A rider training indoors in summer is getting some of it anyway, and Chapter 18 covers what that does to heart rate.
 
-**Indoors.** A trainer makes the hard sessions easier to ride well and the long ride harder to bear, and the same effort indoors tends to produce less power than outdoors. Chapter 18 has the numbers. None of it changes the shape of the week.
+**Indoors.** A trainer makes the hard sessions easier to ride well and the long ride harder to bear. The same effort indoors also tends to produce less power than outdoors. Chapter 18 has the numbers. None of it changes the shape of the week.
 
 ## Across a season
 
@@ -101,7 +101,7 @@ This is an example, with different evidence behind each part.
 
 **Building the hours.** The rider adds about half an hour a week until the hours reach what life allows, then holds. No trial tells a cyclist how fast to add hours, and the 10% rule's one trial found no benefit from going slowly [@buist2008]. Going slowly costs little, though, and the jump to avoid is the sudden one.
 
-**Lighter weeks.** Every fourth week in the figure is about 30% lighter, with one hard session instead of two. This is coaching convention. I searched for a trial in cyclists that compared a regular pattern of lighter weeks with steady training and found none. The nearest evidence is indirect: unrelieved load leads to the stagnation and fatigue of overreaching [@meeusen2013], and fitness shows up better after a reduction in volume when the intensity is kept, which is what a taper is. Take a lighter week when the hard sessions stop going well, or when life makes one for you, and don't worry about the rhythm. {grade C}
+**Lighter weeks.** Every fourth week in the figure is about 30% lighter, with one hard session instead of two. This is coaching convention. I searched for a trial in cyclists that compared a regular pattern of lighter weeks with steady training and found none. The nearest evidence is indirect. Unrelieved load leads to the stagnation and fatigue of overreaching [@meeusen2013], and fitness shows up better after volume is cut and intensity kept, which is what a taper is. Take a lighter week when the hard sessions stop going well, or when life makes one for you, and don't worry about the rhythm. {grade C}
 
 **Blocks.** Some riders concentrate their hard sessions into a block of a week or two, followed by easier weeks. The 2019 meta-analysis of block periodisation found small advantages over traditional arrangements, an effect size of 0.40 for VO₂max and 0.28 for peak power [@molmen2019]. The studies behind it were rated as small and generally of low quality, with an average score of 3.7 out of 10 on its quality scale. A block is a reasonable way to use a free week, and the evidence doesn't make it necessary. {grade C}
 

@@ -18,6 +18,9 @@ italic, numbered and bulleted lists, blockquotes. Book conventions:
                           (style.md says which sources are printed)
   ~~text~~             -> a proposed cut, waiting for George: struck through on the review page,
                           dropped from the print proof and from the word counts
+  {~~old~>new~~}       -> a proposed rewrite, waiting for George: the old wording struck through and the new
+                          beside it, numbered within the chapter, on the review page; the new wording in print
+                          and in the word counts (tools/rewrites.py accepts or rejects them)
   {grade A|B|C}        -> a small evidence-grade badge
   [GEORGE: ...]        -> a highlighted note for George
   ![caption](figures/x.svg) on its own paragraph -> the SVG inline, numbered, with the caption
@@ -46,6 +49,7 @@ from typography import smart_quotes
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 BOOK = os.path.dirname(HERE)
+REWRITE = re.compile(r"\{~~(.*?)~>(.*?)~~\}")  # a proposed rewrite: {~~wording now~>proposed wording~~}
 
 # The first chapter of each part (by folder name), and the part's number and title.
 PARTS = {
@@ -92,6 +96,9 @@ def load_sources():
 def inline(text, cite):
     t = smart_quotes(html.escape(text, quote=False))  # before any tags, which have quotes of their own
     t = t.replace("₂", "<sub>2</sub>")  # Newsreader has no subscript two; a fallback font's would show
+    t = re.sub(r"\{~~(?:(\d+)\|)?(.+?)~&gt;(.+?)~~\}",  # html.escape has turned ~> into ~&gt;
+               r'<del class="was" title="Proposed rewrite \1: the wording now">\2</del> '
+               r'<ins class="now" data-n="\1" title="Proposed rewrite \1">\3</ins>', t)
     t = re.sub(r"~~(.+?)~~", r'<del class="cut" title="Proposed cut">\1</del>', t)
     t = re.sub(r"\[GEORGE:(.*?)\]", lambda m: f'<mark class="george">George: {m.group(1).strip()}</mark>', t, flags=re.S)
     t = re.sub(r"[ \t]+(?=\{grade )", "\u00a0", t)  # a badge stays with the word before it, never alone on a line
@@ -199,8 +206,12 @@ def render_chapter(md, sources, idx, base=".", probes=False, moves=None, layout=
     order, shadows = [], []
     md = re.sub(r"<!--.*?-->", "", md, flags=re.S)  # notes to ourselves, never printed
     if print_mode:
+        md = REWRITE.sub(r"\2", md)  # proposed rewrites: the proof shows the new wording
         md = re.sub(r"[ \t]*\{shadow [^{}]*\}", "", md)  # sources kept for checking, never printed
         md = re.sub(r"[ \t]*~~.*?~~", "", md)  # proposed cuts: the proof shows the book as it would be
+    else:
+        n = iter(range(1, 10000))
+        md = re.sub(r"\{~~", lambda m: f"{{~~{next(n)}|", md)  # numbered for George within the chapter
 
     def cite(group, shadow=False):
         keys = re.findall(r"@([A-Za-z0-9_:-]+)", group)
@@ -266,7 +277,8 @@ def render_chapter(md, sources, idx, base=".", probes=False, moves=None, layout=
         else:
             out.append(f"<p>{inline(' '.join(l.strip() for l in b), cite)}</p>")
 
-    words = len(re.findall(r"\b\w+\b", re.sub(r"\[@[^\]]+\]|\{shadow [^{}]*\}|\{grade [ABC]\}|~~.*?~~", "", md)))
+    words = len(re.findall(r"\b\w+\b", re.sub(r"\[@[^\]]+\]|\{shadow [^{}]*\}|\{grade [ABC]\}|~~.*?~~", "",
+                                              REWRITE.sub(r"\2", re.sub(r"\{~~\d+\|", "{~~", md)))))
 
     def ref_list(keys, prefix):
         refs = []
@@ -302,12 +314,12 @@ STYLE = """
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
-  :root{--bg:#F6F5F1;--page:#FFFFFF;--ink:#1C1F1D;--muted:#5D6460;--faint:#8B918D;--rule:#E1E3DF;--cut:#A8402C;
+  :root{--bg:#F6F5F1;--page:#FFFFFF;--ink:#1C1F1D;--muted:#5D6460;--faint:#8B918D;--rule:#E1E3DF;--cut:#A8402C;--ins:#E2F0E4;
     --accent:#1E7F45;--mark:#FFF1B8;--mark-ink:#5A4300;--gA:#1E7F45;--gB:#B07A12;--gC:#9A4E2E;
     --serif:"Newsreader",Georgia,"Times New Roman",serif;--sans:"IBM Plex Sans",-apple-system,"Segoe UI",sans-serif;--mono:"IBM Plex Mono",ui-monospace,Menlo,monospace}
-  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111412;--page:#181C19;--ink:#E5E8E5;--muted:#A0A8A3;--faint:#737B76;--rule:#2B312D;--cut:#E58A78;
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111412;--page:#181C19;--ink:#E5E8E5;--muted:#A0A8A3;--faint:#737B76;--rule:#2B312D;--cut:#E58A78;--ins:#1E3325;
     --accent:#58C485;--mark:#4A3C0E;--mark-ink:#FFE7A0;--gA:#58C485;--gB:#E0B04A;--gC:#E08A66;color-scheme:dark}}
-  :root[data-theme="dark"]{--bg:#111412;--page:#181C19;--ink:#E5E8E5;--muted:#A0A8A3;--faint:#737B76;--rule:#2B312D;--cut:#E58A78;
+  :root[data-theme="dark"]{--bg:#111412;--page:#181C19;--ink:#E5E8E5;--muted:#A0A8A3;--faint:#737B76;--rule:#2B312D;--cut:#E58A78;--ins:#1E3325;
     --accent:#58C485;--mark:#4A3C0E;--mark-ink:#FFE7A0;--gA:#58C485;--gB:#E0B04A;--gC:#E08A66;color-scheme:dark}
   body{background:var(--bg);color:var(--ink);font-family:var(--serif);font-size:19px;line-height:1.62}
   .wrap{max-width:720px;margin:0 auto;padding-inline:20px;padding-block:28px 90px}
@@ -333,6 +345,9 @@ STYLE = """
   sup.cite a{color:var(--accent);text-decoration:none}
   sup.cite.shadow,sup.cite.shadow a{color:var(--faint)}
   del.cut,del.cut a{color:var(--cut);text-decoration:line-through;text-decoration-thickness:1px}
+  del.was,del.was a{color:var(--cut);text-decoration:line-through;text-decoration-thickness:1px}
+  ins.now{text-decoration:none;background:var(--ins);border-radius:3px;padding:0 2px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+  ins.now::after{content:attr(data-n);font-family:var(--sans);font-size:10px;font-weight:600;color:var(--accent);vertical-align:super;line-height:0;margin-left:3px}
   section.refs h2.shadow-h{margin-top:22px}
   section.refs ol.shadow{list-style:none;padding-left:0;counter-reset:sh;color:var(--faint)}
   section.refs ol.shadow li{counter-increment:sh;padding-left:2.2em;text-indent:-2.2em}
@@ -941,6 +956,9 @@ def main():
                    + f'<article{" class=gloss" if is_back(f) else ""}>{c[3].replace("</h1>", f"</h1><p class=meta>Draft · {c[2]:,} words · {today}</p>", 1)}</article>'
                    for c, p, f in zip(chapters, parts, files))
     cut_key = '<del class="cut">struck through</del> a proposed cut, not yet made &nbsp;' if 'class="cut"' in body else ""
+    if 'class="now"' in body:
+        cut_key += ('<del class="was">wording now</del> <ins class="now" data-n="1">proposed wording</ins> '
+                    'a proposed rewrite, numbered within its chapter, not yet made &nbsp;')
     page = f"""<title>Just Zone 2? Draft</title>
 {STYLE}
 <div class="wrap">

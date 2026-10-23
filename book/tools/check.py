@@ -80,6 +80,7 @@ def load_sources():
 def strip_markup(text):
     text = re.sub(r"```.*?```", "", text, flags=re.S)
     text = re.sub(r"<!--.*?-->", "", text, flags=re.S)
+    text = re.sub(r"\{~~.*?~>(.*?)~~\}", r"\1", text)  # proposed rewrites: check the new wording
     text = re.sub(r"[ \t]*~~.*?~~", "", text)  # proposed cuts: check the text as it would read without them
     return text
 

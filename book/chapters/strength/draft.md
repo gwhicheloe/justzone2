@@ -12,13 +12,13 @@ Eight people, no comparison group and time-to-exhaustion tests leave the result 
 
 Most of the modern evidence comes from Scandinavia, and the largest share of it from one group in Norway led by Bent Rønnestad.
 
-Their first trial took 20 well-trained cyclists. Eleven added heavy strength training to their normal riding, and nine carried on riding only. The lifting was four leg exercises, three sets of four to ten repetitions with a weight that could only just be lifted that many times, twice a week for 12 weeks. The lifters increased the cross-sectional area of their thigh muscles and their power at a fixed blood lactate level, and improved their average power in a 40-minute all-out test. The riders who only rode came close to improving in that test too, falling just short of statistical significance, so the gap between the groups was smaller than the headline suggests. VO₂max rose equally in both groups [@ronnestad2010a].
+Their first trial took 20 well-trained cyclists. Eleven added heavy strength training to their normal riding, and nine carried on riding only. The lifting was four leg exercises, three sets of four to ten repetitions with a weight that could only just be lifted that many times, twice a week for 12 weeks. The lifters' thigh muscles grew, their power at a fixed blood lactate level rose, and their average power in a 40-minute all-out test improved. The riders who only rode came close to improving in that test too, falling just short of statistical significance, so the gap between the groups was smaller than the headline suggests. VO₂max rose equally in both groups [@ronnestad2010a].
 
 The same riders were also tested at the end of a long ride, and that result is in the Durability chapter.
 
 A Danish study gave 14 young elite cyclists 16 weeks of endurance training with or without strength work. Short efforts of five minutes improved by 3 to 4% in both groups. Performance in a 45-minute test improved by 8%, and only in the group that lifted [@aagaard2011].
 
-The Norwegian group also repeated its design in women. Nineteen well-trained female cyclists were randomly assigned to 11 weeks with or without heavy strength training, and the 11 who lifted improved their 40-minute power, their cycling economy and the fraction of VO₂max they could sustain. The eight who did not lift did not change [@vikmoen2016].
+The Norwegian group also repeated its design in women. Nineteen well-trained female cyclists were randomly assigned to 11 weeks with or without heavy strength training. The 11 who lifted improved their 40-minute power, their cycling economy and the fraction of VO₂max they could sustain. The eight who did not lift did not change [@vikmoen2016].
 
 Not every trial agrees. In 1999 an Australian group randomly assigned 21 trained female cyclists to 12 weeks of heavy squats twice a week or to a control group. The squatters' strength rose by 36%. Their power in a one-hour test did not change, nor did their lactate threshold or anything measured in their muscles [@bishop1999]. A 2010 systematic review that admitted only randomised trials in highly trained road cyclists found five, of which two showed no benefit [@yamamoto2010].
 
@@ -38,7 +38,7 @@ So the best summary available says that heavy lifting probably makes trained cyc
 
 ## How it works
 
-Of Chapter 1's original three factors, lifting appears to change efficiency, with no pooled effect on VO₂max or threshold power. It also improves the muscle's ability to produce force.
+Of Chapter 1's three original factors, lifting appears to change only efficiency: the pooled results show no effect on VO₂max or threshold power. It also improves the muscle's ability to produce force.
 
 A review by Rønnestad and Iñigo Mujika sets out the mechanisms that have been proposed [@ronnestad2014]. Rønnestad led most of the Norwegian trials, so this is the field's main contributor summarising work that is largely his own. The simplest mechanism is that a stronger muscle uses a smaller share of its maximum on every pedal stroke. The slow-twitch fibres, which are the efficient ones, can then do more of the work before the less efficient fast-twitch fibres have to be called in. The review cites a study in which, among cyclists of equal VO₂max, the stronger ones showed less electrical activity in their muscles at a given power.
 
@@ -54,7 +54,7 @@ The first Norwegian trial and the long-ride result described above have the same
 
 One experiment can reasonably produce several papers. Count the independent groups of riders, though, and "several trials from Norway" may amount to fewer experiments than the reference list suggests.
 
-The abstracts of those two papers also say that the riders "were assigned" to their groups. The women's trial says "randomly assigned" [@vikmoen2016]. Cyclists who choose to spend a winter in the gym may be the more motivated or the more ambitious, and Chapter 4 described how the same problem undid an early study of pain tolerance. The meta-analysis identified missing randomisation as the main weakness of this whole literature. What survives is the summary above: heavy lifting probably makes trained cyclists somewhat faster, on fewer independent experiments than the reference list suggests.
+The abstracts of those two papers also say only that the riders "were assigned" to their groups, where the women's trial says "randomly assigned" [@vikmoen2016]. Cyclists who choose to spend a winter in the gym may be the more motivated or the more ambitious, and Chapter 4 described how the same problem undid an early study of pain tolerance. The meta-analysis identified missing randomisation as the main weakness of this whole literature. What survives is the summary above: heavy lifting probably makes trained cyclists somewhat faster, on fewer independent experiments than the reference list suggests.
 
 ## Will it make me heavier?
 
@@ -68,7 +68,7 @@ Hickson's original finding works in the cyclist's favour here. Heavy endurance t
 
 The programmes in the 17 studies were similar enough to describe an average. They used about four exercises a session, loads of about 84% of the one-repetition maximum, which is a weight that can be lifted about seven times, and ran for about 14 weeks. The squat was the commonest exercise, used in 12 of the studies, followed by calf exercises, leg curls and the leg press [@llanoslagos2026]. All of it is heavy lifting for the legs. The review by Rønnestad and Mujika concludes that for cycling the evidence favours heavy loads over light, explosive work, and it adds a detail about how to lift them. The weight will move slowly because it is heavy, but the rider should try to push it up as fast as possible. In one study it cites, lifting with that intent produced larger gains in strength and in the rate of force development than lifting at a deliberately moderate speed [@ronnestad2014].
 
-Its recommended programme is two sessions a week for 12 weeks, with two or three sets of four to ten repetitions and two to three minutes' rest between sets, using exercises that work the same muscles through a similar movement to pedalling. It warns that legs feel heavy and sore for the first days after each session at the start, and advises cutting back the riding for the first two or three weeks. The suggested time to begin is straight after the end of the season, when riding matters least [@ronnestad2014].
+Its recommended programme is two sessions a week for 12 weeks, with two or three sets of four to ten repetitions and two to three minutes' rest between sets, using exercises that work the same muscles through a similar movement to pedalling. It warns that at first the legs feel heavy and sore for a few days after each session, and advises cutting back the riding for the first two or three weeks. The suggested time to begin is straight after the end of the season, when riding matters least [@ronnestad2014].
 
 Strength gained in the winter can be kept through the season on very little. The Norwegian group had six cyclists lift twice a week for a 12-week preparation period and then once a week for the first 13 weeks of the racing season. They kept the muscle and the strength they had gained, and by the end of the 25 weeks had improved their 40-minute power more than six riders who had not lifted at all {shadow @ronnestad2010b}. Twelve riders is very few, but the finding fits the pattern from Chapter 2 that an adaptation is cheaper to keep than to build.
 

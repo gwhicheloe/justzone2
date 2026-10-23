@@ -52,7 +52,7 @@ The trial is often quoted as showing that two sessions beat four. The two-sessio
 
 But look again at the time trial. The hypothesis was about the difference between the groups, and the effect size for that difference was 0.17, trivial by the authors' own description [@tonnessen2020]. "Superior" rests on one group's improvement crossing the line of statistical significance while the other group's did not. With nine athletes in one group and six in the other, small differences in where each group's change falls can move it across that line.
 
-The same pattern runs through the frequency literature. In the German runners, the test of whether frequency changed the result gave p = 0.17 for VO₂max: the groups were not shown to differ, although the two- and three-session groups' changes were each significant and the one-session group's was not [@lenk2025]. A 2025 meta-analysis of interval training in athletes found effect sizes of 0.69 for two sessions a week and 1.21 for three, against controls, and described three as superior because only the second crossed p = 0.05 [@yang2025]. Both effects point the same way, and their uncertainties overlap.
+The same pattern runs through the frequency literature. In the German runners, the test of whether frequency changed the result gave p = 0.17 for VO₂max, so the groups were not shown to differ. Yet the two- and three-session groups' changes were each significant and the one-session group's was not [@lenk2025]. A 2025 meta-analysis of interval training in athletes found effect sizes of 0.69 for two sessions a week and 1.21 for three, against controls, and described three as superior because only that figure crossed p = 0.05 [@yang2025]. Both effects point the same way, and their uncertainties overlap.
 
 Compare the groups directly. "Group A improved significantly and group B did not" reports two tests, each comparing a group with itself. Showing that A did better than B requires a separate test of the difference between them.
 
@@ -78,7 +78,7 @@ Blocks can also go wrong. The Trondheim group cites two studies in which two wee
 
 Compressing the work without a recovery period afterwards delayed the gain. In 2014 a Trondheim group gave 21 young adults 24 sessions of uphill treadmill intervals, 4 × 4 minutes, either over eight weeks or over three [@hatle2014]. Four days after the last session, VO₂max was 10.7% higher in the eight-week group, and the 3.0% in the three-week group was not significant. Twelve days later, after rest, the compressed group had reached 6.1% and the spread-out group had slipped to 7.9%, and the two were no longer significantly different.
 
-And the order of the hard sessions mattered not at all in the largest trial of cyclists, where 63 riders did 24 interval sessions at two a week in three different orders and all improved by 5% to 10% {shadow @sylta2016}. Doing the hard sessions consistently mattered more than sequencing them cleverly. {grade B}
+And in the largest trial of cyclists the order of the hard sessions did not matter at all: 63 riders did 24 interval sessions, two a week, in three different orders, and all improved by 5% to 10% {shadow @sylta2016}. Doing the hard sessions consistently mattered more than sequencing them cleverly. {grade B}
 
 ## Threshold sessions count differently
 
@@ -96,7 +96,7 @@ For a busy month or an off-season, I would keep one hard session a week alongsid
 
 ## Is the champions' hour a ceiling?
 
-The trials that improved cyclists put a similar amount of hard work into a week. Seiler's 4 × 8s, twice a week, came to 64 minutes [@seiler2013]. The 30/15 sessions of Chapter 11 came to about 39 minutes of hard efforts {shadow @ronnestad2015b}. The Trondheim 4 × 4s, three times a week, came to 48 [@helgerud2007]. The champions' 1.3 hours a week is time in the top three zones as they logged it, which probably includes some of the recovery between repetitions, so their figure and the trials' are not quite the same measure [@tonnessen2014]. But they are the same order: something like 40 minutes to an hour of hard work a week, in two or three sessions.
+The trials that improved cyclists put a similar amount of hard work into a week. Seiler's 4 × 8s, twice a week, came to 64 minutes [@seiler2013]. The 30/15 sessions of Chapter 11 came to about 39 minutes of hard efforts {shadow @ronnestad2015b}. The Trondheim 4 × 4s, three times a week, came to 48 [@helgerud2007]. The champions' 1.3 hours a week is time in the top three zones as they logged it, which probably includes some of the recovery between repetitions. So their figure and the trials' are not quite the same measure [@tonnessen2014]. But they are the same order: something like 40 minutes to an hour of hard work a week, in two or three sessions.
 
 I read that match as a limit on the hard work a body can absorb, with the champions adding easy hours around it. No trial has tested a larger hard dose over months in amateur cyclists, so the ceiling's exact height is unknown. In the short frequency trials above, more sessions brought no clear extra gain and some signs of strain. {grade C}
 

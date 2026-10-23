@@ -1,12 +1,12 @@
 # Introduction: Why ask the question
 
-In the spring of 2026 I rode up Sa Calobra faster than I ever had. The climb on the north coast of Mallorca is nine and a half kilometres at about seven per cent, with twenty-six hairpins and nowhere to recover, and I took two minutes and eleven seconds off my best time.
+In the spring of 2026 I rode up Sa Calobra faster than I ever had. The climb, on the north coast of Mallorca, is nine and a half kilometres at about seven per cent, with twenty-six hairpins and nowhere to recover. I took two minutes and eleven seconds off my best time.
 
 I knew why, or thought I did. I had spent the winter in my garage on a smart trainer, four or five times a week, riding for 45 minutes to an hour at a heart rate of about 142 beats per minute. It was the dullest training I had ever done. Nothing hurt, nothing was worth posting, and my ride history turned into a column of identical flat grey lines. Then I went to Mallorca, rode the effort I had learned by heart all winter, and found there was a lot more power under it than before.
 
 That winter was Zone 2 training, and I wrote about it with the enthusiasm of a convert. I told readers of my website that easy riding was the single most effective way to build mitochondria, the structures in muscle cells that use oxygen to make energy. I believed it. I had heard it from people who sounded as if they knew.
 
-A few months later I sat down to read the research properly, and that sentence didn't survive. The largest summary of the evidence, a review of 353 training studies published in 2025, found that mitochondrial content rose by similar amounts whether people did steady continuous training (about 23%) or either kind of interval training, high-intensity or all-out sprints (27%). Per hour of training, the sprints did almost four times as much {shadow @molmen2025}. In 2025 four Canadian researchers made the same point at length, in a review they called "Much Ado About Zone 2" [@storoschuk2025]. Zone 2 had done something real for me. It just hadn't done it for the reason I had been told, or not only for that reason.
+A few months later I sat down to read the research properly, and that sentence didn't survive. The largest summary of the evidence, a 2025 review of 353 training studies, found that mitochondrial content rose by similar amounts with steady training (about 23%) and with intervals, whether high-intensity efforts or all-out sprints (27%). Per hour of training, the sprints did almost four times as much {shadow @molmen2025}. In 2025 four Canadian researchers made the same point at length, in a review they called "Much Ado About Zone 2" [@storoschuk2025]. Zone 2 had done something real for me. It just hadn't done it for the reason I had been told, or not only for that reason.
 
 This book grew out of that gap: between what people confidently say about endurance training and what the studies actually show.
 
@@ -20,7 +20,7 @@ Ten years later Martin Gibala's lab in Canada compared two small groups of activ
 
 Around the same time, the Norway-based physiologist Stephen Seiler was describing how the world's best endurance athletes actually trained. Across sports, he found, they did roughly four easy sessions for every hard one, with very little in between [@seiler2010]. That observation became "80/20" and "polarised training", and for a while every training plan had to be polarised.
 
-Then came Zone 2. Its rise owed a lot to podcasts, in particular a 2019 conversation between the physician Peter Attia and the physiologist Iñigo San-Millán, who worked with professional cycling teams [@attia2019]. San-Millán's research on how well athletes and patients burn fat and clear lactate was real and interesting. Repeated across thousands of episodes and social media posts, it became something larger: a training intensity with special powers over mitochondria, metabolism and even lifespan.
+Then came Zone 2. Its rise owed a lot to podcasts, in particular a 2019 conversation between the physician Peter Attia and the physiologist Iñigo San-Millán, who worked with professional cycling teams [@attia2019]. San-Millán's research on how well athletes and patients burn fat and clear lactate was real and interesting. Repeated across thousands of episodes and social media posts, it grew into something larger: the idea of a training intensity with special powers over mitochondria, metabolism and even lifespan.
 
 None of these fashions was simply wrong. High-intensity intervals do work, elite athletes do mostly train easy, and easy riding does improve aerobic fitness. What each fashion got wrong was its confidence, and its silence about who was studied, for how long, and what was actually measured.
 
