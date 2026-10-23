@@ -203,3 +203,9 @@ George: "there seem to be blank pages between chapters and also can you start pr
 
 The release checklist, with George's decisions, is `release.md`.
 
+## 21 October 2026: page breaks and a glossary
+
+George: "on page 17 there are bullets split over two pages- can you check for these types of unfortunate splits. also can you add a glossary". The Joyner and Coyle list in Chapter 1 had one item at the foot of the page. The print style now keeps list items whole, never leaves a single item at the foot or head of a page, keeps the sentence before a list or formula with it, and keeps From the saddle boxes whole; grade badges and "Chapter N" are tied to the word before them. `render.py` makes one extra build with probes in the final layout and prints a `SPLIT` line for any list, box or formula that runs onto the next page, any heading at the foot of a page, and any introducing sentence left behind; it also counts words hyphenated across a page. On 21 October the only splits left were three long lists (10, 9 and 5 items) breaking between middle items, and 8 hyphenated words across a page turn, left until the text is final. Some pages now end a few lines short where a short list moved over whole (Chapter 1's first page).
+
+Glossary: `back/glossary.md`, 76 terms, 2,688 words, added automatically after the last chapter in print and on the review page, and in the contents. Definitions follow the chapter each points to (Chapter 5's "The terms as this book uses them" for the zones and thresholds; Chapter 4 for the grades), and every number in it is in that chapter. Front matter is unchanged; the book is 271 pages.
+

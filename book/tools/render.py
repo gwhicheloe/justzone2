@@ -5,7 +5,9 @@
   python3 book/tools/render.py [--trim 6x9] OUT.pdf chapters...   -> the paperback's interior: front matter
                           (front/title.md, front/copyright.md), contents, part pages and chapters at the trim size
                           (default 6 x 9 in), made with Chrome, with running heads and page numbers stamped on;
-                          OUT.html is kept beside it. It lists anything that must not reach print (NOT FOR PRINT).
+                          OUT.html is kept beside it. It lists anything that must not reach print (NOT FOR PRINT),
+                          and page breaks a reader would notice (SPLIT), such as a list running onto the next page.
+back/glossary.md, if it exists, follows the last chapter in both outputs.
 
 Handles the subset of Markdown the drafts use: headings, paragraphs, bold and
 italic, numbered and bulleted lists, blockquotes. Book conventions:
@@ -59,6 +61,20 @@ def part_of(path):
     return PARTS.get(os.path.basename(os.path.dirname(os.path.abspath(path))))
 
 
+# Back matter: printed after the last chapter and added to the review page, whatever chapters are named.
+GLOSSARY = os.path.join(BOOK, "back", "glossary.md")
+
+
+def is_back(path):
+    return os.path.basename(os.path.dirname(os.path.abspath(path))) == "back"
+
+
+def counted(files):
+    """'21 chapters', or '21 chapters and a glossary'."""
+    n = sum(1 for f in files if not is_back(f))
+    return f"{n} chapters" + (" and a glossary" if any(is_back(f) for f in files) else "")
+
+
 def load_sources():
     out, cur = {}, None
     for line in open(os.path.join(BOOK, "sources.yaml"), encoding="utf-8"):
@@ -78,6 +94,8 @@ def inline(text, cite):
     t = t.replace("₂", "<sub>2</sub>")  # Newsreader has no subscript two; a fallback font's would show
     t = re.sub(r"~~(.+?)~~", r'<del class="cut" title="Proposed cut">\1</del>', t)
     t = re.sub(r"\[GEORGE:(.*?)\]", lambda m: f'<mark class="george">George: {m.group(1).strip()}</mark>', t, flags=re.S)
+    t = re.sub(r"[ \t]+(?=\{grade )", "\u00a0", t)  # a badge stays with the word before it, never alone on a line
+    t = re.sub(r"\b(Chapters?|Part) (?=\d|[IV]+\b)", "\\1\u00a0", t)  # "Chapter 5" never split over two lines
     t = re.sub(r"\{grade ([ABC])\}", lambda m: f'<span class="grade g{m.group(1)}" title="Evidence grade {m.group(1)}">{m.group(1)}</span>', t)
     # qualified grades, e.g. {grade A for the shape; grade B for the details}: a badge for each grade, the words kept
     badge = lambda m: f'<span class="grade g{m.group(1)}" title="Evidence grade {m.group(1)}">{m.group(1)}</span>'
@@ -326,6 +344,8 @@ STYLE = """
   figure{margin:26px 0;padding:0} figure svg{display:block;width:100%;height:auto;border:1px solid var(--rule);border-radius:8px;background:#fff}
   figcaption{font-family:var(--sans);font-size:14px;line-height:1.5;color:var(--muted);margin-top:8px}
   figcaption b{color:var(--ink)}
+  article.gloss .meta+p{font-style:italic}
+  article.gloss p:has(>strong:first-child){padding-left:1.2em;text-indent:-1.2em;margin:0 0 10px}
   blockquote.saddle{margin:18px 0;padding:4px 0 4px 18px;border-left:3px solid var(--accent);font-style:italic}
   .formula{margin:18px 0 20px;text-align:center;line-height:1.7}
   aside.survives{margin:30px 0 8px;padding:14px 18px 12px;border-top:3px solid var(--accent);border-bottom:1px solid var(--rule);background:var(--bg)}
@@ -408,12 +428,14 @@ PRINT_STYLE = """
   section.tpage .au{margin:auto 0 0.5in;font-family:var(--sans);font-size:9pt;font-weight:600;letter-spacing:.16em;text-transform:uppercase;text-align:center}
   section.copy{justify-content:flex-end}
   section.copy p{font-family:var(--sans);font-size:7.5pt;line-height:1.45;text-align:left;margin:0 0 6pt}
-  section.ded p{margin:1.5in 0 0;font-style:italic;text-align:center}
-  section.toc h1{margin:0.5in 0 0.22in}  /* one page, so it needs no running head or number */
+  section.ded p{margin:0 0 11pt;font-style:italic;text-align:center;line-height:15pt}
+  section.ded p:first-child{margin-top:1.5in}
+  section.toc h1{margin:0.32in 0 0.2in}  /* one page, so it needs no running head or number */
   section.toc a{display:flex;align-items:baseline;color:#000}
-  section.toc a.tp{font-family:var(--sans);font-size:7.5pt;font-weight:600;letter-spacing:.14em;text-transform:uppercase;margin:8pt 0 3pt}
+  section.toc a.tp{font-family:var(--sans);font-size:7.5pt;font-weight:600;letter-spacing:.14em;text-transform:uppercase;margin:6pt 0 2pt}
   section.toc a.tp .sep{margin:0 .5em}
   section.toc a.te{margin:0 0 2pt;text-align:left}
+  section.toc a.bm{margin-top:6pt}  /* the glossary, after the last part */
   section.toc .tn{flex:none;width:2em;font-variant-numeric:tabular-nums}
   section.toc .tt{flex:none;max-width:3.6in}
   section.toc .tl{flex:1;min-width:12pt;margin:0 5pt;border-bottom:.75pt dotted #000;position:relative;top:-3pt}
@@ -425,6 +447,13 @@ PRINT_STYLE = """
   h3{font-family:var(--sans);font-size:8.5pt;font-weight:600;letter-spacing:.02em;margin:12pt 0 3pt;text-align:left;hyphens:manual;break-after:avoid}
   p{margin:0;orphans:2;widows:2} p+p{text-indent:1.2em}
   ol,ul{margin:5pt 0 6pt;padding-left:1.5em} li{margin:2pt 0}
+  /* No list item split over two pages, never one item alone at the foot or the head of a page, and the
+     sentence that introduces a list or formula kept with it (George, 21 October 2026: a list on page 17) */
+  li{break-inside:avoid} li:first-child{break-after:avoid} li:last-child{break-before:avoid}
+  p:has(+ol),p:has(+ul),p:has(+.formula){break-after:avoid}
+  blockquote.saddle{break-inside:avoid}
+  article.gloss h1+p{font-style:italic;margin:0 0 10pt}
+  article.gloss p:has(>strong:first-child){text-indent:-1em;padding-left:1em;margin:0 0 4pt;text-align:left;hyphens:manual;-webkit-hyphens:manual;break-inside:avoid}
   strong{font-weight:600}
   a{color:inherit;text-decoration:none}
   sup.cite{font-family:var(--sans);font-size:7pt;line-height:0;margin-left:.5pt}
@@ -578,6 +607,49 @@ def fill_gaps(pdf_path, layouts, moves, page_h):
     return changed
 
 
+SPLIT = {"list": "list", "quote": "From the saddle box", "formula": "formula", "survives": "What survives box"}
+
+
+def check_splits(pdf_path, html_path, layouts, chapters, first):
+    """Page breaks a reader would notice, read from a build with probes, which has the book's own layout:
+    a list, box or formula running onto the next page, a heading left at the foot of a page, and a sentence
+    parted from the list or formula it introduces. A list of four or more items may break between its middle
+    items (the print style allows it); it is reported with its length so it can be looked at."""
+    pages = dest_pages(pdf_path)
+    text = open(html_path, encoding="utf-8").read()
+    items = {m.group(2): m.group(3).count("<li") for m in re.finditer(r'<(ol|ul) id="(s\d+-\d+)">(.*?)</\1>', text, re.S)}
+    found = []
+    for i, seq in enumerate(layouts, 1):
+        where = running_title(chapters[i - 1][0])
+        for pos, (j, kind) in enumerate(seq):
+            s, e = pages.get(f"s{i}-{j}"), pages.get(f"e{i}-{j}")
+            if s is None or e is None:
+                continue
+            nxt = seq[pos + 1] if pos + 1 < len(seq) else None
+            ns = pages.get(f"s{i}-{nxt[0]}") if nxt else None
+            at = f"{where}, page {folio(s, first)}"
+            if kind in SPLIT and s != e:
+                n = items.get(f"s{i}-{j}")
+                found.append(f"{at}: a {SPLIT[kind]}{f' of {n} items' if n else ''} runs onto the next page")
+            elif kind in ("h2", "h3") and ns and ns != e:
+                found.append(f"{at}: a heading at the foot of the page")
+            elif kind == "p" and nxt and nxt[1] in ("list", "formula") and ns and ns != e:
+                found.append(f"{at}: the sentence before a {nxt[1]} is on the page before it")
+    return found
+
+
+def hyphen_turns(pdf_path, first):
+    """Printed pages whose last line ends in a hyphen, split by whether the reader has to turn the leaf
+    to finish the word (a right-hand page) or only look across the spread (a left-hand page)."""
+    import pypdf
+    turn, across = [], []
+    for p, page in enumerate(pypdf.PdfReader(pdf_path).pages, 1):
+        lines = [l for l in (page.extract_text() or "").split("\n") if l.strip()]
+        if p >= first and lines and lines[-1].rstrip().endswith(("\u2010", "-")):
+            (turn if p % 2 else across).append(folio(p, first))
+    return turn, across
+
+
 # Chapters open on the next page, left or right, as in most paperbacks (George, 20 October 2026, asked
 # why there were blank pages between chapters). "right" puts every chapter on a right-hand page, with a
 # blank page before any that would open on the left. The Introduction and the part title pages open on
@@ -594,11 +666,14 @@ def front_matter():
     read = lambda n: re.sub(r"<!--.*?-->", "", open(os.path.join(folder, n), encoding="utf-8").read(), flags=re.S)
     lines = [l.strip() for l in read("title.md").split("\n") if l.strip()]
     paras = lambda n: "".join(f"<p>{inline(' '.join(p.split()), NOCITE)}</p>" for p in read(n).split("\n\n") if p.strip())
+    # the dedication keeps its line breaks, as written
+    verse = lambda n: "".join("<p>" + "<br>".join(inline(l.strip(), NOCITE) for l in p.split("\n") if l.strip()) + "</p>"
+                              for p in read(n).split("\n\n") if p.strip())
     return {"title": next(l[2:].strip() for l in lines if l.startswith("# ")),
             "sub": next((l[3:].strip() for l in lines if l.startswith("## ")), ""),
             "author": next(l for l in lines if not l.startswith("#")),
             "copyright": paras("copyright.md"),
-            "dedication": paras("dedication.md") if os.path.exists(os.path.join(folder, "dedication.md")) else ""}
+            "dedication": verse("dedication.md") if os.path.exists(os.path.join(folder, "dedication.md")) else ""}
 
 
 def split_title(t):
@@ -614,7 +689,7 @@ def running_title(t):
 
 def opener(h):
     """A chapter's heading for print: 'Chapter 1' (or 'Introduction') as a small label above the title."""
-    return re.sub(r'<h1 id="(ch\d+)">(Chapter \d+|Introduction):\s*', r'<h1 id="\1"><span class="chl">\2</span>', h, count=1)
+    return re.sub(r'<h1 id="(ch\d+)">(Chapter[ \u00a0]\d+|Introduction):\s*', r'<h1 id="\1"><span class="chl">\2</span>', h, count=1)
 
 
 def contents_page(chapters, files, folios):
@@ -628,7 +703,8 @@ def contents_page(chapters, files, folios):
             rows.append(f'<a class="tp" href="#part{n}">{p[0]}<span class="sep">·</span>{inline(p[1], NOCITE)}</a>')
         lab, name = split_title(t)
         num = lab[len("Chapter "):] if lab.startswith("Chapter ") else ""
-        rows.append(f'<a class="te" href="#{a}"><span class="tn">{num}</span><span class="tt">{inline(name if num else t, NOCITE)}</span>'
+        cls = "te bm" if not num and lab != "Introduction" else "te"
+        rows.append(f'<a class="{cls}" href="#{a}"><span class="tn">{num}</span><span class="tt">{inline(name if num else t, NOCITE)}</span>'
                     f'<span class="tl"></span><span class="tpg">{folios.get(a, "000")}</span></a>')
     return f'<section class="fm toc" id="contents"><h1><a href="#contents">Contents</a></h1>{"".join(rows)}</section>'
 
@@ -754,7 +830,8 @@ def render_print(out_pdf, files, sources, trim):
                 n += 1
                 body.append((blank if f"part{n}" in blanks else "")
                             + f'<section class="part" id="part{n}"><p>{p[0]}</p><div class="pt">{html.escape(p[1])}</div></section>' + blank)
-            body.append((blank if f"ch{i}" in blanks else "") + f'<article>{opener(cites(c[3]))}</article>')
+            cls = ' class="gloss"' if is_back(f) else ""
+            body.append((blank if f"ch{i}" in blanks else "") + f'<article{cls}>{opener(cites(c[3]))}</article>')
         title, sub, author = (inline(meta[k], NOCITE) for k in ("title", "sub", "author"))
         top = '<div id="top"></div>' if probes else ""  # the top of the first page's text area, to calibrate fill_gaps
         front = (f'<section class="fm half">{top}<p class="ht">{title}</p></section>{blank}'
@@ -808,6 +885,14 @@ def render_print(out_pdf, files, sources, trim):
         settled, pages = pages, dest_pages(raw_pdf)
         if pages == settled:
             break
+    # The same layout once more with probes, to report any page breaks a reader would notice, then the book.
+    _, layouts = build(True, blanks, folios)
+    probed = dest_pages(raw_pdf)
+    splits = check_splits(raw_pdf, out_html, layouts, chapters, pages["ch1"])
+    build(False, blanks, folios)
+    if any(probed.get(k) != pages[k] for k in order):
+        splits.append("the build with probes laid the book out differently, so these checks may be wrong")
+    turn, across = hyphen_turns(raw_pdf, pages["ch1"])
     name = lambda k: chapters[int(k[2:]) - 1][0] if k.startswith("ch") else k
     left = [name(k) for k in order if k in recto and pages[k] % 2 == 0]
     marks = stamp(raw_pdf, out_pdf, chapters, pages, meta, trim)
@@ -819,11 +904,14 @@ def render_print(out_pdf, files, sources, trim):
     text = open(out_html, encoding="utf-8").read()
     notes = [re.sub(r"<[^>]+>", "", m) for m in re.findall(r'<mark class="george">(.*?)</mark>', text, re.S)]
     problems = notes + re.findall(r"MISSING FROM sources\.yaml: \S+|Missing figure: [^<]+|\[FIGURE[^\]]*\]", text)
-    print(f"{out_pdf}: {len(chapters)} chapters, {sum(c[2] for c in chapters):,} words, {w} × {h} in, {total} pages "
+    print(f"{out_pdf}: {counted(files)}, {sum(c[2] for c in chapters):,} words, {w} × {h} in, {total} pages "
           f"({pages['ch1'] - 1} of front matter), {blank_pages} blank pages after the front matter, "
           f"tables or figures moved down to fill a gap: {moved}. Spine: {total * 0.002252:.3f} in on white paper, "
           f"{total * 0.0025:.3f} in on cream (KDP's rule)."
           + (f"\nWARNING, opening on a left-hand page: {left}" if left else "")
+          + "".join(f"\nSPLIT: {x}" for x in splits)
+          + f"\nWords hyphenated across a page: {len(turn)} where the reader turns the leaf (pages {', '.join(turn) or 'none'}), "
+            f"{len(across)} across an open spread"
           + ("".join(f"\nNOT FOR PRINT: {p}" for p in problems)))
 
 
@@ -837,6 +925,8 @@ def main():
         print(__doc__)
         sys.exit(2)
     out_path, files = args[0], args[1:]
+    if os.path.exists(GLOSSARY) and GLOSSARY not in map(os.path.abspath, files):
+        files = files + [GLOSSARY]
     sources = load_sources()
     if out_path.endswith(".pdf"):
         render_print(out_path, files, sources, trim)
@@ -848,8 +938,8 @@ def main():
     toc = "".join((f'<div class="tocpart">{p[0]} · {html.escape(p[1])}</div>' if p else "")
                   + f'<a href="#{a}">{html.escape(t)}<span>{w:,} words</span></a>' for (t, a, w, _), p in zip(chapters, parts))
     body = "".join((f'<div class="partpage"><span>{p[0]}</span>{html.escape(p[1])}</div>' if p else "")
-                   + f'<article>{c[3].replace("</h1>", f"</h1><p class=meta>Draft · {c[2]:,} words · {today}</p>", 1)}</article>'
-                   for c, p in zip(chapters, parts))
+                   + f'<article{" class=gloss" if is_back(f) else ""}>{c[3].replace("</h1>", f"</h1><p class=meta>Draft · {c[2]:,} words · {today}</p>", 1)}</article>'
+                   for c, p, f in zip(chapters, parts, files))
     cut_key = '<del class="cut">struck through</del> a proposed cut, not yet made &nbsp;' if 'class="cut"' in body else ""
     page = f"""<title>Just Zone 2? Draft</title>
 {STYLE}
@@ -863,7 +953,7 @@ def main():
 </div>
 """
     open(out_path, "w", encoding="utf-8").write(page)
-    print(f"{out_path}: {len(chapters)} chapters, {total:,} words")
+    print(f"{out_path}: {counted(files)}, {total:,} words")
 
 
 if __name__ == "__main__":

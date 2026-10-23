@@ -14,8 +14,8 @@ It prints the page count, the spine width and a `NOT FOR PRINT` line for anythin
 2. **ISBN.** It goes on the copyright page, which shows a placeholder for now. KDP gives a free ISBN that can only be used for KDP's own edition. Your own ISBN, from Nielsen in the UK, names you as the publisher and can be used anywhere. The Kindle edition doesn't need one. The paperback and the ebook can't share one.
 3. **Paper.** White or cream. At 261 pages the spine is 0.588 in on white and 0.652 in on cream. The cover has to be drawn for the paper chosen.
 4. **Copyright page wording** (`front/copyright.md`). Please read it. The health and drugs disclaimer is the usual wording for a training book, not legal advice. If the book comes out in 2027, the year changes.
-5. **Dedication or acknowledgements.** Both are optional and must be in your words. A dedication adds a page and its blank back.
-6. **Index.** Optional, and the Kindle edition doesn't need one. In a research book it helps readers find a study or a name again. It can be built from a term list we agree (about 150 to 250 terms), with page numbers found automatically after the final layout. That adds roughly 8 to 12 pages and has to be redone if the pages move.
+5. **Acknowledgements.** Optional, and must be in your words. The dedication is done (`front/dedication.md`, 20 October).
+6. **Index.** Optional, and the Kindle edition doesn't need one. The glossary (21 October) covers some of the same need. In a research book it helps readers find a study or a name again. It can be built from a term list we agree (about 150 to 250 terms), with page numbers found automatically after the final layout. That adds roughly 8 to 12 pages and has to be redone if the pages move.
 7. **Chapter openings.** Chapters now open on the next page, on either side. One setting (`CHAPTERS_OPEN` in `tools/render.py`) puts them all back on the right, which adds about ten blank pages. The eight blank pages left are the backs of the five part title pages, plus three that put a part page on the right. Printing each part's name above its first chapter's heading, with no separate part pages, would remove nearly all of them.
 8. **KDP listing.** Description, seven keywords, categories, price, release date or pre-order, and whether to enrol the ebook in KDP Select (exclusive to Amazon). There is also the AI-content question on the submission form: answer it as KDP words it at upload (plan.md, 9 October).
 
@@ -41,7 +41,8 @@ It prints the page count, the spine width and a `NOT FOR PRINT` line for anythin
   - references at the end of each chapter.
 - **Printed proof:** order a proof copy from KDP before release and read it on paper.
 - **Final checks after the last edit:**
-  - Rebuild and confirm `NOT FOR PRINT` is empty.
+  - Rebuild and confirm `NOT FOR PRINT` is empty, and look at each `SPLIT` line the build prints (long lists may break between their middle items; nothing else should break).
+  - Words hyphenated across a page turn: the build lists them (8 on 21 October). Fix them by hand only after the last text edit, since any edit moves them.
   - Every contents page number matches its chapter.
   - No table splits across a page.
   - Recheck the Introduction's line that *mitochondria* appears more often than *bike*. On 20 October it was 51 against 35, or 36 counting *bikes*.
@@ -52,6 +53,7 @@ It prints the page count, the spine width and a `NOT FOR PRINT` line for anythin
   - half title and its blank back;
   - title page;
   - copyright page;
+  - dedication, in George's words, and its blank back;
   - contents on one page, with page numbers;
   - the Introduction on page 1, a right-hand page.
 - **Page numbers:** roman in the front matter (not printed), arabic from the Introduction, odd numbers on the right.
@@ -64,3 +66,9 @@ It prints the page count, the spine width and a `NOT FOR PRINT` line for anythin
   - every font embedded, with no Type 3 fonts and no system fonts;
   - no links, bookmarks or annotations in the file.
 - **Curly quotes and apostrophes** throughout the text and figures. The drafts were typed with straight ones.
+
+## Done, 21 October 2026
+
+- **Glossary** (`back/glossary.md`, 76 terms), after the Verdict and on the review page, listed in the contents. Each definition follows the chapter it points to.
+- **Page breaks:** no list item splits over a page, no list leaves one item alone at the foot or head of a page, the sentence introducing a list or formula stays with it, and From the saddle boxes stay whole. Grade badges and chapter numbers no longer wrap onto a line of their own. The build reports any breaks left (`SPLIT`).
+
