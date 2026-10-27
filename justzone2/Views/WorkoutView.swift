@@ -6,6 +6,12 @@ struct WorkoutView: View {
     let stravaService: StravaService
     @Binding var isPresented: Bool
     @State private var showSummary = false
+    /// EXPERIMENT: Coach on/off (bottom-right toggle in interval sessions).
+    @AppStorage(IntervalCoach.enabledKey) private var coachEnabled = true
+    /// EXPERIMENT: coach on in an interval session. Message space is then
+    /// reserved and the hero and tiles are compacted to pay for it; with the
+    /// coach off the layout is the normal, taller one.
+    private var coachLayout: Bool { viewModel.isIntervalWorkout && coachEnabled }
     @State private var summaryViewModel: SummaryViewModel?
     @State private var showHRSourcePicker = false
     @State private var shareETAText: String?
@@ -222,7 +228,7 @@ struct WorkoutView: View {
                     zoneHero
                 }
             }
-            .padding(.top, 12)
+            .padding(.top, coachLayout ? 6 : 12)
 
             // Power + time as glass stat tiles.
             HStack(spacing: 12) {
@@ -230,7 +236,7 @@ struct WorkoutView: View {
                 timeTile
             }
             .padding(.horizontal)
-            .padding(.top, 14)
+            .padding(.top, coachLayout ? 8 : 14)
 
             // Live chart fills the remaining space.
             if !viewModel.chartData.isEmpty {
@@ -241,6 +247,7 @@ struct WorkoutView: View {
                 .frame(maxHeight: .infinity)
                 .padding(.horizontal, 10)
                 .padding(.top, 8)
+                .transaction { $0.animation = nil }
             } else {
                 Spacer()
                 Text("Waiting for data…")
@@ -282,6 +289,10 @@ struct WorkoutView: View {
                                 .background(Color.red)
                                 .clipShape(Circle())
                         }
+                    }
+                    .frame(maxWidth: .infinity)
+                    .overlay(alignment: .trailing) {
+                        if viewModel.isIntervalWorkout { coachToggle }
                     }
 
                     // Zone Targeting toggle (not for interval sessions, which hold ERG power)
@@ -492,6 +503,25 @@ struct WorkoutView: View {
     // MARK: - Interval session display
 
     /// Work intervals in the Zone 4 amber, everything easy in Zone 1 blue.
+    /// EXPERIMENT: switch the coach messages on or off mid-ride.
+    private var coachToggle: some View {
+        Button {
+            withAnimation(.easeInOut(duration: 0.4)) { coachEnabled.toggle() }
+        } label: {
+            VStack(spacing: 3) {
+                Image(systemName: coachEnabled ? "text.bubble.fill" : "text.bubble")
+                    .font(.title3)
+                Text("Coach")
+                    .font(.caption2.weight(.semibold))
+            }
+            .foregroundStyle(coachEnabled ? Color.green : Color.secondary)
+            .frame(width: 56, height: 56)
+            .background(Circle().fill(Color.white.opacity(0.08)))
+        }
+        .padding(.trailing, 20)
+        .accessibilityLabel(coachEnabled ? "Coach on" : "Coach off")
+    }
+
     private var intervalColor: Color {
         guard let segment = viewModel.currentSegment else { return IntervalProfileView.easyColor }
         return segment.isWork ? IntervalProfileView.workColor : IntervalProfileView.easyColor
@@ -543,7 +573,7 @@ struct WorkoutView: View {
         }()
         let bigColor: Color = imminent ? IntervalProfileView.workColor : intervalColor
 
-        return VStack(spacing: 6) {
+        return VStack(spacing: coachLayout ? 4 : 6) {
             Text(intervalPhaseLabel)
                 .font(.system(size: 12, weight: .bold))
                 .tracking(1.5)
@@ -551,13 +581,18 @@ struct WorkoutView: View {
                 .padding(.horizontal, 12)
                 .padding(.vertical, 5)
                 .background(Capsule().fill(intervalColor.opacity(0.16)))
+                // Fixed heights through the hero, so nothing below shifts when
+                // a phase change swaps the text (e.g. the "next … W" part of
+                // the heart-rate row comes and goes).
+                .frame(height: 26)
 
             Text(caption)
                 .font(.subheadline.weight(.medium))
                 .foregroundStyle(.secondary)
+                .frame(height: 20)
 
             Text(viewModel.formatTime(bigTime))
-                .font(.system(size: 72, weight: .bold, design: .rounded))
+                .font(.system(size: coachLayout ? 60 : 72, weight: .bold, design: .rounded))
                 .monospacedDigit()
                 .foregroundStyle(bigColor)
                 // Animate only the "last 3 seconds" pulse — animating on every
@@ -566,6 +601,7 @@ struct WorkoutView: View {
                 .animation(.spring(response: 0.25, dampingFraction: 0.5), value: final3)
                 .lineLimit(1)
                 .minimumScaleFactor(0.6)
+                .frame(height: coachLayout ? 66 : 80)
 
             HStack(spacing: 14) {
                 HStack(spacing: 5) {
@@ -583,13 +619,31 @@ struct WorkoutView: View {
             }
             .font(.subheadline.weight(.semibold))
             .foregroundStyle(.secondary)
+            .frame(height: 22)
+
+            // EXPERIMENT: with the coach on, a fixed space for its messages
+            // (nothing moves when one comes or goes; the text just fades).
+            if coachLayout {
+                Text(viewModel.coachMessage ?? " ")
+                    .font(.footnote.italic())
+                    .foregroundStyle(.primary.opacity(0.9))
+                    .multilineTextAlignment(.center)
+                    .lineSpacing(1)
+                    .lineLimit(3)
+                    .minimumScaleFactor(0.85)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 50)
+                    .padding(.horizontal, 24)
+                    .opacity(viewModel.coachMessage == nil ? 0 : 1)
+                    .animation(.easeInOut(duration: 0.5), value: viewModel.coachMessage)
+            }
 
             if let session = viewModel.intervalSession {
                 IntervalProfileView(session: session, elapsed: viewModel.elapsedTime,
                                     powerFor: viewModel.intervalPower(for:))
                     .frame(height: 48)
                     .padding(.horizontal, 24)
-                    .padding(.top, 6)
+                    .padding(.top, coachLayout ? 2 : 6)
             }
         }
     }
@@ -614,7 +668,7 @@ struct WorkoutView: View {
     }
 
     private var powerTile: some View {
-        VStack(alignment: .leading, spacing: 6) {
+        VStack(alignment: .leading, spacing: coachLayout ? 2 : 6) {
             HStack(spacing: 4) {
                 // No bolt glyph here: the ±5W steppers already give the power
                 // header its visual weight, and dropping it frees the width the
@@ -625,18 +679,19 @@ struct WorkoutView: View {
                 powerStepper("minus.circle.fill", action: { viewModel.decrementPower() })
                 powerStepper("plus.circle.fill", action: { viewModel.incrementPower() })
             }
-            .frame(height: 30)          // matches the time tile's header height so
+            .frame(height: coachLayout ? 24 : 30) // matches the time tile's header height so
                                         // both grey boxes end up exactly the same size
             HStack(alignment: .firstTextBaseline, spacing: 2) {
                 Text(viewModel.currentPower > 0 ? "\(viewModel.currentPower)" : "--")
-                    .font(.system(size: 34, weight: .bold, design: .rounded))
+                    .font(.system(size: coachLayout ? 28 : 34, weight: .bold, design: .rounded))
                     .lineLimit(1).minimumScaleFactor(0.7)
                 Text("W").font(.system(size: 14, weight: .semibold, design: .rounded)).foregroundStyle(.secondary)
                 Spacer(minLength: 0)
             }
             Text(powerTargetSub).font(.caption2).foregroundStyle(.secondary).lineLimit(1).minimumScaleFactor(0.8)
         }
-        .padding(12)
+        .padding(.horizontal, 12)
+        .padding(.vertical, coachLayout ? 8 : 12)
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(RoundedRectangle(cornerRadius: 16, style: .continuous).fill(.ultraThinMaterial))
         .overlay(RoundedRectangle(cornerRadius: 16, style: .continuous).stroke(.white.opacity(0.08), lineWidth: 1))
@@ -647,7 +702,7 @@ struct WorkoutView: View {
             Image(systemName: icon)
                 .font(.system(size: 25, weight: .semibold))
                 .foregroundStyle(viewModel.state == .running ? Color.blue : Color.secondary.opacity(0.5))
-                .frame(width: 40, height: 30)          // generous touch target
+                .frame(width: 40, height: coachLayout ? 24 : 30)   // generous touch target
                 .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
@@ -662,7 +717,7 @@ struct WorkoutView: View {
     }
 
     private var timeTile: some View {
-        VStack(alignment: .leading, spacing: 6) {
+        VStack(alignment: .leading, spacing: coachLayout ? 2 : 6) {
             HStack(spacing: 6) {
                 Image(systemName: "timer").font(.system(size: 12, weight: .bold)).foregroundStyle(.green)
                 Text(viewModel.isWarmingUp ? "REMAINING" : "TIME LEFT")
@@ -672,10 +727,10 @@ struct WorkoutView: View {
                     Text("PAUSED").font(.caption2.weight(.bold)).foregroundStyle(.orange)
                 }
             }
-            .frame(height: 30)          // matches the power tile's header height
+            .frame(height: coachLayout ? 24 : 30) // matches the power tile's header height
             HStack(alignment: .firstTextBaseline, spacing: 2) {
                 Text(viewModel.formatTime(viewModel.isWarmingUp || viewModel.isIntervalWorkout ? viewModel.remainingTime : viewModel.timeRemainingInChunk))
-                    .font(.system(size: 34, weight: .bold, design: .rounded))
+                    .font(.system(size: coachLayout ? 28 : 34, weight: .bold, design: .rounded))
                     .monospacedDigit()
                     .lineLimit(1)
                     .minimumScaleFactor(0.7)
@@ -683,7 +738,8 @@ struct WorkoutView: View {
             }
             Text(timeSub).font(.caption2).foregroundStyle(.secondary).lineLimit(1).minimumScaleFactor(0.8)
         }
-        .padding(12)
+        .padding(.horizontal, 12)
+        .padding(.vertical, coachLayout ? 8 : 12)
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(RoundedRectangle(cornerRadius: 16, style: .continuous).fill(.ultraThinMaterial))
         .overlay(RoundedRectangle(cornerRadius: 16, style: .continuous).stroke(.white.opacity(0.08), lineWidth: 1))

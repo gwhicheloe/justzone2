@@ -70,6 +70,11 @@ class WorkoutViewModel: ObservableObject {
 
     // MARK: - Intervals
     var intervalSession: IntervalSession? { workout.intervalSession }
+
+    /// EXPERIMENT: on-screen encouragement during interval sessions (see
+    /// `IntervalCoach`). The line currently showing, or nil.
+    @Published private(set) var coachMessage: String?
+    private var coach: IntervalCoach?
     var isIntervalWorkout: Bool { workout.intervalSession != nil }
     /// Rider's ±5 W nudges during an interval session. Work intervals and the
     /// easy segments (warm-up, recovery, cool-down) keep separate offsets, so
@@ -196,6 +201,12 @@ class WorkoutViewModel: ObservableObject {
         let z2Max = UserDefaults.standard.integer(forKey: "zone2Max")
         self.zone2Max = z2Max > 0 ? z2Max : 140
         self.zone2Target = Zone2Target.bpm(zoneMin: self.zone2Min, zoneMax: self.zone2Max)
+
+        if let session = workout.intervalSession {
+            let coach = IntervalCoach(session: session)
+            coach.$message.assign(to: &$coachMessage)
+            self.coach = coach
+        }
 
         setupBindings()
     }
@@ -519,6 +530,7 @@ class WorkoutViewModel: ObservableObject {
             startPower = intervalPower(for: segment)
             lastSegmentStart = segment.start
             adjustedPower = startPower
+            coach?.tick(elapsed: 0, heartRate: currentHeartRate)
         } else {
             // Zone 2: the warm-up runs at half power, but `adjustedPower` must
             // stay at the ride's target — the warm-up's end sends
@@ -752,6 +764,7 @@ class WorkoutViewModel: ObservableObject {
 
     func stopWorkout() {
         timerCancellable?.cancel()
+        coach?.stop()
         timerCancellable = nil
 
         workout.finish()
@@ -767,6 +780,7 @@ class WorkoutViewModel: ObservableObject {
 
     private func startCooldown() {
         timerCancellable?.cancel()
+        coach?.stop()
         timerCancellable = nil
 
         workout.finish()
@@ -854,6 +868,13 @@ class WorkoutViewModel: ObservableObject {
         }
 
         if isIntervalWorkout { advanceIntervalSegment() }
+        // Coach off: no messages and no generation (moments that pass while
+        // it's off are skipped when it's switched back on).
+        if IntervalCoach.isEnabled {
+            coach?.tick(elapsed: elapsedTime, heartRate: currentHeartRate)
+        } else if coachMessage != nil {
+            coach?.stop()
+        }
 
         // Warm-up → full power transition
         if warmUpEnabled && !warmUpComplete && elapsedTime >= warmUpDuration {
