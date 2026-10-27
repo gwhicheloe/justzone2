@@ -39,8 +39,18 @@ enum TCXEncoder {
 
         xml += "        <Track>\n"
 
-        // Add trackpoints
-        for sample in workout.samples {
+        // Add trackpoints. Each sample is stamped at the *end* of its second,
+        // so a 30-minute ride's points run from 0:01 to 30:00, and Strava,
+        // which times a ride from its first to its last point, showed 29:59.
+        // A starting point one interval before the first sample (carrying its
+        // readings, with zero distance) makes the points span the whole ride.
+        var trackpoints = workout.samples
+        if let first = trackpoints.first {
+            trackpoints.insert(WorkoutSample(timestamp: max(first.timestamp - Constants.sampleInterval, 0),
+                                             heartRate: first.heartRate, power: first.power,
+                                             cadence: first.cadence, speed: first.speed, distance: 0), at: 0)
+        }
+        for sample in trackpoints {
             let sampleTime = workout.startDate.addingTimeInterval(sample.timestamp)
             xml += "          <Trackpoint>\n"
             xml += "            <Time>\(dateFormatter.string(from: sampleTime))</Time>\n"
