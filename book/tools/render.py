@@ -199,10 +199,20 @@ def probe_links(layouts):
     return '<div class="probes">' + " ".join(f'<a href="#{k}">.</a>' for k in keys) + "</div>"
 
 
-def render_chapter(md, sources, idx, base=".", probes=False, moves=None, layout=None, print_mode=False):
+def keep_whole(block, words):
+    """Wrap each of these words wherever it appears in the block's text (not inside its tags), so that
+    Chrome neither hyphenates it nor breaks it at a hyphen of its own."""
+    rx = re.compile(r"(?<![\w-])(" + "|".join(sorted(map(re.escape, words), key=len, reverse=True)) + r")(?![\w-])")
+    return "".join(part if part.startswith("<") else rx.sub(r'<span class="nh">\1</span>', part)
+                   for part in re.split(r"(<[^>]+>)", block))
+
+
+def render_chapter(md, sources, idx, base=".", probes=False, moves=None, layout=None, print_mode=False, nohyph=None,
+                   whole=None):
     """Returns (title, anchor, words, html). For the print proof: probes marks every block,
-    moves {block: n} puts a table or figure n blocks later, and layout, if a list, receives
-    (block, kind) in the order printed."""
+    moves {block: n} puts a table or figure n blocks later, layout, if a list, receives
+    (block, kind) in the order printed, nohyph {block: words} keeps those words whole, and
+    the lists in whole are kept on one page."""
     order, shadows = [], []
     md = re.sub(r"<!--.*?-->", "", md, flags=re.S)  # notes to ourselves, never printed
     if print_mode:
@@ -276,6 +286,10 @@ def render_chapter(md, sources, idx, base=".", probes=False, moves=None, layout=
             out.append("<ul>" + "".join(f"<li>{inline(i, cite)}</li>" for i in items) + "</ul>")
         else:
             out.append(f"<p>{inline(' '.join(l.strip() for l in b), cite)}</p>")
+    for j, keep in (nohyph or {}).items():
+        out[j] = keep_whole(out[j], keep)
+    for j in whole or ():
+        out[j] = re.sub(r"^<(ol|ul)>", r'<\1 class="whole">', out[j])
 
     words = len(re.findall(r"\b\w+\b", re.sub(r"\[@[^\]]+\]|\{shadow [^{}]*\}|\{grade [ABC]\}|~~.*?~~", "",
                                               REWRITE.sub(r"\2", re.sub(r"\{~~\d+\|", "{~~", md)))))
@@ -466,6 +480,10 @@ PRINT_STYLE = """
      sentence that introduces a list or formula kept with it (George, 21 October 2026: a list on page 17) */
   li{break-inside:avoid} li:first-child{break-after:avoid} li:last-child{break-before:avoid}
   p:has(+ol),p:has(+ul),p:has(+.formula){break-after:avoid}
+  /* and a list moved whole to the next page where that costs little (class whole, set by lists_to_keep) */
+  ol.whole,ul.whole{break-inside:avoid}
+  /* a word that would be hyphenated across a page is kept whole (page_end_words) */
+  .nh{white-space:nowrap;hyphens:manual;-webkit-hyphens:manual}
   blockquote.saddle{break-inside:avoid}
   article.gloss h1+p{font-style:italic;margin:0 0 10pt}
   article.gloss p:has(>strong:first-child){text-indent:-1em;padding-left:1em;margin:0 0 4pt;text-align:left;hyphens:manual;-webkit-hyphens:manual;break-inside:avoid}
@@ -568,17 +586,9 @@ MARGINS = (0.7, 0.6, 0.75, 0.8)
 LINE = 14.0
 
 
-def fill_gaps(pdf_path, layouts, moves, page_h):
-    """Where a table or figure was pushed to the next page and left a gap, move the text that
-    follows it up into the gap, as a typesetter would. Tables are never split over two pages
-    (George, 14 October 2026), so a table may move past as many paragraphs as it takes, and past
-    the heading of the next box (an h3) if it must; a figure, which is numbered, may move past
-    the next section heading (an h2) but not into a box. Neither passes another table or figure,
-    and a heading is never left at the foot of a page. Returns True if anything moved.
-
-    Positions come from the probes: a top probe at the start of the body calibrates the page,
-    and each block's start and end probe give its page and how far down the page it sits.
-    """
+def probe_positions(pdf_path, page_h):
+    """From a build with probes: {probe: (page, points from the top of the paper)}, the top of the text
+    area, a function giving a probe's depth below it, and the height of the text area."""
     import pypdf
     r = pypdf.PdfReader(pdf_path)
     at = {}
@@ -587,9 +597,52 @@ def fill_gaps(pdf_path, layouts, moves, page_h):
         if k == "top" or re.fullmatch(r"[se]\d+-\d+", k):
             at[k] = (r.get_destination_page_number(d) + 1, page_h - float(d["/Top"]))
     zero = at["top"][1]
-    down = lambda k: at[k][1] - zero  # points below the top of the text area
-    usable = page_h - (MARGINS[0] + MARGINS[2]) * 72
-    extra = {"p": 0, "quote": 18, "list": 11, "h2": 20, "h3": 15}
+    return at, zero, (lambda k: at[k][1] - zero), page_h - (MARGINS[0] + MARGINS[2]) * 72
+
+
+# A list that breaks over a page is moved whole to the next page if that leaves no more than this many
+# lines empty at the foot of the page it started on (George, 23 October 2026: "fix those issues with
+# lists"). A longer list breaks between items, never leaving one item alone, as a half-empty page would
+# look like a printing error.
+LIST_GAP = 8
+
+
+def lists_to_keep(pdf_path, layouts, page_h, whole):
+    """Lists that break over a page and could be moved whole to the next one for the cost of LIST_GAP
+    lines or fewer, as [(chapter, block)]. What would move with the list is counted too: a heading just
+    before it, or the last two lines of the sentence that introduces it (the print style keeps both with it)."""
+    at, zero, down, usable = probe_positions(pdf_path, page_h)
+    found = []
+    for i, seq in enumerate(layouts, 1):
+        for pos, (j, kind) in enumerate(seq):
+            s, e = at.get(f"s{i}-{j}"), at.get(f"e{i}-{j}")
+            if kind != "list" or j in whole[i] or not s or not e or s[0] == e[0] or pos == 0:
+                continue
+            start = down(f"s{i}-{j}")
+            q, prev = seq[pos - 1]
+            if prev in ("h2", "h3") and at.get(f"s{i}-{q}", (0,))[0] == s[0]:
+                start = down(f"s{i}-{q}")
+            elif prev == "p" and at.get(f"e{i}-{q}", (0,))[0] == s[0]:
+                start = min(start, down(f"e{i}-{q}") - LINE)
+            if usable - start <= LIST_GAP * LINE:
+                found.append((i, j))
+    return found
+
+
+def fill_gaps(pdf_path, layouts, moves, page_h):
+    """Where a table or figure was pushed to the next page and left a gap, move the text that
+    follows it up into the gap, as a typesetter would. Tables are never split over two pages
+    (George, 14 October 2026), so a table may move past as many paragraphs as it takes, and past
+    the heading of the next box (an h3) if it must; a figure, which is numbered, may move past
+    the next section heading (an h2) but not into a box. A table's box heading (One study, up close),
+    which the print style keeps with it, moves with it. Neither passes another table or figure,
+    and a heading is never left at the foot of a page. Returns True if anything moved.
+
+    Positions come from the probes: a top probe at the start of the body calibrates the page,
+    and each block's start and end probe give its page and how far down the page it sits.
+    """
+    at, zero, down, usable = probe_positions(pdf_path, page_h)
+    extra ={"p": 0, "quote": 18, "list": 11, "h2": 20, "h3": 15}
     passes = {"trial": ("p", "quote", "list", "h3"), "figure": ("p", "quote", "list", "h2")}
     changed = False
     for i, seq in enumerate(layouts, 1):
@@ -597,6 +650,11 @@ def fill_gaps(pdf_path, layouts, moves, page_h):
             if kind not in passes or pos == 0:
                 continue
             prev, prev_kind = seq[pos - 1]
+            lead = []  # a box's heading went over with its table, so it moves with it
+            if kind == "trial" and prev_kind == "h3" and pos >= 2 and f"s{i}-{j}" in at \
+                    and at.get(f"s{i}-{prev}", (0,))[0] == at[f"s{i}-{j}"][0]:
+                lead = [prev]
+                prev, prev_kind = seq[pos - 2]
             if prev_kind not in ("p", "quote", "list", "h2", "h3") or f"s{i}-{j}" not in at:
                 continue
             page = at[f"s{i}-{j}"][0]
@@ -617,7 +675,8 @@ def fill_gaps(pdf_path, layouts, moves, page_h):
             while last and last[-1][0] in ("h2", "h3"):  # never leave a heading at the foot of the page
                 fill, n = fill - last.pop()[1], n - 1
             if n:
-                moves[i][j] = moves[i].get(j, 0) + n
+                for k in [j] + lead:
+                    moves[i][k] = moves[i].get(k, 0) + n
                 changed = True
     return changed
 
@@ -628,11 +687,15 @@ SPLIT = {"list": "list", "quote": "From the saddle box", "formula": "formula", "
 def check_splits(pdf_path, html_path, layouts, chapters, first):
     """Page breaks a reader would notice, read from a build with probes, which has the book's own layout:
     a list, box or formula running onto the next page, a heading left at the foot of a page, and a sentence
-    parted from the list or formula it introduces. A list of four or more items may break between its middle
-    items (the print style allows it); it is reported with its length so it can be looked at."""
+    parted from the list or formula it introduces. A list that breaks (lists_to_keep moves the ones it
+    can) is reported with its length, and why, so it can be looked at."""
     pages = dest_pages(pdf_path)
     text = open(html_path, encoding="utf-8").read()
-    items = {m.group(2): m.group(3).count("<li") for m in re.finditer(r'<(ol|ul) id="(s\d+-\d+)">(.*?)</\1>', text, re.S)}
+    items, kept = {}, set()
+    for m in re.finditer(r'<(ol|ul)( class="whole")? id="(s\d+-\d+)">(.*?)</\1>', text, re.S):
+        items[m.group(3)] = m.group(4).count("<li")
+        if m.group(2):
+            kept.add(m.group(3))
     found = []
     for i, seq in enumerate(layouts, 1):
         where = running_title(chapters[i - 1][0])
@@ -645,7 +708,9 @@ def check_splits(pdf_path, html_path, layouts, chapters, first):
             at = f"{where}, page {folio(s, first)}"
             if kind in SPLIT and s != e:
                 n = items.get(f"s{i}-{j}")
-                found.append(f"{at}: a {SPLIT[kind]}{f' of {n} items' if n else ''} runs onto the next page")
+                why = ("" if kind != "list" else " (taller than a page)" if f"s{i}-{j}" in kept else
+                       f", between items: moved whole, it would leave more than {LIST_GAP} lines empty")
+                found.append(f"{at}: a {SPLIT[kind]}{f' of {n} items' if n else ''} runs onto the next page{why}")
             elif kind in ("h2", "h3") and ns and ns != e:
                 found.append(f"{at}: a heading at the foot of the page")
             elif kind == "p" and nxt and nxt[1] in ("list", "formula") and ns and ns != e:
@@ -663,6 +728,41 @@ def hyphen_turns(pdf_path, first):
         if p >= first and lines and lines[-1].rstrip().endswith(("\u2010", "-")):
             (turn if p % 2 else across).append(folio(p, first))
     return turn, across
+
+
+def page_end_words(pdf_path, chapters, layouts):
+    """The words hyphenated across a page in a build with probes, as [(chapter, block, word)]. The page's
+    last line is matched against the text of the paragraph that runs on to the next page, which gives the
+    whole word: a soft break (warm-up split as "warm-" and "up" counts too, at its own hyphen)."""
+    import pypdf
+    import unicodedata
+    pages = dest_pages(pdf_path)
+    norm = lambda s: " ".join(unicodedata.normalize("NFKC", s.replace("​", "")).split())  # ligatures, spaces
+    over = {}  # page: the paragraphs that run from it on to the next page
+    for i, seq in enumerate(layouts, 1):
+        for j, kind in seq:
+            s, e = pages.get(f"s{i}-{j}"), pages.get(f"e{i}-{j}")
+            if kind == "p" and s and e and s < e:
+                for p in range(s, e):
+                    over.setdefault(p, []).append((i, j))
+    found = []
+    for p, page in enumerate(pypdf.PdfReader(pdf_path).pages, 1):
+        lines = [l.rstrip() for l in (page.extract_text() or "").split("\n") if l.strip()]
+        if p not in over or not lines or not lines[-1].endswith(("‐", "-")):
+            continue
+        last = norm(lines[-1][:-1] if lines[-1].endswith("‐") else lines[-1]).split()
+        for i, j in over[p]:
+            m = re.search(rf'<p\b[^>]*\bid="s{i}-{j}"[^>]*>(.*?)</p>', chapters[i - 1][3], re.S)
+            text = norm(html.unescape(re.sub(r"<[^>]+>", "", m.group(1)))) if m else ""
+            for k in (4, 3, 2, 1):
+                hit = re.search(r"\s+".join(map(re.escape, last[-k:])) + r"([\w-]*\w)", text)
+                if hit:
+                    found.append((i, j, re.sub(r"^\W+", "", last[-1]) + hit.group(1)))
+                    break
+            else:
+                continue
+            break
+    return found
 
 
 # Chapters open on the next page, left or right, as in most paperbacks (George, 20 October 2026, asked
@@ -819,6 +919,8 @@ def render_print(out_pdf, files, sources, trim):
     out_html = os.path.splitext(out_pdf)[0] + ".html"
     raw_pdf = os.path.splitext(out_pdf)[0] + "-raw.pdf"
     moves = {i: {} for i in range(1, len(files) + 1)}
+    nohyph = {i: {} for i in range(1, len(files) + 1)}  # chapter: {block: words kept whole}
+    whole = {i: set() for i in range(1, len(files) + 1)}  # chapter: lists moved whole to the next page
     meta = front_matter()
     blank = '<div class="blank"></div>'
     # the ids that can have a blank page put before them, in book order, and those that must open on the right
@@ -835,7 +937,8 @@ def render_print(out_pdf, files, sources, trim):
         for i, f in enumerate(files, 1):
             layouts.append([])
             chapters.append(render_chapter(open(f, encoding="utf-8").read(), sources, i, os.path.dirname(os.path.abspath(f)),
-                                           probes=probes, moves=moves[i], layout=layouts[-1], print_mode=True))
+                                           probes=probes, moves=moves[i], layout=layouts[-1], print_mode=True,
+                                           nohyph=nohyph[i], whole=whole[i]))
         # print citations as bare superscript numbers against the word
         cites = lambda x: re.sub(r'\s*<sup class="cite">\[(.*?)\]</sup>', r'<sup class="cite">\1</sup>', x)
         body, n = [], 0
@@ -875,10 +978,23 @@ def render_print(out_pdf, files, sources, trim):
         chrome_pdf(out_html, raw_pdf)
         return chapters, layouts
 
-    for _ in range(6):
+    # Gaps first; once they settle, a list that breaks over a page is moved whole where that costs little,
+    # and then any word hyphenated across a page is kept whole, setting the book again after each (George,
+    # 23 October). Blank pages added later move whole pages, so they cannot bring either back.
+    for _ in range(16):
         chapters, layouts = build(True)
-        if not fill_gaps(raw_pdf, layouts, moves, page_h):
+        if fill_gaps(raw_pdf, layouts, moves, page_h):
+            continue
+        keep = lists_to_keep(raw_pdf, layouts, page_h, whole)
+        for i, j in keep:
+            whole[i].add(j)
+        if keep:
+            continue
+        new =[(i, j, wd) for i, j, wd in page_end_words(raw_pdf, chapters, layouts) if wd not in nohyph[i].get(j, ())]
+        if not new:
             break
+        for i, j, wd in new:
+            nohyph[i].setdefault(j, set()).add(wd)
     # Blank pages from the last layout measured, then checked against the final one (the gap
     # filling can stop before it settles, so the two can differ) and recomputed if need be.
     pages, blanks = dest_pages(raw_pdf), set()
@@ -926,7 +1042,8 @@ def render_print(out_pdf, files, sources, trim):
           + (f"\nWARNING, opening on a left-hand page: {left}" if left else "")
           + "".join(f"\nSPLIT: {x}" for x in splits)
           + f"\nWords hyphenated across a page: {len(turn)} where the reader turns the leaf (pages {', '.join(turn) or 'none'}), "
-            f"{len(across)} across an open spread"
+            f"{len(across)} across an open spread; {sum(len(w) for c in nohyph.values() for w in c.values())} words "
+            f"kept whole to prevent them"
           + ("".join(f"\nNOT FOR PRINT: {p}" for p in problems)))
 
 
