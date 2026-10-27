@@ -42,7 +42,7 @@ Effort is the sense of how hard you are driving yourself. It seems to come from 
 
 A study from Marcora's group in 2009 changed effort without touching the muscle [@marcora2009]. Sixteen people did 90 minutes of a demanding computer task that required sustained concentration, and on another day watched documentaries for 90 minutes. After each they rode to exhaustion at 80% of their peak power. After the documentaries they lasted 754 seconds on average. After the mental task they lasted 640, about 15% less. Their physiological responses to the ride were largely the same on both days. What differed was their rating of effort, which was higher from the start after the mental task and so reached its maximum sooner.
 
-A study by Alexis Mauger at the University of Exeter tested the pain side [@mauger2010]. Thirteen trained cyclists rode a 10-mile time trial twice, once after taking paracetamol and once after a placebo, in random order and with neither riders nor testers knowing which. On paracetamol they averaged 265 watts against 255, and finished in 26 minutes 15 seconds against 26 minutes 45.
+A study by Alexis Mauger at the University of Exeter tested the pain side [@mauger2010]. Thirteen trained cyclists rode a 10-mile time trial twice, once after taking paracetamol and once after a placebo, in random order and with neither riders nor testers knowing which. On paracetamol they averaged 265 watts against 255. They finished in 26 minutes 15 seconds against 26 minutes 45.
 
 The riders did not report less pain on paracetamol. Their pain and effort ratings were the same in both rides, but their heart rates and blood lactate were higher. They had ridden harder until it hurt exactly as much as before. That suggests riders pace a time trial to a level of pain they are prepared to accept, and that a drug which dulls the signal lets them reach that level at a higher power. {grade B}
 
@@ -96,15 +96,15 @@ Fitness improved by similar amounts in the two groups: the lactate threshold and
 
 The rides to exhaustion split the same way. At the same power as before training, the interval group lasted 148% longer and the steady group 38% longer. And across all 20 people, those whose pain tolerance rose most tended to be those whose time to exhaustion rose most, with correlations of 0.44 and 0.51 for the two versions of the test [@oleary2017].
 
-The authors' interpretation is that repeatedly riding at an intensity that hurts teaches the nervous system to tolerate it, that this is separate from the gain in aerobic fitness, and that it may be part of why interval training improves hard efforts more than steady training does.
+The authors' interpretation is that repeatedly riding at an intensity that hurts teaches the nervous system to tolerate it, and that this is separate from the gain in aerobic fitness. They suggest it may be part of why interval training improves hard efforts more than steady training does.
 
 Twenty people is a small trial, and they were untrained, so six weeks of anything was a large change for them. The pain was in an arm starved of blood, which is not the pain of a climb, and the authors say plainly that tolerance of one kind of pain may not carry over to another. The correlations are modest: at 0.44 to 0.51, changes in pain tolerance go with about a fifth to a quarter of the variation in the performance gain. And the study shows that pain tolerance and performance improved together, which is weaker than showing that one caused the other. {grade B that hard training raises tolerance of this kind of pain; grade C that this explains any of the performance gain}
 
 ### Reading the research: when nobody can be blinded
 
-The paracetamol study and the spinal-block studies were double blind. The riders didn't know what they had been given and neither did the people testing them. That matters most when the outcome depends on a decision by the participant, and in this chapter every outcome does: how hard to ride a time trial, when to stop a ride to exhaustion, when to let go of the handgrip.
+The paracetamol study and the spinal-block studies were double blind. The riders didn't know what they had been given and neither did the people testing them. That matters most when the outcome depends on a decision by the participant. In this chapter every outcome does: how hard to ride a time trial, when to stop a ride to exhaustion, when to let go of the handgrip.
 
-A training study can't be blinded. Nobody does six weeks of intervals without knowing it. So ask what the participants might have believed. Someone who has spent six weeks doing sessions that hurt may reasonably expect to be better at enduring things. And a person who expects to last longer in a test with no fixed end point will often do so. The 41% in O'Leary's study is partly a measure of how long people were willing to keep squeezing, and willingness responds to belief.
+A training study can't be blinded. Nobody does six weeks of intervals without knowing it. So ask what the participants might have believed. Someone who has spent six weeks doing sessions that hurt may reasonably expect to be better at enduring things. And in a test with no fixed end point, a person who expects to last longer will often do so. The 41% in O'Leary's study is partly a measure of how long people were willing to keep squeezing, and willingness responds to belief.
 
 The researchers did what can be done. The participants were not told the hypothesis, and neither programme was presented as the better one. The tester didn't know the groups. The clock was hidden. The steady-riding group is the most important control. They also trained hard for six weeks under supervision and could equally have expected to improve, and they didn't. That makes simple expectation a less likely explanation than it would be against a group that did nothing, which was the weakness of the earlier Australian trial.
 
@@ -114,7 +114,7 @@ It doesn't remove the problem. The interval group knew their training hurt and t
 
 I found no study of pain tolerance in professional cyclists, but one tested how they cope with mental fatigue.
 
-In 2016 a group at the University of Canberra and the Australian Institute of Sport tested 11 professional road cyclists and 9 recreational ones [@martin2016]. Each rider came in twice. On one visit they spent 30 minutes on the Stroop task, a test in which the names of colours appear in the wrong colour of ink and the person has to respond to the ink and ignore the word. It means constantly suppressing an automatic response, which psychologists call inhibitory control, and half an hour of it is mentally tiring. On the other visit they did an easy task for 10 minutes. Then they rode a 20-minute time trial.
+In 2016 a group at the University of Canberra and the Australian Institute of Sport tested 11 professional road cyclists and 9 recreational ones [@martin2016]. Each rider came in twice. On one visit they spent 30 minutes on the Stroop task. In this test the names of colours appear in the wrong colour of ink, and the person has to respond to the ink and ignore the word. It means constantly suppressing an automatic response, which psychologists call inhibitory control, and half an hour of it is mentally tiring. On the other visit they did an easy task for 10 minutes. Then they rode a 20-minute time trial.
 
 The professionals were better at the Stroop task itself, with 705 correct responses against 576. After it, the recreational riders' time-trial power fell from 226 watts to 216, a drop of about 4%. The professionals' power was 326 watts after the easy task and 323 after the hard one, which is no difference [@martin2016].
 
@@ -126,7 +126,7 @@ Whether Tadej Pogačar is in more pain than the riders he leaves behind, or less
 
 ## How much is held back?
 
-If the brain regulates effort with a margin, the margin should sometimes show. In 2012 a group in the north of England had nine trained cyclists ride 4,000-metre time trials against an on-screen avatar, which they were told was a replay of their own best previous ride [@stone2012]. In one trial that was true. In another the avatar had been set, without their knowledge, to ride at 102% of the power of their previous best.
+If the brain regulates effort with a margin, the margin should sometimes show. In 2012 a group in the north of England had nine trained cyclists ride 4,000-metre time trials against an on-screen avatar [@stone2012]. They were told it was a replay of their own best previous ride. In one trial that was true. In another the avatar had been set, without their knowledge, to ride at 102% of the power of their previous best.
 
 They beat their previous best in both, and they went faster against the dishonest avatar than against the honest one. Riders who believed they were already at their limit found more when they thought they had done it before. The authors concluded that cyclists keep a reserve even in a time trial ridden flat out.
 
@@ -138,9 +138,9 @@ Treat the discomfort of a hard effort as information. The spinal-block experimen
 
 Don't take painkillers to train or race harder. The paracetamol result is interesting as evidence about how pacing works. As a practice it trades a warning signal for a few watts.
 
-Arrive at hard sessions and events mentally fresh if you can. In the Canberra study, half an hour of concentrated mental work cost recreational riders 10 watts in a 20-minute time trial. A day of difficult meetings is not a Stroop task, and the comparison is loose, but the direction is the one most riders with jobs would recognise: the interval session after a draining day feels harder at the same power. If it does, the studies suggest that is a real effect on perceived effort and not a failure of character [@martin2016].
+Arrive at hard sessions and events mentally fresh if you can. In the Canberra study, half an hour of concentrated mental work cost recreational riders 10 watts in a 20-minute time trial. A day of difficult meetings is not a Stroop task, and the comparison is loose. But the direction is one most riders with jobs would recognise: the interval session after a draining day feels harder at the same power. If it does, the studies suggest that is a real effect on perceived effort and not a failure of character [@martin2016].
 
-Hard sessions probably train something that easy sessions don't, apart from their effects on the heart and muscle. The only randomised comparison found that intervals raised pain tolerance and steady riding matched for work did not. It was one small trial in untrained people. It is also the first sign in this book that a rider who stays in Zone 2 may leave something untrained, and a reason not to drop hard riding entirely even if you are persuaded by the case for volume.
+Hard sessions probably train something that easy sessions don't, apart from their effects on the heart and muscle. The only randomised comparison found that intervals raised pain tolerance and steady riding matched for work did not. It was one small trial in untrained people. It is also the first sign in this book that a rider who stays in Zone 2 may leave something untrained. That is a reason not to drop hard riding entirely, even if you are persuaded by the case for volume.
 
 ::: survives
 Riders pace a hard effort to a level of pain they are prepared to accept. {grade B}

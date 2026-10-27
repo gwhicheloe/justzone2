@@ -12,7 +12,7 @@ Eight people, no comparison group and time-to-exhaustion tests leave the result 
 
 Most of the modern evidence comes from Scandinavia, and the largest share of it from one group in Norway led by Bent Rønnestad.
 
-Their first trial took 20 well-trained cyclists. Eleven added heavy strength training to their normal riding, and nine carried on riding only. The lifting was four leg exercises, three sets of four to ten repetitions with a weight that could only just be lifted that many times, twice a week for 12 weeks. The lifters' thigh muscles grew, their power at a fixed blood lactate level rose, and their average power in a 40-minute all-out test improved. The riders who only rode came close to improving in that test too, falling just short of statistical significance, so the gap between the groups was smaller than the headline suggests. VO₂max rose equally in both groups [@ronnestad2010a].
+Their first trial took 20 well-trained cyclists. Eleven added heavy strength training to their normal riding, and nine carried on riding only. The lifting was four leg exercises, three sets of four to ten repetitions with a weight that could only just be lifted that many times, twice a week for 12 weeks. The lifters' thigh muscles grew, their power at a fixed blood lactate level rose, and their average power in a 40-minute all-out test improved. The riders who only rode came close to improving in that test too, falling just short of statistical significance. So the gap between the groups was smaller than the headline suggests. VO₂max rose equally in both groups [@ronnestad2010a].
 
 The same riders were also tested at the end of a long ride, and that result is in the Durability chapter.
 
@@ -34,7 +34,7 @@ Lifting had no effect on VO₂max, on the power at which VO₂max is reached, or
 
 The authors rate the certainty of all of this as low. Their assessment found a moderate risk of bias across the studies, "mainly due to a lack of group randomisation", and the pooled estimates are imprecise. Nine studies measured performance, and four of those nine came from the Norwegian group. The authors also state that they registered their protocol after analysing the data [@llanoslagos2026], which is the opposite of what registration is for.
 
-So the best summary available says that heavy lifting probably makes trained cyclists somewhat faster in efforts from a few minutes to about an hour, and that the studies behind that conclusion are small, mostly unrandomised and concentrated in a few laboratories. {grade B}
+So the best summary available says that heavy lifting probably makes trained cyclists somewhat faster in efforts from a few minutes to about an hour. The studies behind that conclusion are small, mostly unrandomised and concentrated in a few laboratories. {grade B}
 
 ## How it works
 
@@ -60,15 +60,25 @@ The abstracts of those two papers also say only that the riders "were assigned" 
 
 In the first Norwegian trial the lifters' thigh muscles grew, and their body mass did not increase [@ronnestad2010a]. In Hickson's 1988 study, leg strength rose 30% with no change in thigh girth or muscle-fibre size [@hickson1988]. Lean mass in the lower body did increase in the 25-week elite study {shadow @ronnestad2015}; across the meta-analysis, body mass made no difference to the size of the benefit [@llanoslagos2026].
 
-The Norwegian review summarises the wider literature the same way: across trials of 8 to 16 weeks in cyclists, runners, triathletes and skiers, added strength training did not increase total body mass, while the muscles being trained grew by about 3 to 6% [@ronnestad2014].
+The Norwegian review summarises the wider literature the same way [@ronnestad2014]. Across trials of 8 to 16 weeks in cyclists, runners, triathletes and skiers, added strength training did not increase total body mass, while the muscles being trained grew by about 3 to 6%.
 
-Hickson's original finding works in the cyclist's favour here. Heavy endurance training holds back the muscle growth that lifting would otherwise produce [@hickson1980]. The review gives a likely reason, and it is one Chapter 2 introduced. AMPK, the energy sensor that endurance exercise switches on, suppresses the pathway through which lifting builds muscle protein [@ronnestad2014]. A rider doing ten hours a week on the bike and two sessions in the gym is unlikely to gain much muscle. Strength can rise a long way without size, because much of the early gain comes from the nervous system learning to use the muscle that is already there.
+Hickson's original finding works in the cyclist's favour here. Heavy endurance training holds back the muscle growth that lifting would otherwise produce [@hickson1980]. The review gives a likely reason, and it is one Chapter 2 introduced. AMPK, the energy sensor that endurance exercise switches on, suppresses the pathway through which lifting builds muscle protein [@ronnestad2014]. On ten hours a week on the bike and two sessions in the gym, a rider is unlikely to gain much muscle. Strength can rise a long way without size, because much of the early gain comes from the nervous system learning to use the muscle that is already there.
+
+## Is size the point?
+
+Probably not, though there is a tempting argument that it is.
+
+Lifting may enlarge W′, the reserve above critical power that an attack or a short, steep climb draws on (Chapter 1). In an eight-week trial it raised young men's W′ without changing their critical power, though not by every method of calculating it [@sawyer2014]. People with bigger thigh muscles also tend to have a bigger W′ on a bike [@miura2002]. Put the two together and you get a rule you may hear in a gym or from a coach: build bigger muscles and you'll build a bigger W′.
+
+The second finding is observation, Chapter 4's second kind of evidence. It says that people who differ in muscle size differ in W′. It doesn't say what happens when one rider's muscles grow. In that study, thigh muscle size accounted for about a third of the differences in W′ between 17 men, which leaves two thirds to something else. And size travels with strength. In 11 elite cyclists, W′ tracked the force of the muscles that straighten the knee much more closely than the size of the thigh, and the volume of the quadriceps themselves was unrelated to it [@kordi2018]. The trials that raised W′ raised strength as well, so they can't say which did the work.
+
+The cycling trials trained for force, with heavy weights and few repetitions, and the muscle that grew was a by-product. A rider who sets out to get bigger is chasing something those trials never aimed for, and will carry it up every climb. {grade C}
 
 ## How much, and for how long
 
 The programmes in the 17 studies were similar enough to describe an average. They used about four exercises a session, loads of about 84% of the one-repetition maximum, which is a weight that can be lifted about seven times, and ran for about 14 weeks. The squat was the commonest exercise, used in 12 of the studies, followed by calf exercises, leg curls and the leg press [@llanoslagos2026]. All of it is heavy lifting for the legs. The review by Rønnestad and Mujika concludes that for cycling the evidence favours heavy loads over light, explosive work, and it adds a detail about how to lift them. The weight will move slowly because it is heavy, but the rider should try to push it up as fast as possible. In one study it cites, lifting with that intent produced larger gains in strength and in the rate of force development than lifting at a deliberately moderate speed [@ronnestad2014].
 
-Its recommended programme is two sessions a week for 12 weeks, with two or three sets of four to ten repetitions and two to three minutes' rest between sets, using exercises that work the same muscles through a similar movement to pedalling. It warns that at first the legs feel heavy and sore for a few days after each session, and advises cutting back the riding for the first two or three weeks. The suggested time to begin is straight after the end of the season, when riding matters least [@ronnestad2014].
+Its recommended programme is two sessions a week for 12 weeks, with two or three sets of four to ten repetitions and two to three minutes' rest between sets. The exercises should work the same muscles through a similar movement to pedalling. It warns that at first the legs feel heavy and sore for a few days after each session, and advises cutting back the riding for the first two or three weeks. The suggested time to begin is straight after the end of the season, when riding matters least [@ronnestad2014].
 
 Strength gained in the winter can be kept through the season on very little. The Norwegian group had six cyclists lift twice a week for a 12-week preparation period and then once a week for the first 13 weeks of the racing season. They kept the muscle and the strength they had gained, and by the end of the 25 weeks had improved their 40-minute power more than six riders who had not lifted at all {shadow @ronnestad2010b}. Twelve riders is very few, but the finding fits the pattern from Chapter 2 that an adaptation is cheaper to keep than to build.
 
@@ -83,7 +93,7 @@ Cycling is weight-supported. The skeleton does not carry the rider's weight on a
 
 A study in California compared 27 male masters cyclists, average age 51, who had raced for an average of 20 years, with normally active men of the same age and weight who were not athletes. The cyclists had lower bone mineral density at the spine and the hip. Four of them, 15%, had values in the range used to diagnose osteoporosis. None of the non-athletes did {shadow @nichols2003}.
 
-A 2012 systematic review of 31 studies reached the same conclusion: adult road cyclists have low bone density in key regions, the lumbar spine in particular, and road cycling "does not appear to confer any significant osteogenic benefit" [@olmedillas2012]. Mountain bikers and cyclists who did other sports as well were better off. {grade C}
+A 2012 systematic review of 31 studies reached the same conclusion. Adult road cyclists have low bone density in key regions, the lumbar spine in particular, and road cycling "does not appear to confer any significant osteogenic benefit" [@olmedillas2012]. Mountain bikers and cyclists who did other sports as well were better off. {grade C}
 
 These comparisons cannot show that cycling caused the difference. Nor have I found a trial showing that lifting restores bone in cyclists. Loading the skeleton is standard advice for bone health, and a squat loads the spine and hips. For a rider over 40 whose only exercise is the bike, this may be a better reason to lift than anything in a time trial.
 
@@ -97,7 +107,7 @@ These comparisons cannot show that cycling caused the difference. Nor have I fou
 
 **Expect a small gain where it matters and none in VO₂max.** The benefit showed up in efforts of a few minutes to an hour, and in one trial at the end of a three-hour ride.
 
-**Don't expect to bulk up.** Riders doing a full endurance programme gained strength with little or no gain in weight.
+**Train for strength, not size.** Don't expect to bulk up either: riders doing a full endurance programme gained strength with little or no gain in weight.
 
 **Learn the lifts properly.** The Norwegian review advises developing technique with lighter loads before lifting heavy ones [@ronnestad2014]. The trials do not give injury figures I can cite. If you have not lifted before, get the movement taught.
 

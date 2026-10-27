@@ -30,7 +30,7 @@ The terms the book uses most, as it uses them. The chapter in brackets explains 
 
 **Control group.** Volunteers who are tested like the others but do not get the treatment, so that its effect can be separated from practice, the season and chance. (Chapter 4)
 
-**Critical power.** The highest power at which the body's responses, including oxygen uptake and lactate, can still settle to a steady state. Above it every effort has a time limit, set by W′. One of the measures of the second threshold. (Chapter 1)
+**Critical power.** The power the power–duration curve flattens towards, estimated from all-out efforts of about 2 to 15 minutes. It marks the highest power at which the body's responses, including oxygen uptake and lactate, can still settle to a steady state. Above it every effort has a time limit, set by W′. One of the measures of the second threshold. Some training software uses the name for the whole power curve. (Chapters 1 and 5)
 
 **Crossover trial.** A trial in which every volunteer does each of the treatments in turn, so that each is compared with themselves. (Chapter 9)
 

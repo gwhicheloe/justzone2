@@ -6,13 +6,13 @@ For a rider on six to ten hours, I would start with two hard sessions at least 4
 
 ## Where two comes from
 
-The number began as a description. Counting sessions by their purpose, Stephen Seiler found that elite endurance athletes in several sports did roughly four easy sessions for every hard one, which for an athlete training ten to fourteen times a week means two or three hard sessions [@seiler2010]{shadow @seilerkjerland2006}. The champions' diaries in Chapter 8 add that it was the hard dose, not the hard share, that held steady [@tonnessen2014].
+The number began as a description. Counting sessions by their purpose, Stephen Seiler found that elite endurance athletes in several sports did roughly four easy sessions for every hard one. For an athlete training ten to fourteen times a week, that means two or three hard sessions [@seiler2010]{shadow @seilerkjerland2006}. The champions' diaries in Chapter 8 add that it was the hard dose, not the hard share, that held steady [@tonnessen2014].
 
 Those records cannot tell us whether two or three sessions worked best, whether more was unsustainable, or whether coaches were following tradition. That requires trials.
 
 ## Adding hard sessions to easy training
 
-The trials that best match an amateur's situation add a few hard sessions to a base of easy riding. In two South African trials, trained cyclists who added about one and a half or two interval sessions a week to their usual riding improved their 40 km time trial within three or four weeks [@lindsay1996; @stepto1999].
+The trials that best match an amateur's situation add a few hard sessions to a base of easy riding. In two South African trials, trained cyclists added about one and a half or two interval sessions a week to their usual riding. They improved their 40 km time trial within three or four weeks [@lindsay1996; @stepto1999].
 
 Neither trial tested whether three or four sessions would have brought more.
 
@@ -52,7 +52,7 @@ The trial is often quoted as showing that two sessions beat four. The two-sessio
 
 But look again at the time trial. The hypothesis was about the difference between the groups, and the effect size for that difference was 0.17, trivial by the authors' own description [@tonnessen2020]. "Superior" rests on one group's improvement crossing the line of statistical significance while the other group's did not. With nine athletes in one group and six in the other, small differences in where each group's change falls can move it across that line.
 
-The same pattern runs through the frequency literature. In the German runners, the test of whether frequency changed the result gave p = 0.17 for VO₂max, so the groups were not shown to differ. Yet the two- and three-session groups' changes were each significant and the one-session group's was not [@lenk2025]. A 2025 meta-analysis of interval training in athletes found effect sizes of 0.69 for two sessions a week and 1.21 for three, against controls, and described three as superior because only that figure crossed p = 0.05 [@yang2025]. Both effects point the same way, and their uncertainties overlap.
+The same pattern runs through the frequency literature. In the German runners, the test of whether frequency changed the result gave p = 0.17 for VO₂max, so the groups were not shown to differ. Yet the two- and three-session groups' changes were each significant and the one-session group's was not [@lenk2025]. A 2025 meta-analysis of interval training in athletes found effect sizes of 0.69 for two sessions a week and 1.21 for three, against controls [@yang2025]. It described three as superior because only that figure crossed p = 0.05. Both effects point the same way, and their uncertainties overlap.
 
 Compare the groups directly. "Group A improved significantly and group B did not" reports two tests, each comparing a group with itself. Showing that A did better than B requires a separate test of the difference between them.
 
@@ -72,25 +72,25 @@ Pushing past that has a cost before it has a benefit. A consensus statement from
 
 ## Arranging the same work
 
-Concentrating the work in a short block, followed by recovery, helped trained cyclists. In a 2014 trial, one group did five high-intensity sessions in the first week and one a week for the next three, and another did two a week throughout, with the same volumes of hard and easy riding in total. After four weeks the block group's VO₂max was up 4.6% and its power at a lactate of 2 mmol/L up 10%, while the steady group had not changed [@ronnestad2014b].
+Concentrating the work in a short block, followed by recovery, helped trained cyclists. In a 2014 trial, one group did five high-intensity sessions in the first week and one a week for the next three. Another did two a week throughout, with the same volumes of hard and easy riding in total. After four weeks the block group's VO₂max was up 4.6% and its power at a lactate of 2 mmol/L up 10%, while the steady group had not changed [@ronnestad2014b].
 
 Blocks can also go wrong. The Trondheim group cites two studies in which two weeks of intensified training left competitive cyclists with a lower VO₂max and worse performance [@hatle2014]. A block works when it is followed by recovery, and the recovery is part of the dose.
 
 Compressing the work without a recovery period afterwards delayed the gain. In 2014 a Trondheim group gave 21 young adults 24 sessions of uphill treadmill intervals, 4 × 4 minutes, either over eight weeks or over three [@hatle2014]. Four days after the last session, VO₂max was 10.7% higher in the eight-week group, and the 3.0% in the three-week group was not significant. Twelve days later, after rest, the compressed group had reached 6.1% and the spread-out group had slipped to 7.9%, and the two were no longer significantly different.
 
-And in the largest trial of cyclists the order of the hard sessions did not matter at all: 63 riders did 24 interval sessions, two a week, in three different orders, and all improved by 5% to 10% {shadow @sylta2016}. Doing the hard sessions consistently mattered more than sequencing them cleverly. {grade B}
+And in the largest trial of cyclists the order of the hard sessions did not matter at all. Its 63 riders did 24 interval sessions, two a week, in three different orders, and all improved by 5% to 10% {shadow @sylta2016}. Doing the hard sessions consistently mattered more than sequencing them cleverly. {grade B}
 
 ## Threshold sessions count differently
 
 A threshold session is a hard session that is cheaper to recover from, so a week can hold more of them. Recovery took up to 48 hours after threshold work and at least 48 hours after harder work [@stanley2013], and the sessions in the two-against-four trial were threshold sessions [@tonnessen2020]. The Norwegian runners described in Chapter 8 do three or four threshold sessions a week. They check their lactate every one to three repetitions to keep it between 2 and 4.5 mmol/L, and add one faster session and 150 to 180 km of easy running {shadow @casado2023}. Elite distance runners more generally do at least one threshold session and one faster session a week on a hard-day, easy-day pattern {shadow @casado2022}.
 
-That holds only if the threshold work is controlled and genuinely below the second threshold. For a rider on six to ten hours I would count a controlled threshold session as a hard session that is cheaper to recover from, and a ride between the thresholds that drifts harder than intended as a hard session that was not planned. {grade C}
+That holds only if the threshold work is controlled and genuinely below the second threshold. For a rider on six to ten hours, I would count a controlled threshold session as a hard session that is cheaper to recover from. A ride between the thresholds that drifts harder than intended is a hard session that was not planned. {grade C}
 
 ## How little keeps fitness
 
 Keeping fitness takes far less than building it. In 1981 Robert Hickson had twelve young adults train six days a week for ten weeks, cycling and running 40 minutes a day, which raised their VO₂max by 20% to 25% [@hickson1981]. They then cut to four days a week or two, at the same intensity and duration, and fifteen weeks later both groups had kept their VO₂max.
 
-In a companion study, the intensity was cut by a third or two thirds while the frequency and duration stayed the same. That lost part of the gain in VO₂max, cut endurance at a submaximal pace by 21% and 30%, and returned the heart's muscle mass to where it started {shadow @hickson1985}. A 2021 review of the minimum dose reached the same conclusion: endurance can be held for up to 15 weeks on as few as two sessions a week, or a third to two thirds less volume, provided the intensity is kept [@spiering2021]. {grade B}
+In a companion study, the intensity was cut by a third or two thirds while the frequency and duration stayed the same. That lost part of the gain in VO₂max, cut endurance at a submaximal pace by 21% and 30%, and returned the heart's muscle mass to where it started {shadow @hickson1985}. A 2021 review of the minimum dose reached the same conclusion [@spiering2021]. Endurance can be held for up to 15 weeks on as few as two sessions a week, or a third to two thirds less volume, provided the intensity is kept. {grade B}
 
 For a busy month or an off-season, I would keep one hard session a week alongside whatever easy riding fits. That is a practical inference from the reduced-training studies, which did not test this exact mix. For a rider new to structured intervals, one well-ridden session is a better start than two half-hearted ones. Older riders who find two leave them flat can reasonably drop to one or stretch the gap. A review of masters athletes concluded that age may slow recovery less than is often assumed, and that a sedentary life explains more of the decline [@borges2016]. {grade C}
 

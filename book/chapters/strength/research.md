@@ -51,6 +51,25 @@ Written 11 October 2026. Tags: [FT] full text; [Abs] abstract; [Rep] reported by
 - Olmedillas 2012: 31 studies; adult road cyclists have low BMD in key regions such as the lumbar spine; mountain biking or combination with other sports "could reduce this unsafe effect"; road cycling "does not appear to confer any significant osteogenic benefit".
 - That lifting restores bone in cyclists: **no source found; not claimed.** "Loading the skeleton is the standard advice": [GK].
 
+## W′ and muscle size [all Abs] (26 October 2026)
+
+George asked whether the book says W′ is related to muscle cross-sectional area, then made the point that matters: a coach told him you just need bigger muscles to raise W′, which jumps from a correlation to a training goal. Used as the section "Is size the point?" after "Will it make me heavier?", with the bullet "Train for strength, not size" in What to do with it.
+
+- Sawyer 2014: see sources.yaml. "Eight-week trial", "young men", "not by every method of calculating it" (W′ rose "for both linear models"; the nonlinear result is not given in the abstract, so this is an inference from its wording).
+- Miura 2002: 17 healthy men, thigh muscle CSA by ultrasound, r = 0.59 with W′ (r² = 0.35: "about a third", "two thirds to something else"). They were not described as cyclists, hence "people", tested "on a bike".
+- Kordi 2018: 11 elite male cyclists; W′ against knee-extensor torque r = 0.87, against gross thigh volume r = 0.60 (p = 0.05); quadriceps volume unrelated.
+- "The trials that raised W′ raised strength as well": Bishop & Jenkins 1996 (1-RM leg press +28.6%) and Bassan 2019 (MVC +18.6%), both below; Sawyer's abstract does not give its strength result.
+- "The muscle that grew was a by-product": interpretation (grade C). The cycling trials used heavy loads and few repetitions (above) and report thigh growth (Rønnestad 2010a); none set out to cause growth.
+
+Side roads, not used:
+- Bishop & Jenkins 1996 (Aust J Sci Med Sport 28:101–5, PMID 9040899): 8 untrained men, 6 weeks of lower-body lifting; the y-intercept of the linear CP model (W′'s equivalent) rose and CP did not; changes in the two were strongly negatively correlated (r = −0.94), which the authors flag as a weakness of the linear model.
+- Bassan 2019 (Exp Physiol 104:1115–25, doi 10.1113/EP087204): 16 active men, 3 weeks of one-leg isometric knee-extensor training; MVC +18.6%, muscle thickness +12.8%, the one-leg analogue of W′ +26%. The authors credit both muscle size and fatigue tolerance. The best support for the coach's view, but not cycling, and thickness gains in the first weeks of lifting may include swelling [GK].
+- Byrd 2018 (IJSPP 13:189–93, doi 10.1123/ijspp.2016-0810): 15 anaerobically trained men; thigh lean mass explained 48% of W′ (3-min all-out test).
+- Mitchell 2018 (J Appl Physiol 125:737–45) and Vanhatalo 2016 (J Physiol 594:4407–23): W′ unrelated to fibre type, fibre size or capillarity in biopsies.
+- Chatlaong 2026 (Sports Med, doi 10.1007/s40279-026-02539-9): muscle growth and local muscular endurance "often co-occur", but "no causal relationship can currently be established". A good single source for the general point if the section needs one.
+- Mueller 2014 (Eur J Appl Physiol 114, doi 10.1007/s00421-013-2752-2): in endurance-trained men, conventional resistance training alone did not increase fibre size or CP.
+- No trial found that measured W′ in trained cyclists before and after lifting (Europe PMC search, 26 October; not exhaustive).
+
 ## Unsourced statements to check
 
 - "Much of the early gain in strength comes from the nervous system": [GK]. (The review speaks of neural adaptations but does not make this claim in these words.)

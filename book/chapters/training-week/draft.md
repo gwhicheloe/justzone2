@@ -10,7 +10,7 @@ The hard sessions produced most of the improvement in Part III's trials on a few
 
 **Riding them.** For long intervals and 30/15s, ride at the hardest effort you can sustain to the end. Keep threshold sessions controlled below the second threshold. Judge by power and effort; heart rate can make short intervals look closer to VO₂max than they are (Chapter 11). When a session becomes comfortable, add a repetition before adding power. {grade B for the sessions; grade C for the advice on progression}
 
-**The long ride.** If your events last four or five hours, a weekly ride of three or four hours is a reasonable bet for durability, and Chapter 9 explains why it is a bet and not a finding. If your events are an hour, it is optional. Where the week is too short to hold it after the hard sessions, the hard sessions win.
+**The long ride.** If your events last four or five hours, a weekly ride of three or four hours is a reasonable bet for durability. Chapter 9 explains why it is a bet and not a finding. If your events are an hour, it is optional. Where the week is too short to hold it after the hard sessions, the hard sessions win.
 
 **The easy riding.** Everything else is easy, and Chapter 7's rule sets how easy: as much work as the ride can carry without taking anything from the hard sessions. For a rider on these hours that means the top of Zone 2, a few beats under the ceiling. It is the part of the week that grows with the hours. A ride that drifts between the thresholds is not a better easy ride. It is an extra hard session, and it should be counted as one, because it costs about as much to recover from as an interval session does {shadow @seiler2007}.
 
@@ -24,9 +24,9 @@ The figure shows one way to lay out a week at 4, 8 and 12 hours. Each total is t
 
 At **4 hours**, the week is two hard sessions and two short easy rides: 4 × 8 minutes on Tuesday, an hour easy on Thursday, three sets of 30/15s on Saturday and 45 minutes easy on Sunday. The hard sessions are 96 and 72 hours apart. Their efforts total about 52 minutes, or 21% of the week. The short easy rides keep the riding regular. If three riding days suit your life better than four, you could combine them into one longer ride, which Chapter 7's account of the mechanism slightly favours.
 
-At **8 hours**, the hard sessions move to Tuesday and Friday, 72 hours apart, with an easy ride of an hour and a half on Wednesday and an hour on Thursday, and a three-hour long ride on Saturday. Sunday and Monday are rest. The hard work is the same 52 minutes, now 11% of the week.
+At **8 hours**, the hard sessions move to Tuesday and Friday, 72 hours apart. An easy ride of an hour and a half goes on Wednesday and an hour on Thursday, and a three-hour long ride on Saturday. Sunday and Monday are rest. The hard work is the same 52 minutes, now 11% of the week.
 
-At **12 hours**, the long intervals grow to 5 × 8 minutes, the long ride to four hours, and the easy days to two hours and an hour and a half, with another easy hour and a half on Sunday. The hard work comes to about an hour, 8% of the week.
+At **12 hours**, the long intervals grow to 5 × 8 minutes, the long ride to four hours, and the easy days to two hours and an hour and a half. Another easy hour and a half goes on Sunday. The hard work comes to about an hour, 8% of the week.
 
 From 4 hours to 12, the hard dose stays within Chapter 12's trial range of about 40 minutes to an hour a week. Most extra hours are easy. The falling percentage of hard training follows from that arrangement; it is not a target to aim at. {grade C}
 
@@ -107,7 +107,7 @@ This is an example, with different evidence behind each part.
 
 **Order.** In the largest trial of cyclists, 63 riders did the same 24 interval sessions over 12 weeks in three different orders, with similar improvements {shadow @sylta2016}. There was no advantage to starting with either the long or the short intervals. {grade B}
 
-**The taper.** The best evidence in this chapter is for the last two weeks. A 2007 meta-analysis of 27 studies in competitive athletes found the largest gains from a two-week taper that cut training volume by 41% to 60%, without reducing the intensity or the number of sessions [@bosquet2007]. The figure's taper does that: the hours fall to about 6 and then about 4, and both hard sessions stay, shortened. The effects were measured as changes from before the taper to after it, without a group that kept training normally, so some of the gain is simply being rested for the event, which is the point. {grade B}
+**The taper.** The best evidence in this chapter is for the last two weeks. A 2007 meta-analysis of 27 studies in competitive athletes found the largest gains from a two-week taper. It cut training volume by 41% to 60%, without reducing the intensity or the number of sessions [@bosquet2007]. The figure's taper does that: the hours fall to about 6 and then about 4, and both hard sessions stay, shortened. The effects were measured as changes from before the taper to after it, without a group that kept training normally. So some of the gain is simply being rested for the event. That is the point. {grade B}
 
 Not everyone has a target event. A rider who rides for fitness and the odd sportive can hold a steady week for months, take a lighter week when tired, and skip the taper. Kiely's 2012 review of periodisation argued that the classic models rest on assumptions that are "no longer scientifically justifiable" [@kiely2012]. Because responses to training vary so much between people, he argued, a plan should respond to how the rider is going rather than follow a fixed calendar.
 
@@ -119,7 +119,7 @@ Drop easy riding first. Missing an easy hour costs very little.
 
 Drop to one hard session when you are new to intervals, busy or travelling, or when two leave you flat. Hickson's volunteers kept their VO₂max for 15 weeks after cutting from six training days to two at the same intensity {shadow @hickson1981}. A later minimum-dose review reached a similar conclusion [@spiering2021]. I would use one hard session alongside reduced easy riding as a fallback for a busy period. As Chapter 12 explains, that exact mix is a practical inference, rather than a tested maintenance dose. {grade C}
 
-Don't make up missed sessions by doubling up. The spacing matters before the number. Two hard sessions on consecutive days, or a hard session added to the day after the long ride, is the arrangement the spacing rule exists to prevent. Easy days ridden too hard between hard sessions undo it in the same way.
+Don't make up missed sessions by doubling up. The spacing matters before the number. The spacing rule exists to prevent two hard sessions on consecutive days, or a hard session on the day after the long ride. Easy days ridden too hard between hard sessions undo it in the same way.
 
 After illness or a long break, come back on easy riding for a few days before the first hard session. Chapter 2 has my experience of how quickly it returns after a short illness, and Chapter 19 covers how much is lost in longer breaks.
 

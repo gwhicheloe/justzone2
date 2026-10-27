@@ -26,7 +26,7 @@ The commonest volunteers are untrained or lightly active young men, often studen
 
 Studies of trained athletes are rarer, smaller and shorter, because trained athletes are few and unwilling to hand over their season to a research protocol. Studies of professionals are almost always observational. Women are under-represented at every level, and several of the studies in this book had none.
 
-Will Hopkins, a New Zealand sports scientist who has written a great deal about measuring performance, put the rule in one line of a 1999 paper: results apply only to athletes like those in the study, in ability and in how they train [@hopkins1999].
+Will Hopkins, a New Zealand sports scientist, has written a great deal about measuring performance. In a 1999 paper he put the rule in one line: results apply only to athletes like those in the study, in ability and in how they train [@hopkins1999].
 
 ## What was compared
 
@@ -36,7 +36,7 @@ When there is a comparison group, look at what it did. Doing nothing is a weak c
 
 Two methods can be matched for total work, time spent, or neither. In Chapter 2, intervals beat steady riding for mitochondrial enzymes when the work done by each leg was matched to within a kilojoule. That comparison leaves out the advantage of easy riding: far more of it can be done. Matching time instead gives the interval group more training stress. Read the methods to find out which comparison the researchers made.
 
-Then there is everything around the test itself. A review from the Australian Institute of Sport lists influences on a performance test that studies often fail to control or report: how the test was explained, how much the rider was shouted at, whether they knew how far they had to go, who was watching, whether music was playing, and whether they arrived mentally tired {shadow @halperin2015}. Chapter 3 showed that several of these change performance by a few per cent, which is as large as the training effects most studies are looking for.
+Then there is everything around the test itself. A review from the Australian Institute of Sport lists influences on a performance test that studies often fail to control or report. They include how the test was explained, how much the rider was shouted at, whether they knew how far they had to go, who was watching, whether music was playing, and whether they arrived mentally tired {shadow @halperin2015}. Chapter 3 showed that several of these change performance by a few per cent, which is as large as the training effects most studies are looking for.
 
 ## What was measured
 
@@ -46,7 +46,7 @@ A change at one level does not guarantee a change at the next. The heat-training
 
 Performance itself is measured in two ways that produce very different-looking numbers. In a *time trial* the rider covers a set distance, or does a set amount of work, as fast as possible. In a *time to exhaustion* test the rider holds a fixed power for as long as possible. The first resembles a race and the second does not: nobody wins a race by lasting longest at 300 watts.
 
-Time to exhaustion is also much noisier. Kevin Currell and Asker Jeukendrup reviewed the reliability of performance tests and found that time-to-exhaustion results vary by more than 10% from one attempt to the next in the same rider, where time-trial results vary by less than 5% [@currell2008].
+Time to exhaustion is also much noisier. Kevin Currell and Asker Jeukendrup reviewed the reliability of performance tests. Time-to-exhaustion results vary by more than 10% from one attempt to the next in the same rider, where time-trial results vary by less than 5% [@currell2008].
 
 And time to exhaustion exaggerates. The reason is in Chapter 1. Above critical power, the time a rider can last is the fixed reserve W′ divided by how far above critical power they are riding. Take a rider with a critical power of 250 watts and a W′ of 20 kilojoules. At 300 watts they are 50 watts over, and last 400 seconds. Raise their critical power by 4%, to 260 watts, and at the same 300 watts they are only 40 over, and last 500 seconds. A 4% gain in fitness has become a 25% gain in the test.
 
@@ -68,13 +68,13 @@ To be significant with so few people, the observed difference has to be big, so 
 
 With 50 in each group, 84% of trials reached significance, and those reported an average of 3.3.
 
-In 2013 a group led by Katherine Button showed that studies in neuroscience were typically too small to detect the effects they were looking for, and set out what follows: real effects are missed, the effects that are found are overestimated, and results fail to repeat [@button2013]. Everything in their argument applies to training studies of 10 people a side.
+In 2013 a group led by Katherine Button showed that studies in neuroscience were typically too small to detect the effects they were looking for. They set out what follows: real effects are missed, the effects that are found are overestimated, and results fail to repeat [@button2013]. Everything in their argument applies to training studies of 10 people a side.
 
 A small study that finds nothing has shown very little, because it would probably have found nothing even if the effect were real. And a small study that finds a large effect has probably overestimated it. The surprising, dramatic result from 16 volunteers is the kind most likely to shrink when someone repeats it with 60.
 
 ## How big, and how sure
 
-Most results in a training paper come from one calculation. The researchers take the difference they observed between the groups and divide it by its *standard error*, an estimate of how much that difference would vary by chance if the study were run again with different volunteers. The answer is a *t-statistic*: the signal measured in units of the noise. A t of 1 means the difference is no bigger than chance routinely produces. By convention a result counts once t passes about 2. With 10 people in each group, as in the simulation, the threshold is 2.1.
+Most results in a training paper come from one calculation. The researchers take the difference they observed between the groups and divide it by its *standard error*. That is an estimate of how much the difference would vary by chance if the study were run again with different volunteers. The answer is a *t-statistic*: the signal measured in units of the noise. A t of 1 means the difference is no bigger than chance routinely produces; by convention a result counts once t passes about 2. With 10 people in each group, as in the simulation, the threshold is 2.1.
 
 The noise shrinks with the square root of the number of people, so halving it takes four times the volunteers.
 
@@ -84,11 +84,11 @@ It does not say how big the effect is, and it does not say whether the effect ma
 
 More useful are the size of the effect in real units, such as watts, seconds or per cent, and the *confidence interval* around it: the range within which the true effect plausibly lies, given the data. A wide interval means the study couldn't pin the effect down.
 
-Currell and Jeukendrup point out that first and second place in sport are typically separated by less than 1% [@currell2008]. Hopkins calculated that to detect the smallest improvement that would change an elite athlete's results, a study needs somewhere between 16 and 65 athletes if each one tries both treatments, and between 65 and 260 if separate groups are used [@hopkins1999]. Compare that with the median of 11 in the preceding chapters.
+Currell and Jeukendrup point out that first and second place in sport are typically separated by less than 1% [@currell2008]. Hopkins calculated how many athletes a study needs to detect the smallest improvement that would change an elite athlete's results. If each one tries both treatments, it needs somewhere between 16 and 65; if separate groups are used, between 65 and 260 [@hopkins1999]. Compare that with the median of 11 in the preceding chapters.
 
 The best tests available vary by about 1 to 2% from one attempt to the next in the same person [@hopkins2001]. So an improvement of 1%, which would be worth having, is smaller than the noise in a single measurement, and small studies cannot see it. They can detect large effects in untrained people. They are close to blind to the small effects that matter to trained ones.
 
-The trial of EPO on Mont Ventoux, described in the chapter on drugs, shows what reporting looks like when it is done well: 48 riders, randomly allocated, neither riders nor testers knowing who had the drug, and each result given as a difference with its confidence interval. The reader can see which effects were pinned down and which were not {shadow @heuberger2017}.
+The trial of EPO on Mont Ventoux, described in the chapter on drugs, shows what reporting looks like when it is done well. It had 48 riders, randomly allocated, with neither riders nor testers knowing who had the drug, and it gave each result as a difference with its confidence interval. The reader can see which effects were pinned down and which were not {shadow @heuberger2017}.
 
 ## Choices made after the data are in
 
@@ -102,7 +102,7 @@ For about a decade many sports science papers used a home-grown statistical meth
 
 The defence against all of this is *preregistration*: the researchers publish their hypothesis, their main outcome and their analysis plan before collecting data, so that they cannot adjust them afterwards. It is required for clinical trials in medicine and still unusual in training research. When a study is preregistered, the paper says so, and it counts in its favour.
 
-Without it, look for the signs. Be wary when the result appears only in a subgroup, or only after groups were pooled, or only on one of many outcomes, and when the headline measure is not the one the methods section seemed to be building towards.
+Without it, look for the signs. Be wary when the result appears only in a subgroup, or only after groups were pooled, or only on one of many outcomes. Be wary too when the headline measure is not the one the methods section seemed to be building towards.
 
 ## When studies are repeated
 
@@ -112,7 +112,7 @@ Psychology did this first on a large scale. In 2015 a collaboration of psycholog
 
 Sports science did so in 2025. A project led from Technological University Dublin recruited volunteer laboratories to repeat 25 studies published between 2016 and 2021 in the field's highest-ranked journals. Each was drawn at random from the studies a laboratory had the equipment and expertise to repeat [@murphy2025]. Fourteen of the 25 repeats found a significant effect in the same direction as the original. Seven of them, 28% of the total, also found an effect of a size compatible with the original, which was the project's test of a successful replication. In 22 of the 25 the effect was smaller the second time, and the median shrinkage was 75%.
 
-Twenty-five studies cannot stand for a field. Many of the repeats simply doubled the original sample, which the authors say left them with less statistical power than planned, so some real effects will have been missed. And the project covered biomechanics, psychology, physiology, nutrition and injury prevention, in experiments a volunteer laboratory could fit in. A training study that runs for months is far harder to repeat, and I know of no project that has repeated a set of them.
+Twenty-five studies cannot stand for a field. Many of the repeats simply doubled the original sample. The authors say that left them with less statistical power than planned, so some real effects will have been missed. And the project covered biomechanics, psychology, physiology, nutrition and injury prevention, in experiments a volunteer laboratory could fit in. A training study that runs for months is far harder to repeat, and I know of no project that has repeated a set of them.
 
 The shrinkage is the simulation's result appearing in real data. The simulated small trials that reached significance reported almost twice the true effect, because they were the lucky ones, and a repeat is a second draw that has not been selected for luck. When a single small study reports a striking effect, the reasonable working assumption is that the true effect is a good deal smaller than the published one. {grade B}
 
@@ -132,11 +132,11 @@ The two-year Dallas trial in Chapter 2 shows how to apply these questions to a s
 
 *What kind of evidence?* A randomised experiment. A statistician allocated the volunteers in blocks, balanced for sex.
 
-*Who was studied?* Sixty-one healthy, sedentary adults aged 45 to 64, chosen from 262 who were screened. People with high blood pressure, a body mass index of 30 or more, or a habit of regular exercise were excluded. The authors say that volunteers willing and able to take on an intensive programme may not represent everyone, and that most of them were white.
+*Who was studied?* Sixty-one healthy, sedentary adults aged 45 to 64, chosen from 262 who were screened. The trial excluded people with high blood pressure, a body mass index of 30 or more, or a habit of regular exercise. The authors say that volunteers willing and able to take on an intensive programme may not represent everyone, and that most of them were white.
 
 *What was compared?* Training against a control group that was also given something to do: yoga, balance and stretching three times a week for the same two years. Both groups wore heart-rate monitors, and each person in either group had an exercise physiologist following their progress. A control group that is simply sent home knows it is the control group. This one got the same attention as the trainers, which removes one explanation for any difference.
 
-*What was measured?* The main outcome was named before the trial began: the stiffness of the left ventricle, worked out from a catheter in the heart while the amount of blood returning to it was lowered and then raised. That is a capacity and not a performance, but it is measured about as directly as is possible in a living person. The cardiologist who measured the heart's volume did not know the pressures. VO₂max was measured by collecting the air each person breathed out.
+*What was measured?* The main outcome was named before the trial began: the stiffness of the left ventricle. It was worked out from a catheter in the heart while the amount of blood returning to it was lowered and then raised. That is a capacity and not a performance, but it is measured about as directly as is possible in a living person. The cardiologist who measured the heart's volume did not know the pressures. VO₂max was measured by collecting the air each person breathed out.
 
 *How many, for how long?* The researchers calculated in advance that they needed 21 people in each group. They recruited 34 and 27, and 28 and 24 finished the two years. The training group completed 88% of the sessions it was set, each one recorded by a heart-rate monitor [@howden2018].
 

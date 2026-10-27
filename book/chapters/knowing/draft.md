@@ -2,7 +2,7 @@
 
 Start with a ride you already do every week. On the same steady stretch, after the same warm-up and in similar conditions, note your power at a fixed heart rate, or your heart rate at a fixed power. Look at the average over a month. It is a practical way to follow your training without adding another test to the week.
 
-The reason is noise. Every measure of fitness a rider can take at home moves from day to day for reasons that have nothing to do with fitness: sleep, heat, food, caffeine, a cold coming on, the calibration of a power meter. Only the last can be blamed on the manufacturer. A real change of a few per cent over a couple of months is the size that training produces in a trained rider, and it is about the size of the noise in a single reading. The practical skill is to measure something repeatable often enough that the change shows through.
+The reason is noise. Every measure of fitness a rider can take at home moves from day to day for reasons that have nothing to do with fitness: sleep, heat, food, caffeine, a cold coming on, the calibration of a power meter. Only the last can be blamed on the manufacturer. A real change of a few per cent over a couple of months is the size that training produces in a trained rider. It is also about the size of the noise in a single reading. The practical skill is to measure something repeatable often enough that the change shows through.
 
 ## Power at a fixed heart rate
 
@@ -42,7 +42,7 @@ That makes best efforts a useful but rough measure. They track fitness when they
 
 Chapter 9 described a simple test of durability: on a long ride at steady power, compare your heart rate in the last half hour with the half hour after you warmed up. The more it rises, the more you are fading. Repeated over a season, on cool days, the drift should shrink as durability improves.
 
-The largest study of this kind is of marathon runners. In 82,303 of them, the researchers compared heart rate with pace in the last 5 km of the race against the early kilometres [@smyth2022]. The third of runners whose heart rate stayed most closely coupled to their pace ran faster relative to their estimated critical speed. They finished in 217 minutes on average against 225 and 239 for the moderate and high groups, and began to decouple later, at 33 km against 23 and 19. Adding decoupling to a model of marathon performance reduced its prediction error from 6.5% to 5.2%.
+The largest study of this kind is of marathon runners. In 82,303 of them, the researchers compared heart rate with pace in the last 5 km of the race against the early kilometres [@smyth2022]. The third of runners whose heart rate stayed most closely coupled to their pace ran faster relative to their estimated critical speed. They finished in 217 minutes on average against 225 and 239 for the moderate and high groups. They also began to decouple later, at 33 km against 23 and 19. Adding decoupling to a model of marathon performance reduced its prediction error from 6.5% to 5.2%.
 
 It was an observational study of runners in one kind of race. It shows that decoupling goes with performance, not that training to reduce it will make anyone faster. It does show that the measure carries information, and a rider can take it from every long ride without any extra effort. {grade B that decoupling goes with performance; grade C for using it to judge training}
 
@@ -82,7 +82,7 @@ Morning heart-rate variability is still worth having if your watch records it. A
 
 ## The watch's VO₂max
 
-Many watches estimate VO₂max from heart rate, pace or power and personal details. A 2022 meta-analysis of 14 validation studies found that devices whose estimates used exercise data were accurate on average, with a bias of almost zero, and that their limits of agreement ran from about 10 mL/kg/min too low to 10 too high [@molinagarcia2022]. Devices that relied on resting data overestimated by about 2 on average, with limits from 13 too low to 17 too high.
+Many watches estimate VO₂max from heart rate, pace or power and personal details. A 2022 meta-analysis of 14 validation studies found that devices whose estimates used exercise data were accurate on average, with a bias of almost zero. But their limits of agreement ran from about 10 mL/kg/min too low to 10 too high [@molinagarcia2022]. Devices that relied on resting data overestimated by about 2 on average, with limits from 13 too low to 17 too high.
 
 ![Estimates of VO₂max by consumer wearables against laboratory measurement: the average error (dot) and the range that contains 95% of individual estimates (bar). Devices using exercise data are right on average and can be about 10 mL/kg/min out for one person. From a 2022 meta-analysis of 14 validation studies.](figures/watch-vo2max.svg)
 
@@ -96,7 +96,7 @@ The chart's curves depend on the model's settings. In 2006 a French group fitted
 
 ![The four settings of the fitness–fatigue model that matter most for planning, as estimated for nine elite swimmers, with the range that contains the true value with 95% confidence. Each could be anywhere across a span of four to five weeks. From Hellard and colleagues, 2006.](figures/banister-uncertainty.svg)
 
-The time it took fitness to fade was estimated at 38 days, but the true value could have been anywhere from 17 to 59. Fatigue's was 19 days, from 6 to 32. The time to recover performance after training, 19 days, could have been 7 or 35, and the time to peak after training stopped, 43 days, could have been 25 or 61. Some of the settings were so closely tied to each other that, in the authors' words, it made "their interpretation worthless". These were elite swimmers with a full season of competition results to fit the model to. A recreational rider has far fewer.
+The time it took fitness to fade was estimated at 38 days, but the true value could have been anywhere from 17 to 59. Fatigue's was 19 days, from 6 to 32. The time to recover performance after training, 19 days, could have been 7 or 35. The time to peak after training stopped, 43 days, could have been 25 or 61. Some of the settings were so closely tied to each other that, in the authors' words, it made "their interpretation worthless". These were elite swimmers with a full season of competition results to fit the model to. A recreational rider has far fewer.
 
 A chart using preset values assumes those settings suit you. It can show how training load has changed, including sharp jumps or falls during a break. Its estimate of your "form" on a given day depends on the assumptions, however precise the line looks. Check what the software measured and what it assumed.
 
@@ -122,7 +122,7 @@ And after each hard session, a line on how it felt and how you slept.
 
 Give the routine two or three months before judging progress. {grade C for the routine as a whole}
 
-If they don't move, Chapter 17's order of the week is where to look first: whether the hard sessions are being ridden hard enough and recovered from, and whether the easy riding is staying easy.
+If they don't move, look first at Chapter 17's order of the week. Are the hard sessions being ridden hard enough and recovered from, and is the easy riding staying easy?
 
 ::: survives
 How you feel is the measure with the best record, so write it down. {grade B}

@@ -48,7 +48,7 @@ George asked in conversation (his words are in `george/notes.md`): he rides at t
 - Melanson 2002: 16 adults (8 men, 8 women) in a whole-room calorimeter on three days: sedentary, 400 kcal of exercise at 40% of VO₂max, 400 kcal at 70%. 24-hour energy expenditure and carbohydrate oxidation were higher on both exercise days; "24-h fat oxidation was not different across conditions". "Exercise intensity has no effect on 24-h EE or nutrient oxidation." How the subjects were fed is not in the abstract.
 - Melanson, MacLean & Hill 2009, a review: exercise of an hour or less "has little impact on 24-h fat oxidation".
 - Keating 2017, meta-analysis of 31 training studies: no difference between interval training and moderate continuous training for body fat percentage or fat mass; comparisons where intervals used less time or energy "tended to favour" continuous training (p = 0.09); neither produced clinically meaningful fat loss.
-- [Own] Energy: 200 W against 125 W is 270 kJ more work an hour, roughly 270 kcal more burned (the usual one-for-one rule of thumb, which assumes about 24% efficiency [GK]). That is several times the difference in fat burned.
+- [Own] Energy: 200 W against 125 W is 270 kJ more work an hour, roughly 270 kcal more burned (the usual one-for-one rule of thumb, which assumes about 24% efficiency [GK]). That is several times the difference in fat burned. Since 23 October 2026 the draft says only "roughly 270 calories more", without the kilojoules (George: energy in calories, no conversion in the text).
 
 **Whether lower in the zone gives the same training benefit.**
 - No study I know compares the top of Zone 2 with the bottom, or with zone 1, at equal time in trained cyclists. **Check before the chapter is drafted.**

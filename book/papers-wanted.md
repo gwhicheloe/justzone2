@@ -139,6 +139,14 @@ Helgerud 2007 (already on this list for the intervals chapters) is used here too
 
 Read in full for this chapter, free: Tønnessen 2014, Solli 2017, Stöggl & Sperlich 2014. Read in part, free: Silva Oliveira 2024, Stöggl & Sperlich 2015, Treff 2017, Filipas 2022, Leo 2020, Haugen 2022, Casado 2023, Festa 2019.
 
+## Designing intervals (added 25 October 2026)
+
+George asked whether the full paper had been read for Chapter 11's close-up: it hadn't. Still subscription only on 25 October (Europe PMC: not open access, not in PMC; Wiley). George supplied it the same day; read in full.
+
+| ✓ | Priority | Paper | Save as | Why I need the full text |
+|---|---|---|---|---|
+| ☑ | **1** | Seiler S, Jøranson K, Olesen BV, Hetlelid KJ. Adaptations to aerobic interval training: interactive effects of exercise intensity and total work duration. *Scand J Med Sci Sports.* 2013;23:74–83. [doi:10.1111/j.1600-0838.2011.01351.x](https://doi.org/10.1111/j.1600-0838.2011.01351.x) | `seiler2013.pdf` | Chapter 11's opening and close-up table, and cited in Chapters 12, 17 and 20. Everything printed comes from the abstract. Check that the "overall" gain really combines the three measures, and get each one (VO₂peak, power at VO₂peak, power at 4 mmol/L), the recovery between intervals, how the groups were allocated, any dropouts, and the authors' own limitations. |
+
 ## Two dry lines that need a source (optional, 15 October)
 
 Found during the humour pass and left out because I couldn't check them. Low priority: each would add one line.
@@ -150,5 +158,5 @@ Found during the humour pass and left out because I couldn't check them. Low pri
 
 ## The short list
 
-If you only chase a few: **Cox 2010, the two Rønnestad papers, Smith 2013 and Helgerud 2007**, plus Mateo-March 2022 and Spragg 2023a from the Durability list above. Each of those carries a chapter opening, a close-up or a chart.
+If you only chase a few: **Seiler 2013, Cox 2010, the two Rønnestad papers, Smith 2013 and Helgerud 2007**, plus Mateo-March 2022 and Spragg 2023a from the Durability list above. Each of those carries a chapter opening, a close-up or a chart.
 

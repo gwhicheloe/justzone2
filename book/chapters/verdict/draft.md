@@ -6,7 +6,7 @@ For a rider on six to ten hours a week, the evidence points to two hard sessions
 
 ## What I believed, and what I found
 
-The Introduction began with a winter of easy riding and a faster climb up Sa Calobra, and a sentence I had written for my website: that easy riding was the single most effective way to build mitochondria. The largest analysis of the question, 353 training studies, found that continuous training raised mitochondrial content by about 23% and interval training by 27%, and that per hour of training the harder kinds did far more [@molmen2025]. The sentence was wrong.
+The Introduction began with a winter of easy riding and a faster climb up Sa Calobra. It also quoted a sentence I had written for my website: that easy riding was the single most effective way to build mitochondria. The largest analysis of the question, 353 training studies, found that continuous training raised mitochondrial content by about 23% and interval training by 27%. Per hour of training, the harder kinds did far more [@molmen2025]. The sentence was wrong.
 
 Chapter 7 offered a likelier explanation for the faster climb. My hours changed little, but I went from inconsistent hard rides to four or five sessions every week. The research supports regular riding [@molmen2025], and easy riding made that regularity possible for me.
 
@@ -22,9 +22,9 @@ Chapter 7 offered a likelier explanation for the faster climb. My hours changed 
 
 **The elite pattern.** Supported, at grade C, as a description. The Olympic champions whose diaries Chapter 8 analysed spent 91% of their endurance training time below the first threshold, and about 1.3 hours a week above it [@tonnessen2014]. What is not supported is the step from their ratio to an amateur's week. Trials of different ways of dividing the hard work found no clear winner over 4 to 16 weeks [@silvaoliveira2024; @cove2025]. The elite example is better read as evidence for a large amount of training, most of it easy, around a modest and steady dose of hard work.
 
-**Two hard sessions.** Supported, at grade B. Two a week, at least 48 hours apart, builds about as much as three over a few weeks, and spacing matters as much as the count [@stanley2013; @tonnessen2020]. One hard session plus easy riding is a reasonable fallback for a busy period, an inference at grade C. The hard dose that worked in the trials, about 40 minutes to an hour of hard work a week, is close to the champions' own, which suggests to me that recovery, not ambition, sets the ceiling. That last part is my inference, at grade C.
+**Two hard sessions.** Supported, at grade B. Two a week, at least 48 hours apart, builds about as much as three over a few weeks, and spacing matters as much as the count [@stanley2013; @tonnessen2020]. One hard session plus easy riding is a reasonable fallback for a busy period, an inference at grade C. The trials that worked used about 40 minutes to an hour of hard work a week, close to the champions' own dose. That suggests to me that recovery, not ambition, sets the ceiling. That last part is my inference, at grade C.
 
-**Which sessions.** Supported, at grade B. In recreational cyclists on about six hours a week, 4 × 8 minutes doubled the gain from 4 × 4 [@seiler2013]. The sessions that let a rider pile up the most work close to the top of what they can sustain did best. Thirty-fifteens are a good second format. Sprints are for sprinting.
+**Which sessions.** Supported, at grade B. In recreational cyclists on about six hours a week, 4 × 8 minutes doubled the gain from 4 × 4 [@seiler2013]. The sessions that did best let a rider pile up the most work close to the top of what they can sustain. Thirty-fifteens are a good second format. Sprints are for sprinting.
 
 **Time near VO₂max as the cause of improvement.** Not shown, at grade C. It is a useful yardstick for comparing sessions, but riders who reached a higher share in the study also trained more and started less fit.
 
@@ -32,9 +32,9 @@ Chapter 7 offered a likelier explanation for the faster climb. My hours changed 
 
 **Health.** Zone 2 is not shown to be special, at grade C. Most of the lower risk of death in the large surveys comes with the first few hours of activity a week [@arem2015], and a rider on six to ten hours is well past it. Training lowers blood pressure and blood sugar whatever its intensity. For health, the best exercise is the one that gets done.
 
-**Lactate clearance.** Not shown, at grade C. The claim that riding in Zone 2 is what trains the body to clear lactate comes from a comparison of professional athletes with less active people at one moment. That describes a very fit body without showing how it was built. The one training study I found that measured the lactate transporter directly, in 20 skiers, found that it fell after months of mostly easy training and held steady in the group that trained near the threshold.
+**Lactate clearance.** Not shown, at grade C. The claim that riding in Zone 2 is what trains the body to clear lactate comes from a comparison of professional athletes with less active people at one moment. That describes a very fit body without showing how it was built. The one training study I found that measured the lactate transporter directly was in 20 skiers. The transporter fell after months of mostly easy training and held steady in the group that trained near the threshold.
 
-**Copying the ratio.** Not shown, at grade B. Trials that gave athletes polarised, pyramidal or threshold-heavy versions of mostly easy training found no consistent winner over a few months [@silvaoliveira2024]. A rider on seven hours who rides 80% easy has about an hour and a half of hard training, close to the champions' 1.3 hours, and that is a better reason for the ratio than the ratio itself.
+**Copying the ratio.** Not shown, at grade B. Over a few months, no consistent winner emerged from trials that gave athletes polarised, pyramidal or threshold-heavy versions of mostly easy training [@silvaoliveira2024]. A rider on seven hours who rides 80% easy has about an hour and a half of hard training, close to the champions' 1.3 hours. That is a better reason for the ratio than the ratio itself.
 
 **Years of easy volume.** Unknown, at grade C. Elite records are consistent with benefits that short trials miss. No trial has run long enough to test them.
 
@@ -54,7 +54,7 @@ I built an app, JustZone2, for my own winter training. It holds a heart rate in 
 
 ## What the research can't yet tell us
 
-**Years, not weeks.** Almost every training trial in this book lasted between four and sixteen weeks. Elite athletes build their engines over a decade. Whether years of easy volume build something a few months of intervals can't, such as a bigger and more compliant heart, more capillaries or more durability, is the most important open question for anyone who trains for a long time. No trial has been long enough to answer it.
+**Years, not weeks.** Almost every training trial in this book lasted between four and sixteen weeks. Elite athletes build their engines over a decade. The most important open question for anyone who trains for a long time is whether years of easy volume build something a few months of intervals can't. That might be a bigger and more compliant heart, more capillaries or more durability. No trial has been long enough to answer it.
 
 **Riders like the reader.** Most trials are of untrained people, students or well-trained athletes. Riders with jobs, on six to ten hours a week, in their forties and fifties, are rarely studied, possibly because they have no time to be. Women are studied much less than men. Older riders are studied less than either.
 

@@ -1255,6 +1255,30 @@
   chapters: [strength]
   notes: "Eight trained subjects, heavy leg training 3 days a week for 10 weeks, no control group. Strength +30%; VO2max, thigh girth and fibre area unchanged; short-term cycling endurance +11%; time to exhaustion at 80% VO2max 71 to 85 min."
 
+- key: sawyer2014
+  citation: "Sawyer BJ, Stokes DG, Womack CJ, Morton RH, Weltman A, Gaesser GA. Strength training increases endurance time to exhaustion during high-intensity exercise despite no change in critical power. J Strength Cond Res. 2014;28:601-609."
+  doi: 10.1519/jsc.0b013e31829e113b
+  pmid: 23760362
+  status: abstract
+  chapters: [strength]
+  notes: "Abstract only (26 Oct 2026). 19 males (20.6 years), 8 weeks of strength training (n = 14) or no exercise (n = 5). Four constant-power rides to exhaustion on a cycle ergometer before and after. W' rose by 5.8 to 10.0 kJ 'for both linear models' (so apparently not in the nonlinear model); CP unchanged; changes in W', not CP, tracked changes in time to exhaustion. Training status not stated in the abstract. Five controls."
+
+- key: miura2002
+  citation: "Miura A, Endo M, Sato H, Sato H, Barstow TJ, Fukuba Y. Relationship between the curvature constant parameter of the power-duration curve and muscle cross-sectional area of the thigh for cycle ergometry in humans. Eur J Appl Physiol. 2002;87:238-244."
+  doi: 10.1007/s00421-002-0623-3
+  pmid: 12111284
+  status: abstract
+  chapters: [strength]
+  notes: "Abstract only (26 Oct 2026). 17 healthy men, 21-41 years (not described as cyclists). Thigh muscle CSA by ultrasound. CP 200 W, W' 12.6 kJ. Thigh muscle CSA correlated with W' (r = 0.59, P < 0.01; r squared 0.35, 'about a third') and with accumulated O2 deficit (r = 0.54). Cross-sectional: says nothing about what growth does to W'."
+
+- key: kordi2018
+  citation: "Kordi M, Menzies C, Parker Simpson L. Relationship between power-duration parameters and mechanical and anthropometric properties of the thigh in elite cyclists. Eur J Appl Physiol. 2018;118:637-645."
+  doi: 10.1007/s00421-018-3807-1
+  pmid: 29352330
+  status: abstract
+  chapters: [strength]
+  notes: "Abstract only (26 Oct 2026). 11 elite male cyclists. W' vs knee-extensor maximum torque r = 0.87 (p < 0.001); vs gross thigh volume r = 0.60 (p = 0.05); 'No other anthropometric characteristics were related to the W'' (quadriceps volume, pennation angle, muscle thickness measured). CP related to none. Authors: 'In addition to muscle size, the maximal evocable force ... appears to be linked to the magnitude of the W''."
+
 - key: hill1923
   citation: "Hill AV, Lupton H. Muscular exercise, lactic acid, and the supply and utilization of oxygen. Q J Med. 1923;16:135-171."
   status: exists
@@ -1479,8 +1503,8 @@
   pmid: 31124324
   pmcid: PMC6533178
   status: fulltext
-  chapters: [intensity, finding-zones]
-  notes: "Argues critical power, not MLSS, is the heavy-severe boundary. MLSS: 4-5 x 30-min bouts, <1 mmol/L rise from 10 to 30 min; underestimates by ~15 W with 30 W steps; lactate analyser error 0.2-0.4 mmol/L. History of fixed 4 mmol/L (Mader, Heck). CP sustainable ~20-30 min. Authors are critical power's main proponents. Sections on MLSS definition and CP read 11 Oct 2026."
+  chapters: [limits, intensity, finding-zones]
+  notes: "Argues critical power, not MLSS, is the heavy-severe boundary. MLSS: 4-5 x 30-min bouts, <1 mmol/L rise from 10 to 30 min; underestimates by ~15 W with 30 W steps; lactate analyser error 0.2-0.4 mmol/L. History of fixed 4 mmol/L (Mader, Heck). Abstract: exercise at CP 'sustainable for no more than approximately 20-30 min' (the typical figure; used in Ch 1 and Ch 5). Authors are critical power's main proponents. Sections on MLSS definition and CP read 11 Oct 2026. Re-read 26 Oct 2026 for the CP definition check: CP reported on average ~7% above MLSS (4, 9, 16, 5, 9%; cf. 1% Keir 2015); time to exhaustion at CP 'approximately 15 to 40 min or occasionally up to ~60 min'; calls asking how long CP can be held 'ill-conceived' and the 60-min FTP framing 'convenient but entirely arbitrary'; prediction trials ideally 2-3 min to 10-15 min; 3-min test at a high cadence overestimates CP."
 
 - key: jones2024
   citation: "Jones AM. The fourth dimension: physiological resilience as an independent determinant of endurance exercise performance. J Physiol. 2024."
@@ -2425,9 +2449,9 @@
   doi: 10.1249/mss.0000000000000939
   pmid: 27031742
   pmcid: PMC5070974
-  status: abstract
+  status: fulltext
   chapters: [limits, intensity]
-  notes: "Hyperbolic power-duration relationship; CP and W'; CP separates intensities where responses can stabilise (below) from those where they can't (above)."
+  notes: "Hyperbolic power-duration relationship; CP and W'; CP separates intensities where responses can stabilise (below) from those where they can't (above). FULL TEXT 26 Oct 2026 (PMC author manuscript; text in papers/poole2016.txt): the curve is built from constant-power bouts that 'result in exhaustion within 2-15 min' (Figure 1 legend). Monod and Scherrer originally defined CP as the power that could be sustained 'indefinitely' or for 'a very long time without fatigue'; Poole calls that definition 'theoretical'; exercise above CP 'may be sustained for a maximum of perhaps 30 minutes'. Tlim = W'/(P - CP). Monod and Scherrer coined 'critical power' for 'the asymptote of the muscle force-duration relationship of the upper and lower limb muscles' (single muscle groups, not cycling); in a later critical-torque study, contractions at 80% and 90% of CT mostly lasted the full 60 min 'with relative ease'. CP and LT/GET reach about 80-90% and 70-80% of VO2max in the well trained."
 
 - key: poole2021
   citation: "Poole DC, Rossiter HB, Brooks GA, Gladden LB. The anaerobic threshold: 50+ years of controversy. J Physiol. 2021;599:737-767."
@@ -2581,6 +2605,15 @@
   chapters: [heat-training]
   notes: "25 skiers. Hb mass 30 g above control; no differences in VO2max or performance."
 
+- key: ronnestad2025
+  citation: "Rønnestad BR, Odden IU, Solum KS, Rustaden AM, Hamarsland H, Hammarström D, Nygaard H, Mølmen KS. Block training with moderate- or high-intensity intervals both improve endurance performance in well-trained cyclists. Eur J Sport Sci. 2025;25:e70067."
+  doi: 10.1002/ejsc.70067
+  pmid: 41169000
+  pmcid: PMC12575440
+  status: fulltext
+  chapters: [designing-intervals]
+  notes: "Full text in papers/ (25 Oct 2026). 22 well-trained cyclists (age 19, VO2max 69.5). One-week block of 6 MIT sessions (5-7 x 10-14 min, RPE 14.5, 85.5% HRmax, La 2.9) then, ~2 months later, 5 HIT sessions (5 x 8.75 min of 30/15, RPE 17.1, 90% HRmax, La 7.5). PO15min +4.9 vs +2.8% (n.s.); PO4mmol +4.5 vs +2.1% (p=0.03); %VO2max at 4 mmol up with MIT only; VO2max no difference between blocks. NOT randomised (fixed order); 21 of 43 withdrew. Details in designing-intervals/research.md."
+
 - key: rosenblat2019
   citation: "Rosenblat MA, Perrotta AS, Vicenzino B. Polarized vs. threshold training intensity distribution on endurance sport performance: a systematic review and meta-analysis of randomized controlled trials. J Strength Cond Res. 2019;33:3491-3500."
   doi: 10.1519/jsc.0000000000002618
@@ -2711,6 +2744,14 @@
   chapters: [heat-training]
   notes: "13 male triathletes, 20 km TT at 35 C before and after an 8-day heat camp, with and without ice vest. Vest +10 W before; camp +28 W; vest +4 W (unclear) after."
 
+- key: schoenmakers2026
+  citation: "Schoenmakers P, Murray K, White J, Matta G, Bossi AH. Time spent at or near V̇O₂max during high-intensity interval training - a systematic review and meta-analysis. BMC Sports Sci Med Rehabil. 2026;18:358."
+  doi: 10.1186/s13102-026-01766-x
+  pmid: 42237396
+  status: fulltext
+  chapters: [designing-intervals]
+  notes: "Full text (PMC13480085, CC BY). 86 studies, 239 protocols, single sessions only. Time >=90% VO2max: long (>=2 min) 555 +/- 234 s, moderate 322, short (<=30 s) 336 (Table 3); total work 1,296 vs 694 vs 659 s. Duration and interval length explain 6.4% of variance (marginal R2). 30/15 sets classed as short intervals; authors say this obscures the comparison. Variable- vs even-intensity work intervals SMD 0.80, +165 s (97-223), I2 68%, includes Urianstad 2024 and Appelhans 2025. Bossi is last author."
+
 - key: schumacher2002
   citation: "Schumacher YO, Mueller P. The 4000-m team pursuit cycling world record: theoretical and practical aspects. Med Sci Sports Exerc. 2002;34:1029-1036."
   doi: 10.1097/00005768-200206000-00020
@@ -2762,9 +2803,9 @@
   citation: "Seiler S, Jøranson K, Olesen BV, Hetlelid KJ. Adaptations to aerobic interval training: interactive effects of exercise intensity and total work duration. Scand J Med Sci Sports. 2013;23:74-83."
   doi: 10.1111/j.1600-0838.2011.01351.x
   pmid: 21812820
-  status: abstract
+  status: fulltext
   chapters: [designing-intervals, how-many, training-week, verdict]
-  notes: "35 recreational cyclists (~6 h/week), 7 weeks: 4x4, 4x8, 4x16 (2/week) or easy only; overall gains 5.5, 11.4, 5.6, 4.2%. Close-up in Designing intervals. Recovery durations and separate outcomes not in the abstract; full text wanted."
+  notes: "35 recreational cyclists (~6 h/week), 7 weeks: 4x4, 4x8, 4x16 (2/week) or easy only; overall gains 5.5, 11.4, 5.6, 4.2%. Close-up in Designing intervals. Full text read 25 Oct 2026 (scanned PDF from George, papers/seiler2013.pdf): recoveries 3 min (4x16) and 2 min (4x8, 4x4); the 4x8 gain largest in VO2peak, power at VO2peak, power at 4 mM and TTE; details in Designing intervals research.md."
 
 - key: seilerkjerland2006
   citation: "Seiler KS, Kjerland GØ. Quantifying training intensity distribution in elite endurance athletes: is there evidence for an 'optimal' distribution? Scand J Med Sci Sports. 2006;16:49-56."
@@ -3077,7 +3118,7 @@
   doi: 10.3390/ijerph17093190
   pmid: 32375328
   status: fulltext
-  chapters: [designing-intervals, how-many, verdict]
+  chapters: [how-many, verdict]
   notes: "Full text in papers/. Threshold intervals (82-87% HRmax), 136 min/week as 2 long or 4 short sessions, 12 weeks: LF TT 31.8->30.6 min; HF n.s.; between-group ES 0.17. Close-up in How many hard sessions."
 
 - key: tour1998

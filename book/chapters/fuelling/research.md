@@ -20,11 +20,13 @@ Written 11 October 2026. Tags: [FT] read in the full text; [Abs] the paper's abs
 - Their own laboratory simulation (Brouns et al., same supplement) reached 125 g/h during exercise. Not used.
 - Vitamins and iron were also taken by tablet and injection (Table 5). Not used in the book.
 - 24.7 MJ = 5,900 kcal; 25.4 MJ = 6,070 kcal. 12.3 × 69.2 = 851 g. [Own]
+- 32.4 MJ (highest intake, "during one of the mountain days") = 7,744 kcal, "about 7,700". The draft gives only calories since 23 October 2026 (George: no megajoules, and "calories" rather than "kilocalories"); it now says "their biggest day, in the mountains" rather than "the hardest day", since the paper ties the highest intake to a mountain day, not to the hardest stage (highest expenditure was 32.7). [Own]
 
 ## What a ride costs
 
 - About a quarter of energy burned becomes work; 1 kcal = 4.184 kJ; so kJ of work is roughly kcal burned. [GK. The same rule is used in the app's calorie calculation.]
 - 200 W × 3 h = 2,160 kJ. 60 g/h × 3 h × 4 kcal = 720 kcal (a third). 90 g/h: 1,080 kcal (half). 150 W = 540 kJ an hour; 120 g = 480 kcal. [Own]
+- 23 October 2026: the kJ-to-kcal explanation was cut from the draft (George: "it doesn't help the flow"). The draft now says three hours at 200 W "costs over 2,000 kilocalories": 2,160 kJ of work ÷ 4.184 ÷ efficiency is 2,065 kcal at 25%, 2,151 at 24%, 2,347 at 22% and 2,790 at 18.5% (Chapter 1's range is 18.5 to 23.5%, Lucía's professionals 24.5%), so "over 2,000" holds at every efficiency in the book. 720 and 1,080 kcal are then 35% and 52% at 25% efficiency and 31% and 46% at 22%, hence "about a third" and "about half". [Own]
 - Carbohydrate about 4 kcal per gram. [GK]
 - Glycogen stores can be emptied by "a few hours of hard riding". [GK. No amount is quoted. Bergström 1967 has no abstract in the database.]
 - Podlogar 2022: endogenous carbohydrate oxidation 2.15 and 2.20 g/min (about 130 g/h: my arithmetic) at 95% of gas exchange threshold, after an overnight fast. [Abs]
