@@ -25,12 +25,24 @@ final class IntervalCoach: ObservableObject {
     @Published private(set) var message: String?
 
     static let displaySeconds: TimeInterval = 25
-    /// UserDefaults key for the Coach toggle (default on).
+    /// UserDefaults key for the Coach toggle. Off by default; the rider turns
+    /// it on from the workout screen and the choice is remembered.
     static let enabledKey = "coachEnabled"
-    static var isEnabled: Bool { UserDefaults.standard.object(forKey: enabledKey) as? Bool ?? true }
+    /// The rider's choice. Only counts where the on-device model is available.
+    static var isEnabled: Bool { isModelAvailable && UserDefaults.standard.bool(forKey: enabledKey) }
+    /// Apple Intelligence is on and the model is ready. Without it the coach
+    /// (and its toggle) is hidden: a rider who can't get model-written
+    /// messages shouldn't be offered a feature that would only show fixed lines.
+    static var isModelAvailable: Bool {
+        if case .available = SystemLanguageModel.default.availability { return true }
+        return false
+    }
     /// Ordinary moments closer together than this are dropped (key ones are kept).
     static let minGap: TimeInterval = 40
-    static let lead: TimeInterval = 30
+    /// Start generating a message this long before its moment (a retry takes
+    /// ~5-10 s, so there's room for one with plenty to spare).
+    static let lead: TimeInterval = 45
+    /// A message that misses its moment by more than this is dropped, not shown late.
     static let maxLate: TimeInterval = 12
 
     enum Kind: String {
@@ -61,18 +73,22 @@ final class IntervalCoach: ObservableObject {
     private var hideTask: Task<Void, Never>?
     private let modelAvailable: Bool
 
-    init(session: IntervalSession) {
+    convenience init(session: IntervalSession) { self.init(session: session, quiet: false) }
+
+    private init(session: IntervalSession, quiet: Bool) {
         self.session = session
         self.work = session.segments.filter(\.isWork)
         self.cues = Self.schedule(for: session)
 
-        switch SystemLanguageModel.default.availability {
-        case .available:
-            modelAvailable = true
-            dlog("[COACH] on-device model available; \(cues.count) cues planned")
-        case .unavailable(let reason):
-            modelAvailable = false
-            dlog("[COACH] on-device model unavailable (\(reason)); using fixed lines; \(cues.count) cues planned")
+        if case .available = SystemLanguageModel.default.availability { modelAvailable = true } else { modelAvailable = false }
+        guard !quiet else { return }   // a throwaway coach preparing an introduction
+        dlog("[COACH] on-device model \(modelAvailable ? "available" : "unavailable (\(SystemLanguageModel.default.availability)); using fixed lines"); \(cues.count) cues planned")
+        // The introduction can't be generated ahead of its moment during the
+        // ride (it's at 0:00), so the setup screen prepares it in advance.
+        if let first = cues.first, first.kind == .intro,
+           let intro = Self.preparedIntros.removeValue(forKey: Self.signature(of: session)) {
+            accept(intro, for: 0)
+            dlog("[COACH] using prepared intro: \(intro)")
         }
         for c in cues {
             dlog("[COACH] cue t=\(Int(c.at))s \(c.kind.rawValue) #\(c.interval)\(c.midEffort ? " mid" : "")\(c.halfway ? " HALFWAY" : "")\(c.key ? " (key)" : "")")
@@ -181,7 +197,11 @@ final class IntervalCoach: ObservableObject {
         guard next < cues.count else { return }
 
         if elapsed >= cues[next].at, let line = lines[next] {
-            show(line, for: cues[next])
+            if elapsed - cues[next].at <= Self.maxLate {
+                show(line, for: cues[next])
+            } else {
+                dlog("[COACH] dropped t=\(Int(cues[next].at))s \(cues[next].kind.rawValue): ready \(Int(elapsed - cues[next].at)) s late")
+            }
             lines[next] = nil
             next += 1
         }
@@ -216,25 +236,61 @@ final class IntervalCoach: ObservableObject {
             return
         }
         generating = i
+        Task {
+            let line = await makeLine(for: cue, heartRate: heartRate)
+            generating = nil
+            accept(line ?? fallback(for: cue), for: i)
+        }
+    }
+
+    /// One message from the model for a moment: up to two tries, each checked.
+    private func makeLine(for cue: Cue, heartRate: Int) async -> String? {
         let theme = nextTheme(for: cue)
         let instructions = Self.core + " " + role(for: cue)
         let (prompt, facts) = prompt(for: cue, theme: theme, heartRate: heartRate)
-        Task {
-            let started = Date()
-            var line: String?
-            do {
-                for attempt in 1...2 where line == nil {
-                    let lm = LanguageModelSession(instructions: instructions)
-                    let response = try await lm.respond(to: prompt, options: GenerationOptions(temperature: 0.8))
-                    line = clean(response.content, for: cue, facts: facts)
-                    let ms = Int(Date().timeIntervalSince(started) * 1000)
-                    dlog("[COACH] \(cue.kind.rawValue) #\(cue.interval) t=\(Int(cue.at))s [\(theme ?? "-")] try \(attempt) in \(ms) ms: \(line ?? "(rejected: \(response.content.prefix(160)))")")
-                }
-            } catch {
-                dlog("[COACH] generation failed for t=\(Int(cue.at))s: \(error)")
+        let started = Date()
+        do {
+            for attempt in 1...2 {
+                let lm = LanguageModelSession(instructions: instructions)
+                let response = try await lm.respond(to: prompt, options: GenerationOptions(temperature: 0.8))
+                let line = clean(response.content, for: cue, facts: facts)
+                let ms = Int(Date().timeIntervalSince(started) * 1000)
+                dlog("[COACH] \(cue.kind.rawValue) #\(cue.interval) t=\(Int(cue.at))s [\(theme ?? "-")] try \(attempt) in \(ms) ms: \(line ?? "(rejected: \(response.content.prefix(160)))")")
+                if let line { return line }
             }
-            generating = nil
-            accept(line ?? fallback(for: cue), for: i)
+        } catch {
+            dlog("[COACH] generation failed for t=\(Int(cue.at))s: \(error)")
+        }
+        return nil
+    }
+
+    // MARK: - Introduction prepared on the setup screen
+
+    /// Prepared introductions, by session shape, waiting for the ride to start.
+    private static var preparedIntros: [String: String] = [:]
+    private static var preparingIntros: Set<String> = []
+
+    /// Anything that changes what the introduction should say.
+    static func signature(of s: IntervalSession) -> String {
+        "\(s.intervalCount)|\(s.workDuration)|\(s.restDuration)|\(s.warmUpDuration)|\(s.coolDownDuration)|\(s.setsEnabled)|\(s.setCount)|\(s.setRecoveryDuration)"
+    }
+
+    /// Generate the introduction for a session before the ride, so it's on
+    /// screen the moment the ride starts. Called from the setup screen when an
+    /// interval session is selected (and again if it's edited).
+    static func prepareIntro(for session: IntervalSession) {
+        let key = signature(of: session)
+        guard isEnabled, preparedIntros[key] == nil, !preparingIntros.contains(key),
+              case .available = SystemLanguageModel.default.availability else { return }
+        preparingIntros.insert(key)
+        let coach = IntervalCoach(session: session, quiet: true)
+        Task {
+            if let first = coach.cues.first, first.kind == .intro,
+               let line = await coach.makeLine(for: first, heartRate: 0) {
+                preparedIntros[key] = line
+                dlog("[COACH] intro prepared before the ride: \(line)")
+            }
+            preparingIntros.remove(key)
         }
     }
 
@@ -340,11 +396,14 @@ final class IntervalCoach: ObservableObject {
                 facts.append("There's no warm-up: the first interval starts straight away.")
             }
             facts.append("The whole session lasts \(timeInWords(length)).")
+            facts.append("It's \(Self.partOfDay()) now.")
         case .warmUp:
             facts.append("They're \(timeInWords(cue.at)) into a warm-up of \(timeInWords(cue.segment.duration)).")
             facts.append("Still to come: \(structureInWords).")
         case .warmUpEnd:
-            facts.append("The first of \(words(total)) intervals, each \(durationInWords(session.workDuration)), starts in a few seconds.")
+            // No interval length here: given "each sixty seconds" it told the
+            // rider "we've got a minute to warm up" fifteen seconds before the start.
+            facts.append("The warm-up is over. The first of \(words(total)) hard intervals starts in a few seconds.")
         case .during:
             let n = cue.interval
             facts.append(n == total ? "This is the final interval of the session." : "This is interval \(words(n)) of \(words(total)), \(phase(n, of: total)).")
@@ -366,6 +425,7 @@ final class IntervalCoach: ObservableObject {
             facts.append("They completed all \(words(total)) intervals of \(durationInWords(session.workDuration))\(session.setsEnabled ? ", in \(words(session.setCount)) sets" : "").")
             facts.append("The session was \(sessionKind).")
             facts.append("It lasted \(timeInWords(length)) in all.")
+            facts.append("It's \(Self.partOfDay()) now.")
         }
 
         if cue.halfway {
@@ -395,9 +455,20 @@ final class IntervalCoach: ObservableObject {
 
     private static let banned = ["mile", "kilomet", " km", "mph", "o'clock", "road", "hill", "climb",
                                  "cobble", "weather", "wind", "gust", "rain", "gear", "peloton",
-                                 "descent", "corner", "finish line",
-                                 // It doesn't know the time of day ("Morning." at 13:43).
-                                 "morning", "afternoon", "evening", "tonight", "today's weather"]
+                                 "descent", "corner", "finish line", "today's weather"]
+
+    /// Morning, afternoon, evening or night, from the phone's clock. Given to
+    /// the introduction and wrap-up so a greeting can be right ("Morning." at
+    /// 13:43 was a guess); a wrong one is removed or rejected in `clean`.
+    static func partOfDay(_ date: Date = Date()) -> String {
+        switch Calendar.current.component(.hour, from: date) {
+        case 5..<12: return "morning"
+        case 12..<17: return "afternoon"
+        case 17..<22: return "evening"
+        default: return "night"
+        }
+    }
+    private static let dayWords = ["morning", "afternoon", "evening", "tonight", "night"]
     /// Number words that must come from the facts ("one" and "half" aren't
     /// checked: "last one", "second half" are fine).
     private static let numberWords: Set<String> = [
@@ -424,6 +495,18 @@ final class IntervalCoach: ObservableObject {
         var s = raw.trimmingCharacters(in: .whitespacesAndNewlines)
         s = s.trimmingCharacters(in: CharacterSet(charactersIn: "\"'“”‘’[]"))
         s = s.split(whereSeparator: \.isNewline).joined(separator: " ")
+        // It likes to open with "Morning." (it doesn't know the time of day):
+        // drop a leading greeting rather than lose a good message.
+        // A greeting for the wrong time of day: drop it from the start, or
+        // reject the line if it's elsewhere. The right one is welcome.
+        let now = Self.partOfDay()
+        let rightWords: Set<String> = now == "evening" || now == "night" ? [now, "tonight"] : [now]
+        if let r = s.range(of: #"^(good\s+)?(morning|afternoon|evening)([\s,.!—-]+and\b)?[\s,.!—-]*"#, options: [.regularExpression, .caseInsensitive]),
+           !rightWords.contains(where: { s[r].lowercased().contains($0) }) {
+            s.removeSubrange(r)
+            s = s.prefix(1).uppercased() + s.dropFirst()
+        }
+        if Self.tokens(s).contains(where: { Self.dayWords.contains($0) && !rightWords.contains($0) }) { return nil }
         let count = s.split(separator: " ").count
         guard count >= 2, count <= maxWords(for: cue) else { return nil }
         let lower = s.lowercased()
@@ -434,8 +517,9 @@ final class IntervalCoach: ObservableObject {
         // Openers it overused, and nicknames.
         if lower.hasPrefix("right") || lower.hasPrefix("alright") || lower.hasPrefix("all right") { return nil }
         if Self.tokens(lower).contains(where: { $0 == "champ" || $0 == "champion" }) { return nil }
-        let opening = Self.tokens(lower).prefix(2)
-        if recent.contains(where: { Self.tokens($0).prefix(2) == opening }) { return nil }
+        // Same first three words as a recent message ("Keep the…" alone is too common to judge on).
+        let opening = Self.tokens(lower).prefix(3)
+        if recent.contains(where: { Self.tokens($0).prefix(3) == opening }) { return nil }
         guard !Self.banned.contains(where: { lower.contains($0) }) else { return nil }
         if !cue.halfway, ["halfway", "half way", "half-way"].contains(where: { lower.contains($0) }) {
             // Only allowed when the facts say "halfway through this one effort".
@@ -445,9 +529,46 @@ final class IntervalCoach: ObservableObject {
         let given = Set(Self.tokens(facts))
         let isNumber: (String) -> Bool = { t in t.split(separator: "-").contains { Self.numberWords.contains(String($0)) } }
         if Self.tokens(s).contains(where: { isNumber($0) && !given.contains($0) }) { return nil }
+        // "N left / N more / N to go" must be the real count ("Eleven intervals
+        // left" at interval four of eleven got through, as eleven was in the facts).
+        if let allowed = remainingCounts(for: cue) {
+            let toks = Self.tokens(lower)
+            for (i, t) in toks.enumerated() {
+                guard let n = Self.numberValue(t) else { continue }
+                let after = toks[(i + 1)...].prefix(3)
+                if after.contains(where: { ["left", "more", "remaining", "remain", "to"].contains($0) }), !allowed.contains(n) {
+                    return nil
+                }
+            }
+        }
         let key = lower.filter(\.isLetter)
         guard !recent.contains(where: { $0.lowercased().filter(\.isLetter) == key }) else { return nil }
         return s
+    }
+
+    /// Counts a "N left / more / to go" may use at this moment, or nil if any
+    /// number is fine (the introduction and wrap-up talk totals).
+    private func remainingCounts(for cue: Cue) -> Set<Int>? {
+        let total = work.count, n = cue.interval
+        switch cue.kind {
+        case .during:  return [total - n]                         // after this one
+        case .between: return [total - n, total - n - 1]          // including or after the next
+        case .warmUp, .warmUpEnd: return [total]
+        default: return nil
+        }
+    }
+
+    private static let spellOut: NumberFormatter = {
+        let f = NumberFormatter()
+        f.numberStyle = .spellOut
+        f.locale = Locale(identifier: "en_GB")
+        return f
+    }()
+
+    /// "seven" → 7, "twenty-two" → 22; nil for anything else.
+    private static func numberValue(_ token: String) -> Int? {
+        guard token.split(separator: "-").contains(where: { numberWords.contains(String($0)) || $0 == "one" }) else { return nil }
+        return spellOut.number(from: token)?.intValue
     }
 
     // MARK: - Words
