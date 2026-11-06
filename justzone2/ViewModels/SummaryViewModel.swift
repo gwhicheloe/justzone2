@@ -67,7 +67,38 @@ class SummaryViewModel: ObservableObject {
         self.isDemo = isDemo
         self.isStravaConnected = stravaService.isAuthenticated
 
+        // Would a different starting power have suited this ride better?
+        if !isDemo, let s = Zone2Anchor.suggestion(
+            for: workout,
+            targetHR: Zone2Target.bpm(zoneMin: zone2Min, zoneMax: zone2Max),
+            zoneTargeting: zoneTargetingEnabled) {
+            if Zone2Anchor.wasDeclined(s) {
+                dlog("[ANCHOR] \(s.current) W → \(s.suggested) W suggested, but a similar one was declined before; not asking")
+            } else {
+                anchorSuggestion = s
+                dlog("[ANCHOR] suggesting \(s.current) W → \(s.suggested) W\(s.partial ? " (partial: never settled)" : "")")
+            }
+        }
+
         setupBindings()
+    }
+
+    /// A better starting power for Zone 2 rides, worked out from this ride
+    /// (see `Zone2Anchor`); nil if the current one is fine.
+    @Published var anchorSuggestion: Zone2Anchor.Suggestion?
+
+    func acceptAnchor() {
+        guard let s = anchorSuggestion else { return }
+        Zone2Anchor.accept(s)
+        dlog("[ANCHOR] accepted: starting power \(s.current) W → \(s.suggested) W")
+        anchorSuggestion = nil
+    }
+
+    func declineAnchor() {
+        guard let s = anchorSuggestion else { return }
+        Zone2Anchor.recordDeclined(s)
+        dlog("[ANCHOR] declined \(s.suggested) W, keeping \(s.current) W")
+        anchorSuggestion = nil
     }
 
     private func setupBindings() {

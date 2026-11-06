@@ -46,6 +46,11 @@ struct SummaryView: View {
                 )
             }
 
+            if let anchor = viewModel.anchorSuggestion {
+                anchorCard(anchor)
+                    .transition(.opacity)
+            }
+
             // Workout Chart — flexible, absorbs the remaining height
             if !viewModel.workout.samples.isEmpty {
                 SummaryChartView(workout: viewModel.workout)
@@ -214,6 +219,33 @@ struct SummaryView: View {
             .font(.caption)
             .foregroundColor(.secondary)
             .multilineTextAlignment(.center)
+    }
+
+    /// Offer a better Zone 2 starting power, worked out from this ride.
+    private func anchorCard(_ a: Zone2Anchor.Suggestion) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Label("Zone 2 starting power", systemImage: "bolt.heart.fill")
+                .font(.subheadline.weight(.semibold))
+                .foregroundStyle(.green)
+            Text(a.partial
+                 ? "Your heart rate was still \(a.suggested > a.current ? "climbing towards" : "coming down to") Zone 2 at \(a.suggested) W. Start your next ride at \(a.suggested) W instead of \(a.current) W?"
+                 : "Your heart rate settled in Zone 2 at about \(a.suggested) W. Start your next ride at \(a.suggested) W instead of \(a.current) W?")
+                .font(.footnote)
+                .foregroundStyle(.secondary)
+                .fixedSize(horizontal: false, vertical: true)
+            HStack(spacing: 10) {
+                Button { withAnimation { viewModel.acceptAnchor() } } label: {
+                    Text("Use \(a.suggested) W").font(.subheadline.weight(.semibold)).frame(maxWidth: .infinity)
+                }
+                .buttonStyle(.borderedProminent).tint(.green)
+                Button { withAnimation { viewModel.declineAnchor() } } label: {
+                    Text("Keep \(a.current) W").font(.subheadline).frame(maxWidth: .infinity)
+                }
+                .buttonStyle(.bordered)
+            }
+        }
+        .padding(12)
+        .background(RoundedRectangle(cornerRadius: 14, style: .continuous).fill(Color(.secondarySystemGroupedBackground)))
     }
 
     @MainActor

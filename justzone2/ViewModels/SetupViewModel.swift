@@ -108,6 +108,13 @@ class SetupViewModel: ObservableObject {
         self.selectedIntervalSessionId = UserDefaults.standard.string(forKey: "selectedIntervalSessionId").flatMap(UUID.init)
 
         setupBindings()
+
+        // The Summary can update the Zone 2 starting power (see Zone2Anchor).
+        NotificationCenter.default.publisher(for: Zone2Anchor.didChange)
+            .compactMap { $0.userInfo?["power"] as? Int }
+            .receive(on: RunLoop.main)
+            .sink { [weak self] power in self?.targetPower = power }
+            .store(in: &cancellables)
     }
 
     private func setupBindings() {
