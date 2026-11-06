@@ -101,7 +101,7 @@ struct IntervalSessionEditor: View {
     private static let setRecoveryDurations: [TimeInterval] =
         [60, 90, 120, 150, 180, 240, 300, 360, 480, 600]
     private static let easyDurations: [TimeInterval] =
-        [0, 180, 300, 420, 600, 720, 900, 1200, 1800]
+        [0, 60, 120, 180, 300, 420, 600, 720, 900, 1200, 1800]
 
     var body: some View {
         NavigationStack {
