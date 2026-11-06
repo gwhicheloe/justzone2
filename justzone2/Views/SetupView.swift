@@ -486,7 +486,7 @@ struct SetupView: View {
                             VStack(alignment: .leading, spacing: 8) {
                                 Label("Aims for the upper part of Zone 2 by default — you can move the target in Settings", systemImage: "heart.text.square.fill")
                                 Label("Uses a 45-second rolling average of your heart rate to avoid reacting to brief spikes", systemImage: "heart.fill")
-                                Label("Adjusts power smoothly and continuously, up to ±30W from your target", systemImage: "plusminus")
+                                Label("Adjusts power smoothly and continuously to hold your heart rate in Zone 2", systemImage: "plusminus")
                                 Label("Ramps up slowly (5W/90s) and backs off faster (5W/45s) for safety", systemImage: "arrow.up.arrow.down")
                                 Label("Skips the first 3 minutes, then holds power steady until your heart rate reaches zone", systemImage: "figure.walk")
                             }

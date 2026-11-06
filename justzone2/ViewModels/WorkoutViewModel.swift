@@ -101,7 +101,11 @@ class WorkoutViewModel: ObservableObject {
     /// (see `Zone2Target`), fixed for the ride when the workout is created.
     private let zone2Target: Double
     var zone2TargetValue: Int { Int(zone2Target.rounded()) }
-    private let maxDriftFromTarget = 30
+    /// Safety rail only, not a feature: the furthest Zone Targeting (or the
+    /// rider's +/- buttons) can move power from the set target. Was ±30 W, which
+    /// riders found confusing and which stopped the controller correcting a
+    /// badly set starting power; ±100 W is beyond any sensible Zone 2 ride.
+    private let maxDriftFromTarget = 100
     private let warmUpGracePeriod: TimeInterval = 180
 
     // PID state
