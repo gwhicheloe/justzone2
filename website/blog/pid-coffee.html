@@ -158,7 +158,7 @@
 integral += gradientFactor * error * dt          <span class="c">// accumulate (anti-windup clamped)</span>
 <span class="k">let</span> output   = Kp * error + Ki * integral       <span class="c">// watts vs. your target</span>
 
-<span class="c">// slew-limit + clamp to ±30 W, then drive the trainer</span>
+<span class="c">// slew-limit to gentle steps, then drive the trainer</span>
 kickr.setTargetPower(targetPower + output)
 </div>
 
@@ -172,7 +172,7 @@ kickr.setTargetPower(targetPower + output)
           <tr><td>Ki</td><td>0.008 W/(bpm·s)</td><td>Integral gain — erase steady-state drift</td></tr>
           <tr><td>setpoint</td><td>mid Zone 2</td><td>Midpoint of your HR band</td></tr>
           <tr><td>HR smoothing</td><td>45 s average</td><td>Kill beat-to-beat noise before it hits the loop</td></tr>
-          <tr><td>output clamp</td><td>±30 W</td><td>Assist your target — never hijack it</td></tr>
+          <tr><td>safety rail</td><td>±100 W</td><td>Only there in case a sensor misbehaves</td></tr>
           <tr><td>grace period</td><td>180 s</td><td>Let HR settle before the loop engages</td></tr>
           <tr><td>sample rate</td><td>1 Hz</td><td>One correction per second</td></tr>
         </table>
@@ -229,7 +229,7 @@ kickr.setTargetPower(targetPower + output)
         </figure>
 
         <h2>The rails that keep it honest</h2>
-        <p>Two more safeguards, both with espresso cousins. <strong>Anti-windup:</strong> the integral term is clamped so it can't silently accumulate a huge correction during the grace period or a sensor dropout and then dump it all at once — the controller equivalent of a boiler that forgets it's already been heating for a minute. And <strong>output clamping:</strong> the whole correction is bounded to ±30 W of the power <em>you</em> chose. The app assists your target; it never seizes control of the workout. There's a hard floor at 50 W so it can never stall you out.</p>
+        <p>Two more safeguards, both with espresso cousins. <strong>Anti-windup:</strong> the integral term is clamped so it can't silently accumulate a huge correction during the grace period or a sensor dropout and then dump it all at once — the controller equivalent of a boiler that forgets it's already been heating for a minute. And <strong>a safety rail:</strong> the whole correction is bounded, well beyond anything a normal Zone 2 ride needs, so a misbehaving sensor can't run away with the trainer. Within that, the controller is free to find the power that actually holds your heart rate in Zone 2, even if the starting power you chose was some way off. There's a hard floor at 50 W so it can never stall you out.</p>
 
         <h2>Tuning is just dialling in</h2>
         <p>Every coffee nerd has dialled in a new bag: tweak one variable, taste, adjust, repeat. Tuning these gains was the same loop. Too much proportional gain and the system <em>hunts</em> — power and heart rate oscillating around the target like a machine overshooting its temperature every cycle. Too much integral and it lurches: a slow, ponderous overshoot as the accumulated term overcorrects. I landed deliberately conservative, because a Zone 2 ride is long and the human body is a laggy, slow-responding plant — a big thermal mass, basically. Better smooth and patient than snappy and twitchy.</p>
