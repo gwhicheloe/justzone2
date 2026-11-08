@@ -576,11 +576,6 @@ struct SetupView: View {
             }
             if viewModel.isIntervalMode {
                 intervalConfig
-                    // EXPERIMENT: have the coach's introduction ready before
-                    // Start, so it's on screen the moment the ride begins.
-                    .task(id: viewModel.selectedIntervalSession.map(IntervalCoach.signature(of:))) {
-                        if let session = viewModel.selectedIntervalSession { IntervalCoach.prepareIntro(for: session) }
-                    }
             } else {
                 zone2Config
             }

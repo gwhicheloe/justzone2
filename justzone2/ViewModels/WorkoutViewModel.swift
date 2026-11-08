@@ -73,7 +73,7 @@ class WorkoutViewModel: ObservableObject {
 
     /// EXPERIMENT: on-screen encouragement during interval sessions (see
     /// `IntervalCoach`). The line currently showing, or nil.
-    @Published private(set) var coachMessage: String?
+    @Published private(set) var coachMessage: IntervalCoach.Line?
     private var coach: IntervalCoach?
     var isIntervalWorkout: Bool { workout.intervalSession != nil }
     /// Rider's ±5 W nudges during an interval session. Work intervals and the

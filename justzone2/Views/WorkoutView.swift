@@ -15,9 +15,9 @@ struct WorkoutView: View {
     private var compactLayout: Bool { viewModel.isIntervalWorkout }
     /// Height of the coach message space (when the coach is off, the profile takes it).
     private static let coachSpace: CGFloat = 54
-    /// Coach messages show only if the rider turned the coach on and this
-    /// phone has Apple Intelligence; otherwise the profile takes the space.
-    private var coachOn: Bool { coachEnabled && IntervalCoach.isModelAvailable }
+    /// Coach messages show when the rider has turned the coach on; otherwise
+    /// the profile takes the space.
+    private var coachOn: Bool { coachEnabled }
     @State private var summaryViewModel: SummaryViewModel?
     @State private var showHRSourcePicker = false
     @State private var shareETAText: String?
@@ -298,8 +298,7 @@ struct WorkoutView: View {
                     }
                     .frame(maxWidth: .infinity)
                     .overlay(alignment: .trailing) {
-                        // Hidden on phones without Apple Intelligence.
-                        if viewModel.isIntervalWorkout && IntervalCoach.isModelAvailable { coachToggle }
+                        if viewModel.isIntervalWorkout { coachToggle }
                     }
 
                     // Zone Targeting toggle (not for interval sessions, which hold ERG power)
@@ -510,7 +509,20 @@ struct WorkoutView: View {
     // MARK: - Interval session display
 
     /// Work intervals in the Zone 4 amber, everything easy in Zone 1 blue.
-    /// EXPERIMENT: switch the coach messages on or off mid-ride.
+    /// "GET READY  Ten seconds to interval 4…": the label in bold green small
+    /// capitals, then the message.
+    private func coachText(_ line: IntervalCoach.Line?) -> Text {
+        guard let line else { return Text(" ").font(.footnote) }
+        return Text(line.tag + "  ")
+            .font(.caption2.weight(.heavy))
+            .foregroundColor(.green)
+            .tracking(1)
+        + Text(line.text)
+            .font(.footnote.italic())
+            .foregroundColor(.primary.opacity(0.9))
+    }
+
+    /// Switch the coach messages on or off mid-ride.
     private var coachToggle: some View {
         Button {
             withAnimation(.easeInOut(duration: 0.4)) { coachEnabled.toggle() }
@@ -628,12 +640,11 @@ struct WorkoutView: View {
             .foregroundStyle(.secondary)
             .frame(height: 22)
 
-            // EXPERIMENT: with the coach on, a fixed space for its messages
-            // (nothing moves when one comes or goes; the text just fades).
+            // Coach on: a fixed space for its messages (nothing moves when one
+            // comes or goes; the text just fades). Each message starts with a
+            // short green label for the moment ("GET READY", "FINAL PUSH").
             if compactLayout && coachOn {
-                Text(viewModel.coachMessage ?? " ")
-                    .font(.footnote.italic())
-                    .foregroundStyle(.primary.opacity(0.9))
+                coachText(viewModel.coachMessage)
                     .multilineTextAlignment(.center)
                     .lineSpacing(1)
                     .lineLimit(3)

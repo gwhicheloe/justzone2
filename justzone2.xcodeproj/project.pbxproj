@@ -57,6 +57,7 @@
 		1100000000000096 /* Zone2Anchor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000096 /* Zone2Anchor.swift */; };
 		1100000000000029 /* LocalWorkoutStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000029 /* LocalWorkoutStore.swift */; };
 		1100000000000095 /* IntervalCoach.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000095 /* IntervalCoach.swift */; };
+		1100000000000097 /* CoachPhrases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000097 /* CoachPhrases.swift */; };
 		1100000000000040 /* HRZones.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000030 /* HRZones.swift */; };
 		1100000000000041 /* HRZonesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000031 /* HRZonesViewModel.swift */; };
 		1100000000000042 /* HRZonesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2200000000000032 /* HRZonesView.swift */; };
@@ -177,6 +178,7 @@
 		2200000000000096 /* Zone2Anchor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Zone2Anchor.swift; sourceTree = "<group>"; };
 		2200000000000029 /* LocalWorkoutStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalWorkoutStore.swift; sourceTree = "<group>"; };
 		2200000000000095 /* IntervalCoach.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalCoach.swift; sourceTree = "<group>"; };
+		2200000000000097 /* CoachPhrases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachPhrases.swift; sourceTree = "<group>"; };
 		2200000000000030 /* HRZones.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRZones.swift; sourceTree = "<group>"; };
 		2200000000000031 /* HRZonesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRZonesViewModel.swift; sourceTree = "<group>"; };
 		2200000000000032 /* HRZonesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRZonesView.swift; sourceTree = "<group>"; };
@@ -325,6 +327,7 @@
 				2200000000000027 /* DiagnosticsLogger.swift */,
 				2200000000000029 /* LocalWorkoutStore.swift */,
 				2200000000000095 /* IntervalCoach.swift */,
+				2200000000000097 /* CoachPhrases.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -618,6 +621,7 @@
 				1100000000000096 /* Zone2Anchor.swift in Sources */,
 				1100000000000029 /* LocalWorkoutStore.swift in Sources */,
 				1100000000000095 /* IntervalCoach.swift in Sources */,
+				1100000000000097 /* CoachPhrases.swift in Sources */,
 				1100000000000040 /* HRZones.swift in Sources */,
 				1100000000000041 /* HRZonesViewModel.swift in Sources */,
 				1100000000000042 /* HRZonesView.swift in Sources */,

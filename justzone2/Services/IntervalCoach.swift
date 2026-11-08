@@ -1,98 +1,71 @@
 import Foundation
-import FoundationModels
 
-/// EXPERIMENT (branch experiment/interval-encouragement): short on-screen
-/// coaching messages during interval sessions, phrased by Apple's on-device
-/// language model (Foundation Models, Apple Intelligence devices only).
+/// Short on-screen coaching messages during interval sessions.
 ///
-/// Built for a small model: the code does the thinking and gives it one
-/// narrow job at a time.
-/// - **Moments.** The session is turned into a schedule of moments
-///   (introduction, warm-up, end of warm-up, during an interval, between
-///   intervals, warm-down, wrap-up), each with its own short role.
-/// - **Facts.** Each prompt carries only true facts, in words: where the rider
-///   is, how many intervals are left, elapsed/remaining time, halfway, final
-///   interval, new set.
-/// - **Themes.** The code picks what each message is about from a rotating
-///   list per moment (breathing, form, a drink…), so messages vary by design.
-/// - **History.** Each prompt lists the recent messages, so it doesn't repeat.
-/// - **Checks.** Numbers must come from the facts; no outdoor riding talk;
-///   "halfway" only at halfway; one retry, then a fixed line.
-/// Lines are generated one at a time, ~30 s ahead. Logged as `[COACH]`.
+/// Deterministic: the code picks the moments and fills written lines from
+/// `CoachPhrases` with the session's real numbers. (An on-device language
+/// model was tried first, Oct–Nov 2026; it invented times and counts and
+/// needed seconds per line, so it was dropped.) For each moment a line is
+/// drawn from a shuffled pack, so nothing repeats until the pack is used up.
+///
+/// Moments: an introduction at the start, midway through a warm-up, 10 s
+/// before every interval, halfway through intervals longer than two minutes,
+/// 10 s before every interval ends, the start of the cool-down and a wrap-up.
+/// The session's halfway point is folded into whichever moment lands there.
+/// Logged as `[COACH]`.
 @MainActor
 final class IntervalCoach: ObservableObject {
-    /// The message on screen now, or nil.
-    @Published private(set) var message: String?
+    /// A message: a short label for the moment ("GET READY") and the line.
+    struct Line: Equatable {
+        let tag: String
+        let text: String
+    }
 
+    /// The message on screen now, or nil.
+    @Published private(set) var message: Line?
+
+    /// Longest a message stays up (the next one replaces it sooner).
     static let displaySeconds: TimeInterval = 25
+    /// A moment that's passed by more than this (e.g. resuming a recovered
+    /// ride) is skipped, not shown late.
+    static let maxLate: TimeInterval = 5
+
     /// UserDefaults key for the Coach toggle. Off by default; the rider turns
     /// it on from the workout screen and the choice is remembered.
     static let enabledKey = "coachEnabled"
-    /// The rider's choice. Only counts where the on-device model is available.
-    static var isEnabled: Bool { isModelAvailable && UserDefaults.standard.bool(forKey: enabledKey) }
-    /// Apple Intelligence is on and the model is ready. Without it the coach
-    /// (and its toggle) is hidden: a rider who can't get model-written
-    /// messages shouldn't be offered a feature that would only show fixed lines.
-    static var isModelAvailable: Bool {
-        if case .available = SystemLanguageModel.default.availability { return true }
-        return false
-    }
-    /// Ordinary moments closer together than this are dropped (key ones are kept).
-    static let minGap: TimeInterval = 40
-    /// Start generating a message this long before its moment (a retry takes
-    /// ~5-10 s, so there's room for one with plenty to spare).
-    static let lead: TimeInterval = 45
-    /// A message that misses its moment by more than this is dropped, not shown late.
-    static let maxLate: TimeInterval = 12
+    static var isEnabled: Bool { UserDefaults.standard.bool(forKey: enabledKey) }
 
-    enum Kind: String {
-        case intro, warmUp, warmUpEnd, during, between, warmDown, wrapUp
-    }
+    enum Kind: String { case intro, plan, warmUp, prepare, midEffort, ending, warmDown, wrapUp }
+
+    /// The character of a session, from its interval length (internal only;
+    /// it shapes the wording, the rider never sees the categories):
+    /// a minute or less short and sharp, under 4 minutes hard, under 8
+    /// minutes medium, 8 minutes or more long.
+    enum SessionType { case shortSharp, hard, medium, long }
 
     private struct Cue {
         let at: TimeInterval
         let kind: Kind
         /// The interval it's about (1-based across sets): the one in progress
-        /// for `during`, the one just finished for `between`.
+        /// for midEffort/ending, the one coming up for prepare.
         let interval: Int
         let segment: IntervalSegment
-        var key: Bool
-        var midEffort = false        // `during`, middle of a long interval
         var halfway = false
     }
 
     private let session: IntervalSession
-    private let work: [IntervalSegment]
+    private let total: Int
     private let cues: [Cue]
     private var next = 0
-    private var lines: [Int: String] = [:]
-    private var generating: Int?
-    private var recent: [String] = []
-    private var themeCounters: [String: Int] = [:]
-    private var startHR: Int?
+    private var packs: [String: [String]] = [:]
     private var hideTask: Task<Void, Never>?
-    private let modelAvailable: Bool
 
-    convenience init(session: IntervalSession) { self.init(session: session, quiet: false) }
-
-    private init(session: IntervalSession, quiet: Bool) {
+    init(session: IntervalSession) {
         self.session = session
-        self.work = session.segments.filter(\.isWork)
+        let work = session.segments.filter(\.isWork)
+        self.total = work.count
         self.cues = Self.schedule(for: session)
-
-        if case .available = SystemLanguageModel.default.availability { modelAvailable = true } else { modelAvailable = false }
-        guard !quiet else { return }   // a throwaway coach preparing an introduction
-        dlog("[COACH] on-device model \(modelAvailable ? "available" : "unavailable (\(SystemLanguageModel.default.availability)); using fixed lines"); \(cues.count) cues planned")
-        // The introduction can't be generated ahead of its moment during the
-        // ride (it's at 0:00), so the setup screen prepares it in advance.
-        if let first = cues.first, first.kind == .intro,
-           let intro = Self.preparedIntros.removeValue(forKey: Self.signature(of: session)) {
-            accept(intro, for: 0)
-            dlog("[COACH] using prepared intro: \(intro)")
-        }
-        for c in cues {
-            dlog("[COACH] cue t=\(Int(c.at))s \(c.kind.rawValue) #\(c.interval)\(c.midEffort ? " mid" : "")\(c.halfway ? " HALFWAY" : "")\(c.key ? " (key)" : "")")
-        }
+        dlog("[COACH] \(cues.count) moments planned: " + cues.map { "\(Int($0.at))s \($0.kind.rawValue)\($0.halfway ? "+halfway" : "")" }.joined(separator: ", "))
     }
 
     // MARK: - Schedule
@@ -101,47 +74,45 @@ final class IntervalCoach: ObservableObject {
         let segments = session.segments
         let work = segments.filter(\.isWork)
         guard let first = segments.first, !work.isEmpty else { return [] }
-        var all: [Cue] = [Cue(at: 0, kind: .intro, interval: 0, segment: first, key: true)]
+        var all: [Cue] = [Cue(at: 0, kind: .intro, interval: 0, segment: first)]
 
-        if first.kind == .warmUp {
-            if first.duration >= 120 {
-                all.append(Cue(at: first.duration / 2, kind: .warmUp, interval: 0, segment: first, key: true))
-            }
-            if first.duration >= 30 {
-                all.append(Cue(at: max(first.end - 15, 20), kind: .warmUpEnd, interval: 1, segment: work[0], key: true))
-            }
+        // With a warm-up, the welcome (what the session is for) and the plan
+        // (its shape) are two messages: one long one didn't fit the space.
+        if first.kind == .warmUp, first.duration >= 60 {
+            all.append(Cue(at: 20, kind: .plan, interval: 0, segment: first))
+        }
+        if first.kind == .warmUp, first.duration >= 120 {
+            all.append(Cue(at: first.duration / 2, kind: .warmUp, interval: 0, segment: first))
         }
 
         for (i, seg) in work.enumerated() {
             let n = i + 1
-            let isLast = n == work.count
-            if seg.duration >= 180 {
-                var c = Cue(at: seg.start + seg.duration / 2, kind: .during, interval: n, segment: seg, key: false)
-                c.midEffort = true
-                all.append(c)
+            // 10 s before it starts (the first one only if there's a warm-up
+            // to say it in; otherwise the introduction covers it).
+            if seg.start >= 20 {
+                let previousEnd = i > 0 ? work[i - 1].end : 0
+                all.append(Cue(at: max(seg.start - 10, previousEnd + 1), kind: .prepare, interval: n, segment: seg))
             }
-            if seg.duration >= 30 {
-                all.append(Cue(at: seg.end - min(15, seg.duration * 0.4), kind: .during, interval: n, segment: seg, key: isLast))
+            // Halfway through intervals longer than two minutes.
+            if seg.duration > 120 {
+                all.append(Cue(at: seg.start + seg.duration / 2, kind: .midEffort, interval: n, segment: seg))
             }
-            if !isLast {
-                let nextWork = work[i + 1]
-                let newSet = session.setsEnabled && nextWork.number == 1
-                let at = max(nextWork.start - 15, seg.end + 3)
-                all.append(Cue(at: at, kind: .between, interval: n, segment: nextWork, key: n + 1 == work.count || newSet))
-            }
+            // 10 s before it ends.
+            all.append(Cue(at: max(seg.start + 2, seg.end - 10), kind: .ending, interval: n, segment: seg))
         }
 
         if let cool = segments.first(where: { $0.kind == .coolDown }) {
             if cool.duration >= 90 {
-                all.append(Cue(at: cool.start + 3, kind: .warmDown, interval: work.count, segment: cool, key: true))
-                all.append(Cue(at: cool.end - 30, kind: .wrapUp, interval: work.count, segment: cool, key: true))
+                all.append(Cue(at: cool.start + 3, kind: .warmDown, interval: work.count, segment: cool))
+                all.append(Cue(at: cool.end - 30, kind: .wrapUp, interval: work.count, segment: cool))
             } else {
-                all.append(Cue(at: cool.start + 3, kind: .wrapUp, interval: work.count, segment: cool, key: true))
+                all.append(Cue(at: cool.start + 3, kind: .wrapUp, interval: work.count, segment: cool))
             }
         }
         all.sort { $0.at < $1.at }
 
-        // Halfway: the first moment at or after half the session's work is done.
+        // The session's halfway point (half the work done) goes into the first
+        // interval-related moment at or after it.
         let totalWork = work.reduce(0) { $0 + $1.duration }
         var acc: TimeInterval = 0
         var halfwayAt: TimeInterval?
@@ -150,36 +121,18 @@ final class IntervalCoach: ObservableObject {
             acc += seg.duration
         }
         if work.count >= 3, let h = halfwayAt,
-           let i = all.firstIndex(where: { $0.at >= h - 1 && ($0.kind == .during || $0.kind == .between) }) {
+           let i = all.firstIndex(where: { $0.at >= h - 1 && [.prepare, .midEffort, .ending].contains($0.kind) }) {
             all[i].halfway = true
-            all[i].key = true
         }
 
-        // Keep key moments; drop ordinary ones that crowd their neighbours.
-        // Short on/off sessions (30/15s) cycle every ~45 s: one message per
-        // cycle would be constant chatter, so they get a longer gap.
-        let cycle = session.workDuration + session.restDuration
-        let gap = cycle < 90 ? 80 : minGap
+        // Two moments on top of each other (very short intervals): keep the first.
         var kept: [Cue] = []
-        for (i, c) in all.enumerated() {
-            let gapBefore = c.at - (kept.last?.at ?? -.infinity)
-            let nextKey = all[(i + 1)...].first(where: \.key)
-            if c.key {
-                if let last = kept.last, !last.key, gapBefore < gap { kept.removeLast() }
-                if let last = kept.last, c.at - last.at < 8 {
-                    if c.halfway { kept.removeLast() } else { continue }
-                }
-                kept.append(c)
-            } else if gapBefore >= gap && (nextKey?.at ?? .infinity) - c.at >= gap / 2 {
-                // Prefer variety: if this is the same kind as the last message
-                // and a different kind comes along within half a minute, wait for it.
-                if let last = kept.last, last.kind == c.kind,
-                   all[(i + 1)...].prefix(while: { $0.at - c.at <= 30 })
-                       .contains(where: { !$0.key && $0.kind != c.kind }) {
-                    continue
-                }
-                kept.append(c)
+        for c in all {
+            if let last = kept.last, c.at - last.at < 6 {
+                if c.halfway { kept[kept.count - 1].halfway = true }
+                continue
             }
+            kept.append(c)
         }
         return kept
     }
@@ -188,27 +141,14 @@ final class IntervalCoach: ObservableObject {
 
     /// Call every timer tick during the ride.
     func tick(elapsed: TimeInterval, heartRate: Int) {
-        if startHR == nil, heartRate > 0 { startHR = heartRate }
-
-        while next < cues.count, elapsed - cues[next].at > Self.maxLate, lines[next] == nil, generating != next {
-            dlog("[COACH] skipped t=\(Int(cues[next].at))s \(cues[next].kind.rawValue) (too late)")
+        while next < cues.count, elapsed >= cues[next].at {
+            let cue = cues[next]
             next += 1
-        }
-        guard next < cues.count else { return }
-
-        if elapsed >= cues[next].at, let line = lines[next] {
-            if elapsed - cues[next].at <= Self.maxLate {
-                show(line, for: cues[next])
-            } else {
-                dlog("[COACH] dropped t=\(Int(cues[next].at))s \(cues[next].kind.rawValue): ready \(Int(elapsed - cues[next].at)) s late")
+            if elapsed - cue.at > Self.maxLate {
+                dlog("[COACH] skipped \(Int(cue.at))s \(cue.kind.rawValue) (passed)")
+                continue
             }
-            lines[next] = nil
-            next += 1
-        }
-
-        guard generating == nil else { return }
-        if let i = (next..<cues.count).first(where: { lines[$0] == nil }), cues[i].at - elapsed <= Self.lead {
-            generate(i, heartRate: heartRate)
+            show(line(for: cue), for: cue)
         }
     }
 
@@ -217,9 +157,9 @@ final class IntervalCoach: ObservableObject {
         message = nil
     }
 
-    private func show(_ line: String, for cue: Cue) {
+    private func show(_ line: Line, for cue: Cue) {
         message = line
-        dlog("[COACH] showing t=\(Int(cue.at))s \(cue.kind.rawValue): \(line)")
+        dlog("[COACH] \(Int(cue.at))s \(cue.kind.rawValue) [\(line.tag)]: \(line.text)")
         hideTask?.cancel()
         hideTask = Task { [weak self] in
             try? await Task.sleep(nanoseconds: UInt64(Self.displaySeconds * 1_000_000_000))
@@ -227,239 +167,159 @@ final class IntervalCoach: ObservableObject {
         }
     }
 
-    // MARK: - Generation
+    // MARK: - Lines
 
-    private func generate(_ i: Int, heartRate: Int) {
-        let cue = cues[i]
-        guard modelAvailable else {
-            accept(fallback(for: cue), for: i)
-            return
+    private func line(for cue: Cue) -> Line {
+        let P = CoachPhrases.self
+        func make(_ tagKey: String, _ key: String, _ options: [String]) -> Line {
+            Line(tag: P.tags[tagKey] ?? "", text: fill(draw(key, options), cue))
         }
-        generating = i
-        Task {
-            let line = await makeLine(for: cue, heartRate: heartRate)
-            generating = nil
-            accept(line ?? fallback(for: cue), for: i)
-        }
-    }
-
-    /// One message from the model for a moment: up to two tries, each checked.
-    private func makeLine(for cue: Cue, heartRate: Int) async -> String? {
-        let theme = nextTheme(for: cue)
-        let instructions = Self.core + " " + role(for: cue)
-        let (prompt, facts) = prompt(for: cue, theme: theme, heartRate: heartRate)
-        let started = Date()
-        do {
-            for attempt in 1...2 {
-                let lm = LanguageModelSession(instructions: instructions)
-                let response = try await lm.respond(to: prompt, options: GenerationOptions(temperature: 0.8))
-                let line = clean(response.content, for: cue, facts: facts)
-                let ms = Int(Date().timeIntervalSince(started) * 1000)
-                dlog("[COACH] \(cue.kind.rawValue) #\(cue.interval) t=\(Int(cue.at))s [\(theme ?? "-")] try \(attempt) in \(ms) ms: \(line ?? "(rejected: \(response.content.prefix(160)))")")
-                if let line { return line }
-            }
-        } catch {
-            dlog("[COACH] generation failed for t=\(Int(cue.at))s: \(error)")
-        }
-        return nil
-    }
-
-    // MARK: - Introduction prepared on the setup screen
-
-    /// Prepared introductions, by session shape, waiting for the ride to start.
-    private static var preparedIntros: [String: String] = [:]
-    private static var preparingIntros: Set<String> = []
-
-    /// Anything that changes what the introduction should say.
-    static func signature(of s: IntervalSession) -> String {
-        "\(s.intervalCount)|\(s.workDuration)|\(s.restDuration)|\(s.warmUpDuration)|\(s.coolDownDuration)|\(s.setsEnabled)|\(s.setCount)|\(s.setRecoveryDuration)"
-    }
-
-    /// Generate the introduction for a session before the ride, so it's on
-    /// screen the moment the ride starts. Called from the setup screen when an
-    /// interval session is selected (and again if it's edited).
-    static func prepareIntro(for session: IntervalSession) {
-        let key = signature(of: session)
-        guard isEnabled, preparedIntros[key] == nil, !preparingIntros.contains(key),
-              case .available = SystemLanguageModel.default.availability else { return }
-        preparingIntros.insert(key)
-        let coach = IntervalCoach(session: session, quiet: true)
-        Task {
-            if let first = coach.cues.first, first.kind == .intro,
-               let line = await coach.makeLine(for: first, heartRate: 0) {
-                preparedIntros[key] = line
-                dlog("[COACH] intro prepared before the ride: \(line)")
-            }
-            preparingIntros.remove(key)
-        }
-    }
-
-    private func accept(_ line: String, for i: Int) {
-        lines[i] = line
-        recent.append(line)
-        if recent.count > 5 { recent.removeFirst(recent.count - 5) }
-    }
-
-    // MARK: - Instructions (shared core + a role per moment)
-
-    private static let core = """
-    You are a warm, calm cycling coach with a dry wit, beside a rider on an \
-    indoor smart trainer. The trainer sets the power, so there are no roads, \
-    hills, gears or weather. Plain, natural British English: no flowery \
-    metaphors or similes. Never use digits, emojis, quotation marks or \
-    hashtags. Only use numbers that appear in the facts you're given, and \
-    mention times only when they genuinely help; most messages shouldn't. \
-    Vary how you begin: never start with Right, Alright or Right now, and \
-    don't call the rider champ or champion. Sound like a real coach, not a \
-    poster, and never say what you've said before.
-    """
-
-    private func role(for cue: Cue) -> String {
+        let phase = phaseOf(cue.interval)
+        let lastInSet = session.setsEnabled && cue.segment.number == session.intervalCount
         switch cue.kind {
         case .intro:
-            return "Your job now: welcome the rider and introduce today's session: what kind of session it is, what it does for them, and how to approach it. Up to two short sentences, at most 30 words."
+            return Line(tag: P.tags["intro"]!, text: introduction())
+        case .plan:
+            return Line(tag: P.tags["plan"]!, text: plan())
         case .warmUp:
-            return "Your job now: help the rider settle into the warm-up. It's easy riding with no pressure; the hard work comes later. One or two short sentences, at most 20 words."
-        case .warmUpEnd:
-            return "Your job now: the warm-up is ending and the first hard interval starts in a few seconds. Get the rider ready for it. At most 18 words."
-        case .during:
-            return cue.midEffort
-                ? "Your job now: the rider is in the middle of a long, hard effort. Help them stay calm and settled through it. At most 18 words."
-                : "Your job now: the rider is in the closing seconds of a hard effort. Help them hold on to the end. Short and punchy: at most 14 words."
-        case .between:
-            return "Your job now: the rider is recovering between hard intervals, and the next one starts in a few seconds. Help them recover and get ready. One or two short sentences, at most 20 words."
-        case .warmDown:
-            return "Your job now: all the hard intervals are done and the easy cool-down has begun. Help the rider unwind. One or two short sentences, at most 20 words."
-        case .wrapUp:
-            return "Your job now: the session is about to end. Sum up what the rider has done and congratulate them warmly. Up to two short sentences, at most 30 words."
-        }
-    }
-
-    // MARK: - Themes (the code picks what each message is about)
-
-    private static let themes: [String: [String]] = [
-        "warmUp": ["loosening up and finding a smooth pedal stroke",
-                   "relaxed breathing and a calm mind before the work",
-                   "what today's session will build",
-                   "getting comfortable: grip, shoulders and posture"],
-        "during": ["holding good form as it gets tough",
-                   "keeping the face, jaw and shoulders relaxed under effort",
-                   "steady, rhythmic breathing",
-                   "the end of this effort is close",
-                   "a smooth, round pedal stroke",
-                   "pride in doing the hard part"],
-        "duringMid": ["settling into the effort and pacing it evenly",
-                      "staying calm and patient",
-                      "breaking the effort into small chunks"],
-        "between": ["breathing deeply and letting the heart rate settle",
-                    "relaxing the grip and dropping the shoulders",
-                    "taking a drink",
-                    "a quick mental reset before the next one",
-                    "what these efforts are building",
-                    "spinning the legs easily to clear them"],
-        "warmDown": ["spinning easy and letting the body settle",
-                     "the satisfaction of a job well done",
-                     "breathing slowing down and heart rate easing"],
-    ]
-
-    private func nextTheme(for cue: Cue) -> String? {
-        let key: String
-        switch cue.kind {
-        case .warmUp: key = "warmUp"
-        case .during: key = cue.midEffort ? "duringMid" : "during"
-        case .between: key = "between"
-        case .warmDown: key = "warmDown"
-        default: return nil
-        }
-        guard let list = Self.themes[key] else { return nil }
-        let i = themeCounters[key, default: 0]
-        themeCounters[key] = i + 1
-        return list[i % list.count]
-    }
-
-    // MARK: - Prompt (facts in words, theme, history)
-
-    /// The prompt, and the facts alone (what numbers are checked against —
-    /// not the history, or a number from an earlier message could slip through).
-    private func prompt(for cue: Cue, theme: String?, heartRate: Int) -> (String, String) {
-        let total = work.count
-        let length = session.totalDuration
-        var facts: [String] = []
-
-        switch cue.kind {
-        case .intro:
-            facts.append("Today's session is \(sessionKind).")
-            facts.append("Structure: \(structureInWords).")
-            if let warm = session.segments.first, warm.kind == .warmUp {
-                facts.append("It starts with an easy warm-up of \(timeInWords(warm.duration)).")
-            } else {
-                facts.append("There's no warm-up: the first interval starts straight away.")
+            return make("warmUp", "warmUp", P.warmUp)
+        case .prepare:
+            if cue.interval == 1 { return make("prepare", "prepareFirst", P.prepareFirst) }
+            if cue.interval == total { return make("prepareFinal", "prepareFinal", P.prepareFinal) }
+            if session.setsEnabled && cue.segment.number == 1 {
+                return cue.segment.set == session.setCount
+                    ? make("prepareNewSet", "prepareLastSet", P.prepareLastSet)
+                    : make("prepareNewSet", "prepareNewSet", P.prepareNewSet)
             }
-            facts.append("The whole session lasts \(timeInWords(length)).")
-            facts.append("It's \(Self.partOfDay()) now.")
-        case .warmUp:
-            facts.append("They're \(timeInWords(cue.at)) into a warm-up of \(timeInWords(cue.segment.duration)).")
-            facts.append("Still to come: \(structureInWords).")
-        case .warmUpEnd:
-            // No interval length here: given "each sixty seconds" it told the
-            // rider "we've got a minute to warm up" fifteen seconds before the start.
-            facts.append("The warm-up is over. The first of \(words(total)) hard intervals starts in a few seconds.")
-        case .during:
-            let n = cue.interval
-            facts.append(n == total ? "This is the final interval of the session." : "This is interval \(words(n)) of \(words(total)), \(phase(n, of: total)).")
-            if n < total { facts.append("\(capitalisedWords(total - n)) \(total - n == 1 ? "interval follows" : "intervals follow") this one.") }
-            facts.append(cue.midEffort ? "They're about halfway through this one effort, with \(timeInWords(cue.segment.end - cue.at)) of it left." : "This effort ends in a few seconds.")
-        case .between:
-            let n = cue.interval
-            facts.append("They've just finished interval \(words(n)) of \(words(total)).")
-            if n + 1 == total {
-                facts.append("The next one, starting in a few seconds, is the final interval.")
-            } else if session.setsEnabled && cue.segment.number == 1 {
-                facts.append("After this longer recovery, set \(words(cue.segment.set)) of \(words(session.setCount)) starts in a few seconds.")
-            } else {
-                facts.append("Interval \(words(n + 1)) starts in a few seconds; the session is \(phase(n + 1, of: total)).")
+            if cue.halfway { return make("halfway", "prepareHalfway", P.prepareHalfway) }
+            let byType = P.prepareByType[sessionType] ?? []
+            switch phase {
+            case .early: return make("prepare", "prepareEarly", P.prepareEarly + byType)
+            case .middle: return make("prepare", "prepareMiddle", P.prepareMiddle + byType)
+            case .late: return make("prepare", "prepareLate", P.prepareLate + byType)
+            }
+        case .midEffort:
+            if cue.halfway { return make("halfway", "midEffortHalfway", P.midEffortHalfway) }
+            let tag: String
+            switch sessionType {
+            case .hard: tag = "HANG TOUGH"
+            case .long: tag = "STEADY"
+            default: tag = "HOLD THE PACE"
+            }
+            return Line(tag: tag, text: fill(draw("midEffort", P.midEffort[sessionType] ?? P.midEffort[.medium]!), cue))
+        case .ending:
+            if cue.interval == total { return make("endingFinal", "endingFinal", P.endingFinal) }
+            if cue.halfway { return make("halfway", "endingHalfway", P.endingHalfway) }
+            if lastInSet { return make("ending", "endingLastInSet", P.endingLastInSet) }
+            let byType = P.endingByType[sessionType] ?? []
+            switch phase {
+            case .early: return make("ending", "endingEarly", P.endingEarly + byType)
+            case .middle: return make("ending", "endingMiddle", P.endingMiddle + byType)
+            case .late: return make("ending", "endingLate", P.endingLate + byType)
             }
         case .warmDown:
-            facts.append("All \(words(total)) intervals are done. The cool-down lasts \(timeInWords(cue.segment.duration)).")
+            return make("warmDown", "warmDown", P.warmDown)
         case .wrapUp:
-            facts.append("They completed all \(words(total)) intervals of \(durationInWords(session.workDuration))\(session.setsEnabled ? ", in \(words(session.setCount)) sets" : "").")
-            facts.append("The session was \(sessionKind).")
-            facts.append("It lasted \(timeInWords(length)) in all.")
-            facts.append("It's \(Self.partOfDay()) now.")
+            return session.setsEnabled
+                ? make("wrapUp", "wrapUpSets", P.wrapUpSets + P.wrapUp)
+                : make("wrapUp", "wrapUp", P.wrapUp)
         }
-
-        if cue.halfway {
-            facts.append("This moment marks halfway through the session's hard work: mention it.")
-        }
-        if cue.kind == .during || cue.kind == .between, let start = startHR, heartRate > 0 {
-            if heartRate - start > 35 { facts.append("Their heart rate is well up: they're working hard.") }
-            else if heartRate - start < 15 { facts.append("Their heart rate is still fairly low.") }
-        }
-        // Session time only between intervals, where it can help; during an
-        // effort it got confused with the time left in the effort.
-        if cue.kind == .between {
-            facts.append("The whole session has \(timeInWords(length - cue.at)) left.")
-        }
-
-        let factText = facts.joined(separator: " ")
-        var parts = ["Facts: " + factText]
-        if let theme { parts.append("Focus of this message: \(theme).") }
-        if !recent.isEmpty {
-            parts.append("Messages you've already given (say something different): " + recent.map { "[\($0)]" }.joined(separator: " "))
-        }
-        parts.append("Write the message.")
-        return (parts.joined(separator: "\n"), factText)
     }
 
-    // MARK: - Checks
+    private enum Phase { case early, middle, late }
 
-    private static let banned = ["mile", "kilomet", " km", "mph", "o'clock", "road", "hill", "climb",
-                                 "cobble", "weather", "wind", "gust", "rain", "gear", "peloton",
-                                 "descent", "corner", "finish line", "today's weather"]
+    /// First, middle or last third of the session's intervals.
+    private func phaseOf(_ n: Int) -> Phase {
+        let p = Double(n) / Double(max(total, 1))
+        return p <= 1.0 / 3 ? .early : (p <= 2.0 / 3 ? .middle : .late)
+    }
 
-    /// Morning, afternoon, evening or night, from the phone's clock. Given to
-    /// the introduction and wrap-up so a greeting can be right ("Morning." at
-    /// 13:43 was a guess); a wrong one is removed or rejected in `clean`.
+    /// Greeting + what the session is for. Without a warm-up there's no
+    /// time for a separate plan message, so the plan comes straight after.
+    private func introduction() -> String {
+        let P = CoachPhrases.self
+        let greeting: String = {
+            switch Self.partOfDay() {
+            case "morning": return "Good morning. "
+            case "afternoon": return "Good afternoon. "
+            case "evening": return "Good evening. "
+            default: return ""
+            }
+        }()
+        let hasWarmUp = (session.segments.first?.kind == .warmUp) && (session.segments.first?.duration ?? 0) >= 60
+        if hasWarmUp {
+            return fill(greeting + draw("kind", kindLines), nil)
+        }
+        let shape = draw("structure", session.setsEnabled ? P.structureSets : P.structure)
+        return fill(greeting + shape + " " + draw("start", P.startNoWarmUp), nil)
+    }
+
+    /// The session's shape and how it starts.
+    private func plan() -> String {
+        let P = CoachPhrases.self
+        let shape = draw("structure", session.setsEnabled ? P.structureSets : P.structure)
+        return fill(shape + " " + draw("start", P.startWithWarmUp), nil)
+    }
+
+    /// Next line from a shuffled pack: nothing repeats until all have been used.
+    private func draw(_ key: String, _ options: [String]) -> String {
+        if packs[key]?.isEmpty ?? true { packs[key] = options.shuffled() }
+        return packs[key]!.removeLast()
+    }
+
+    private func fill(_ template: String, _ cue: Cue?) -> String {
+        var s = template
+        let n = cue?.interval ?? 0
+        let toGo = total - n + 1   // for "prepare": the next interval and those after it
+        let values: [String: String] = [
+            "{n}": "\(n)",
+            "{next}": "\(n)",
+            "{total}": "\(total)",
+            "{count}": "\(session.intervalCount)",
+            "{toGo}": "\(toGo) \(toGo == 1 ? "interval" : "intervals")",
+            "{left}": "\(total - n) \(total - n == 1 ? "interval" : "intervals")",
+            "{workTime}": Self.durationNoun(Double(total) * session.workDuration),
+            "{set}": "\(cue?.segment.set ?? 1)",
+            "{sets}": "\(session.setCount)",
+            "{workNoun}": Self.durationNoun(session.workDuration),
+            "{rest}": Self.durationNoun(session.restDuration),
+            "{warmUp}": Self.durationNoun(session.segments.first?.duration ?? 0),
+        ]
+        for (k, v) in values { s = s.replacingOccurrences(of: k, with: v) }
+        // "{total} intervals done" at the start of a sentence reads fine as a
+        // numeral; capitalise the first letter in case a template starts lower.
+        return s.prefix(1).uppercased() + s.dropFirst()
+    }
+
+    // MARK: - Words
+
+    /// What kind of session this is, judged from its shape.
+    private var sessionType: SessionType {
+        switch session.workDuration {
+        case ...60: return .shortSharp
+        case ..<240: return .hard
+        case ..<480: return .medium
+        default: return .long
+        }
+    }
+
+    /// Introduction lines for this session (on/off sessions get their own too).
+    private var kindLines: [String] {
+        let lines = CoachPhrases.kind[sessionType] ?? CoachPhrases.kind[.medium]!
+        let onOff = session.workDuration <= 60 && session.restDuration <= session.workDuration
+        return onOff ? lines + CoachPhrases.kindOnOff : lines
+    }
+
+    /// "30 seconds", "1 minute", "4 minutes".
+    /// "30 seconds", "1 minute", "90 seconds", "4 minutes".
+    static func durationNoun(_ t: TimeInterval) -> String {
+        let secs = Int(t.rounded())
+        if secs < 60 || (secs < 180 && secs % 60 != 0) { return "\(secs) seconds" }
+        let m = Int((t / 60).rounded())
+        return m == 1 ? "1 minute" : "\(m) minutes"
+    }
+
+    /// Morning, afternoon, evening or night, from the phone's clock.
     static func partOfDay(_ date: Date = Date()) -> String {
         switch Calendar.current.component(.hour, from: date) {
         case 5..<12: return "morning"
@@ -467,199 +327,5 @@ final class IntervalCoach: ObservableObject {
         case 17..<22: return "evening"
         default: return "night"
         }
-    }
-    private static let dayWords = ["morning", "afternoon", "evening", "tonight", "night"]
-    /// Number words that must come from the facts ("one" and "half" aren't
-    /// checked: "last one", "second half" are fine).
-    private static let numberWords: Set<String> = [
-        "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve",
-        "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen", "twenty",
-        "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety", "hundred", "dozen"]
-
-    /// Words, keeping hyphenated numbers whole ("twenty-two").
-    private static func tokens(_ text: String) -> [String] {
-        text.lowercased().split(whereSeparator: { !$0.isLetter && $0 != "-" })
-            .map { $0.trimmingCharacters(in: CharacterSet(charactersIn: "-")) }
-            .filter { !$0.isEmpty }
-    }
-
-    private func maxWords(for cue: Cue) -> Int {
-        switch cue.kind {
-        case .intro, .wrapUp: return 38
-        case .during: return cue.midEffort ? 24 : 18
-        default: return 26
-        }
-    }
-
-    private func clean(_ raw: String, for cue: Cue, facts: String) -> String? {
-        var s = raw.trimmingCharacters(in: .whitespacesAndNewlines)
-        s = s.trimmingCharacters(in: CharacterSet(charactersIn: "\"'“”‘’[]"))
-        s = s.split(whereSeparator: \.isNewline).joined(separator: " ")
-        // It likes to open with "Morning." (it doesn't know the time of day):
-        // drop a leading greeting rather than lose a good message.
-        // A greeting for the wrong time of day: drop it from the start, or
-        // reject the line if it's elsewhere. The right one is welcome.
-        let now = Self.partOfDay()
-        let rightWords: Set<String> = now == "evening" || now == "night" ? [now, "tonight"] : [now]
-        if let r = s.range(of: #"^(good\s+)?(morning|afternoon|evening)([\s,.!—-]+and\b)?[\s,.!—-]*"#, options: [.regularExpression, .caseInsensitive]),
-           !rightWords.contains(where: { s[r].lowercased().contains($0) }) {
-            s.removeSubrange(r)
-            s = s.prefix(1).uppercased() + s.dropFirst()
-        }
-        if Self.tokens(s).contains(where: { Self.dayWords.contains($0) && !rightWords.contains($0) }) { return nil }
-        let count = s.split(separator: " ").count
-        guard count >= 2, count <= maxWords(for: cue) else { return nil }
-        let lower = s.lowercased()
-        // No digits, except in "VO2max" (a real term, and in the facts).
-        let withoutVO2 = lower.replacingOccurrences(of: "vo2", with: "").replacingOccurrences(of: "vo₂", with: "")
-        guard withoutVO2.rangeOfCharacter(from: .decimalDigits) == nil,
-              !withoutVO2.contains(where: { ("₀"..."₉").contains($0) }) else { return nil }
-        // Openers it overused, and nicknames.
-        if lower.hasPrefix("right") || lower.hasPrefix("alright") || lower.hasPrefix("all right") { return nil }
-        if Self.tokens(lower).contains(where: { $0 == "champ" || $0 == "champion" }) { return nil }
-        // Same first three words as a recent message ("Keep the…" alone is too common to judge on).
-        let opening = Self.tokens(lower).prefix(3)
-        if recent.contains(where: { Self.tokens($0).prefix(3) == opening }) { return nil }
-        guard !Self.banned.contains(where: { lower.contains($0) }) else { return nil }
-        if !cue.halfway, ["halfway", "half way", "half-way"].contains(where: { lower.contains($0) }) {
-            // Only allowed when the facts say "halfway through this one effort".
-            if !(cue.midEffort && lower.contains("this")) { return nil }
-        }
-        // Every number word must appear, whole, in this moment's facts.
-        let given = Set(Self.tokens(facts))
-        let isNumber: (String) -> Bool = { t in t.split(separator: "-").contains { Self.numberWords.contains(String($0)) } }
-        if Self.tokens(s).contains(where: { isNumber($0) && !given.contains($0) }) { return nil }
-        // "N left / N more / N to go" must be the real count ("Eleven intervals
-        // left" at interval four of eleven got through, as eleven was in the facts).
-        if let allowed = remainingCounts(for: cue) {
-            let toks = Self.tokens(lower)
-            for (i, t) in toks.enumerated() {
-                guard let n = Self.numberValue(t) else { continue }
-                let after = toks[(i + 1)...].prefix(3)
-                if after.contains(where: { ["left", "more", "remaining", "remain", "to"].contains($0) }), !allowed.contains(n) {
-                    return nil
-                }
-            }
-        }
-        let key = lower.filter(\.isLetter)
-        guard !recent.contains(where: { $0.lowercased().filter(\.isLetter) == key }) else { return nil }
-        return s
-    }
-
-    /// Counts a "N left / more / to go" may use at this moment, or nil if any
-    /// number is fine (the introduction and wrap-up talk totals).
-    private func remainingCounts(for cue: Cue) -> Set<Int>? {
-        let total = work.count, n = cue.interval
-        switch cue.kind {
-        case .during:  return [total - n]                         // after this one
-        case .between: return [total - n, total - n - 1]          // including or after the next
-        case .warmUp, .warmUpEnd: return [total]
-        default: return nil
-        }
-    }
-
-    private static let spellOut: NumberFormatter = {
-        let f = NumberFormatter()
-        f.numberStyle = .spellOut
-        f.locale = Locale(identifier: "en_GB")
-        return f
-    }()
-
-    /// "seven" → 7, "twenty-two" → 22; nil for anything else.
-    private static func numberValue(_ token: String) -> Int? {
-        guard token.split(separator: "-").contains(where: { numberWords.contains(String($0)) || $0 == "one" }) else { return nil }
-        return spellOut.number(from: token)?.intValue
-    }
-
-    // MARK: - Words
-
-    /// What kind of session this is, judged from its shape.
-    private var sessionKind: String {
-        let w = session.workDuration, r = session.restDuration
-        switch w {
-        case ..<21: return "a set of very short, sprint-style bursts that build top-end power"
-        case ..<46 where r <= w: return "short on/off micro-intervals, like the thirty-fifteens from Rønnestad's research, which keep the heart and lungs near their maximum for a long time with little strain on the legs"
-        case ..<121: return "short, punchy intervals that build the ability to go hard and recover quickly"
-        case ..<481: return "VO2max intervals: hard efforts of a few minutes that push the heart and lungs towards their maximum to raise the aerobic ceiling"
-        case ..<1201: return "threshold intervals: long, steady, hard efforts that raise the power you can hold for an hour"
-        default: return "long tempo efforts that build endurance at a sustained, solid pace"
-        }
-    }
-
-    private var structureInWords: String {
-        var s = "\(words(session.intervalCount)) intervals of \(durationInWords(session.workDuration)), with \(durationInWords(session.restDuration)) easy between them"
-        if session.setsEnabled {
-            s += ", repeated in \(words(session.setCount)) sets with a longer recovery between sets"
-        }
-        return s
-    }
-
-    private func phase(_ n: Int, of total: Int) -> String {
-        let p = Double(n) / Double(max(total, 1))
-        switch p {
-        case ..<0.3: return "early in the session, legs still fresh"
-        case ..<0.55: return "building into the session"
-        case ..<0.8: return "into the second half, fatigue starting to bite"
-        default: return "near the end, only a few left"
-        }
-    }
-
-    /// "under a minute", "about a minute", "about seventeen minutes".
-    private func timeInWords(_ t: TimeInterval) -> String {
-        if t < 45 { return "under a minute" }
-        if t < 90 { return "about a minute" }
-        return "about \(words(Int((t / 60).rounded()))) minutes"
-    }
-
-    private func durationInWords(_ t: TimeInterval) -> String {
-        if t < 90 { return "\(words(Int(t))) seconds" }
-        let m = Int((t / 60).rounded())
-        return m == 1 ? "one minute" : "\(words(m)) minutes"
-    }
-
-    private func words(_ n: Int) -> String {
-        let f = NumberFormatter()
-        f.numberStyle = .spellOut
-        f.locale = Locale(identifier: "en_GB")
-        return f.string(from: NSNumber(value: n)) ?? "several"
-    }
-
-    private func capitalisedWords(_ n: Int) -> String {
-        let w = words(n)
-        return w.prefix(1).uppercased() + w.dropFirst()
-    }
-
-    // MARK: - Fallback lines
-
-    private var fallbackCount: [Kind: Int] = [:]
-
-    private func fallback(for cue: Cue) -> String {
-        // `during`: this interval is the last; `between`: the next one is.
-        let final = cue.kind == .between ? cue.interval + 1 == work.count : cue.interval == work.count
-        let options: [String]
-        switch cue.kind {
-        case .intro:     options = ["Welcome in. Ease into it, and let's make today count."]
-        case .warmUp:    options = ["Nice and easy for now. Let the legs wake up.",
-                                    "Settle in, breathe easy. The work comes later."]
-        case .warmUpEnd: options = ["Warm-up's done. First effort coming up: relax and roll into it."]
-        case .during:
-            if cue.halfway { options = ["Halfway through the hard work. Everything from here is downhill."] }
-            else if final { options = ["Final seconds of the final effort. Bring it home."] }
-            else if cue.midEffort { options = ["Settle in. Smooth and patient through the middle."] }
-            else { options = ["Nearly there. Hold your form to the end.",
-                              "Seconds to go. Recovery's waiting.",
-                              "Almost done with this one. Keep it smooth."] }
-        case .between:
-            if cue.halfway { options = ["Halfway through the hard work. Breathe, reset, keep going."] }
-            else if final { options = ["Last one coming up. Make it your smoothest yet."] }
-            else { options = ["Breathe deep and let it settle. Next one's coming.",
-                              "Drop the shoulders, have a sip. Here comes the next.",
-                              "Good work. Reset, then roll into the next one."] }
-        case .warmDown:  options = ["That's the hard work done. Spin easy and enjoy it."]
-        case .wrapUp:    options = ["Session complete. Every interval done. Brilliant work today."]
-        }
-        let i = fallbackCount[cue.kind, default: 0]
-        fallbackCount[cue.kind] = i + 1
-        return options[i % options.count]
     }
 }
