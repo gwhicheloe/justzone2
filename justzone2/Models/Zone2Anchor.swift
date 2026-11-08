@@ -6,21 +6,25 @@ import Foundation
 /// Zone Targeting starts from the rider's set power and nudges it to hold
 /// heart rate at the Zone 2 target. It moves deliberately slowly (about 5 W
 /// every 90 s upwards), so a set power 50 W too low takes a quarter of an hour
-/// to correct. If the set power is well
-/// off, the ride spends its first part climbing or falling to the right power.
-/// The power held while heart rate sits on target *is* the right starting
-/// power, so we take the median of it over the early settled part of the
-/// ride: after the warm-up and the controller's settling time, and before
-/// cardiac drift (heart rate creeping up at the same power) pulls it down.
+/// to correct.
+///
+/// The suggestion is the power that held heart rate on target in the *second
+/// half* of the ride. Cardiac drift (heart rate creeping up at the same power)
+/// means power always has to come down somewhat over a long ride; starting at
+/// the later, lower power means Zone Targeting nudges up early and only eases
+/// back towards the starting power later, rather than spending most of the
+/// ride bringing power down, which riders find demoralising (George, Nov 2026:
+/// the early-window version suggested 175 W on a ride that settled from 175
+/// down to 165 W).
 enum Zone2Anchor {
-    /// Ignore the start: warm-up, the controller's 3-minute grace and its settling.
-    static let windowStart: TimeInterval = 8 * 60
-    /// Stop before drift dominates.
-    static let windowEnd: TimeInterval = 30 * 60
+    /// Never earlier than this: warm-up, the controller's 3-minute grace and settling.
+    static let earliestStart: TimeInterval = 8 * 60
     static let minRide: TimeInterval = 20 * 60
     /// Seconds with heart rate within this many bpm of target count as "on target".
     static let onTargetBand = 3.0
     static let minOnTargetSeconds = 5 * 60
+    /// Smallest change worth suggesting.
+    static let minDifference = 15
 
     struct Suggestion: Equatable {
         let current: Int
@@ -41,14 +45,16 @@ enum Zone2Anchor {
         var hrWindow: [Double] = [], pWindow: [Double] = []
         var onTargetPower: [Double] = []
         var belowCount = 0, aboveCount = 0, inWindow = 0, windowPower: [Double] = []
-        let end = min(windowEnd, workout.actualDuration - 2 * 60)
+        // The second half of the ride, up to two minutes before the end.
+        let start = max(earliestStart, workout.actualDuration / 2)
+        let end = workout.actualDuration - 2 * 60
 
         for s in samples {
             if let hr = s.heartRate, hr > 0 { hrWindow.append(Double(hr)) }
             if let p = s.power, p > 0 { pWindow.append(Double(p)) }
             if hrWindow.count > 60 { hrWindow.removeFirst() }
             if pWindow.count > 60 { pWindow.removeFirst() }
-            guard s.timestamp >= windowStart, s.timestamp <= end,
+            guard s.timestamp >= start, s.timestamp <= end,
                   hrWindow.count >= 45, pWindow.count >= 45 else { continue }
             let hr = hrWindow.reduce(0, +) / Double(hrWindow.count)
             let p = pWindow.reduce(0, +) / Double(pWindow.count)
@@ -72,9 +78,9 @@ enum Zone2Anchor {
             return nil
         }
 
-        // Only worth asking about a real difference.
-        let diff = abs(suggested - current)
-        guard diff >= 10, Double(diff) >= 0.06 * Double(current) else { return nil }
+        // Only worth asking about a real difference (Zone Targeting covers
+        // smaller ones within a few minutes anyway).
+        guard abs(suggested - current) >= minDifference else { return nil }
         return Suggestion(current: current, suggested: suggested, partial: partial)
     }
 
