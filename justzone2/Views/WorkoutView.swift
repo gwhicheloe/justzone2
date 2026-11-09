@@ -163,7 +163,7 @@ struct WorkoutView: View {
                         .fontWeight(.semibold)
                         .foregroundColor(intervalColor)
                 } else {
-                Text("Chunk \(viewModel.currentChunk) of \(viewModel.totalChunks)")
+                Text("Block \(viewModel.currentChunk) of \(viewModel.totalChunks)")
                     .fontWeight(.semibold)
                 Text("·")
                     .foregroundColor(.secondary)
@@ -769,7 +769,7 @@ struct WorkoutView: View {
         if let session = viewModel.intervalSession {
             return "\(session.structure) · total"
         }
-        return "Chunk \(viewModel.currentChunk) of \(viewModel.totalChunks) · \(viewModel.formatTime(viewModel.remainingTime)) total"
+        return "Block \(viewModel.currentChunk) of \(viewModel.totalChunks) · \(viewModel.formatTime(viewModel.remainingTime)) total"
     }
 
     private var hrSourceIconColor: Color {

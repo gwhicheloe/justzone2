@@ -262,7 +262,7 @@ enum CoachPhrases {
             "Halfway through this one. Steady, patient, controlled.",
             "Half done. Settle in and hold the rhythm.",
             "You're in the middle now. Calm and steady wins this.",
-            "Halfway through interval {n}. Break the rest into small chunks.",
+            "Halfway through interval {n}. Break the rest into small pieces.",
             "Steady now. Halfway there, and doing it well.",
             "Midway. Sit tall, relax the grip, keep it even.",
         ],
