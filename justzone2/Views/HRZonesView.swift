@@ -3,6 +3,11 @@ import SwiftUI
 struct HRZonesView: View {
     @StateObject private var viewModel = HRZonesViewModel()
     @ObservedObject var heartRateService: HeartRateService
+    @Environment(\.dynamicTypeSize) private var typeSize
+    /// Vertical room the two-line and one-line zone labels need; they grow
+    /// with the rider's text size (fixed values clipped labels at large sizes).
+    @ScaledMetric(relativeTo: .subheadline) private var twoLineHeight: CGFloat = 34
+    @ScaledMetric(relativeTo: .caption) private var oneLineHeight: CGFloat = 18
 
     // Layout constants for the zone stack.
     private let handleHeight: CGFloat = 2
@@ -26,6 +31,10 @@ struct HRZonesView: View {
 
                 GeometryReader { geo in
                     zoneStack(in: geo.size)
+                        // A dense diagram can't fit accessibility-size text:
+                        // stop growing at the largest standard size so the
+                        // labels stay whole. The rest of the app still scales.
+                        .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
                         .onAppear { lastStackHeight = geo.size.height }
                         .onChange(of: geo.size.height) { _, h in lastStackHeight = h }
                 }
@@ -130,7 +139,17 @@ struct HRZonesView: View {
         // The flat 160pt cap left a wide gap between the bars and their labels on
         // iPad. Scale with the available width, but keep the iPhone result at
         // exactly 160 (a phone column is ~342pt, so 0.38 × that floors to 160).
-        let barWidth = min(max(160, size.width * 0.38), 260)
+        // Larger text needs a wider label column, so the bars give way: at
+        // the default size this is exactly the old 160 pt on a phone.
+        let textShrink: CGFloat = {
+            switch typeSize {
+            case ...DynamicTypeSize.large: return 0
+            case .xLarge: return 12
+            case .xxLarge: return 24
+            default: return 40
+            }
+        }()
+        let barWidth = min(max(160 - textShrink, size.width * 0.38 - textShrink), 260)
 
         return ZStack(alignment: .topLeading) {
             // Zone bars (top zone first so it draws downward).
@@ -202,39 +221,47 @@ struct HRZonesView: View {
         // iPad, Split View, Stage Manager), where the narrow top zones squeeze
         // into 20-30pt. Step down to one line, then hide, and clip either way
         // so nothing can ever bleed into a neighbour again.
-        let fitsTwoLines = height >= 34
-        let fitsOneLine = height >= 18
+        let fitsTwoLines = height >= twoLineHeight
+        let fitsOneLine = height >= oneLineHeight
 
         return Group {
             if fitsTwoLines {
-                HStack(alignment: .center, spacing: 8) {
-                    VStack(alignment: .leading, spacing: 1) {
+                // Two rows: "Zone 2   ★ 109–144" / "Endurance   57–75% max".
+                // The numbers always get their room; a long name shrinks a
+                // little rather than being cut off.
+                VStack(alignment: .leading, spacing: 1) {
+                    HStack(spacing: 6) {
                         Text(band.zone.label)
                             .font(.subheadline.bold())
                             .foregroundColor(band.zone.color)
                             .lineLimit(1)
-                            .fixedSize(horizontal: true, vertical: false)
-                        Text(band.zone.name)
-                            .font(.caption2)
-                            .foregroundColor(.secondary)
-                            .lineLimit(1)
-                    }
-                    Spacer(minLength: 4)
-                    VStack(alignment: .trailing, spacing: 1) {
+                            .minimumScaleFactor(0.8)
+                        Spacer(minLength: 4)
                         HStack(spacing: 4) {
                             if isZ2 {
                                 Image(systemName: "star.fill")
                                     .font(.system(size: 9))
                                     .foregroundColor(band.zone.color)
                             }
-                            Text("\(band.lower)–\(band.upper)")
+                            Text(rangeText(band))
                                 .font(.caption.monospacedDigit().bold())
                         }
-                        Text("\(pctOfMax(band.lower))–\(pctOfMax(band.upper))% max")
-                            .font(.system(size: 9))
-                            .foregroundColor(.secondary)
+                        .fixedSize()
+                        .layoutPriority(1)
                     }
-                    .fixedSize(horizontal: true, vertical: false)
+                    HStack(spacing: 6) {
+                        Text(band.zone.name)
+                            .font(.caption2)
+                            .foregroundColor(.secondary)
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.7)
+                        Spacer(minLength: 4)
+                        Text("\(pctOfMax(shownRange(band).lower))–\(pctOfMax(shownRange(band).upper))% max")
+                            .font(.caption2)
+                            .foregroundColor(.secondary)
+                            .fixedSize()
+                            .layoutPriority(1)
+                    }
                 }
             } else {
                 // Compact single line. A short band has no room for the subtitle
@@ -267,7 +294,7 @@ struct HRZonesView: View {
                     .fixedSize(horizontal: true, vertical: false)
             }
             Spacer(minLength: 4)
-            Text("\(band.lower)–\(band.upper)")
+            Text(rangeText(band))
                 .font(.caption2.monospacedDigit().bold())
                 .lineLimit(1)
                 .fixedSize(horizontal: true, vertical: false)
@@ -377,6 +404,24 @@ struct HRZonesView: View {
         }
         .padding(.horizontal, 24)
         .padding(.vertical, 12)
+    }
+
+    /// The range shown for a zone, with no bpm in two zones. The app counts
+    /// both ends of Zone 2 as in zone (below zone is under its lower bound,
+    /// above zone is over its upper bound), so Zone 1 stops one beat below
+    /// Zone 2, and each zone above Zone 2 starts one beat above the boundary.
+    /// Shown before: 46–109, 109–144, 144–161… (each boundary in two zones).
+    private func shownRange(_ band: HRZoneBand) -> (lower: Int, upper: Int) {
+        switch band.zone {
+        case .z1: return (band.lower, band.upper - 1)
+        case .z2: return (band.lower, band.upper)
+        default: return (band.lower + 1, band.upper)
+        }
+    }
+
+    private func rangeText(_ band: HRZoneBand) -> String {
+        let r = shownRange(band)
+        return "\(r.lower)–\(r.upper)"
     }
 
     private func pctOfMax(_ bpm: Int) -> Int {
