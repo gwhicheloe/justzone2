@@ -44,6 +44,11 @@ class StravaService: NSObject, ObservableObject {
     override init() {
         super.init()
         loadTokensFromKeychain()
+        for name in [UIApplication.didBecomeActiveNotification, UIApplication.protectedDataDidBecomeAvailableNotification] {
+            NotificationCenter.default.addObserver(forName: name, object: nil, queue: .main) { [weak self] _ in
+                MainActor.assumeIsolated { self?.recheckLoginIfNeeded() }
+            }
+        }
         athleteName = UserDefaults.standard.string(forKey: Constants.stravaAthleteNameKey)
         // Refresh the linked account's name in the background so an already-
         // connected user (e.g. after a different person logged in) sees who it is.
@@ -169,7 +174,7 @@ class StravaService: NSObject, ObservableObject {
 
         var components = URLComponents(string: "https://www.strava.com/api/v3/activities/\(activityId)/streams")!
         components.queryItems = [
-            URLQueryItem(name: "keys", value: "heartrate,watts,time"),
+            URLQueryItem(name: "keys", value: "heartrate,watts,time,cadence"),
             URLQueryItem(name: "key_by_type", value: "true")
         ]
 
@@ -186,6 +191,12 @@ class StravaService: NSObject, ObservableObject {
             // Streams not available (e.g., manual activity)
             throw StravaError.streamsNotAvailable
         }
+        if httpResponse.statusCode == 429 {
+            // The app's Strava rate limit (shared by every rider). Callers that
+            // fetch in bulk (the normalised-history backfill) stop for the day.
+            dlog("[STRAVA] rate limited fetching streams (429)")
+            throw StravaError.rateLimited
+        }
 
         if httpResponse.statusCode == 200 {
             let streamResponse = try JSONDecoder().decode(StreamsResponse.self, from: data)
@@ -194,7 +205,9 @@ class StravaService: NSObject, ObservableObject {
                 fetchedAt: Date(),
                 time: streamResponse.time?.data ?? [],
                 heartrate: streamResponse.heartrate?.data,
-                watts: streamResponse.watts?.data
+                watts: streamResponse.watts?.data,
+                cadence: streamResponse.cadence?.data,
+                version: ActivityStreams.currentVersion
             )
         } else {
             let errorMessage = String(data: data, encoding: .utf8) ?? "Unknown error"
@@ -604,13 +617,37 @@ class StravaService: NSObject, ObservableObject {
     private func loadTokensFromKeychain() {
         accessToken = KeychainHelper.load(key: Constants.stravaAccessTokenKey)
         refreshToken = KeychainHelper.load(key: Constants.stravaRefreshTokenKey)
-
-        if let expiryString = KeychainHelper.load(key: Constants.stravaTokenExpiryKey),
-           let expiryInterval = Double(expiryString) {
+        let expiryString = KeychainHelper.load(key: Constants.stravaTokenExpiryKey)
+        if let expiryString, let expiryInterval = Double(expiryString) {
             tokenExpiry = Date(timeIntervalSince1970: expiryInterval)
         }
 
         isAuthenticated = accessToken != nil && refreshToken != nil
+
+        // Logins saved before Nov 2026 were readable only while unlocked: re-save
+        // them once with the after-first-unlock protection (we can read them now).
+        // Changed in place (never deleted), and only marked done once every
+        // item has actually been updated, so a failure just retries next launch.
+        let migratedKey = "stravaKeychainAfterFirstUnlock"
+        if isAuthenticated, !UserDefaults.standard.bool(forKey: migratedKey) {
+            let keys = [Constants.stravaAccessTokenKey, Constants.stravaRefreshTokenKey, Constants.stravaTokenExpiryKey]
+            if keys.allSatisfy({ KeychainHelper.makeAvailableAfterFirstUnlock(key: $0) }) {
+                UserDefaults.standard.set(true, forKey: migratedKey)
+                dlog("[STRAVA] keychain login moved to after-first-unlock protection")
+            }
+        }
+    }
+
+    /// If the login couldn't be read at launch (phone locked), try again when
+    /// the app comes to the front or the phone unlocks, so Strava doesn't look
+    /// disconnected for the rest of the session.
+    private func recheckLoginIfNeeded() {
+        guard !isAuthenticated else { return }
+        loadTokensFromKeychain()
+        if isAuthenticated {
+            dlog("[STRAVA] login recovered on becoming active")
+            Task { try? await fetchAthlete() }
+        }
     }
 
     private func clearKeychainTokens() {
@@ -666,6 +703,7 @@ private struct StreamsResponse: Decodable {
     let time: StreamData?
     let heartrate: StreamData?
     let watts: StreamData?
+    let cadence: StreamData?
 }
 
 private struct StreamData: Decodable {
@@ -685,6 +723,7 @@ enum StravaError: LocalizedError {
     case uploadFailed(String)
     case uploadTimeout
     case streamsNotAvailable
+    case rateLimited
     case requestFailed
 
     var errorDescription: String? {
@@ -709,6 +748,8 @@ enum StravaError: LocalizedError {
             return "Upload timed out"
         case .streamsNotAvailable:
             return "Stream data not available for this activity"
+        case .rateLimited:
+            return "Strava is busy right now. Please try again later."
         case .requestFailed:
             return "Strava request failed"
         }
@@ -728,16 +769,20 @@ private struct StravaAthlete: Decodable {
 // MARK: - Keychain Helper
 
 private enum KeychainHelper {
+    /// Saved readable after the phone's first unlock since it started (not
+    /// only while unlocked), so a background launch while the phone is locked
+    /// (Bluetooth, Apple Watch) can still see the Strava login.
     static func save(key: String, value: String) {
-        let data = value.data(using: .utf8)!
-        let query: [String: Any] = [
+        let match: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
-            kSecAttrAccount as String: key,
-            kSecValueData as String: data
+            kSecAttrAccount as String: key
         ]
-
-        SecItemDelete(query as CFDictionary)
-        SecItemAdd(query as CFDictionary, nil)
+        SecItemDelete(match as CFDictionary)
+        var add = match
+        add[kSecValueData as String] = Data(value.utf8)
+        add[kSecAttrAccessible as String] = kSecAttrAccessibleAfterFirstUnlock
+        let status = SecItemAdd(add as CFDictionary, nil)
+        if status != errSecSuccess { dlog("[STRAVA] keychain save failed for \(key): \(status)") }
     }
 
     static func load(key: String) -> String? {
@@ -751,10 +796,29 @@ private enum KeychainHelper {
         let status = SecItemCopyMatching(query as CFDictionary, &result)
 
         guard status == errSecSuccess, let data = result as? Data else {
+            // Not found is normal (not connected). Anything else, e.g.
+            // errSecInteractionNotAllowed while the phone is locked, is worth knowing.
+            if status != errSecItemNotFound { dlog("[STRAVA] keychain read failed for \(key): \(status)") }
             return nil
         }
 
         return String(data: data, encoding: .utf8)
+    }
+
+    /// Change an existing item's protection to after-first-unlock in place.
+    /// True if updated or if there's no such item (nothing to move).
+    static func makeAvailableAfterFirstUnlock(key: String) -> Bool {
+        let match: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrAccount as String: key
+        ]
+        let change: [String: Any] = [kSecAttrAccessible as String: kSecAttrAccessibleAfterFirstUnlock]
+        let status = SecItemUpdate(match as CFDictionary, change as CFDictionary)
+        if status != errSecSuccess && status != errSecItemNotFound {
+            dlog("[STRAVA] keychain protection change failed for \(key): \(status)")
+            return false
+        }
+        return true
     }
 
     static func delete(key: String) {
