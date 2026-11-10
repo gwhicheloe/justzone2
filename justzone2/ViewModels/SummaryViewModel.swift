@@ -171,6 +171,10 @@ class SummaryViewModel: ObservableObject {
                     zone2Max: zone2Max
                 )
                 activityId = try await stravaService.uploadWorkout(workout, description: description)
+                if let id = activityId, !isDemo {
+                    // Keep its full data for the normalised history (no Strava request later).
+                    await NormalisedHistoryService.saveUploadedRide(workout, activityId: id, cache: StreamsCacheService())
+                }
             } catch {
                 uploadError = error
             }

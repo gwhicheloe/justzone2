@@ -18,6 +18,8 @@ class HistoryViewModel: ObservableObject {
 
     let stravaService: StravaService
     let streamsCache = StreamsCacheService()
+    /// Normalised Zone 2 history (power at the Zone 2 target heart rate).
+    let normalised: NormalisedHistoryService
 
     private var cancellables = Set<AnyCancellable>()
     private var dataCleared = false
@@ -26,6 +28,9 @@ class HistoryViewModel: ObservableObject {
 
     init(stravaService: StravaService) {
         self.stravaService = stravaService
+        // Its own cache handle: StreamsCacheService holds no state beyond the
+        // folder, so both read and write the same files.
+        self.normalised = NormalisedHistoryService(stravaService: stravaService, cache: StreamsCacheService())
         self.isStravaConnected = stravaService.isAuthenticated
 
         stravaService.$isAuthenticated
@@ -41,9 +46,44 @@ class HistoryViewModel: ObservableObject {
             .sink { [weak self] _ in Task { await self?.clearStravaData() } }
             .store(in: &cancellables)
 
+        // Reconnecting Strava starts the normalised-history backfill straight
+        // away (otherwise it waited for the next app launch).
+        stravaService.$isAuthenticated
+            .removeDuplicates()
+            .dropFirst()
+            .filter { $0 }
+            .sink { [weak self] _ in self?.updateNormalised(backfill: true) }
+            .store(in: &cancellables)
+
+        // Redraw History when the normalised results change.
+        normalised.objectWillChange
+            .sink { [weak self] _ in self?.objectWillChange.send() }
+            .store(in: &cancellables)
+
         // Load cached activities
         loadFromCache()
         loadLocalWorkouts()
+        updateNormalised(backfill: true)
+    }
+
+    /// Recompute the normalised history from what's on the phone and, if asked,
+    /// fetch a few more rides' full data from Strava (gently; see the service).
+    func updateNormalised(backfill: Bool = false) {
+        guard !demoHistoryActive else { return }
+        normalised.refresh(activities: activities, localWorkouts: localWorkouts)
+        guard backfill else { return }
+        guard isStravaConnected else { dlog("[NORM] backfill not started: Strava not connected"); return }
+        let snapshot = activities
+        Task { [weak self] in
+            guard let self else { return }
+            let refresh = { [weak self] in
+                guard let self else { return }
+                self.normalised.refresh(activities: self.activities, localWorkouts: self.localWorkouts)
+            }
+            if await self.normalised.backfill(activities: snapshot, onBatch: refresh) {
+                self.normalised.refresh(activities: self.activities, localWorkouts: self.localWorkouts)
+            }
+        }
     }
 
     /// Reload local workouts from disk. Call after upload completes or
@@ -53,6 +93,7 @@ class HistoryViewModel: ObservableObject {
         // until it's switched off (`clearDemoHistory` reloads them).
         guard !demoHistoryActive else { return }
         localWorkouts = LocalWorkoutStore.shared.all()
+        updateNormalised()
     }
 
     /// Rides for the progress charts: Strava's Zone 2 rides plus the rides
@@ -122,6 +163,8 @@ class HistoryViewModel: ObservableObject {
                 zone2Max: local.zone2Max ?? 140
             )
             let activityId = try await stravaService.uploadWorkout(local.workout, description: description)
+            // Keep its full data for the normalised history (no Strava request later).
+            await NormalisedHistoryService.saveUploadedRide(local.workout, activityId: activityId, cache: streamsCache)
             LocalWorkoutStore.shared.delete(id: local.id)
             loadLocalWorkouts()
             return activityId
@@ -158,6 +201,7 @@ class HistoryViewModel: ObservableObject {
             UserDefaults.standard.set(Date(), forKey: lastUpdatedKey)
             lastUpdated = Date()
         }
+        updateNormalised(backfill: true)
     }
 
     /// Initial full download — fetches year by year with progress
@@ -270,6 +314,7 @@ class HistoryViewModel: ObservableObject {
         UserDefaults.standard.removeObject(forKey: lastUpdatedKey)
         lastUpdated = nil
         await streamsCache.clearCache()
+        updateNormalised()
         dlog("[STRAVA] disconnected: cleared cached Strava activities and streams")
     }
 
