@@ -6,8 +6,17 @@ struct HRZonesView: View {
     @Environment(\.dynamicTypeSize) private var typeSize
     /// Vertical room the two-line and one-line zone labels need; they grow
     /// with the rider's text size (fixed values clipped labels at large sizes).
-    @ScaledMetric(relativeTo: .subheadline) private var twoLineHeight: CGFloat = 34
-    @ScaledMetric(relativeTo: .caption) private var oneLineHeight: CGFloat = 18
+    /// Scaled at the same capped text size as the labels themselves (see
+    /// `.dynamicTypeSize` on the zone stack): scaled past the cap, the room
+    /// "needed" outgrew the text and labels vanished at accessibility sizes.
+    private var twoLineHeight: CGFloat { scaledForStack(34, style: .subheadline) }
+    private var oneLineHeight: CGFloat { scaledForStack(18, style: .caption1) }
+
+    private func scaledForStack(_ value: CGFloat, style: UIFont.TextStyle) -> CGFloat {
+        let size = min(typeSize, DynamicTypeSize.xxxLarge)
+        let traits = UITraitCollection(preferredContentSizeCategory: UIContentSizeCategory(size))
+        return UIFontMetrics(forTextStyle: style).scaledValue(for: value, compatibleWith: traits)
+    }
 
     // Layout constants for the zone stack.
     private let handleHeight: CGFloat = 2
