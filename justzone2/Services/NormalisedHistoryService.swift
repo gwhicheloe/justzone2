@@ -21,6 +21,12 @@ final class NormalisedHistoryService: ObservableObject {
     @Published private(set) var completeIDs: Set<Int> = []
     /// The ride being downloaded right now, if any (the list shows a spinner).
     @Published private(set) var downloadingID: Int?
+    /// Rides Strava has no full data for (manual entries): nothing to download.
+    @Published private(set) var noDataIDs: Set<Int> = []
+    /// Why today's downloads have stopped, if they have (History says so, so
+    /// the rider doesn't keep pulling down for rides that won't come today).
+    enum DownloadStop { case dailyLimit, stravaBusy }
+    @Published private(set) var downloadStop: DownloadStop?
     @Published private(set) var points: [HRNormalisation.RidePoint] = []
     @Published private(set) var fit: HRNormalisation.Fit?
     @Published private(set) var targetHR: Int = 0
@@ -59,6 +65,22 @@ final class NormalisedHistoryService: ObservableObject {
     init(stravaService: StravaService, cache: StreamsCacheService) {
         self.stravaService = stravaService
         self.cache = cache
+        updateDownloadStop()
+    }
+
+    /// Read today's download state from what's been recorded (also clears
+    /// yesterday's stop once the day has changed).
+    private func updateDownloadStop() {
+        let d = UserDefaults.standard, today = Self.dayString()
+        let stop: DownloadStop?
+        if d.string(forKey: Self.pausedKey) == today {
+            stop = .stravaBusy
+        } else if d.string(forKey: Self.dayKey) == today, d.integer(forKey: Self.countKey) >= Self.dailyLimit {
+            stop = .dailyLimit
+        } else {
+            stop = nil
+        }
+        if stop != downloadStop { downloadStop = stop }
     }
 
     // MARK: - Analysis
@@ -68,6 +90,7 @@ final class NormalisedHistoryService: ObservableObject {
     private struct Memo {
         let modified: Date
         let complete: Bool
+        let noData: Bool
         let prepared: HRNormalisation.PreparedRide?
     }
     private var memo: [Int: Memo] = [:]
@@ -80,6 +103,7 @@ final class NormalisedHistoryService: ObservableObject {
         let points: [HRNormalisation.RidePoint]
         let usable: Int
         let complete: Set<Int>
+        let noData: Set<Int>
         let memo: [Int: Memo]
     }
 
@@ -102,7 +126,7 @@ final class NormalisedHistoryService: ObservableObject {
             let result = await Task.detached(priority: .utility) { () -> Analysis in
                 var memo: [Int: Memo] = [:]
                 var prepared: [HRNormalisation.PreparedRide] = []
-                var complete = Set<Int>()
+                var complete = Set<Int>(), noData = Set<Int>()
                 var summaries: [HRNormalisation.RideSummary] = []
                 for a in candidates {
                     if let modified = await cache.modificationDate(for: a.id) {
@@ -110,12 +134,13 @@ final class NormalisedHistoryService: ObservableObject {
                         if entry == nil, let s = await cache.loadStreams(for: a.id) {
                             // A ride Strava has no streams for is cached as an
                             // empty placeholder: remembered, but not "full data".
-                            entry = Memo(modified: modified, complete: s.isComplete && s.hasData,
+                            entry = Memo(modified: modified, complete: s.isComplete && s.hasData, noData: s.isComplete && !s.hasData,
                                          prepared: Self.ride(from: s, date: a.startDate).flatMap(HRNormalisation.prepare))
                         }
                         if let entry {
                             memo[a.id] = entry
                             if entry.complete { complete.insert(a.id) }
+                            if entry.noData { noData.insert(a.id) }
                             if let p = entry.prepared { prepared.append(p) }
                         }
                     }
@@ -130,7 +155,7 @@ final class NormalisedHistoryService: ObservableObject {
                 }
 
                 guard let fit = HRNormalisation.fit(prepared) else {
-                    return Analysis(fit: nil, points: [], usable: prepared.count, complete: complete, memo: memo)
+                    return Analysis(fit: nil, points: [], usable: prepared.count, complete: complete, noData: noData, memo: memo)
                 }
                 let full = HRNormalisation.points(prepared, fit: fit, targetHR: Double(target))
                 // Early view: rides without full data are estimated from their
@@ -144,7 +169,7 @@ final class NormalisedHistoryService: ObservableObject {
                     .filter { fullByID[$0.id] == nil }
                     .compactMap { HRNormalisation.summaryPoint($0, fit: fit, targetHR: Double(target), offset: offset) }
                 return Analysis(fit: fit, points: HRNormalisation.withTrend(full + estimates), usable: prepared.count,
-                                complete: complete, memo: memo)
+                                complete: complete, noData: noData, memo: memo)
             }.value
 
             self.analysing = false
@@ -152,6 +177,7 @@ final class NormalisedHistoryService: ObservableObject {
             guard generation == self.generation else { return }
             self.memo = result.memo
             self.completeIDs = result.complete
+            self.noDataIDs = result.noData
             self.targetHR = target
             self.fit = result.fit
             self.points = result.points
@@ -175,6 +201,7 @@ final class NormalisedHistoryService: ObservableObject {
         generation += 1
         pending = nil
         completeIDs = []
+        noDataIDs = []
         points = []
         fit = nil
         isReady = false
@@ -213,6 +240,7 @@ final class NormalisedHistoryService: ObservableObject {
     /// that don't have it, newest first. Returns true if anything new arrived.
     @discardableResult
     func backfill(activities: [StravaActivity], onBatch: (() -> Void)? = nil) async -> Bool {
+        updateDownloadStop()
         guard !backfilling else { dlog("[NORM] backfill skipped: already running"); return false }
         guard stravaService.isAuthenticated else { dlog("[NORM] backfill skipped: Strava not connected"); return false }
         let today = Self.dayString()
@@ -223,11 +251,11 @@ final class NormalisedHistoryService: ObservableObject {
         guard used < Self.dailyLimit else { dlog("[NORM] backfill skipped: \(used)/\(Self.dailyLimit) already today"); return false }
 
         backfilling = true
-        defer { backfilling = false }
+        defer { backfilling = false; updateDownloadStop() }
         var fetched = 0
         var failures = d.dictionary(forKey: Self.failuresKey) as? [String: Int] ?? [:]
         let todo = activities
-            .filter { !$0.name.hasPrefix("Intervals:") && $0.averageHeartrate != nil && $0.averageWatts != nil }
+            .filter(Self.wantsFullData)
             .sorted { $0.startDate > $1.startDate }
         dlog("[NORM] backfill starting: \(todo.count) candidate rides, \(Self.dailyLimit - used) allowed today")
         var failuresInARow = 0
@@ -256,6 +284,7 @@ final class NormalisedHistoryService: ObservableObject {
                 // complete-but-empty so it isn't asked for again.
                 await cache.saveStreams(ActivityStreams(activityId: a.id, fetchedAt: Date(), time: [], heartrate: nil, watts: nil,
                                                         cadence: nil, version: ActivityStreams.currentVersion))
+                noDataIDs.insert(a.id)
             } catch let error as URLError {
                 // No connection: nothing reached Strava and it isn't the ride's
                 // fault. Stop quietly and try again next time.
@@ -283,6 +312,16 @@ final class NormalisedHistoryService: ObservableObject {
         }
         if fetched > 0 { dlog("[NORM] backfilled \(fetched) rides (\(used)/\(Self.dailyLimit) today)") }
         return fetched > 0
+    }
+
+    /// Rides the backfill downloads full data for.
+    nonisolated static func wantsFullData(_ a: StravaActivity) -> Bool {
+        !a.name.hasPrefix("Intervals:") && a.averageHeartrate != nil && a.averageWatts != nil
+    }
+
+    /// How many of these rides are still waiting for their full data.
+    func remainingDownloads(in activities: [StravaActivity]) -> Int {
+        activities.filter { Self.wantsFullData($0) && !completeIDs.contains($0.id) && !noDataIDs.contains($0.id) }.count
     }
 
     // MARK: - Rides recorded in the app

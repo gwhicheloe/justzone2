@@ -36,14 +36,20 @@ struct HistoryView: View {
                             // Larger symbols: a segmented control ignores font size, so
                             // the images are pre-rendered at a bigger point size.
                             Picker("View", selection: $viewMode) {
-                                Self.switcherIcon("list.bullet").tag(HistoryViewMode.list)
-                                Self.switcherIcon("chart.dots.scatter").tag(HistoryViewMode.bubbleChart)
+                                Self.listIcon.tag(HistoryViewMode.list)
+                                Self.bubbleIcon.tag(HistoryViewMode.bubbleChart)
                                 // The trend chart carries a small green "Z2P" once Zone 2 power
                                 // is available: our mark for that view.
-                                Self.switcherIcon("chart.xyaxis.line", badge: viewModel.normalised.isReady ? "Z2P" : nil).tag(HistoryViewMode.lineChart)
+                                (viewModel.normalised.isReady ? Self.trendIconZ2P : Self.trendIcon).tag(HistoryViewMode.lineChart)
                             }
                             .pickerStyle(.segmented)
                             .frame(width: 230)
+                            // Pinned and unanimated: zooming a chart redraws this
+                            // view on every step, and the switcher used to be
+                            // rebuilt, re-centred and animated along with it
+                            // (it jiggled left and right).
+                            .frame(maxWidth: .infinity)
+                            .transaction { $0.animation = nil }
                             .padding(.top, 8)
                             .padding(.bottom, 20)
 
@@ -268,6 +274,13 @@ struct HistoryView: View {
                             }
                         }
                     }
+                    // Downloads have stopped for today: say so, or the rider
+                    // keeps pulling down and nothing arrives.
+                    if let note = downloadStopNote {
+                        Text(note)
+                            .multilineTextAlignment(.center)
+                            .padding(.top, 2)
+                    }
                 }
                 .font(.tiny)
                 .foregroundColor(.secondary)
@@ -287,6 +300,20 @@ struct HistoryView: View {
         .refreshable {
             viewModel.loadLocalWorkouts()
             await viewModel.refreshActivitiesFromPullDown()
+        }
+    }
+
+    /// "20 rides downloaded today, the daily limit. 143 to go: more tomorrow."
+    private var downloadStopNote: String? {
+        guard viewModel.isStravaConnected, let stop = viewModel.normalised.downloadStop else { return nil }
+        let left = viewModel.normalised.remainingDownloads(in: viewModel.activities)
+        guard left > 0 else { return nil }
+        let toGo = "\(left) \(left == 1 ? "ride" : "rides") to go: more tomorrow."
+        switch stop {
+        case .dailyLimit:
+            return "\(NormalisedHistoryService.dailyLimit) rides downloaded today, the daily limit. \(toGo)"
+        case .stravaBusy:
+            return "Strava is busy, so downloads have stopped for today. \(toGo)"
         }
     }
 
@@ -574,6 +601,13 @@ struct HistoryView: View {
 
     /// A view-switcher symbol rendered at a larger size than the segmented
     /// control's default.
+    // Made once: fresh images on every redraw made the segmented control lay
+    // itself out again each time.
+    private static let listIcon = switcherIcon("list.bullet")
+    private static let bubbleIcon = switcherIcon("chart.dots.scatter")
+    private static let trendIcon = switcherIcon("chart.xyaxis.line")
+    private static let trendIconZ2P = switcherIcon("chart.xyaxis.line", badge: "Z2P")
+
     static func switcherIcon(_ name: String, badge: String? = nil) -> Image {
         let config = UIImage.SymbolConfiguration(pointSize: 22, weight: .medium)
         guard let symbol = UIImage(systemName: name, withConfiguration: config) else { return Image(systemName: name) }
@@ -733,10 +767,17 @@ struct HistoryView: View {
                 let zone2Min = z2Min > 0 ? z2Min : 120
                 let zone2Max = z2Max > 0 ? z2Max : 140
 
-                // Build line segments (break if gap > 2 weeks)
-                let twoWeeks: TimeInterval = 14 * 24 * 60 * 60
-                let hrSegments = buildLineSegments(from: chartData, getValue: { $0.averageHeartrate ?? 0 }, maxGap: twoWeeks)
-                let powerSegments = buildLineSegments(from: chartData, getValue: { $0.averageWatts ?? 0 }, maxGap: twoWeeks)
+                // Each ride is a faint dot; the lines are the rolling median
+                // through them. Joining every ride to the next made an
+                // unreadable zigzag once there were a few months of rides.
+                let dates = chartData.map(\.startDate)
+                let trendHalf = Self.trendHalfWindow(for: dates)
+                let smoothed = trendHalf >= 7 * 86_400
+                let maxGap: TimeInterval = smoothed ? 56 * 86_400 : 14 * 86_400
+                let hrSegments = Self.trendSegments(dates: dates, values: chartData.map { $0.averageHeartrate ?? 0 },
+                                                    halfWindow: trendHalf, minRides: smoothed ? 5 : 1, maxGap: maxGap)
+                let powerSegments = Self.trendSegments(dates: dates, values: chartData.map { $0.averageWatts ?? 0 },
+                                                       halfWindow: trendHalf, minRides: smoothed ? 5 : 1, maxGap: maxGap)
 
                 // Calculate visible date range based on zoom level
                 let dateRange = calculateDateRange(for: chartData)
@@ -760,6 +801,14 @@ struct HistoryView: View {
                     ZStack {
                         // Power lines (blue)
                         Chart {
+                            if smoothed {
+                                ForEach(chartData, id: \.id) { a in
+                                    PointMark(x: .value("Date", a.startDate),
+                                              y: .value("Power", min(max(a.averageWatts ?? 0, minPower), maxPower)))
+                                        .foregroundStyle(Color.blue.opacity(0.3))
+                                        .symbolSize(14)
+                                }
+                            }
                             ForEach(Array(powerSegments.enumerated()), id: \.offset) { segmentIndex, segment in
                                 ForEach(Array(segment.enumerated()), id: \.offset) { pointIndex, point in
                                     LineMark(
@@ -768,7 +817,8 @@ struct HistoryView: View {
                                         series: .value("Segment", "power-\(segmentIndex)")
                                     )
                                     .foregroundStyle(Color.blue)
-                                    .lineStyle(StrokeStyle(lineWidth: 2))
+                                    .lineStyle(StrokeStyle(lineWidth: 2.5, lineCap: .round, lineJoin: .round))
+                                    .interpolationMethod(.monotone)
                                 }
                             }
                         }
@@ -798,6 +848,15 @@ struct HistoryView: View {
                                 .foregroundStyle(.green.opacity(0.2))
                             }
 
+                            if smoothed {
+                                ForEach(chartData, id: \.id) { a in
+                                    PointMark(x: .value("Date", a.startDate),
+                                              y: .value("HR", min(max(a.averageHeartrate ?? 0, minHR), maxHR)))
+                                        .foregroundStyle(Color.red.opacity(0.3))
+                                        .symbolSize(14)
+                                }
+                            }
+
                             // HR data lines
                             ForEach(Array(hrSegments.enumerated()), id: \.offset) { segmentIndex, segment in
                                 ForEach(Array(segment.enumerated()), id: \.offset) { pointIndex, point in
@@ -807,7 +866,8 @@ struct HistoryView: View {
                                         series: .value("Segment", "hr-\(segmentIndex)")
                                     )
                                     .foregroundStyle(Color.red)
-                                    .lineStyle(StrokeStyle(lineWidth: 2))
+                                    .lineStyle(StrokeStyle(lineWidth: 2.5, lineCap: .round, lineJoin: .round))
+                                    .interpolationMethod(.monotone)
                                 }
                             }
                         }
@@ -916,44 +976,54 @@ struct HistoryView: View {
                 }
                 .padding(.top, 4)
 
-                Text("Lines break after 2+ week gaps")
+                Text(smoothed
+                     ? "Each dot is one ride. The lines are the \(Int((trendHalf * 2 / 86_400).rounded()))-day median, and break after 8+ week gaps."
+                     : "Lines break after 2+ week gaps")
                     .font(.tiny)
                     .foregroundColor(.secondary)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 24)
 
                 Spacer()
             }
         }
     }
 
-    private func buildLineSegments(from activities: [StravaActivity], getValue: (StravaActivity) -> Double, maxGap: TimeInterval) -> [[(date: Date, value: Double)]] {
+    /// Half the rolling-median window for the trend lines: 61 days in all (as
+    /// on the Zone 2 power chart) once there's enough history, narrower for a
+    /// short one so a few weeks of rides aren't flattened into one level.
+    static func trendHalfWindow(for dates: [Date]) -> TimeInterval {
+        guard let first = dates.first, let last = dates.last else { return 0 }
+        return min(30.5 * 86_400, last.timeIntervalSince(first) / 16)
+    }
+
+    /// The centred rolling median of `values` (rides in date order), split
+    /// into separate lines wherever two rides are more than `maxGap` apart.
+    /// Where rides are sparse the window widens to the nearest `minRides`, so
+    /// one or two odd rides don't make a spike.
+    static func trendSegments(dates: [Date], values: [Double], halfWindow: TimeInterval, minRides: Int,
+                              maxGap: TimeInterval) -> [[(date: Date, value: Double)]] {
         var segments: [[(date: Date, value: Double)]] = []
-        var currentSegment: [(date: Date, value: Double)] = []
-
-        for activity in activities {
-            let point = (date: activity.startDate, value: getValue(activity))
-
-            if let lastPoint = currentSegment.last {
-                let gap = activity.startDate.timeIntervalSince(lastPoint.date)
-                if gap > maxGap {
-                    // Gap too large, start new segment
-                    if !currentSegment.isEmpty {
-                        segments.append(currentSegment)
-                    }
-                    currentSegment = [point]
-                } else {
-                    currentSegment.append(point)
-                }
+        var lo = 0, hi = 0
+        for i in dates.indices {
+            while dates[i].timeIntervalSince(dates[lo]) > halfWindow { lo += 1 }
+            while hi + 1 < dates.count, dates[hi + 1].timeIntervalSince(dates[i]) <= halfWindow { hi += 1 }
+            var a = lo, b = max(hi, i)
+            while b - a + 1 < minRides, a > 0 || b + 1 < dates.count {
+                let before = a > 0 ? dates[i].timeIntervalSince(dates[a - 1]) : .infinity
+                let after = b + 1 < dates.count ? dates[b + 1].timeIntervalSince(dates[i]) : .infinity
+                if before <= after { a -= 1 } else { b += 1 }
+            }
+            let point = (date: dates[i], value: HRNormalisation.median(Array(values[a...b])))
+            if i > 0, dates[i].timeIntervalSince(dates[i - 1]) <= maxGap {
+                segments[segments.count - 1].append(point)
             } else {
-                currentSegment.append(point)
+                segments.append([point])
             }
         }
-
-        if !currentSegment.isEmpty {
-            segments.append(currentSegment)
-        }
-
         return segments
     }
+
 }
 
 struct CompactActivityRowContent: View {
