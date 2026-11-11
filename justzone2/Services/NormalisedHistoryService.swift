@@ -51,6 +51,10 @@ final class NormalisedHistoryService: ObservableObject {
     private static let dayKey = "normalisedBackfillDay"
     private static let countKey = "normalisedBackfillCount"
     private static let pausedKey = "normalisedBackfillPausedDay"
+    /// Failed download attempts per ride ID (see `backfill`).
+    private static let failuresKey = "normalisedBackfillFailures"
+    static let maxFailuresPerRide = 3
+    static let maxFailuresInARow = 3
 
     init(stravaService: StravaService, cache: StreamsCacheService) {
         self.stravaService = stravaService
@@ -59,70 +63,122 @@ final class NormalisedHistoryService: ObservableObject {
 
     // MARK: - Analysis
 
-    /// Recompute from what's on the phone. Cheap to call; runs in the background.
+    /// A cached ride, prepared for the fit once and kept until its file changes
+    /// (re-reading and re-preparing every ride on every refresh made History lag).
+    private struct Memo {
+        let modified: Date
+        let complete: Bool
+        let prepared: HRNormalisation.PreparedRide?
+    }
+    private var memo: [Int: Memo] = [:]
+    /// Bumped by `clear()` so a calculation already running can't put its
+    /// results back afterwards.
+    private var generation = 0
+
+    private struct Analysis {
+        let fit: HRNormalisation.Fit?
+        let points: [HRNormalisation.RidePoint]
+        let usable: Int
+        let complete: Set<Int>
+        let memo: [Int: Memo]
+    }
+
+    /// Recompute from what's on the phone. Cheap to call: everything (file
+    /// reads, conversion and the fit) runs off the main thread, and only rides
+    /// whose cached file has changed are read again.
     func refresh(activities: [StravaActivity], localWorkouts: [LocalWorkout]) {
         guard !analysing else { pending = (activities, localWorkouts); return }
         analysing = true
+        let generation = self.generation
         let target = Int(Zone2Target.bpm(zoneMin: Self.zone2Min, zoneMax: Self.zone2Max).rounded())
         let cache = self.cache
+        let known = memo
         let candidates = activities.filter { !$0.name.hasPrefix("Intervals:") }
-        let locals = localWorkouts.filter { !$0.workout.isIntervalSession && $0.workout.samples.count > 15 * 60 }
+        let locals = localWorkouts
+            .filter { !$0.workout.isIntervalSession && $0.workout.samples.count > 15 * 60 }
+            .map(\.workout)
 
         Task {
-            // Load what's cached (actor-isolated file reads).
-            var rides: [HRNormalisation.Ride] = []
-            var complete = Set<Int>()
-            var summaries: [HRNormalisation.RideSummary] = []
-            for a in candidates {
-                if let s = await cache.loadStreams(for: a.id) {
-                    if s.isComplete { complete.insert(a.id) }
-                    if let r = Self.ride(from: s, date: a.startDate) { rides.append(r) }
+            let result = await Task.detached(priority: .utility) { () -> Analysis in
+                var memo: [Int: Memo] = [:]
+                var prepared: [HRNormalisation.PreparedRide] = []
+                var complete = Set<Int>()
+                var summaries: [HRNormalisation.RideSummary] = []
+                for a in candidates {
+                    if let modified = await cache.modificationDate(for: a.id) {
+                        var entry = known[a.id].flatMap { $0.modified == modified ? $0 : nil }
+                        if entry == nil, let s = await cache.loadStreams(for: a.id) {
+                            // A ride Strava has no streams for is cached as an
+                            // empty placeholder: remembered, but not "full data".
+                            entry = Memo(modified: modified, complete: s.isComplete && s.hasData,
+                                         prepared: Self.ride(from: s, date: a.startDate).flatMap(HRNormalisation.prepare))
+                        }
+                        if let entry {
+                            memo[a.id] = entry
+                            if entry.complete { complete.insert(a.id) }
+                            if let p = entry.prepared { prepared.append(p) }
+                        }
+                    }
+                    if let w = a.averageWatts, let h = a.averageHeartrate {
+                        summaries.append(.init(id: String(a.id), date: a.startDate, averageWatts: w, averageHR: h,
+                                               durationSeconds: Double(a.movingTime)))
+                    }
                 }
-                if let w = a.averageWatts, let h = a.averageHeartrate {
-                    summaries.append(.init(id: String(a.id), date: a.startDate, averageWatts: w, averageHR: h,
-                                           durationSeconds: Double(a.movingTime)))
+                // Rides recorded in the app that are still only on the phone.
+                for w in locals {
+                    if let p = Self.ride(from: w).flatMap(HRNormalisation.prepare) { prepared.append(p) }
                 }
-            }
-            let rideSnapshot = rides, summarySnapshot = summaries
-            for l in locals {
-                if let r = Self.ride(from: l.workout) { rides.append(r) }
-            }
 
-            // The maths, off the main thread.
-            let result = await Task.detached(priority: .utility) { () -> (HRNormalisation.Fit?, [HRNormalisation.RidePoint], Int) in
-                let prepared = rideSnapshot.compactMap(HRNormalisation.prepare)
-                guard let fit = HRNormalisation.fit(prepared) else { return (nil, [], prepared.count) }
+                guard let fit = HRNormalisation.fit(prepared) else {
+                    return Analysis(fit: nil, points: [], usable: prepared.count, complete: complete, memo: memo)
+                }
                 let full = HRNormalisation.points(prepared, fit: fit, targetHR: Double(target))
                 // Early view: rides without full data are estimated from their
                 // averages, with the averages' offset measured on rides that
                 // have both removed (0 until there are at least 3).
                 let fullByID = Dictionary(full.map { ($0.id, $0.watts) }, uniquingKeysWith: { a, _ in a })
-                let raw = summarySnapshot.compactMap { HRNormalisation.summaryPoint($0, fit: fit, targetHR: Double(target), offset: 0) }
+                let raw = summaries.compactMap { HRNormalisation.summaryPoint($0, fit: fit, targetHR: Double(target), offset: 0) }
                 let diffs = raw.compactMap { p in fullByID[p.id].map { p.watts - $0 } }
                 let offset = diffs.count >= 3 ? HRNormalisation.median(diffs) : 0
-                let estimates = summarySnapshot
+                let estimates = summaries
                     .filter { fullByID[$0.id] == nil }
                     .compactMap { HRNormalisation.summaryPoint($0, fit: fit, targetHR: Double(target), offset: offset) }
-                return (fit, HRNormalisation.withTrend(full + estimates), prepared.count)
+                return Analysis(fit: fit, points: HRNormalisation.withTrend(full + estimates), usable: prepared.count,
+                                complete: complete, memo: memo)
             }.value
 
-            self.completeIDs = complete
-            self.targetHR = target
-            self.fit = result.0
-            self.points = result.1
-            self.evaluate(usableRides: result.2)
             self.analysing = false
+            // Cleared while this was running (Demo Mode switched on): drop it.
+            guard generation == self.generation else { return }
+            self.memo = result.memo
+            self.completeIDs = result.complete
+            self.targetHR = target
+            self.fit = result.fit
+            self.points = result.points
+            self.evaluate(usableRides: result.usable)
             if let next = self.pending {
                 self.pending = nil
                 self.refresh(activities: next.activities, localWorkouts: next.locals)
             }
-            if let f = result.0 {
+            if let f = result.fit {
                 dlog(String(format: "[NORM] %d rides usable, %d with full data, β %.3f [%.3f–%.3f] bpm/W, target %d bpm (Zone 2 %d–%d, %.2f), ready=%@",
-                            result.2, complete.count, f.beta, f.betaLow, f.betaHigh, target, Self.zone2Min, Self.zone2Max, Zone2Target.fraction, self.isReady ? "yes" : "no"))
+                            result.usable, result.complete.count, f.beta, f.betaLow, f.betaHigh, target, Self.zone2Min, Self.zone2Max, Zone2Target.fraction, self.isReady ? "yes" : "no"))
             } else {
-                dlog("[NORM] \(result.2) rides usable, no fit yet")
+                dlog("[NORM] \(result.usable) rides usable, no fit yet")
             }
         }
+    }
+
+    /// Forget the results (Demo Mode: the sample rides must not sit under the
+    /// rider's own Zone 2 power chart). The next `refresh` rebuilds them.
+    func clear() {
+        generation += 1
+        pending = nil
+        completeIDs = []
+        points = []
+        fit = nil
+        isReady = false
+        status = ""
     }
 
     private func evaluate(usableRides: Int) {
@@ -169,36 +225,60 @@ final class NormalisedHistoryService: ObservableObject {
         backfilling = true
         defer { backfilling = false }
         var fetched = 0
+        var failures = d.dictionary(forKey: Self.failuresKey) as? [String: Int] ?? [:]
         let todo = activities
             .filter { !$0.name.hasPrefix("Intervals:") && $0.averageHeartrate != nil && $0.averageWatts != nil }
             .sorted { $0.startDate > $1.startDate }
         dlog("[NORM] backfill starting: \(todo.count) candidate rides, \(Self.dailyLimit - used) allowed today")
+        var failuresInARow = 0
         for a in todo {
             guard used < Self.dailyLimit else { break }
+            if completeIDs.contains(a.id) { continue }
             if let s = await cache.loadStreams(for: a.id), s.isComplete { continue }
+            // A ride that keeps failing is left alone, so it can't hold up the
+            // rides behind it.
+            if failures[String(a.id), default: 0] >= Self.maxFailuresPerRide { continue }
             downloadingID = a.id
-            defer { downloadingID = nil }
+            var stop = false
             do {
                 let s = try await stravaService.fetchActivityStreams(activityId: a.id)
                 await cache.saveStreams(s)
                 completeIDs.insert(a.id)
                 fetched += 1
+                failuresInARow = 0
                 if fetched % 5 == 0 { onBatch?() }   // update the chart as rides arrive
             } catch StravaError.rateLimited {
                 d.set(today, forKey: Self.pausedKey)
                 dlog("[NORM] backfill paused for today: Strava rate limit")
-                break
+                stop = true
             } catch StravaError.streamsNotAvailable {
                 // Nothing to fetch for this one (e.g. a manual activity): mark it
                 // complete-but-empty so it isn't asked for again.
                 await cache.saveStreams(ActivityStreams(activityId: a.id, fetchedAt: Date(), time: [], heartrate: nil, watts: nil,
                                                         cadence: nil, version: ActivityStreams.currentVersion))
-            } catch {
-                dlog("[NORM] backfill stopped: \(error.localizedDescription)")
+            } catch let error as URLError {
+                // No connection: nothing reached Strava and it isn't the ride's
+                // fault. Stop quietly and try again next time.
+                dlog("[NORM] backfill stopped: network (\(error.code.rawValue))")
+                downloadingID = nil
                 break
+            } catch {
+                // The request was made (so it counts against today's allowance)
+                // but this ride's data couldn't be used. Remember it and move
+                // on; several in a row means Strava is having trouble, so stop.
+                failures[String(a.id), default: 0] += 1
+                d.set(failures, forKey: Self.failuresKey)
+                failuresInARow += 1
+                dlog("[NORM] backfill: ride \(a.id) failed (\(failures[String(a.id)] ?? 0) of \(Self.maxFailuresPerRide)): \(error.localizedDescription)")
+                if failuresInARow >= Self.maxFailuresInARow {
+                    dlog("[NORM] backfill stopped: \(failuresInARow) failures in a row")
+                    stop = true
+                }
             }
+            downloadingID = nil   // before the pause, so the spinner doesn't sit on a finished ride
             used += 1
             d.set(used, forKey: Self.countKey)
+            if stop { break }
             try? await Task.sleep(nanoseconds: Self.spacingSeconds * 1_000_000_000)   // spread out: never a burst
         }
         if fetched > 0 { dlog("[NORM] backfilled \(fetched) rides (\(used)/\(Self.dailyLimit) today)") }

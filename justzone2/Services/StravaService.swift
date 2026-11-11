@@ -708,6 +708,19 @@ private struct StreamsResponse: Decodable {
 
 private struct StreamData: Decodable {
     let data: [Int]
+
+    private enum CodingKeys: String, CodingKey { case data }
+
+    /// Tolerant of the odd null or decimal in a stream (a sensor dropout): one
+    /// bad value used to fail the whole ride. A missing value becomes 0, which
+    /// every reader of these streams already treats as "no reading".
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self).decode([Double?].self, forKey: .data)
+        data = values.map { v in
+            guard let v, v.isFinite else { return 0 }
+            return Int(max(-1e9, min(1e9, v)).rounded())
+        }
+    }
 }
 
 // MARK: - Errors

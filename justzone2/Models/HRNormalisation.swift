@@ -226,7 +226,7 @@ enum HRNormalisation {
 
     static func points(_ rides: [PreparedRide], fit: Fit, targetHR: Double) -> [RidePoint] {
         guard plausibleBeta.contains(fit.beta), targetHR.isFinite, targetHR > 0 else { return [] }
-        var pts = rides.compactMap { r -> RidePoint? in
+        let pts = rides.compactMap { r -> RidePoint? in
             guard !r.bins.isEmpty else { return nil }
             let adj = r.bins.map { b in
                 b.hr - fit.beta * (b.pLag - referencePower)

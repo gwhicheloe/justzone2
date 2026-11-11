@@ -76,12 +76,11 @@ class HistoryViewModel: ObservableObject {
         let snapshot = activities
         Task { [weak self] in
             guard let self else { return }
-            let refresh = { [weak self] in
-                guard let self else { return }
-                self.normalised.refresh(activities: self.activities, localWorkouts: self.localWorkouts)
-            }
+            // Through `updateNormalised` so nothing lands if Demo Mode has been
+            // switched on in the meantime.
+            let refresh: () -> Void = { [weak self] in self?.updateNormalised() }
             if await self.normalised.backfill(activities: snapshot, onBatch: refresh) {
-                self.normalised.refresh(activities: self.activities, localWorkouts: self.localWorkouts)
+                self.updateNormalised()
             }
         }
     }
@@ -139,6 +138,7 @@ class HistoryViewModel: ObservableObject {
         isLoading = false
         localWorkouts = []
         activities = DemoActivityProvider.activities
+        normalised.clear()   // the rider's own Zone 2 power doesn't belong over sample rides
     }
 
     /// Leave Demo Mode — restore the real cached activities and pending list.
@@ -400,7 +400,13 @@ class HistoryViewModel: ObservableObject {
 
         // Check cache first
         if let cached = await streamsCache.loadStreams(for: activity.id) {
-            return cached
+            if cached.hasData { return cached }
+            // The backfill's placeholder for a ride Strava has no streams for:
+            // say so rather than draw an empty chart (and don't ask again).
+            if cached.isComplete {
+                streamsError = "Stream data not available for this activity"
+                return nil
+            }
         }
 
         // Fetch from Strava

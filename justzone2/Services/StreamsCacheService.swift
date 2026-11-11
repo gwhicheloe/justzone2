@@ -30,6 +30,13 @@ actor StreamsCacheService {
         fileManager.fileExists(atPath: fileURL(for: activityId).path)
     }
 
+    /// When an activity's cached file was last written (nil if there isn't
+    /// one). Lets callers skip re-reading files that haven't changed.
+    func modificationDate(for activityId: Int) -> Date? {
+        let attributes = try? fileManager.attributesOfItem(atPath: fileURL(for: activityId).path)
+        return attributes?[.modificationDate] as? Date
+    }
+
     /// Load streams from cache for an activity
     func loadStreams(for activityId: Int) -> ActivityStreams? {
         let url = fileURL(for: activityId)
