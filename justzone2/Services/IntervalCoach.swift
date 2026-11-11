@@ -140,7 +140,7 @@ final class IntervalCoach: ObservableObject {
     // MARK: - Running
 
     /// Call every timer tick during the ride.
-    func tick(elapsed: TimeInterval, heartRate: Int) {
+    func tick(elapsed: TimeInterval) {
         while next < cues.count, elapsed >= cues[next].at {
             let cue = cues[next]
             next += 1
@@ -283,7 +283,6 @@ final class IntervalCoach: ObservableObject {
             "{sets}": "\(session.setCount)",
             "{workNoun}": Self.durationNoun(session.workDuration),
             "{rest}": Self.durationNoun(session.restDuration),
-            "{warmUp}": Self.durationNoun(session.segments.first?.duration ?? 0),
         ]
         for (k, v) in values { s = s.replacingOccurrences(of: k, with: v) }
         // "{total} intervals done" at the start of a sentence reads fine as a
@@ -310,7 +309,6 @@ final class IntervalCoach: ObservableObject {
         return onOff ? lines + CoachPhrases.kindOnOff : lines
     }
 
-    /// "30 seconds", "1 minute", "4 minutes".
     /// "30 seconds", "1 minute", "90 seconds", "4 minutes".
     static func durationNoun(_ t: TimeInterval) -> String {
         let secs = Int(t.rounded())

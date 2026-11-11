@@ -106,6 +106,21 @@ class WorkoutViewModel: ObservableObject {
     /// riders found confusing and which stopped the controller correcting a
     /// badly set starting power; ±100 W is beyond any sensible Zone 2 ride.
     private let maxDriftFromTarget = 100
+    /// The trainer is never asked for less than this.
+    private let minimumPower = 50
+    /// The lowest the controller's output may go: the rail, or the power floor
+    /// if that comes first. Without this the output wound down past the floor
+    /// (to -100 W on a 100 W ride, where power can only fall 50 W) and then
+    /// had to climb all the way back before power could rise again.
+    private var minPIDOutput: Double {
+        min(0, Double(max(-maxDriftFromTarget, minimumPower - workout.targetPower)))
+    }
+    /// Zone Targeting holds power, rather than adjust it, when no heart-rate
+    /// reading has arrived for this long: a source that has gone quiet keeps
+    /// its last value, and steering on that could walk power a long way.
+    private static let hrStaleAfter: TimeInterval = 30
+    private var lastHRReceivedAt: Date?
+    private var zoneTargetingHeldForStaleHR = false
     private let warmUpGracePeriod: TimeInterval = 180
 
     // PID state
@@ -296,6 +311,7 @@ class WorkoutViewModel: ObservableObject {
             dlog("[IPHONE-VM] HR_GLITCH — \(hrSource.displayName) reported \(hr) bpm, held at \(value) (total rejected \(hrFilter.rejected))")
         }
         currentHeartRate = value
+        if hr > 0 { lastHRReceivedAt = Date() }
     }
 
     /// Whether the chosen HR source is currently producing samples.
@@ -534,7 +550,7 @@ class WorkoutViewModel: ObservableObject {
             startPower = intervalPower(for: segment)
             lastSegmentStart = segment.start
             adjustedPower = startPower
-            coach?.tick(elapsed: 0, heartRate: currentHeartRate)
+            if IntervalCoach.isEnabled { coach?.tick(elapsed: 0) }
         } else {
             // Zone 2: the warm-up runs at half power, but `adjustedPower` must
             // stay at the ride's target — the warm-up's end sends
@@ -875,7 +891,7 @@ class WorkoutViewModel: ObservableObject {
         // Coach off: no messages and no generation (moments that pass while
         // it's off are skipped when it's switched back on).
         if IntervalCoach.isEnabled {
-            coach?.tick(elapsed: elapsedTime, heartRate: currentHeartRate)
+            coach?.tick(elapsed: elapsedTime)
         } else if coachMessage != nil {
             coach?.stop()
         }
@@ -1038,6 +1054,20 @@ class WorkoutViewModel: ObservableObject {
         guard zoneTargetingEnabled else { return }
         guard currentHeartRate > 0 else { return }
 
+        // No fresh reading: hold power where it is until readings return.
+        let hrAge = lastHRReceivedAt.map { Date().timeIntervalSince($0) } ?? .infinity
+        guard hrAge <= Self.hrStaleAfter else {
+            if !zoneTargetingHeldForStaleHR {
+                zoneTargetingHeldForStaleHR = true
+                dlog("[IPHONE-VM] ZONE_TARGETING_HOLD — no \(hrSource.displayName) HR for \(hrAge.isFinite ? "\(Int(hrAge))s" : "this ride"), holding \(adjustedPower) W")
+            }
+            return
+        }
+        if zoneTargetingHeldForStaleHR {
+            zoneTargetingHeldForStaleHR = false
+            dlog("[IPHONE-VM] ZONE_TARGETING_RESUME — HR is back, adjusting from \(adjustedPower) W")
+        }
+
         // Always update buffers so history is ready when PID engages
         hrBuffer.append(currentHeartRate)
         if hrBuffer.count > hrBufferSize {
@@ -1071,8 +1101,8 @@ class WorkoutViewModel: ObservableObject {
         let gradientFactor = max(0.0, min(1.0, 1.0 - hrGradient / hrGradientSaturation))
 
         pidIntegral += gradientFactor * error * Constants.sampleInterval
-        let maxIntegral = Double(maxDriftFromTarget) / max(pidKi, 0.001)
-        pidIntegral = max(-maxIntegral, min(maxIntegral, pidIntegral))
+        let ki = max(pidKi, 0.001)
+        pidIntegral = max(minPIDOutput / ki, min(Double(maxDriftFromTarget) / ki, pidIntegral))
 
         let rawOutput = pidKp * error + pidKi * pidIntegral
 
@@ -1083,9 +1113,9 @@ class WorkoutViewModel: ObservableObject {
         let delta = rawOutput - pidOutputWatts
         let clampedDelta = max(-maxDecrease, min(maxIncrease, delta))
         pidOutputWatts += clampedDelta
-        pidOutputWatts = max(Double(-maxDriftFromTarget), min(Double(maxDriftFromTarget), pidOutputWatts))
+        pidOutputWatts = max(minPIDOutput, min(Double(maxDriftFromTarget), pidOutputWatts))
 
-        let newPower = max(50, workout.targetPower + Int(pidOutputWatts.rounded()))
+        let newPower = max(minimumPower, workout.targetPower + Int(pidOutputWatts.rounded()))
         if newPower != adjustedPower {
             adjustedPower = newPower
             kickrService.setTargetPower(adjustedPower)
@@ -1105,7 +1135,7 @@ class WorkoutViewModel: ObservableObject {
 
     func decrementPower() {
         if isIntervalWorkout { nudgeIntervalPower(by: -5); return }
-        adjustedPower = max(adjustedPower - 5, max(workout.targetPower - maxDriftFromTarget, 50))
+        adjustedPower = max(adjustedPower - 5, max(workout.targetPower - maxDriftFromTarget, minimumPower))
         kickrService.setTargetPower(adjustedPower)
         pidOutputWatts = Double(adjustedPower - workout.targetPower)
         pidIntegral = 0

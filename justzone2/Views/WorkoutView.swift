@@ -15,9 +15,6 @@ struct WorkoutView: View {
     private var compactLayout: Bool { viewModel.isIntervalWorkout }
     /// Height of the coach message space (when the coach is off, the profile takes it).
     private static let coachSpace: CGFloat = 54
-    /// Coach messages show when the rider has turned the coach on; otherwise
-    /// the profile takes the space.
-    private var coachOn: Bool { coachEnabled }
     @State private var summaryViewModel: SummaryViewModel?
     @State private var showHRSourcePicker = false
     @State private var shareETAText: String?
@@ -513,13 +510,14 @@ struct WorkoutView: View {
     /// capitals, then the message.
     private func coachText(_ line: IntervalCoach.Line?) -> Text {
         guard let line else { return Text(" ").font(.footnote) }
-        return Text(line.tag + "  ")
+        let tag = Text(line.tag + "  ")
             .font(.caption2.weight(.heavy))
             .foregroundColor(.green)
             .tracking(1)
-        + Text(line.text)
+        let message = Text(line.text)
             .font(.footnote.italic())
             .foregroundColor(.primary.opacity(0.9))
+        return Text("\(tag)\(message)")
     }
 
     /// Switch the coach messages on or off mid-ride.
@@ -643,7 +641,7 @@ struct WorkoutView: View {
             // Coach on: a fixed space for its messages (nothing moves when one
             // comes or goes; the text just fades). Each message starts with a
             // short green label for the moment ("GET READY", "FINAL PUSH").
-            if compactLayout && coachOn {
+            if compactLayout && coachEnabled {
                 coachText(viewModel.coachMessage)
                     .multilineTextAlignment(.center)
                     .lineSpacing(1)
@@ -660,7 +658,7 @@ struct WorkoutView: View {
                 IntervalProfileView(session: session, elapsed: viewModel.elapsedTime,
                                     powerFor: viewModel.intervalPower(for:))
                     // Coach off: the profile grows into the message space.
-                    .frame(height: coachOn ? 48 : 48 + Self.coachSpace)
+                    .frame(height: coachEnabled ? 48 : 48 + Self.coachSpace)
                     .padding(.horizontal, 24)
                     .padding(.top, 2)
             }

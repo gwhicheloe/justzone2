@@ -9,7 +9,7 @@ import Foundation
 /// - `{toGo}` intervals still to come including the next ("4 intervals")
 /// - `{left}` intervals after this one ("3 intervals")
 /// - `{set}` / `{sets}` set number and count
-/// - `{workNoun}` "1 minute", `{rest}` "2 minutes", `{warmUp}` "5 minutes"
+/// - `{workNoun}` "1 minute", `{rest}` "2 minutes"
 /// - `{workTime}` total hard work in the session ("11 minutes")
 enum CoachPhrases {
 
