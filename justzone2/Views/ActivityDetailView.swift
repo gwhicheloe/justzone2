@@ -541,10 +541,25 @@ private struct ChartData {
         zone2Min = zone2MinVal
         zone2Max = zone2MaxVal
 
-        // Find warmup end (when HR first enters Zone 2)
+        // Find warmup end: where heart rate has climbed to within 15 bpm of
+        // the ride's typical level (and into Zone 2). "First enters Zone 2"
+        // alone ended the warm-up within seconds for a wide zone, so the chart
+        // opened on a cliff that squashed everything after it. Never trims
+        // more than the first 10 minutes or a quarter of the ride.
         let warmupEndIndex: Int
-        if let heartrate = streams.heartrate {
-            warmupEndIndex = heartrate.firstIndex { $0 >= zone2MinVal } ?? 0
+        if let heartrate = streams.heartrate, !heartrate.isEmpty, !streams.time.isEmpty {
+            let valid = heartrate.filter { $0 > 0 }.sorted()
+            let typical = valid.isEmpty ? zone2MinVal : valid[valid.count / 2]
+            let settled = max(zone2MinVal, typical - 15)
+            let count = min(heartrate.count, streams.time.count)
+            let capSeconds = min(600, (streams.time.last ?? 0) / 4)
+            let capIndex = streams.time.prefix(count).firstIndex { $0 >= capSeconds } ?? 0
+            // Sustained, not a single beat: the next 15 readings average there.
+            let reached = (0..<count).first { i in
+                let window = heartrate[i..<min(count, i + 15)]
+                return window.reduce(0, +) / window.count >= settled
+            }
+            warmupEndIndex = min(reached ?? 0, capIndex)
         } else {
             warmupEndIndex = 0
         }
@@ -616,15 +631,19 @@ private struct ChartData {
         let computedPowerData: [(time: Double, value: Int)]
         if let watts = streams.watts, !watts.isEmpty, warmupEndIndex <= cooldownStartIndex {
             let windowSize = max(30, min(120, watts.count / 10))
-            var smoothed: [Int] = []
-            for i in 0..<watts.count {
-                let start = max(0, i - windowSize / 2)
-                let end = min(watts.count, i + windowSize / 2 + 1)
-                let window = watts[start..<end]
-                smoothed.append(window.reduce(0, +) / window.count)
+            // Smoothed within the part shown only, so the ramp up from a
+            // standing start and the stop at the end don't drag the ends down.
+            let last = min(cooldownStartIndex, watts.count - 1)
+            var trimmedSmoothed: [Int] = []
+            if warmupEndIndex <= last {
+                for i in warmupEndIndex...last {
+                    let start = max(warmupEndIndex, i - windowSize / 2)
+                    let end = min(last + 1, i + windowSize / 2 + 1)
+                    let window = watts[start..<end]
+                    trimmedSmoothed.append(window.reduce(0, +) / window.count)
+                }
             }
             let trimmedTime = Array(streams.time[warmupEndIndex...cooldownStartIndex])
-            let trimmedSmoothed = Array(smoothed[warmupEndIndex...cooldownStartIndex])
             computedPowerData = zip(trimmedTime, trimmedSmoothed).map { (time: Double($0) / 60 - timeOffset, value: $1) }
         } else {
             computedPowerData = []
@@ -678,12 +697,18 @@ private struct ChartData {
         // Max time
         maxTime = computedHRData.last?.time ?? computedPowerData.last?.time ?? 1
 
-        // Trend line (excluding last 10% for cooldown)
+        // Trend line (excluding last 10% for cooldown). Drift is measured from
+        // 10 minutes into the ride, once heart rate has had time to settle;
+        // counting the climb to working heart rate overstated it.
         var computedSlope: Double?
         if computedHRData.count >= 5 {
             let skipEnd = computedHRData.count / 10
             let endIndex = computedHRData.count - skipEnd
-            let regressionData = computedHRData[0..<endIndex].map { (x: $0.time, y: Double($0.value)) }
+            let settleAt = max(0, 10 - timeOffset)
+            let trendStart = maxTime - settleAt >= 10 ? settleAt : 0
+            let regressionData = computedHRData[0..<endIndex]
+                .filter { $0.time >= trendStart }
+                .map { (x: $0.time, y: Double($0.value)) }
 
             if regressionData.count >= 2 {
                 let n = Double(regressionData.count)
@@ -699,7 +724,7 @@ private struct ChartData {
                     computedSlope = slope
                     // Extend trend line across entire chart period
                     trendLinePoints = [
-                        (x: 0, y: intercept),
+                        (x: trendStart, y: slope * trendStart + intercept),
                         (x: maxTime, y: slope * maxTime + intercept)
                     ]
                 } else {
