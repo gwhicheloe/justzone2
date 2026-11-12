@@ -102,8 +102,20 @@ class SetupViewModel: ObservableObject {
         let savedDuration = UserDefaults.standard.object(forKey: "targetDuration") as? TimeInterval
         self.targetDuration = savedDuration ?? Constants.defaultDuration
 
-        self.zoneTargetingEnabled = UserDefaults.standard.bool(forKey: "zoneTargetingEnabled")
-        self.warmUpEnabled = UserDefaults.standard.bool(forKey: "warmUpEnabled")
+        // Both start on for a new rider. Someone who installed before this
+        // default existed and never touched a toggle has no stored value
+        // either, so tell them apart by onboarding (complete on every install
+        // since 1.0) and leave theirs off. The choice is written straight away
+        // so it stays put once onboarding is finished.
+        let defaults = UserDefaults.standard
+        let isNewRider = !defaults.bool(forKey: "hasOnboarded")
+        func initialToggle(_ key: String) -> Bool {
+            if let saved = defaults.object(forKey: key) as? Bool { return saved }
+            defaults.set(isNewRider, forKey: key)
+            return isNewRider
+        }
+        self.zoneTargetingEnabled = initialToggle("zoneTargetingEnabled")
+        self.warmUpEnabled = initialToggle("warmUpEnabled")
         self.workoutMode = WorkoutMode(rawValue: UserDefaults.standard.string(forKey: "workoutMode") ?? "") ?? .zone2
         self.selectedIntervalSessionId = UserDefaults.standard.string(forKey: "selectedIntervalSessionId").flatMap(UUID.init)
 
