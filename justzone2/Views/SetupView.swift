@@ -481,7 +481,7 @@ struct SetupView: View {
                 NavigationStack {
                     ScrollView {
                         VStack(alignment: .leading, spacing: 16) {
-                            Text("Zone Targeting uses a PID controller to automatically adjust your trainer's power and hold your heart rate at a target inside your Zone 2 range.")
+                            Text("Zone Targeting automatically adjusts your trainer's power to hold your heart rate at a target inside your Zone 2 range. There is nothing extra to buy or set up: the app does it.")
 
                             VStack(alignment: .leading, spacing: 8) {
                                 Label("Aims for the upper part of Zone 2 by default — you can move the target in Settings", systemImage: "heart.text.square.fill")
