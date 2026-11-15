@@ -62,7 +62,7 @@ Most indoor cycling apps hold your power. JustZone2 holds your heart rate.
 Set your zone, start pedalling, and the app takes over. It reads your heart rate every second and continuously adjusts your trainer's resistance to keep you exactly where you meant to be — no watching the numbers, no reaching for the dial halfway through. Just the right effort, for the whole ride.
 
 ADAPTIVE ZONE TARGETING
-• A PID controller trims trainer resistance in real time to hold your heart rate in Zone 2
+• The app trims trainer resistance in real time to hold your heart rate in Zone 2, with no extra hardware
 • Handles cardiac drift automatically — as you tire and your heart rate climbs, the power eases back to match
 • Optional warm-up and cool-down phases
 • Prefer to ride to a number? Run it as a straightforward fixed-power ERG session instead
